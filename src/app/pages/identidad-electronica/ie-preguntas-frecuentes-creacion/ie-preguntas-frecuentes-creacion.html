@@ -1,0 +1,335 @@
+<div id="page-header" class="bg-gradient bg-shadow">
+    <div class="container clearfix">
+        <nav class="breadcrumb">
+            <img src="assets/img/identidad-electronica.png" alt="Identidad Electrónica" class="img-fluid rounded hidden-xs pull-left" width="300" />
+        </nav>
+    </div>
+</div>
+
+<div id="content" class="pb-0">
+    <div class="container pb-6">
+        <div class="text-center mb-4">
+            <img src="assets/img/identidad-electronica.png" alt="Identidad Electrónica" class="img-fluid rounded hidden-sm-up mb-4" width="300" />
+        </div>
+        <div class="row">
+            <div class="col-md-4 push-md-8 youtube mb-2 sidebar-section">
+                <div class="nav nav-section-menu nav-section-menu-right pt-0 pb-0 mb-4">   
+                    <a class="mb-3" routerLink="/crear-cuenta" style="margin-top:-20px;">
+                        <div class="card card-block p-4 bg-color-primary bg-color-primary-hover card-shadowPro hover-up" style="border:0px solid #000; border-radius:10px;">
+                            <div class="card-ribbon card-ribbon-top card-ribbon-right bg-faded text-color-primary font-weight-bold">ID-e</div>
+                            <p style="z-index: 1;color:#fff;">
+                                ¿Todavía no tenés tu <b>Identidad electrónica</b>?
+                            </p>
+                            <h4 style="z-index: 1;" class="font-weight-bold text-white mb-0">
+                              <i class="fa fa-user-plus mr-2" style="margin-top:-4px;"></i><span class="font-weight-normal text-muted text-white" style="font-size:20px;">Crear</span> cuenta
+                            </h4>
+                            <div class="fondo-buscador_" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; opacity: .3; background-image: url(assets/img/backgrounds/computer-screens.jpg)"></div>
+                        </div>   
+                    </a>                    
+                    <div>
+                        <a class="nav-link" style="font-weight: 500;" routerLink="/identidad-electronica">
+                            <i class="fa fa-info-circle text-default" style="font-size:16px; margin-top:-8px;"></i> ¿Qué es la Identidad Electrónica?
+                        </a>
+                        <a class="nav-link active" style="font-weight: 500;" routerLink="/identidad-electronica/preguntas-frecuentes-creacion" id="buscar">
+                            <i class="fa fa fa-question-circle text-default" style="font-size:16px; margin-top:-8px;"></i> Preguntas frecuentes
+                        </a>
+                        <a class="nav-link" style="font-weight: 500;" routerLink="/restablecer-clave">
+                            <i class="fa fa-lock text-default" style="font-size:16px; margin-top:-8px;"></i> Olvidé mi clave
+                        </a>
+                        <a class="nav-link" style="font-weight: 500;" routerLink="/identidad-electronica/terminos" id="buscar">
+                            <i class="fa fa fa-cog text-default" style="font-size:16px; margin-top:-8px;"></i> Términos y Condiciones
+                        </a>
+                        <a class="nav-link" style="font-weight: 500;" href="https://agendarturno.mitic.gov.py" target="_blank" id="buscar">
+                            <i class="fa fa fa-calendar-alt text-default" style="font-size:16px; margin-top:-8px;"></i> Agendar turno
+                        </a>
+                        <a class="nav-link" style="font-weight: 500;" routerLink="/categoria/1/resultado" id="buscar">
+                            <i class="fa fa fa-calendar-alt text-default" style="font-size:16px; margin-top:-8px;"></i> Servicios con identidad electrónica
+                        </a>
+                        <!--a class="nav-link" style="font-weight: 500;" routerLink="/identidad-electronica/terminos" id="buscar">
+                            <i class="fa fa fa-file-o text-default" style="font-size:16px; margin-top:-8px;"></i> Estadística
+                        </a-->
+                    </div>
+                </div>
+
+                <!--iframe width="100%" height="315" src="https://www.youtube.com/embed/HeT0ItxkXBc?showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe -->
+                <!--blockquote class="title-divider">
+                    Conocé más sobre Identidad electrónica
+                </blockquote-->
+            </div> <!--FIN DE YOUTUBE-->
+            <div class="col-md-8 pull-md-4 sidebar-left"> 
+                <h4 class="title-divider mt-2 texto-accesible-H3">
+                    <span>Preguntas frecuentes durante la creación de la identidad electrónica
+                    </span>
+                </h4>
+
+                <small>Para atención y consultas telefónicas puede comunicarse a <b>(021) 217-9601</b> de Lunes a Viernes de 07:00 a 15:00 hs.</small><br/>
+                <small>Además tiene un mecanismo online de consulta en: <b><a href="https://www.paraguay.gov.py/consulta-reclamo" target="_blank">https://www.paraguay.gov.py/consulta-reclamo</a></b>, una vez allí seleccionar la categoría <b>"Identidad Electrónica"</b> y proveer todos los datos requeridos. </small>
+                <br/><br/>
+                <mat-accordion>
+                  <mat-expansion-panel (opened)="panelOpenState = true"
+                                       (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header style="background-color: rgba(193, 220, 255, 0.5);">
+                      <mat-panel-title>
+                        <h6 align="justify">1.- Requisitos</h6>
+                      </mat-panel-title>
+                    </mat-expansion-panel-header>
+                        <p align="justify">
+                        Para que pueda generar su identidad de forma <b>online</b> debe contar con estos requisitos: 
+                        </p>
+                        <ul>
+                            <li>
+                                Ser mayor de 18 años.<br/>
+                            </li>
+                            <li>
+                                Contar con cédula de identidad paraguaya.<br/>
+                            </li>
+                            <li>
+                                Poseer suficiente información <b>digitalizada</b> en bases de datos administradas por ciertas instituciones del Estado Paraguayo.
+                            </li>
+                            <li>    
+                               Tener una cuenta de correo electrónico o email personal. 
+                            </li>
+                        </ul>
+                        <p align="justify">
+                            En caso de que no pueda generar su identidad electrónica de manera online, debido a no contar con suficiente información digitalizada en las bases de datos de instituciones del Estado, podrá agendar su turno para visitar las oficinas del MITIC y realizar el trámite asistido por un funcionario de obtención de su identidad electrónica de manera <b>presencial</b>. <br/>
+                            Agende su turno en el siguiente enlace: <a href="https://agendarturno.mitic.gov.py/" target="_blank">Agendar Turno</a>
+                        </p>
+                  </mat-expansion-panel>
+                  <mat-expansion-panel (opened)="panelOpenState = true"
+                                       (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header style="background-color: rgba(193, 220, 255, 0.5);">
+                      <mat-panel-title>
+                        <h6 align="justify">2.- “Me solicita datos de vehículos, motos que ya no tengo o he vendido.”</h6>
+                      </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <p align="justify">Las preguntas se realizan en base a los datos e información digitalizada de cada persona que obra en ciertas instituciones del Estado, para este caso en específico se valida mediante datos de la Dirección del Registro de Automotores. Varias personas han mencionado que se les pregunta sobre un vehículo que ya no tienen o vendieron hace mucho. Si surgen estas preguntas es porque ese vehículo no fue transferido, lo que significa que sigue figurando a su nombre en la base de datos de la Dirección del Registro de Automotores.
+                    <br/>        
+                    Para cualquier reclamo de este tipo, usted deberá comunicarse con la Dirección del Registro de Automotores - RUA.
+                    <br/><br/> 
+                    <b>Dirección:</b> Chile y Oliva <br/>
+                    <b>Teléfono:</b> (021) 412-7000 R.A.<br/>
+                    <b>Horario de Atención:</b> Lunes a Viernes de 07:00 a 13:00 horas<br/>
+                    <b>Sitio Web:</b> <a href="http://www.dnra.gov.py" target="_blank">http://www.dnra.gov.py</a></p>
+                  </mat-expansion-panel>
+                   <mat-expansion-panel (opened)="panelOpenState = true"
+                                       (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header style="background-color: rgba(193, 220, 255, 0.5);">
+                      <mat-panel-title>
+                        <h6 align="justify">3.- “Me lista empresas en las que no he trabajado.”</h6>
+                      </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <p align="justify">Las preguntas se realizan en base a los datos e información digitalizada de cada persona que obra en ciertas instituciones del Estado, para este caso en específico se valida mediante datos del Instituto de Previsión Social - IPS. Varias personas han mencionado que en algunas preguntas se hace mención a empresas en las cuales no han trabajado. Si surgen estas preguntas es porque en los registros del Instituto de Previsión Social aparecen dichas empresas. <br/>
+
+                    Para cualquier reclamo de este tipo, usted deberá comunicarse con el Instituto de Previsión Social - IPS mediante los siguientes canales:<br/>
+                    </p>
+                    <ul>
+                        <li>
+                            <b>Teléfono:</b>0800 11 5000 opción 6
+                        </li>
+                        <li>
+                            Consultas y seguimientos en el horario de 07:30 a 16:30 horas en el teléfono de línea baja 021 231 068 de la Unidad Anticorrupción y Transparencia dependiente de Gabinete de Presidencia, sito en el Edificio Boquerón 5° Piso, Paí Pérez y Pettirossi.
+                        </li>
+                        <li>
+                            <a href="https://portal.ips.gov.py/sistemas/ipsportal/ips_escucha.php" target="_blank">https://portal.ips.gov.py/sistemas/ipsportal/ips_escucha.php </a> 
+                        </li>    
+                    </ul>
+                  </mat-expansion-panel>
+                   <mat-expansion-panel (opened)="panelOpenState = true"
+                                       (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header style="background-color: rgba(193, 220, 255, 0.5);">
+                      <mat-panel-title>
+                        <h6 align="justify">4.- “Mis datos de nacimiento, matrimonio estan incorrectos.”</h6>
+                      </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <p align="justify">Las preguntas se realizan en base a los datos e información digitalizada de cada persona que obra en ciertas instituciones del Estado, para este caso en específico se valida mediante datos de la Dirección General del Registro del Estado Civil. Varias personas han mencionado que en algunas preguntas se hace mención a datos incorrectos ya sea de nacimiento o matrimonio. Si surgen estas preguntas es porque en los registros de la Dirección General del Registro del Estado Civil aparecen de esa manera. <br/>
+
+                    Para cualquier reclamo de este tipo, usted deberá comunicarse con la Dirección General del Registro del Estado Civil<br/><br/>
+
+                    <b>Teléfono:</b>(021) 560-403<br/>
+                    <a href="http://registrocivil.gov.py/contacto/" target="_blank">http://registrocivil.gov.py/contacto/</a> 
+                    </p>
+                  </mat-expansion-panel>
+                   <mat-expansion-panel (opened)="panelOpenState = true"
+                                       (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header style="background-color: rgba(193, 220, 255, 0.5);" [collapsedHeight]="'63px'" [expandedHeight]="'48px'">
+                      <mat-panel-title>
+                        <h6 align="justify">5.- “Me solicita datos de mi padre o madre que no conozco o que no tengo a mi alcance.”</h6>
+                      </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <p align="justify">Las preguntas se realizan en base a los datos e información digitalizada de cada persona que obra en ciertas instituciones del Estado, para este caso en específico se valida mediante datos de la Dirección General del Registro del Estado Civil. Varias personas han mencionado que en algunas preguntas se hace mención a datos del padre o madre y a cuyos datos no se tiene acceso o conocimiento. Si surgen estas preguntas es porque en los registros de la Dirección General del Registro del Estado Civil aparecen de esa manera. <br/>
+
+                    Usted puede intentar la creación de su identidad electrónica cuando obtenga dichos datos. Le recordamos que las preguntas son aleatorias, por lo que NO necesariamente le aparecerá la misma pregunta en un nuevo intento.
+                    </p>
+                  </mat-expansion-panel>
+                   <mat-expansion-panel (opened)="panelOpenState = true"
+                                       (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header style="background-color: rgba(193, 220, 255, 0.5);" [collapsedHeight]="'63px'" [expandedHeight]="'48px'">
+                      <mat-panel-title>
+                        <h6 align="justify">6.- “Necesito acceder a documentos que le pertenecen a mi padre o madre, abuelo, abuela, apoderado, cliente, etc.”</h6>
+                      </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <p align="justify">La identidad electrónica es una identificación única digital que permite realizar trámites en línea con el Estado. <br/>
+                    Es decir que es única y personal para cada ciudadano, por ello solo se pueden acceder a los datos propios y personales de cada uno.
+                    </p>
+                  </mat-expansion-panel>
+                   <mat-expansion-panel (opened)="panelOpenState = true"
+                                       (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header style="background-color: rgba(193, 220, 255, 0.5);">
+                      <mat-panel-title>
+                        <h6 align="justify">7.- “No se pudo generar las preguntas mínimas necesarias.”</h6>
+                      </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <p align="justify">Si le aparece este mensaje, el mismo puede deberse a diversos motivos:
+                    Los servicios del estado no están disponibles en ese instante. Puede Intentar nuevamente más tarde.
+                    Si el mensaje persiste luego de un periodo prolongado de tiempo(más de 24hs.) significa que el sistema no puede generar una validación de los datos del ciudadano. Esto se debe a que usted no cuenta con información suficiente digitalizada en registros o en las bases de datos del Estado como para generar la identidad electrónica de manera segura, por este medio(online).<br/>
+
+                    La opción que tiene es:<br/>
+                    Agendar su turno para visitar las oficinas del MITIC y realizar el trámite asistido por un funcionario de obtención de su identidad electrónica de manera <b>presencial</b>. <br/>
+                    Agende su turno en el siguiente enlace: <a href="https://agendarturno.mitic.gov.py/" target="_blank">Agendar Turno</a>
+                    </p>
+					
+                  </mat-expansion-panel>
+                   <mat-expansion-panel (opened)="panelOpenState = true"
+                                       (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header style="background-color: rgba(193, 220, 255, 0.5);" [collapsedHeight]="'112px'" [expandedHeight]="'48px'">
+                      <mat-panel-title>
+                        <h6 align="justify">8.- “Su identidad electrónica no podrá ser creada por este medio. Por su seguridad, debe recurrir al MITIC con su cédula de identidad.
+                        Horario: de Lunes a Viernes de 07:00 a 15:00 hs. para su registro presencial.”</h6>
+
+                      </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <p align="justify">El ciudadano ya realizó la máxima cantidad de intentos, por lo cual no se podrá generar la identidad electrónica por este medio.<br/>
+
+                    Debe agendar su turno para visitar las oficinas del MITIC y realizar el trámite asistido por un funcionario de obtención de su identidad electrónica de manera <b>presencial</b>. <br/>
+                    Agende su turno en el siguiente enlace: <a href="https://agendarturno.mitic.gov.py/" target="_blank">Agendar Turno</a>
+					
+                    </p>
+                  </mat-expansion-panel>
+                   <mat-expansion-panel (opened)="panelOpenState = true"
+                                       (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header style="background-color: rgba(193, 220, 255, 0.5);">
+                      <mat-panel-title>
+                        <h6 align="justify">9.- “Superó el límite máximo de intentos.”</h6>
+                      </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <p align="justify">Superó el límite de intentos permitidos.<br/>
+                    Por su seguridad debe generar un ticket en <a href="https://www.paraguay.gov.py/consulta-reclamo" target="_blank">https://www.paraguay.gov.py/consulta-reclamo</a> (Tema Identidad Electrónica) y adjuntar:<br/>
+                    </p>
+                    <ul>
+                        <li>
+                            1 imagen de su rostro sosteniendo su cédula de identidad legible.
+                        </li>
+                        <li>
+                            1 imagen de ambos lados de su cédula de identidad donde sea legible el número.
+                        </li>
+                    </ul>
+                    <br/>
+                    El funcionario podrá pedir mayor información en caso que el mismo considere.
+                    
+                  </mat-expansion-panel>
+                   <mat-expansion-panel (opened)="panelOpenState = true"
+                                       (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header style="background-color: rgba(193, 220, 255, 0.5);">
+                      <mat-panel-title>
+                        <h6 align="justify">10.- “Intento de Ciudadano bloqueado por 5 minutos.”</h6>
+                      </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <p align="justify">En caso que haya iniciado el proceso de creación de su identidad electrónica y a mitad de ello lo abandona por motivos varios ( El ciudadano se quedó sin servicio de energía eléctrica o internet, o el mismo tuvo que realizar otra actividad, etc.), el sistema se bloquea por 5 minutos. <br/>
+
+                    Pasado dicho tiempo, podrá iniciar un nuevo intento.
+                    </p>
+                  </mat-expansion-panel>
+                   <mat-expansion-panel (opened)="panelOpenState = true"
+                                       (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header style="background-color: rgba(193, 220, 255, 0.5);">
+                      <mat-panel-title>
+                        <h6 align="justify">11- “El ciudadano con el número de cédula ingresado ya posee identidad electrónica.”</h6>
+                      </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <p align="justify">El ciudadano con el número de cédula ingresado ya posee identidad electrónica. En caso de que usted no haya gestionado su identidad electrónica, informe de este caso al MITIC mediante 
+                      <a href="https://www.paraguay.gov.py/consulta-reclamo" target="_blank">https://www.paraguay.gov.py/consulta-reclamo</a></p>
+                    <ul>
+                      <li>
+                        Proveyendo su número de cédula.
+                      </li>
+                      <li>
+                        1 imagen de su rostro sosteniendo su cédula de identidad legible.
+                      </li>
+                      <li>
+                        1 imagen de ambos lados de su cédula de identidad donde sea legible el número.
+                      </li>
+                    </ul>
+                  </mat-expansion-panel>
+                   <mat-expansion-panel (opened)="panelOpenState = true"
+                                       (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header style="background-color: rgba(193, 220, 255, 0.5);">
+                      <mat-panel-title>
+                        <h6 align="justify">12.- “Olvidó Contraseña.”</h6>
+                      </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <p align="justify">En caso que usted haya olvidado su contraseña, dentro del Portal Paraguay o bien dentro del Portal de Documentos se encuentra un enlace que lleva al proceso de reseteo de clave. 
+                    El enlace es: 
+                    <a href="https://www.paraguay.gov.py/restablecer-clave" target="_blank">https://www.paraguay.gov.py/restablecer-clave</a>
+                    </p>
+                  </mat-expansion-panel>
+                   <mat-expansion-panel (opened)="panelOpenState = true"
+                                       (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header style="background-color: rgba(193, 220, 255, 0.5);" [collapsedHeight]="'60px'" [expandedHeight]="'48px'">
+                      <mat-panel-title>
+                        <h6 align="justify">13.- “No me llegó el email en donde puedo crear mi contraseña”.
+                        “Email incorrecto.”</h6>
+                      </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <p align="justify">En caso que usted haya generado exitosamente su identidad electrónica pero no le llegó el email para la creación por primera vez de su contraseña. Puede deberse a que ingresó erróneamente su dirección de correo electrónico al momento de crear su identidad electrónica. O bien que el correo electrónico haya llegado en su bandeja de SPAM o correos no deseados.<br/>
+                    <br/>
+                    Las opciones que tiene son:<br/>
+
+                    <b>Opción 1: </b>
+                    Revise su bandeja de SPAM o correo no deseado. Si efectivamente no encuentra un correo electrónico correspondiente a la identidad electrónica.<br/>
+                    <b>Opción 2: </b>
+                    Debe generar un ticket en https://www.paraguay.gov.py/consulta-reclamo (Tema Identidad Electrónica) y adjuntar: <br/>
+                    </p>
+                    <ul>
+                        <li>
+                            Indicar email correcto.
+                        </li>
+                        <li>
+                            Adjuntar 1 imagen de su rostro sosteniendo su cédula de identidad legible.
+                        </li>
+                        <li>
+                            Adjuntar 1 imagen de ambos lados de su cédula de identidad donde sea legible el número.
+                        </li>
+                        <li>
+                            Número de celular que declaró al momento de generar su identidad electrónica.
+                        </li>
+                    </ul>
+                  </mat-expansion-panel>
+                   <mat-expansion-panel (opened)="panelOpenState = true"
+                                       (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header style="background-color: rgba(193, 220, 255, 0.5);" [collapsedHeight]="'64px'" [expandedHeight]="'48px'">
+                      <mat-panel-title>
+                        <h6 align="justify">14.- “Fallo en la validación de seguridad del Captcha, favor recargue el Captcha y vuelva a intentar.”</h6>
+                      </mat-panel-title>
+
+                    </mat-expansion-panel-header>
+                    <p align="justify">Si le aparece este mensaje, entonces debe refrescar la página, presionando F5 de su teclado o la combinación Ctrl + R.</p>
+                  </mat-expansion-panel>
+                </mat-accordion>
+            </div>    
+
+        </div>  <!--FIN DE ROW-->
+        
+    </div>
+</div>

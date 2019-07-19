@@ -1,0 +1,38 @@
+.header-text{
+    padding-left: 15px;
+}
+.table td, .table th{
+    border: 0px !important;
+}
+
+.td-title{
+    width:30%;
+    font-weight:bold;
+    font-size: 14px;
+    padding: 4px;
+    margin: 0px;
+}
+.td-description{
+    width:70%;
+    font-size: 14px;
+    padding: 4px;
+    margin: 0px;
+}
+.td-description-icon{
+    width:40%;
+    font-size: 14px;
+    padding: 4px;
+    margin: 0px;
+}
+.td-icon{
+    width:30%;
+    font-size: 14px;
+    padding: 4px;
+    margin: 0px;
+}
+.img-profile{
+    max-height: 150px;
+}
+.cursor-mouse{
+    cursor: pointer;
+}

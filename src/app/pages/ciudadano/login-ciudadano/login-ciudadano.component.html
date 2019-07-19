@@ -1,0 +1,41 @@
+<!--<div [style.padding.px]="(messageService.buscadorVisible) ? messageService.dividerDefault : messageService.divider"></div>-->
+<div id="page-header" class="bg-gradient bg-shadow">
+    <div class="container clearfix">
+        <h3>Acceso Identidad Electrónica</h3>
+        <!--<buscar-informacion [hidden]="true" [hiddenButton]="true"></buscar-informacion>-->
+    </div>
+</div>
+
+<div id="content" class="pb-0">
+    <div class="container pb-6">
+        <div class="row">
+            <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12">
+                <div class="alert alert-info">
+                    <a href="{{ieUrl}}">
+                        <i class="fa fa-info-circle"></i> Click aquí para acceder 
+                    </a>                    
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+                <div class="bg-gradient bg-shadow" style="border:1px solid #ddd;padding:14px;; border-radius: 15px;">
+                    <h4>
+                        <strong>Preguntas Frecuentes:</strong>
+                    </h4>
+                    <p style="text-align:justify;font-weight:500;">
+                        Para obtener tu identidad electrónica, debes responder una serie de preguntas que permitan validar tu identidad. Las preguntas se realizan en base a los datos e información de cada persona que obra en ciertas instituciones del Estado, interconectadas a través del Sistema de Intercambio de Información Pública.
+                    </p>
+                    <p style="text-align:justify;font-weight:500;">
+                        Por cuestiones de seguridad, se establecieron hasta tres intentos de validación. En caso de no superar exitosamente la validación en esos tres intentos, no podrás acceder a la identidad electrónica por esta vía.
+                    </p>
+                    <p style="text-align:justify;font-weight:500;">
+                        TODOS los datos sobre los cuales se realizan las preguntas provienen de las Instituciones encargadas de obtener o generar dicha información.
+                    </p>
+                    <!--<p style="text-align:justify;font-weight:500;">
+                        Varias personas han mencionado que se les pregunta sobre un vehículo que ya no tienen o vendieron hace mucho. Si surgen preguntas es porque ese vehículo no fue transferido, lo que significa que sigue figurando a su nombre en las base de datos del Registro Único del Automotor.
+                    </p>-->
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>

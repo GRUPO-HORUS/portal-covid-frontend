@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>.:: Portal Paraguay - Instituciones del Estado Paraguayo ::.</title>
+	<script type="text/javascript" src="okfn_bubbletree/lib/jquery-1.5.2.min.js"></script>
+	<script type="text/javascript" src="okfn_bubbletree/lib/jquery.history.js"></script>
+	<script type="text/javascript" src="okfn_bubbletree/lib/raphael.js"></script>
+	<script type="text/javascript" src="okfn_bubbletree/lib/vis4.js"></script>
+	<script type="text/javascript" src="okfn_bubbletree/lib/Tween.js"></script>
+	<script type="text/javascript" src="okfn_bubbletree/build/bubbletree.js"></script>
+	<link rel="stylesheet" type="text/css" href="okfn_bubbletree/build/bubbletree.css" />
+	<script type="text/javascript" src="okfn_bubbletree/styles/cofog.js"></script>
+	<script type="text/javascript">       
+		$(function () {
+			function generateChildren(node) {
+				node.children = [];
+				var amount = node.amount;
+				for (var i = 0; i < numchildren; i++) {
+					var child = {
+						label: 'Child #' + (i + 1),
+						amount: i + 1 < numChildren ?
+							amount * Math.random() * .6 : amount
+					};
+					amount -= child.amount;
+					node.children.push(child);
+				}
+			}
+			var data = {
+				label: 'PODER JUDICIAL',
+				amount: 6,
+				color: '#f44b35',
+				children: [
+					{ label: '<a target="_top" href="http://goo.gl/LihvMW">CSJ</a>', amount: 1, color: '#f77665' },
+					{ label: '<a target="_blank" href="http://goo.gl/jutq">TSJE</a>', amount: 1, color: '#f77665' },
+					{ label: '<a target="_blank" href="http://goo.gl/wK8HBC">MP</a>', amount: 1, color: '#f77665' },
+					{ label: '<a target="_blank" href="http://goo.gl/Qc3dwG">CM</a>', amount: 1, color: '#f77665' },
+					{ label: '<a target="_blank" href="http://goo.gl/ywHVae">JEM</a>', amount: 1, color: '#f77665' },
+					{ label: '<a target="_blank" href="http://goo.gl/tRiYiS">MDP</a>', amount: 1, color: '#f77665' }
+				]
+			};
+			new BubbleTree({ data: data, container: '.bubbletree' });
+		});
+	</script>
+</head>
+
+<body>
+	<div class="bubbletree-wrapper">
+		<div class="bubbletree"></div>
+	</div>
+</body>
+
+</html>
+
+<style type="text/css">
+	.bubbletree .label2 span {
+		background: transparent;
+		font-size: 9px;
+	}
+
+	.bubbletree .label2 a {
+		text-decoration: none;
+	}
+
+	html,
+	body {
+		background: transparent;
+	}
+
+	.bubbletree-wrapper {
+		background: transparent;
+	}
+
+	.bubbletree {
+		background: transparent;
+	}
+</style>

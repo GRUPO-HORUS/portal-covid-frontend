@@ -1,0 +1,113 @@
+<!--<div [style.padding.px]="(messageService.buscadorVisible) ? messageService.dividerDefault : messageService.divider"></div>-->
+<div id="page-header" class="bg-gradient bg-shadow">
+    <div class="container header-text clearfix">
+        <h3>Perfil Ciudadano</h3>
+        <!--<buscar-informacion [hidden]="true" [hiddenButton]="true"></buscar-informacion>-->
+    </div>
+</div>
+
+<div class="content container pb-4" *ngIf="ciudadano">
+    <h4 class="mt-2 mt-4 mb-4">Bienvenido {{ciudadano.nombres}} {{ciudadano.apellidos}}</h4>
+    <p>Para acceder a su perfil ciudadano y a los servicios, deberá de completar los siguientes datos:</p>
+    <form #miForm="ngForm" class="mt-1">
+        <div class="row">
+
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="control-label" for="idDepartamento"><strong> <i class="fa fa-info-circle"></i> Departamento </strong> </label>
+                    <select class="form-control" (change)="changeDepartamento()" [(ngModel)]="ciudadano.idDepartamento" name="idDepartamento">
+                        <option value="0" selected>Seleccione</option>
+                        <option *ngFor="let tp of departamentos" [value]="tp.idDepartamento">{{ tp.descripcion }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="idCiudad"><strong> <i class="fa fa-info-circle"></i> Ciudad </strong> </label>
+                    <select class="form-control" (change)="changeCiudad()" [(ngModel)]="ciudadano.idCiudad" name="idCiudad">
+                        <option value="0" selected>Seleccione</option>
+                        <option *ngFor="let tp of ciudades" [value]="tp.idCiudad">{{ tp.descripcion }}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="idBarrio"><strong> <i class="fa fa-info-circle"></i> Barrio </strong> </label>
+                    <select class="form-control" [(ngModel)]="ciudadano.idBarrio" name="idBarrio">
+                        <option value="0" selected>Seleccione</option>
+                        <option *ngFor="let tp of barrios" [value]="tp.idBarrio">{{ tp.descripcion }}</option>
+                    </select>
+                </div>
+                <!--
+                <div class="form-group">
+                    <label for="barrio"><strong> <i class="fa fa-info-circle"></i> Barrio </strong> </label>
+                    <input type="text" [(ngModel)]="ciudadano.barrio" name="barrio" class="form-control" required>
+                </div>
+                -->
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">    
+                <div class="form-group">
+                    <label class="control-label" for="domicilio"><strong> <i class="fa fa-info-circle"></i> Domicilio </strong> </label>
+                    <input type="text" [(ngModel)]="ciudadano.domicilio" name="domicilio" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="telefonoParticular"><strong> <i class="fa fa-info-circle"></i> Teléfono Particular </strong> </label>
+                    <input type="text" [(ngModel)]="ciudadano.telefonoParticular" name="telefonoParticular" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="telefonoMovil"><strong> <i class="fa fa-info-circle"></i> Teléfono móvil </strong> </label>
+                    <input type="text" [(ngModel)]="ciudadano.telefonoMovil" name="telefonoMovil" class="form-control" required>
+                </div>
+            </div> 
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group"> 
+                    <div class="col-sm-3"></div> 
+                    <div class="col-sm-9"> 
+                        <input type="checkbox" style="width:20px;height:20px;" id="terminos" name="terminos" [(ngModel)]="terminos"/>
+                        <b><span class="text-danger">*</span>Acepto los términos y condiciones</b> 
+                        <p><a data-toggle="modal" href="#" data-target="#modalTerminosIE" >Ver términos y condiciones</a> </p>
+                    </div> 
+                </div>
+                
+                <div class="text-center" *ngIf="loading">
+                    <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> Espere un momento por favor...
+                </div>   
+
+                <div class="clearfix"></div>
+                <button (click)="actualizarDatosPersona()" type="button" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || !terminos">
+                    Aceptar
+                    <span class="fa fa-check"></span>
+                </button>
+
+                <button (click)="logout()" type="button" style="margin-left:20px;margin-top:10px;" class="btn btn-default">
+                    Salir
+                    <span class="fa fa-close"></span>
+                </button>
+
+                <div class="clearfix"><br/></div>
+                <div class="alert alert-danger" *ngIf="message">
+                    <i class="fa fa-info-circle"></i> {{message}}
+                </div>
+        
+            </div>
+        </div> 
+    </form>
+</div>
+
+<div class="modal fade" id="modalTerminosIE" tabindex="-1" role="dialog" aria-labelledby="modalTerminosIELabel" aria-hidden="true">
+    <div style="max-width:1100px;" class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-4">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTerminosIELabel">
+                    Términos y Condiciones
+                </h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row">
+                <ie-terminos-template></ie-terminos-template>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

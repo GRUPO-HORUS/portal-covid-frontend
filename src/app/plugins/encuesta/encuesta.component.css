@@ -1,0 +1,60 @@
+encuesta .mat-checkbox-checked.mat-primary .mat-checkbox-background,
+encuesta .mat-checkbox-indeterminate.mat-primary .mat-checkbox-background {
+  background-color: #5e6d7d;
+}
+
+encuesta .mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: #5e6d7d;
+}
+
+encuesta .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #5e6d7d;
+}
+
+encuesta .mat-form-field-ripple {
+  background-color: #5e6d7d;
+}
+
+encuesta .mat-form-field.mat-focused.mat-primary .mat-select-arrow {
+  color: #5e6d7d
+}
+
+encuesta .mat-slide-toggle.mat-primary.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+  background-color: #5e6d7d
+}
+
+encuesta .mat-checkbox:not(.mat-checkbox-disabled).mat-primary .mat-checkbox-ripple .mat-ripple-element {
+  background-color: rgba(13, 12, 13, 0.26)
+}
+
+encuesta .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: #5e6d7d
+}
+
+encuesta .mat-button.mat-primary,
+encuesta .mat-icon-button.mat-primary {
+  color: #5e6d7d
+}
+
+encuesta .mat-focused .mat-form-field-label {
+  color: #5e6d7d
+}
+
+encuesta .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+  background-color: rgba(13, 12, 13, 0.26)
+}
+
+encuesta .mat-fab.mat-primary,
+encuesta .mat-mini-fab.mat-primary,
+encuesta .mat-raised-button.mat-primary {
+  background-color: #5e6d7d
+}
+
+encuesta .mat-error {
+  display: none;
+}
+
+encuesta .mat-form-field-label {
+  white-space: normal;
+  text-overflow: unset;
+}

@@ -1,0 +1,195 @@
+<div id="page-header" class="bg-gradient bg-shadow">
+    <div class="container">
+        <div class="header-text clearfix">
+            <h3 class="mb-0"><span class="far fa-user-circle text-default menu-item-icon text-center fa-fw"></span> Perfil Ciudadano</h3>
+        </div>
+    </div>
+</div>
+
+<div class="content pb-4 pb-6" *ngIf="ciudadano">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                <menu-ciudadano></menu-ciudadano>
+            </div>
+            <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12" *ngIf="ciudadano">
+                <div class="row">
+                    <!--
+                    <div class="col-lg-2 col-md-12 col-xs-12 mt-4">
+                        <div style="padding:10px;border:1px solid #ddd;max-width:150px;">
+                            <img src="assets/img/profile.png" class="img-fluid img-profile"/>
+                        </div>
+                    </div>-->
+                    <div class="col-lg-12 col-md-12 col-xs-12 mt-4">
+                        <h4 class="mb-2 text-primary">Mi identidad electrónica</h4>
+                        <div class="row mb-1 ml-2">
+                            <div class="col-lg-4 col-md-6 col-sm-5"><i class="far fa-id-card fa-fw text-center mr-1"></i><label style="font-weight:bold;">Cédula</label></div>
+                            <div class="col-lg-8 col-md-6 col-sm-7">{{ciudadano.cedula}}</div>
+                        </div>
+                        <hr class="hidden-sm-up">
+
+                        <div class="row mb-1 ml-2">
+                            <div class="col-lg-4 col-md-6 col-sm-5"><i class="far fa-user fa-fw text-center mr-1"></i><label style="font-weight:bold;">Nombre y Apellido</label></div>
+                            <div class="col-lg-8 col-md-6 col-sm-7">{{ciudadano.nombres}} {{ciudadano.apellidos}}</div>
+                        </div>
+                        <hr class="hidden-sm-up">
+
+                        <div class="row mb-1 ml-2">
+                            <div class="col-lg-4 col-md-6 col-sm-5"><i class="far fa-calendar-alt fa-fw text-center mr-1"></i><label style="font-weight:bold;">Fecha de Nacimiento</label></div>
+                            <div class="col-lg-8 col-md-6 col-sm-7" *ngIf="ciudadano.fechaNacimiento">{{formatFechaNacimiento(ciudadano.fechaNacimiento) | date:'dd/MM/yyyy' }}</div>
+                            <div class="col-lg-8 col-md-6 col-sm-7" *ngIf="!ciudadano.fechaNacimiento">-</div>
+                        </div>
+                        <hr class="hidden-sm-up">
+
+                        <div class="row mb-1 ml-2">
+                            <div class="col-lg-4 col-md-6 col-sm-5"><i class="far fa-envelope fa-fw text-center mr-1"></i><label style="font-weight:bold;">Email</label></div>
+                            <div class="col-lg-8 col-md-6 col-sm-7" *ngIf="ciudadano.email">{{ciudadano?.email}}</div>
+                            <div class="col-lg-8 col-md-6 col-sm-7" *ngIf="!ciudadano.email">-</div>
+                        </div>
+                        <hr class="hidden-sm-up">
+                        
+                        <div class="row mb-1 ml-2">
+                            <div class="col-lg-4 col-md-6 col-sm-5"><i class="far fa-flag fa-fw text-center mr-1"></i><label style="font-weight:bold;">Nacionalidad</label></div>
+                            <div class="col-lg-8 col-md-6 col-sm-7">{{ciudadano.nacionalidad}}</div>
+                            <div class="col-lg-8 col-md-6 col-sm-7" *ngIf="!ciudadano.nacionalidad">-</div>
+                        </div>
+                        <hr class="hidden-sm-up">
+
+                        <br>
+                        <h4 class="mt-2 mb-2 text-primary">Mi información adicional</h4>
+                        <div class="row mb-1 ml-2">
+                            <div class="col-lg-4 col-md-6 col-sm-5"><i class="fas fa-map-pin fa-fw text-center mr-1"></i><label style="font-weight:bold;">Departamento</label></div>
+                            <div class="col-lg-8 col-md-6 col-sm-7">{{ciudadano?.departamento}}</div>
+                        </div>
+                        <hr class="hidden-sm-up">
+
+                        <div class="row mb-1 ml-2">
+                            <div class="col-lg-4 col-md-6 col-sm-5"><i class="fas fa-city fa-fw text-center mr-1"></i><label style="font-weight:bold;">Ciudad</label></div>
+                            <div class="col-lg-8 col-md-6 col-sm-7">{{ciudadano?.ciudad}}</div>
+                        </div>
+                        <hr class="hidden-sm-up">
+
+                        <!--TELEFONO DEPARTAMENTO - CIUDAD - BARRIO-->
+                        <div class="row mb-1 ml-2">
+                            <div class="col-lg-4 col-md-6 col-sm-5"><i class="far fa-map fa-fw text-center mr-1"></i><label style="font-weight:bold;">Barrio</label></div>
+                            <div class="col-lg-7 col-md-5 col-sm-6" *ngIf="!ciudadano.idBarrio  && !isEditDepCiudadBarrio">-</div>
+                            <div class="col-lg-7 col-md-5 col-sm-6">
+                                <span *ngIf="!isEditDepCiudadBarrio">{{ciudadano?.barrio}}</span>
+                                <div *ngIf="isEditDepCiudadBarrio">
+                                    <form #formDepCiudadBarrio="ngForm" class="mt-1 mb-4 card p-3 card-grey bg-shadow">
+                                        <div class="form-group">
+                                            <label class="control-label" for="departamento"><strong> <i class="fa fa-info-circle"></i> Departamento </strong> </label>
+                                            <select class="form-control" (change)="changeDepartamento()" [(ngModel)]="ciudadano.idDepartamento" name="idDepartamento">
+                                                <option value="0" selected>Seleccione</option>
+                                                <option *ngFor="let tp of departamentos" [value]="tp.idDepartamento">{{ tp.descripcion }}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="ciudad"><strong> <i class="fa fa-info-circle"></i> Ciudad </strong> </label>
+                                            <select class="form-control" (change)="changeCiudad()" [(ngModel)]="ciudadano.idCiudad" name="idCiudad">
+                                                <option value="0" selected>Seleccione</option>
+                                                <option *ngFor="let tp of ciudades" [value]="tp.idCiudad">{{ tp.descripcion }}</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label" for="barrio"><strong> <i class="fa fa-info-circle"></i> Barrio </strong> </label>
+                                            <select class="form-control" [(ngModel)]="ciudadano.idBarrio" name="idBarrio">
+                                                <option value="0" selected>Seleccione</option>
+                                                <option *ngFor="let tp of barrios" [value]="tp.idBarrio">{{ tp.descripcion }}</option>
+                                            </select>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="form-group mb-0">
+                                            <button type="button" class="btn btn-success btn-xs btn-success-next mt-0 ml-1" (click)="actualizarDepCiudad()" [disabled]="!formDepCiudadBarrio.form.valid">Actualizar</button>
+                                            <button type="button" class="btn btn-default btn-link btn-xs ml-1" (click)="formEditCancel()">Cancelar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div style="position:absolute; right:10px;" *ngIf="!isEditDepCiudadBarrio"><span (click)="isEditDepCiudadBarrio = true" class="fa fa-pencil-alt cursor-mouse text-primary"></span></div>
+                        </div>
+                        <hr class="hidden-sm-up">
+
+                        <!--TELEFONO DOMICILIO-->
+                        <div class="row mb-1 ml-2">
+                            <div class="col-lg-4 col-md-6 col-sm-5"><i class="fas fa-map-marked-alt fa-fw text-center mr-1"></i><label style="font-weight:bold;">Domicilio</label></div>
+                            <div class="col-lg-7 col-md-5 col-sm-6" *ngIf="!ciudadano.domicilio && !isEditDomicilio">-</div>
+                            <div class="col-lg-7 col-md-5 col-sm-6">
+                                <span *ngIf="!isEditDomicilio">{{ciudadano?.domicilio}}</span>
+                                <div *ngIf="isEditDomicilio">
+                                    <form #formDomicilio="ngForm" class="mt-1 mb-4 card p-3 card-grey bg-shadow">
+                                        <div class="form-group">
+                                            <label class="control-label" for="domicilio"><strong> <i class="fa fa-info-circle"></i> Domicilio </strong> </label>
+                                            <input type="text" [(ngModel)]="ciudadano.domicilio" name="domicilio" class="form-control" maxlength="100" required>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="form-group mb-0">
+                                            <button type="button" class="btn btn-success btn-xs btn-success-next mt-0 ml-1" (click)="actualizarDomicilio()" [disabled]="!formDomicilio.form.valid">Actualizar</button>
+                                            <button type="button" class="btn btn-default btn-link btn-xs ml-1" (click)="formEditCancel()">Cancelar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div style="position:absolute; right:10px;" *ngIf="!isEditDomicilio"><span (click)="isEditDomicilio = true" class="fa fa-pencil-alt cursor-mouse text-primary"></span></div>
+                        </div>
+                        <hr class="hidden-sm-up">
+
+                        <!--TELEFONO PARTICULAR-->
+                        <div class="row mb-1 ml-2">
+                            <div class="col-lg-4 col-md-6 col-sm-5"><i class="fas fa-phone fa-fw text-center mr-1"></i><label style="font-weight:bold;">Teléfono Particular</label></div>
+                            <div class="col-lg-7 col-md-5 col-sm-6" *ngIf="!ciudadano.telefonoParticular && !isEditTelefonoParticular">-</div>
+                            <div class="col-lg-7 col-md-5 col-sm-6">
+                                <span *ngIf="!isEditTelefonoParticular">{{ciudadano?.telefonoParticular}}</span>
+                                <div *ngIf="isEditTelefonoParticular">
+                                    <form #formTelParticular="ngForm" class="mt-1 mb-4 card p-3 card-grey bg-shadow">
+                                        <div class="form-group">
+                                            <label class="control-label" for="telefonoParticular"><strong> <i class="fa fa-info-circle"></i> Teléfono Particular </strong> </label>
+                                            <input type="text" [(ngModel)]="ciudadano.telefonoParticular" name="telefonoParticular" maxlength="50" class="form-control" required>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="form-group mb-0">
+                                            <button type="button" class="btn btn-success btn-xs btn-success-next mt-0 ml-1" (click)="actualizarTelefonoParticular()" [disabled]="!formTelParticular.form.valid">Actualizar</button>
+                                            <button type="button" class="btn btn-default btn-link btn-xs ml-1" (click)="formEditCancel()">Cancelar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div style="position:absolute; right:10px;" *ngIf="!isEditTelefonoParticular"><span (click)="isEditTelefonoParticular = true" class="fa fa-pencil-alt cursor-mouse text-primary"></span></div>
+                        </div>
+                        <hr class="hidden-sm-up">
+
+                        <!--TELEFONO MOVIL-->
+                        <div class="row mb-1 ml-2">
+                            <div class="col-lg-4 col-md-6 col-sm-5"><i class="fas fa-mobile-alt fa-fw text-center mr-1"></i><label style="font-weight:bold;">Teléfono Móvil</label></div>
+                            <div class="col-lg-7 col-md-5 col-sm-6" *ngIf="!ciudadano.telefonoMovil && !isEditTelefonoMovil">-</div>
+                            <div class="col-lg-7 col-md-5 col-sm-6">
+                                <span *ngIf="!isEditTelefonoMovil">{{ciudadano?.telefonoMovil}}</span>
+                                <div *ngIf="isEditTelefonoMovil">
+                                    <form #formTelMovil="ngForm" class="mt-1 mb-4 card p-3 card-grey bg-shadow">
+                                        <div class="form-group">
+                                            <label class="control-label" for="telefonoMovil"><strong> <i class="fa fa-info-circle"></i> Teléfono Móvil </strong> </label>
+                                            <input type="text" [(ngModel)]="ciudadano.telefonoMovil" name="telefonoMovil" maxlength="50" class="form-control" required>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="form-group mb-0">
+                                            <button type="button" class="btn btn-success btn-xs btn-success-next mt-0 ml-1" (click)="actualizarTelefonoMovil()">Actualizar</button>
+                                            <button type="button" class="btn btn-default btn-link btn-xs ml-1" (click)="formEditCancel()">Cancelar</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div style="position:absolute; right:10px;" *ngIf="!isEditTelefonoMovil"><span (click)="isEditTelefonoMovil = true" class="fa fa-pencil-alt cursor-mouse text-primary"></span></div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-12 text-center" *ngIf="responseData.status == false" style="color:red;">{{responseData.message}}</div>
+                            <div class="col-sm-12 text-center" *ngIf="loading"><img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> Procesando..</div>
+                        </div>
+                    </div>
+
+
+                </div>        
+            </div>    
+        </div>
+    </div>
+</div>

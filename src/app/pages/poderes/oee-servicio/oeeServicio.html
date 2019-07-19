@@ -1,0 +1,97 @@
+<!--<div [style.padding.px]="(messageService.buscadorVisible) ? messageService.dividerDefault : messageService.divider"></div>-->
+<div id="page-header" class="bg-gradient bg-shadow">
+    <div class="container clearfix">
+        <nav class="breadcrumb">
+            <a class="breadcrumb-item" href="">
+                <i class="fa fa-home fa-lg text-primary" aria-hidden="true"></i>
+            </a>
+            <a class="breadcrumb-item" routerLink="/">El Estado</a>
+            <a class="breadcrumb-item text-capitalize" routerLink="/oee/{{urlOee}}">{{descOee}}</a>
+            <span class="breadcrumb-item active">Servicio</span>
+            <!--<buscar-informacion [hidden]="true" [hiddenButton]="false"></buscar-informacion>-->
+        </nav>
+    </div>
+</div>
+
+<div id="content" class="p-0">
+    <div class="container pb-6">
+
+        <div *ngIf="infoServicio.servicioEnLinea" class="float-right m-2 p-2 btn btn-success" style="border-radius:15px;font-size:1rem;border:none;background-color:#001c54;">
+            <a href="{{ infoServicio.servicioEnLineaUrl }}" style="color:#fff;" target="_blank">
+                <i class="fa fa-globe text-default"></i> En línea
+            </a>
+        </div>
+
+        <h2 class="texto-accesible-H2 mb-4">
+            {{infoServicio.nombreServicio}}
+        </h2>
+
+        <div class="text-left" *ngFor="let info of infoServicio.detalle | orderBy: 'id' ">
+            <div class="row mt-4" *ngIf="info.titulo && info.valor">
+                <div class="col col-2 col-lg-1 text-right">
+                    <i class="{{ info.icon }} icon-2x" aria-hidden="true"></i>
+                </div>
+                <div class="col col-10 col-lg-11">
+                    <h3 class="texto-accesible-H3">
+                        <span>{{ info.titulo }}</span>
+                    </h3>
+                    <p class="lead texto-accesible-pLead" [innerHTML]="info.valor | safeHtml"></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="list-group-item" style="border:0px;padding:1px;" *ngIf="infoServicio.detalle != null">
+            <div class="text-left">
+                <div class="row mt-4">
+                    <div class="col offset-1 col-10 col-lg-10">
+                        <div style="font-size:14px; font-weight:500; font-style:italic;">
+                            <i class="fa fa-user icon" aria-hidden="true"></i>
+                            Responsable/s de trámites de la Institución: 
+                            <span *ngIf="infoServicio.responsable">{{ infoServicio.responsable }}</span>
+                            <span *ngIf="!infoServicio.responsable">-</span>
+                        </div>
+                        <div style="font-size:14px; font-weight:500; font-style:italic;">
+                            <i class="fa fa-calendar icon" aria-hidden="true"></i>
+                            Fecha de Actualización: 
+                            <span *ngIf="infoServicio.fechaModificacion">{{ formatFecha(infoServicio.fechaModificacion) | date:'dd-MM-yyyy HH:mm' }}</span>
+                            <span *ngIf="!infoServicio.fechaModificacion">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <a class='flotanteOnline' href="javascript:;" *ngIf="!yaVoto2">
+        <div class="flotanteOnline dropup" style="display:block;">
+            <button type="button" class="btn btn-primary dropdown-toggle" style="font-size:11px;" data-toggle="dropdown">
+                Querés que este trámite sea en Línea?
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-header">Querés que este trámite sea en Línea?</div>
+                <button class="dropdown-item" (click)="calificar(2,'SI')"><i class="fa fa-arrow-alt-circle-right"></i> SI</button>
+                <button class="dropdown-item" (click)="calificar(2,'NO')"><i class="fa fa-arrow-alt-circle-right"></i> NO</button>
+                <div class="dropdown-divider"></div>
+            </div>
+        </div>
+    </a>
+        
+    <a class='flotante' href="javascript:;" *ngIf="!yaVoto1">
+        <div class="flotante dropup" style="display:block;">
+            <button type="button" class="btn btn-primary dropdown-toggle" style="font-size:11px;" data-toggle="dropdown">
+                ¿Cómo calificarías este servicio?
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-header">¿Cómo calificarías este servicio?</div>
+                <button class="dropdown-item" (click)="calificar(1,'BUENO')"><i class="fa fa-arrow-alt-circle-right"></i> BUENO</button>
+                <button class="dropdown-item" (click)="calificar(1,'MUY_BUENO')"><i class="fa fa-arrow-alt-circle-right"></i> MUY BUENO</button>
+                <button class="dropdown-item" (click)="calificar(1,'PUEDE_MEJORAR')"><i class="fa fa-arrow-alt-circle-right"></i> PUEDE MEJORAR</button>
+                <div class="dropdown-divider"></div>
+            </div>
+        </div>
+    </a>
+
+</div>    
+
+

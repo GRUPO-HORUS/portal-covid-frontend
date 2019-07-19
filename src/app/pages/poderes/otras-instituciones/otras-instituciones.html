@@ -1,0 +1,28 @@
+<!--<div [style.padding.px]="(messageService.buscadorVisible) ? messageService.dividerDefault : messageService.divider"></div>-->
+<div id="page-header" class="bg-gradient bg-shadow">
+    <div class="container clearfix">
+        <nav class="breadcrumb">
+            <a class="breadcrumb-item" href="">
+                <i class="fa fa-home fa-lg text-primary" aria-hidden="true"></i>
+            </a>
+            <a class="breadcrumb-item" routerLink="/">El Estado</a>
+            <!--<buscar-informacion [hidden]="true" [hiddenButton]="false"></buscar-informacion>-->
+        </nav>
+    </div>
+</div>
+
+<div id="content" class="pb-0">
+    <div class="container pb-6">
+        <h3 class="title-divider mt-3">
+            {{descNivel}}
+        </h3>
+
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-action pointer" *ngFor="let entidad of entidades" routerLink="/oee/{{entidad.urlEntidad}}">
+                <i class="fa fa-university text-primary" aria-hidden="true"></i> {{entidad.descripcionEntidad}} 
+                <span class="badge badge-primary badge-pill" style="float: right;">{{entidad.cantidadOee}}</span>
+            </li>
+        </ul>
+    </div>
+    <hr class="hr-white">
+</div>

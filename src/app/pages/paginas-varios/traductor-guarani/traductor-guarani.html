@@ -1,0 +1,106 @@
+<div id="page-header" class="bg-gradient bg-shadow">
+    <div class="container clearfix">
+        <nav class="breadcrumb">
+            <a class="breadcrumb-item" href="">
+                <i class="fa fa-home fa-lg text-primary" aria-hidden="true"></i>
+            </a>
+            <a class="breadcrumb-item" routerLink="/">El Estado</a>
+        </nav>
+    </div>
+</div>
+
+<div id="content" class="pb-0">
+    <div class="container pb-6">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-xs-12">
+
+                <div class="intro-header" style="background-image: url('assets/img/home-bg.jpg')">
+                    <div style="padding:20px 60px;" class="col-lg-12 col-md-12 text-center">
+
+                        <img src="assets/img/portada-traductor.png" style="max-width:100%;" class="text-center mb-2">
+
+                        <h3 class="text-white mb-2">Traductor de Palabras Guaran&iacute; - Espa&ntilde;ol</h3>
+
+                        <input [(ngModel)]="busqueda" placeholder="Ingrese la palabra que desea traducir" type="text" class="form-control buscador-traductor mb-2" (keyup.enter)="onKey($event)"/>
+                        
+                        <div class="row">
+                            <div class="col-lg-4 col-sm-4 col-xs-12">
+                                <div class="btn-group btn-group-sm" role="group" aria-label="First group" style="width:100%">
+                                    <button type="button" (click)="agregarLetra('Ã')" class="btn btn-default">Ã</button> 
+                                    <button type="button" (click)="agregarLetra('Ẽ')" class="btn btn-default">Ẽ</button> 
+                                    <button type="button" (click)="agregarLetra('Ĩ')" class="btn btn-default">Ĩ</button> 
+                                    <button type="button" (click)="agregarLetra('Ñ')" class="btn btn-default">Ñ</button> 
+                                    <button type="button" (click)="agregarLetra('Õ')" class="btn btn-default">Õ</button> 
+                                    <button type="button" (click)="agregarLetra('Ũ')" class="btn btn-default">Ũ</button> 
+                                    <button type="button" (click)="agregarLetra('Ỹ')" class="btn btn-default">Ỹ</button>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-8 col-sm-8 col-xs-12 pt-1">            
+                                <div class="row">
+                                    <div class="col-lg-8 col-sm-8">
+                                        <div class="btn-group btn-group-sm btn-group-justified" data-toggle="buttons">
+                                            <label class="btn btn-default active" (click)="onItemLang('GUA')">
+                                                <input type="radio" value="gu">&nbsp; AL GUARANÍ
+                                            </label>
+                                            <label class="btn btn-default" (click)="onItemLang('ESP')">
+                                                <input type="radio" value="es">&nbsp; AL ESPAÑOL
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <a style="color:#FFF;font-size:15px;" (click)="ejemplo()">Pruebe un ejemplo</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-sm-4">
+                                        <input name="button" type="button" style="border-radius:15px;border:0px;border:2px solid #FFF;" (click)="buscar()" class="btn btn-primary btn-lg" value="Traducir">
+                                    </div>
+                                </div>                                                
+                            </div>
+                        </div>                       
+                    </div>
+                </div>
+                
+                <div class="container">
+                    <div class="row">
+                        <div style="margin:20px;" class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1">
+                            
+                            <div *ngIf="resultado?.status">
+                                <div class="tarjeta" *ngIf="resultado.data.length == 1">
+                                    <div *ngIf="trEspAgua == 'GUA'">
+                                        <b>Palabra Español: </b>{{resultado?.data[0].palabra}}<br>
+                                        <b>Palabra Guaraní: </b>{{resultado?.data[0].significado}}
+                                    </div>
+                                    <div *ngIf="trEspAgua == 'ESP'">
+                                        <b>Palabra Español: </b>{{resultado?.data[0].palabra}}<br>
+                                        <b>Palabra Guaraní: </b>{{resultado?.data[0].significado}}
+                                    </div>
+                                    <div class="tarjeta_audio" *ngIf="trEspAgua == 'GUA'">
+                                        <b style="vertical-align: top;">Pronunciación: </b> 
+                                        <audio controls="">
+                                            <source src="archivos/traductor/gu/{{resultado?.data[0].id}}.wav" type="audio/mpeg">Tu navergador no soporta audio.Favor actualizar a la última versión
+                                        </audio>
+                                    </div>
+                                </div>
+
+                                <div class="tarjeta-list" *ngIf="resultado.data.length > 1">
+                                    <b>Te sugerimos las siguientes palabras:</b>
+                                    <div *ngFor="let result of resultado.data">
+                                        <a class="rlist" style="cursor: pointer;" (click)="filtroSug(result)">{{result.palabra}}</a>                                          
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div *ngIf="resultado?.status == false">
+                                <div class="tarjeta">
+                                    No se encontraron resultados coincidentes
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

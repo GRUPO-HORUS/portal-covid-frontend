@@ -1,0 +1,34 @@
+<!--
+<div class="blog-grid owl-dots-center" data-toggle="owl-carousel" *ngIf="encuentra" 
+data-owl-carousel-settings='{"responsive":{"0":{"items":1}, "600":{"items":2}, "1040":{"items":2}}, "margin":15, "autoplay":true, "loop":true, "lazyLoad":true}'>
+    <div class="blog-post" *ngFor="let noticia of noticias">
+        <div class="blog-media">
+            <a href="{{noticia.link}}" target="_blank"><img data-src="{{noticia.imagen}}" alt="" class="img-fluid owl-lazy" /></a>
+        </div>
+        <div class="mt-4">
+            <div class="date-wrapper date-wrapper-horizontal"> <span class="date-m bg-primary">Junio</span> <span class="date-d">2</span> </div>
+            <h6><a href="#">{{noticia.titulo}}</a></h6>
+            <a href="#" class="btn btn-link"><i class="fa fa-arrow-circle-right"></i> Leer más</a>
+        </div>
+    </div>
+</div>
+<p *ngIf="!encuentra">No encuentró ningún registro disponible</p>
+-->
+<div class="owl-dots-center owl-nav-over" data-toggle="owl-carousel" data-owl-carousel-settings='{"responsive":{"0":{"items":1}, "600":{"items":2}, "1040":{"items":2}}, "margin":15, "autoplay":true, "loop":true, "lazyLoad":true}'></div>
+<owl-carousel #owlElement *ngIf="encuentra" [options]="{items:2,dots:false,navigation:false,rewindNav:false,margin:0}" [items]="items"
+    [carouselClasses]="['owl-theme', 'row', 'sliding']" class="blog-grid owl-dots-center">
+
+    <div class="blog-post item" *ngFor="let noticia of noticias" style="max-width:300px;max-height:300px;">
+        <div class="blog-media">
+            <a href="{{noticia.link}}" target="_blank">
+                <img data-src="{{noticia.imagen}}" alt="{{noticia.titulo}}" class="img-fluid"/>
+            </a>
+        </div>
+        <div>
+            <div class="date-wrapper date-wrapper-horizontal"> <span class="date-m bg-primary">{{noticia.mes}}</span> <span class="date-d">{{noticia.dia}}</span> </div>
+            <h6><a href="#">{{noticia.titulo}}</a></h6>
+            <a href="#" class="btn btn-link"><i class="fa fa-arrow-circle-right"></i> Leer más</a>
+        </div>
+    </div>
+</owl-carousel>
+<p *ngIf="!encuentra">No encuentró ningún registro disponible</p>

@@ -1,0 +1,37 @@
+<div id="page-header" class="bg-gradient bg-shadow">
+    <div class="container clearfix">
+        <h3><i class="fa fa-lock"></i> Validación de Documento-</h3>
+    </div>
+</div>
+
+<div id="content" class="pb-0">
+    <div class="container pb-6">
+        <div class="row">
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+
+                <div class="alert alert-danger" *ngIf="mensaje">
+                    <i class="fa fa-info-circle"></i> {{mensaje}}
+                </div>
+
+                <form #miForm="ngForm" class="mt-1">
+                    <div class="form-group">
+                       <label for="constancia_nro"><strong>Nro. Constancia</strong></label>
+                       <input type="text" [(ngModel)]="constancia_nro" class="form-control" id="constancia_nro" name="constancia_nro" required>
+                    </div>
+           
+                    <div class="form-group">
+                       <label for="identificador_unico"><strong>Código de Seguridad</strong></label>
+                       <input type="text" [(ngModel)]="codigo_seguridad" class="form-control" id="codigo_seguridad" name="codigo_seguridad" required>
+                    </div>
+           
+                    <div class="clearfix"></div>
+                    <button (click)="validarDocumento()" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
+                        Validar <span class="fa fa-check"></span>            
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

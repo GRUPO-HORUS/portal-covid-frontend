@@ -1,0 +1,31 @@
+<div id="page-header" class="bg-gradient bg-shadow">
+    <div class="container clearfix">
+        <nav class="breadcrumb">
+            <a class="breadcrumb-item" routerLink="/">
+                <i class="fa fa-home fa-lg text-primary" aria-hidden="true"></i>
+            </a>
+            <a class="breadcrumb-item" routerLink="/consultas-publicas-datos-abiertos">Consulta Pública</a>
+        </nav>
+    </div>
+</div>
+
+<div id="content" class="pb-0">
+    <div class="container pb-6">
+        <h3 class="texto-accesible-H3 mb-2">
+            Consulta Pública
+        </h3>
+        <div class="row">
+            <div class="col-md-12">
+                <div style="padding:10px;">
+                    <a routerLink="/consultas-publicas-datos-abiertos-resultados" class="btn btn-primary">
+                        <i class="fas fa-file"></i> Ver Resultados
+                    </a>
+                </div>
+                <div style="padding:10px;">
+                    <iframe width="100%" height="1000" marginheight="0" marginwidth="0" frameborder="0" [src]="sanitizer.bypassSecurityTrustResourceUrl(iframeConsultaPublica)" allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

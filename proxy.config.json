@@ -1,0 +1,41 @@
+{
+  "/api/*": {
+    "target": "https://www.paraguay.gov.py",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  },
+  "/plugins/*": {
+    "target": "https://devportalpy.senatics.gov.py",
+    "secure": false,
+    "loglevel": "debug",
+    "pathRewrite": {
+      "^/api": "/compras-publicas"
+    },
+    "changeOrigin": true
+  },
+  "/apidev/*": {
+    "target": "http://localhost:8080/portal-py-plugins",
+    "secure": false,
+    "loglevel": "debug",
+    "pathRewrite": {
+      "^/apidev": "/rest"
+    },
+    "changeOrigin": true
+  },
+  "/pluginsdev/*": {
+    "target": "http://localhost:8080/portal-py-plugins",
+    "secure": false,
+    "loglevel": "debug",
+    "pathRewrite": {
+      "^/pluginsdev": "/compras-publicas"
+    },
+    "changeOrigin": true
+  },
+  "/auth/*": {
+    "target": "https://www.paraguay.gov.py",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true
+  }
+}

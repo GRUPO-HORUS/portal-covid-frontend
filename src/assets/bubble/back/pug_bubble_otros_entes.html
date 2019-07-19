@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>.:: Portal Paraguay - Instituciones del Estado Paraguayo ::.</title>
+	<script type="text/javascript" src="okfn_bubbletree/lib/jquery-1.5.2.min.js"></script>
+	<script type="text/javascript" src="okfn_bubbletree/lib/jquery.history.js"></script>
+	<script type="text/javascript" src="okfn_bubbletree/lib/raphael.js"></script>
+	<script type="text/javascript" src="okfn_bubbletree/lib/vis4.js"></script>
+	<script type="text/javascript" src="okfn_bubbletree/lib/Tween.js"></script>
+	<script type="text/javascript" src="okfn_bubbletree/build/bubbletree.js"></script>
+	<link rel="stylesheet" type="text/css" href="okfn_bubbletree/build/bubbletree.css" />
+	<script type="text/javascript" src="okfn_bubbletree/styles/cofog.js"></script>
+
+	<script type="text/javascript">
+		$(function () {
+			function generateChildren(node) {
+				node.children = [];
+				var amount = node.amount;
+				for (var i = 0; i < numchildren; i++) {
+					var child = {
+						label: 'Child #' + (i + 1),
+						amount: i + 1 < numChildren ?
+							amount * Math.random() * .6 : amount
+					};
+					amount -= child.amount;
+					node.children.push(child);
+				}
+			}
+
+			var data = {
+				label: 'Entidades Descentralizadas',
+				amount: 27,
+				color: '#74A82A',
+				children: [
+					{ label: '<a target="_top" href="http://goo.gl/JJynUv">AFD</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/pHVGoq">ANEAES</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/DHP6Vh">ANNP</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/UAuc2x">CONATEL</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/HkooDR">CONACOM</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/RnzGKX">CNV</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/Zqm6a3">CAH</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/6eCwio">DIBEN</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/zn4pOY">DINATRAM</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/36VsnB">DNA</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/eyXiWZ">DINAC</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/98EK6O">DNCP</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/b13xvb">ERSSAN</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/TTOdfi">FG</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/Z6gz3C">INDERT</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/CLr11Q">INFONA</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/N0Aj6h">INCOOP</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/qOkNWS">INS</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/IPQl4h">INTN</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/UKC5wn">INDI</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/oEoZtH">IPA</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/QwhnFD">IPS</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/VdBxLh">IPTA</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/y9QGYF">SENACSA</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/xnB4Ze">SENAVE</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/CVNg1O">DINACOPA</a>', amount: 1, color: '#B1C482' },
+					{ label: '<a target="_top" href="http://goo.gl/iYY6qU">DINAPI</a>', amount: 1, color: '#B1C482' }
+				]
+			};
+			new BubbleTree({ data: data, container: '.bubbletree' });
+		});
+	</script>
+</head>
+
+<body>
+	<div class="bubbletree-wrapper">
+		<div class="bubbletree"></div>
+	</div>
+</body>
+
+</html>
+
+<style type="text/css">
+	.bubbletree .label2 span {
+		background: transparent;
+		font-size: 9px;
+	}
+
+	.bubbletree .label2 a {
+		text-decoration: none;
+	}
+
+	html,
+	body {
+		background: transparent;
+	}
+
+	.bubbletree-wrapper {
+		background: transparent;
+	}
+
+	.bubbletree {
+		background: transparent;
+	}
+</style>

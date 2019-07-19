@@ -1,0 +1,28 @@
+<table class="table table-bordered table-condensed" [ngClass]="{'header-fixed': encuentra}">
+    <thead>
+        <th class="fontSize12Table fondoTheadTable">
+            <strong>
+                <i class="fa fa-list" aria-hidden="true"></i> DETALLE</strong>
+        </th>
+    </thead>
+    <tbody *ngIf="encuentra">
+        <tr *ngFor="let compra of compras">
+            <td class="fontSize12Table">
+                <div>
+                    <strong>Categoría:</strong> {{compra.categoria}}</div>
+                <div>
+                    <strong>Entidad:</strong> {{compra.entidad}}</div>
+                <div>
+                    <strong>Periodo:</strong> {{compra.anio}}</div>
+                <div>
+                    <a href="{{compra.url}}" target="_blank" class="btn btn-outline-danger btn-sm">Ver detalle</a>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+    <tbody *ngIf="!encuentra">
+        <tr>
+            <td class="fontSize12Table" colspan="2">No se encontraron resultados</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,166 @@
+<div id="content" class="pb-0" style="padding:0px !important;">
+    <div class="py-4 py-lg-5 fondo-tramites_">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-sm-12">
+                    <div class="card" style="display:flex;justify-content:center;border:0px;">
+                        <h4 class="mt-2 text-color-primary">
+                            <i class="fa fa-globe"></i> Trámites en línea
+                        </h4>
+
+                        <hr class="hr-lg m-0 hr-default text-center w-50">
+                        <i class="fa fa-globe icon-6x icon-rotate-25 icon-bg icon-bg-r-ol icon-bg op-1 text-primary" style="right:10px;"></i>
+                        
+                        <div class="rounded flex-valign">
+                            <ul class="texto-accesible-ul list-unstyled footer-links">
+                                <li *ngFor="let tramite of tramitesEnLinea">
+                                    <a  style="font-size: 13px;" (click)="getDataServicio(tramite.servicio.oee.urlOee, tramite.servicio.idServicio)" class="text-inverse" style="cursor:pointer;">
+                                        <i class="fa fa-globe fa-fw"></i> {{tramite.servicio.nombreServicio}}
+                                    </a>
+                                </li>
+                            </ul>
+
+                            
+                            <ul class="texto-accesible-ul list-unstyled footer-links">
+                                <li>
+                                    <h5 class="mt-2">
+                                        Últimos Trámites actualizados
+                                    </h5>
+                                </li>
+
+                                <li *ngFor="let tramite of ultimosTramitesEnLinea">
+                                    <a  style="font-size: 13px;" (click)="getDataServicio(tramite.servicio.oee.urlOee, tramite.servicio.idServicio)" class="text-inverse" style="cursor:pointer;">
+                                        <i class="fas fa-mouse-pointer fa-fw"></i> {{tramite.servicio.nombreServicio}}
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <a routerLink="/tramites-online" class="font-weight-bold ml-1 mb-1 mt-2 text-color-primary" style="cursor:pointer;font-size: 13px;">
+                                <i class="fa fa-plus"></i> Ver todos los trámites en línea
+                            </a>
+
+                            <a routerLink="/estadisticas-portal" class="font-weight-bold ml-1 mb-2 mt-2 text-color-primary" style="cursor:pointer;font-size: 13px;">
+                                <i class="fa fa-plus"></i> Ver estadísticas de trámites
+                            </a>
+
+                            <div class="row">
+                                
+                                <div style="padding-right:0px;" class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="text-center p-2 py-lg-3 overlay overlay-op-7 rounded mb-3 mr-2 mb-lg-0 bg-img" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important; background-position: bottom !important;">
+                                        <h4 class="text-white text-uppercase mb-0">
+                                            <span data-toggle="count-to" class="font-weight-bold pt-1" attr.data-to="{{cantidadTramites}}" data-from="0">{{ cantidadTramites }}</span>
+                                            <hr class="hr-lg w-50 mx-auto hr-default" style="margin:1px;">
+                                            <small class="text-white" style="font-size: 9px;">Total trámites registrados</small>
+                                        </h4>
+                                    </div>
+                                </div>
+                                <div style="padding:0px 5px;" class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                                    <a routerLink="/tramites-online">
+                                        <div class="text-center p-2 py-lg-3 overlay overlay-op-7 rounded mb-3 ml-2 mb-lg-0 bg-img" data-bg-img="assets/img/backgrounds/computer-screens.jpg" style="background-image: url('assets/img/backgrounds/computer-screens.jpg') !important; background-position: center; ">
+                                            <h4 class="text-white text-uppercase mb-0">
+                                                <span data-toggle="count-to" class="font-weight-bold pt-1" attr.data-to="{{ totalTramiteOnline }}" data-from="0">{{ totalTramiteOnline }}</span>
+                                                <hr class="hr-lg w-50 mx-auto hr-default" style="margin:1px;">
+                                                <small class="text-white" style="font-size: 9px;">Total de trámites en línea</small>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div style="padding-left:5px;" class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                                    <a style="cursor:pointer;" (click)="searchDataCategoria(idClasificadorIE)">
+                                        <div class="text-center p-2 py-lg-3 overlay overlay-op-7 rounded mb-3 ml-2 mb-lg-0 bg-img" data-bg-img="assets/img/backgrounds/tramites-ID-e.jpg" style="background-image: url('assets/img/backgrounds/tramites-ID-e.jpg') !important; background-position: center; ">
+                                            <h4 class="text-white text-uppercase mb-0">
+                                                <span data-toggle="count-to" class="font-weight-bold pt-1" attr.data-to="{{ cantidadTramitesIE }}" data-from="0">{{ cantidadTramitesIE }}</span>
+                                                <hr class="hr-lg w-50 mx-auto hr-default" style="margin:1px;">
+                                                <small class="text-white" style="font-size:9px;">Trámites con Identidad Electrónica</small>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-7 col-sm-12">
+                    <div class="card" style="display:flex;justify-content:center;border:0px; min-height: 200px">
+                        <h4 class="mt-2 text-color-primary"><i class="fa fa-share-alt"></i> Categoría de Trámites</h4>
+                        <hr class="hr-lg m-0 hr-default text-center w-40">
+                       
+                        <div class="my-2 rounded flex-valign bg-img">
+                            <div class="row no-gutters text-left mt-2">
+                                
+                                <div class="col-lg-4 col-sm-6 col-6 d-flex" *ngFor="let categoria of categoriaTramite">
+                                    <a (click)="searchDataCategoria(categoria.id_clasificador)" class="no-decoration text-inverse flex-ew flex-valign p-1" style="cursor:pointer;text-transform:capitalize;">
+                                        <div class="card py-2 clickable-element bg-gradient bg-shadow text-left flex-ew flex-valign mb-0">
+                                            <i class="fa {{categoria.icono}} icon-2x icon-rotate-25 icon-bg icon-bg-r-ol icon-bg op-2 text-primary" style="top: 20px;"></i>
+
+                                            <div class="bg-shadow" style="float:right; position: absolute; right: 0; top: 0; font-size: 10px; background: #a33228; padding: 1px 4px; color:#FFF; border-radius: 0 0 0 5px">{{categoria.cantidad}}</div> 
+                                            <div class="p-2 rounded flex-valign bg-img">
+                                                <p class="font-weight-bold mb-0 text-grey-dark" style="font-size:11px;text-transform: uppercase;">
+                                                    {{categoria.nombre_clasificador}}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!--
+                                <div class="col-lg-4 col-sm-6 col-6 d-flex">
+                                    <a routerLink="/categorias-tramites" class="no-decoration text-inverse flex-ew flex-valign p-1" style="cursor:pointer;text-transform:capitalize;">
+                                        <div class="card py-1 clickable-element bg-gradient bg-shadow text-center flex-ew flex-valign mb-0">
+                                            <i class="fa fa-plus icon-2x icon-rotate-25 icon-bg icon-bg-l-ol icon-bg icon-bg-r-ol op-1 text-primary"></i>
+
+                                            <div class="p-2 rounded flex-valign bg-img">
+                                                <p class="texto-accesible-pLead mb-0 text-grey-dark" style="font-size:12px;">
+                                                        <i class="fa fa-plus"></i> ver más
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                -->
+                            </div>
+                        </div>
+                        
+                        <a routerLink="/categorias-tramites" class="font-weight-bold_ text-grey-dark pull-right mb-1" style="cursor:pointer;">
+                            <i class="fa fa-plus"></i> ver más
+                        </a>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xl-2 col-lg-0"></div>
+                        <div class="col-xl-10 col-lg-12">
+                            <div class="card mt-3" style="display:flex;justify-content:center;border:0px;">
+                                <h4 class="mt-1 text-color-primary text-center hidden-sm-down"><i class="fas fa-heart"></i> Ciclo de Vida</h4>
+                                <h4 class="mt-1 text-color-primary hidden-md-up"><i class="fas fa-heart"></i> Ciclo de Vida</h4>
+                                <hr class="hr-lg m-0 hr-default text-center hidden-sm-down w-100">
+                                <hr class="hr-lg m-0 hr-default text-center hidden-md-up w-40">
+                                <div class="my-2 rounded flex-valign bg-img">
+                                    <div class="row hidden-sm-down">
+                                        <div class="col col-xs-6 text-center" *ngFor="let ciclo of cicloDeVida">
+                                            <a (click)="searchDataCategoria(ciclo.id_clasificador)" class="no-decoration text-inverse btn btn-link btn-hover p-1" style="cursor:pointer; line-height: 1; font-size: 12px; text-transform:none">
+                                                <i class="{{ciclo.icono}} icon-2x mb-2 text-primary"></i><br>
+                                                {{ciclo.nombre_clasificador}}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <ul class="hidden-md-up">
+                                        <li class="li" *ngFor="let ciclo of cicloDeVida">
+                                            <a (click)="searchDataCategoria(ciclo.id_clasificador)" class="no-decoration text-inverse btn btn-link btn-hover p-1" style="cursor:pointer; text-transform:none;">
+                                                <i class="{{ciclo.icono}} fa-fw icon-1x mr-2 text-primary text-center"></i>
+                                                {{ciclo.nombre_clasificador}}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

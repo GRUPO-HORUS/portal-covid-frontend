@@ -1,0 +1,39 @@
+<div id="page-header" class="bg-gradient bg-shadow">
+    <div class="container clearfix">
+        <h3 class="texto-accesible-H3 mb-0 float-md-left">Categorías de
+            <span class="font-weight-normal text-muted">Trámites</span>
+        </h3>
+    </div>
+</div>
+
+<div id="content" class="pb-0">
+    <div class="container pb-6">
+        <div class="row" data-toggle="isotope-grid" data-isotope-options='{ "itemSelector": ".customer"}'>
+            <div class="col-lg-4 col-md-6 col-sm-6 customer" *ngFor="let categoria of categorias">
+                <a class="card bg-gradient bg-shadow p-3 bt-2blue" style="cursor:pointer;z-index:999;" (click)="searchDataCategoria(categoria)">
+                    <i class="{{categoria.icono}} icon-15x icon-rotate-25 icon-bg icon-bg-r-ol icon-bg icon-bg-l-ol op-1 text-primary"></i>
+                    <div class="row">
+                        <div class="col-md-3 text-center">
+                            <i class="{{categoria.icono}} icon-3x text-primary pt-1"></i>
+                        </div>
+                        <div class="col-md-9 pl-lg-0 pt-1">
+                            <h5 class="texto-accesible-H5 title media-heading">
+                                <a (click)="searchDataCategoria(categoria)" class="text-primary">
+                                    {{categoria.nombreClasificador}}
+                                </a>
+                            </h5>
+                            <!--<ul class="list-inline links mb-0">
+                                <li class="list-inline-item">
+                                    <a (click)="searchDataCategoria(categoria)" class="btn btn-secondary btn-sm">
+                                        <i class="fa fa-arrow-circle-right"></i> ver más
+                                    </a>
+                                </li>
+                            </ul>-->
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

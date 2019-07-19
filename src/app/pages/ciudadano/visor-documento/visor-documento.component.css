@@ -1,0 +1,14 @@
+.header-text {
+    padding-left: 15px;
+}
+.row {
+    margin:0px !important;
+}
+.table td, .table th {
+    border: 0px !important;
+}
+.item-card {
+    font-size:20px; 
+    font-weight: bold; 
+    cursor: pointer;
+}
