@@ -20,23 +20,15 @@ export class CarpetaCiudadanaComponent implements OnInit {
   public loading: boolean;
 
   public isTramitesEID: boolean = true;
-  public isConfirm: boolean = false;
-  public isDocument: boolean = false;
-  public isBuyConfirm: boolean = false;
+  public isLoading: boolean = false;
+  public isBuyLiquidacion: boolean = false;
 
   public resultado: any = { status: true, message: ''};
   public documentData: any;
   public menuDocument: any[];
 
-  public nroLiquidacion: string;
-  public nombreApellido: string;
-  public nroDocumento: string;
-  public fechaSolicitud: string;
-  public estadoSolicitud: string;
-  public fechaPago: string;
-  public lugarPago: string;
-  public nroComprobantePago: number;
-  public secBuySection: string = '';
+  public liquidacion: any;
+  public nroLiquidacion: string; 
 
   constructor(
     public messageService: MessageService,
@@ -49,43 +41,14 @@ export class CarpetaCiudadanaComponent implements OnInit {
   ngOnInit() {
     this.ciudadano = this.auth.getCurrentUser();
     this.token = this.auth.getToken();
+    
     if(this.ciudadano == null || this.token == null) {
       this.router.navigate(['/login-ciudadano']);
       return;
     }
-    this.getMenuIdentidadElectronica();
+
+    this.getHistoricoConsultas();
     this.scrollTop();
-  }
-  
-  getMenuIdentidadElectronica() {
-    this.loading = true;
-    this.documentosService.getMenuIdentidadElectronica().subscribe(response => {
-      this.menuDocument = response;
-      this.getHistoricoConsultas();
-      this.loading = false;
-    }, error => {
-      console.log("error", error);
-      this.loading = false;
-    });
-  }
-
-  getHistoricoConsultas() {
-    this.documentosService.getHistoricoConsultas(this.token, this.ciudadano.cedula).subscribe(response => {
-      this.dataCarpetaCiudadana = response;
-      for(let x = 0; x < this.dataCarpetaCiudadana.length; x++){
-        for(let k = 0; k < this.menuDocument.length; k++){
-          if(this.dataCarpetaCiudadana[x].key == this.menuDocument[k].codigoServicio){
-            this.dataCarpetaCiudadana[x].name = this.menuDocument[k].nombreServicio;
-          }
-        }
-      }
-    }, error => {
-      console.log("error", error);
-    });
-  }
-
-  generarDocumentoHistorico(data: any) {
-    this.router.navigate(["/visor/carpeta-ciudadana/"+data.tipo+"/"+data._id]);
   }
 
   viewInfo(position: number) {
@@ -94,65 +57,103 @@ export class CarpetaCiudadanaComponent implements OnInit {
     }
   }
 
-  formBuyComplete() {
-    this.secBuySection = "sec3";
-    this.scrollBottom();
-  }
-
   cancelGenerarDocumento() {
     this.documentData = null;
     this.viewTramitesEID();
   }
 
-  descargarDocumento(objId) {
-    console.log("documentData", this.documentData);
-    this.router.navigate(["/visor/carpeta-ciudadana/"+ this.documentData.key+"/"+objId]);
+  
+  getHistoricoConsultas() {
+    this.documentosService.getHistoricoConsultas(this.token, this.ciudadano.cedula).subscribe(response => {
+      this.dataCarpetaCiudadana = response;
+    }, error => {
+      console.log("error", error);
+    });
+  }
+
+  generarDocumentoHistorico(result: any, response: any) {
+    // console.log('response', response);
+    // console.log('result', result);
+
+    if(response.liq != null) {
+
+      this.documentData = {
+        key: result.key, 
+        name: result.name, 
+        objId: (response._id != null ? response._id : response.objId)
+      };
+
+      this.liquidacion = response.liq;
+
+      this.nroLiquidacion = response.liq.constanciaNro;
+
+      // console.log('liquidacion: ',this.liquidacion);
+      // console.log('documentData: ',this.documentData);
+
+      this.viewBuyLiquidacion();
+
+    } else {
+      this.router.navigate(["/visor/carpeta-ciudadana/"+response.tipo+"/"+response._id]);
+    }
   }
 
   descargarTicket() {
-    this.viewDocument();
     this.loading = true;
-    this.resultado = {status: true, message: ''};
-    this.documentosService.getRptDocument(this.token, this.ciudadano.cedula, 1000).subscribe(response => {
-      console.log(response.status);
-      if(response.status) {
-        this.router.navigate(["/visor/carpeta-ciudadana/"+ this.documentData.key+"/"+response.objId]);
-        this.resultado = {status: false, message: response.message};
-      } else {
-        console.log("No se pudo generar el documento");
-      }
+    this.viewLoading();
+    
+    this.token = this.auth.getToken();
+    this.documentosService.getSingleFileLiq(this.token, this.liquidacion._id).subscribe(response => {
+
+      this.getPDF(this.liquidacion._id, response.data, false);
+
       this.loading = false;
+
+      this.cancelGenerarDocumento();
+
     }, error => {
       console.log("error", error);
       this.loading = false;
     });
   }
 
-  generarDocumento(data) {
-    this.viewDocument();
+  descargarDocumento() {
+    console.log(this.documentData);
+    this.router.navigate([ "/visor/carpeta-ciudadana/"+ this.documentData.key+"/"+this.documentData.objId ]);
+  }
+
+  generarDocumento(result) {
+    this.viewLoading();
     this.loading = true;
     this.resultado = {status: true, message: ''};
-    this.documentosService.getRptDocument(this.token, this.ciudadano.cedula, data.key).subscribe(response => {
-      console.log(response.status);
+ 
+    this.documentosService.getRptDocument(this.token, this.ciudadano.cedula, result.key).subscribe(response => {
       if(response.status) {
-        this.documentData = data;
+        result.objId = response.objId;
+        this.generarDocumentoHistorico(result, response);
+        // this.documentData = {
+        //   key: data.key, 
+        //   name: data.name, 
+        //   objId: response.objId 
+        // };
 
-        this.nroLiquidacion = "#123456";
-        this.estadoSolicitud = "PENDIENTE";
-        this.nombreApellido = "Fernando Mancía";
-        this.nroDocumento = "1.123.123";
-        this.fechaSolicitud = "17/07/2019";
-        this.fechaPago = "-";
-        this.lugarPago = "-";
-        this.nroComprobantePago = 0;
+        // if(response.liq != null){
+
+        //   this.liquidacion = response.liq;
+
+        //   this.nroLiquidacion = response.liq.constanciaNro;
+
+        //   this.viewBuyLiquidacion();
+
+        // } else {
+        //   this.router.navigate(["/visor/carpeta-ciudadana/"+data.tipo+"/"+data._id]);
+        // }
+
         this.loading = false;
-
-        this.viewBuyConfirm();
-
       } else {
         this.resultado = {status: false, message: response.message};
         this.loading = false;
       }
+
     }, error => {
       console.log("error", error);
       this.loading = false;
@@ -178,33 +179,22 @@ export class CarpetaCiudadanaComponent implements OnInit {
     this.scrollTop();
     this.loading = false;
     this.isTramitesEID = true;
-    this.isConfirm = false;
-    this.isDocument = false;
-    this.isBuyConfirm = false;
+    this.isLoading = false;
+    this.isBuyLiquidacion = false;
   }
 
-  /*viewConfirm() {
-    this.isTramitesEID = false;
-    this.isConfirm = true;
-    this.isDocument = false;
-    this.isBuyConfirm = false;
-  }*/
-
-  viewDocument() {
+  viewLoading() {
     this.scrollTop();
-    this.isDocument = true;
+    this.isLoading = true;
     this.isTramitesEID = false;
-    this.isConfirm = false;    
-    this.isBuyConfirm = false;
+    this.isBuyLiquidacion = false;
   }
 
-  viewBuyConfirm(){
+  viewBuyLiquidacion(){
     this.scrollTop();
-    this.secBuySection = "sec1";
-    this.isBuyConfirm = true;
-    this.isDocument = false;
+    this.isBuyLiquidacion = true;
+    this.isLoading = false;
     this.isTramitesEID = false;
-    this.isConfirm = false;
   }
 
   scrollBottom() {
