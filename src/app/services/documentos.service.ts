@@ -14,6 +14,26 @@ export class DocumentosService {
 
   handler: HttpErrorHandler = new HttpErrorHandler();
 
+  autenticationFastpay(monto, transactionId, email, telefono){
+    let apiKey = 'FeUhdTu2XzXEtFYvnEpB9blrq7GJXuWt';
+    let apiSecret = 'Zykpd0QqBUKZLXFM';
+
+    let headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('Accept', 'application/json')
+      .set('Authorization', 'Basic '+btoa(apiKey+':'+apiSecret));
+
+    let params = {
+      "Amount": monto,
+      "transactionId": transactionId, 
+      "email": email, 
+      "phoneNumber": telefono
+    };
+    
+    return this.http.post<any>('https://dev.fastpay.com.py/transaction/transactionRequest', params, { headers: headers })
+      .pipe(catchError(this.handler.handleError<any>('autenticationFastpay', {})));
+  }
+
   getRptDocument(token, cedula: string, tipo: number): Observable<any> {
     //cedula = '3236538';
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
@@ -23,7 +43,7 @@ export class DocumentosService {
 
   getHistoricoConsultas(token, cedula: string): Observable<any[]> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
-    return this.http.get<any[]>(this.config.API_DOCUMENTOS + "/documento/getHistoricoConsultas/"+cedula+"/"+0, { headers: headers })
+    return this.http.get<any[]>(this.config.API_DOCUMENTOS + "/documento/getHistoricoConsultas/"+cedula, { headers: headers })
     .pipe(catchError(this.handler.handleError<any>('getHistoricoConsultas', {})));
   }
 
@@ -39,6 +59,11 @@ export class DocumentosService {
   getSingleFileLiq(token, objId: string): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token).set('responseType','blob');
     return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getFileLiq/'+objId, { headers: headers });
+  }
+
+  getSingleLiquidacion(token, objId: string): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token).set('responseType','blob');
+    return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getSingleLiquidacion/'+objId, { headers: headers });
   }
 
   getViewDocument(objId: string): Observable<any> {

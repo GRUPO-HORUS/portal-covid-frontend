@@ -89,8 +89,7 @@ import { RptTramitesEtiquetaComponent } from "./pages/reportes/rpt-tramites-etiq
 import { RptSatisfaccionTramiteComponent } from "./pages/reportes/rpt-satisfaccion-tramite/rpt-satisfaccion-tramite.component";
 import { RptPorcentajeTramitesOnlineComponent } from "./pages/reportes/rpt-porcentaje-tramites-online/rpt-porcentaje-tramites-online.component";
 import { DocumentosComponent } from "./pages/documentos/documentos.component";
-
-
+import { SolicitudDocumento } from "./pages/ciudadano/documento/solicitud-documento.component";
 
 //Listado de rutas para la aplicación
 export const appRoutes: Routes = [
@@ -149,7 +148,10 @@ export const appRoutes: Routes = [
   { path: "perfil-ciudadano", component: PerfilCiudadanoComponent },
   { path: "form-perfil-ciudadano", component: FormPerfilCiudadanoComponent },
   { path: "marco-legal", component: MarcoLegalComponent },
+  
   { path: "carpeta-ciudadana", component: CarpetaCiudadanaComponent },
+  { path: "solicitud-documento/:liquidacion", component: SolicitudDocumento },
+
   { path: "otros-tramites-en-linea", component: OtrosTramitesEnLineaComponent },
   { path: "tramites-con-eid", component: TramitesConEidComponent },
   { path: "validar-documento", component: ValidarDocumentoComponent },
@@ -240,7 +242,8 @@ export const routesComponents = [
   RptTramitesCategoriaComponent,
   RptTramitesEtiquetaComponent,
   RptSatisfaccionTramiteComponent,
-  DocumentosComponent
+  DocumentosComponent,
+  SolicitudDocumento
 ];
 
 // Listado de providers para la aplicación

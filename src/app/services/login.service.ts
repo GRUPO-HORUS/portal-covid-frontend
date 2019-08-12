@@ -1,27 +1,37 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { AppConfig } from "app/app.config";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { IdentidadPersona } from "app/pages/ciudadano/model/identidad-persona.model";
+import { catchError } from '../../../node_modules/rxjs/operators';
+import { HttpErrorHandler } from 'app/pages/identidad-electronica/model/http.error.handler';
+import { AppConfig } from "app/app.config";
 
 @Injectable()
 export class LoginService {
 
-    constructor(private httpClient: HttpClient, private config: AppConfig) { }
+    constructor(private http: HttpClient, private config: AppConfig) { }
+
+    handler: HttpErrorHandler = new HttpErrorHandler();
 
     getCantidadOee(): Observable<any[]> {
-        return this.httpClient.get<any[]>(this.config.API + "/oee/cantidadOee");
+        return this.http.get<any[]>(this.config.API + "/oee/cantidadOee");
     }
 
+    verifyAuthentication(): Observable<any> {
+        return this.http.post<any>(this.config.API + '/auth/validarAcceso', { code: this.getToken(), state: this.getState() }, {})
+          .pipe(catchError(this.handler.handleError<any>('verifyAuthentication', {})));
+    }
+    /*
     verifyAuthentication(): Observable<any[]> {
-        return this.httpClient.post<any[]>(this.config.API + '/auth/validarAcceso', {
+        console.log('verifyAuthentication');
+        return this.http.post<any[]>(this.config.API + '/auth/validarAcceso', {
             code: this.getToken(),
             state: this.getState()
         });
-    }
+    }*/
 
     getConfig(){
-        return this.httpClient.get<any[]>(this.config.API + '/auth/getConfig', {});
+        return this.http.get<any[]>(this.config.API + '/auth/getConfig', {});
     }
     
     setState(state) {

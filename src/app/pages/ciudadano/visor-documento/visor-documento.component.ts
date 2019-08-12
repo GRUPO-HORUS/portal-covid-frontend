@@ -39,11 +39,12 @@ export class VisorDocumentoComponent implements OnInit {
 
   ngOnInit() {
     this.viewScrollTop(100);
+    
     this._route.params.subscribe(params => {
+
       this.ruta = params["ruta"];
       this.tipoId = params["tipoId"];
       this.objId = params["objId"];
-      // this.getDocumento(false);
       
       if(this.ruta != 'validar-documento') {
         this.token = this.auth.getToken();

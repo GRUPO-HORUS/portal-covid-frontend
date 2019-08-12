@@ -38,13 +38,12 @@ export class LoginCiudadanoComponent implements OnInit {
             this.auth.setToken(params['code']);
             this.auth.verifyAuthentication().subscribe(rsp => {
               let response: any = rsp;
-              if (response.error) {
-                this.auth.logout();
-                              
-              } else {
+              if (response.error != undefined && !response.error) {
                 this.auth.setCurrentUser(response.ipersona);
                 this.auth.setToken(response.token);
                 this.redirect(response.ipersona.datosActualizado);
+              } else {
+                this.auth.logout();
               }
             }, error => {
               console.log("error", error);
