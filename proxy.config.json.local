@@ -1,0 +1,21 @@
+{
+  "/api/*": {
+    "target": "http://localhost:8080/portalpy-backend-core/",
+    "secure": false,
+    "loglevel": "debug",
+    "pathRewrite": {
+         "^/api": "/rest"
+     },
+    "changeOrigin" : true
+  },
+
+  "/auth/*": {
+	"target": "http://localhost:8080/auth/",
+    "secure": false,
+    "loglevel": "debug",
+    "pathRewrite": {
+         "^/auth": "/rest"
+     },
+    "changeOrigin": true
+  }
+}

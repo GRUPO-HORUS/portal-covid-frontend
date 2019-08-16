@@ -1,0 +1,21 @@
+{
+  "/api/*": {
+    "target": "https://devportalpy.senatics.gov.py/",
+    "secure": false,
+    "loglevel": "debug",
+    "pathRewrite": {
+         "^/api": "/api"
+     },
+    "changeOrigin" : true
+  },
+
+  "/auth/*": {
+	"target": "https://devportalpy.senatics.gov.py/",
+    "secure": false,
+    "loglevel": "debug",
+    "pathRewrite": {
+         "^/auth": "/auth"
+     },
+    "changeOrigin": true
+  }
+}
