@@ -16,6 +16,11 @@
                                 <li *ngFor="let tramite of tramitesEnLinea">
                                     <a  style="font-size: 13px;" (click)="getDataServicio(tramite.servicio.oee.urlOee, tramite.servicio.idServicio)" class="text-inverse" style="cursor:pointer;">
                                         <i class="fa fa-globe fa-fw"></i> {{tramite.servicio.nombreServicio}}
+										<ng-container *ngIf="tramite.servicio.idServicio===1127">
+											<small>
+												<font color="#990000"><b>¡nuevo!</b></font>
+											</small>
+										</ng-container>
                                     </a>
                                 </li>
                             </ul>
