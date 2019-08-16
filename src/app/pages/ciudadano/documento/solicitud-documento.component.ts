@@ -52,25 +52,19 @@ export class SolicitudDocumento implements OnInit {
     this.scrollTop();
   }
 
-  openMessageDialog() {
-    setTimeout(function() { $("#modalFp").modal("toggle"); }, 1000);
-  }
-
   authenticationFastPay(monto, transactionId) {
-    let email = 'test@test.com';
-    let telefono = '0981111111';
-    this.documentosService.autenticationFastpay(monto, transactionId, email, telefono).subscribe(response => {
+    let params = {
+      "amount": 17000.0,
+      "transactionId": this.nroLiquidacion, 
+      "email": 'test@test.com', 
+      "phoneNumber": '0981111111'
+    };
+    console.log('init fp');
+    this.documentosService.autenticationFastpay(params).subscribe(response => {
       this.transactionFp = response;
-      /*
-        {
-          "redirectUrl":"https://pay.fastpay.com.py/payment?accessToken=jga31s59rntft9a0t48ic1lhsjppeo7s",
-          "accessToken":"jga31s59rntft9a0t48ic1lhsjppeo7s", 
-          "transactionRequestId":"8e72691fbb7b439ba60165a31295b194",
-          "issuedAt":"2017-12-19T18:33:48Z", 
-          "expiresIn":600 
-        }
-      */
       console.log('authenticationFastPay', response);
+
+      setTimeout(function() { $("#modalFp").modal("toggle"); }, 500);
     }, error => {
       console.log("error:authenticationFastPay", error);
     });
@@ -86,10 +80,6 @@ export class SolicitudDocumento implements OnInit {
       if(response) {
         this.liquidacion = response;
         this.nroLiquidacion = response.constanciaNro;
-
-        console.log('init fp');
-        this.authenticationFastPay(17000.0, this.nroLiquidacion);
-        console.log('finish fp');
 
         this.loading = false;
       } else {

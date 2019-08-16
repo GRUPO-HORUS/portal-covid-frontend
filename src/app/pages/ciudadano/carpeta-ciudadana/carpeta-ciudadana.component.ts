@@ -5,6 +5,7 @@ import { AppConfig } from "../../../app.config";
 import { Router } from "@angular/router";
 import { IdentidadPersona } from "app/pages/ciudadano/model/identidad-persona.model";
 import { DocumentosService } from "app/services/documentos.service";
+declare var $: any;
 
 @Component({
   selector: "carpeta-ciudadana",
@@ -20,6 +21,7 @@ export class CarpetaCiudadanaComponent implements OnInit {
   public resultado: any = { status: true, message: ''};
   public menuDocument: any[];
   public dataCarpetaCiudadana: any[] = [];
+  public cursos: any;
 
   constructor(
     public messageService: MessageService,
@@ -68,22 +70,74 @@ export class CarpetaCiudadanaComponent implements OnInit {
     }
   }
 
+  openMessageDialog() {
+    setTimeout(function() { $("#modalView").modal("toggle"); }, 500);
+  }
+
   generarDocumento(result) {
     this.scrollTop();
     this.loading = true;
     this.resultado = {status: true, message: ''};
- 
+    
+    if(result.key == 10) {
+      this.getCursosSnpp(result);
+      return;
+    }
+
+    this.getRptDocument(result); 
+  }
+
+  getRptDocument(result) {
     this.documentosService.getRptDocument(this.token, this.ciudadano.cedula, result.key).subscribe(response => {
       if(response.status) {
         if(response.objId != null && response.payment) {
           this.router.navigate(["/solicitud-documento/"+response.objId]);
-        
         } else {
           this.router.navigate(["/visor/carpeta-ciudadana/"+result.tipo+"/"+response.objId]);
         }
         this.loading = false;
       } else {
         this.resultado = {status: false, message: response.message};
+        this.loading = false;
+      }
+    }, error => {
+      console.log("error", error);
+      this.loading = false;
+    });
+  }
+
+  getCertificadoSnpp(tipo, curso) {
+    this.loading = true;
+    this.resultado = {status: true, message: ''};
+    console.log('curso', curso, tipo);
+    this.documentosService.getRptDocumentSnpp(this.token, this.ciudadano.cedula, curso.cod_especialidad, tipo).subscribe(response => {
+      console.log('response', response);
+      if(response.status) {
+        if(response.objId != null && response.payment) {
+          this.router.navigate(["/solicitud-documento/"+response.objId]);
+        } else {
+          this.router.navigate(["/visor/carpeta-ciudadana/"+tipo+"/"+response.objId]);
+        }
+
+        setTimeout(function() { $("#modalView").modal("close"); }, 500);
+        this.loading = false;
+      } else {
+        this.resultado = {status: false, message: response.message};
+        this.loading = false;
+      }
+    }, error => {
+      console.log("error", error);
+      this.loading = false;
+    });
+  }
+
+  getCursosSnpp(result) {
+    this.documentosService.getCursosSnpp(this.token, this.ciudadano.cedula).subscribe(response => {
+      if(response.status) {
+        this.cursos = { 'key': result.key, 'data': response.data };
+        this.openMessageDialog();
+        this.loading = false;
+      } else {
         this.loading = false;
       }
     }, error => {

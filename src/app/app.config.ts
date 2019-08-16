@@ -25,7 +25,7 @@ export class AppConfig {
   public readonly API_COMPRAS_PUBLICAS = 'http://localhost:8080/portal-py-plugins/rest';
   public readonly API_BOLSA_TRABAJO = 'http://localhost:8080/portal-py-plugins/rest';
   public readonly API_GESTION_CLAVE = 'http://localhost:8080/auth/rest';
-  //public readonly API_GESTION_CLAVE = 'https://devportalpy.senatics.gov.py/auth';
+  public readonly API_GESTION_CLAVE = 'https://devportalpy.senatics.gov.py/auth';
   public readonly API_DOCUMENTOS = 'http://localhost:8080/documentos-core/rest';
   /*/
 
