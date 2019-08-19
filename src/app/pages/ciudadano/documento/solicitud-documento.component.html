@@ -101,13 +101,11 @@
                                     Pagar en línea <i class="fa fa-credit-card"></i>
                                 </button>
                             </div>
-
                             <div style="padding: 10px;">
-                                <div class="alert alert-info" style="margin-top: 15px;">
-                                    Una vez realizado el pago por Tarjeta de Crédito o en boca de cobranza podrá encontrar su certificado en su carpeta ciudadana.
+                                <div class="alert" style="margin-top:5px;font-size:14px;background-color:#e2e6e8;">
+                                   <strong><i class="fa fa-info-circle"></i> Una vez realizado el pago por Tarjeta de Crédito o en boca de cobranza podrá encontrar su certificado en su carpeta ciudadana.</strong>
                                 </div>
-
-                                <div class="alert alert-info" style="margin-top:15px; ">
+                                <div class="alert" style="margin-top:15px;background-color:#e2e6e8;color:#31708f;">
                                     <strong>Cooperativas:</strong>
                                     <ul>
                                         <li>Santísimo Redentor</li>
@@ -134,6 +132,9 @@
 
 <div class="modal fade" id="modalFp" tabindex="-1" role="dialog" aria-labelledby="modalFp" aria-hidden="true">
     <div style="max-width:1100px;" class="modal-dialog modal-dialog-centered" role="document">
+        <!-- <div class="modal-content p-4" *ngIf="!transactionFp?.status">
+            No se pudo iniciar el proceso de cobros en línea.
+        </div> -->
         <div class="modal-content p-4">
             <div class="modal-header">
                 <h2 class="modal-title" id="modalFp">
@@ -145,7 +146,7 @@
             </div>
             <div class="modal-body row">
                 <div class="col-lg-12 col-md-12 col-xs-12" style="padding:10px;" *ngIf="transactionFp?.redirectUrl">
-                    <iframe width="100%" height="1000" marginheight="0" marginwidth="0" frameborder="0" [src]="sanitizer.bypassSecurityTrustResourceUrl(transactionFp.redirectUrl)" allowfullscreen></iframe>
+                    <iframe width="100%" height="1000" marginheight="0" marginwidth="0" frameborder="0" style="max-height: 650px;" [src]="sanitizer.bypassSecurityTrustResourceUrl(transactionFp?.redirectUrl)" allowfullscreen></iframe>
                 </div>
             </div>
             <div class="modal-footer">

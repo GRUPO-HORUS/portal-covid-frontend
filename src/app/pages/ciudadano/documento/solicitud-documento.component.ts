@@ -52,35 +52,29 @@ export class SolicitudDocumento implements OnInit {
     this.scrollTop();
   }
 
-  authenticationFastPay(monto, transactionId) {
-    let params = {
-      "amount": 17000.0,
-      "transactionId": this.nroLiquidacion, 
-      "email": 'test@test.com', 
-      "phoneNumber": '0981111111'
-    };
-    console.log('init fp');
-    this.documentosService.autenticationFastpay(params).subscribe(response => {
-      this.transactionFp = response;
-      console.log('authenticationFastPay', response);
-
+  authenticationFastPay() {
+    this.loading = true;
+    this.resultado = { status: true, message: '' };
+    
+    this.documentosService.autenticationFastpay(this.token, this.nroLiquidacion).subscribe(response => {
+      this.transactionFp = response.data;
       setTimeout(function() { $("#modalFp").modal("toggle"); }, 500);
+      this.loading = false;
     }, error => {
       console.log("error:authenticationFastPay", error);
+      this.loading = false;
+      this.resultado = { status: false, message: 'No se pudo procesar la operacion' };
     });
   }
 
   generarDocumento(objId: string) {
     this.scrollTop();
     this.loading = true;
-    this.resultado = {status: true, message: ''};
- 
+    this.resultado = { status: true, message: '' };
     this.documentosService.getSingleLiquidacion(this.token, objId).subscribe(response => {
-      console.log('response', response);
       if(response) {
         this.liquidacion = response;
         this.nroLiquidacion = response.constanciaNro;
-
         this.loading = false;
       } else {
         this.resultado = {status: false, message: 'No se pudo obtener la liquidacion'};

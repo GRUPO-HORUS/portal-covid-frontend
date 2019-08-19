@@ -14,23 +14,22 @@ export class DocumentosService {
 
   handler: HttpErrorHandler = new HttpErrorHandler();
 
-  autenticationFastpay(params: any){
-    let apiKey = 'FeUhdTu2XzXEtFYvnEpB9blrq7GJXuWt';
-    let apiSecret = 'Zykpd0QqBUKZLXFM';
-    let headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Accept', 'application/json')
-      .set('Authorization', 'Basic '+btoa(apiKey+':'+apiSecret));
-    return this.http.post<any>('https://dev.fastpay.com.py/transaction/transactionRequest', params, { headers: headers })
-      .pipe(catchError(this.handler.handleError<any>('autenticationFastpay', {})));
-  }
-
-  // autenticationFastpay(token, transactionId) {
-  //   let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
-  //   return this.http.post<any>(this.config.API_DOCUMENTOS + '/transaction/transactionRequest', { transactionId: transactionId }, { headers: headers })
-  //         .pipe(catchError(this.handler.handleError<any>('autenticationFastpay', {})));
+  // autenticationFastpay(params: any) {
+  //   let apiKey = 'FeUhdTu2XzXEtFYvnEpB9blrq7GJXuWt';
+  //   let apiSecret = 'Zykpd0QqBUKZLXFM';
+  //   let headers = new HttpHeaders()
+  //     .set('Content-Type', 'application/json')
+  //     .set('Accept', 'application/json')
+  //     .set('Authorization', 'Basic '+btoa(apiKey+':'+apiSecret));
+  //   return this.http.post<any>('https://dev.fastpay.com.py/transaction/transactionRequest', params, { headers: headers })
+  //     .pipe(catchError(this.handler.handleError<any>('autenticationFastpay', {})));
   // }
 
+  autenticationFastpay(token, transactionId) {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
+    return this.http.post<any>(this.config.API_DOCUMENTOS + '/fpTransaction/transactionRequest', { 'transactionId': transactionId }, { headers: headers })
+          .pipe(catchError(this.handler.handleError<any>('autenticationFastpay', {})));
+  }
 
   getCursosSnpp(token, cedula: string): Observable<any> {
     cedula = '2064197';
