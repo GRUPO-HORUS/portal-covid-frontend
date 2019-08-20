@@ -62,16 +62,11 @@ export class CarpetaCiudadanaComponent implements OnInit {
   }
 
   generarDocumentoHistorico(result: any) {
-    console.log('result',result);
     if(result.liq  != null) {
       this.router.navigate(["/solicitud-documento/"+result.liq._id]);
     } else {
       this.router.navigate(["/visor/carpeta-ciudadana/"+result.tipo+"/"+result._id]);
     }
-  }
-
-  openMessageDialog() {
-    setTimeout(function() { $("#modalView").modal("toggle"); }, 500);
   }
 
   generarDocumento(result) {
@@ -109,17 +104,17 @@ export class CarpetaCiudadanaComponent implements OnInit {
   getCertificadoSnpp(tipo, curso) {
     this.loading = true;
     this.resultado = {status: true, message: ''};
-    console.log('curso', curso, tipo);
     this.documentosService.getRptDocumentSnpp(this.token, this.ciudadano.cedula, curso.cod_especialidad, tipo).subscribe(response => {
-      console.log('response', response);
       if(response.status) {
         if(response.objId != null && response.payment) {
           this.router.navigate(["/solicitud-documento/"+response.objId]);
         } else {
           this.router.navigate(["/visor/carpeta-ciudadana/"+tipo+"/"+response.objId]);
         }
-
-        setTimeout(function() { $("#modalView").modal("close"); }, 500);
+        setTimeout(function() { 
+          $("#modalView").modal("hide"); 
+          $('.modal-backdrop').hide();
+      }, 500);
         this.loading = false;
       } else {
         this.resultado = {status: false, message: response.message};
@@ -135,7 +130,7 @@ export class CarpetaCiudadanaComponent implements OnInit {
     this.documentosService.getCursosSnpp(this.token, this.ciudadano.cedula).subscribe(response => {
       if(response.status) {
         this.cursos = { 'key': result.key, 'data': response.data };
-        this.openMessageDialog();
+        setTimeout(function() { $("#modalView").modal("show"); }, 500);
         this.loading = false;
       } else {
         this.loading = false;

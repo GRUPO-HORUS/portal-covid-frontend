@@ -1,41 +1,38 @@
 {
   "/api/*": {
-    "target": "https://www.paraguay.gov.py",
+    "target": "http://localhost:8080/portalpy-backend-core",
     "secure": false,
     "loglevel": "debug",
-    "changeOrigin": true
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/api": "/rest"
+    }
   },
   "/plugins/*": {
-    "target": "https://devportalpy.senatics.gov.py",
-    "secure": false,
-    "loglevel": "debug",
-    "pathRewrite": {
-      "^/api": "/compras-publicas"
-    },
-    "changeOrigin": true
-  },
-  "/apidev/*": {
     "target": "http://localhost:8080/portal-py-plugins",
     "secure": false,
     "loglevel": "debug",
+    "changeOrigin": true,
     "pathRewrite": {
-      "^/apidev": "/rest"
-    },
-    "changeOrigin": true
-  },
-  "/pluginsdev/*": {
-    "target": "http://localhost:8080/portal-py-plugins",
-    "secure": false,
-    "loglevel": "debug",
-    "pathRewrite": {
-      "^/pluginsdev": "/compras-publicas"
-    },
-    "changeOrigin": true
+      "^/plugins": "/rest"
+    }
   },
   "/auth/*": {
-    "target": "https://www.paraguay.gov.py",
+    "target": "http://localhost:8080/auth",
     "secure": false,
     "loglevel": "debug",
-    "changeOrigin": true
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/auth": "/rest"
+    }
+  },
+  "/docsapi/*": {
+    "target": "http://localhost:8080/documentos-core",
+    "secure": false,
+    "loglevel": "debug",
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/docsapi": "/rest"
+    }
   }
 }
