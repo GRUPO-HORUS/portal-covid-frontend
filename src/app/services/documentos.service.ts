@@ -32,7 +32,7 @@ export class DocumentosService {
   }
 
   getCursosSnpp(token, cedula: string): Observable<any> {
-    cedula = '2064197';
+    //cedula = '2064197';
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
     return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getCursosSnpp/'+cedula, { headers: headers })
       .pipe(catchError(this.handler.handleError<any>('getCursosSnpp', {})));
@@ -46,7 +46,7 @@ export class DocumentosService {
   }
 
   getRptDocumentSnpp(token, cedula: string, codEspecialidad: number, tipo: number): Observable<any> {
-    cedula = '2064197';
+    //cedula = '2064197';
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
     return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getRptDocument?cedula='+cedula+'&codEspecialidad='+codEspecialidad+'&tipo='+tipo, { headers: headers })
       .pipe(catchError(this.handler.handleError<any>('getRptDocument', {})));
