@@ -79,7 +79,7 @@ export class CarpetaCiudadanaComponent implements OnInit {
       return;
     }
 
-    this.getRptDocument(result); 
+    this.getRptDocument(result);
   }
 
   getRptDocument(result) {
@@ -87,8 +87,9 @@ export class CarpetaCiudadanaComponent implements OnInit {
       if(response.status) {
         if(response.objId != null && response.payment) {
           this.router.navigate(["/solicitud-documento/"+response.objId]);
+
         } else {
-          this.router.navigate(["/visor/carpeta-ciudadana/"+result.tipo+"/"+response.objId]);
+          this.router.navigate(["/visor/carpeta-ciudadana/"+result.key+"/"+response.objId]);
         }
         this.loading = false;
       } else {

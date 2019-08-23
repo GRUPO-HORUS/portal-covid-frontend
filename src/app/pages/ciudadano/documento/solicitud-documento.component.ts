@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { IdentidadPersona } from "app/pages/ciudadano/model/identidad-persona.model";
 import { DocumentosService } from "app/services/documentos.service";
 import { DomSanitizer } from "@angular/platform-browser";
+import { ToastrService } from 'ngx-toastr';
 declare var $: any;
 
 @Component({
@@ -32,7 +33,8 @@ export class SolicitudDocumento implements OnInit {
     private _route: ActivatedRoute,
     public auth: LoginService,
     public sanitizer: DomSanitizer,
-    public documentosService: DocumentosService
+    public documentosService: DocumentosService,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit() {
@@ -74,7 +76,7 @@ export class SolicitudDocumento implements OnInit {
     this.documentosService.getSingleLiquidacion(this.token, objId).subscribe(response => {
       if(response) {
         this.liquidacion = response;
-        this.nroLiquidacion = response.constanciaNro;
+        this.nroLiquidacion = response.nroLiquidacion;
         this.loading = false;
       } else {
         this.resultado = {status: false, message: 'No se pudo obtener la liquidacion'};
@@ -90,8 +92,13 @@ export class SolicitudDocumento implements OnInit {
     this.router.navigate(["/carpeta-ciudadana"]);
   }
   
-  descargarDocumento() {
-    this.router.navigate([ "/visor/carpeta-ciudadana/9/"+this.liquidacion.documento ]);
+  descargarDocumento(liquidacion: any) {
+    console.log('liquidacion', liquidacion);
+    if(liquidacion.estadoSolicitud == 'PAGADO'){
+      this.router.navigate([ "/visor/carpeta-ciudadana/"+liquidacion.tipo+"/"+liquidacion.documento ]);
+    } else {
+      this.toastrService.warning('','Debe realizar el pago para generar el documento');
+    }
   }
 
   descargarTicket() {

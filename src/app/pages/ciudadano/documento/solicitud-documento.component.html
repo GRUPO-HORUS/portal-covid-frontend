@@ -61,13 +61,13 @@
                     <div class="col-lg-3">
                         <input class="email" style="max-width:80px;text-align:center;font-size:30px;" type="text" [(ngModel)]="nroLiquidacion" disabled name="nroLiquidacion" placeholder="Nro. de Liquidación" />
                     </div>
-                    <div class="col-lg-4">
+                    <!-- <div class="col-lg-4">
                         <button type="button" *ngIf="nroLiquidacion" class="btn btn-sm btn-success btn-success-next" (click)="descargarTicket()" style="cursor:pointer; font-size:13px;">
                             Imprimir Ticket <i class="fa fa-arrow-up"></i>
                         </button>
-                    </div>
+                    </div> -->
                     <div class="col-lg-4">
-                        <button type="button" class="btn btn-sm btn-success btn-success-next" (click)="descargarDocumento()" style="cursor:pointer; font-size:13px;">
+                        <button type="button" class="btn btn-sm btn-success btn-success-next" (click)="descargarDocumento(liquidacion)" style="cursor:pointer; font-size:13px;">
                             Imprimir Documento <i class="fa fa-credit-card"></i>
                         </button>
                     </div>
