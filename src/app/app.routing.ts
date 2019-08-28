@@ -89,7 +89,8 @@ import { RptTramitesEtiquetaComponent } from "./pages/reportes/rpt-tramites-etiq
 import { RptSatisfaccionTramiteComponent } from "./pages/reportes/rpt-satisfaccion-tramite/rpt-satisfaccion-tramite.component";
 import { RptPorcentajeTramitesOnlineComponent } from "./pages/reportes/rpt-porcentaje-tramites-online/rpt-porcentaje-tramites-online.component";
 import { DocumentosComponent } from "./pages/documentos/documentos.component";
-import { SolicitudDocumento } from "./pages/ciudadano/documento/solicitud-documento.component";
+import { SolicitudDocumentoComponent } from "./pages/ciudadano/solicitud-documento/solicitud-documento.component";
+import { ConsultaDocumentoComponent } from "./pages/ciudadano/consulta-documento/consulta-documento.component";
 
 //Listado de rutas para la aplicación
 export const appRoutes: Routes = [
@@ -150,16 +151,18 @@ export const appRoutes: Routes = [
   { path: "marco-legal", component: MarcoLegalComponent },
   
   { path: "carpeta-ciudadana", component: CarpetaCiudadanaComponent },
-  { path: "solicitud-documento/:liquidacion", component: SolicitudDocumento },
+  { path: "solicitud-documento/:liquidacion", component: SolicitudDocumentoComponent },
 
   { path: "otros-tramites-en-linea", component: OtrosTramitesEnLineaComponent },
   { path: "tramites-con-eid", component: TramitesConEidComponent },
   { path: "validar-documento", component: ValidarDocumentoComponent },
   
-  { path: "visor/:ruta/:tipoId/:objId", component: VisorDocumentoComponent },
+  { path: "visor/:ruta/:objId", component: VisorDocumentoComponent },
 
   { path: "docsgov", component: DocumentosComponent },
   { path: "documentos", component: DocumentosComponent },
+  { path: "consulta-documento/snpp", component: ConsultaDocumentoComponent },
+  { path: "consulta-documento", component: ConsultaDocumentoComponent },
 
   /**estadisticas */
   { path: "estadisticas-portal", component: ReportesIndexComponent },
@@ -243,7 +246,8 @@ export const routesComponents = [
   RptTramitesEtiquetaComponent,
   RptSatisfaccionTramiteComponent,
   DocumentosComponent,
-  SolicitudDocumento
+  SolicitudDocumentoComponent,
+  ConsultaDocumentoComponent
 ];
 
 // Listado de providers para la aplicación

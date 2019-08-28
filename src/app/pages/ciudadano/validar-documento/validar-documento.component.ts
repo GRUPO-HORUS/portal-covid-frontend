@@ -54,7 +54,7 @@ export class ValidarDocumentoComponent implements OnInit {
       
         this.mensaje = '';
 
-        this.router.navigate(["/visor/validar-documento/"+response.historico.tipo+"/"+response.historico._id]);
+        this.router.navigate(["/visor/validar-documento/"+response.historico._id]);
 
       }
 

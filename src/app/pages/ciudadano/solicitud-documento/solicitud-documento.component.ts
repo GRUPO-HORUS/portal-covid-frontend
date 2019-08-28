@@ -15,7 +15,7 @@ declare var $: any;
   providers: [LoginService, DocumentosService],
   templateUrl: "solicitud-documento.component.html"
 })
-export class SolicitudDocumento implements OnInit {
+export class SolicitudDocumentoComponent implements OnInit {
 
   public ciudadano: IdentidadPersona;
   public token: string;
@@ -95,7 +95,7 @@ export class SolicitudDocumento implements OnInit {
   descargarDocumento(liquidacion: any) {
     console.log('liquidacion', liquidacion);
     if(liquidacion.estadoSolicitud == 'PAGADO'){
-      this.router.navigate([ "/visor/carpeta-ciudadana/"+liquidacion.tipo+"/"+liquidacion.documento ]);
+      this.router.navigate([ "/visor/carpeta-ciudadana/"+liquidacion.documento ]);
     } else {
       this.toastrService.warning('','Debe realizar el pago para generar el documento');
     }

@@ -6,7 +6,6 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { IdentidadPersona } from "app/pages/ciudadano/model/identidad-persona.model";
 import { DocumentosService } from "app/services/documentos.service";
 import { DomSanitizer } from '@angular/platform-browser';
-//declare var $: any;
 
 @Component({
   selector: "visor-documento",
@@ -18,11 +17,8 @@ export class VisorDocumentoComponent implements OnInit {
 
   public ciudadano: IdentidadPersona;
   public token: string;
-
   public ruta: string;
   public objId: string;
-  public tipoId: number;
-  
   public loading: boolean;
   public resultado: any = { status: true, message: ''};
   public linkSource: any;
@@ -43,10 +39,9 @@ export class VisorDocumentoComponent implements OnInit {
     this._route.params.subscribe(params => {
 
       this.ruta = params["ruta"];
-      this.tipoId = params["tipoId"];
       this.objId = params["objId"];
       
-      if(this.ruta != 'validar-documento') {
+      if(this.ruta != 'validar-documento' && this.ruta != 'consulta-documento') {
         this.token = this.auth.getToken();
         this.ciudadano = this.auth.getCurrentUser();
         
@@ -68,7 +63,7 @@ export class VisorDocumentoComponent implements OnInit {
   }
 
   getDocumento(download: boolean) {
-    if(this.ruta == 'validar-documento'){
+    if(this.ruta == 'validar-documento' || this.ruta == 'consulta-documento'){
       this.getViewDocument(download);
     }else{
       this.getSingleFileDocument(download);
@@ -78,15 +73,11 @@ export class VisorDocumentoComponent implements OnInit {
   getSingleFileDocument(download: boolean) {
     if(!download) {
       this.loading = true;
-      //this.linkSource = '';
     }
     this.token = this.auth.getToken();
     this.documentosService.getSingleFileDocument(this.token, this.objId).subscribe(response => {
-      //if(download){
-        this.getPDF(this.objId, response.data, download);
-      //} else {
+      this.getPDF(this.objId, response.data, download);
       //  this.linkSource = this.sanitizer.bypassSecurityTrustResourceUrl('data:application/pdf;base64,' + response.data);
-      // }
       this.loading = false;
     }, error => {
       console.log("error", error);
@@ -97,14 +88,9 @@ export class VisorDocumentoComponent implements OnInit {
   getViewDocument(download: boolean) {
     if(!download) {
       this.loading = true;
-      //this.linkSource = '';
     }
     this.documentosService.getViewDocument(this.objId).subscribe(response => {
-      //if(download){
-        this.getPDF(this.objId, response.data, download);
-      //} else {
-      //  this.linkSource = this.sanitizer.bypassSecurityTrustResourceUrl('data:application/pdf;base64,' + response.data);
-      //}
+      this.getPDF(this.objId, response.data, download);
       this.loading = false;
     }, error => {
       console.log("error", error);

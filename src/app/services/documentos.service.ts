@@ -14,27 +14,16 @@ export class DocumentosService {
 
   handler: HttpErrorHandler = new HttpErrorHandler();
 
-  // autenticationFastpay(params: any) {
-  //   let apiKey = 'FeUhdTu2XzXEtFYvnEpB9blrq7GJXuWt';
-  //   let apiSecret = 'Zykpd0QqBUKZLXFM';
-  //   let headers = new HttpHeaders()
-  //     .set('Content-Type', 'application/json')
-  //     .set('Accept', 'application/json')
-  //     .set('Authorization', 'Basic '+btoa(apiKey+':'+apiSecret));
-  //   return this.http.post<any>('https://dev.fastpay.com.py/transaction/transactionRequest', params, { headers: headers })
-  //     .pipe(catchError(this.handler.handleError<any>('autenticationFastpay', {})));
-  // }
-
   autenticationFastpay(token, transactionId) {
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
     return this.http.post<any>(this.config.API_DOCUMENTOS + '/fpTransaction/transactionRequest', { 'transactionId': transactionId }, { headers: headers })
           .pipe(catchError(this.handler.handleError<any>('autenticationFastpay', {})));
   }
 
-  getCursosSnpp(token, cedula: string): Observable<any> {
+  getCursosSnpp(token, cedula: string, captchaResponse: string): Observable<any> {
     //cedula = '2064197';
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
-    return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getCursosSnpp/'+cedula, { headers: headers })
+    return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getCursosSnpp/'+cedula+'/'+captchaResponse, { headers: headers })
       .pipe(catchError(this.handler.handleError<any>('getCursosSnpp', {})));
   }
 
@@ -45,10 +34,10 @@ export class DocumentosService {
       .pipe(catchError(this.handler.handleError<any>('getRptDocument', {})));
   }
 
-  getRptDocumentSnpp(token, cedula: string, codEspecialidad: number, tipo: number): Observable<any> {
+  getRptDocumentSnpp(token, cedula: string, codEspecialidad: number, tipo: number, captchaResponse: string): Observable<any> {
     //cedula = '2064197';
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
-    return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getRptDocument?cedula='+cedula+'&codEspecialidad='+codEspecialidad+'&tipo='+tipo, { headers: headers })
+    return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getDocument/'+captchaResponse+'?cedula='+cedula+'&codEspecialidad='+codEspecialidad+'&tipo='+tipo, { headers: headers })
       .pipe(catchError(this.handler.handleError<any>('getRptDocument', {})));
   }
 

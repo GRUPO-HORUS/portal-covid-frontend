@@ -79,7 +79,6 @@ export class TramitesConEidComponent implements OnInit {
   }
 
   generarDocumento(tipo: number) {
-    //$("#miModalConfirm").modal("hide"); 
     this.viewDocument();
     this.loading = true;
     this.resultado = {status: true, message: ''};
@@ -87,7 +86,7 @@ export class TramitesConEidComponent implements OnInit {
       if(response.status) {
         this.objId = response.objId;
         //this.getDocumento(false);
-        this.router.navigate(["/visor/tramites-con-eid/"+this.tipoId+"/"+this.objId]);
+        this.router.navigate(["/visor/tramites-con-eid/"+this.objId]);
       } else {
         this.resultado = {status: false, message: response.message};
         this.loading = false;

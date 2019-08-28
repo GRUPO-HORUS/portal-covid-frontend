@@ -65,7 +65,7 @@ export class CarpetaCiudadanaComponent implements OnInit {
     if(result.liq  != null) {
       this.router.navigate(["/solicitud-documento/"+result.liq._id]);
     } else {
-      this.router.navigate(["/visor/carpeta-ciudadana/"+result.tipo+"/"+result._id]);
+      this.router.navigate(["/visor/carpeta-ciudadana/"+result._id]);
     }
   }
 
@@ -89,8 +89,9 @@ export class CarpetaCiudadanaComponent implements OnInit {
           this.router.navigate(["/solicitud-documento/"+response.objId]);
 
         } else {
-          this.router.navigate(["/visor/carpeta-ciudadana/"+result.key+"/"+response.objId]);
+          this.router.navigate(["/visor/carpeta-ciudadana/"+response.objId]);
         }
+        
         this.loading = false;
       } else {
         this.resultado = {status: false, message: response.message};
@@ -110,7 +111,7 @@ export class CarpetaCiudadanaComponent implements OnInit {
         if(response.objId != null && response.payment) {
           this.router.navigate(["/solicitud-documento/"+response.objId]);
         } else {
-          this.router.navigate(["/visor/carpeta-ciudadana/"+tipo+"/"+response.objId]);
+          this.router.navigate(["/visor/carpeta-ciudadana/"+response.objId]);
         }
         setTimeout(function() { 
           $("#modalView").modal("hide"); 

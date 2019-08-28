@@ -75,11 +75,26 @@ export class LoginService {
         return currentUser;
     }
    
+    setTokenTmp(token) {
+        if(token != null) {
+            this.setStorage('token', token, 3600);
+        }
+    }
+
+    getTokenTmp() {
+        let token = null;
+        if(localStorage.getItem('token') != null){
+            token = this.getStorage('token');
+        }
+        return token;
+    }
+
     logout() {
         var user = localStorage.getItem('currentUser');
         if (user) {
             localStorage.removeItem('currentUser');
             localStorage.removeItem('state');
+            localStorage.removeItem('tokenTmp');
         }
     }
 
