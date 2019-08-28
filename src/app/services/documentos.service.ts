@@ -20,6 +20,13 @@ export class DocumentosService {
           .pipe(catchError(this.handler.handleError<any>('autenticationFastpay', {})));
   }
 
+  getCursosSnppIE(token, cedula: string): Observable<any> {
+    //cedula = '2064197';
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
+    return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getCursosSnppIE/'+cedula, { headers: headers })
+      .pipe(catchError(this.handler.handleError<any>('getCursosSnpp', {})));
+  }
+
   getCursosSnpp(token, cedula: string, captchaResponse: string): Observable<any> {
     //cedula = '2064197';
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);

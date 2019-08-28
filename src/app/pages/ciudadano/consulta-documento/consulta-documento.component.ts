@@ -58,7 +58,7 @@ export class ConsultaDocumentoComponent implements OnInit {
         this.router.navigate(["/visor/consulta-documento/"+response.objId]);
 
         setTimeout(function() { 
-          $("#modalView").modal("hide"); 
+          $("#modalView").modal("hide");
           $('.modal-backdrop').hide();
         }, 500);  
 
