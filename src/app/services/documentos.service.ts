@@ -21,7 +21,7 @@ export class DocumentosService {
   }
 
   getCursosSnppIE(token, cedula: string): Observable<any> {
-    cedula = '2064197';
+    //cedula = '2064197';
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
     return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getCursosSnppIE/'+cedula, { headers: headers })
       .pipe(catchError(this.handler.handleError<any>('getCursosSnpp', {})));
@@ -42,7 +42,7 @@ export class DocumentosService {
   }
 
   getRptDocumentSnpp(token, cedula: string, codEspecialidad: number, codFuente: number, tipo: number, captchaResponse: string): Observable<any> {
-    cedula = '2064197';
+   //cedula = '2064197';
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
     return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getDocument?cedula='+cedula+'&codEspecialidad='+codEspecialidad+'&tipo='+tipo+'&codFuente='+codFuente, { headers: headers })
       .pipe(catchError(this.handler.handleError<any>('getRptDocument', {})));
