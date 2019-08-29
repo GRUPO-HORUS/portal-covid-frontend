@@ -1,10 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MessageService } from "../../../services/MessageService";
 import { LoginService } from 'app/services/login.service';
 import { AppConfig } from "../../../app.config";
 import { Router } from "@angular/router";
 import { DocumentosService } from "app/services/documentos.service";
 import { IdentidadPersona } from "../model/identidad-persona.model";
+import { RecaptchaComponent } from 'ng-recaptcha';
 declare var $: any;
 
 @Component({
@@ -18,10 +19,14 @@ export class ConsultaDocumentoComponent implements OnInit {
   public ciudadano: IdentidadPersona;
   public token: string;
   public cedula: string;
+  public cod_alumno: string;
+
   public captcha: any;
+  @ViewChild('captchaControl') reCaptcha: RecaptchaComponent;
+
   public captchaResponse: string;
   public mensaje: string;
-  public cursos;
+  public cursos: any;
   public loading: boolean;
   public resultado: any = { status: true, message: ''};
 
@@ -51,11 +56,19 @@ export class ConsultaDocumentoComponent implements OnInit {
     this.captchaResponse = "";
   }
 
+  refreshCaptcha() {
+    this.reCaptcha.reset();
+  }
+
   getCertificadoSnpp(tipo, curso) {
     this.resultado = {status: true, message: ''};
-    this.documentosService.getRptDocumentSnpp("-", this.cedula, curso.cod_especialidad, tipo, this.captchaResponse).subscribe(response => {
+    this.documentosService.getRptDocumentSnpp("-", this.cedula, curso.cod_especialidad, curso.fuente_consulta, tipo, this.captchaResponse).subscribe(response => {
       if(response.status) {
-        this.router.navigate(["/visor/consulta-documento/"+response.objId]);
+
+        this.cedula = "";
+        this.refreshCaptcha();
+        
+        this.router.navigate(["/visor/documentos/"+response.objId+""]);
 
         setTimeout(function() { 
           $("#modalView").modal("hide");
@@ -79,7 +92,7 @@ export class ConsultaDocumentoComponent implements OnInit {
 
   getCursosSnpp() {
     this.loading = true;
-    this.documentosService.getCursosSnpp("-", this.cedula, this.captchaResponse).subscribe(response => {
+    this.documentosService.getCursosSnpp("-", this.cedula, this.cod_alumno, this.captchaResponse).subscribe(response => {
       setTimeout(function() { $("#modalView").modal("show"); }, 500);
       if(response.status) {
         this.cursos = { 'key': 10, 'data': response.data };

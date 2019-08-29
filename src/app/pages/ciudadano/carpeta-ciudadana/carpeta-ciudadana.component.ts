@@ -106,7 +106,7 @@ export class CarpetaCiudadanaComponent implements OnInit {
   getCertificadoSnpp(tipo, curso) {
     this.loading = true;
     this.resultado = {status: true, message: ''};
-    this.documentosService.getRptDocumentSnpp(this.token, this.ciudadano.cedula, curso.cod_especialidad, tipo,"").subscribe(response => {
+    this.documentosService.getRptDocumentSnpp(this.token, this.ciudadano.cedula, curso.cod_especialidad, curso.fuente_consulta, tipo, "").subscribe(response => {
       if(response.status) {
         if(response.objId != null && response.payment) {
           this.router.navigate(["/solicitud-documento/"+response.objId]);

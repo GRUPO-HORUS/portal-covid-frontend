@@ -21,16 +21,16 @@ export class DocumentosService {
   }
 
   getCursosSnppIE(token, cedula: string): Observable<any> {
-    //cedula = '2064197';
+    cedula = '2064197';
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
     return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getCursosSnppIE/'+cedula, { headers: headers })
       .pipe(catchError(this.handler.handleError<any>('getCursosSnpp', {})));
   }
 
-  getCursosSnpp(token, cedula: string, captchaResponse: string): Observable<any> {
+  getCursosSnpp(token, cedula: string, codAlumno: string, captchaResponse: string): Observable<any> {
     //cedula = '2064197';
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
-    return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getCursosSnpp/'+cedula+'/'+captchaResponse, { headers: headers })
+    return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getCursosSnpp/'+cedula+'/'+codAlumno+'/'+captchaResponse, { headers: headers })
       .pipe(catchError(this.handler.handleError<any>('getCursosSnpp', {})));
   }
 
@@ -41,10 +41,10 @@ export class DocumentosService {
       .pipe(catchError(this.handler.handleError<any>('getRptDocument', {})));
   }
 
-  getRptDocumentSnpp(token, cedula: string, codEspecialidad: number, tipo: number, captchaResponse: string): Observable<any> {
-    //cedula = '2064197';
+  getRptDocumentSnpp(token, cedula: string, codEspecialidad: number, codFuente: number, tipo: number, captchaResponse: string): Observable<any> {
+    cedula = '2064197';
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
-    return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getDocument/'+captchaResponse+'?cedula='+cedula+'&codEspecialidad='+codEspecialidad+'&tipo='+tipo, { headers: headers })
+    return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getDocument?cedula='+cedula+'&codEspecialidad='+codEspecialidad+'&tipo='+tipo+'&codFuente='+codFuente, { headers: headers })
       .pipe(catchError(this.handler.handleError<any>('getRptDocument', {})));
   }
 

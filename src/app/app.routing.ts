@@ -161,8 +161,10 @@ export const appRoutes: Routes = [
 
   { path: "docsgov", component: DocumentosComponent },
   { path: "documentos", component: DocumentosComponent },
-  { path: "consulta-documento/snpp", component: ConsultaDocumentoComponent },
-  { path: "consulta-documento", component: ConsultaDocumentoComponent },
+  
+  { path: "documentos/snpp", component: ConsultaDocumentoComponent },
+
+  // { path: "consulta-documento", component: ConsultaDocumentoComponent },
 
   /**estadisticas */
   { path: "estadisticas-portal", component: ReportesIndexComponent },

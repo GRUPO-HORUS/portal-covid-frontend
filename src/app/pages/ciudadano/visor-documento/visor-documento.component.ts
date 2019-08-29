@@ -41,7 +41,7 @@ export class VisorDocumentoComponent implements OnInit {
       this.ruta = params["ruta"];
       this.objId = params["objId"];
       
-      if(this.ruta != 'validar-documento' && this.ruta != 'consulta-documento') {
+      if(this.ruta != 'validar-documento' && this.ruta != 'documentos') {
         this.token = this.auth.getToken();
         this.ciudadano = this.auth.getCurrentUser();
         
@@ -63,7 +63,7 @@ export class VisorDocumentoComponent implements OnInit {
   }
 
   getDocumento(download: boolean) {
-    if(this.ruta == 'validar-documento' || this.ruta == 'consulta-documento'){
+    if(this.ruta == 'validar-documento' || this.ruta == 'documentos'){
       this.getViewDocument(download);
     }else{
       this.getSingleFileDocument(download);
