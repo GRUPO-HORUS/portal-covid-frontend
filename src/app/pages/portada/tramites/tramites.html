@@ -28,7 +28,7 @@
                 <div class="col-lg-5 col-sm-12">
                     <div class="card" style="display:flex;justify-content:center;border:0px;">
                         <h4 class="mt-2 text-color-primary">
-                            <i class="fa fa-globe"></i> Trámites en línea
+                            <i class="fa fa-globe"></i> Trámites destacados en línea
                         </h4>
 
                         <hr class="hr-lg m-0 hr-default text-center w-50 op-3">
@@ -39,7 +39,7 @@
                                 <li *ngFor="let tramite of tramitesEnLinea">
                                     <a style="font-size: 13px;" (click)="getDataServicio(tramite.servicio.oee.urlOee, tramite.servicio.idServicio)" class="text-inverse" style="cursor:pointer;">
                                         <i class="fa fa-globe fa-fw"></i> {{tramite.servicio.nombreServicio}}
-                                        <ng-container *ngIf="tramite.servicio.idServicio===1127">
+                                        <ng-container *ngIf="tramite.servicio.idServicio==1127 || tramite.servicio.idServicio==1157">
                                             <small>
 												<font color="#990000"><b>¡nuevo!</b></font>
 											</small>
