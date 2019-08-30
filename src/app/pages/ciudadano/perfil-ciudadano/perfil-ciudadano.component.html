@@ -64,7 +64,7 @@
                         <hr class="hidden-sm-up">
 
                         <div class="row mb-1 ml-2">
-                            <div class="col-lg-4 col-md-6 col-sm-5"><i class="fas fa-city fa-fw text-center mr-1"></i><label style="font-weight:bold;">Ciudad</label></div>
+                            <div class="col-lg-4 col-md-6 col-sm-5"><i class="fas fa-city fa-fw text-center mr-1"></i><label style="font-weight:bold;">Distrito</label></div>
                             <div class="col-lg-8 col-md-6 col-sm-7">{{ciudadano?.ciudad}}</div>
                         </div>
                         <hr class="hidden-sm-up">
@@ -85,7 +85,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <label class="control-label" for="ciudad"><strong> <i class="fa fa-info-circle"></i> Ciudad </strong> </label>
+                                            <label class="control-label" for="ciudad"><strong> <i class="fa fa-info-circle"></i> Distrito </strong> </label>
                                             <select class="form-control" (change)="changeCiudad()" [(ngModel)]="ciudadano.idCiudad" name="idCiudad">
                                                 <option value="0" selected>Seleccione</option>
                                                 <option *ngFor="let tp of ciudades" [value]="tp.idCiudad">{{ tp.descripcion }}</option>

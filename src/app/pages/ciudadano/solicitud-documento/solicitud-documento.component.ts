@@ -93,7 +93,7 @@ export class SolicitudDocumentoComponent implements OnInit {
   }
   
   descargarDocumento(liquidacion: any) {
-    console.log('liquidacion', liquidacion);
+    // console.log('liquidacion', liquidacion);
     if(liquidacion.estadoSolicitud == 'PAGADO'){
       this.router.navigate([ "/visor/carpeta-ciudadana/"+liquidacion.documento ]);
     } else {

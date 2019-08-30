@@ -5,6 +5,7 @@ import { AppConfig } from "../../../app.config";
 import { Router } from "@angular/router";
 import { IdentidadPersona } from "app/pages/ciudadano/model/identidad-persona.model";
 import { DocumentosService } from "app/services/documentos.service";
+import { ToastrService } from 'ngx-toastr';
 declare var $: any;
 
 @Component({
@@ -28,7 +29,8 @@ export class CarpetaCiudadanaComponent implements OnInit {
     public config: AppConfig,
     private router: Router,
     public auth: LoginService,
-    public documentosService: DocumentosService
+    public documentosService: DocumentosService,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit() {
@@ -96,10 +98,12 @@ export class CarpetaCiudadanaComponent implements OnInit {
       } else {
         this.resultado = {status: false, message: response.message};
         this.loading = false;
+        this.toastrService.warning('','No se encontraron datos disponibles');
       }
     }, error => {
       console.log("error", error);
       this.loading = false;
+      this.toastrService.warning('','Ocurrió un error al procesar la operación');
     });
   }
 
@@ -121,10 +125,12 @@ export class CarpetaCiudadanaComponent implements OnInit {
       } else {
         this.resultado = {status: false, message: response.message};
         this.loading = false;
+        this.toastrService.warning('','No se encontraron datos disponibles');
       }
     }, error => {
       console.log("error", error);
       this.loading = false;
+      this.toastrService.warning('','Ocurrió un error al procesar la operación');
     });
   }
 
@@ -136,10 +142,12 @@ export class CarpetaCiudadanaComponent implements OnInit {
         this.loading = false;
       } else {
         this.loading = false;
+        this.toastrService.warning('','No se encontraron cursos disponibles');
       }
     }, error => {
       console.log("error", error);
       this.loading = false;
+      this.toastrService.warning('','Ocurrió un error al procesar la operación');
     });
   }
 
