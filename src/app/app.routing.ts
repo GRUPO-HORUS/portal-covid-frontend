@@ -239,7 +239,6 @@ export const routesComponents = [
   ValidarDocumentoComponent,
   VisorDocumentoComponent,
   AgendarTurnoComponent,
-  
   ReportesIndexComponent,
   RptPorcentajeTramitesOnlineComponent,
   RptTramitesOnlineInstitucionesComponent,

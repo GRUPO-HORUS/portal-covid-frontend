@@ -23,7 +23,7 @@ export class SolicitudDocumentoComponent implements OnInit {
   public resultado: any = { status: true, message: ''};
   public liquidacion: any;
   public idLiquidacion: string;
-  public nroLiquidacion: string; 
+  public nroLiquidacion: string;
   public transactionFp: any;
 
   constructor(
