@@ -100,7 +100,7 @@ export class ConsultaDocumentoComponent implements OnInit {
         this.resultado = {status: true, message: ''};
       } else {
         this.loading = false;
-        this.resultado = {status: false, message: 'No se encontraron datos disponibles para la cedula '+ this.cedula};
+        this.resultado = {status: false, message: 'No se encontraron datos disponibles para el nro. de cédula '+ this.cedula};
       }
     }, error => {
       console.log("error", error);
