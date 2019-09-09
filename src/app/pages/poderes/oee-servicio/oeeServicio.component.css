@@ -16,3 +16,13 @@
   
   html{ overflow-y: hidden; }
   html body { height: 100%; overflow: auto; }
+
+.bd-callout-primary {
+    border-left-color: #001c54;
+}
+.bd-callout {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-left-width: .25rem;
+    border-radius: .25rem;
+}

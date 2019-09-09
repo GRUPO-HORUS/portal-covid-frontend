@@ -38,7 +38,11 @@ export class EncuestaService {
 
     getSatisfaccionTramite(idEncuesta: number): Observable<any> {
         return this.http.get<any[]>(this.config.API + "/oee/getSatisfaccionTramite/" + idEncuesta);
-      }
+    }
+
+    getVotacion(idServicio: number): Observable<any> {
+        return this.http.get<any[]>(this.config.API + "/oee/getVotacion/" + idServicio);
+    }
 
     votacionServicio(idEncuesta, idServicio, voto): Observable<any> {
         return this.http.post<any>(this.config.API + '/oee/votacionServicio/'+idEncuesta+'/'+idServicio+'/'+voto, {})

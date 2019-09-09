@@ -23,6 +23,8 @@ export class OeeServicioComponent implements OnInit {
   yaVoto1:boolean = false;
   yaVoto2:boolean = false;
 
+  msgEstadisticaVotacion: string;
+
   infoServicio: any = { 
     nombreServicio: '',
     fechaCreacion: '',
@@ -67,7 +69,8 @@ export class OeeServicioComponent implements OnInit {
     
     this._route.params.subscribe(params => {
       this.idServicio = params["idServicio"];
-      this.getInfoServicio(this.idServicio);            
+      this.getInfoServicio(this.idServicio); 
+      this.getVotacion(this.idServicio);
       //console.log("local", localStorage);
       this.urlOee = params["urlOee"];
       this.descOee = this.urlOee.replace(/-/g, " ").toUpperCase();
@@ -75,18 +78,40 @@ export class OeeServicioComponent implements OnInit {
   }
 
   calificar(idEncuesta: number, data: string) {
+    console.log('califica');
     this.encuestaService.votacionServicio(idEncuesta, this.idServicio, data).subscribe(response => {
-      if(response.status){        
+      if(response.status) {
+
+        this.getVotacion(this.idServicio);
+
         this.encuestaService.setVoto(idEncuesta, this.idServicio, data);
-        this.toastr.success("Se ha realizado la votación con éxito. Gracias por votar", 'Respuesta');        
+        this.toastr.success("Se ha realizado la votación con éxito. Gracias por votar", 'Respuesta');
+
         if(idEncuesta == 1) this.yaVoto1 = true;
         if(idEncuesta == 2) this.yaVoto2 = true;
-      }else{
+
+      } else {
         this.toastr.error(response.message, 'Respuesta');
       }
+
      }, error => {
       console.log("error", error);
     });
+  }
+
+  getVotacion(idServicio: number): void {
+    setTimeout(()=>{
+      this.encuestaService.getVotacion(idServicio).subscribe(response => {
+        if(response.total && response.total != null &&  response.porcentaje && response.porcentaje != null){
+          let infoPersona = response.total + (response.total > 1 ? ' personas' : ' persona');
+          this.msgEstadisticaVotacion = '<i class="fa fa-info-circle icon" aria-hidden="true"></i> Al <b>'+response.porcentaje+'%</b> de un total de <b>'+infoPersona+'</b> le resultó interesante la información de este trámite.';
+        }
+      }, error => {
+        this.msgEstadisticaVotacion = '';
+          console.log("error", error);
+        }
+      );
+    }, 1);
   }
 
   getInfoServicio(id: number): void {
@@ -123,20 +148,22 @@ export class OeeServicioComponent implements OnInit {
             if (entry.idTipoDato === 17) this.infoServicio.detalle[15].valor = entry.descripcionServicioInformacion;
             oeeData = entry.descripcionOee;
           }
-         // console.log("this.infoServicio.detalle[3].valor", this.infoServicio.detalle[3].valor);
+
           let lblQuienLoOfrece = oeeData;
           if(this.infoServicio.detalle[2].valor && this.infoServicio.detalle[2].valor != null){
             lblQuienLoOfrece+= " </br> "+ this.infoServicio.detalle[2].valor;
           }
+          
           if(this.infoServicio.detalle[3].valor && this.infoServicio.detalle[3].valor != null){
             lblQuienLoOfrece+= " </br> <a href='"+this.infoServicio.detalle[3].valor+"' target='_blank'>"+this.infoServicio.detalle[3].valor+"</a>";
-          }           
+          }
           this.infoServicio.detalle[2].valor = lblQuienLoOfrece;
 
-          if(this.encuestaService.getVoto(1, this.idServicio) != null){
+          if(this.encuestaService.getVoto(1, this.idServicio) != null) {
             this.yaVoto1 = true;
           }
-          if( (this.encuestaService.getVoto(2, this.idServicio) != null && !this.infoServicio.servicioEnLinea) || this.infoServicio.servicioEnLinea){
+
+          if( (this.encuestaService.getVoto(2, this.idServicio) != null && !this.infoServicio.servicioEnLinea) || this.infoServicio.servicioEnLinea) {
             this.yaVoto2 = true;
           }
 
