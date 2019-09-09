@@ -102,7 +102,8 @@ export class OeeServicioComponent implements OnInit {
   getVotacion(idServicio: number): void {
     setTimeout(()=>{
       this.encuestaService.getVotacion(idServicio).subscribe(response => {
-        if(response.total && response.total != null &&  response.porcentaje && response.porcentaje != null){
+        console.log(response);
+        if(response.total != null && response.porcentaje != null){
           let infoPersona = response.total + (response.total > 1 ? ' personas' : ' persona');
           this.msgEstadisticaVotacion = '<i class="fa fa-info-circle icon" aria-hidden="true"></i> Al <b>'+response.porcentaje+'%</b> de un total de <b>'+infoPersona+'</b> le resultó interesante la información de este trámite.';
         }
