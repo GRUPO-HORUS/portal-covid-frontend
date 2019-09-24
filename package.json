@@ -31,6 +31,7 @@
     "@types/jquery": "^3.3.22",
     "angular4-datepicker": "^1.0.1",
     "angular6-json-schema-form": "^7.0.0",
+    "bs-stepper": "^1.7.0",
     "chart.js": "^2.8.0",
     "core-js": "^2.5.7",
     "enhanced-resolve": "^3.3.0",
