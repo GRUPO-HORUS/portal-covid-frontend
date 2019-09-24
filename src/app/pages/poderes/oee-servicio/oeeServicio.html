@@ -42,13 +42,13 @@
                     <div class="col offset-1 col-10 col-lg-10">
                         <div style="font-size:14px; font-weight:500; font-style:italic;">
                             <i class="fa fa-user icon" aria-hidden="true"></i>
-                            Responsable/s de trámites de la Institución: 
+                            Responsable/s de la actualización del portal:
                             <span *ngIf="infoServicio.responsable">{{ infoServicio.responsable }}</span>
                             <span *ngIf="!infoServicio.responsable">-</span>
                         </div>
                         <div style="font-size:14px; font-weight:500; font-style:italic;">
                             <i class="fa fa-calendar icon" aria-hidden="true"></i>
-                            Fecha de Actualización: 
+                            Fecha de Actualización:
                             <span *ngIf="infoServicio.fechaModificacion">{{ formatFecha(infoServicio.fechaModificacion) | date:'dd-MM-yyyy HH:mm' }}</span>
                             <span *ngIf="!infoServicio.fechaModificacion">-</span>
                         </div>

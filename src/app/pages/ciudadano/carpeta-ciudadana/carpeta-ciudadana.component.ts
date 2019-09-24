@@ -21,7 +21,10 @@ export class CarpetaCiudadanaComponent implements OnInit {
   public loading: boolean;
   public resultado: any = { status: true, message: ''};
   public menuDocument: any[];
+  
   public dataCarpetaCiudadana: any[] = [];
+  public documentoSeleccionado:any = {};
+
   public cursos: any;
 
   constructor(
@@ -47,7 +50,9 @@ export class CarpetaCiudadanaComponent implements OnInit {
 
   viewInfo(position: number) {
     if(this.dataCarpetaCiudadana[position] != null) {
-      this.dataCarpetaCiudadana[position].view = !this.dataCarpetaCiudadana[position].view;
+      // this.dataCarpetaCiudadana[position].view = !this.dataCarpetaCiudadana[position].view;
+      this.documentoSeleccionado = this.dataCarpetaCiudadana[position];
+      setTimeout(function() { $("#modalDetalleDocumento").modal("show"); }, 300);
     }
   }
 
@@ -64,6 +69,12 @@ export class CarpetaCiudadanaComponent implements OnInit {
   }
 
   generarDocumentoHistorico(result: any) {
+
+    setTimeout(function() { 
+      $("#modalDetalleDocumento").modal("hide"); 
+      $('.modal-backdrop').hide();
+    }, 500);
+
     if(result.liq  != null) {
       this.router.navigate(["/solicitud-documento/"+result.liq._id]);
     } else {
@@ -87,9 +98,14 @@ export class CarpetaCiudadanaComponent implements OnInit {
   getRptDocument(result) {
     this.documentosService.getRptDocument(this.token, this.ciudadano.cedula, result.key).subscribe(response => {
       if(response.status) {
+
+        setTimeout(function() { 
+          $("#modalDetalleDocumento").modal("hide"); 
+          $('.modal-backdrop').hide();
+        }, 500);
+
         if(response.objId != null && response.payment) {
           this.router.navigate(["/solicitud-documento/"+response.objId]);
-
         } else {
           this.router.navigate(["/visor/carpeta-ciudadana/"+response.objId]);
         }
@@ -117,10 +133,12 @@ export class CarpetaCiudadanaComponent implements OnInit {
         } else {
           this.router.navigate(["/visor/carpeta-ciudadana/"+response.objId]);
         }
+        
         setTimeout(function() { 
           $("#modalView").modal("hide"); 
           $('.modal-backdrop').hide();
-      }, 500);
+        }, 500);
+
         this.loading = false;
       } else {
         this.resultado = {status: false, message: response.message};

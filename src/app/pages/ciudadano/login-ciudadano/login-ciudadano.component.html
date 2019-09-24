@@ -10,11 +10,23 @@
     <div class="container pb-6">
         <div class="row">
             <div class="col-lg-8 col-md-6 col-sm-12 col-xs-12">
-                <div class="alert alert-info">
+
+                <div class="alert alert-info" *ngIf="!loading">
                     <a href="{{ieUrl}}">
                         <i class="fa fa-info-circle"></i> Click aquí para acceder 
-                    </a>                    
+                    </a>
                 </div>
+
+                <div class="content fullscreen-container" *ngIf="loading">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0" style="margin-top:5px !important;">
+                        <div style="height:100%; width:100%;">
+                            <div class="text-center" style="margin:40px;" *ngIf="loading">
+                                <img src="assets/img/misc/icon_loading.gif" alt="Cargando.." /> Iniciando...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">

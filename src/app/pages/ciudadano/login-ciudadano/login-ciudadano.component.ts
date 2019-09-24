@@ -17,6 +17,7 @@ export class LoginCiudadanoComponent implements OnInit {
   public token: string;
   public currentUser: any;
   public uuid: string;
+  public loading: boolean = false;
 
   constructor(
     public messageService: MessageService,
@@ -34,25 +35,37 @@ export class LoginCiudadanoComponent implements OnInit {
     if (!this.currentUser || this.token == null) {
 
       this.route.queryParams.subscribe(params => {
+
         if (params['code'] && this.auth.getState() == params['state']) {
+
+            this.loading = true;
             this.auth.setToken(params['code']);
+          
             this.auth.verifyAuthentication().subscribe(rsp => {
               let response: any = rsp;
               if (response.error != undefined && !response.error) {
+
                 this.auth.setCurrentUser(response.ipersona);
                 this.auth.setToken(response.token);
+
+                this.loading = false;
                 this.redirect(response.ipersona.datosActualizado);
+
               } else {
+                this.loading = false;
                 this.auth.logout();
               }
+
             }, error => {
               console.log("error", error);
+              this.loading = false;
               this.auth.logout();
             });
-            
+
         } else {
           this.getConfig();
         }
+        
       });
 
     } else {

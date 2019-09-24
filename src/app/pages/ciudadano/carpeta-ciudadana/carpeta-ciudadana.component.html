@@ -1,90 +1,46 @@
+<div id="topcab"></div>
 <div id="page-header" class="bg-gradient bg-shadow">
     <div class="container">
         <div class="header-text clearfix">
-            <div id="topcab"></div>
             <h3 class="pull-left mb-0">
                 <span class="far fa-folder-open text-default menu-item-icon text-center fa-fw"></span> Carpeta Ciudadana
             </h3>
         </div>
     </div>
 </div>
-
-<div class="content pb-4" *ngIf="ciudadano && !loading && dataCarpetaCiudadana">
+<div class="content pb-4" *ngIf="ciudadano && dataCarpetaCiudadana">
     <div class="container">
         <div class="row">
+
             <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
                 <menu-ciudadano></menu-ciudadano>
             </div>
+
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12" *ngIf="ciudadano">
                 <h4 class="mt-4 mb-4 text-primary">Mis documentos en mi carpeta ciudadana</h4>
+                
                 <div class="row">
-                    <div class="col-lg-12 col-md-12 col-xs-12">
+                    <div class="col-lg-3 col-md-12 col-xs-12" *ngFor="let data of dataCarpetaCiudadana | sort: 'key'; let i = index">
 
-                        <div *ngFor="let data of dataCarpetaCiudadana | sort: 'key'; let i = index">
+                        <div class="card-deck">
+                            <div style="max-height:120px !important;border:none;cursor:pointer;" class="card" (click)="viewInfo(i)">
+                                <div class="card-block text-center py-lg-3 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0"  
+                                        data-bg-img="assets/img/clasificacion-estadistica1.jpg"
+                                        style="background-image: url('assets/img/enlaces-de-interes.jpg') !important;">
 
-                            <div class="list-group-item list-group-item-action flex-column align-items-start mb-1" (click)="viewInfo(i)">
-                                <div class="d-flex w-100 justify-content-between" style="cursor:pointer;">
-                                    <h5 class="mb-1">{{ data.name }}</h5>
-                                    <span class="fa fa-angle-double-down pull-right" *ngIf="data.view"></span>
-                                    <span class="fa fa-angle-double-right pull-right" *ngIf="!data.view"></span>
+                                    <span class="fa fa-folder-open fa-2x" *ngIf="data.view"></span>
+                                    <span class="fa fa-folder fa-2x" *ngIf="!data.view"></span>
+
+                                    <h4 class="text-white text-uppercase mb-0" style="font-size:10px;line-height:14px;margin:2px;">{{ data.name }}</h4>
+                                    <hr class="w-50 mx-auto">
                                 </div>
                             </div>
-
-                            <div class="alert alert-warning" *ngIf="data.value.length <= 0 && data.view">
-                                <p>No en encontraron datos en tu carpeta ciudadana de este tipo de documento</p>
-                                <p> Podés generar el documento dando clic en
-                                    <button type="button" style="margin-left: 5px;"  class="btn btn-sm btn-success btn-success-next" (click)="generarDocumento(data)">
-                                        <i class="fa fa-file-import"></i>  Generar Documento
-                                    </button>
-                                </p>
-                            </div>
-                            
-                            <div *ngIf="data.value.length > 0 && data.view" class="pl-3 mb-3">
-                                
-                                <div class="list-group" *ngFor="let result of data.value">
-                                    <a style="padding:8px 20px;" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div style="padding:5px;">
-                                            
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <small class="text-muted"><b>GENERADO POR:</b> {{ result.generadoPor }}</small>
-                                                <small class="text-muted">{{ result.fechaGeneracion | date: 'dd/MM/yyyy HH:mm' }}</small>
-                                            </div>
-
-                                            <div class="d-flex w-100 justify-content-between">
-                                                <small class="text-muted"><b>SISTEMA:</b> {{ result.sistemaGenerador }}</small>
-                                            </div>
-
-                                            <div class="d-flex w-100 justify-content-between" *ngIf="result.liq"> 
-                                                <small class="text-muted"><b>FECHA DE SOLICITUD:</b> {{ result.liq?.fechaSolicitud | date: 'dd/MM/yyyy' }}</small>
-                                            </div>
-
-                                            <div class="d-flex w-100 justify-content-between" *ngIf="result.liq">
-                                                <small class="text-muted"><b>ESTADO:</b> 
-                                                    <span class="badge badge-warning" style="margin-left: 5px;">{{ result.liq?.estadoSolicitud }}</span>
-                                                </small>
-                                            </div>
-                                        </div>
-                                        
-                                        <button type="button" class="btn btn-sm btn-info" (click)="generarDocumentoHistorico(result)" style="cursor:pointer; font-size:12px; margin:3px;">
-                                            Ver Documento <i class="fa fa-eye"></i>
-                                        </button>
-
-                                    </a>
-                                </div>
-                                
-                                <div class="alert alert-info">
-                                    <p> Podés generar el documento dando clic en
-                                        <button type="button" style="margin-left: 5px;"  class="btn btn-sm btn-success btn-success-next" (click)="generarDocumento(data)">
-                                            <i class="fa fa-file-import"></i>  Generar Documento
-                                        </button>
-                                    </p>
-                                </div>
-                            </div>
-
                         </div>
+                        
                     </div>
                 </div>
-            </div>        
+
+            </div>   
         </div>    
     </div>    
 </div>
@@ -108,12 +64,10 @@
                                 <h5 class="mb-1">{{curso.especialidad}}</h5>
                                 <small>{{curso.fecha_fin}}</small>
                             </div>
-                            <!-- <p class="mb-1"></p> -->
                             <small><b>Fuente Consulta: </b>  {{curso.fuente_consulta}}</small>
                         </a>
                     </ul>
                 </div>
-
                 <div class="text-center" style="margin:40px;" *ngIf="loading">
                     <img src="assets/img/misc/icon_loading.gif" alt="Cargando.." /> Procesando solicitud...
                 </div>
@@ -129,7 +83,93 @@
     </div>
 </div>
 
-<!-- VIEW DOCUMENT -->
+<!-- VIEW DETALLE -->
+<div class="modal fade" id="modalDetalleDocumento" tabindex="-1" role="dialog" aria-labelledby="modalView" aria-hidden="true">
+    <div style="max-width:800px;" class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-4">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalView">
+                    {{ documentoSeleccionado.name }}
+                </h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row">
+                <div class="col-lg-12 col-md-12 col-xs-12" style="padding:10px;">
+
+                    <div class="alert alert-warning" *ngIf="documentoSeleccionado?.value && documentoSeleccionado?.value.length <= 0">
+                        <p>No se encontraron datos en tu carpeta ciudadana de este tipo de documento</p>
+                        <p> Podés generar el documento dando clic en
+                            <button type="button" style="margin-left: 5px;"  class="btn btn-sm btn-success btn-success-next" (click)="generarDocumento(documentoSeleccionado)">
+                                <i class="fa fa-file-import"></i>  Generar Documento
+                            </button>
+                        </p>
+                    </div>
+
+                    <div class="table-responsive" *ngIf="documentoSeleccionado?.value && documentoSeleccionado?.value.length > 0" class="pl-3 mb-3">          
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th style="font-size:12px;">Generado</th>
+                                    <th style="font-size:12px;">Fecha</th>
+                                    <th style="font-size:12px;">Sistema</th>
+                                    <th style="font-size:12px;"></th>
+                                    <th style="font-size:12px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let result of documentoSeleccionado.value">
+                                <tr>
+                                    <td style="font-size:12px;">{{ result.generadoPor }}</td>
+                                    <td style="font-size:12px;">{{ result.fechaGeneracion | date: 'dd/MM/yyyy HH:mm' }}</td>
+                                    <td style="font-size:12px;">{{ result.sistemaGenerador }}</td>
+                                    <td style="font-size:12px;" *ngIf="result.liq">
+                                        <b>Fecha: </b> {{ result.liq?.fechaSolicitud | date: 'dd/MM/yyyy' }} <br/>
+                                        <b>Estado: </b> {{ result.liq?.estadoSolicitud }}
+                                    </td>
+                                    <td>
+                                        <button type="button" style="margin:5px;" class="btn btn-sm btn-success btn-success-next" (click)="generarDocumentoHistorico(result)">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="content fullscreen-container" *ngIf="ciudadano && loading">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0" style="margin-top:5px !important;" *ngIf="ciudadano">
+                            <div style="height:100%; width:100%;">
+                                
+                                <div class="text-center" style="margin:40px;" *ngIf="loading">
+                                    <img src="assets/img/misc/icon_loading.gif" alt="Cargando.." /> Procesando solicitud...
+                                </div>
+                    
+                                <div class="alert alert-danger" style="margin:40px;" *ngIf="!resultado.status">
+                                    <i class="fa fa-info-circle"></i> {{resultado.message}}
+                                </div>
+                    
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <fieldset class="w-100">
+                    <button type="button" style="float:left;margin-left: 5px;" class="btn btn-sm btn-primary pull-left" *ngIf="documentoSeleccionado?.value && documentoSeleccionado?.value.length > 0" (click)="generarDocumento(documentoSeleccionado)">
+                        <i class="fa fa-file-import"></i>  Generar Documento
+                    </button>
+                    <button type="button" class="btn btn-sm btn-primary pull-right" data-dismiss="modal">
+                        <i class="fa fa-remove"></i> Cerrar
+                    </button>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VIEW DOCUMENT
 <div class="content fullscreen-container" *ngIf="ciudadano && loading">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0" style="margin-top:5px !important;" *ngIf="ciudadano">
         <div style="height:100%; width:100%;">
@@ -145,127 +185,6 @@
         </div>
     </div>
 </div>
+-->
 
 <div class="spance-footer"></div>
-
-<!-- VIEW BUY PROCESS 
-<div class="" role="document" *ngIf="ciudadano && isBuyLiquidacion">
-    <div class="buy-form">
-        <header class="row">
-            <div class="col-lg-6" style="border:1px solid #eee; border-radius:16px;">
-                <h1 class="form-title-liquidacion">PASO 1: Datos de la Solicitud</h1>
-                <div style="padding-bottom:5px;">Consulta de datos de Cédula Policial (Policía Nacional)</div>
-                <div id="topcc"></div>
-                <ul class="list-group" style="margin:15px; background: #f1f1f1;">
-                    <li class="list-group-item row p-1">
-                        <div class="col-lg-5 fs-13 font-weight-bold">Nombre y Apellido</div>
-                        <div class="col-lg-7 fs-12">{{liquidacion.nombreApellido}}</div>
-                    </li>
-                    <li class="list-group-item row p-1">
-                        <div class="col-lg-5 fs-13 font-weight-bold">Cédula</div>
-                        <div class="col-lg-7 fs-12">{{liquidacion.cedula}}</div>
-                    </li>
-                    <li class="list-group-item row p-1">
-                        <div class="col-lg-5 fs-13 font-weight-bold">Fecha de Solicitud</div>
-                        <div class="col-lg-7 fs-12">{{liquidacion.fechaSolicitud}}</div>
-                    </li>
-                    <li class="list-group-item row p-1">
-                        <div class="col-lg-5 fs-13 font-weight-bold">Estado</div>
-                        <div class="col-lg-7 fs-12">{{liquidacion.estadoSolicitud}}</div>
-                    </li>
-                    <li class="list-group-item row p-1">
-                        <div class="col-lg-5 fs-13 font-weight-bold">Nro. de Comprobante</div>
-                        <div class="col-lg-7 fs-12" *ngIf="liquidacion.nroComprobante">{{liquidacion.nroComprobante}}</div>
-                        <div class="col-lg-7 fs-12" *ngIf="!liquidacion.nroComprobante">-</div>
-                    </li>
-                    <li class="list-group-item row p-1">
-                        <div class="col-lg-5 fs-13 font-weight-bold">Fecha de Pago</div>
-                        <div class="col-lg-7 fs-12" *ngIf="liquidacion.fechaPago">{{liquidacion.fechaPago}}</div>
-                        <div class="col-lg-7 fs-12" *ngIf="!liquidacion.fechaPago">-</div>
-                    </li>
-                    <li class="list-group-item row p-1">
-                        <div class="col-lg-5 fs-13 font-weight-bold">Lugar de Pago</div>
-                        <div class="col-lg-7 fs-12" *ngIf="liquidacion.lugarPago">{{liquidacion.lugarPago}}</div>
-                        <div class="col-lg-7 fs-12" *ngIf="!liquidacion.lugarPago">-</div>
-                    </li>
-                </ul>
-                <div class="row" style="padding:15px;text-align: center;">
-                    <div class="col-lg-3">
-                        <input class="email" style="max-width:80px;text-align:center;font-size:30px;" type="text" [(ngModel)]="nroLiquidacion" disabled name="nroLiquidacion" placeholder="Nro. de Liquidación" />
-                    </div>
-                    <div class="col-lg-4">
-                        <button type="button" *ngIf="nroLiquidacion" class="btn btn-sm btn-success btn-success-next" (click)="descargarTicket()" style="cursor:pointer; font-size:13px;">
-                            Imprimir Ticket <i class="fa fa-arrow-up"></i>
-                        </button>
-                    </div>
-                    <div class="col-lg-4">
-                        <button type="button" class="btn btn-sm btn-success btn-success-next" (click)="descargarDocumento()" style="cursor:pointer; font-size:13px;">
-                            Imprimir Documento <i class="fa fa-credit-card"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-6">
-                <form>
-                    <div class="password" style="width:100%; background:#f1f1f1; padding:10px 20px;border-radius: 16px;">
-                        <p style="font-size:18px; font-weight: bold;text-transform: uppercase;"><strong>PASO 2: Pagar con Tarjeta de Crédido/Débito</strong></p>
-                        <div class="form-group" style="margin: 4px;">
-                            <label class="control-label" for="nro_tarjeta" style="font-size:12px;"><strong> <i class="fa fa-credit-card"></i> Nro. de Tarjeta </strong> </label>
-                            <input type="text" name="nro_tarjeta" placeholder="Nro. de tarjeta" class="form-control input-custom-card" required>
-                        </div>
-                        <div class="form-group" style="margin: 4px;">
-                            <div class="input-group">
-                                <label class="control-label" style="font-size:12px;"><strong> <i class="fa fa-calendar"></i> MM/YY</strong> </label>
-                                <label class="control-label" style="font-size:12px;margin-left: 130px;"><strong> <i class="fa fa-caret-square-o-right"></i> CVC </strong> </label>
-                            </div>
-                        </div>
-                        <div class="form-group" style="margin: 4px;">
-                            <div class="input-group">
-                                <input type="text" class="form-control input-custom-card" placeholder="MM/YY"/>
-                                <input type="text" class="form-control input-custom-card" placeholder="CVC"/>
-                            </div>
-                        </div>
-
-                        <div class="form-group" style="margin: 4px;">
-                            <div style="padding:10px;">
-                                <button type="button" *ngIf="nroLiquidacion" class="btn btn-sm btn-success btn-success-next" style="cursor:pointer; margin:3px;">
-                                    Pagar <i class="fa fa-credit-card"></i>
-                                </button>
-                            </div>
-
-                            <div style="padding: 10px;">
-                                <div class="alert alert-info" style="margin-top: 15px;">
-                                    Una vez realizado el pago por Tarjeta de Crédito o en boca de cobranza podrá encontrar su certificado en su carpeta ciudadana.
-                                </div>
-
-                                <div class="alert alert-info" style="margin-top:15px; ">
-                                    <strong>Cooperativas:</strong>
-                                    <ul>
-                                        <li>Santísimo Redentor</li>
-                                        <li>Sagrados Corazones</li>
-                                        <li>Universitaria</li>
-                                        <li>San Cristóbal Ltda.</li>
-                                        <li>Nazareth</li>
-                                        <li>Yoayu</li>
-                                        <li>Credivill Ltda.</li>
-                                        <li>COOMECIPAR</li>
-                                        <li>COOPEC LTDA</li>
-                                        <li>MBURICAO LTDA</li>
-                                        <li>Medalla Milagrosa Ltda.</li>                                            
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-
-                    </div>
-                </form>
-            </div>
-        </header>
-
-    </div>
-</div>
--->

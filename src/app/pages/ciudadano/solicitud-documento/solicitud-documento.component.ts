@@ -7,6 +7,7 @@ import { IdentidadPersona } from "app/pages/ciudadano/model/identidad-persona.mo
 import { DocumentosService } from "app/services/documentos.service";
 import { DomSanitizer } from "@angular/platform-browser";
 import { ToastrService } from 'ngx-toastr';
+import Stepper from 'bs-stepper';
 declare var $: any;
 
 @Component({
@@ -25,6 +26,7 @@ export class SolicitudDocumentoComponent implements OnInit {
   public idLiquidacion: string;
   public nroLiquidacion: string;
   public transactionFp: any;
+  private stepper: Stepper;
 
   constructor(
     public messageService: MessageService,
@@ -40,6 +42,8 @@ export class SolicitudDocumentoComponent implements OnInit {
   ngOnInit() {
     this.ciudadano = this.auth.getCurrentUser();
     this.token = this.auth.getToken();
+
+    this.stepper = new Stepper(document.querySelector('.bs-stepper'), { linear: true, animation: true });
     
     if(this.ciudadano == null || this.token == null) {
       this.router.navigate(['/login-ciudadano']);
@@ -52,6 +56,20 @@ export class SolicitudDocumentoComponent implements OnInit {
     });
 
     this.scrollTop();
+  }
+
+  next() {
+    console.log('next');
+    this.stepper.next();
+  }
+
+  previous() {
+    console.log('previous');
+    this.stepper.previous();
+  }
+
+  onSubmit() {
+    return false;
   }
 
   authenticationFastPay() {
