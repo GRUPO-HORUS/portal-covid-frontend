@@ -9,11 +9,6 @@
         <span class="menu-item-text">Carpeta Ciudadana</span>
     </a>
 
-    <!--<a class="nav-link nav-link-custom pr-1" style="font-size: 15px;" routerLink="/tramites-con-eid" routerLinkActive="active">
-        <span class="far fa-file-alt text-default menu-item-icon text-center fa-fw"></span> 
-        <span class="menu-item-text">Trámites y Documentos</span>
-    </a>-->
-
     <a class="nav-link nav-link-custom pr-1" style="font-size: 15px;" routerLink="/otros-tramites-en-linea" routerLinkActive="active">
         <span class="far fa-copy text-default menu-item-icon text-center fa-fw"></span> 
         <span class="menu-item-text">Trámites en Línea</span>
@@ -28,4 +23,13 @@
         <span class="fas fa-times text-default menu-item-icon text-center fa-fw"></span> 
         <span class="menu-item-text">Cerrar Sesión</span>
     </a>
+</div>
+
+<div *ngIf="fotoPerfil">
+    <h4 class="mb-2 text-primary">Foto de Perfil</h4>
+    <div class="card" style="max-width:200px;"> 
+        <!-- <img class="card-img-center" *ngIf="!responsePerfil?.fotoPerfil" style="max-width:200px;" src="assets/img/profile.png" alt="perfil"> -->
+        <img class="card-img-center" style="max-width:200px;" [src]="fotoPerfil" alt="perfil">
+        <div class="card-body"></div>
+    </div>
 </div>

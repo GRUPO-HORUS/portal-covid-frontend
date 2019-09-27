@@ -5,6 +5,7 @@ import { IdentidadPersona } from "app/pages/ciudadano/model/identidad-persona.mo
 import { catchError } from '../../../node_modules/rxjs/operators';
 import { HttpErrorHandler } from 'app/pages/identidad-electronica/model/http.error.handler';
 import { AppConfig } from "app/app.config";
+import { IdentidadRespuesta } from "app/pages/identidad-electronica/model/Identidad-respuesta.model";
 
 @Injectable()
 export class LoginService {
@@ -32,6 +33,12 @@ export class LoginService {
 
     getConfig(){
         return this.http.get<any[]>(this.config.API + '/auth/getConfig', {});
+    }
+
+    getImageProfile(token: string) {
+        let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', token);
+        return this.http.post<any>(this.config.API + '/auth/getImageProfile', {}, { headers: headers })
+          .pipe(catchError(this.handler.handleError<any>('getImageProfile', new IdentidadRespuesta())));
     }
     
     setState(state) {
@@ -89,10 +96,26 @@ export class LoginService {
         return token;
     }
 
+    setImgProf(token) {
+        if(token != null) {
+            this.setStorage('imageProfile', token, 3600);
+        }
+    }
+
+    getImgProf() {
+        let imageProfile = null;
+        if(localStorage.getItem('imageProfile') != null){
+            imageProfile = this.getStorage('imageProfile');
+        }
+        return imageProfile;
+    }
+
     logout() {
         var user = localStorage.getItem('currentUser');
         if (user) {
             localStorage.removeItem('currentUser');
+            localStorage.removeItem('imageProfile');
+            localStorage.removeItem('token');
             localStorage.removeItem('state');
             localStorage.removeItem('tokenTmp');
         }
