@@ -9,6 +9,7 @@ import { MessageService } from "app/services/MessageService";
   providers: [PoderesDelEstadoService]
 })
 export class OtrasComponent implements OnInit {
+  
   encuentra: boolean = false;
   entidades: any = 0;
   descNivel: string = "";

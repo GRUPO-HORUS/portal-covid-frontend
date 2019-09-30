@@ -14,18 +14,18 @@ import { LoginService } from "app/services/login.service";
   providers: [PoderesDelEstadoService, LoginService]
 })
 export class OeeComponent implements OnInit {
+  
   urlPoder: string = "";
   urlEntidad: string = "";
   urlOee: string = "";
   /*********************** */
+
   idOee: number = 0;
   descOee: string = "";
   infos: any = [];
   fechaActualizacion: any;
   urlTransparenciaActiva: any;
   responsableOee: any;
-
-  linkOeeMap: any;
   urlSitioWeb: any;
 
   contTramitesOnline: number = 0;
@@ -36,9 +36,9 @@ export class OeeComponent implements OnInit {
   serviciosFilter: any = [];
   cursorServiciosOnline: boolean = false;
 
-  infoServicio: any = [];
-  paramsComprasPublicas: any;
-  paramsBolsaTrabajo: any;
+  // linkOeeMap: any;
+  // paramsComprasPublicas: any;
+  // paramsBolsaTrabajo: any;
 
   resultsServicios: any = { message: "", status: true };
   nroTramitesServicios: number = 1;
@@ -70,6 +70,9 @@ export class OeeComponent implements OnInit {
       this.urlPoder = params["urlPoder"];
       this.urlEntidad = params["urlEntidad"];
       this.urlOee = params["urlOee"];
+
+      console.log('oee.component.ts: ', this.urlPoder, this.urlEntidad, this.urlOee);
+
       this.descOee = this.urlOee.replace(/-/g, " ").toUpperCase();
       this.getInfoOee(this.urlOee);
     });
@@ -96,7 +99,7 @@ export class OeeComponent implements OnInit {
     }
   }
 
-  getComentario(idOee: number){
+  getComentario(idOee: number) {
     this.poderesService.getComentarios(idOee).subscribe(response => {
       this.comentarios = response;
     }, error => {
@@ -107,7 +110,9 @@ export class OeeComponent implements OnInit {
   getInfoOee(urlOee: string): void {
     this.poderesService.getInfoOee(urlOee).subscribe(response => {
         if (response != null && response.length > 0) {
+
           this.descOee = response[0].oee.descripcionOee;
+
           for (let x = 0; x < response.length; x++) {
             if (response[x].tipoDato.idTipoDato == 27) {
               this.urlTransparenciaActiva = response[x].descripcionOeeInformacion;
@@ -118,10 +123,13 @@ export class OeeComponent implements OnInit {
             if (response[x].tipoDato.idTipoDato == 1) {
               this.urlSitioWeb = "<a href='"+this.htmlToPlaintext(response[x].descripcionOeeInformacion)+"' target='_blank'>"+response[x].descripcionOeeInformacion+"</a>";
             }
+
           }
+
           this.infos = response;
           this.idOee = this.infos[0].oee.idOee;
           this.fechaActualizacion = this.infos[0].oee.fechaModificacion;
+
           this.getListOeeServicios(this.idOee);
           this.getComentario(this.idOee);
         }
@@ -180,13 +188,18 @@ export class OeeComponent implements OnInit {
     );
   }
 
-  getListCompras() {
-    this.paramsComprasPublicas = { info: this.infos };
+  getEncuestaCiudadana() {
+    let urlLocation = location.href;
+    window.location.href = 'https://tutramiteenlinea.mitic.gov.py/inicio/?portal=' + urlLocation;
   }
 
-  getListBolsa(): void {
-    this.paramsBolsaTrabajo = { info: this.infos };
-  }
+  // getListCompras() {
+  //   this.paramsComprasPublicas = { info: this.infos };
+  // }
+
+  // getListBolsa(): void {
+  //   this.paramsBolsaTrabajo = { info: this.infos };
+  // }
 
   formatFecha(fecha: string){
     if(fecha){

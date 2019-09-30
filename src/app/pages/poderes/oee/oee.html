@@ -16,26 +16,21 @@
 <div id="content" class="pb-0">
     <div class="container pb-6">
 
-        <div class="pull-right m-0 p-0">
-            <!--
-            <a class="btn btn-block btn-primary" scrollTo href="#servicios-ofrecidos" data-scroll="scroll-state">
-                <i class="fa fa-hand-pointer-o text-default"></i> Trámites Ofrecidos
-            </a>
-            -->
+        <!-- <div class="pull-right m-0 p-0">
             <div class="clearfix pt-1"></div>
-            
             <a *ngIf="linkOeeMap" href="http://mapas.paraguay.gov.py/ver.jsp?dat=inst&id={{linkOeeMap}}" target="_blank" class="btn btn-block btn-default">
                 <i class="fa fa-map-marker text-default"></i> Ver mapa
             </a>
-        </div>
+        </div> -->
 
         <h2 class="texto-accesible-H2 mb-4">
             {{descOee}}
         </h2>
 
         <div class="row">
+
             <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 pt-4 list-group">
-                <!--TIPO DE DATO-->
+                <!--info oee -->
                 <div *ngFor="let info of infos">
                     <div class="list-group-item" style="border:0px;padding:1px;" *ngIf="info.tipoDato != null">
 
@@ -160,6 +155,7 @@
                     </div>
                 </div>
 
+                <!--responsable de actualizacion de la oee -->
                 <div class="list-group-item" style="border:0px;padding:1px;" *ngIf="infos != null && fechaActualizacion">
                     <div class="text-left">
                         <div class="row mt-4">
@@ -180,11 +176,6 @@
                 <!-- comentarios-->
                 <div class="text-left">
                     <div class="row mt-5">
-                        <!--<div class="offset-2 col-8 col-lg-10" style="border:0px;padding:1px;" *ngIf="!token || !currentUser">
-                             <div class="alert alert-info">
-                                <i class="fa fa-info-circle" style="padding-right:2px;" aria-hidden="true"></i> Ingresa con tu identidad electrónica para escribir un comentario.
-                             </div>   
-                        </div>-->
                         <div class="offset-2 col-8 col-lg-10" style="border:0px;padding:1px;" *ngIf="token && currentUser">
                             <form>
                                 <div class="form-group">
@@ -213,10 +204,9 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
-            <!--SERVICIOS-->
+            <!--servicios-->
             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 pt-4 list-group">                
                 <div class="card bg-shadow bg-gradient">
                     <div class="card-body p-3">
@@ -274,7 +264,7 @@
                 </div>
 
                 <div class="float-right btn btn-success" style="border-radius:10px;font-size:1rem;border:none;background-color:#132c5d;">
-                    <a onclick="window.location.href='https://tutramiteenlinea.mitic.gov.py/inicio/?portal='+ location.href" style="color:#fff; text-align:left; text-decoration: none;">
+                    <a onclick="getEncuestaCiudadana()" style="color:#fff; text-align:left; text-decoration: none;">
                         <ul style="list-style-type: none; margin-top: 15px;">
                             <li>Encuesta Ciudadana de Trámites</li>
                         </ul>
@@ -305,6 +295,7 @@
                 </div>
             </div>
             -->
+
         </div>
     </div>
     <hr class="hr-white">

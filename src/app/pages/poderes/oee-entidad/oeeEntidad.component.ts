@@ -16,9 +16,7 @@ export class OeeEntidadComponent implements OnInit {
   urlPoder: string;
   descPoder: string;
   urlEntidad: string;
-
   descEntidadTitulo: string = "";
-
   descEntidad: string = "";
   urlOee: string = "";
   oees: any = [];
@@ -37,6 +35,8 @@ export class OeeEntidadComponent implements OnInit {
     this._route.params.subscribe(params => {
       this.urlPoder = params["urlPoder"];
       this.urlEntidad = params["urlEntidad"];
+
+      console.log('oeeEntidad.component.ts: ', this.urlPoder, this.urlEntidad);
 
       this.descPoder = this.urlPoder.replace(/-/g, " ");
       this.descEntidadTitulo = this.urlEntidad.replace(/-/g, " ");
@@ -62,21 +62,19 @@ export class OeeEntidadComponent implements OnInit {
   }
 
   getListOee(urlEntidad: string): void {
-    this.poderesService.getListOee(urlEntidad).subscribe(
-      data => {
-        if (data != null && data.length > 0) {
-          this.oees = data;
-          this.descEntidad = data[0].descripcionOee;
-          if (this.oees.length === 1) {
-            this.urlOee = data[0].urlOee;
-            this.getInfoOee(this.urlOee);
-          }
+    this.poderesService.getListOee(urlEntidad).subscribe(data => {
+      console.log('data', data);
+      if (data != null && data.length > 0) {
+        this.oees = data;
+        this.descEntidad = data[0].descripcionOee;
+        if (this.oees.length === 1) {
+          this.urlOee = data[0].urlOee;
+          this.getInfoOee(this.urlOee);
         }
-      },
-      error => {
-        console.log("error", error);
       }
-    );
+    }, error => {
+      console.log("error", error);
+    });
   }
 
   getInfoOee(urlOee: string): void {

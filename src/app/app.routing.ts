@@ -97,20 +97,18 @@ export const appRoutes: Routes = [
   { path: "", component: PortadaComponent },
   { path: "portada", component: PortadaComponent, runGuardsAndResolvers: 'always' },
   //{ path: "sitemap.xml", loadChildren: 'app/pages/sitemap/sitemap.module#SitemapModule'},
+
   { path: "poderes-del-estado", component: PoderesDelEstadoComponent },
-  { path: "poderes-del-estado/poder-legislativo", component: PoderesDelEstadoComponent },
-  { path: "poderes-del-estado/poder-ejecutivo", component: PoderesDelEstadoComponent },
-  { path: "poderes-del-estado/poder-judicial", component: PoderesDelEstadoComponent },
+  { path: "poderes-del-estado/:urlPoder", component: PoderesDelEstadoComponent },
   
   { path: "poderes-del-estado/:urlPoder/:urlEntidad", component: OeeEntidadComponent },
   { path: "poderes-del-estado/:urlPoder/:urlEntidad/:urlOee", component: OeeComponent },
-  
+
   { path: "oee/:urlOee", component: OeeComponent },
   { path: "oee/:urlOee/:idServicio", component: OeeServicioComponent },
-
   { path: "otras/:urlNivel", component: OtrasComponent },
-  { path: "categoria/:filtro/resultado", component: CategoriaTramiteResultadoComponent },
 
+  { path: "categoria/:filtro/resultado", component: CategoriaTramiteResultadoComponent },
   { path: "sobre-portal", component: PortalComponent },
   { path: "suscripcion", component: SuscripcionComponent },
   { path: "consulta-reclamo", component: ConsultaReclamoComponent },

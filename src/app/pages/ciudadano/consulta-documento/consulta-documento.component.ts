@@ -67,10 +67,10 @@ export class ConsultaDocumentoComponent implements OnInit {
 
         this.cedula = "";
         this.refreshCaptcha();
-        
-        this.router.navigate(["/visor/documentos/"+response.objId+""]);
 
-        setTimeout(function() { 
+        this.router.navigate(["/visor/documentos-snpp/"+response.objId]);
+
+        setTimeout(function() {
           $("#modalView").modal("hide");
           $('.modal-backdrop').hide();
         }, 500);  

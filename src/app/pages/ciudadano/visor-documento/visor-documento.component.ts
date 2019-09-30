@@ -22,6 +22,7 @@ export class VisorDocumentoComponent implements OnInit {
   public loading: boolean;
   public resultado: any = { status: true, message: ''};
   public linkSource: any;
+  public  urlTrustToken = ['validar-documento', 'documentos-snpp','snpp'];
 
   constructor(
     public messageService: MessageService,
@@ -40,15 +41,19 @@ export class VisorDocumentoComponent implements OnInit {
 
       this.ruta = params["ruta"];
       this.objId = params["objId"];
+
+      console.log('ruta', this.ruta);
+      console.log('objId', this.objId);
+
       
-      if(this.ruta != 'validar-documento' && this.ruta != 'snpp') {
+      if(this.urlTrustToken.indexOf(this.ruta) === -1) {
         this.token = this.auth.getToken();
         this.ciudadano = this.auth.getCurrentUser();
-        
+
         if(this.ciudadano == null || this.token == null) {
           this.router.navigate(['/login-ciudadano']);
           return;
-        }
+        } 
       }
 
     });
@@ -63,9 +68,9 @@ export class VisorDocumentoComponent implements OnInit {
   }
 
   getDocumento(download: boolean) {
-    if(this.ruta == 'validar-documento' || this.ruta == 'snpp') {
+    if(this.urlTrustToken.indexOf(this.ruta) !== -1) {
       this.getViewDocument(download);
-    }else{
+    } else {
       this.getSingleFileDocument(download);
     }
   }

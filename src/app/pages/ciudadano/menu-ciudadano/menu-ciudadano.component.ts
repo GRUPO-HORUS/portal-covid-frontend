@@ -20,7 +20,6 @@ export class MenuCiudadanoComponent {
     private router: Router,
     public auth: LoginService
   ) {
-    console.log("GET IMG: ", this.auth.getImgProf());
     if(this.auth.getImgProf() ==  null) {
       this.getImageProfile();
     } else {
@@ -43,9 +42,7 @@ export class MenuCiudadanoComponent {
     },
     error => {
       console.log("error", error);
-    }
-  );
-}
-
+    });
+  }
 
 }
