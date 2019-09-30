@@ -2,7 +2,7 @@
     <div class="container clearfix">
         <nav class="breadcrumb">
             <a class="breadcrumb-item"><i class="fa fa-home fa-lg text-primary" aria-hidden="true"></i></a>
-            <span class="breadcrumb-item" *ngIf="encuentra" routerLink="/poderes-del-estado">El Estado</span>
+            <span class="breadcrumb-item" *ngIf="entidades && entidades.length > 0" routerLink="/poderes-del-estado">El Estado</span>
             <span class="breadcrumb-item active text-capitalize">{{titulo}}</span>
         </nav>
     </div>
