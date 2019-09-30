@@ -41,10 +41,8 @@ export class VisorDocumentoComponent implements OnInit {
 
       this.ruta = params["ruta"];
       this.objId = params["objId"];
-
-      console.log('ruta', this.ruta);
-      console.log('objId', this.objId);
-
+      // console.log('ruta', this.ruta);
+      // console.log('objId', this.objId);
       
       if(this.urlTrustToken.indexOf(this.ruta) === -1) {
         this.token = this.auth.getToken();
@@ -64,7 +62,7 @@ export class VisorDocumentoComponent implements OnInit {
   }
 
   cancelGenerarDocumento() {
-    this.router.navigate([this.ruta]);
+    this.router.navigate([this.ruta.replace('-','/')]);
   }
 
   getDocumento(download: boolean) {
