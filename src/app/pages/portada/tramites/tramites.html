@@ -43,9 +43,9 @@
                         <div class="rounded flex-valign">
                             <ul class="texto-accesible-ul list-unstyled footer-links">
                                 <li *ngFor="let tramite of tramitesEnLinea">
-                                    <a style="font-size: 13px;" (click)="getDataServicio(tramite.servicio.oee.urlOee, tramite.servicio.idServicio)" class="text-inverse" style="cursor:pointer;">
-                                        <i class="fa fa-globe fa-fw"></i> {{tramite.servicio.nombreServicio}}
-                                        <ng-container *ngIf="tramite.servicio.idServicio==1127 || tramite.servicio.idServicio==1157">
+                                    <a style="font-size: 13px;" (click)="getDataServicio(tramite.oee.urlOee, tramite.idServicio)" class="text-inverse" style="cursor:pointer;">
+                                        <i class="fa fa-globe fa-fw"></i> {{tramite.nombreServicio}}
+                                        <ng-container *ngIf="tramite.idServicio==1127 || tramite.idServicio==1157">
                                             <small>
 												<font color="#990000"><b>¡nuevo!</b></font>
 											</small>
@@ -63,8 +63,8 @@
                                 </li>
 
                                 <li *ngFor="let tramite of ultimosTramitesEnLinea">
-                                    <a style="font-size: 13px;" (click)="getDataServicio(tramite.servicio.oee.urlOee, tramite.servicio.idServicio)" class="text-inverse" style="cursor:pointer;">
-                                        <i class="fas fa-mouse-pointer fa-fw"></i> {{tramite.servicio.nombreServicio}}
+                                    <a style="font-size: 13px;" (click)="getDataServicio(tramite.oee.urlOee, tramite.idServicio)" class="text-inverse" style="cursor:pointer;">
+                                        <i class="fas fa-mouse-pointer fa-fw"></i> {{tramite.nombreServicio}}
                                     </a>
                                 </li>
                             </ul>

@@ -37,25 +37,25 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.paraguay.gov.py/poderes-del-estado</loc>
+    <loc>https://www.paraguay.gov.py/estado</loc>
     <lastmod>2018-06-27T13:12:00-00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.paraguay.gov.py/poderes-del-estado/poder-ejecutivo</loc>
+    <loc>https://www.paraguay.gov.py/estado/poder-ejecutivo</loc>
     <lastmod>2018-06-27T13:12:00-00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.paraguay.gov.py/poderes-del-estado/poder-legislativo</loc>
+    <loc>https://www.paraguay.gov.py/estado/poder-legislativo</loc>
     <lastmod>2018-06-27T13:12:00-00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.paraguay.gov.py/poderes-del-estado/poder-judicial</loc>
+    <loc>https://www.paraguay.gov.py/estado/poder-judicial</loc>
     <lastmod>2018-06-27T13:12:00-00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

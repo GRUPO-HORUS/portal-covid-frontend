@@ -2,7 +2,7 @@
     <div class="container clearfix">
         <nav class="breadcrumb">
             <a class="breadcrumb-item"><i class="fa fa-home fa-lg text-primary" aria-hidden="true"></i></a>
-            <span class="breadcrumb-item" *ngIf="entidades && entidades.length > 0" routerLink="/poderes-del-estado">El Estado</span>
+            <span class="breadcrumb-item" *ngIf="entidades && entidades.length > 0" routerLink="/estado">El Estado</span>
             <span class="breadcrumb-item active text-capitalize">{{titulo}}</span>
         </nav>
     </div>
@@ -17,40 +17,68 @@
         <hr class="mb-5 w-50 mx-auto" />
     
         <div class="row text-left" *ngIf="entidades && entidades.length > 0">
-            <div class="col-lg-3 col-md-4 sidebar-section mb-0 pt-3">
+            <div class="col-lg-4 col-md-4 sidebar-section mb-5 pt-4" style="border-radius:10px;">
+
+                <div class="mb-3"><strong><i style="margin-top:-4px;" class="fa fa-angle-right"></i> Poderes</strong></div>
                 <ul class="list-group texto-accesible-ul nav nav-section-menu-left pb-0 mb-4">
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/poderes-del-estado/poder-ejecutivo" routerLinkActive="active" class="nav-link">
+                        <a routerLink="/estado/poder-ejecutivo" routerLinkActive="active" class="nav-link">
                             <span>Poder Ejecutivo <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/poderes-del-estado/poder-legislativo" routerLinkActive="active" class="nav-link">
+                        <a routerLink="/estado/poder-legislativo" routerLinkActive="active" class="nav-link">
                             <span>Poder Legislativo <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/poderes-del-estado/poder-judicial" routerLinkActive="active" class="nav-link">
+                        <a routerLink="/estado/poder-judicial" routerLinkActive="active" class="nav-link">
                             <span>Poder Judicial <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                 </ul>
+
+                <div class="mb-3"><strong><i style="margin-top:-4px;" class="fa fa-angle-right"></i> Otras Entidades</strong></div>
+                <ul class="list-group texto-accesible-ul nav nav-section-menu-left pb-0 mb-4">
+                    <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
+                        <a routerLink="/estado/otros-organismos-del-estado" routerLinkActive="active" class="nav-link">
+                            <span>Otros Organismos Dependientes <i class="fa fa-angle-double-right pull-right"></i></span>
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
+                        <a routerLink="/estado/universidades-nacionales" routerLinkActive="active" class="nav-link">
+                            <span>Universidades Nacionales <i class="fa fa-angle-double-right pull-right"></i></span>
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
+                        <a routerLink="/estado/contraloria-general-de-la-republica" routerLinkActive="active" class="nav-link">
+                            <span>Contraloría General de la República <i class="fa fa-angle-double-right pull-right"></i></span>
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
+                        <a routerLink="/estado/entidades-binacionales" routerLinkActive="active" class="nav-link">
+                            <span>Entidades Binacionales <i class="fa fa-angle-double-right pull-right"></i></span>
+                        </a>
+                    </li>
+                </ul>
             </div>
+
             <!--LINK-->
-            <div class="col-lg-9 col-md-8">
+            <div class="col-lg-8 col-md-8">
                 <ul class="list-group texto-accesible-ul pb-6">
-                    <li class="list-group-item list-group-item-action pointer" *ngFor="let entidad of entidades" routerLink="/poderes-del-estado/{{urlPoder}}/{{entidad.urlEntidad}}">
+                    <li class="list-group-item list-group-item-action pointer" *ngFor="let entidad of entidades" routerLink="/estado/{{urlPoder}}/{{entidad.urlEntidad}}">
                         <i class="fa fa-university fa-fw text-primary pointer" style="margin-top:-5px;" aria-hidden="true"></i> {{entidad.descripcionEntidad}}
                         <span class="badge badge-primary badge-pill" style="float: right;">{{entidad.cantidadOee}}</span>
                     </li>
                 </ul>
             </div>
+
         </div>
 
         <div *ngIf="!entidades">
             <div class="row mb-5">
                 <div class="col-lg-4 col-md-4 d-flex">
-                    <a routerLink="/poderes-del-estado/poder-ejecutivo" class="flex-ew flex-valign">
+                    <a routerLink="/estado/poder-ejecutivo" class="flex-ew flex-valign">
                         <div class="text-center p-4 py-lg-5 overlay overlay-op-7 rounded flex-ew mb-3 mb-lg-0 flex-valign bg-img clickable-element" data-bg-img="assets/img/el-estado/ejecutivo.jpg" style="background-image: url('assets/img/el-estado/ejecutivo.jpg') !important; background-position: center">
                             <hr class="hr-lg w-50 mx-auto">
                             <h3 class="text-white text-uppercase mb-0">
@@ -61,7 +89,7 @@
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-4 d-flex">
-                    <a routerLink="/poderes-del-estado/poder-legislativo" class="flex-ew flex-valign">
+                    <a routerLink="/estado/poder-legislativo" class="flex-ew flex-valign">
                         <div class="text-center p-4 py-lg-5 overlay overlay-op-7 rounded flex-ew mb-3 mb-lg-0 flex-valign bg-img clickable-element" data-bg-img="assets/img/el-estado/legislativo.jpg" style="background-image: url('assets/img/el-estado/legislativo.jpg') !important;">
                             <hr class="hr-lg w-50 mx-auto">
                             <h3 class="text-white text-uppercase mb-0">
@@ -72,7 +100,7 @@
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-4 d-flex">
-                    <a routerLink="/poderes-del-estado/poder-judicial" class="flex-ew flex-valign">
+                    <a routerLink="/estado/poder-judicial" class="flex-ew flex-valign">
                         <div class="text-center p-4 py-lg-5 overlay overlay-op-7 rounded flex-ew mb-3 mb-lg-0 flex-valign bg-img clickable-element" data-bg-img="assets/img/el-estado/judicial.jpg" style="background-image: url('assets/img/el-estado/judicial.jpg') !important; background-position: center">
                             <hr class="hr-lg w-50 mx-auto">
                             <h3 class="text-white text-uppercase mb-0">
@@ -86,7 +114,7 @@
             <div class="card-deck pb-6">
                 <div class="card">
                     <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
-                        <a routerLink="/otras/otros-organismos-del-estado">
+                        <a routerLink="/estado/otros-organismos-del-estado">
                             <hr class="w-50 mx-auto">
                             <h4 class="text-white text-uppercase mb-0">
                                 Otros Organismos Dependientes
@@ -97,7 +125,7 @@
                 </div>
                 <div class="card">
                     <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/el-estado/universidades.jpg" style="background-image: url('assets/img/el-estado/universidades.jpg') !important;">
-                        <a routerLink="/otras/universidades-nacionales">
+                        <a routerLink="/estado/universidades-nacionales">
                             <hr class="w-50 mx-auto">
                             <h4 class="text-white text-uppercase mb-0">
                                 Universidades Nacionales
@@ -108,7 +136,7 @@
                 </div>
                 <div class="card">
                     <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/el-estado/contraloria.jpg" style="background-image: url('assets/img/el-estado/contraloria.jpg') !important;">
-                        <a routerLink="/otras/contraloria-general-de-la-republica">
+                        <a routerLink="/estado/contraloria-general-de-la-republica">
                             <hr class="w-50 mx-auto">
                             <h4 class="text-white text-uppercase mb-0">
                                 Contraloría General de la República
@@ -119,7 +147,7 @@
                 </div>
                 <div class="card">
                     <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
-                        <a routerLink="/otras/entidades-binacionales">
+                        <a routerLink="/estado/entidades-binacionales">
                             <hr class="w-50 mx-auto">
                             <h4 class="text-white text-uppercase mb-0">
                                 Entidades Binacionales

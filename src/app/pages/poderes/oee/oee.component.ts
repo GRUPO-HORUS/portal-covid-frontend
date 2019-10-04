@@ -15,36 +15,34 @@ import { LoginService } from "app/services/login.service";
 })
 export class OeeComponent implements OnInit {
   
-  urlPoder: string = "";
-  urlEntidad: string = "";
-  urlOee: string = "";
-  /*********************** */
+  public urlPoder: string = "";
+  public urlEntidad: string = "";
+  public urlOee: string = "";
 
-  idOee: number = 0;
-  descOee: string = "";
-  infos: any = [];
-  fechaActualizacion: any;
-  urlTransparenciaActiva: any;
-  responsableOee: any;
-  urlSitioWeb: any;
+  public idOee: number = 0;
+  public titulo: string = "";
 
-  contTramitesOnline: number = 0;
-  contTotalTramites: number = 0;
+  public fechaActualizacion: any;
+  public urlTransparenciaActiva: any;
+  public responsableOee: any;
+  public urlSitioWeb: any;
 
-  comentarios: any = [];
-  servicios: any = [];
-  serviciosFilter: any = [];
-  cursorServiciosOnline: boolean = false;
+  public contTramitesOnline: number = 0;
+  public contTotalTramites: number = 0;
 
-  // linkOeeMap: any;
-  // paramsComprasPublicas: any;
-  // paramsBolsaTrabajo: any;
+  public infos: any = [];
+  public oees: any = [];
 
-  resultsServicios: any = { message: "", status: true };
-  nroTramitesServicios: number = 1;
-  keyTramitesServicios: string = "descripcion";
-  reverseTramitesServicios: boolean = false;
-  buscarServicios: any;
+  public comentarios: any = [];
+  public servicios: any = [];
+  public serviciosFilter: any = [];
+  public cursorServiciosOnline: boolean = false;
+
+  public resultsServicios: any = { message: "", status: true };
+  public nroTramitesServicios: number = 1;
+  public keyTramitesServicios: string = "descripcion";
+  public reverseTramitesServicios: boolean = false;
+  public buscarServicios: any;
 
   public comentario: string = "";
   public token: string;
@@ -52,7 +50,6 @@ export class OeeComponent implements OnInit {
 
   constructor(
     private _route: ActivatedRoute,
-    private _router: Router,
     private poderesService: PoderesDelEstadoService,
     public messageService: MessageService,
     public sanitizer: DomSanitizer,
@@ -71,10 +68,15 @@ export class OeeComponent implements OnInit {
       this.urlEntidad = params["urlEntidad"];
       this.urlOee = params["urlOee"];
 
-      console.log('oee.component.ts: ', this.urlPoder, this.urlEntidad, this.urlOee);
+      if(this.urlEntidad  && !this.urlOee) {
+        this.titulo = this.urlEntidad.replace(/-/g, " ");
+        this.titulo = this.titulo.charAt(0).toUpperCase() + this.titulo.substr(1).toLowerCase();
 
-      this.descOee = this.urlOee.replace(/-/g, " ").toUpperCase();
-      this.getInfoOee(this.urlOee);
+        this.getListOee(this.urlEntidad);
+        
+      } else if(this.urlOee) {
+        this.getInfoOee(this.urlOee);
+      }
     });
   }
 
@@ -107,11 +109,26 @@ export class OeeComponent implements OnInit {
     });
   }
 
+  getListOee(urlEntidad: string): void {
+    this.poderesService.getListOee(urlEntidad).subscribe(data => {
+      if (data != null && data.length > 0) {
+        this.oees = data;
+        if (this.oees.length === 1) {
+          this.urlOee = data[0].urlOee;
+          this.getInfoOee(this.urlOee);
+        }
+      }
+    }, error => {
+      console.log("error", error);
+    });
+  }
+
   getInfoOee(urlOee: string): void {
     this.poderesService.getInfoOee(urlOee).subscribe(response => {
         if (response != null && response.length > 0) {
 
-          this.descOee = response[0].oee.descripcionOee;
+          if(this.urlOee)
+            this.titulo = response[0].oee.descripcionOee;
 
           for (let x = 0; x < response.length; x++) {
             if (response[x].tipoDato.idTipoDato == 27) {
@@ -123,7 +140,6 @@ export class OeeComponent implements OnInit {
             if (response[x].tipoDato.idTipoDato == 1) {
               this.urlSitioWeb = "<a href='"+this.htmlToPlaintext(response[x].descripcionOeeInformacion)+"' target='_blank'>"+response[x].descripcionOeeInformacion+"</a>";
             }
-
           }
 
           this.infos = response;
@@ -192,14 +208,6 @@ export class OeeComponent implements OnInit {
     let urlLocation = location.href;
     window.location.href = 'https://tutramiteenlinea.mitic.gov.py/inicio/?portal=' + urlLocation;
   }
-
-  // getListCompras() {
-  //   this.paramsComprasPublicas = { info: this.infos };
-  // }
-
-  // getListBolsa(): void {
-  //   this.paramsBolsaTrabajo = { info: this.infos };
-  // }
 
   formatFecha(fecha: string){
     if(fecha){

@@ -14,7 +14,7 @@ var _imgInterval,
 		}
 		return '';
 	};
-
+/*
 $.magnificPopup.registerModule('image', {
 
 	options: {
@@ -242,4 +242,4 @@ $.magnificPopup.registerModule('image', {
 		}
 	}
 });
-
+*/

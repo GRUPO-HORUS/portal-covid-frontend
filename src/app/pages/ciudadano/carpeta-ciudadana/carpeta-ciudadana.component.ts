@@ -21,10 +21,8 @@ export class CarpetaCiudadanaComponent implements OnInit {
   public loading: boolean;
   public resultado: any = { status: true, message: ''};
   public menuDocument: any[];
-  
   public dataCarpetaCiudadana: any[] = [];
   public documentoSeleccionado:any = {};
-
   public cursos: any;
 
   constructor(
@@ -69,7 +67,6 @@ export class CarpetaCiudadanaComponent implements OnInit {
   }
 
   generarDocumentoHistorico(result: any) {
-
     setTimeout(function() { 
       $("#modalDetalleDocumento").modal("hide"); 
       $('.modal-backdrop').hide();

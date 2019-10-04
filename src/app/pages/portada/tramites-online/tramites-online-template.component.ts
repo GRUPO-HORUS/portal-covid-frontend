@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { MessageService } from "app/services/MessageService";
 import { PoderesDelEstadoService } from "app/services/PoderesDelEstadoService";
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Router } from "@angular/router";
 import { AppConfig } from "../../../app.config";
 
 @Component({
@@ -67,13 +67,13 @@ export class TramitesOnlineTemplateComponent implements OnInit {
   getListTramites(): void {
     this.poderesDelEstadoService.getListTramitesEnLinea(0,0).subscribe(
       data => {
-        for(let x = 0; x < data.length; x++){
+        for(let x = 0; x < data.length; x++) {
           this.tramitesEnLinea.push({
-            idServicioEtiqueta: data[x].idServicioEtiqueta,
-            descripcionServicio: data[x].servicio.descripcionServicio,
-            idServicio: data[x].servicio.idServicio,
-            nombreServicio: data[x].servicio.nombreServicio,
-            urlOee: data[x].servicio.oee.urlOee,
+            // idServicioEtiqueta: data[x].idServicioEtiqueta,
+            descripcionServicio: data[x].descripcionServicio,
+            idServicio: data[x].idServicio,
+            nombreServicio: data[x].nombreServicio,
+            urlOee: data[x].oee.urlOee,
           });
         }
         this.countResults = this.tramitesEnLinea.length;

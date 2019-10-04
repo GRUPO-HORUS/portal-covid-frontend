@@ -12,7 +12,6 @@ import { HeaderComponent } from "./pages/header/header.component";
 /*PODERES*/
 import { PoderesDelEstadoComponent } from "./pages/poderes/poderes-estados/poderes-del-estado.component";
 import { OeeComponent } from "./pages/poderes/oee/oee.component";
-import { OeeEntidadComponent } from "./pages/poderes/oee-entidad/oeeEntidad.component";
 import { OeeServicioComponent } from "./pages/poderes/oee-servicio/oeeServicio.component";
 import { OtrasComponent } from "./pages/poderes/otras-instituciones/otras-instituciones.component";
 /*PORTADA*/
@@ -72,7 +71,7 @@ import { ValidarDocumentoComponent } from "./pages/ciudadano/validar-documento/v
  *  SERVICES
  */
 import { PoderesDelEstadoService } from "./services/PoderesDelEstadoService";
-import { EncuestaService } from "./services/encuesta.service";
+// import { EncuestaService } from "./services/encuesta.service";
 import { MessageService } from "./services/MessageService";
 import { IETerminosComponent } from "./pages/identidad-electronica/ie-terminos/ie-terminos.component";
 import { AgendarTurnoComponent } from "./pages/identidad-electronica/agendar-turno/agendar-turno.component";
@@ -98,16 +97,13 @@ export const appRoutes: Routes = [
   { path: "portada", component: PortadaComponent, runGuardsAndResolvers: 'always' },
   //{ path: "sitemap.xml", loadChildren: 'app/pages/sitemap/sitemap.module#SitemapModule'},
 
-  { path: "poderes-del-estado", component: PoderesDelEstadoComponent },
-  { path: "poderes-del-estado/:urlPoder", component: PoderesDelEstadoComponent },
-  
-  { path: "poderes-del-estado/:urlPoder/:urlEntidad", component: OeeEntidadComponent },
-  { path: "poderes-del-estado/:urlPoder/:urlEntidad/:urlOee", component: OeeComponent },
-
+  { path: "estado", component: PoderesDelEstadoComponent },
+  { path: "estado/:urlPoder", component: PoderesDelEstadoComponent },
+  { path: "estado/:urlPoder/:urlEntidad", component:OeeComponent },
+  { path: "estado/:urlPoder/:urlEntidad/:urlOee", component: OeeComponent },
   { path: "oee/:urlOee", component: OeeComponent },
   { path: "oee/:urlOee/:idServicio", component: OeeServicioComponent },
-  { path: "otras/:urlNivel", component: OtrasComponent },
-
+  
   { path: "categoria/:filtro/resultado", component: CategoriaTramiteResultadoComponent },
   { path: "sobre-portal", component: PortalComponent },
   { path: "suscripcion", component: SuscripcionComponent },
@@ -187,7 +183,6 @@ export const routesComponents = [
   TramitesComponent,
   BuscadorComponent,
   PoderesDelEstadoComponent,
-  OeeEntidadComponent,
   OeeComponent,
   OeeServicioComponent,
   OtrasComponent,

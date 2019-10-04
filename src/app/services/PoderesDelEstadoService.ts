@@ -75,4 +75,5 @@ export class PoderesDelEstadoService {
   getCategoriaTramite() {
     return this.httpClient.get(this.config.API + "/categoria/getCategoriaTramite");
   }
+  
 }

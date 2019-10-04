@@ -38,20 +38,16 @@ export class VisorDocumentoComponent implements OnInit {
     this.viewScrollTop(100);
     
     this._route.params.subscribe(params => {
-
       this.ruta = params["ruta"];
       this.objId = params["objId"];
-      // console.log('ruta', this.ruta);
-      // console.log('objId', this.objId);
-      
+
       if(this.urlTrustToken.indexOf(this.ruta) === -1) {
         this.token = this.auth.getToken();
         this.ciudadano = this.auth.getCurrentUser();
-
         if(this.ciudadano == null || this.token == null) {
           this.router.navigate(['/login-ciudadano']);
           return;
-        } 
+        }
       }
 
     });

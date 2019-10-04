@@ -30,7 +30,6 @@ export class OeeServicioComponent implements OnInit {
     fechaCreacion: '',
     responsable: '',
     fechaModificacion:'',
-    servicioEnLinea: false,
     servicioEnLineaUrl: '',
     tramiteAcceso: '',
     iframeSite: '',
@@ -120,15 +119,19 @@ export class OeeServicioComponent implements OnInit {
             if (entry.nombreServicio != null) this.infoServicio.nombreServicio = entry.nombreServicio; 
             if (entry.fechaCreacion != null) this.infoServicio.fechaCreacion = entry.fechaCreacion; 
             if (entry.fechaModificacion != null) this.infoServicio.fechaModificacion = entry.fechaModificacion; 
-            if (entry.responsable != null) this.infoServicio.responsable = entry.responsable; 
-            if (entry.nombreEtiqueta === "online") this.infoServicio.servicioEnLinea = true;
             if (entry.descripcionServicio != null) this.infoServicio.detalle[0].valor = entry.descripcionServicio; 
-            if(entry.idTipoDato == 1){
-              this.infoServicio.servicioEnLineaUrl = this.htmlToPlaintext(entry.descripcionServicioInformacion);
-                if(!this.infoServicio.servicioEnLineaUrl.startsWith('http')) {
-                  this.infoServicio.servicioEnLineaUrl = 'http://'+this.infoServicio.servicioEnLineaUrl;
-                }
+            if (entry.responsable != null) this.infoServicio.responsable = entry.responsable; 
+
+            if (entry.urlOnline != null && entry.urlOnline != "") {
+
+              this.infoServicio.servicioEnLineaUrl = this.htmlToPlaintext(entry.urlOnline);
+              
+              if(!this.infoServicio.servicioEnLineaUrl.startsWith('http')) {
+                this.infoServicio.servicioEnLineaUrl = 'http://'+this.infoServicio.servicioEnLineaUrl;
+              }
+
             }
+
             if (entry.idTipoDato === 16) this.infoServicio.detalle[1].valor = entry.descripcionServicioInformacion;
             if (entry.idTipoDato === 11) this.infoServicio.detalle[2].valor = entry.descripcionServicioInformacion;
             if (entry.idTipoDato === 1) this.infoServicio.detalle[3].valor = this.htmlToPlaintext(entry.descripcionServicioInformacion);

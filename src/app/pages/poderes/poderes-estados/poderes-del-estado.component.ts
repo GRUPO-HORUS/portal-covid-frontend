@@ -11,9 +11,19 @@ import { MessageService } from "app/services/MessageService";
 })
 export class PoderesDelEstadoComponent implements OnInit {
   
-  titulo: string = "";
-  urlPoder: string;
-  entidades: any = 0;
+  public titulo: string = "";
+  public urlPoder: string;
+  public entidades: any = 0;
+
+  public menuEstado = [
+    'poder-ejecutivo',
+    'poder-legislativo',
+    'poder-judicial',
+    'otros-organismos-del-estado',
+    'universidades-nacionales',
+    'contraloria-general-de-la-republica',
+    'entidades-binacionales'
+  ];
 
   constructor(
     private _route: ActivatedRoute,
@@ -31,16 +41,18 @@ export class PoderesDelEstadoComponent implements OnInit {
   }
 
   getListEntidad(): void {
-    let poderes = ['poder-ejecutivo','poder-legislativo','poder-judicial'];
-    if (this.urlPoder != null && poderes.indexOf(this.urlPoder) !== -1) {
+    if (this.urlPoder != null && this.menuEstado.indexOf(this.urlPoder) !== -1) {
 
-      this.titulo = this.urlPoder.replace("-", " ");
+      this.titulo = this.urlPoder.replace(/-/g, " ");
 
       this.poderesDelEstadoService.getListEntidad(this.urlPoder).subscribe(data => {
+        
         this.entidades = data;
+
       }, error => {
         console.log("error", error);
       });
+
     } else {
       this.titulo = "El Estado";
     }

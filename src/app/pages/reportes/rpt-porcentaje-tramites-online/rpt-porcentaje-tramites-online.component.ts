@@ -122,7 +122,6 @@ export class RptPorcentajeTramitesOnlineComponent implements OnInit{
               this.data.datasets[0].data.push(response[x].porcentaje);
             }
           }
-          console.log("data: ",this.data);
         },
         error => {
           console.log("error", error);
@@ -134,7 +133,6 @@ export class RptPorcentajeTramitesOnlineComponent implements OnInit{
   chartClicked(event){
     console.log("chartClickedEvent: ",event);
     let idClasificador = Number(this.data.datasets[0].data[event.element[0]._index]);
-    console.log("data", idClasificador);
   }
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
