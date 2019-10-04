@@ -69,9 +69,8 @@ export class OeeComponent implements OnInit {
       this.urlOee = params["urlOee"];
 
       if(this.urlEntidad  && !this.urlOee) {
-        this.titulo = this.urlEntidad.replace(/-/g, " ");
-        this.titulo = this.titulo.charAt(0).toUpperCase() + this.titulo.substr(1).toLowerCase();
-
+        // this.titulo = this.urlEntidad.replace(/-/g, " ");
+        // this.titulo = this.titulo.charAt(0).toUpperCase() + this.titulo.substr(1).toLowerCase();
         this.getListOee(this.urlEntidad);
         
       } else if(this.urlOee) {
@@ -85,7 +84,6 @@ export class OeeComponent implements OnInit {
   }
 
   guardarComentario(){
-    console.log("currentUser: ",this.currentUser, "comentario: "+this.comentario);
     if(this.currentUser != null){
       let content = {
         comentario: this.comentario,
@@ -113,6 +111,8 @@ export class OeeComponent implements OnInit {
     this.poderesService.getListOee(urlEntidad).subscribe(data => {
       if (data != null && data.length > 0) {
         this.oees = data;
+        this.titulo = data[0].entidad.descripcionEntidad;
+        console.log('this.titulo', this.titulo);
         if (this.oees.length === 1) {
           this.urlOee = data[0].urlOee;
           this.getInfoOee(this.urlOee);
@@ -126,9 +126,11 @@ export class OeeComponent implements OnInit {
   getInfoOee(urlOee: string): void {
     this.poderesService.getInfoOee(urlOee).subscribe(response => {
         if (response != null && response.length > 0) {
-
-          if(this.urlOee)
+          
+          if(this.urlOee) {
             this.titulo = response[0].oee.descripcionOee;
+            console.log('this.titulo', this.titulo);
+          }
 
           for (let x = 0; x < response.length; x++) {
             if (response[x].tipoDato.idTipoDato == 27) {
