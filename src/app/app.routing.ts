@@ -90,6 +90,7 @@ import { RptPorcentajeTramitesOnlineComponent } from "./pages/reportes/rpt-porce
 import { DocumentosComponent } from "./pages/documentos/documentos.component";
 import { SolicitudDocumentoComponent } from "./pages/ciudadano/solicitud-documento/solicitud-documento.component";
 import { ConsultaDocumentoComponent } from "./pages/ciudadano/consulta-documento/consulta-documento.component";
+import { RptCantidadDocumentosComponent } from './pages/reportes/rpt-cantidad-documentos/rpt-cantidad-documentos.component';
 
 //Listado de rutas para la aplicación
 export const appRoutes: Routes = [
@@ -168,6 +169,7 @@ export const appRoutes: Routes = [
   { path: "estadisticas-portal/tramites-categoria", component: RptTramitesCategoriaComponent },
   { path: "estadisticas-portal/tramites-etiqueta", component: RptTramitesEtiquetaComponent },
   { path: "estadisticas-portal/satisfaccion-tramites", component: RptSatisfaccionTramiteComponent },
+  { path: "estadisticas-portal/cantidad-documentos", component: RptCantidadDocumentosComponent },
 
   { path: "**", component: Page404Component }
 ];
@@ -241,7 +243,8 @@ export const routesComponents = [
   RptSatisfaccionTramiteComponent,
   DocumentosComponent,
   SolicitudDocumentoComponent,
-  ConsultaDocumentoComponent
+  ConsultaDocumentoComponent,
+  RptCantidadDocumentosComponent
 ];
 
 // Listado de providers para la aplicación

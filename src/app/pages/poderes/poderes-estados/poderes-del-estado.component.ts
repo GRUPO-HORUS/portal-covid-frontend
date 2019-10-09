@@ -13,7 +13,7 @@ export class PoderesDelEstadoComponent implements OnInit {
   
   public titulo: string = "";
   public urlPoder: string;
-  public entidades: any = 0;
+  public entidades: any[] = [];
 
   public menuEstado = [
     'poder-ejecutivo',
@@ -21,8 +21,15 @@ export class PoderesDelEstadoComponent implements OnInit {
     'poder-judicial',
     'otros-organismos-del-estado',
     'universidades-nacionales',
-    'contraloria-general-de-la-republica',
-    'entidades-binacionales'
+    'cgr',
+    'binacionales',
+    'municipalidades',
+    'banca-central',
+    'autonomos-autarquicos',
+    'seguridad-social',
+    'empresas-publicas',
+    'financieras',
+    'sa'
   ];
 
   constructor(
@@ -46,9 +53,12 @@ export class PoderesDelEstadoComponent implements OnInit {
       this.titulo = this.urlPoder.replace(/-/g, " ");
 
       this.poderesDelEstadoService.getListEntidad(this.urlPoder).subscribe(data => {
-        
-        this.entidades = data;
-
+        console.log('data', data);
+        this.entidades = [];
+        if(data && data.length > 0) {
+          this.titulo = data[0].nivel;
+          this.entidades = data;
+        }
       }, error => {
         console.log("error", error);
       });

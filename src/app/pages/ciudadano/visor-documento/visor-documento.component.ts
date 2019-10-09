@@ -58,7 +58,11 @@ export class VisorDocumentoComponent implements OnInit {
   }
 
   cancelGenerarDocumento() {
-    this.router.navigate([this.ruta.replace('-','/')]);
+    if(this.ruta == 'carpeta-ciudadana') {
+      this.router.navigate([this.ruta]);
+    } else {
+      this.router.navigate([this.ruta.replace('-','/')]);
+    }
   }
 
   getDocumento(download: boolean) {

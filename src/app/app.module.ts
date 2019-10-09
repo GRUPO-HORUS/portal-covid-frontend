@@ -47,7 +47,7 @@ import { ChartjsModule } from '@ctrl/ngx-chartjs';
     SafeHtmlPipe,
     FilterdataPipe,
     ArraySortPipe,
-    RestablecerClaveComponent
+    RestablecerClaveComponent,
   ],
   // dependencias de módulos
   imports: [

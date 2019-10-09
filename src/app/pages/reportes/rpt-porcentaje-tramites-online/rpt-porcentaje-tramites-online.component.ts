@@ -83,7 +83,7 @@ export class RptPorcentajeTramitesOnlineComponent implements OnInit{
             let dataString = new Intl.NumberFormat('es',{ minimumFractionDigits: 0 }).format(dataset.data[index]);
             ctx.textAlign = 'center';
             ctx.textBaseline = 'bottom';
-            let padding = -12;
+            let padding = -20;
             let position = element.tooltipPosition();
             ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
           });

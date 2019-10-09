@@ -41,7 +41,7 @@
                 <div class="mb-3"><strong><i style="margin-top:-4px;" class="fa fa-angle-right"></i> Otras Entidades</strong></div>
                 <ul class="list-group texto-accesible-ul nav nav-section-menu-left pb-0 mb-4">
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/estado/otros-organismos-del-estado" routerLinkActive="active" class="nav-link">
+                        <a routerLink="/estado/otros" routerLinkActive="active" class="nav-link">
                             <span>Otros Organismos Dependientes <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
@@ -51,15 +51,52 @@
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/estado/contraloria-general-de-la-republica" routerLinkActive="active" class="nav-link">
+                        <a routerLink="/estado/cgr" routerLinkActive="active" class="nav-link">
                             <span>Contraloría General de la República <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/estado/entidades-binacionales" routerLinkActive="active" class="nav-link">
+                        <a routerLink="/estado/binacionales" routerLinkActive="active" class="nav-link">
                             <span>Entidades Binacionales <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
+
+                    <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
+                        <a routerLink="/estado/municipalidades" routerLinkActive="active" class="nav-link">
+                            <span>Municipalidades <i class="fa fa-angle-double-right pull-right"></i></span>
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
+                        <a routerLink="/estado/banca-central" routerLinkActive="active" class="nav-link">
+                            <span>Banca Central del Estado <i class="fa fa-angle-double-right pull-right"></i></span>
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
+                        <a routerLink="/estado/autonomos-autarquicos" routerLinkActive="active" class="nav-link">
+                            <span>Entes Autónomos y Autárquicos <i class="fa fa-angle-double-right pull-right"></i></span>
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
+                        <a routerLink="/estado/seguridad-social" routerLinkActive="active" class="nav-link">
+                            <span>Entidades Públicas de Seguridad Social <i class="fa fa-angle-double-right pull-right"></i></span>
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
+                        <a routerLink="/estado/empresas-publicas" routerLinkActive="active" class="nav-link">
+                            <span>Empresas públicas <i class="fa fa-angle-double-right pull-right"></i></span>
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
+                        <a routerLink="/estado/financieras" routerLinkActive="active" class="nav-link">
+                            <span>Entidades Financieras Oficiales <i class="fa fa-angle-double-right pull-right"></i></span>
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
+                        <a routerLink="/estado/sa" routerLinkActive="active" class="nav-link">
+                            <span>Sociedades Anónimas <i class="fa fa-angle-double-right pull-right"></i></span>
+                        </a>
+                    </li>
+
                 </ul>
             </div>
 
@@ -76,6 +113,7 @@
         </div>
 
         <div *ngIf="!entidades">
+
             <div class="row mb-5">
                 <div class="col-lg-4 col-md-4 d-flex">
                     <a routerLink="/estado/poder-ejecutivo" class="flex-ew flex-valign">
@@ -111,10 +149,11 @@
                     </a>
                 </div>
             </div>
+
             <div class="card-deck pb-6">
                 <div class="card">
                     <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
-                        <a routerLink="/estado/otros-organismos-del-estado">
+                        <a routerLink="/estado/otros">
                             <hr class="w-50 mx-auto">
                             <h4 class="text-white text-uppercase mb-0">
                                 Otros Organismos Dependientes
@@ -136,7 +175,7 @@
                 </div>
                 <div class="card">
                     <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/el-estado/contraloria.jpg" style="background-image: url('assets/img/el-estado/contraloria.jpg') !important;">
-                        <a routerLink="/estado/contraloria-general-de-la-republica">
+                        <a routerLink="/estado/cgr">
                             <hr class="w-50 mx-auto">
                             <h4 class="text-white text-uppercase mb-0">
                                 Contraloría General de la República
@@ -147,7 +186,7 @@
                 </div>
                 <div class="card">
                     <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
-                        <a routerLink="/estado/entidades-binacionales">
+                        <a routerLink="/estado/binacionales">
                             <hr class="w-50 mx-auto">
                             <h4 class="text-white text-uppercase mb-0">
                                 Entidades Binacionales
@@ -156,7 +195,93 @@
                         </a>
                     </div>
                 </div>
+                
             </div>
+
+            <div class="card-deck pb-6">
+                <div class="card">
+                    <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
+                        <a routerLink="/estado/municipalidades">
+                            <hr class="w-50 mx-auto">
+                            <h4 class="text-white text-uppercase mb-0">
+                                Municipalidades
+                            </h4>
+                            <hr class="w-50 mx-auto">
+                        </a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
+                        <a routerLink="/estado/banca-central">
+                            <hr class="w-50 mx-auto">
+                            <h4 class="text-white text-uppercase mb-0">
+                                Banca Central del Estado
+                            </h4>
+                            <hr class="w-50 mx-auto">
+                        </a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
+                        <a routerLink="/estado/autonomos-autarquicos">
+                            <hr class="w-50 mx-auto">
+                            <h4 class="text-white text-uppercase mb-0">
+                                Entes Autónomos y Autárquicos
+                            </h4>
+                            <hr class="w-50 mx-auto">
+                        </a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
+                        <a routerLink="/estado/seguridad-social">
+                            <hr class="w-50 mx-auto">
+                            <h4 class="text-white text-uppercase mb-0">
+                                Entidades Públicas de Seguridad Social
+                            </h4>
+                            <hr class="w-50 mx-auto">
+                        </a>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="card-deck pb-6">
+                <div class="card">
+                    <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
+                        <a routerLink="/estado/empresas-publicas">
+                            <hr class="w-50 mx-auto">
+                            <h4 class="text-white text-uppercase mb-0">
+                                Empresas Públicas
+                            </h4>
+                            <hr class="w-50 mx-auto">
+                        </a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
+                        <a routerLink="/estado/financieras">
+                            <hr class="w-50 mx-auto">
+                            <h4 class="text-white text-uppercase mb-0">
+                                Entidades Financieras Oficiales
+                            </h4>
+                            <hr class="w-50 mx-auto">
+                        </a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
+                        <a routerLink="/estado/sa">
+                            <hr class="w-50 mx-auto">
+                            <h4 class="text-white text-uppercase mb-0">
+                                Sociedades Anónimas
+                            </h4>
+                            <hr class="w-50 mx-auto">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="row text-left"></div>

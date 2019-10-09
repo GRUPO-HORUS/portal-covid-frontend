@@ -112,7 +112,6 @@ export class OeeComponent implements OnInit {
       if (data != null && data.length > 0) {
         this.oees = data;
         this.titulo = data[0].entidad.descripcionEntidad;
-        console.log('this.titulo', this.titulo);
         if (this.oees.length === 1) {
           this.urlOee = data[0].urlOee;
           this.getInfoOee(this.urlOee);
@@ -129,7 +128,6 @@ export class OeeComponent implements OnInit {
           
           if(this.urlOee) {
             this.titulo = response[0].oee.descripcionOee;
-            console.log('this.titulo', this.titulo);
           }
 
           for (let x = 0; x < response.length; x++) {

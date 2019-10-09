@@ -82,7 +82,6 @@ export class TraductorGuaraniComponent implements OnInit {
   ejemplo() {
     this.busqueda = 'ab';
     this.buscar();
-    console.log("palabra(ejemplo): ", this.busqueda, this.trEspAgua);
   }
 
 }
