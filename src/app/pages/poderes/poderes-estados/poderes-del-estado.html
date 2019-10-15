@@ -42,7 +42,7 @@
                 <ul class="list-group texto-accesible-ul nav nav-section-menu-left pb-0 mb-4">
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
                         <a routerLink="/estado/otros" routerLinkActive="active" class="nav-link">
-                            <span>Otros Organismos Dependientes <i class="fa fa-angle-double-right pull-right"></i></span>
+                            <span>Otros Organismos del Estado <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
@@ -58,12 +58,6 @@
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
                         <a routerLink="/estado/binacionales" routerLinkActive="active" class="nav-link">
                             <span>Entidades Binacionales <i class="fa fa-angle-double-right pull-right"></i></span>
-                        </a>
-                    </li>
-
-                    <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/estado/municipalidades" routerLinkActive="active" class="nav-link">
-                            <span>Municipalidades <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
@@ -83,7 +77,7 @@
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
                         <a routerLink="/estado/empresas-publicas" routerLinkActive="active" class="nav-link">
-                            <span>Empresas públicas <i class="fa fa-angle-double-right pull-right"></i></span>
+                            <span>Empresas Públicas <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
@@ -96,7 +90,16 @@
                             <span>Sociedades Anónimas <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
-
+                    <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
+                        <a href="https://www.gobernaciones.gov.py/" target="_blank" (click)="scrollToTop(topSite)">                            
+                            <span>Gobernaciones <i class="fa fa-angle-double-right pull-right"></i></span>
+                        </a>
+                    </li>
+                    <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
+                        <a href="https://www.municipios.gov.py/" target="_blank" (click)="scrollToTop(topSite)">                            
+                            <span>Municipios <i class="fa fa-angle-double-right pull-right"></i></span>
+                        </a>
+                    </li>
                 </ul>
             </div>
 
@@ -156,7 +159,7 @@
                         <a routerLink="/estado/otros">
                             <hr class="w-50 mx-auto">
                             <h4 class="text-white text-uppercase mb-0">
-                                Otros Organismos Dependientes
+                                Otros Organismos del Estado
                             </h4>
                             <hr class="w-50 mx-auto">
                         </a>
@@ -199,17 +202,7 @@
             </div>
 
             <div class="card-deck pb-6">
-                <div class="card">
-                    <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
-                        <a routerLink="/estado/municipalidades">
-                            <hr class="w-50 mx-auto">
-                            <h4 class="text-white text-uppercase mb-0">
-                                Municipalidades
-                            </h4>
-                            <hr class="w-50 mx-auto">
-                        </a>
-                    </div>
-                </div>
+                
                 <div class="card">
                     <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
                         <a routerLink="/estado/banca-central">
@@ -243,10 +236,7 @@
                         </a>
                     </div>
                 </div>
-                
-            </div>
 
-            <div class="card-deck pb-6">
                 <div class="card">
                     <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
                         <a routerLink="/estado/empresas-publicas">
@@ -258,6 +248,9 @@
                         </a>
                     </div>
                 </div>
+            </div>
+
+            <div class="card-deck pb-6">
                 <div class="card">
                     <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
                         <a routerLink="/estado/financieras">
@@ -275,6 +268,28 @@
                             <hr class="w-50 mx-auto">
                             <h4 class="text-white text-uppercase mb-0">
                                 Sociedades Anónimas
+                            </h4>
+                            <hr class="w-50 mx-auto">
+                        </a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
+                        <a href="https://www.gobernaciones.gov.py/" target="_blank" (click)="scrollToTop(topSite)" >
+                            <hr class="w-50 mx-auto">
+                            <h4 class="text-white text-uppercase mb-0">
+                                Gobernaciones 
+                            </h4>
+                            <hr class="w-50 mx-auto">
+                        </a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
+                        <a href="https://www.municipios.gov.py/" target="_blank" (click)="scrollToTop(topSite)">
+                            <hr class="w-50 mx-auto">
+                            <h4 class="text-white text-uppercase mb-0">
+                                Municipios
                             </h4>
                             <hr class="w-50 mx-auto">
                         </a>
