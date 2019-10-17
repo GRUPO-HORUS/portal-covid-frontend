@@ -40,66 +40,68 @@
 
                 <div class="mb-3"><strong><i style="margin-top:-4px;" class="fa fa-angle-right"></i> Otras Entidades</strong></div>
                 <ul class="list-group texto-accesible-ul nav nav-section-menu-left pb-0 mb-4">
+
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/estado/otros" routerLinkActive="active" class="nav-link">
+                        <a routerLink="/estado/otros" (click)="scrollTop()" routerLinkActive="active" class="nav-link">
                             <span>Otros Organismos del Estado <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/estado/universidades-nacionales" routerLinkActive="active" class="nav-link">
+                        <a routerLink="/estado/universidades-nacionales"(click)="scrollTop()" routerLinkActive="active" class="nav-link">
                             <span>Universidades Nacionales <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/estado/cgr" routerLinkActive="active" class="nav-link">
+                        <a routerLink="/estado/cgr" (click)="scrollTop()" routerLinkActive="active" class="nav-link">
                             <span>Contraloría General de la República <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/estado/binacionales" routerLinkActive="active" class="nav-link">
+                        <a routerLink="/estado/binacionales" (click)="scrollTop()" routerLinkActive="active" class="nav-link">
                             <span>Entidades Binacionales <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/estado/banca-central" routerLinkActive="active" class="nav-link">
+                        <a routerLink="/estado/banca-central" (click)="scrollTop()" routerLinkActive="active" class="nav-link">
                             <span>Banca Central del Estado <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/estado/autonomos-autarquicos" routerLinkActive="active" class="nav-link">
+                        <a routerLink="/estado/autonomos-autarquicos" (click)="scrollTop()" routerLinkActive="active" class="nav-link">
                             <span>Entes Autónomos y Autárquicos <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/estado/seguridad-social" routerLinkActive="active" class="nav-link">
+                        <a routerLink="/estado/seguridad-social" (click)="scrollTop()" routerLinkActive="active" class="nav-link">
                             <span>Entidades Públicas de Seguridad Social <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/estado/empresas-publicas" routerLinkActive="active" class="nav-link">
+                        <a routerLink="/estado/empresas-publicas" (click)="scrollTop()" routerLinkActive="active" class="nav-link">
                             <span>Empresas Públicas <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/estado/financieras" routerLinkActive="active" class="nav-link">
+                        <a routerLink="/estado/financieras" (click)="scrollTop()" routerLinkActive="active" class="nav-link">
                             <span>Entidades Financieras Oficiales <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a routerLink="/estado/sa" routerLinkActive="active" class="nav-link">
+                        <a routerLink="/estado/sa" (click)="scrollTop()" routerLinkActive="active" class="nav-link">
                             <span>Sociedades Anónimas <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a href="https://www.gobernaciones.gov.py/" target="_blank" (click)="scrollToTop(topSite)">                            
+                        <a href="https://www.gobernaciones.gov.py/" target="_blank" (click)="scrollTop()" routerLinkActive="active" class="nav-link">
                             <span>Gobernaciones <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
                     <li class="list-group-item list-group-item-action p-1 b-0" style="background-color: transparent" routerLinkActive="active">
-                        <a href="https://www.municipios.gov.py/" target="_blank" (click)="scrollToTop(topSite)">                            
+                        <a href="https://www.municipios.gov.py/" target="_blank" (click)="scrollTop()" routerLinkActive="active" class="nav-link">
                             <span>Municipios <i class="fa fa-angle-double-right pull-right"></i></span>
                         </a>
                     </li>
+
                 </ul>
             </div>
 
@@ -198,11 +200,9 @@
                         </a>
                     </div>
                 </div>
-                
             </div>
 
             <div class="card-deck pb-6">
-                
                 <div class="card">
                     <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
                         <a routerLink="/estado/banca-central">
@@ -236,7 +236,6 @@
                         </a>
                     </div>
                 </div>
-
                 <div class="card">
                     <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
                         <a routerLink="/estado/empresas-publicas">
@@ -275,7 +274,7 @@
                 </div>
                 <div class="card">
                     <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
-                        <a href="https://www.gobernaciones.gov.py/" target="_blank" (click)="scrollToTop(topSite)" >
+                        <a href="https://www.gobernaciones.gov.py/" target="_blank">
                             <hr class="w-50 mx-auto">
                             <h4 class="text-white text-uppercase mb-0">
                                 Gobernaciones 
@@ -286,7 +285,7 @@
                 </div>
                 <div class="card">
                     <div class="card-block text-center p-4 py-lg-5 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important;">
-                        <a href="https://www.municipios.gov.py/" target="_blank" (click)="scrollToTop(topSite)">
+                        <a href="https://www.municipios.gov.py/" target="_blank">
                             <hr class="w-50 mx-auto">
                             <h4 class="text-white text-uppercase mb-0">
                                 Municipios

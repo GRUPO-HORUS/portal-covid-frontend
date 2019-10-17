@@ -47,6 +47,10 @@ export class PoderesDelEstadoComponent implements OnInit {
     });
   }
 
+  scrollTop(event) {
+    window.scrollTo(400, 1);
+  }
+
   getListEntidad(): void {
     if (this.urlPoder != null && this.menuEstado.indexOf(this.urlPoder) !== -1) {
 
