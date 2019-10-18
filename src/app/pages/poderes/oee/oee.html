@@ -31,135 +31,133 @@
                 
                 <!--info oee -->
                 <div *ngIf="!oees || infos.length > 0">
-                    <div *ngFor="let info of infos">
-                        <div class="list-group-item" style="border:0px;padding:1px;" *ngIf="info.tipoDato != null">
-
-                            <div class="text-left" *ngIf="info.tipoDato && info.tipoDato.idTipoDato==4 && info.descripcionOeeInformacion">
-                                <div class="row mt-4">
-                                    <div class="col col-2 col-lg-2 text-right">
-                                        <i class="far fa-file-alt icon-2x text-color-primary" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="col col-10 col-lg-10">
-                                        <h3 class="texto-accesible-H3">
-                                            <span>Descripción</span>
-                                        </h3>
-                                        <p class="texto-accesible-pLead" [innerHTML]="info.descripcionOeeInformacion"></p>
-                                    </div>
-                                </div>
+                    
+                    <div class="text-left">
+                        <div class="row mt-4">
+                            <div class="col col-2 col-lg-2 text-right">
+                                <i class="fa fa-globe icon-2x text-color-primary" aria-hidden="true"></i>
                             </div>
-
-                            <div class="text-left" *ngIf="info.tipoDato != null && info.tipoDato.idTipoDato == 1 && info.descripcionOeeInformacion">
-                                <div class="row mt-4">
-                                    <div class="col col-2 col-lg-2 text-right">
-                                        <i class="fa fa-globe icon-2x text-color-primary" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="col col-10 col-lg-10">
-                                        <h3 class="texto-accesible-H3">
-                                            <span>Sitio Web</span>
-                                        </h3>
-                                        <p class="lead texto-accesible-pLead" [innerHTML]="urlSitioWeb | safeHtml"></p>
-                                    </div>
-                                </div>
+                            <div class="col col-10 col-lg-10">
+                                <h3 class="texto-accesible-H3">
+                                    <span>Sitio Web</span>
+                                </h3>
+                                <p class="lead texto-accesible-pLead" [innerHTML]="urlSitioWeb | safeHtml"></p>
                             </div>
-
-                            <div class="text-left" *ngIf="info.tipoDato && info.tipoDato.idTipoDato==2 && info.descripcionOeeInformacion">
-                                <div class="row mt-4">
-                                    <div class="col col-2 col-lg-2 text-right">
-                                        <i class="fa fa-map-signs icon-2x text-color-primary" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="col col-10 col-lg-10">
-                                        <h3 class="texto-accesible-H3">
-                                            <span>Dirección</span>
-                                        </h3>
-                                        <p class="lead texto-accesible-pLead" [innerHTML]="info.descripcionOeeInformacion"></p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="text-left" *ngIf="info.tipoDato && info.tipoDato.idTipoDato==3 && info.descripcionOeeInformacion">
-                                <div class="row mt-4">
-                                    <div class="col col-2 col-lg-2 text-right">
-                                        <i class="fa fa-envelope icon-2x text-color-primary" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="col col-10 col-lg-10">
-                                        <h3 class="texto-accesible-H3">
-                                            <span>Correo Electrónico</span>
-                                        </h3>
-                                        <p class="lead texto-accesible-pLead" [innerHTML]="info.descripcionOeeInformacion"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-left" *ngIf="info.tipoDato && info.tipoDato.idTipoDato==5 && info.descripcionOeeInformacion">
-                                <div class="row mt-4">
-                                    <div class="col col-2 col-lg-2 text-right">
-                                        <i class="fa fa-phone icon-2x text-color-primary" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="col col-10 col-lg-10">
-                                        <h3 class="texto-accesible-H3">
-                                            <span>Teléfono</span>
-                                        </h3>
-                                        <p class="lead texto-accesible-pLead" [innerHTML]="info.descripcionOeeInformacion"></p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="text-left" *ngIf="info.tipoDato && info.tipoDato.idTipoDato==6 && info.descripcionOeeInformacion">
-                                <div class="row mt-4">
-                                    <div class="col col-2 col-lg-2 text-right">
-                                        <i class="fa fa-map-marker icon-2x text-color-primary" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="col col-10 col-lg-10">
-                                        <h3 class="texto-accesible-H3">
-                                            <span>Ubicación</span>
-                                        </h3>
-                                        <p class="lead texto-accesible-pLead" [innerHTML]="info.descripcionOeeInformacion"></p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="text-left" *ngIf="info.tipoDato && info.tipoDato.idTipoDato==7 && info.descripcionOeeInformacion">
-                                <div class="row mt-4">
-                                    <div class="col col-2 col-lg-2 text-right">
-                                        <i class="fa fa-user icon-2x text-color-primary" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="col col-10 col-lg-10">
-                                        <h3 class="texto-accesible-H3">
-                                            <span>Autoridad</span>
-                                        </h3>
-                                        <p class="lead texto-accesible-pLead" [innerHTML]="info.descripcionOeeInformacion"></p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="text-left" *ngIf="info.tipoDato && info.tipoDato.idTipoDato==8 && info.descripcionOeeInformacion">
-                                <div class="row mt-4">
-                                    <div class="col col-2 col-lg-2 text-right">
-                                        <i class="fa fa-bookmark icon-2x text-color-primary" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="col col-10 col-lg-10">
-                                        <h3 class="texto-accesible-H3">
-                                            <span>Visión</span>
-                                        </h3>
-                                        <p class="lead texto-accesible-pLead" [innerHTML]="info.descripcionOeeInformacion"></p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="text-left" *ngIf="info.tipoDato && info.tipoDato.idTipoDato==9 && info.descripcionOeeInformacion">
-                                <div class="row mt-4">
-                                    <div class="col col-2 col-lg-2 text-right">
-                                        <i class="fa fa-binoculars icon-2x text-color-primary" aria-hidden="true"></i>
-                                    </div>
-                                    <div class="col col-10 col-lg-10">
-                                        <h3 class="texto-accesible-H3">
-                                            <span>Misión</span>
-                                        </h3>
-                                        <p class="lead texto-accesible-pLead" [innerHTML]="info.descripcionOeeInformacion"></p>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
+
+                    <div class="text-left">
+                        <div class="row mt-4">
+                            <div class="col col-2 col-lg-2 text-right">
+                                <i class="fa fa-map-signs icon-2x text-color-primary" aria-hidden="true"></i>
+                            </div>
+                            <div class="col col-10 col-lg-10">
+                                <h3 class="texto-accesible-H3">
+                                    <span>Dirección</span>
+                                </h3>
+                                <p class="lead texto-accesible-pLead" [innerHTML]="direccionOee | safeHtml"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-left">
+                        <div class="row mt-4">
+                            <div class="col col-2 col-lg-2 text-right">
+                                <i class="fa fa-envelope icon-2x text-color-primary" aria-hidden="true"></i>
+                            </div>
+                            <div class="col col-10 col-lg-10">
+                                <h3 class="texto-accesible-H3">
+                                    <span>Correo Electrónico</span>
+                                </h3>
+                                <p class="lead texto-accesible-pLead"  [innerHTML]="correoOee | safeHtml"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-left" >
+                        <div class="row mt-4">
+                            <div class="col col-2 col-lg-2 text-right">
+                                <i class="far fa-file-alt icon-2x text-color-primary" aria-hidden="true"></i>
+                            </div>
+                            <div class="col col-10 col-lg-10">
+                                <h3 class="texto-accesible-H3">
+                                    <span>Descripción</span>
+                                </h3>
+                                <p class="lead texto-accesible-pLead"  [innerHTML]="descripcionOeeTexto | safeHtml"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-left" >
+                        <div class="row mt-4">
+                            <div class="col col-2 col-lg-2 text-right">
+                                <i class="fa fa-phone icon-2x text-color-primary" aria-hidden="true"></i>
+                            </div>
+                            <div class="col col-10 col-lg-10">
+                                <h3 class="texto-accesible-H3">
+                                    <span>Teléfono</span>
+                                </h3>
+                                <p class="lead texto-accesible-pLead" [innerHTML]="telefonoOee | safeHtml"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-left">
+                        <div class="row mt-4">
+                            <div class="col col-2 col-lg-2 text-right">
+                                <i class="fa fa-map-marker icon-2x text-color-primary" aria-hidden="true"></i>
+                            </div>
+                            <div class="col col-10 col-lg-10">
+                                <h3 class="texto-accesible-H3">
+                                    <span>Ubicación</span>
+                                </h3>
+                                <p class="lead texto-accesible-pLead" [innerHTML]="ubicacionOee | safeHtml"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-left">
+                        <div class="row mt-4">
+                            <div class="col col-2 col-lg-2 text-right">
+                                <i class="fa fa-user icon-2x text-color-primary" aria-hidden="true"></i>
+                            </div>
+                            <div class="col col-10 col-lg-10">
+                                <h3 class="texto-accesible-H3">
+                                    <span>Autoridad</span>
+                                </h3>
+                                <p class="lead texto-accesible-pLead" [innerHTML]="autoridadOee | safeHtml"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-left">
+                        <div class="row mt-4">
+                            <div class="col col-2 col-lg-2 text-right">
+                                <i class="fa fa-binoculars icon-2x text-color-primary" aria-hidden="true"></i>
+                            </div>
+                            <div class="col col-10 col-lg-10">
+                                <h3 class="texto-accesible-H3">
+                                    <span>Misión</span>
+                                </h3>
+                                <p class="lead texto-accesible-pLead" [innerHTML]="misionOee | safeHtml"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-left">
+                        <div class="row mt-4">
+                            <div class="col col-2 col-lg-2 text-right">
+                                <i class="fa fa-bookmark icon-2x text-color-primary" aria-hidden="true"></i>
+                            </div>
+                            <div class="col col-10 col-lg-10">
+                                <h3 class="texto-accesible-H3">
+                                    <span>Visión</span>
+                                </h3>
+                                <p class="lead texto-accesible-pLead" [innerHTML]="visionOee | safeHtml"></p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
                 <ul class="list-group texto-accesible-ul" *ngIf="oees.length > 1">

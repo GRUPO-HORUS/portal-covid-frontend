@@ -25,6 +25,14 @@ export class OeeComponent implements OnInit {
   public fechaActualizacion: any;
   public urlTransparenciaActiva: any;
   public responsableOee: any;
+  public misionOee: any; 
+  public visionOee: any;
+  public autoridadOee: any;
+  public ubicacionOee: any;
+  public correoOee: any;
+  public telefonoOee: any;
+  public direccionOee: any;
+  public descripcionOeeTexto: any;
   public urlSitioWeb: any;
 
   public contTramitesOnline: number = 0;
@@ -136,6 +144,30 @@ export class OeeComponent implements OnInit {
             }
             if (response[x].tipoDato.idTipoDato == 28) {
               this.responsableOee = response[x].descripcionOeeInformacion;
+            }
+            if (response[x].tipoDato.idTipoDato == 9) {
+              this.misionOee = response[x].descripcionOeeInformacion;
+            }
+            if (response[x].tipoDato.idTipoDato == 8) {
+              this.visionOee = response[x].descripcionOeeInformacion;
+            }
+            if (response[x].tipoDato.idTipoDato == 7) {
+              this.autoridadOee = response[x].descripcionOeeInformacion;
+            }
+            if (response[x].tipoDato.idTipoDato == 6) {
+              this.ubicacionOee = response[x].descripcionOeeInformacion;
+            }
+            if (response[x].tipoDato.idTipoDato == 5) {
+              this.telefonoOee = response[x].descripcionOeeInformacion;
+            }
+            if (response[x].tipoDato.idTipoDato == 4) {
+              this.descripcionOeeTexto = response[x].descripcionOeeInformacion;
+            }
+            if (response[x].tipoDato.idTipoDato == 3) {
+              this.correoOee = response[x].descripcionOeeInformacion;
+            }
+            if (response[x].tipoDato.idTipoDato == 2) {
+              this.direccionOee = response[x].descripcionOeeInformacion;
             }
             if (response[x].tipoDato.idTipoDato == 1) {
               this.urlSitioWeb = "<a href='"+this.htmlToPlaintext(response[x].descripcionOeeInformacion)+"' target='_blank'>"+response[x].descripcionOeeInformacion+"</a>";
