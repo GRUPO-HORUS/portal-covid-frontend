@@ -17,7 +17,7 @@ export class TramitesComponent {
   resultados: any = [];
   cantidadOee: number = 0;
   cantidadTramites: number = 0;
-
+  cantidadEstadistica: number = 7;
   cantidadTramitesIE: number = 0;
   idClasificadorIE: number = 1;
 
@@ -33,10 +33,10 @@ export class TramitesComponent {
       "id_clasificador": 11007,
       "icono": "fas fa-walking",
       "nombre_clasificador": "Juventud"
-    }, {
+    /** }, {
       "id_clasificador": 11008,
       "icono": "fas fa-male",
-      "nombre_clasificador": "Adultos"
+      "nombre_clasificador": "Adultos"*/
     }, {
       "id_clasificador": 11009,
       "icono": "fa fa-blind",

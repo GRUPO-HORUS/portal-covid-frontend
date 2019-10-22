@@ -45,15 +45,20 @@
                                 <li *ngFor="let tramite of tramitesEnLinea">
                                     <a style="font-size: 13px;" (click)="getDataServicio(tramite.oee.urlOee, tramite.idServicio)" class="text-inverse" style="cursor:pointer;">
                                         <i class="fa fa-globe fa-fw"></i> {{tramite.nombreServicio}}
-                                        <ng-container *ngIf="tramite.idServicio==1127 || tramite.idServicio==1157">
+                                        <ng-container *ngIf="tramite.idServicio==1127 || tramite.idServicio==1157 || tramite.idServicio==1197">
                                             <small>
 												<font color="#990000"><b>¡nuevo!</b></font>
 											</small>
                                         </ng-container>
                                     </a>
                                 </li>
+
+                                <a routerLink="/tramites-online" class="font-weight-bold ml-1 mb-0 mt-2 text-color-primary" style="cursor:pointer;font-size: 12px;">
+                                    <i class="fa fa-plus"></i> Ver todos los trámites en línea
+                                </a>
                             </ul>
 
+                            
 
                             <ul class="texto-accesible-ul list-unstyled footer-links">
                                 <li>
@@ -69,26 +74,24 @@
                                 </li>
                             </ul>
 
-                            <a routerLink="/tramites-online" class="font-weight-bold ml-1 mb-0 mt-2 text-color-primary" style="cursor:pointer;font-size: 13px;">
-                                <i class="fa fa-plus"></i> Ver todos los trámites en línea
-                            </a>
-
-                            <a routerLink="/estadisticas-portal" class="font-weight-bold ml-1 mb-3 mt-2 text-color-primary" style="cursor:pointer;font-size: 13px;">
+                            <!--a routerLink="/estadisticas-portal" class="font-weight-bold ml-1 mb-3 mt-2 text-color-primary" style="cursor:pointer;font-size: 13px;">
                                 <i class="fa fa-plus"></i> Ver estadísticas de trámites
-                            </a>
+                            </a-->
 
                             <div class="row">
 
-                                <div style="padding-right:0px;" class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="text-center p-2 py-lg-4 overlay overlay-op-7 rounded mb-3 mr-2 mb-lg-0 bg-img" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important; background-position: bottom !important;">
-                                        <h4 class="text-white text-uppercase mb-0">
-                                            <span data-toggle="count-to" class="font-weight-bold pt-1" attr.data-to="{{cantidadTramites}}" data-from="0">{{ cantidadTramites }}</span>
-                                            <hr class="hr-lg w-50 mx-auto hr-default" style="margin:1px;">
-                                            <p class="text-white" style="font-size: 9px; line-height: 1.5; margin-bottom: 0;">Total trámites registrados</p>
-                                        </h4>
-                                    </div>
+                                <div  class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                    <a style="cursor:pointer;" >
+                                        <div class="text-center p-2 py-lg-4 overlay overlay-op-7 rounded mb-3 mr-2 mb-lg-0 bg-img" data-bg-img="assets/img/instituciones.jpg" style="background-image: url('assets/img/instituciones.jpg') !important; background-position: bottom !important;">
+                                            <h4 class="text-white text-uppercase mb-0">
+                                                <span data-toggle="count-to" class="font-weight-bold pt-1" attr.data-to="{{cantidadTramites}}" data-from="0">{{ cantidadTramites }}</span>
+                                                <hr class="hr-lg w-50 mx-auto hr-default" style="margin:1px;">
+                                                <p class="text-white" style="font-size: 9px; line-height: 1.5; margin-bottom: 0;">Total trámites registrados</p>
+                                            </h4>
+                                        </div>
+                                    </a>
                                 </div>
-                                <div style="padding:0px 5px;" class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                                <div  class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                     <a routerLink="/tramites-online">
                                         <div class="text-center p-2 py-lg-4 overlay overlay-op-7 rounded mb-3 ml-2 mb-lg-0 bg-img" data-bg-img="assets/img/backgrounds/computer-screens.jpg" style="background-image: url('assets/img/backgrounds/computer-screens.jpg') !important; background-position: center; ">
                                             <h4 class="text-white text-uppercase mb-0">
@@ -100,7 +103,7 @@
                                     </a>
                                 </div>
 
-                                <div style="padding-left:5px;" class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                                <div  class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
                                     <a style="cursor:pointer;" (click)="searchDataCategoria(idClasificadorIE)">
                                         <div class="text-center p-2 py-lg-4 overlay overlay-op-7 rounded mb-3 ml-2 mb-lg-0 bg-img" data-bg-img="assets/img/backgrounds/tramites-ID-e.jpg" style="background-image: url('assets/img/backgrounds/tramites-ID-e.jpg') !important; background-position: center; ">
                                             <h4 class="text-white text-uppercase mb-0">
@@ -111,6 +114,18 @@
                                         </div>
                                     </a>
                                 </div>
+
+                                <div  class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                                        <a style="cursor:pointer;" routerLink="/estadisticas-portal">
+                                            <div class="text-center p-2 py-lg-4 overlay overlay-op-7 rounded mb-3 ml-2 mb-lg-0 bg-img" data-bg-img="assets/img/backgrounds/tramites-ID-e.jpg" style="background-image: url('assets/img/backgrounds/tramites-ID-e.jpg') !important; background-position: center; ">
+                                                <h4 class="text-white text-uppercase mb-0">
+                                                    <span data-toggle="count-to" class="font-weight-bold pt-1" attr.data-to="{{ cantidadEstadistica }}" data-from="0">{{ cantidadEstadistica }}</span>
+                                                    <hr class="hr-lg w-50 mx-auto hr-default" style="margin:1px;">
+                                                    <p class="text-white" style="font-size:9px; line-height: 1.5; margin-bottom: 0;">Estadísticas</p>
+                                                </h4>
+                                            </div>
+                                        </a>
+                                    </div>
                             </div>
 
                         </div>
