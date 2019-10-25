@@ -33,10 +33,10 @@ export class TramitesComponent {
       "id_clasificador": 11007,
       "icono": "fas fa-walking",
       "nombre_clasificador": "Juventud"
-    /** }, {
+     }, {
       "id_clasificador": 11008,
       "icono": "fas fa-male",
-      "nombre_clasificador": "Adultos"*/
+      "nombre_clasificador": "Mayor de Edad"
     }, {
       "id_clasificador": 11009,
       "icono": "fa fa-blind",
