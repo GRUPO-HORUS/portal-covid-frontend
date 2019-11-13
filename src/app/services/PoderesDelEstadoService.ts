@@ -53,7 +53,7 @@ export class PoderesDelEstadoService {
   }
 
   getCantidadDocumentos(): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.config.API_DOCUMENTOS + "/documento/cantidadDocumentos/2019-08-01/2019-08-28");;
+    return this.httpClient.get<any[]>(this.config.API_DOCUMENTOS + "/documento/cantidadDocumentos/2019-08-01/2019-08-28");
   }
 
   getPorcentajeTramitesOnline(): Observable<any[]> {
@@ -78,6 +78,10 @@ export class PoderesDelEstadoService {
 
   getCategoriaTramite() {
     return this.httpClient.get(this.config.API + "/categoria/getCategoriaTramite");
+  }
+
+  getEstadistica(key: string): Observable<any[]> {
+    return this.httpClient.get<any[]>(this.config.API + "/estadistica/data/"+key);
   }
   
 }

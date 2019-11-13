@@ -100,7 +100,7 @@ export class RptCantidadDocumentosComponent implements OnInit {
     setTimeout(()=>{
       this.data.labels = [];
       this.poderesService.getCantidadDocumentos().subscribe(response => {
-          for(let x = 0; x < response.length; x++){
+          for(let x = 0; x < response.length; x++) {
             this.data.labels.push(response[x].documento);
             this.data.datasets[0].data.push(response[x].cantidad);
             this.data.datasets[0].dataClasificador.push(response[x].documento);

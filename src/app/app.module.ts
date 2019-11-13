@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule, ToastContainerModule } from 'ngx-toastr';
 
 import { CapitalizePipe } from "./pipes/capitalize.pipe";
+import { KeysPipe } from "./pipes/keys.pipe";
 import { SafePipe } from "./pipes/safe.pipe";
 import { SlugPipe } from "./pipes/slug.pipe";
 import { SplitPipe } from "./pipes/split.pipe";
@@ -46,6 +47,7 @@ import { ChartjsModule } from '@ctrl/ngx-chartjs';
     SplitPipe,
     SafeHtmlPipe,
     FilterdataPipe,
+    KeysPipe,
     ArraySortPipe,
     RestablecerClaveComponent,
   ],
