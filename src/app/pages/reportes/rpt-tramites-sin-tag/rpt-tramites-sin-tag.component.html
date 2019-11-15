@@ -3,37 +3,41 @@
         <nav class="breadcrumb">
             <a class="breadcrumb-item" routerLink="/"><i class="fa fa-home fa-lg text-primary" aria-hidden="true"></i></a>
             <span class="breadcrumb-item text-capitalize" routerLink="/estadisticas-portal">Estadísticas</span>
-            <span class="breadcrumb-item active text-capitalize">Trámites</span>
+            <span class="breadcrumb-item active text-capitalize" routerLink="/estadisticas-portal/tmp">tmp</span>
         </nav>
     </div>
 </div>
 
 <div class="content pb-4">
-
     <div class="container-full pt-5 header-text clearfix">
         <h3 class="mb-0"><span class="far fa-chart-bar text-default menu-item-icon text-center fa-fw"></span> 
-            Listado de trámites
+            {{title}}
         </h3>
     </div> <br/>
-
     <div class="container-full">
-
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">   
             <div class="col-lg-12 col-md-12 col-xs-12" *ngIf="data.length > 0">
-
+                <div *ngIf="obs" style="margin-bottom:10px;">{{obs}}</div>
                 <table class="table table-bordered">
                     <thead>
-                        <tr>
-                            <th *ngFor="let col of heads; let i = index">{{ col }}</th>
+                        <tr st>
+                            <th *ngFor="let col of heads">
+                                <div [ngStyle]="{'text-align': col.split(separatorTitle)[posAlign] }">
+                                    {{ col.split(separatorTitle)[posTitle] }}
+                                </div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let row of data; let i = index">
-                            <td *ngFor="let cell of row | keys">{{ cell.value }}</td>
+                            <td *ngFor="let cell of row | keys; let x = index">
+                                <div [ngStyle]="{'text-align': heads[x].split(separatorTitle)[posAlign] }">
+                                    {{ cell.value }}
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
-                
             </div>
         </div>
     </div>    

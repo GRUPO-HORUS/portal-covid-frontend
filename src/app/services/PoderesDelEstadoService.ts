@@ -81,7 +81,8 @@ export class PoderesDelEstadoService {
   }
 
   getEstadistica(key: string): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.config.API + "/estadistica/data/"+key);
+    let query = key.split('-').join('_');
+    return this.httpClient.get<any[]>(this.config.API + "/estadistica/data/"+query);
   }
   
 }

@@ -92,6 +92,7 @@ import { SolicitudDocumentoComponent } from "./pages/ciudadano/solicitud-documen
 import { ConsultaDocumentoComponent } from "./pages/ciudadano/consulta-documento/consulta-documento.component";
 import { RptCantidadDocumentosComponent } from './pages/reportes/rpt-cantidad-documentos/rpt-cantidad-documentos.component';
 import { RptTramitesSinTag } from "./pages/reportes/rpt-tramites-sin-tag/rpt-tramites-sin-tag.component";
+import { RptListadoTmp } from "./pages/reportes/rpt-listado-tmp/rpt-listado-tmp.component";
 
 //Listado de rutas para la aplicación
 export const appRoutes: Routes = [
@@ -161,7 +162,6 @@ export const appRoutes: Routes = [
   { path: "documentos/snpp", component: ConsultaDocumentoComponent },
 
   // { path: "consulta-documento", component: ConsultaDocumentoComponent },
-
   /**estadisticas */
   { path: "estadisticas-portal", component: ReportesIndexComponent },
   { path: "estadisticas-portal/porcentaje-tramites-online", component: RptPorcentajeTramitesOnlineComponent },
@@ -171,7 +171,9 @@ export const appRoutes: Routes = [
   { path: "estadisticas-portal/tramites-etiqueta", component: RptTramitesEtiquetaComponent },
   { path: "estadisticas-portal/satisfaccion-tramites", component: RptSatisfaccionTramiteComponent },
   { path: "estadisticas-portal/cantidad-documentos", component: RptCantidadDocumentosComponent },
-  { path: "estadisticas-portal/tramites/:tipo", component: RptTramitesSinTag },
+  
+  { path: "estadisticas-portal/tmp", component: RptListadoTmp },
+  { path: "estadisticas-portal/tmp/:tipo", component: RptTramitesSinTag },
 
   { path: "**", component: Page404Component }
 ];
@@ -244,6 +246,7 @@ export const routesComponents = [
   RptTramitesEtiquetaComponent,
   RptSatisfaccionTramiteComponent,
   RptTramitesSinTag,
+  RptListadoTmp,
   DocumentosComponent,
   SolicitudDocumentoComponent,
   ConsultaDocumentoComponent,
