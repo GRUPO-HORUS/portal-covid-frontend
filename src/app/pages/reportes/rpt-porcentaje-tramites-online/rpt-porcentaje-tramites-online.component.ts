@@ -12,22 +12,30 @@ import { PoderesDelEstadoService } from "../../../services/PoderesDelEstadoServi
 })
 export class RptPorcentajeTramitesOnlineComponent implements OnInit{
   public data = {
-    labels: [],
+    labels: [],    
     legend: {
       display: true,
       position: 'top',
-      reverse: true,
-      fullWidth: true,
+      // reverse: true,
+      // fullWidth: false,
       labels: {
-        boxWidth: 80,
+        boxWidth: 60,
         fontColor: 'black'
-      }
+      },
+    },
+    onClick: function(c, i) {
+      console.log('datasets');
+      console.log(c);
+      console.log(i);
+      // var x_value = this.data.labels[e._index];
+      // var y_value = this.data.datasets[0].data[e._index];
     },
     datasets: [{
           label: 'En línea',
           data: [],
           cantidadServicios: [],
           cantidadServiciosOnline: [],
+          idsOee: [],
           fill: false,
           backgroundColor: 'rgba(54, 162, 235, 0.2)',
           borderColor: 'rgba(54, 162, 235, 0.2)',
@@ -35,13 +43,23 @@ export class RptPorcentajeTramitesOnlineComponent implements OnInit{
       },
     ],
   };
-  
   public options = {
     responsive: true,
-    layout: { padding: { left: 0, right: 0, top: 0, bottom:120 } },
-    title: {display: true, text: '',},
+    layout: { padding: { left: 0, right: 0, top: 0, bottom: 120 } },
+    title: {display: true, text: 'titulo',},
     //maintainAspectRatio: false,
-    scales: { yAxes: [{ ticks: { beginAtZero: true } }] },
+    // scales: { yAxes: [{ ticks: { beginAtZero: true } }] },
+    scales: { xAxes: [{stacked: true}], yAxes: [{stacked: true}] },
+    onClick: function(c, i) {
+      console.log('onClick');
+      console.log(c);
+      console.log(i);
+      // var x_value = this.data.labels[e._index];
+      // var y_value = this.data.datasets[0].data[e._index];
+    },
+    legendCallback: function(chart) {
+      console.log('legendCallback', chart);
+    },
     tooltips: {
        enabled: true,
        intersect: true,
@@ -99,6 +117,7 @@ export class RptPorcentajeTramitesOnlineComponent implements OnInit{
     public auth: LoginService,
     public poderesService: PoderesDelEstadoService
   ) {}
+
   ngAfterViewInit() { 
     this.getTramitesOnline(); 
   }
@@ -121,6 +140,7 @@ export class RptPorcentajeTramitesOnlineComponent implements OnInit{
               this.data.datasets[0].cantidadServiciosOnline.push(response[x].cantidadServiciosOnline);
               this.data.datasets[0].cantidadServicios.push(response[x].cantidadServicios);
               this.data.datasets[0].data.push(response[x].porcentaje);
+              this.data.datasets[0].idsOee.push(response[x].idOee);
             }
           }
         },
@@ -131,9 +151,16 @@ export class RptPorcentajeTramitesOnlineComponent implements OnInit{
     }, 1);
   }
 
-  chartClicked(event){
-    console.log("chartClickedEvent: ",event);
-    let idClasificador = Number(this.data.datasets[0].data[event.element[0]._index]);
+  onSelect(evt) {
+    console.log('onSelected');
+    console.log(evt);
+  }
+
+  chartClicked(event: any) {
+    console.log('chartClicked',event);
+    // let idOee = Number(this.data.datasets[0].idsOee[event.element[0]._index]);
+    // console.log('index', event.element[0]._index);
+    // console.log('oee',idOee);
   }
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {

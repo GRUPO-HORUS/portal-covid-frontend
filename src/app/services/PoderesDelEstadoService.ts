@@ -80,6 +80,11 @@ export class PoderesDelEstadoService {
     return this.httpClient.get(this.config.API + "/categoria/getCategoriaTramite");
   }
 
+  getCantidadIE() {
+    return this.httpClient.get(this.config.API_GESTION_CLAVE + "/estadisticas/cantidad");
+  }
+
+
   getEstadistica(key: string): Observable<any[]> {
     let query = key.split('-').join('_');
     return this.httpClient.get<any[]>(this.config.API + "/estadistica/data/"+query);

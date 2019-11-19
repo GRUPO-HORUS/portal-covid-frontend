@@ -9,6 +9,7 @@ import { MessageService } from "app/services/MessageService";
 })
 export class TramitesComponent {
   categoriaTramite: any;
+  categoriaPersonasConIE: any;
   
   tramitesEnLinea: any;
   totalTramiteOnline: number;
@@ -53,6 +54,7 @@ export class TramitesComponent {
     this.getCantidadTramites();
     this.getCantidadTramitesEnLinea();
     this.getCantidadTramitesConIE();
+    this.getCantidadIE();
 
     this.getCategoriaTramite();
     this.getListTramitesDestacados();
@@ -115,6 +117,17 @@ export class TramitesComponent {
     );
   }
 
+  getCantidadIE(): void {
+    this.poderesDelEstadoService.getCantidadIE().subscribe(
+      data => {
+        this.categoriaPersonasConIE = data;
+      },
+      error => {
+        console.log("error", error);
+      }
+    );
+  }
+
   getListTramitesDestacados(): void {
     this.poderesDelEstadoService.getListTramitesEnLinea(1,3).subscribe(data => {
         this.tramitesEnLinea = data;
@@ -124,7 +137,6 @@ export class TramitesComponent {
       }
     );
   }
-
   getListTramitesOnline(): void {
     this.poderesDelEstadoService.getListTramitesEnLinea(0,3).subscribe(
       data => {

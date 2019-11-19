@@ -82,11 +82,10 @@
                                 <i class="fa fa-plus"></i> Ver estadísticas de trámites
                             </a-->
 
-                            <div class="row">
-
-                                <div  class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-1">
+                            <div class="row" style="margin:2px;">
+                                <div  class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mb-1 ml-1 mr-1">
                                     <a style="cursor:pointer;" >
-                                        <div class="text-center p-2 py-lg-4 overlay overlay-op-7 rounded mb-3 ml-2 mb-lg-0 bg-img" data-bg-img="assets/img/backgrounds/tramites-ID-e.jpg" style="background-image: url('assets/img/backgrounds/tramites-ID-e.jpg') !important; background-position: center; ">
+                                        <div class="text-center p-2 overlay overlay-op-7 rounded mb-3 mb-lg-0 bg-img" data-bg-img="assets/img/backgrounds/tramites-ID-e.jpg" style="background-image: url('assets/img/backgrounds/tramites-ID-e.jpg') !important; background-position: center; position: unset; ">
                                             <h4 class="text-white text-uppercase mb-0">
                                                 <span data-toggle="count-to" class="font-weight-bold pt-1" attr.data-to="{{cantidadTramites}}" data-from="0">{{ cantidadTramites }}</span>
                                                 <p class="text-white" style="font-size:9px; margin-bottom: 0;">Total trámites registrados</p>
@@ -94,9 +93,9 @@
                                         </div>
                                     </a>
                                 </div>
-                                <div  class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-1">
+                                <div  class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mb-1 ml-1 mr-1">
                                     <a routerLink="/tramites-online">
-                                        <div class="text-center p-2 py-lg-4 overlay overlay-op-7 rounded mb-3 ml-2 mb-lg-0 bg-img" data-bg-img="assets/img/backgrounds/tramites-ID-e.jpg" style="background-image: url('assets/img/backgrounds/tramites-ID-e.jpg') !important; background-position: center; ">
+                                        <div class="text-center p-2 overlay overlay-op-7 rounded mb-3 mb-lg-0 bg-img" data-bg-img="assets/img/backgrounds/tramites-ID-e.jpg" style="background-image: url('assets/img/backgrounds/tramites-ID-e.jpg') !important; background-position: center; position: unset; ">
                                             <h4 class="text-white text-uppercase mb-0">
                                                 <span data-toggle="count-to" class="font-weight-bold pt-1" attr.data-to="{{ totalTramiteOnline }}" data-from="0">{{ totalTramiteOnline }}</span>
                                                 <p class="text-white" style="font-size:9px; margin-bottom: 0;">Total de trámites en línea</p>
@@ -104,21 +103,29 @@
                                         </div>
                                     </a>
                                 </div>
-
-                                <div  class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-1">
+                                <div  class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mb-1 ml-1 mr-1">
                                     <a style="cursor:pointer;" (click)="searchDataCategoria(idClasificadorIE)">
-                                        <div class="text-center p-2 py-lg-4 overlay overlay-op-7 rounded mb-3 ml-2 mb-lg-0 bg-img" data-bg-img="assets/img/backgrounds/tramites-ID-e.jpg" style="background-image: url('assets/img/backgrounds/tramites-ID-e.jpg') !important; background-position: center; ">
+                                        <div class="text-center p-2 overlay overlay-op-7 rounded mb-3 mb-lg-0 bg-img" data-bg-img="assets/img/backgrounds/tramites-ID-e.jpg" style="background-image: url('assets/img/backgrounds/tramites-ID-e.jpg') !important; background-position: center; position: unset; ">
                                             <h4 class="text-white text-uppercase mb-0">
                                                 <span data-toggle="count-to" class="font-weight-bold pt-1" attr.data-to="{{ cantidadTramitesIE }}" data-from="0">{{ cantidadTramitesIE }}</span>
-                                                <p class="text-white" style="font-size:9px; margin-bottom: 0;">Trámites con Identidad Electrónica</p>
+                                                <p class="text-white" style="font-size:9px; margin-bottom: 0;">Trámites con I.E</p>
                                             </h4>
                                         </div>
                                     </a>
                                 </div>
-
-                                <div  class="col-lg-6 col-md-12 col-sm-12 col-xs-12 mb-1">
+                                <div  class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mb-1 ml-1 mr-1">
                                     <a style="cursor:pointer;" routerLink="/estadisticas-portal">
-                                        <div class="text-center p-2 py-lg-4 overlay overlay-op-7 rounded mb-3 ml-2 mb-lg-0 bg-img" data-bg-img="assets/img/backgrounds/tramites-ID-e.jpg" style="background-image: url('assets/img/backgrounds/tramites-ID-e.jpg') !important; background-position: center; ">
+                                        <div class="text-center p-2 overlay overlay-op-7 rounded mb-3 mb-lg-0 bg-img" data-bg-img="assets/img/backgrounds/tramites-ID-e.jpg" style="background-image: url('assets/img/backgrounds/tramites-ID-e.jpg') !important; background-position: center; position: unset; ">
+                                            <h4 class="text-white text-uppercase mb-0">
+                                                <span data-toggle="count-to" class="font-weight-bold pt-1" attr.data-to="{{ categoriaPersonasConIE }}" data-from="0">{{ categoriaPersonasConIE }}</span>
+                                                <p class="text-white" style="font-size:9px; margin-bottom: 0;">Total Personas con I.E</p>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div  class="col-lg-4 col-md-12 col-sm-12 col-xs-12 mb-1 ml-1 mr-1">
+                                    <a style="cursor:pointer;" routerLink="/estadisticas-portal">
+                                        <div class="text-center p-2 overlay overlay-op-7 rounded mb-3 mb-lg-0 bg-img" data-bg-img="assets/img/backgrounds/tramites-ID-e.jpg" style="background-image: url('assets/img/backgrounds/tramites-ID-e.jpg') !important; background-position: center; position: unset; ">
                                             <h4 class="text-white text-uppercase mb-0">
                                                 <span data-toggle="count-to" class="font-weight-bold pt-1" attr.data-to="{{ cantidadEstadistica }}" data-from="0">{{ cantidadEstadistica }}</span>
                                                 <p class="text-white" style="font-size:9px; margin-bottom: 0;">Estadísticas</p>
@@ -126,8 +133,8 @@
                                         </div>
                                     </a>
                                 </div>
-
                             </div>
+
                         </div>
                     </div>
                 </div>
