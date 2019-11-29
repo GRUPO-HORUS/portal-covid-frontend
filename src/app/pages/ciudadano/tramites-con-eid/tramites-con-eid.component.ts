@@ -5,7 +5,8 @@ import { AppConfig } from "../../../app.config";
 import { Router } from "@angular/router";
 import { IdentidadPersona } from "app/pages/ciudadano/model/identidad-persona.model";
 import { DocumentosService } from "app/services/documentos.service";
-import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
+import { HttpParams } from "@angular/common/http";
 declare var $: any;
 
 @Component({
@@ -82,10 +83,14 @@ export class TramitesConEidComponent implements OnInit {
     this.viewDocument();
     this.loading = true;
     this.resultado = {status: true, message: ''};
-    this.documentosService.getRptDocument(this.token, this.ciudadano.cedula, this.tipoId).subscribe(response => {
+
+    let params = new HttpParams().set("cedula", this.ciudadano.cedula).set("tipo", this.tipoId.toString());
+
+    this.documentosService.getRptDocument(this.token, params).subscribe(response => {
       if(response.status) {
+        
         this.objId = response.objId;
-        //this.getDocumento(false);
+
         this.router.navigate(["/visor/tramites-con-eid/"+this.objId]);
       } else {
         this.resultado = {status: false, message: response.message};

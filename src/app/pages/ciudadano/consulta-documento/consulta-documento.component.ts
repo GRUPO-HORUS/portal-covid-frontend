@@ -2,10 +2,12 @@ import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { MessageService } from "../../../services/MessageService";
 import { LoginService } from 'app/services/login.service';
 import { AppConfig } from "../../../app.config";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { DocumentosService } from "app/services/documentos.service";
 import { IdentidadPersona } from "../model/identidad-persona.model";
 import { RecaptchaComponent } from 'ng-recaptcha';
+import { HttpParams } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 declare var $: any;
 
 @Component({
@@ -19,7 +21,9 @@ export class ConsultaDocumentoComponent implements OnInit {
   public ciudadano: IdentidadPersona;
   public token: string;
   public cedula: string;
-  public cod_alumno: string;
+  public dv: string;
+  public fechaNac: string;
+  public codAlumno: string;
 
   public captcha: any;
   @ViewChild('captchaControl') reCaptcha: RecaptchaComponent;
@@ -27,22 +31,36 @@ export class ConsultaDocumentoComponent implements OnInit {
   public captchaResponse: string;
   public mensaje: string;
   public cursos: any;
+  
   public loading: boolean;
   public resultado: any = { status: true, message: ''};
+  public tipoDocumentos: any = [];
+
+  public tipo: string;
+  public documento: any;
 
   constructor(
     public messageService: MessageService,
     public config: AppConfig,
+    private _route: ActivatedRoute,
     private router: Router,
     public auth: LoginService,
+    private toastrService: ToastrService,
     public documentosService: DocumentosService
-  ) {}
+  ) {
 
-  ngOnInit() {
+    this._route.params.subscribe(params => {
+      this.tipo = params['tipo'];
+      this.loadTipoServicio();
+    });
+
     if(this.auth.getCurrentUser() == null ||  this.auth.getToken() == null) {
-      this.auth.setTokenTmp("123456");
+      this.auth.setTokenTmp("adfjkl");
       this.token = this.auth.getTokenTmp();
     }
+  }
+
+  ngOnInit() {
     this.scrollTop();
   }
 
@@ -56,43 +74,71 @@ export class ConsultaDocumentoComponent implements OnInit {
     this.captchaResponse = "";
   }
 
+  atras() {
+    this.router.navigate(['/documentos']);
+  }
+
+  loadTipoServicio() {
+    this.documentosService.loadTipoServicio().subscribe(response => {
+      this.tipoDocumentos = response;
+      this.documento = this.tipoDocumentos.find(x => x.description == this.tipo);
+    }, error => {
+      console.log(error);
+    });
+  }
+
   refreshCaptcha() {
     this.reCaptcha.reset();
   }
 
   getCertificadoSnpp(tipo, curso) {
-    this.resultado = {status: true, message: ''};
-    this.documentosService.getRptDocumentSnpp("-", this.cedula, curso.cod_especialidad, curso.fuente_consulta, tipo, this.captchaResponse).subscribe(response => {
-      if(response.status) {
+    let params = {
+      'cedula': this.ciudadano.cedula,
+      'codEspecialidad': curso.cod_especialidad,
+      'codFuente': curso.fuente_consulta,
+      'tipo': tipo.toString()
+    };
 
+    this.getRptDocumentSinIE(params);
+  }
+
+  getRptDocumentSinIE(params: any) {
+    this.loading = true;
+    this.resultado = { status: true, message: '' };
+
+    if(!params)
+      params = { 'cedula': this.cedula, 'tipo': this.documento.id.toString() };
+
+    if(this.tipo == 'ruc-set') params = Object.assign({}, params, { 'dv' : this.dv });
+    
+    if(this.tipo == 'cedula-policial') params = Object.assign({}, params, { 'fechaNacimiento' : this.fechaNac });
+
+    this.documentosService.getRptDocumentSinIE("-", params, this.captchaResponse).subscribe(response => {
+      if(response.status) {
         this.cedula = "";
         this.refreshCaptcha();
+        
+        this.router.navigate(['/visor/documentos-'+this.tipo+'/'+response.objId]);
 
-        this.router.navigate(["/visor/documentos-snpp/"+response.objId]);
-
-        setTimeout(function() {
-          $("#modalView").modal("hide");
-          $('.modal-backdrop').hide();
-        }, 500);  
-
+        this.closeModalDocument('#modalView');
         this.loading = false;
-
       } else {
-        this.resultado = {status: false, message: response.message};
+        this.resultado = { status: false, message: response.message };
         this.loading = false;
+        this.toastrService.warning('', response.message);
       }
-
       this.captchaResponse = "";
     }, error => {
-      console.log("error", error);
+      console.log(error);
       this.loading = false;
       this.captchaResponse = "";
+      this.toastrService.warning('','Ocurrió un error al procesar la operación');
     });
   }
 
   getCursosSnpp() {
     this.loading = true;
-    this.documentosService.getCursosSnpp("-", this.cedula, this.cod_alumno, this.captchaResponse).subscribe(response => {
+    this.documentosService.getCursosSnpp("-", this.cedula, this.codAlumno, this.captchaResponse).subscribe(response => {
       setTimeout(function() { $("#modalView").modal("show"); }, 500);
       if(response.status) {
         this.cursos = { 'key': 10, 'data': response.data };
@@ -107,6 +153,13 @@ export class ConsultaDocumentoComponent implements OnInit {
       this.loading = false;
       this.resultado = {status: false, message: 'No se pudo obtener el listado de cursos'};
     });
+  }
+
+  closeModalDocument(name:string) {
+    setTimeout(function() {
+      $(name).modal('hide'); 
+      $('.modal-backdrop').hide();
+    }, 500);
   }
 
   scrollBottom() {

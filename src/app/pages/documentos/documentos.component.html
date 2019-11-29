@@ -15,95 +15,71 @@
                 <div class="hidden-phone">
                     <h4 style="color:#465f6e;">Marco Legal</h4>
                     <ul style="font-size: 14px;">
-                        <li style="margin-top:10px;"><a href="http://www.diputados.gov.py/ww5/application/files/9114/8033/7753/constitucion_espanol1992.compressed.pdf">La Constitución Nacional en su artículo 135 consagra que toda persona podrá acceder a la información y a los datos que obren en registros oficiales de carácter público, sobre sí misma o sobre sus bienes.</a></li>
-                        <li style="margin-top:10px;"><a href="http://www.diputados.gov.py/WebSiteLeyes/2014/Py_5282_2014_09_19.pdf">Ley N° 5.282/2014 de libre acceso ciudadano a la información pública y transparencia gubernamental.</a></li>
-                        <li style="margin-top:10px;"><a href="https://www.documentos.gov.py/simple/assets/css/base_ge/img/Ley6207.pdf">Ley Nº 6.207/2018. Que crea el Ministerio de Tecnologías de la Información y Comunicación y establece su carta orgánica.</a></li>				
-                        <li style="margin-top:10px;"><a href="https://www.senatics.gov.py/application/files/3615/2580/2138/DECRETO_8709.PDF">Decreto Nro 8709/2018. Por el cual se dispone la utilización del "Sistema de Intercambio de Información" implementado por la Secretaría Nacional de Tecnologías de la Información y Comunicación (SENATICs) en las Instituciones Públicas y se reglamentan servicios y aspectos relativos al mismo.</a></li>
-                        <li style="margin-top:10px;"><a href="http://www.diputados.gov.py/WebSiteLeyes/2002/py1969_02092002.pdf">Ley N° 1969/2002 que modifica, amplía y deroga varios artículos de la Ley N° 1682/2001.</a></li>
-                        <li style="margin-top:10px;"><a href="http://www.diputados.gov.py/WebSiteLeyes/2001/py1682_16012001.pdf">Ley N° 1682/2001 que reglamenta la información de caracter privado.</a></li>				
+                        <li class="mt-1"><a href="http://www.diputados.gov.py/ww5/application/files/9114/8033/7753/constitucion_espanol1992.compressed.pdf">La Constitución Nacional en su artículo 135 consagra que toda persona podrá acceder a la información y a los datos que obren en registros oficiales de carácter público, sobre sí misma o sobre sus bienes.</a></li>
+                        <li class="mt-1"><a href="http://www.diputados.gov.py/WebSiteLeyes/2014/Py_5282_2014_09_19.pdf">Ley N° 5.282/2014 de libre acceso ciudadano a la información pública y transparencia gubernamental.</a></li>
+                        <li class="mt-1"><a href="https://www.documentos.gov.py/simple/assets/css/base_ge/img/Ley6207.pdf">Ley Nº 6.207/2018. Que crea el Ministerio de Tecnologías de la Información y Comunicación y establece su carta orgánica.</a></li>				
+                        <li class="mt-1"><a href="https://www.senatics.gov.py/application/files/3615/2580/2138/DECRETO_8709.PDF">Decreto Nro 8709/2018. Por el cual se dispone la utilización del "Sistema de Intercambio de Información" implementado por la Secretaría Nacional de Tecnologías de la Información y Comunicación (SENATICs) en las Instituciones Públicas y se reglamentan servicios y aspectos relativos al mismo.</a></li>
+                        <li class="mt-1"><a href="http://www.diputados.gov.py/WebSiteLeyes/2002/py1969_02092002.pdf">Ley N° 1969/2002 que modifica, amplía y deroga varios artículos de la Ley N° 1682/2001.</a></li>
+                        <li class="mt-1"><a href="http://www.diputados.gov.py/WebSiteLeyes/2001/py1682_16012001.pdf">Ley N° 1682/2001 que reglamenta la información de caracter privado.</a></li>				
                     </ul>
-                    <h4 style="margin-top: 25px;">Información Pública del Estado</h4>		
+                    <h4 class="mt-1">Información Pública del Estado</h4>		
                     <a href="http://www.paraguay.gov.py/" target="_blank"><img src="https://www.documentos.gov.py/simple//assets/css/base_ge/img/banner-paraguay.jpg"></a>
                     <a href="http://www.datos.gov.py/" target="_blank"><img src="https://www.documentos.gov.py/simple//assets/css/base_ge/img/banner-datos.jpg"></a>
                 </div>
             </div>
 
             <div class="col-lg-9 col-md-12 col-xs-12">
-                <h2 style="font-size: 18px !important; color: #d71e1e;">Se pueden consultar y descargar los siguientes documentos oficiales de manera gratuita</h2>
+                <h2 style="font-size: 18px !important; color:#d71e1e;">Se pueden consultar y descargar los siguientes documentos oficiales de manera gratuita</h2>
                 <table id="mainTable" class="table table-condensed">
                     <tbody>
+                        
                         <tr>
-                            <td class="name">
-                                <a target="_blank" class="preventDoubleRequest" href="https://www.documentos.gov.py/simple/tramites/iniciar/25" title="Podrás validar y verificar datos de una Cédula de Identidad con la información proveniente en línea desde el Departamento de Identificaciones de la Policía Nacional.">A. Consulta de Datos de Cédula (Policía Nacional)</a>
-                            </td>
-                            <td class="actions">
-                                <a target="_blank" href="https://www.documentos.gov.py/simple/tramites/iniciar/25" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file-o"></i> Consultar</a>
-                            </td>
+                            <td class="name"><a routerLink="/documentos/cedula-policial" title="Podrás validar y verificar datos de una Cédula de Identidad con la información proveniente en línea desde el Departamento de Identificaciones de la Policía Nacional.">
+                                A. Consulta de Datos de Cédula (Policía Nacional)</a></td>
+                            <td class="actions"><a routerLink="/documentos/cedula-policial" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file"></i> Consultar</a></td>
+                        </tr>
+
+                        <tr>
+                            <td class="name"><a routerLink="/documentos/ips-asegurado" title="Consultá si una persona está o no inscripta como asegurada ante el IPS, y los datos respectivos en caso de estarlo.">
+                                B. Consulta de Asegurado (IPS)</a></td>
+                            <td class="actions"><a routerLink="/documentos/ips-asegurado" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file"></i> Consultar</a></td>
                         </tr>
                         <tr>
-                            <td class="name">
-                                <a target="_blank" class="preventDoubleRequest" href="https://www.documentos.gov.py/simple/tramites/iniciar/53" title="Consultá si una persona está o no inscripta como asegurada ante el IPS, y los datos respectivos en caso de estarlo.">B. Consulta de Asegurado (IPS)</a>
-                            </td>
-                            <td class="actions">
-                                <a target="_blank" href="https://www.documentos.gov.py/simple/tramites/iniciar/53" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file-o"></i> Consultar</a>
-                            </td>
+                            <td class="name"><a routerLink="/documentos/ips-salario" title="Consulta si una persona o empresa está inscripta para el pago de aporte obrero patronal ante el IPS, y los datos respectivos en caso de estarlo.">
+                                C. Consulta de Inscripción Obrero Patronal (IPS)</a></td>
+                            <td class="actions"><a routerLink="/documentos/ips-salario" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file"></i> Consultar</a></td>
                         </tr>
                         <tr>
-                            <td class="name">
-                                <a target="_blank" class="preventDoubleRequest" href="https://www.documentos.gov.py/simple/tramites/iniciar/58" title="Consulta si una persona o empresa está inscripta para el pago de aporte obrero patronal ante el IPS, y los datos respectivos en caso de estarlo.">C. Consulta de Inscripción Obrero Patronal (IPS)</a>
-                            </td>
-                            <td class="actions">
-                                <a target="_blank" href="https://www.documentos.gov.py/simple/tramites/iniciar/58" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file-o"></i> Consultar</a>
-                            </td>
+                            <td class="name"><a routerLink="/documentos/ruc-set" title="Accede a los datos de la Cédula Tributaria de contribuyentes provenientes de la Subsecretaría de Estado de Tributación (SET).">
+                                D. Consulta de Datos de RUC (SET)</a></td>
+                            <td class="actions"><a routerLink="/documentos/ruc-set" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file"></i> Consultar</a></td>
                         </tr>
                         <tr>
-                            <td class="name">
-                                <a target="_blank" class="preventDoubleRequest" href="https://www.documentos.gov.py/simple/tramites/iniciar/40" title="Accede a los datos de la Cédula Tributaria de contribuyentes provenientes de la Subsecretaría de Estado de Tributación (SET).">D. Consulta de Datos de RUC (SET)</a>
-                            </td>
-                            <td class="actions">
-                                <a target="_blank" href="https://www.documentos.gov.py/simple/tramites/iniciar/40" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file-o"></i> Consultar</a>
-                            </td>
+                            <td class="name"><a target="_blank" href="https://servicios.set.gov.py/eset-publico/certificadoCumplimientoIService.dos" title="Obtené el Certificado de Cumplimiento Tributario emitido en línea por la Subsecretaría de Estado de Tributación (SET)">
+                                E. Certificado de Cumplimiento  Tributario (SET)</a></td>
+                            <td class="actions"><a target="_blank" href="https://servicios.set.gov.py/eset-publico/certificadoCumplimientoIService.do" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file"></i> Consultar</a></td>
                         </tr>
                         <tr>
-                            <td class="name">
-                                <a target="_blank" class="preventDoubleRequest" href="https://www.documentos.gov.py/simple/tramites/iniciar/57" title="Obtené el Certificado de Cumplimiento Tributario emitido en línea por la Subsecretaría de Estado de Tributación (SET)">E. Certificado de Cumplimiento  Tributario (SET)</a>
-                            </td>
-                            <td class="actions">
-                                <a target="_blank" href="https://www.documentos.gov.py/simple/tramites/iniciar/57" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file-o"></i> Consultar</a>
-                            </td>
+                            <td class="name"><a routerLink="/documentos/inscripcion-empleado" title="Obtené la información de estar o no inscripto ante la Dirección de Registro Obrero Patronal del Ministerio de Trabajo, Empleo y Seguridad Social (MTEES).">
+                                F. Consulta de Inscripción de  Empleado (Ministerio de Trabajo)</a></td>
+                            <td class="actions"><a routerLink="/documentos/inscripcion-empleado" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file"></i> Consultar</a></td>
                         </tr>
                         <tr>
-                            <td class="name">
-                                <a target="_blank" class="preventDoubleRequest" href="https://www.documentos.gov.py/simple/tramites/iniciar/49" title="Obtené la información de estar o no inscripto ante la Dirección de Registro Obrero Patronal del Ministerio de Trabajo, Empleo y Seguridad Social (MTEES).">F. Consulta de Inscripción de  Empleado (Ministerio de Trabajo)</a>
-                            </td>
-                            <td class="actions">
-                                <a target="_blank" href="https://www.documentos.gov.py/simple/tramites/iniciar/49" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file-o"></i> Consultar</a>
-                            </td>
+                            <td class="name"><a routerLink="/documentos/funcionario-publico" title="Obtené la constancia de ser o no ser funcionario público, proveniente de la Secretaría de la Función Pública (SFP) con datos consultados desde el SINARH y Nómina de Funcionarios Permanentes o Contratos. ">
+                                G. Constancia de ser o no Funcionario Público (SFP)</a></td>
+                            <td class="actions"><a routerLink="/documentos/funcionario-publico" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file"></i> Consultar</a></td>
                         </tr>
                         <tr>
-                            <td class="name">
-                                <a target="_blank" class="preventDoubleRequest" href="https://www.documentos.gov.py/simple/tramites/iniciar/35" title="Obtené la constancia de ser o no ser funcionario público, proveniente de la Secretaría de la Función Pública (SFP) con datos consultados desde el SINARH y Nómina de Funcionarios Permanentes o Contratos. ">G. Constancia de ser o no Funcionario Público (SFP)</a>
-                            </td>
-                            <td class="actions">
-                                <a target="_blank" href="https://www.documentos.gov.py/simple/tramites/iniciar/35" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file-o"></i> Consultar</a>
-                            </td>
+                            <td class="name"><a routerLink="/documentos/mipymes" title="Podrás validar y verificar datos de una Cédula de MIPYMES con la información del Viceministerio de Micro, Pequeñas y Medianas Empresas del Ministerio de Industria y Comercio.">
+                                I. Consulta de Cédula de MIPYMES</a></td>
+                            <td class="actions"><a routerLink="/documentos/mipymes" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file"></i> Consultar</a></td>
                         </tr>
                         <tr>
-                            <td class="name">
-                                <a target="_blank" class="preventDoubleRequest" href="https://www.documentos.gov.py/simple/tramites/iniciar/52" title="Podrás validar y verificar datos de una Cédula de MIPYMES con la información del Viceministerio de Micro, Pequeñas y Medianas Empresas del Ministerio de Industria y Comercio.">I. Consulta de Cédula de MIPYMES</a>
-                            </td>
-                            <td class="actions">
-                                <a target="_blank" href="https://www.documentos.gov.py/simple/tramites/iniciar/52" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file-o"></i> Consultar</a>
-                            </td>
+                            <td class="name"><a routerLink="/documentos/snpp">
+                                J. Descarga de Certificados de Cursos (SNPP)</a></td>
+                            <td class="actions"><a routerLink="/documentos/snpp" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file"></i> Consultar</a></td>
                         </tr>
-                        <tr>
-                            <td class="name">
-                                <a href="/documentos/snpp">J. Descarga de Certificados de Cursos (SNPP)</a>
-                            </td>
-                            <td class="actions">
-                                <a href="/documentos/snpp" class="btn btn-primary preventDoubleRequest hidden-phone"><i class="fa fa-file-o"></i> Consultar</a>
-                            </td>
-                        </tr>
+
                         <tr>
                             <td class="name">
                                 <a target="_blank" href="https://www.documentos.gov.py/simple/autenticacion/login_openid?redirect=https://www.documentos.gov.py/simple/tramites/iniciar/67">K. Perfil Ciudadano</a>
@@ -112,70 +88,77 @@
                                 <a target="_blank" href="https://www.documentos.gov.py/simple/autenticacion/login_openid?redirect=https://www.documentos.gov.py/simple/tramites/iniciar/67"><img style="max-width: none;" src="https://www.documentos.gov.py/simple/assets/img/claveunica-medium_1.png" alt="ClaveUnica"></a>
                             </td>
                         </tr>
+
                         <tr>
-                            <td class="name">
-                                <a target="_blank" href="https://www.documentos.gov.py/simple/autenticacion/login_openid?redirect=https://www.documentos.gov.py/simple/tramites/iniciar/68">L. Constancia de Acta de Nacimiento (Registro Civil)</a>
-                            </td>
+                            <td class="name"><a routerLink="/login-ciudadano">L. Constancia de Acta de Nacimiento (Registro Civil)</a></td>
                             <td class="actions">
-                                <a target="_blank" href="https://www.documentos.gov.py/simple/autenticacion/login_openid?redirect=https://www.documentos.gov.py/simple/tramites/iniciar/68"><img style="max-width: none;" src="https://www.documentos.gov.py/simple/assets/img/claveunica-medium_1.png" alt="ClaveUnica"></a>
+                                <a routerLink="/login-ciudadano"><img style="max-width: none;" src="https://www.documentos.gov.py/simple/assets/img/claveunica-medium_1.png" alt="ClaveUnica"></a>
                             </td>
                         </tr>
                         <tr>
-                            <td class="name">
-                                <a target="_blank" href="https://www.documentos.gov.py/simple/autenticacion/login_openid?redirect=https://www.documentos.gov.py/simple/tramites/iniciar/69">M. Constancia de Acta de Matrimonio (Registro Civil)</a>
-                            </td>
+                            <td class="name"><a routerLink="/login-ciudadano">M. Constancia de Acta de Matrimonio (Registro Civil)</a></td>
                             <td class="actions">
-                                <a target="_blank" href="https://www.documentos.gov.py/simple/autenticacion/login_openid?redirect=https://www.documentos.gov.py/simple/tramites/iniciar/69"><img style="max-width: none;" src="https://www.documentos.gov.py/simple/assets/img/claveunica-medium_1.png" alt="ClaveUnica"></a>
+                                <a routerLink="/login-ciudadano"><img style="max-width: none;" src="https://www.documentos.gov.py/simple/assets/img/claveunica-medium_1.png" alt="ClaveUnica"></a>
                             </td>
                         </tr>
+
                         <tr>
                             <td class="name">
-                                <a target="_blank" href="https://www.documentos.gov.py/simple/autenticacion/login_openid?redirect=https://www.documentos.gov.py/simple/tramites/iniciar/70">N. Constancia de Acta de Defunción (Registro Civil)</a>
+                                <a target="_blank" href="https://www.documentos.gov.py/simple/autenticacion/login_openid?redirect=https://www.documentos.gov.py/simple/tramites/iniciar/70">
+                                    N. Constancia de Acta de Defunción (Registro Civil)</a>
                             </td>
                             <td class="actions">
                                 <a target="_blank" href="https://www.documentos.gov.py/simple/autenticacion/login_openid?redirect=https://www.documentos.gov.py/simple/tramites/iniciar/70"><img style="max-width: none;" src="https://www.documentos.gov.py/simple/assets/img/claveunica-medium_1.png" alt="ClaveUnica"></a>
                             </td>
                         </tr>
+
                         <tr>
                             <td class="name">
-                                <a target="_blank" href="/login-ciudadano">O. Consulta de Salario del Asegurado (IPS)</a>
+                                <a target="_blank" routerLink="/login-ciudadano">O. Consulta de Salario del Asegurado (IPS)</a>
                             </td>
                             <td class="actions">
-                                <a target="_blank" href="/login-ciudadano"><img style="max-width: none;" src="https://www.documentos.gov.py/simple/assets/img/claveunica-medium_1.png" alt="ClaveUnica"></a>
+                                <a target="_blank" routerLink="/login-ciudadano"><img style="max-width: none;" src="https://www.documentos.gov.py/simple/assets/img/claveunica-medium_1.png" alt="ClaveUnica"></a>
                             </td>
                         </tr>
                         <tr>
                             <td class="name">
-                                <a target="_blank" href="/login-ciudadano">P. Consulta de Nivel Académico (MEC)</a>
+                                <a target="_blank" routerLink="/login-ciudadano">P. Consulta de Nivel Académico (MEC)</a>
                             </td>
                             <td class="actions">
-                                <a target="_blank" href="/login-ciudadano"><img style="max-width: none;" src="https://www.documentos.gov.py/simple/assets/img/claveunica-medium_1.png" alt="ClaveUnica"></a>
+                                <a target="_blank" routerLink="/login-ciudadano"><img style="max-width: none;" src="https://www.documentos.gov.py/simple/assets/img/claveunica-medium_1.png" alt="ClaveUnica"></a>
                             </td>
                         </tr>
+
                         <tr>
                             <td class="name">
-                                <a target="_blank" href="https://www.documentos.gov.py/simple/autenticacion/login_openid?redirect=https://www.documentos.gov.py/simple/tramites/iniciar/74">Q. Constancia de Acta de Nacimiento Hijo (Registro Civil)</a>
-                            </td>
+                                <a target="_blank" href="https://www.documentos.gov.py/simple/autenticacion/login_openid?redirect=https://www.documentos.gov.py/simple/tramites/iniciar/74">
+                                    Q. Constancia de Acta de Nacimiento Hijo (Registro Civil)</a></td>
                             <td class="actions">
                                 <a target="_blank" href="https://www.documentos.gov.py/simple/autenticacion/login_openid?redirect=https://www.documentos.gov.py/simple/tramites/iniciar/74"><img style="max-width: none;" src="https://www.documentos.gov.py/simple/assets/img/claveunica-medium_1.png" alt="ClaveUnica"></a>
                             </td>
                         </tr>
+
                         <tr>
-                            <td class="name">
-                                <a target="_blank" href="/login-ciudadano">R. Constancia de vacunación (MSPyBS) </a>
-                            </td>
+                            <td class="name"><a routerLink="/login-ciudadano">R. Constancia de vacunación (MSPyBS) </a></td>
                             <td class="actions">
-                                <a target="_blank" href="/login-ciudadano"><img style="max-width: none;" src="https://www.documentos.gov.py/simple/assets/img/claveunica-medium_1.png" alt="ClaveUnica"></a>
+                                <a routerLink="/login-ciudadano"><img style="max-width: none;" src="https://www.documentos.gov.py/simple/assets/img/claveunica-medium_1.png" alt="ClaveUnica"></a>
                             </td>
                         </tr>
+
                         <tr>
-                            <td class="name">
-                                <a target="_blank" href="/login-ciudadano">S. Consulta de Certificados (SNPP)) </a>
-                            </td>
+                            <td class="name"><a routerLink="/login-ciudadano">S. Constancia de vacunación - Hijo (MSPyBS) </a></td>
                             <td class="actions">
-                                <a target="_blank" href="/login-ciudadano"><img style="max-width: none;" src="https://www.documentos.gov.py/simple/assets/img/claveunica-medium_1.png" alt="ClaveUnica"></a>
+                                <a routerLink="/login-ciudadano"><img style="max-width: none;" src="https://www.documentos.gov.py/simple/assets/img/claveunica-medium_1.png" alt="ClaveUnica"></a>
                             </td>
                         </tr>
+                        
+                        <tr>
+                            <td class="name"><a routerLink="/login-ciudadano">T. Consulta de Certificados (SNPP)) </a></td>
+                            <td class="actions">
+                                <a routerLink="/login-ciudadano"><img style="max-width: none;" src="https://www.documentos.gov.py/simple/assets/img/claveunica-medium_1.png" alt="ClaveUnica"></a>
+                            </td>
+                        </tr>
+
                     </tbody>
                     <tfoot>
                         <tr>

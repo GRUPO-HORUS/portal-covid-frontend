@@ -31,6 +31,7 @@ import "hammerjs";
 import { RestablecerClaveComponent } from './pages/identidad-electronica/restablecer-clave/restablecer-clave.component';
 import {DemoMaterialModule} from './material-module';
 import { ChartjsModule } from '@ctrl/ngx-chartjs';
+import { ModalModule } from './lib/modal-custom';
 
 /*
   @autor: Luis Cardozo
@@ -61,7 +62,6 @@ import { ChartjsModule } from '@ctrl/ngx-chartjs';
     OwlModule,
     BrowserAnimationsModule,
     MaterialDesignFrameworkModule,
-    FormsModule,
     Ng2SearchPipeModule,
     Ng2OrderModule,
     NgxPaginationModule,
@@ -74,6 +74,7 @@ import { ChartjsModule } from '@ctrl/ngx-chartjs';
     ChartjsModule,
     ToastrModule.forRoot(),
     ToastContainerModule,
+    ModalModule
   ],
   providers: [
     appRoutingProviders,

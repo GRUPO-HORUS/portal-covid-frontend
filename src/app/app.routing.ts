@@ -153,15 +153,14 @@ export const appRoutes: Routes = [
   { path: "otros-tramites-en-linea", component: OtrosTramitesEnLineaComponent },
   { path: "tramites-con-eid", component: TramitesConEidComponent },
   { path: "validar-documento", component: ValidarDocumentoComponent },
-  
   { path: "visor/:ruta/:objId", component: VisorDocumentoComponent },
+
 
   { path: "docsgov", component: DocumentosComponent },
   { path: "documentos", component: DocumentosComponent },
-  
-  { path: "documentos/snpp", component: ConsultaDocumentoComponent },
-
+  { path: "documentos/:tipo", component: ConsultaDocumentoComponent },
   // { path: "consulta-documento", component: ConsultaDocumentoComponent },
+
   /**estadisticas */
   { path: "estadisticas-portal", component: ReportesIndexComponent },
   { path: "estadisticas-portal/porcentaje-tramites-online", component: RptPorcentajeTramitesOnlineComponent },

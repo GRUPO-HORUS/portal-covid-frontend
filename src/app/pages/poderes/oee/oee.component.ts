@@ -2,7 +2,7 @@ import {
   Component,
   OnInit,
 } from "@angular/core";
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { PoderesDelEstadoService } from "app/services/PoderesDelEstadoService";
 import { DomSanitizer } from "@angular/platform-browser";
 import { MessageService } from "app/services/MessageService";

@@ -22,7 +22,24 @@ export class VisorDocumentoComponent implements OnInit {
   public loading: boolean;
   public resultado: any = { status: true, message: ''};
   public linkSource: any;
-  public  urlTrustToken = ['validar-documento', 'documentos-snpp','snpp'];
+  
+  public  urlTrustToken = [
+    'validar-documento', 
+    'documentos-cedula-policial',
+    'documentos-funcionario-publico',
+    'documentos-ips-asegurado',
+    'documentos-ips-salario',
+    'documentos-nivel-academico',
+    'documentos-inscripcion-empleado',
+    'documentos-mspbs-vacunacion',
+    'documentos-mspbs-vacunacion-hijos',
+    'documentos-antecedente-policial',
+    'documentos-snpp',
+    'documentos-ruc-set',
+    'documentos-mipymes',
+    'documentos-acta-nacimiento',
+    'documentos-acta-matrimonio',
+  ];
 
   constructor(
     public messageService: MessageService,
@@ -42,8 +59,10 @@ export class VisorDocumentoComponent implements OnInit {
       this.objId = params["objId"];
 
       if(this.urlTrustToken.indexOf(this.ruta) === -1) {
+
         this.token = this.auth.getToken();
         this.ciudadano = this.auth.getCurrentUser();
+
         if(this.ciudadano == null || this.token == null) {
           this.router.navigate(['/login-ciudadano']);
           return;
@@ -60,6 +79,7 @@ export class VisorDocumentoComponent implements OnInit {
   cancelGenerarDocumento() {
     if(this.ruta == 'carpeta-ciudadana') {
       this.router.navigate([this.ruta]);
+
     } else {
       this.router.navigate([this.ruta.replace('-','/')]);
     }
