@@ -18,7 +18,6 @@ declare var $: any;
 })
 export class ConsultaDocumentoComponent implements OnInit {
 
-  public ciudadano: IdentidadPersona;
   public token: string;
   public cedula: string;
   public dv: string;
@@ -93,7 +92,7 @@ export class ConsultaDocumentoComponent implements OnInit {
 
   getCertificadoSnpp(tipo, curso) {
     let params = {
-      'cedula': this.ciudadano.cedula,
+      'cedula': this.cedula,
       'codEspecialidad': curso.cod_especialidad,
       'codFuente': curso.fuente_consulta,
       'tipo': tipo.toString()
