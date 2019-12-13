@@ -113,7 +113,6 @@ export class CarpetaCiudadanaComponent implements OnInit {
     if(result.key == 13 || result.key == 14) {
       let titulo = result.key == 13 ? 'Acta de Nacimiento (REC)' : 'Acta de Matrimonio (REC)';
       //this.docSelected.params = Object.assign({}, this.docSelected.params, { 'sistemaConsulta' : 2, 'titulo': titulo });
-      this.docSelected.params.cedula = '1700144';
       this.docSelected.params.sistemaConsulta = 2;
       this.docSelected.params.titulo = titulo;
       this.closeModalDocument('#modalDetalleDocumento');

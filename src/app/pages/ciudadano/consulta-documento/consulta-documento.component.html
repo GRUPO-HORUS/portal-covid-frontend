@@ -3,7 +3,8 @@
         <div class="header-text clearfix">
             <div id="topcab"></div>
             <h3 class="pull-left mb-0"  *ngIf="documento">
-                <span class="far fa-folder-open text-default menu-item-icon text-center fa-fw"></span> {{ documento.title }}
+                <span class="far fa-folder-open text-default menu-item-icon text-center fa-fw"></span> 
+                <span [innerHTML]="documento.title"></span>
             </h3>
         </div>
     </div>
@@ -12,8 +13,8 @@
 <div class="content pb-4">
     <div class="container" *ngIf="documento">
                 
-        <h4 class="mt-4 mb-4 text-primary">
-            {{ documento.subTitle }}
+        <h4 class="mt-4 mb-4 text-primary" [innerHTML]="documento.subTitle">
+            <!-- {{ documento.subTitle }} -->
         </h4>
 
         <div 
