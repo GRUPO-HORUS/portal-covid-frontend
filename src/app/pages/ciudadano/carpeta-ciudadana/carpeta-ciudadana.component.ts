@@ -23,14 +23,14 @@ export class CarpetaCiudadanaComponent implements OnInit {
   public resultado: any = { status: true, message: ''};
   public menuDocument: any[];
   
-  public dataCC: any[] = [];
+  public infoCarpetaCiudadana: any[] = [];
   public docSelected:any = {};
   public cursos: any;
 
-  public sistemasDeConsultas: any = [
-    { id: 1, descripcion: 'SGR' },
-    { id: 2, descripcion: 'SRI' },
-  ];
+  // public sistemasDeConsultas: any = [
+  //   { id: 1, descripcion: 'SGR' },
+  //   { id: 2, descripcion: 'SRI' },
+  // ];
 
   constructor(
     public messageService: MessageService,
@@ -57,8 +57,8 @@ export class CarpetaCiudadanaComponent implements OnInit {
   }
 
   viewInfo(position: number) {
-    if(this.dataCC[position] != null) {
-      this.docSelected = this.dataCC[position];
+    if(this.infoCarpetaCiudadana[position] != null) {
+      this.docSelected = this.infoCarpetaCiudadana[position];
       setTimeout(function() { $('#modalDetalleDocumento').modal('show'); }, 300);
     }
   }
@@ -69,18 +69,13 @@ export class CarpetaCiudadanaComponent implements OnInit {
   
   getHistoricoConsultas() {
     this.documentosService.getHistoricoConsultas(this.token, this.ciudadano.cedula).subscribe(response => {
-      this.dataCC = response;
+      this.infoCarpetaCiudadana = response;
     }, error => {
       console.log('error', error);
     });
   }
 
   generarDocumentoHistorico(result: any) {
-    // setTimeout(function() { 
-    //   $('#modalDetalleDocumento').modal('hide'); 
-    //   $('.modal-backdrop').hide();
-    // }, 500);
-
     this.closeModalDocument('#modalDetalleDocumento');
 
     if(result.liq  != null) {
@@ -95,7 +90,10 @@ export class CarpetaCiudadanaComponent implements OnInit {
     
     this.docSelected.params = {};
     this.docSelected.params.tipo = result.key.toString(); 
-    this.docSelected.params.cedula = this.ciudadano.cedula;
+    this.docSelected.params.cedula = this.ciudadano.cedula; 
+    
+    let paramsAditional = false;
+    let modalView = '';
     
     if(result.key == 10) {
       this.getCursosSnpp(result);
@@ -105,18 +103,22 @@ export class CarpetaCiudadanaComponent implements OnInit {
     if(result.key == 11) {
       this.docSelected.params.dv = '';
       this.docSelected.params.titulo = 'Constancia de RUC (SET)';
-      this.closeModalDocument('#modalDetalleDocumento');
-      this.openModalDocument('#modalRucSet');
-      return;
+
+      paramsAditional = true;
+      modalView = '#modalRucSet';
     }
 
-    if(result.key == 13 || result.key == 14) {
-      let titulo = result.key == 13 ? 'Acta de Nacimiento (REC)' : 'Acta de Matrimonio (REC)';
-      //this.docSelected.params = Object.assign({}, this.docSelected.params, { 'sistemaConsulta' : 2, 'titulo': titulo });
-      this.docSelected.params.sistemaConsulta = 2;
-      this.docSelected.params.titulo = titulo;
+    if(result.key == 15) {
+      this.docSelected.params.titulo = 'Acta de Nacimiento (Hijo)';
+      this.docSelected.params.cedulaHijo = '';
+
+      paramsAditional = true;
+      modalView = '#modalActaNHijoRec';
+    }
+
+    if(paramsAditional) {
       this.closeModalDocument('#modalDetalleDocumento');
-      this.openModalDocument('#modalActaNMDrec');
+      this.openModalDocument(modalView);
       return;
     }
 
@@ -137,6 +139,8 @@ export class CarpetaCiudadanaComponent implements OnInit {
   getRptDocument(params: any) {
     this.loading = true;
     this.resultado = { status: true, message: '' };
+
+    // delete params.titulo;
 
     this.documentosService.getRptDocument(this.token, params)
     .subscribe(response => {

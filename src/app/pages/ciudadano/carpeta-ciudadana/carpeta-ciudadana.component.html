@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div class="content pb-4" *ngIf="ciudadano && dataCC">
+<div class="content pb-4" *ngIf="ciudadano && infoCarpetaCiudadana">
     <div class="container">
         <div class="row">
 
@@ -21,7 +21,7 @@
                 <h4 class="mt-4 mb-4 text-primary">Mis documentos en mi carpeta ciudadana</h4>
                 
                 <div class="row">
-                    <div class="col-lg-3 col-md-12 col-xs-12" *ngFor="let data of dataCC | sort: 'key'; let i = index">
+                    <div class="col-lg-3 col-md-12 col-xs-12" *ngFor="let data of infoCarpetaCiudadana | sort: 'key'; let i = index">
 
                         <div class="card-deck">
                             <div style="max-height:120px !important;border:none;cursor:pointer;" class="card" (click)="viewInfo(i)">
@@ -213,7 +213,7 @@
     </div>
 </div>
 
-<!-- VIEW ACTA N-M REC -->
+<!-- VIEW ACTA N-M REC
 <div class="modal fade" id="modalActaNMDrec" tabindex="-1" role="dialog" aria-labelledby="modalActaNMDrec" aria-hidden="true">
     <div style="max-width:800px;" class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content p-4">
@@ -240,7 +240,6 @@
                             </div>
                         </div>
                     </div>
-                    
 
                     <div class="content fullscreen-container" *ngIf="ciudadano && loading">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0" style="margin-top:5px !important;" *ngIf="ciudadano">
@@ -268,5 +267,66 @@
         </div>
     </div>
 </div>
+ -->
+
+<div class="modal fade" id="modalActaNHijoRec" tabindex="-1" role="dialog" aria-labelledby="modalActaNHijoRec" aria-hidden="true">
+    <div style="max-width:800px;" class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-4">
+            <div class="modal-header" *ngIf="docSelected && docSelected.params">
+                <h1>{{ docSelected.params.titulo }}</h1>
+            </div>
+            <div class="modal-body row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                    <div *ngIf="docSelected && docSelected.params">
+                        <!-- <div class="form-group">
+                            <label class="control-label" for="sistemaConsulta"><strong> Sistema de Consulta </strong> </label>
+                            <select class="form-control" [(ngModel)]="docSelected.params.sistemaConsulta" name="sistemaConsulta">
+                                <option value="0" selected>Seleccione</option>
+                                <option *ngFor="let tp of sistemasDeConsultas" [value]="tp.id">{{ tp.descripcion }}</option>
+                            </select>
+                        </div> -->
+
+                        <div class="form-group">
+                            <label class="control-label" for="cedulaHijo"><strong> Cédula Hijo </strong> </label>
+                            <input type="text" [(ngModel)]="docSelected.params.cedulaHijo" class="form-control">
+                        </div>
+
+                        <!-- <div class="form-group">
+                            <div class="alert alert-info">
+                                <i class="fa fa-info-circle"></i> Las fuentes de información se diferencia de la siguiente manera. <br/>
+                                <b>SRI (Sistema de Recuperación de Información)</b>, sus datos no han sido validados aún por usted, en caso de encontrar algún detalle en la información, debe acudir a la Dirección General del Registro  del Estado Civil. <br/>
+                                <b>SGR (Sistema de Gestión Registral)</b>, sus datos ya fueron validados por usted.
+                            </div>
+                        </div> -->
+                    </div>
+
+                    <div class="content fullscreen-container" *ngIf="ciudadano && loading">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0" style="margin-top:5px !important;" *ngIf="ciudadano">
+                            <div style="height:100%; width:100%;">
+                                <div class="text-center" style="margin:40px;" *ngIf="loading">
+                                    <img src="assets/img/misc/icon_loading.gif" alt="Cargando.." /> Procesando solicitud...
+                                </div>
+                                <div class="alert alert-danger" style="margin:40px;" *ngIf="!resultado.status">
+                                    <i class="fa fa-info-circle"></i> {{resultado.message}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="getRptDocument(docSelected.params);">
+                    <i class="fa fa-file-import"></i> Aceptar
+                </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    <i class="fa fa-remove"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="spance-footer"></div>
