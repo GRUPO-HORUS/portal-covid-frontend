@@ -109,7 +109,7 @@ export class CarpetaCiudadanaComponent implements OnInit {
     }
 
     if(result.key == 15) {
-      this.docSelected.params.titulo = 'Acta de Nacimiento (Hijo)';
+      this.docSelected.params.titulo = 'Acta de Nacimiento (Hijo/a)';
       this.docSelected.params.cedulaHijo = '';
 
       paramsAditional = true;

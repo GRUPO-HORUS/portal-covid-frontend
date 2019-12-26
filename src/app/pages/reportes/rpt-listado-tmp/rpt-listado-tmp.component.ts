@@ -23,10 +23,6 @@ export class RptListadoTmp implements OnInit{
     public auth: LoginService,
     public poderesService: PoderesDelEstadoService
   ) {
-
-    this._route.params.subscribe(params => {
-    });
-
   }
 
   ngOnInit(): void {

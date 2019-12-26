@@ -159,8 +159,6 @@ export const appRoutes: Routes = [
   { path: "docsgov", component: DocumentosComponent },
   { path: "documentos", component: DocumentosComponent },
   { path: "documentos/:tipo", component: ConsultaDocumentoComponent },
-  // { path: "consulta-documento", component: ConsultaDocumentoComponent },
-
   /**estadisticas */
   { path: "estadisticas-portal", component: ReportesIndexComponent },
   { path: "estadisticas-portal/porcentaje-tramites-online", component: RptPorcentajeTramitesOnlineComponent },
@@ -170,9 +168,8 @@ export const appRoutes: Routes = [
   { path: "estadisticas-portal/tramites-etiqueta", component: RptTramitesEtiquetaComponent },
   { path: "estadisticas-portal/satisfaccion-tramites", component: RptSatisfaccionTramiteComponent },
   { path: "estadisticas-portal/cantidad-documentos", component: RptCantidadDocumentosComponent },
-  
-  { path: "estadisticas-portal/tmp", component: RptListadoTmp },
-  { path: "estadisticas-portal/tmp/:tipo", component: RptTramitesSinTag },
+  { path: "listados", component: RptListadoTmp },
+  { path: "listados/:tipo", component: RptTramitesSinTag },
 
   { path: "**", component: Page404Component }
 ];
