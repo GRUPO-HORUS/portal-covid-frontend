@@ -139,9 +139,7 @@ export class CarpetaCiudadanaComponent implements OnInit {
   getRptDocument(params: any) {
     this.loading = true;
     this.resultado = { status: true, message: '' };
-
-    // delete params.titulo;
-
+    
     this.documentosService.getRptDocument(this.token, params)
     .subscribe(response => {
       if(response.status) {

@@ -15,11 +15,8 @@ export class DocumentosService {
   handler: HttpErrorHandler = new HttpErrorHandler();
 
   loadTipoServicio(): Observable<any> {
-    
     let headers = new HttpHeaders().set('Content-Type', 'application/json');
-
     return this.http.get<any>('assets/data/tipo_servicios.json', { headers: headers });
-
   }
 
   autenticationFastpay(token, transactionId) {
@@ -54,7 +51,6 @@ export class DocumentosService {
 
   getRptDocument(token, objParams: any): Observable<any> {
       let params = new HttpParams();
-      
       Object.keys(objParams).forEach(p => {
           params = params.append(p.toString(), objParams[p].toString());
       });
@@ -99,11 +95,5 @@ export class DocumentosService {
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json')/*.set('Authorization', token)*/.set('responseType','blob');
     return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getDocumentValidate/'+constancia_nro+'/'+identificador_unico, { headers: headers });
   }
-
-  /*downloadFileDocument(objId: string): Observable<any> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/pdf').set('Content-Type', 'application/octet-stream');
-    return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/downloadFileDocument/'+objId, { headers: headers, responseType: 'json' } )
-      .pipe(catchError(this.handler.handleError<any>('downloadFileDocument', {})));
-  }*/
 
 }

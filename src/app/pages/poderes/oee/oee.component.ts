@@ -7,6 +7,7 @@ import { PoderesDelEstadoService } from "app/services/PoderesDelEstadoService";
 import { DomSanitizer } from "@angular/platform-browser";
 import { MessageService } from "app/services/MessageService";
 import { LoginService } from "app/services/login.service";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: "oee",
@@ -61,6 +62,7 @@ export class OeeComponent implements OnInit {
     private poderesService: PoderesDelEstadoService,
     public messageService: MessageService,
     public sanitizer: DomSanitizer,
+    private toastrService: ToastrService,
     private auth: LoginService,
   ) {
   }
@@ -77,8 +79,6 @@ export class OeeComponent implements OnInit {
       this.urlOee = params["urlOee"];
 
       if(this.urlEntidad  && !this.urlOee) {
-        // this.titulo = this.urlEntidad.replace(/-/g, " ");
-        // this.titulo = this.titulo.charAt(0).toUpperCase() + this.titulo.substr(1).toLowerCase();
         this.getListOee(this.urlEntidad);
         
       } else if(this.urlOee) {
@@ -91,8 +91,13 @@ export class OeeComponent implements OnInit {
     window.scrollTo(pos, 1);
   }
 
-  guardarComentario(){
-    if(this.currentUser != null){
+  guardarComentario() {
+    if(this.comentario.length <= 0) {
+      this.toastrService.warning('','El campo comentario es requerido');
+      return;
+    }
+
+    if(this.currentUser != null) {
       let content = {
         comentario: this.comentario,
         cedula: this.currentUser.cedula,      

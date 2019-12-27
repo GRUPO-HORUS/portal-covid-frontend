@@ -53,11 +53,9 @@ export class PoderesDelEstadoComponent implements OnInit {
 
   getListEntidad(): void {
     if (this.urlPoder != null && this.menuEstado.indexOf(this.urlPoder) !== -1) {
-
       this.titulo = this.urlPoder.replace(/-/g, " ");
 
       this.poderesDelEstadoService.getListEntidad(this.urlPoder).subscribe(data => {
-        console.log('data', data);
         this.entidades = [];
         if(data && data.length > 0) {
           this.titulo = data[0].nivel;

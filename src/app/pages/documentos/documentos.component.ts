@@ -1,7 +1,5 @@
-import { Component } from '@angular/core';
-import { AppConfig } from "app/app.config";
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-//import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'documentos',
@@ -9,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ["./documentos.component.css"]
 })
 
-export class DocumentosComponent {
+export class DocumentosComponent implements OnInit {
 
   documentosIE: any[] = [
     { 
@@ -109,12 +107,24 @@ export class DocumentosComponent {
     private router: Router,
   ) { }  
 
+  ngOnInit() {
+    this.scrollTop();
+  }
+
   redirect(doc) {
     if(doc.linkExternal) {
       window.location.href = doc.link;
       return true;
     } else {
       this.router.navigate([doc.link]);
+    }
+  }
+
+  scrollTop() {
+    let top = document.getElementById('topcab');
+    if (top !== null) {
+      top.scrollIntoView();
+      top = null;
     }
   }
   

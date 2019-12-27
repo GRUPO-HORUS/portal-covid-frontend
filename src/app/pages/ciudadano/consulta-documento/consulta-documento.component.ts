@@ -4,9 +4,7 @@ import { LoginService } from 'app/services/login.service';
 import { AppConfig } from "../../../app.config";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DocumentosService } from "app/services/documentos.service";
-import { IdentidadPersona } from "../model/identidad-persona.model";
 import { RecaptchaComponent } from 'ng-recaptcha';
-import { HttpParams } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 declare var $: any;
 
@@ -54,7 +52,7 @@ export class ConsultaDocumentoComponent implements OnInit {
     });
 
     if(this.auth.getCurrentUser() == null ||  this.auth.getToken() == null) {
-      this.auth.setTokenTmp("adfjkl");
+      this.auth.setTokenTmp("-");
       this.token = this.auth.getTokenTmp();
     }
   }
@@ -104,33 +102,37 @@ export class ConsultaDocumentoComponent implements OnInit {
   getRptDocumentSinIE(params: any) {
     this.loading = true;
     this.resultado = { status: true, message: '' };
-
-    if(!params)
-      params = { 'cedula': this.cedula, 'tipo': this.documento.id.toString() };
-
-    if(this.tipo == 'ruc-set') params = Object.assign({}, params, { 'dv' : this.dv });
     
-    if(this.tipo == 'cedula-policial') params = Object.assign({}, params, { 'fechaNacimiento' : this.fechaNac });
+    if(!params) {
+      params = {};
+      params.cedula = this.cedula;
+      params.tipo = this.documento.id.toString();
+    }
+
+    if(this.tipo == 'ruc-set') params.dv = this.dv;
+
+    if(this.tipo == 'cedula-policial') params.fechaNacimiento = this.fechaNac;
 
     this.documentosService.getRptDocumentSinIE("-", params, this.captchaResponse).subscribe(response => {
       if(response.status) {
         this.cedula = "";
-        this.refreshCaptcha();
-        
         this.router.navigate(['/visor/documentos-'+this.tipo+'/'+response.objId]);
-
         this.closeModalDocument('#modalView');
-        this.loading = false;
+
       } else {
         this.resultado = { status: false, message: response.message };
-        this.loading = false;
         this.toastrService.warning('', response.message);
       }
+
+      this.loading = false;
       this.captchaResponse = "";
+      this.refreshCaptcha();
+      
     }, error => {
       console.log(error);
       this.loading = false;
       this.captchaResponse = "";
+      this.refreshCaptcha();
       this.toastrService.warning('','Ocurrió un error al procesar la operación');
     });
   }

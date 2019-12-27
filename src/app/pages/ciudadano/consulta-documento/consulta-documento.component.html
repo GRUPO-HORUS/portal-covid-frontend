@@ -39,8 +39,8 @@
                     </div>
 
                     <div class="form-group" *ngIf="documento.description == 'cedula-policial'">
-                        <label for="fechaNac"><strong> <i class="fa fa-info-circle"></i> Fecha de Nacimiento </strong> <small>(Ej. 01-01-1940)</small></label>
-                        <input type="text" [(ngModel)]="fechaNac" class="form-control" style="max-width: 200px;" id="fechaNac" name="fechaNac" placeholder="Ej. 01-01-1940" required>
+                        <label for="fechaNac"><strong> <i class="fa fa-info-circle"></i> Fecha de Nacimiento </strong> <small>(Ej. 01/01/1940)</small></label>
+                        <input type="date" [(ngModel)]="fechaNac" class="form-control" style="max-width: 200px;" id="fechaNac" name="fechaNac" placeholder="Ej. 01-01-1940" required>
                     </div>
                     
                     <re-captcha (resolved)="resolved($event)" siteKey="6Les3CAUAAAAAHePnS6Tnw0shRj6XWERG0WScS9s" [(ngModel)]="captcha" name="captcha" #captchaControl="ngModel" required></re-captcha>
