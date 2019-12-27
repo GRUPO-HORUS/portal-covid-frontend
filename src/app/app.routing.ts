@@ -151,7 +151,7 @@ export const appRoutes: Routes = [
   { path: "solicitud-documento/:liquidacion", component: SolicitudDocumentoComponent },
 
   { path: "otros-tramites-en-linea", component: OtrosTramitesEnLineaComponent },
-  { path: "tramites-con-eid", component: TramitesConEidComponent },
+  // { path: "tramites-con-eid", component: TramitesConEidComponent },
   { path: "validar-documento", component: ValidarDocumentoComponent },
   { path: "visor/:ruta/:objId", component: VisorDocumentoComponent },
 

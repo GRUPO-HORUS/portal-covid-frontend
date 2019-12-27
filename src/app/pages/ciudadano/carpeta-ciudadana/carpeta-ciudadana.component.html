@@ -21,19 +21,21 @@
                 <h4 class="mt-4 mb-4 text-primary">Mis documentos en mi carpeta ciudadana</h4>
                 
                 <div class="row">
-                    <div class="col-lg-3 col-md-12 col-xs-12" *ngFor="let data of infoCarpetaCiudadana | sort: 'key'; let i = index">
+                    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12" *ngFor="let data of infoCarpetaCiudadana | sort: 'key'; let i = index">
 
                         <div class="card-deck">
-                            <div style="max-height:120px !important;border:none;cursor:pointer;" class="card" (click)="viewInfo(i)">
-                                <div class="card-block text-center py-lg-3 overlay overlay-primary overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0"  
+                            <div class="card card-custom" (click)="viewInfo(i)">
+                                <div class="card-block text-center py-lg-4 overlay overlay-op-7 rounded card mb-3 mb-lg-0 bg-img b-0"  
                                         data-bg-img="assets/img/clasificacion-estadistica1.jpg"
-                                        style="background-image: url('assets/img/enlaces-de-interes.jpg') !important;">
+                                        style="background-image: url('assets/img/enlaces-de-interes.jpg') !important; border-radius:4px;">
 
-                                    <span class="fa fa-folder-open fa-2x" *ngIf="data.view"></span>
-                                    <span class="fa fa-folder fa-2x" *ngIf="!data.view"></span>
+                                    <span class="fa fa-folder-open fa-2x color-folder" *ngIf="data.view"></span>
+                                    
+                                    <span class="fa fa-folder fa-2x color-folder" *ngIf="!data.view"></span>
 
-                                    <h4 class="text-white text-uppercase mb-0" style="font-size:10px;line-height:14px;margin:2px;">{{ data.name }}</h4>
-                                    <hr class="w-50 mx-auto">
+                                    <h4 class="text-white text-uppercase mb-0" style="font-size:10px;line-height:12px;margin:0px;">{{ data.name }}</h4>
+
+                                    <p class="w-50 mx-auto"></p>
                                 </div>
                             </div>
                         </div>

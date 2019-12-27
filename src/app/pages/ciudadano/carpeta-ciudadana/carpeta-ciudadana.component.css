@@ -10,6 +10,30 @@
     text-transform: uppercase;
 }
 
+.card-custom{
+  max-height: 120px !important; 
+  background:#071530 !important; 
+  border: 4px solid #fff;
+  border-radius: 4px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); 
+  cursor:pointer; 
+}
+
+.card-custom:hover {
+  background:#031028 !important; 
+  box-shadow: 1px 1px 3px #031028; 
+}
+
+.fondo-title-profile {
+  background: #001c54 !important;
+  color: #fff !important;
+  padding: 8px;
+}
+
+.color-folder {
+  color: #ccc;
+}
+
 .spance-footer{
   height: 50px;
 }
