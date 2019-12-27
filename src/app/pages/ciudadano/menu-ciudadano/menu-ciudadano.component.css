@@ -19,3 +19,11 @@
     background: #001c54 !important;
     color: #fff !important;
 }
+
+.fondo-title-profile {
+    background: #292b2c !important;
+    color: #fff !important;
+    padding: 8px;
+    font-size: 16px;
+    margin-top: 20px;
+  }
