@@ -17,8 +17,11 @@ export class VisorDocumentoComponent implements OnInit {
 
   public ciudadano: IdentidadPersona;
   public token: string;
+  
   public ruta: string;
   public objId: string;
+  public cv: string;
+  
   public loading: boolean;
   public resultado: any = { status: true, message: ''};
   public linkSource: any;
@@ -57,6 +60,7 @@ export class VisorDocumentoComponent implements OnInit {
     this._route.params.subscribe(params => {
       this.ruta = params["ruta"];
       this.objId = params["objId"];
+      this.cv = params["cv"];
 
       if(this.urlTrustToken.indexOf(this.ruta) === -1) {
 
@@ -88,20 +92,25 @@ export class VisorDocumentoComponent implements OnInit {
   getDocumento(download: boolean) {
     if(this.urlTrustToken.indexOf(this.ruta) !== -1) {
       this.getViewDocument(download);
+
     } else {
-      this.getSingleFileDocument(download);
+      this.getFileDocument(download);
     }
   }
   
-  getSingleFileDocument(download: boolean) {
+  getFileDocument(download: boolean) {
     if(!download) {
       this.loading = true;
     }
+
     this.token = this.auth.getToken();
-    this.documentosService.getSingleFileDocument(this.token, this.objId).subscribe(response => {
+    
+    this.documentosService.getFileDocument(this.token, this.objId).subscribe(response => {
+
       this.getPDF(this.objId, response.data, download);
-      //  this.linkSource = this.sanitizer.bypassSecurityTrustResourceUrl('data:application/pdf;base64,' + response.data);
+      
       this.loading = false;
+
     }, error => {
       console.log("error", error);
       this.loading = false;
@@ -112,9 +121,10 @@ export class VisorDocumentoComponent implements OnInit {
     if(!download) {
       this.loading = true;
     }
-    this.documentosService.getViewDocument(this.objId).subscribe(response => {
+    this.documentosService.getViewDocument(this.cv, this.objId).subscribe(response => {
       this.getPDF(this.objId, response.data, download);
       this.loading = false;
+
     }, error => {
       console.log("error", error);
       this.loading = false;

@@ -22,15 +22,9 @@ export class CarpetaCiudadanaComponent implements OnInit {
   public loading: boolean;
   public resultado: any = { status: true, message: ''};
   public menuDocument: any[];
-  
-  public infoCarpetaCiudadana: any[] = [];
+  public servicios: any[] = [];
   public docSelected:any = {};
   public cursos: any;
-
-  // public sistemasDeConsultas: any = [
-  //   { id: 1, descripcion: 'SGR' },
-  //   { id: 2, descripcion: 'SRI' },
-  // ];
 
   constructor(
     public messageService: MessageService,
@@ -52,55 +46,68 @@ export class CarpetaCiudadanaComponent implements OnInit {
       return;
     }
 
-    this.getHistoricoConsultas();
+    this.getServicios();
     this.scrollTop();
   }
 
-  viewInfo(position: number) {
-    if(this.infoCarpetaCiudadana[position] != null) {
-      this.docSelected = this.infoCarpetaCiudadana[position];
-      setTimeout(function() { $('#modalDetalleDocumento').modal('show'); }, 300);
-    }
+  cancelGenerarDocumento() {
+    this.scrollTop();
+    this.loading = false;
   }
 
-  cancelGenerarDocumento() {
-    this.viewTramitesEID();
+  getServicios() {
+    this.documentosService.getServicios(this.token).subscribe(response => {
+      this.servicios = response;
+    }, error => {
+      console.log('error', error);
+    });
   }
   
-  getHistoricoConsultas() {
-    this.documentosService.getHistoricoConsultas(this.token, this.ciudadano.cedula).subscribe(response => {
-      this.infoCarpetaCiudadana = response;
+  getHistoricoConsultas(servicio: any) {
+    this.loading = true;
+
+    this.docSelected.params = {};
+
+    this.docSelected.name = servicio.descripcion;
+
+    this.docSelected.params.tipo = servicio.idTipoServicio.toString();
+
+    this.documentosService.getHistoricoConsultas(this.token, servicio.idTipoServicio).subscribe(response => {
+      
+      this.docSelected.value = response;
+
+      this.openModalDocument('#modalDetalleDocumento');
+
+      this.loading = false;
+
     }, error => {
+      this.loading = false;
       console.log('error', error);
     });
   }
 
   generarDocumentoHistorico(result: any) {
     this.closeModalDocument('#modalDetalleDocumento');
-
     if(result.liq  != null) {
       this.router.navigate(['/solicitud-documento/'+result.liq._id]);
+
     } else {
       this.router.navigate(['/visor/carpeta-ciudadana/'+result._id]);
     }
   }
 
-  generarDocumento(result) {
+  generarDocumento() {
     this.scrollTop();
-    
-    this.docSelected.params = {};
-    this.docSelected.params.tipo = result.key.toString(); 
-    this.docSelected.params.cedula = this.ciudadano.cedula; 
     
     let paramsAditional = false;
     let modalView = '';
     
-    if(result.key == 10) {
-      this.getCursosSnpp(result);
+    if(this.docSelected.params.tipo == "10") {
+      this.getCursosSnpp(this.docSelected.params.tipo);
       return;
     }
 
-    if(result.key == 11) {
+    if(this.docSelected.params.tipo == "11") {
       this.docSelected.params.dv = '';
       this.docSelected.params.titulo = 'Constancia de RUC (SET)';
 
@@ -108,7 +115,7 @@ export class CarpetaCiudadanaComponent implements OnInit {
       modalView = '#modalRucSet';
     }
 
-    if(result.key == 15) {
+    if(this.docSelected.params.tipo == "15") {
       this.docSelected.params.titulo = 'Acta de Nacimiento (Hijo/a)';
       this.docSelected.params.cedulaHijo = '';
 
@@ -140,15 +147,14 @@ export class CarpetaCiudadanaComponent implements OnInit {
     this.loading = true;
     this.resultado = { status: true, message: '' };
     
-    this.documentosService.getRptDocument(this.token, params)
-    .subscribe(response => {
+    this.documentosService.getRptDocument(this.token, params).subscribe(response => {
       if(response.status) {
 
         this.closeModalDocument('#modalDetalleDocumento');
 
         if(response.objId != null && response.payment) 
           this.router.navigate(['/solicitud-documento/'+response.objId]);
-        else 
+        else
           this.router.navigate(['/visor/carpeta-ciudadana/'+response.objId]);
         
         this.loading = false;
@@ -165,10 +171,10 @@ export class CarpetaCiudadanaComponent implements OnInit {
     });
   }
 
-  getCursosSnpp(result) {
+  getCursosSnpp(idTipoServicio) {
     this.documentosService.getCursosSnppIE(this.token, this.ciudadano.cedula).subscribe(response => {
       if(response.status) {
-        this.cursos = { 'key': result.key, 'data': response.data };
+        this.cursos = { 'idTipoServicio': idTipoServicio, 'data': response.data };
         setTimeout(function() { $('#modalView').modal('show'); }, 500);
         this.loading = false;
       } else {
@@ -180,10 +186,6 @@ export class CarpetaCiudadanaComponent implements OnInit {
       this.loading = false;
       this.toastrService.warning('','Ocurrió un error al procesar la operación');
     });
-  }
-
-  addParam(param: any) {
-
   }
 
   openModal(id: string) {
@@ -203,19 +205,6 @@ export class CarpetaCiudadanaComponent implements OnInit {
       $(name).modal('hide'); 
       $('.modal-backdrop').hide();
     }, 500);
-  }
-
-  viewTramitesEID() {
-    this.scrollTop();
-    this.loading = false;
-  }
-
-  scrollBottom() {
-    let top = document.getElementById('topcc');
-    if (top !== null) {
-      top.scrollIntoView();
-      top = null;
-    }
   }
 
   scrollTop() {

@@ -113,10 +113,10 @@ export class ConsultaDocumentoComponent implements OnInit {
 
     if(this.tipo == 'cedula-policial') params.fechaNacimiento = this.fechaNac;
 
-    this.documentosService.getRptDocumentSinIE("-", params, this.captchaResponse).subscribe(response => {
+    this.documentosService.getRptDocumentSinIE(params, this.captchaResponse).subscribe(response => {
       if(response.status) {
         this.cedula = "";
-        this.router.navigate(['/visor/documentos-'+this.tipo+'/'+response.objId]);
+        this.router.navigate(['/visor/documentos-'+this.tipo+'/'+response.objId+'/'+response.cv]);
         this.closeModalDocument('#modalView');
 
       } else {

@@ -154,6 +154,7 @@ export const appRoutes: Routes = [
   // { path: "tramites-con-eid", component: TramitesConEidComponent },
   { path: "validar-documento", component: ValidarDocumentoComponent },
   { path: "visor/:ruta/:objId", component: VisorDocumentoComponent },
+  { path: "visor/:ruta/:objId/:cv", component: VisorDocumentoComponent },
 
 
   { path: "docsgov", component: DocumentosComponent },

@@ -103,7 +103,6 @@ export class DocumentosComponent implements OnInit {
 ];
   
   constructor(
-    // private config: AppConfig,
     private router: Router,
   ) { }  
 
@@ -128,5 +127,4 @@ export class DocumentosComponent implements OnInit {
     }
   }
   
-
 }

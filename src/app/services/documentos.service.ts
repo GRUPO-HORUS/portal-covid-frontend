@@ -37,22 +37,22 @@ export class DocumentosService {
       .pipe(catchError(this.handler.handleError<any>('getCursosSnpp', {})));
   }
 
-  getRptDocumentSinIE(token, objParams: any, captchaResponse: string): Observable<any> {
+  getRptDocumentSinIE(objParams: any, captchaResponse: string): Observable<any> {
     let params = new HttpParams();
     
     Object.keys(objParams).forEach(p => {
         params = params.append(p.toString(), objParams[p].toString());
     });
 
-    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
-    return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getDocument/'+captchaResponse, { headers: headers, params: params })
-      .pipe(catchError(this.handler.handleError<any>('getDocument', {})));
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json');
+    return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getRptDocumentSinIE/'+captchaResponse, { headers: headers, params: params })
+      .pipe(catchError(this.handler.handleError<any>('getRptDocumentSinIE', {})));
   }
 
   getRptDocument(token, objParams: any): Observable<any> {
       let params = new HttpParams();
       Object.keys(objParams).forEach(p => {
-          params = params.append(p.toString(), objParams[p].toString());
+          params = params.append(p, objParams[p]);
       });
     
       let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
@@ -61,9 +61,15 @@ export class DocumentosService {
         .pipe(catchError(this.handler.handleError<any>('getRptDocument', {})));
   }
 
-  getHistoricoConsultas(token, cedula: string): Observable<any[]> {
+  getServicios(token): Observable<any[]> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
-    return this.http.get<any[]>(this.config.API_DOCUMENTOS + "/documento/getHistoricoConsultas/"+cedula, { headers: headers })
+    return this.http.get<any[]>(this.config.API_DOCUMENTOS + "/documento/getServicios", { headers: headers })
+    .pipe(catchError(this.handler.handleError<any>('getServicios', {})));
+  }
+
+  getHistoricoConsultas(token, idTipoServicio): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
+    return this.http.get<any[]>(this.config.API_DOCUMENTOS + "/documento/getHistoricoConsultas/"+idTipoServicio, { headers: headers })
     .pipe(catchError(this.handler.handleError<any>('getHistoricoConsultas', {})));
   }
 
@@ -71,9 +77,14 @@ export class DocumentosService {
     return this.http.get<any[]>(this.config.API + "/tramites/identidadElectronica");
   }
 
-  getSingleFileDocument(token, objId: string): Observable<any> {
+  getFileDocument(token, objId: string): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token).set('responseType','blob');
     return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getFileDocument/'+objId, { headers: headers });
+  }
+
+  getViewDocument(cv: string, objId: string): Observable<any> {
+    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('responseType','blob');
+    return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getViewDocument/'+cv+'/'+objId, { headers: headers });
   }
 
   getSingleFileLiq(token, objId: string): Observable<any> {
@@ -84,11 +95,6 @@ export class DocumentosService {
   getSingleLiquidacion(token, objId: string): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token).set('responseType','blob');
     return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getSingleLiquidacion/'+objId, { headers: headers });
-  }
-
-  getViewDocument(objId: string): Observable<any> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', objId).set('responseType','blob');
-    return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getViewDocument/'+objId, { headers: headers });
   }
 
   validacionDocumento(constancia_nro: string, identificador_unico: string): Observable<any> {

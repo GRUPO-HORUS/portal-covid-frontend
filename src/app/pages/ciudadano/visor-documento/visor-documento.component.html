@@ -2,19 +2,9 @@
     <div class="header-text clearfix">
         <h3 class="pull-left" *ngIf="ruta == 'tramites-con-eid' || ruta == 'carpeta-ciudadana'">Trámites y Documentos con tu identidad electrónica</h3>
         <h3 class="pull-left" *ngIf="ruta == 'validar-documento'">Validación de documento</h3>
-        <!--
-        <div class="text-center" *ngIf="linkSource && linkSource != ''">
-            <button type="button" class="btn btn-default" *ngIf="!loading" style="margin-right:10px;" data-dismiss="modal" (click)="getDocumento(true)">
-                <i class="fa fa-download nav-link-icon"></i> Descargar
-            </button>
-            <button type="button" class="btn btn-primary" *ngIf="!loading" style="margin-right:10px;" data-dismiss="modal" (click)="cancelGenerarDocumento()">
-                <i class="fa fa-angle-double-left"></i> Atrás
-            </button>
-        </div>
-        -->
     </div>
 </div>
-    
+
 <!-- VIEW DOCUMENT -->
 <div class="content fullscreen-container">
     <div class="row" style="margin-top:5px !important;">
@@ -47,11 +37,7 @@
                             </div>
                         </div>
                     </div>
-                    <!--  
-                    <object *ngIf="!loading" [data]="linkSource" type="application/pdf" width="100%" height="700" style="border:none;">
-                        <embed [src]="linkSource" type="application/pdf" />
-                    </object>
-                    -->
+
                 </div>
             </div>
         </div>

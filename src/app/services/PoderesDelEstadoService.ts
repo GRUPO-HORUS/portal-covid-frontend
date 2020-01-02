@@ -53,7 +53,7 @@ export class PoderesDelEstadoService {
   }
 
   getCantidadDocumentos(): Observable<any[]> {
-    return this.httpClient.get<any[]>(this.config.API_DOCUMENTOS + "/documento/cantidadDocumentos/2019-08-01/2019-08-28");
+    return this.httpClient.get<any[]>(this.config.API_DOCUMENTOS + "/documento/cantidadDocumentos");
   }
 
   getPorcentajeTramitesOnline(): Observable<any[]> {
