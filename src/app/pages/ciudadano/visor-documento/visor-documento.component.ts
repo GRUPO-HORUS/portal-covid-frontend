@@ -58,8 +58,11 @@ export class VisorDocumentoComponent implements OnInit {
     this.viewScrollTop(100);
     
     this._route.params.subscribe(params => {
+
       this.ruta = params["ruta"];
+
       this.objId = params["objId"];
+      
       this.cv = params["cv"];
 
       if(this.urlTrustToken.indexOf(this.ruta) === -1) {

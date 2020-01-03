@@ -62,7 +62,8 @@
             <div class="modal-body row">
 
                 <div class="col-lg-12 col-md-12 col-xs-12" style="padding:10px;">
-                    <div class="alert alert-warning" *ngIf="docSelected?.value && docSelected?.value.length <= 0">
+
+                    <div class="alert alert-warning" *ngIf="!historicoDocumentos || historicoDocumentos.length <= 0">
                         <p>No se encontraron datos en tu carpeta ciudadana de este tipo de documento</p>
                         <p> Podés generar el documento dando clic en
                             <button type="button" style="margin-left: 5px;"  class="btn btn-sm btn-success btn-success-next" (click)="generarDocumento()">
@@ -71,7 +72,7 @@
                         </p>
                     </div>
                     
-                    <div class="table-responsive" *ngIf="docSelected?.value && docSelected?.value.length > 0" class="pl-3 mb-3">          
+                    <div class="table-responsive" *ngIf="historicoDocumentos && historicoDocumentos.length > 0" class="pl-3 mb-3">          
                         <table class="table table-condensed">
                             <thead>
                                 <tr>
@@ -82,7 +83,7 @@
                                     <th style="font-size:12px;"></th>
                                 </tr>
                             </thead>
-                            <tbody *ngFor="let result of docSelected.value">
+                            <tbody *ngFor="let result of historicoDocumentos">
                                 <tr>
                                     <td style="font-size:12px;">{{ result.generadoPor }}</td>
                                     <td style="font-size:12px;">{{ result.fechaGeneracion | date: 'dd/MM/yyyy HH:mm' }}</td>
@@ -113,18 +114,22 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
+
             <div class="modal-footer">
                 <fieldset class="w-100">
-                    <button type="button" style="float:left;margin-left: 5px;" class="btn btn-sm btn-primary pull-left" *ngIf="docSelected?.value && docSelected?.value.length > 0" (click)="generarDocumento()">
+                    <button type="button" style="float:left;margin-left: 5px;" class="btn btn-sm btn-primary pull-left" *ngIf="historicoDocumentos && historicoDocumentos.length > 0" (click)="generarDocumento()">
                         <i class="fa fa-file-import"></i>  Generar Documento
                     </button>
+                    
                     <button type="button" class="btn btn-sm btn-primary pull-right" data-dismiss="modal">
                         <i class="fa fa-remove"></i> Cerrar
                     </button>
                 </fieldset>
             </div>
+
         </div>
     </div>
 </div>
@@ -329,6 +334,5 @@
         </div>
     </div>
 </div>
-
 
 <div class="spance-footer"></div>

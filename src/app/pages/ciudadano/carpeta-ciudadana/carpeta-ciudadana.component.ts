@@ -7,6 +7,7 @@ import { IdentidadPersona } from 'app/pages/ciudadano/model/identidad-persona.mo
 import { DocumentosService } from 'app/services/documentos.service';
 import { ToastrService } from 'ngx-toastr';
 import { ModalService } from 'app/lib/modal-custom';
+import { DatePipe } from '@angular/common';
 declare var $: any;
 
 @Component({
@@ -24,6 +25,7 @@ export class CarpetaCiudadanaComponent implements OnInit {
   public menuDocument: any[];
   public servicios: any[] = [];
   public docSelected:any = {};
+  public historicoDocumentos: any[] = [];
   public cursos: any;
 
   constructor(
@@ -33,8 +35,8 @@ export class CarpetaCiudadanaComponent implements OnInit {
     public auth: LoginService,
     public documentosService: DocumentosService,
     private toastrService: ToastrService,
-    private modalService: ModalService
-  ) {}
+    private modalService: ModalService,
+  ) { }
 
   ngOnInit() {
 
@@ -74,7 +76,7 @@ export class CarpetaCiudadanaComponent implements OnInit {
 
     this.documentosService.getHistoricoConsultas(this.token, servicio.idTipoServicio).subscribe(response => {
       
-      this.docSelected.value = response;
+      this.historicoDocumentos = response;
 
       this.openModalDocument('#modalDetalleDocumento');
 
@@ -88,7 +90,7 @@ export class CarpetaCiudadanaComponent implements OnInit {
 
   generarDocumentoHistorico(result: any) {
     this.closeModalDocument('#modalDetalleDocumento');
-    if(result.liq  != null) {
+    if(result.liq != null) {
       this.router.navigate(['/solicitud-documento/'+result.liq._id]);
 
     } else {
@@ -129,7 +131,46 @@ export class CarpetaCiudadanaComponent implements OnInit {
       return;
     }
 
-    this.getRptDocument(this.docSelected.params);
+    let generaDoc: boolean = true;
+
+    if(this.historicoDocumentos.length > 0) {
+
+      let ultimoDocumentoGenerado = this.historicoDocumentos[this.historicoDocumentos.length -1];
+
+      let datePipe = new DatePipe("en-US");
+      let fechaActual = datePipe.transform(new Date(), 'yyyy-MM-dd');
+      let fechaVencimiento = datePipe.transform(ultimoDocumentoGenerado.fechaVencimiento, 'yyyy-MM-dd');
+
+      // se la fecha actual es menor a la fecha de vencimiento
+      if(this.validarFechaVencimiento(fechaActual, fechaVencimiento)) {
+        
+        generaDoc = false;
+        
+        // proceso de generacion de historico de documento
+        this.generarDocumentoHistorico(ultimoDocumentoGenerado);
+
+      }
+      
+    }
+
+    if(generaDoc) {
+      
+      // proceso de generacion de documento
+      this.getRptDocument(this.docSelected.params);
+
+    }
+
+  }
+
+  validarFechaVencimiento(sDate: string, eDate: string){
+    let isValidDate = true;
+    if((sDate == null || eDate ==null)){
+      isValidDate = false;
+    }
+    if((sDate != null && eDate !=null) && (eDate) < (sDate)){
+      isValidDate = false;
+    }
+    return isValidDate;
   }
 
   getCertificadoSnpp(tipo, curso) {
