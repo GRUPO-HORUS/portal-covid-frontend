@@ -133,7 +133,7 @@ export class CarpetaCiudadanaComponent implements OnInit {
 
     let generaDoc: boolean = true;
 
-    if(this.historicoDocumentos.length > 0) {
+    if(this.historicoDocumentos.length > 0 && (this.docSelected.params.tipo != '9')) {
 
       let ultimoDocumentoGenerado = this.historicoDocumentos[this.historicoDocumentos.length -1];
 
@@ -143,21 +143,16 @@ export class CarpetaCiudadanaComponent implements OnInit {
 
       // se la fecha actual es menor a la fecha de vencimiento
       if(this.validarFechaVencimiento(fechaActual, fechaVencimiento)) {
-        
         generaDoc = false;
-        
         // proceso de generacion de historico de documento
         this.generarDocumentoHistorico(ultimoDocumentoGenerado);
-
       }
       
     }
 
     if(generaDoc) {
-      
       // proceso de generacion de documento
       this.getRptDocument(this.docSelected.params);
-
     }
 
   }
@@ -193,8 +188,9 @@ export class CarpetaCiudadanaComponent implements OnInit {
 
         this.closeModalDocument('#modalDetalleDocumento');
 
-        if(response.objId != null && response.payment) 
+        if(response.objId != null && response.payment)
           this.router.navigate(['/solicitud-documento/'+response.objId]);
+
         else
           this.router.navigate(['/visor/carpeta-ciudadana/'+response.objId]);
         
