@@ -239,3 +239,26 @@
     text-align: center;
   }
   
+
+  #mainTable tr td, tr th {
+    padding: 5px !important;
+}
+
+#mainTable tr td.name, tr td.name > a {
+    font-size: 14px;
+    color: #333 !important;
+}
+
+
+#mainTable tr td.actions {
+    width: 1px;
+    white-space: nowrap;
+}
+
+#mainTable tr td.actions > a {
+    border-radius: 5px;
+    font-size: 13px;
+    background-color: #465f6e;
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#b9c3c8), to(#465f6e));
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
