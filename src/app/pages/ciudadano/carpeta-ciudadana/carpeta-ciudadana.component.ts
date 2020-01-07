@@ -135,8 +135,7 @@ export class CarpetaCiudadanaComponent implements OnInit {
 
     if(this.historicoDocumentos.length > 0 && (this.docSelected.params.tipo != '9')) {
 
-      let ultimoDocumentoGenerado = this.historicoDocumentos[this.historicoDocumentos.length -1];
-
+      let ultimoDocumentoGenerado = this.historicoDocumentos[0];
       let datePipe = new DatePipe("en-US");
       let fechaActual = datePipe.transform(new Date(), 'yyyy-MM-dd');
       let fechaVencimiento = datePipe.transform(ultimoDocumentoGenerado.fechaVencimiento, 'yyyy-MM-dd');

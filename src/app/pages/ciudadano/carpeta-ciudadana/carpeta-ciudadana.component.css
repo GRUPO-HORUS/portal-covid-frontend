@@ -262,3 +262,7 @@
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#b9c3c8), to(#465f6e));
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
+
+.modal-open {
+  overflow: auto !important;
+}
