@@ -21,7 +21,6 @@ export class ConsultaDocumentoComponent implements OnInit {
   public dv: string;
   public fechaNac: string;
   public codAlumno: string;
-
   public captcha: any;
   @ViewChild('captchaControl') reCaptcha: RecaptchaComponent;
 
@@ -110,7 +109,6 @@ export class ConsultaDocumentoComponent implements OnInit {
     }
 
     if(this.tipo == 'ruc-set') params.dv = this.dv;
-
     if(this.tipo == 'cedula-policial') params.fechaNacimiento = this.fechaNac;
 
     this.documentosService.getRptDocumentSinIE(params, this.captchaResponse).subscribe(response => {

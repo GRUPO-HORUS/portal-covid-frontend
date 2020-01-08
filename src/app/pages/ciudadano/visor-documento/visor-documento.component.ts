@@ -31,7 +31,6 @@ export class VisorDocumentoComponent implements OnInit {
     'documentos-cedula-policial',
     'documentos-funcionario-publico',
     'documentos-ips-asegurado',
-    'documentos-ips-salario',
     'documentos-nivel-academico',
     'documentos-inscripcion-empleado',
     'documentos-mspbs-vacunacion',

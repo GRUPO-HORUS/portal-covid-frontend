@@ -1,7 +1,7 @@
+<div id="topcab"></div>
 <div id="page-header" class="bg-gradient bg-shadow">
     <div class="container">
         <div class="header-text clearfix">
-            <div id="topcab"></div>
             <h3 class="pull-left mb-0"  *ngIf="documento">
                 <span class="far fa-folder-open text-default menu-item-icon text-center fa-fw"></span> 
                 <span [innerHTML]="documento.title"></span>
@@ -13,18 +13,16 @@
 <div class="content pb-4">
     <div class="container" *ngIf="documento">
                 
-        <h4 class="mt-4 mb-4 text-primary" [innerHTML]="documento.subTitle">
-            <!-- {{ documento.subTitle }} -->
-        </h4>
+        <h4 class="mt-4 mb-4 text-primary" [innerHTML]="documento.subTitle"></h4>
 
         <div 
             *ngIf="documento.description == 'cedula-policial' ||
             documento.description == 'ips-asegurado' ||
-            documento.description == 'ips-salario' ||
             documento.description == 'inscripcion-empleado' ||
             documento.description == 'funcionario-publico' ||
             documento.description == 'ruc-set' ||
             documento.description == 'mipymes'">
+            
             <div class="col-lg-6 col-md-12 col-xs-12">
                 <form #miForm="ngForm" class="mt-2">
                     
@@ -58,7 +56,8 @@
                     <div class="clearfix"><br/></div>
                     <button (click)="getRptDocumentSinIE(null)"  class="btn btn-primary" style="margin:10px;" [disabled]="!miForm.form.valid || loading">
                         <span class="fa fa-check"></span> Aceptar                        
-                    </button>                    
+                    </button>
+
                     <button type="button" class="btn btn-default" style="margin:10px;" (click)="atras()">
                         <i class="fa fa-angle-double-left"></i> Atrás
                     </button>
