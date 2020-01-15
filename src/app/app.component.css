@@ -19,7 +19,3 @@
 .toast-warning {
   background-color: #F89406 !important;
 }
-
-.modal-open {
-    overflow: auto !important;
-}

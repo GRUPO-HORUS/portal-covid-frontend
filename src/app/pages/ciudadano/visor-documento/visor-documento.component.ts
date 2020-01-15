@@ -28,19 +28,12 @@ export class VisorDocumentoComponent implements OnInit {
   
   public  urlTrustToken = [
     'validar-documento', 
-    'documentos-cedula-policial',
-    'documentos-funcionario-publico',
     'documentos-ips-asegurado',
-    'documentos-nivel-academico',
     'documentos-inscripcion-empleado',
-    'documentos-mspbs-vacunacion',
-    'documentos-mspbs-vacunacion-hijos',
-    'documentos-antecedente-policial',
-    'documentos-snpp',
+    'documentos-funcionario-publico',
     'documentos-ruc-set',
+    'documentos-snpp',
     'documentos-mipymes',
-    'documentos-acta-nacimiento',
-    'documentos-acta-matrimonio',
   ];
 
   constructor(
@@ -54,7 +47,7 @@ export class VisorDocumentoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.viewScrollTop(100);
+    this.scrollTop();
     
     this._route.params.subscribe(params => {
 
@@ -78,9 +71,17 @@ export class VisorDocumentoComponent implements OnInit {
     });
   }
 
-  viewScrollTop(pos: number) {
-    window.scrollTo(pos, 1);
+  scrollTop() {
+    let top = document.getElementById('topcab');
+    if (top !== null) {
+      top.scrollIntoView();
+      top = null;
+    }
   }
+
+  // viewScrollTop(pos: number) {
+  //   window.scrollTo(pos, 1);
+  // }
 
   cancelGenerarDocumento() {
     if(this.ruta == 'carpeta-ciudadana') {

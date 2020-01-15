@@ -27,6 +27,7 @@ export class CarpetaCiudadanaComponent implements OnInit {
   public docSelected:any = {};
   public historicoDocumentos: any[] = [];
   public cursos: any;
+  public documentosIE: any[] = [];
 
   constructor(
     public messageService: MessageService,
@@ -41,15 +42,21 @@ export class CarpetaCiudadanaComponent implements OnInit {
   ngOnInit() {
 
     this.ciudadano = this.auth.getCurrentUser();
+
     this.token = this.auth.getToken();
-    
-    if(this.ciudadano == null || this.token == null) {
-      this.router.navigate(['/login-ciudadano']);
-      return;
+
+    if(this.ciudadano != null && this.token != null) {
+
+      this.getServicios();
+
+    } else {
+
+      this.getListDocumentos();
+
     }
 
-    this.getServicios();
     this.scrollTop();
+    
   }
 
   cancelGenerarDocumento() {
@@ -89,13 +96,18 @@ export class CarpetaCiudadanaComponent implements OnInit {
   }
 
   generarDocumentoHistorico(result: any) {
+    
     this.closeModalDocument('#modalDetalleDocumento');
+
+    $("body").removeClass("modal-open");
+
     if(result.liq != null) {
       this.router.navigate(['/solicitud-documento/'+result.liq._id]);
 
     } else {
       this.router.navigate(['/visor/carpeta-ciudadana/'+result._id]);
     }
+
   }
 
   generarDocumento() {
@@ -187,11 +199,14 @@ export class CarpetaCiudadanaComponent implements OnInit {
 
         this.closeModalDocument('#modalDetalleDocumento');
 
-        if(response.objId != null && response.payment)
+        $("body").removeClass("modal-open");
+
+        if(response.objId != null && response.payment) {
           this.router.navigate(['/solicitud-documento/'+response.objId]);
 
-        else
+        } else {
           this.router.navigate(['/visor/carpeta-ciudadana/'+response.objId]);
+        }
         
         this.loading = false;
 
@@ -222,6 +237,92 @@ export class CarpetaCiudadanaComponent implements OnInit {
       this.loading = false;
       this.toastrService.warning('','Ocurrió un error al procesar la operación');
     });
+  }
+
+  getListDocumentos() {
+    this.documentosIE = [
+        /** NO REQUIERE I.E */
+        {
+          "name": "Constancia de ser o no Funcionario Público (SFP)", "isSession": false, 
+          "linkExternal": false, "link": "/documentos/funcionario-publico", "title": "Obtené la constancia de ser o no ser funcionario público, proveniente de la Secretaría de la Función Pública (SFP) con datos consultados desde el SINARH y Nómina de Funcionarios Permanentes o Contratos."
+        }, 
+        {
+          "name": "Consulta de Asegurado (IPS)", "isSession": false, 
+          "linkExternal": false, "link": "/documentos/ips-asegurado", "title": "Consultá si una persona está o no inscripta como asegurada ante el IPS, y los datos respectivos en caso de estarlo."
+        },   
+        {
+          "name": "Consulta de Inscripción de  Empleado (Ministerio de Trabajo)", "isSession": false, 
+          "linkExternal": false, "link": "/documentos/inscripcion-empleado", "title": "Obtené la información de estar o no inscripto ante la Dirección de Registro Obrero Patronal del Ministerio de Trabajo, Empleo y Seguridad Social (MTEES)."
+        },
+        {
+          "name": "Consulta de Datos de RUC (SET)", "isSession": false, 
+          "linkExternal": false, "link": "/documentos/ruc-set", "title": "Accede a los datos de la Cédula Tributaria de contribuyentes provenientes de la Subsecretaría de Estado de Tributación (SET)."
+        },
+        {
+          "name": "Certificado de Cumplimiento  Tributario (SET)", "isSession": false, 
+          "linkExternal": true, "link": "https://servicios.set.gov.py/eset-publico/certificadoCumplimientoIService.do", "title": "Obtené el Certificado de Cumplimiento Tributario emitido en línea por la Subsecretaría de Estado de Tributación (SET)"
+        },
+        {
+          "name": "Consulta de Cédula de MIPYMES", "isSession": false, 
+          "linkExternal": false, "link": "/documentos/mipymes", "title": "Podrás validar y verificar datos de una Cédula de MIPYMES con la información del Viceministerio de Micro, Pequeñas y Medianas Empresas del Ministerio de Industria y Comercio."
+        },
+        {
+          "name": "Descarga de Certificados de Cursos (SNPP)", "isSession": false, 
+          "linkExternal": false, "link": "/documentos/snpp", "title": ""
+        },
+
+        /** REQUIERE I.E */
+        {
+          "name": "Consulta de Datos de Cédula (Policía Nacional)", "isSession": true, 
+          "linkExternal": false, "link": '/login-ciudadano',  "title": "Podrás validar y verificar datos de una Cédula de Identidad con la información proveniente en línea desde el Departamento de Identificaciones de la Policía Nacional."
+        },
+        {
+          "name": "Constancia de Acta de Nacimiento (Registro Civil)", "isSession": true, 
+          "linkExternal": false, "link": "/login-ciudadano", "title": ""
+        },
+        {
+          "name": "Constancia de Acta de Matrimonio (Registro Civil)", "isSession": true, 
+          "linkExternal": false, "link": "/login-ciudadano", "title": ""
+        },
+        {
+          "name": "Constancia de Acta de Defunción (Registro Civil)", "isSession": true, 
+          "linkExternal": false, "link": "/login-ciudadano", "title": ""
+        },
+        {
+          "name": "Consulta de Salario del Asegurado (IPS)", "isSession": true, 
+          "linkExternal": false, "link": "/login-ciudadano", "title": ""
+        },
+        {
+          "name": "Consulta de Nivel Académico (MEC)", "isSession": true, 
+          "linkExternal": false, "link": "/login-ciudadano", "title": ""
+        },
+        {
+          "name": "Constancia de Acta de Nacimiento Hijo/a (Registro Civil)", "isSession": true, 
+          "linkExternal": false, "link": "/login-ciudadano", "title": ""
+        },
+        {
+          "name": "Constancia de vacunación (MSPyBS)", "isSession": true, 
+          "linkExternal": false, "link": "/login-ciudadano", "title": ""
+        },
+        {
+          "name": "Constancia de Vacunación - Hijo/a (MSPyBS)", "isSession": true, 
+          "linkExternal": false, "link": "/login-ciudadano", "title": ""
+        },
+        {
+          "name": "Consulta de Certificados (SNPP)", "isSession": true, 
+          "linkExternal": false, "link": "/login-ciudadano", "title": ""
+        },
+    ];
+  }
+
+  redirect(doc) {
+    if(doc.linkExternal) {
+      window.location.href = doc.link;
+      return true;
+
+    } else {
+      this.router.navigate([doc.link]);
+    }
   }
 
   openModal(id: string) {

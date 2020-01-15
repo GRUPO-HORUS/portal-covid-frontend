@@ -59,12 +59,10 @@ export class SolicitudDocumentoComponent implements OnInit {
   }
 
   next() {
-    console.log('next');
     this.stepper.next();
   }
 
   previous() {
-    console.log('previous');
     this.stepper.previous();
   }
 
@@ -80,6 +78,7 @@ export class SolicitudDocumentoComponent implements OnInit {
       this.transactionFp = response.data;
       setTimeout(function() { $("#modalFp").modal("toggle"); }, 500);
       this.loading = false;
+
     }, error => {
       console.log("error:authenticationFastPay", error);
       this.loading = false;
@@ -111,25 +110,28 @@ export class SolicitudDocumentoComponent implements OnInit {
   }
   
   descargarDocumento(liquidacion: any) {
-    // console.log('liquidacion', liquidacion);
+    
     if(liquidacion.estadoSolicitud == 'PAGADO'){
+      
       this.router.navigate([ "/visor/carpeta-ciudadana/"+liquidacion.documento ]);
+
     } else {
+
       this.toastrService.warning('','Debe realizar el pago para generar el documento');
+
     }
   }
 
-  descargarTicket() {
-    this.loading = true;
-    this.token = this.auth.getToken();
-    this.documentosService.getSingleFileLiq(this.token, this.liquidacion._id).subscribe(response => {
-      this.getPDF(this.liquidacion._id, response.data, false);
-      this.loading = false;
-    }, error => {
-      console.log("error", error);
-      this.loading = false;
-    });
-  }
+  // descargarTicket() {
+  //   this.loading = true;
+  //   this.token = this.auth.getToken();
+  //   this.documentosService.getSingleFileLiq(this.token, this.liquidacion._id).subscribe(response => {
+  //     this.getPDF(this.liquidacion._id, response.data, false);
+  //     this.loading = false;
+  //   }, error => {
+  //     this.loading = false;
+  //   });
+  // }
 
   getPDF(fileName: string, pdfInBase64: any, download: boolean) {
     setTimeout(() => {        

@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Output, OnInit } from "@angular/core";
+import { Component, EventEmitter, Output, OnInit, Inject } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { ScrollToService } from "ng2-scroll-to-el";
 import { MessageService } from "app/services/MessageService";
 import { PoderesDelEstadoService } from "app/services/PoderesDelEstadoService";
 import { LoginService } from 'app/services/login.service';
-import { AppConfig } from "../../app.config";
+import { AppConfig } from "app/app.config";
+import { DOCUMENT } from '@angular/common';
 declare var $: any;
 
 @Component({
@@ -30,7 +31,9 @@ export class HeaderComponent  implements OnInit{
     private poderesDelEstadoService: PoderesDelEstadoService,
     private router: Router,
     private auth: LoginService,
-    private config: AppConfig
+    private config: AppConfig,
+    @Inject(DOCUMENT) private document: any
+
   ) {
   }
 
@@ -115,10 +118,16 @@ export class HeaderComponent  implements OnInit{
 
   getConfig() {
     this.auth.getConfig().subscribe(response => {
+
       this.uuid = this.auth.guid();
-      this.auth.setState(this.uuid);
+
       this.ieUrl = response['URL_IDENTIDAD_ELECTRONICA_LOGIN'] + '&state=' + this.uuid;
-      this.router.navigate(["/"]).then(result=>{ window.location.href = this.ieUrl; });
+
+      this.auth.setState(this.uuid);
+
+      //this.router.navigate(["/"]).then(result=>{ window.location.href = this.ieUrl; });
+      this.document.location.href =  this.ieUrl;
+
     }, error => {
       console.log("error", error);
       this.auth.logout();

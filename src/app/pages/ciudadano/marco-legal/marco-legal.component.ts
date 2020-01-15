@@ -24,12 +24,12 @@ export class MarcoLegalComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.token = this.auth.getToken();
-    this.ciudadano = this.auth.getCurrentUser();
-    if(this.ciudadano == null || this.token == null) {
-      this.router.navigate(['/login-ciudadano']);
-      return;
-    }
+    // this.token = this.auth.getToken();
+    // this.ciudadano = this.auth.getCurrentUser();
+    // if(this.ciudadano == null || this.token == null) {
+    //   this.router.navigate(['/login-ciudadano']);
+    //   return;
+    // }
 
   }
   

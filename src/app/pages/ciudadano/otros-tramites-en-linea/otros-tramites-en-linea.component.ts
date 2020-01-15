@@ -24,19 +24,23 @@ export class OtrosTramitesEnLineaComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+
     this.token = this.auth.getToken();
     this.ciudadano = this.auth.getCurrentUser();
-    if(this.ciudadano == null || this.token == null) {
-      this.router.navigate(['/login-ciudadano']);
-      return;
+
+    // if(this.ciudadano == null || this.token == null) {
+    //   this.router.navigate(['/login-ciudadano']);
+    //   return;
+    // }
+    if(this.ciudadano) {
+      if(!this.ciudadano.idDepartamento) {
+        this.ciudadano.idDepartamento = 0;
+      }
+      if(!this.ciudadano.idCiudad) {
+        this.ciudadano.idCiudad = 0;
+      }
     }
 
-    if(!this.ciudadano.idDepartamento) {
-      this.ciudadano.idDepartamento = 0;
-    }
-    if(!this.ciudadano.idCiudad) {
-      this.ciudadano.idCiudad = 0;
-    }
   }
 
 }

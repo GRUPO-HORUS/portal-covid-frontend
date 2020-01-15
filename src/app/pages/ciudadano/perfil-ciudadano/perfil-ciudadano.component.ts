@@ -136,7 +136,6 @@ export class PerfilCiudadanoComponent implements OnInit {
   actualizarDatosIPersona(data: any) {
     this.loading = true;
     this.identidadService.actualizarDatosIPersona(this.token, data).subscribe(response => {
-      //console.log("response", response);
       this.responseData = response;
       if(response.status){
         this.auth.setCurrentUser(this.ciudadano);        

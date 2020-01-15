@@ -25,7 +25,6 @@ export class ComprasComponent implements OnInit {
 
   @Input()
   set params(params: any) {
-    console.log("set cp", params);
     if (typeof params !== "undefined" && params != null) {
       for (let x = 0; x < params.info.length; x++) {
         if (String(params.info[x].tipoDato.categoria).trim() === "plugin") {
@@ -48,8 +47,6 @@ export class ComprasComponent implements OnInit {
   }
 
   getListCompras(): void {
-    console.log("this.uoc", this.uoc);
-    console.log("this.tipouc", this.tipouc);
     if (this.uoc == null || typeof this.uoc === "undefined") {
       return;
     }

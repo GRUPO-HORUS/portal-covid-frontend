@@ -20,20 +20,34 @@ export class MenuCiudadanoComponent {
     private router: Router,
     public auth: LoginService
   ) {
-    if(this.auth.getImgProf() ==  null) {
-      this.getImageProfile();
-    } else {
-      this.fotoPerfil = this.auth.getImgProf();
+    
+    this.ciudadano = this.auth.getCurrentUser();
+
+    this.token = this.auth.getToken();
+
+    if(this.ciudadano != null && this.token != null) {
+
+      if(this.auth.getImgProf() ==  null) {
+
+        this.getImageProfile();
+
+      } else {
+
+        this.fotoPerfil = this.auth.getImgProf();
+        
+      }
+
     }
+    
   }
 
   logout(){
     this.auth.logout();
-    this.router.navigate(['/login-ciudadano']); 
+    this.token = null;
+    this.router.navigate(['/']);
   }
 
   getImageProfile(): void {
-    this.token = this.auth.getToken();
     this.auth.getImageProfile(this.token).subscribe(response => {
       if(response.status) {
         this.fotoPerfil = response.data.fotoPerfil;
