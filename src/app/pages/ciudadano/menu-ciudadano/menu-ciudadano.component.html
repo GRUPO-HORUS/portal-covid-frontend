@@ -1,12 +1,17 @@
 <div class="nav nav-section-menu">
-    <a class="nav-link nav-link-custom pr-1" style="font-size: 15px;" routerLink="/perfil-ciudadano" routerLinkActive="active">
+    <a class="nav-link nav-link-custom pr-1" *ngIf="token && ciudadano" style="font-size: 15px;" routerLink="/perfil-ciudadano" routerLinkActive="active">
         <span class="far fa-user-circle text-default menu-item-icon text-center fa-fw"></span> 
         <span class="menu-item-text">Mi Perfil</span>
     </a>
 
-    <a class="nav-link nav-link-custom pr-1" style="font-size: 15px;" routerLink="/carpeta-ciudadana" routerLinkActive="active">
+    <a class="nav-link nav-link-custom pr-1" *ngIf="token && ciudadano" style="font-size: 15px;" routerLink="/carpeta-ciudadana" routerLinkActive="active">
         <span class="far fa-folder-open text-default menu-item-icon text-center fa-fw"></span> 
         <span class="menu-item-text">Carpeta Ciudadana</span>
+    </a>
+
+    <a class="nav-link nav-link-custom pr-1" *ngIf="!token || !ciudadano" style="font-size: 15px;" routerLink="/documentos" routerLinkActive="active">
+        <span class="far fa-folder-open text-default menu-item-icon text-center fa-fw"></span> 
+        <span class="menu-item-text">Documentos</span>
     </a>
 
     <a class="nav-link nav-link-custom pr-1" style="font-size: 15px;" routerLink="/otros-tramites-en-linea" routerLinkActive="active">
@@ -19,7 +24,7 @@
         <span class="menu-item-text">Marco Legal</span>
     </a>
 
-    <a class="nav-link nav-link-custom pr-1" style="font-size: 15px;" (click)="logout()" routerLinkActive="active">
+    <a class="nav-link nav-link-custom pr-1" *ngIf="token && ciudadano" style="font-size: 15px;" (click)="logout()" routerLinkActive="active">
         <span class="fas fa-times text-default menu-item-icon text-center fa-fw"></span> 
         <span class="menu-item-text">Cerrar Sesión</span>
     </a>

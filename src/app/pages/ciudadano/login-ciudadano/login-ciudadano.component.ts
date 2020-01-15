@@ -92,7 +92,7 @@ export class LoginCiudadanoComponent implements OnInit {
 
   redirect(datoActualizado: boolean) {
     if(datoActualizado){
-      this.router.navigate(['/perfil-ciudadano']);
+      this.router.navigate(['/carpeta-ciudadana']);
     } else {
       this.router.navigate(['/form-perfil-ciudadano']);
     }

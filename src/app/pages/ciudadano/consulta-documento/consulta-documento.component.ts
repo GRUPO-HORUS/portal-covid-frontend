@@ -30,9 +30,35 @@ export class ConsultaDocumentoComponent implements OnInit {
   
   public loading: boolean;
   public resultado: any = { status: true, message: ''};
-  public tipoDocumentos: any = [];
+  public tipoDocumentosPublicos: any = [
+    {
+        "id": 2, "title": "Constancia de ser o no Funcionario Público (SFP)", "subTitle": "Descarga de Documentos",
+        "url": "funcionario-publico"
+    },
+    {
+        "id": 3, "title": "Consulta de Asegurado (IPS)", "subTitle": "Descarga de Documentos",
+        "url": "ips-asegurado"
+    },
+    {
+        "id": 6, "title": "Consulta de Inscripción de  Empleado (Ministerio de Trabajo)", "subTitle": "Descarga de Documentos",
+        "url": "inscripcion-empleado"
+    },
+    {
+        "id": 10, "title": "Ministerio de Trabajo, Empleo y Seguridad Social (MTESS)<br/>Servicio Nacional de Promoción Profesional (SNPP)", "subTitle": "Descarga de Certificados de Cursos (SNPP)",
+        "url": "snpp"
+    },
+    {
+        "id": 11, "title": "Consulta de Datos de RUC (SET)", "subTitle": "Descarga de Documentos",
+        "url": "ruc-set"
+    },
+    {
+        "id": 12, "title": "Consulta de cedula de MIPYMES", "subTitle": "Descarga de Documentos",
+        "url": "mipymes"
+    },
+  ];
 
   public tipo: string;
+
   public documento: any;
 
   constructor(
@@ -46,8 +72,11 @@ export class ConsultaDocumentoComponent implements OnInit {
   ) {
 
     this._route.params.subscribe(params => {
+      
       this.tipo = params['tipo'];
-      this.loadTipoServicio();
+
+      this.documento = this.tipoDocumentosPublicos.find(x => x.url == this.tipo);
+
     });
 
     if(this.auth.getCurrentUser() == null ||  this.auth.getToken() == null) {
@@ -71,16 +100,9 @@ export class ConsultaDocumentoComponent implements OnInit {
   }
 
   atras() {
-    this.router.navigate(['/documentos']);
-  }
+    $("body").removeClass("modal-open");
 
-  loadTipoServicio() {
-    this.documentosService.loadTipoServicio().subscribe(response => {
-      this.tipoDocumentos = response;
-      this.documento = this.tipoDocumentos.find(x => x.description == this.tipo);
-    }, error => {
-      console.log(error);
-    });
+    this.router.navigate(['/documentos']);
   }
 
   refreshCaptcha() {
@@ -112,6 +134,9 @@ export class ConsultaDocumentoComponent implements OnInit {
     if(this.tipo == 'cedula-policial') params.fechaNacimiento = this.fechaNac;
 
     this.documentosService.getRptDocumentSinIE(params, this.captchaResponse).subscribe(response => {
+      
+      $("body").removeClass("modal-open");
+
       if(response.status) {
         this.cedula = "";
         this.router.navigate(['/visor/documentos-'+this.tipo+'/'+response.objId+'/'+response.cv]);
@@ -143,6 +168,7 @@ export class ConsultaDocumentoComponent implements OnInit {
         this.cursos = { 'key': 10, 'data': response.data };
         this.loading = false;
         this.resultado = {status: true, message: ''};
+      
       } else {
         this.loading = false;
         this.resultado = {status: false, message: 'No se encontraron datos disponibles para el nro. de cédula '+ this.cedula};

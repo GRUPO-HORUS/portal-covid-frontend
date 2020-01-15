@@ -18,6 +18,15 @@ export class ReportesIndexComponent implements OnInit {
   ) {}
 
   ngOnInit() { 
+    this.scrollTop();
+  }
+
+  scrollTop() {
+    let top = document.getElementById('topcab');
+    if (top !== null) {
+      top.scrollIntoView();
+      top = null;
+    }
   }
 
   

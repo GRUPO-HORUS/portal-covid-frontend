@@ -14,10 +14,10 @@ export class DocumentosService {
 
   handler: HttpErrorHandler = new HttpErrorHandler();
 
-  loadTipoServicio(): Observable<any> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.get<any>('assets/data/tipo_servicios.json', { headers: headers });
-  }
+  // loadTipoServicio(): Observable<any> {
+  //   let headers = new HttpHeaders().set('Content-Type', 'application/json');
+  //   return this.http.get<any>('assets/data/tipo_servicios.json', { headers: headers });
+  // }
 
   autenticationFastpay(token, transactionId) {
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token);
@@ -87,10 +87,10 @@ export class DocumentosService {
     return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getViewDocument/'+cv+'/'+objId, { headers: headers });
   }
 
-  getSingleFileLiq(token, objId: string): Observable<any> {
-    let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token).set('responseType','blob');
-    return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getFileLiq/'+objId, { headers: headers });
-  }
+  // getSingleFileLiq(token, objId: string): Observable<any> {
+  //   let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token).set('responseType','blob');
+  //   return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getFileLiq/'+objId, { headers: headers });
+  // }
 
   getSingleLiquidacion(token, objId: string): Observable<any> {
     let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token).set('responseType','blob');

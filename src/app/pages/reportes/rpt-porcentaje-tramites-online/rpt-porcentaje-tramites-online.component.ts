@@ -25,8 +25,6 @@ export class RptPorcentajeTramitesOnlineComponent implements OnInit{
     },
     onClick: function(c, i) {
       console.log('datasets');
-      console.log(c);
-      console.log(i);
       // var x_value = this.data.labels[e._index];
       // var y_value = this.data.datasets[0].data[e._index];
     },
