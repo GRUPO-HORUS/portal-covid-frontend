@@ -28,7 +28,7 @@
                                 <a (click)="getHistoricoConsultas(data)" style="cursor: pointer;" title="{{data.descripcion}}">{{data.descripcion}}</a>
                             </td>
                             <td class="actions">
-                                <button type="button" (click)="getHistoricoConsultas(data)" class="btn btn-primary preventDoubleRequest hidden-phone" style="color:#ffffff;border-radius:20px;">
+                                <button type="button" (click)="getHistoricoConsultas(data)" class="btn btn-primary preventDoubleRequest hidden-phone" style="color:#ffffff;border-radius:20px;font-size:13px;">
                                     <i class="fa fa-file"></i> Consultar
                                 </button>
                             </td>
@@ -39,16 +39,27 @@
                 <table id="mainTable" class="table table-condensed" *ngIf="!ciudadano || !token">
                     <tbody>
                         <tr *ngFor="let doc of documentosIE">
+                            
                             <td class="name">
-                                <a (click)="redirect(doc)" style="cursor: pointer;" title="{{doc.title}}">{{doc.name}}</a>
+                                <a *ngIf="!doc.linkExternal" (click)="redirect(doc)" style="cursor: pointer;" title="{{doc.title}}">{{doc.name}}</a>
+
+                                <a *ngIf="doc.linkExternal" href="{{doc.link}}" target="_blank" style="cursor: pointer;" title="{{doc.title}}">{{doc.name}}</a>
                             </td>
+
                             <td class="actions">
-                                <button type="button" *ngIf="!doc.isSession" (click)="redirect(doc)" class="btn btn-primary preventDoubleRequest hidden-phone" style="color:#ffffff;border-radius:20px;">
+                                
+                                <button type="button" *ngIf="!doc.isSession && !doc.linkExternal" (click)="redirect(doc)" class="btn btn-primary" style="color:#ffffff;border-radius:20px;font-size:13px;">
                                     <i class="fa fa-file"></i> Consultar
                                 </button>
+
+                                <a *ngIf="!doc.isSession && doc.linkExternal" href="{{doc.link}}" target="_blank" class="btn btn-primary" style="color:#ffffff;border-radius:20px;background: #001c54;background-image: none;">
+                                    <i class="fa fa-file"></i> Consultar
+                                </a>
+
                                 <a *ngIf="doc.isSession" (click)="redirect(doc)" style="cursor: pointer;">
                                     <img style="max-width:none;" src="assets/img/claveunica-medium_1.png" alt="ClaveUnica">
                                 </a>
+
                             </td>
                         </tr>
                     </tbody>

@@ -79,7 +79,7 @@ export class LoginCiudadanoComponent implements OnInit {
       this.uuid = this.auth.guid();
       
       this.ieUrl = response['URL_IDENTIDAD_ELECTRONICA_LOGIN'] + '&state=' + this.uuid;
-      
+
       this.auth.setState(this.uuid);
 
       this.document.location.href =  this.ieUrl;
