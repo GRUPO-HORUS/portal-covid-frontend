@@ -119,6 +119,8 @@ export class HeaderComponent  implements OnInit{
   getConfig() {
     this.auth.getConfig().subscribe(response => {
 
+      console.log('response',response);
+
       this.uuid = this.auth.guid();
 
       this.ieUrl = response['URL_IDENTIDAD_ELECTRONICA_LOGIN'] + '&state=' + this.uuid;
