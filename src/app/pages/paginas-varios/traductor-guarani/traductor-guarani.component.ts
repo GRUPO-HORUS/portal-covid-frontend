@@ -64,7 +64,6 @@ export class TraductorGuaraniComponent implements OnInit {
             this.resultado.status = false;  
             this.resultado.data = {};
           }
-          console.log("this.resultado", this.resultado);
         },
         error => {
           this.resultado.status = false;

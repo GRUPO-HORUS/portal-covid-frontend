@@ -34,7 +34,6 @@ export class ConsultaReclamoComponent implements OnInit {
   }
 
   setDataTramite(tramite: any, topSite: any) {
-    console.log("tramite", tramite);
     this.change.emit(tramite);
     this.scrollToTop(topSite);
   }

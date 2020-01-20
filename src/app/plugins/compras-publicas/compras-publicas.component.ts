@@ -55,7 +55,6 @@ export class ComprasComponent implements OnInit {
     }
     this._comprasService.getListCompras(this.tipouc, this.uoc).subscribe(
       data => {
-        console.log("cp search: ", data);
         if (data != null && data.length > 0) {
           this.compras = data;
           this.encuentra = true;

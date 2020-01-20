@@ -84,7 +84,6 @@ export class HeaderComponent  implements OnInit{
         if (params['code'] && this.auth.getState() == params['state']) {
             this.auth.setToken(params['code']);
             this.auth.verifyAuthentication().subscribe(rsp => {
-              console.log('response: ',rsp);
               let response: any = rsp;
               if (response.error) {
                 this.auth.logout();
@@ -118,8 +117,6 @@ export class HeaderComponent  implements OnInit{
 
   getConfig() {
     this.auth.getConfig().subscribe(response => {
-
-      console.log('response',response);
 
       this.uuid = this.auth.guid();
 

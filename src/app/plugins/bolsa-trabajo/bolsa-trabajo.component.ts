@@ -25,9 +25,7 @@ export class BolsaTrabajoComponent implements OnInit {
 
   @Input()
   set params(params: any) {
-    console.log("set bts", params);
     if (typeof params !== "undefined" && params != null) {
-      console.log("foreach");
       for (let x = 0; x < params.info.length; x++) {
         if (String(params.info[x].tipoDato.categoria).trim() === "plugin") {
           if (

@@ -68,7 +68,6 @@ export class PerfilCiudadanoComponent implements OnInit {
 
   getByIdBarrio(idBarrio: number): void {
       this.identidadService.getByIdBarrio(idBarrio).subscribe(response => {
-        //console.log("response", response);
         if(response != null) {
           this.ciudadano.barrio = response[1];
           this.ciudadano.ciudad = response[3];
