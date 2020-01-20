@@ -15,7 +15,6 @@ export class FilterdataPipe implements PipeTransform {
     if (value === "" || value === null) {
       return [];
     }
-    // console.log("value", value);
     return items.filter(e => e[label].toLowerCase().indexOf(value) > -1);
   }
 }

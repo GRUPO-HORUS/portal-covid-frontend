@@ -80,7 +80,7 @@ export class SolicitudDocumentoComponent implements OnInit {
       this.loading = false;
 
     }, error => {
-      console.log("error:authenticationFastPay", error);
+      //console.log("error:authenticationFastPay", error);
       this.loading = false;
       this.resultado = { status: false, message: 'No se pudo procesar la operacion' };
     });

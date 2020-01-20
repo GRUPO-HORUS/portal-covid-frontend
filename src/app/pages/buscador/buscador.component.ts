@@ -60,7 +60,6 @@ export class BuscadorComponent implements OnInit {
     this.currentUser = this.auth.getCurrentUser();
 
     messageService.formDataSearchResult.subscribe(dataSearch => {
-      //console.log("dataSearch", dataSearch);
       let infoData: any;
       if (dataSearch != null) {
         infoData = dataSearch;
@@ -101,9 +100,6 @@ export class BuscadorComponent implements OnInit {
     this.searchActive = true;
     this.scrollTop();
 
-    /*console.log("tab", tab);
-    console.log("origen", origen);
-    console.log("visible", this.visible);*/
     switch (tab) {
       case "tramites_servicios":
         this.getTramitesYServicios();
@@ -153,7 +149,6 @@ export class BuscadorComponent implements OnInit {
     this.loading = true;
     this.messageService.getSearchTramitesYServicios(this.busqueda, 0).subscribe(
       data => {
-        //console.log("tramites-servicios", data);
         if (data != null && data.length > 0) {
           this.resultTab2 = { resultados: data, encuentra: true };
           this.countResults = data.length;

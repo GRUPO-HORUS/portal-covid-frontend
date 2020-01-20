@@ -24,7 +24,6 @@ export class RptPorcentajeTramitesOnlineComponent implements OnInit{
       },
     },
     onClick: function(c, i) {
-      console.log('datasets');
       // var x_value = this.data.labels[e._index];
       // var y_value = this.data.datasets[0].data[e._index];
     },
@@ -49,9 +48,6 @@ export class RptPorcentajeTramitesOnlineComponent implements OnInit{
     // scales: { yAxes: [{ ticks: { beginAtZero: true } }] },
     scales: { xAxes: [{stacked: true}], yAxes: [{stacked: true}] },
     onClick: function(c, i) {
-      console.log('onClick');
-      console.log(c);
-      console.log(i);
       // var x_value = this.data.labels[e._index];
       // var y_value = this.data.datasets[0].data[e._index];
     },
@@ -64,7 +60,6 @@ export class RptPorcentajeTramitesOnlineComponent implements OnInit{
        callbacks: {
          label: function(tooltipItem, data) {
           let index = tooltipItem.index;
-          //console.log("labeldata", data);
           let label = [];
           for(let x = 0; x < data.datasets.length; x++){
             let cantidad = isNaN(Number(data.datasets[x].data[index])) ? 0 : Number(data.datasets[x].data[index]);
@@ -150,7 +145,6 @@ export class RptPorcentajeTramitesOnlineComponent implements OnInit{
   }
 
   onSelect(evt) {
-    console.log('onSelected');
     console.log(evt);
   }
 
