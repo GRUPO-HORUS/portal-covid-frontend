@@ -87,7 +87,7 @@ import { RptTramitesCategoriaComponent } from "./pages/reportes/rpt-tramites-cat
 import { RptTramitesEtiquetaComponent } from "./pages/reportes/rpt-tramites-etiqueta/rpt-tramites-etiqueta.component";
 import { RptSatisfaccionTramiteComponent } from "./pages/reportes/rpt-satisfaccion-tramite/rpt-satisfaccion-tramite.component";
 import { RptPorcentajeTramitesOnlineComponent } from "./pages/reportes/rpt-porcentaje-tramites-online/rpt-porcentaje-tramites-online.component";
-// import { DocumentosComponent } from "./pages/documentos/documentos.component";
+import { DocumentosComponent } from "./pages/documentos/documentos.component";
 import { SolicitudDocumentoComponent } from "./pages/ciudadano/solicitud-documento/solicitud-documento.component";
 import { ConsultaDocumentoComponent } from "./pages/ciudadano/consulta-documento/consulta-documento.component";
 import { RptCantidadDocumentosComponent } from './pages/reportes/rpt-cantidad-documentos/rpt-cantidad-documentos.component';
@@ -244,7 +244,7 @@ export const routesComponents = [
   RptSatisfaccionTramiteComponent,
   RptTramitesSinTag,
   RptListadoTmp,
-  // DocumentosComponent,
+  DocumentosComponent,
   SolicitudDocumentoComponent,
   ConsultaDocumentoComponent,
   RptCantidadDocumentosComponent

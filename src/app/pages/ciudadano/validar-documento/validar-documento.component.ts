@@ -43,28 +43,37 @@ export class ValidarDocumentoComponent implements OnInit {
     });
   }
 
+  getPathValidateDocument(objId) {
+    return this.documentosService.validateDocument(objId);
+  }
+
   validarDocumento() {
     this.documentosService.validacionDocumento(this.constancia_nro, this.codigo_seguridad).subscribe(response => {
-      
       if(!response.status || !response.historico._id || response.historico._id == null){
-      
         this.mensaje = 'Documento no válido';
-      
       } else {
-      
         this.mensaje = '';
-
-        this.router.navigate(["/visor/validar-documento/"+response.historico._id+'/'+response.identificadorUnico]);
-
+        this.getPDF(response.historico._id);
+        //this.router.navigate(["/visor/validar-documento/"+response.historico._id+'/'+response.identificadorUnico]);
       }
-
       this.loading = false; 
-
     }, error => {
       console.log("error", error);
       this.loading = false;
     });
-    
+  }
+
+  getPDF(objId: string) {
+    setTimeout(() => {
+        let url =  this.getPathValidateDocument(objId);
+        let link = document.createElement('a'); 
+        link.href = String(url);
+        link.setAttribute("type", "hidden"); 
+        link.target = '_blank';
+        document.body.appendChild(link); 
+        link.click(); 
+        link.remove();
+    }, 500);
   }
 
 }

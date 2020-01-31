@@ -87,6 +87,10 @@ export class DocumentosService {
     return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getViewDocument/'+cv+'/'+objId, { headers: headers });
   }
 
+  validateDocument(objId: string): String {
+    return this.config.API_DOCUMENTOS + '/documento/validate/'+objId;
+  }
+
   // getSingleFileLiq(token, objId: string): Observable<any> {
   //   let headers = new HttpHeaders().set('Content-Type', 'application/json').set('Accept', 'application/json').set('Authorization', token).set('responseType','blob');
   //   return this.http.get<any>(this.config.API_DOCUMENTOS + '/documento/getFileLiq/'+objId, { headers: headers });

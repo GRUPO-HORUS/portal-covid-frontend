@@ -92,30 +92,27 @@
                     <div class="text-center" *ngIf="loading">
                         <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> Espere un momento por favor...
                     </div>
+                    
+                    <!--
                     <re-captcha (resolved)="resolved($event)" siteKey="6Les3CAUAAAAAHePnS6Tnw0shRj6XWERG0WScS9s" [(ngModel)]="captcha" name="captcha" #captchaControl="ngModel" required></re-captcha>
-
                     <button class="btn btn-sm btn-default" (click)="refreshCaptcha()" *ngIf="captcha">
                         Recargar captcha
                     </button>
-                    <div class="clearfix">
-                        <br />
-                    </div>
-
-                    <div class="clearfix">
-                        <br />
-                    </div>
+                    <div class="clearfix"><br /></div>
+                    -->
+                    <div class="clearfix"><br /></div>
                     <button (click)="send(content)" type="button" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
                         Enviar
                         <span class="fa fa-check"></span>
                     </button>
                 </form>
-
-                <div class="clearfix">
-                    <br />
-                </div>
+                
+                <div class="clearfix"><br /></div>
+                
                 <div class="alert alert-info">
                     <i class="fa fa-info-circle"></i> Debe completar todos los campos en el formato correcto para iniciar.
                 </div>
+
             </div>
         </div>
     </div>

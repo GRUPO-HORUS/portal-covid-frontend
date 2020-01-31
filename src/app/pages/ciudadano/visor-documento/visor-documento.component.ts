@@ -25,9 +25,8 @@ export class VisorDocumentoComponent implements OnInit {
   public loading: boolean;
   public resultado: any = { status: true, message: ''};
   public linkSource: any;
-  
+
   public  urlTrustToken = [
-    'validar-documento', 
     'documentos-ips-asegurado',
     'documentos-inscripcion-empleado',
     'documentos-funcionario-publico',
@@ -78,10 +77,6 @@ export class VisorDocumentoComponent implements OnInit {
       top = null;
     }
   }
-
-  // viewScrollTop(pos: number) {
-  //   window.scrollTo(pos, 1);
-  // }
 
   cancelGenerarDocumento() {
     if(this.ruta == 'carpeta-ciudadana') {
@@ -135,7 +130,7 @@ export class VisorDocumentoComponent implements OnInit {
   }
 
   getPDF(fileName: string, pdfInBase64: any, download: boolean) {
-    setTimeout(() => {        
+    setTimeout(() => {
         let linkSource = 'data:application/pdf;base64,' + pdfInBase64;
         let link = document.createElement('a'); 
         link.href = linkSource;  

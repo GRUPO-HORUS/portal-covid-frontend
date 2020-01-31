@@ -19,3 +19,7 @@
 .toast-warning {
   background-color: #F89406 !important;
 }
+
+.grecaptcha-badge{
+  visibility: hidden !important;  
+} 

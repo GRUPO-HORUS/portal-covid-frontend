@@ -39,11 +39,13 @@
                         <input type="date" [(ngModel)]="fechaNac" class="form-control" style="max-width: 200px;" id="fechaNac" name="fechaNac" placeholder="Ej. 01-01-1940" required>
                     </div>
                     
+                    <!--
                     <re-captcha (resolved)="resolved($event)" siteKey="6Les3CAUAAAAAHePnS6Tnw0shRj6XWERG0WScS9s" [(ngModel)]="captcha" name="captcha" #captchaControl="ngModel" required></re-captcha>
                     
                     <button class="btn btn-sm btn-default" (click)="refreshCaptcha()">
                         Recargar captcha
                     </button>
+                    -->
 
                     <div class="clearfix"><br/></div>
 
@@ -77,11 +79,13 @@
                             <input type="text" [(ngModel)]="codAlumno" class="form-control" style="max-width: 200px;" id="codAlumno" name="codAlumno" placeholder="Ej. a1a1a1" required>
                         </div>
 
+                        <!--
                         <re-captcha (resolved)="resolved($event)" siteKey="6Les3CAUAAAAAHePnS6Tnw0shRj6XWERG0WScS9s" [(ngModel)]="captcha" name="captcha" #captchaControl="ngModel" required></re-captcha>
 
-                        <button class="btn btn-sm btn-default" (click)="refreshCaptcha()"> <!-- *ngIf="captcha"-->
+                        <button class="btn btn-sm btn-default" (click)="refreshCaptcha()">  *ngIf="captcha"
                             Recargar captcha
                         </button>
+                    -->
 
                         <div class="clearfix"><br/></div>
                         <div class="text-center" *ngIf="loading">

@@ -5,7 +5,6 @@ import { ScrollToModule } from "ng2-scroll-to";
 import { ScrollToService } from "ng2-scroll-to-el";
 import { FormsModule } from "@angular/forms";
 import { MatSnackBarModule } from "@angular/material";
-import { RecaptchaFormsModule } from "ng-recaptcha/forms";
 import { routing, routesComponents, appRoutingProviders } from "./app.routing";
 import { AppComponent } from "./app.component";
 import { OwlModule } from "ng2-owl-carousel";
@@ -13,7 +12,11 @@ import { MaterialDesignFrameworkModule } from "angular6-json-schema-form";
 import { NgxPaginationModule } from "ngx-pagination";
 import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { Ng2OrderModule } from "ng2-order-pipe";
+
+import { RecaptchaFormsModule } from "ng-recaptcha/forms";
 import { RecaptchaModule, RECAPTCHA_LANGUAGE } from "ng-recaptcha";
+import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
+
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule, ToastContainerModule } from 'ngx-toastr';
 
@@ -74,12 +77,15 @@ import { ModalModule } from './lib/modal-custom';
     ChartjsModule,
     ToastrModule.forRoot(),
     ToastContainerModule,
-    ModalModule
+    ModalModule,
+    RecaptchaV3Module
   ],
   providers: [
     appRoutingProviders,
     ScrollToService,
-    { provide: RECAPTCHA_LANGUAGE, useValue: "es" }
+    // web: 6LeaIdMUAAAAALRst4PI1YiD5PHdBmf0O56FJ6a7  secreta: 6LeaIdMUAAAAAPeDIInz4Erxo6lAM80rwZsxbs3r
+    { provide: RECAPTCHA_LANGUAGE, useValue: "es" },
+    { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LeaIdMUAAAAALRst4PI1YiD5PHdBmf0O56FJ6a7' },
   ],
   bootstrap: [AppComponent]
 })

@@ -217,4 +217,8 @@
     width: 100%;
     text-align: center;
   }
+
+  .grecaptcha-badge{
+    visibility: hidden !important;  
+  } 
   
