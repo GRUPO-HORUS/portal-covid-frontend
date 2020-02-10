@@ -11,6 +11,7 @@ import { IdentidadPersona } from "../model/identidad-persona.model";
 })
 export class MenuCiudadanoComponent {
 
+  carpeta: string = "hola";
   public fotoPerfil: any;
   public ciudadano: IdentidadPersona;
   public token: any;

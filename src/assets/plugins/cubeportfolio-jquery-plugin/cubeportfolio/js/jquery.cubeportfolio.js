@@ -18,6 +18,12 @@
         // attached this instance to obj
         $.data(t.obj, 'cubeportfolio', t);
 
+        // rename options
+        if (options.sortToPreventGaps !== undefined) {
+            options.sortByDimension = options.sortToPreventGaps;
+            delete options.sortToPreventGaps;
+        }
+
         // extend options
         t.options = $.extend({}, $.fn.cubeportfolio.options, options, t.$obj.data('cbp-options'));
 
@@ -78,6 +84,10 @@
         // used by the filters plugin. @todo - remove from here and create proper API with position for plugins
         t.triggerEvent('afterPlugins');
 
+        // usful when width & height is defined for an image and to keep the same aspect ratio on all devices
+        // on resize. e.g. from mobile to desktop
+        t.removeAttrAfterStoreData = $.Deferred();
+
         // wait to load all images and then go further
         t.loadImages(t.$obj, t.display);
     }
@@ -96,6 +106,7 @@
 
                 item.data('cbp', {
                     index: indexStart + index, // used when I sort the items and I need them to revert that sorting
+                    indexInitial: indexStart + index, // used for sort.js @todo - move this to sort.js but be carefoul when I add new items to grid
                     wrapper: item.children('.cbp-item-wrapper'),
 
                     widthInitial: width,
@@ -115,6 +126,8 @@
                     pack: false,
                 });
             });
+
+            this.removeAttrAfterStoreData.resolve();
         },
 
 
@@ -147,9 +160,11 @@
         },
 
         removeAttrImage: function(img) {
-            img.removeAttribute('width');
-            img.removeAttribute('height');
-            img.removeAttribute('style');
+            this.removeAttrAfterStoreData.then(function() {
+                img.removeAttribute('width');
+                img.removeAttribute('height');
+                img.removeAttribute('style');
+            });
         },
 
 
@@ -260,14 +275,19 @@
         display: function() {
             var t = this;
 
-            // store to data values of t.blocks
-            t.storeData(t.blocks);
+            // update the current grid width
+            t.width = t.$obj.outerWidth();
 
             t.triggerEvent('initStartRead');
             t.triggerEvent('initStartWrite');
 
-            // make layout
-            t.layoutAndAdjustment();
+            if (t.width > 0) {
+                // store to data values of t.blocks
+                t.storeData(t.blocks);
+
+                // make layout
+                t.layoutAndAdjustment();
+            }
 
             t.triggerEvent('initEndRead');
             t.triggerEvent('initEndWrite');
@@ -308,7 +328,11 @@
                     // used by wp fullWidth force option
                     t.triggerEvent('beforeResizeGrid');
 
-                    if (t.width !== t.$obj.outerWidth()) {
+                    var newWidth = t.$obj.outerWidth();
+
+                    if (newWidth && (t.width !== newWidth)) {
+                        // update the current grid width
+                        t.width = newWidth;
 
                         if (t.options.gridAdjustment === 'alignCenter') {
                             t.wrapper[0].style.maxWidth = '';
@@ -328,9 +352,6 @@
 
         gridAdjust: function() {
             var t = this;
-
-            // update the current grid width
-            t.width = t.$obj.outerWidth();
 
             // if responsive
             if (t.options.gridAdjustment === 'responsive') {
@@ -363,8 +384,13 @@
         },
 
 
-        layoutAndAdjustment: function() {
+        layoutAndAdjustment: function(updateWidth) {
             var t = this;
+
+            if (updateWidth) {
+                // update the current grid width
+                t.width = t.$obj.outerWidth();
+            }
 
             t.gridAdjust();
 
@@ -389,7 +415,17 @@
             }
 
             // positionate the blocks
-            t.positionateItems();
+            t.blocksOff.addClass('cbp-item-off');
+            t.blocksOn.removeClass('cbp-item-off')
+                .each(function(index, el) {
+                    var data = $(el).data('cbp');
+
+                    data.left = data.leftNew;
+                    data.top = data.topNew;
+
+                    el.style.left = data.left + 'px';
+                    el.style.top = data.top + 'px';
+                });
 
             // resize main container height
             t.resizeMainContainer();
@@ -405,6 +441,7 @@
             t.mosaicLayout();
 
             // filter call layout
+            // this method is override by animation{PluginName}
             t.filterLayout();
         },
 
@@ -440,12 +477,6 @@
          */
         filterFinish: function() {
             var t = this;
-
-            // if blocks are sorted (the index ascending is broken) revert
-            // this state so the index is ascending again
-            if (t.blocksAreSorted) {
-                t.sortBlocks(t.blocks, 'index');
-            }
 
             t.isAnimating = false;
 
@@ -509,10 +540,18 @@
             var imgs = [];
 
             t.blocks.each(function(index, el) {
-                var block = $(el),
-                    width = block.data('cbp').width;
+                $.each($(el).find('img').filter('[width][height]'), function(index, el) {
+                    var width = 0;
 
-                $.each(block.find('img').filter('[width][height]'), function(index, el) {
+                    $(el).parentsUntil('.cbp-item').each(function(index, el) {
+                        var currentWidth = $(el).width();
+
+                        if (currentWidth > 0) {
+                            width = currentWidth;
+                            return false;
+                        }
+                    });
+
                     var imgWidth = parseInt(el.getAttribute('width'), 10);
                     var imgHeight = parseInt(el.getAttribute('height'), 10);
                     var ratio = parseFloat((imgWidth / imgHeight).toFixed(10));
@@ -643,31 +682,6 @@
          */
         columnWidthTruncate: function(value) {
             return Math.floor(value);
-        },
-
-
-        positionateItems: function() {
-            var t = this,
-                data;
-
-            t.blocksOn.removeClass('cbp-item-off')
-                .each(function(index, el) {
-                    data = $(el).data('cbp');
-
-                    data.left = data.leftNew;
-                    data.top = data.topNew;
-
-                    el.style.left = data.left + 'px';
-                    el.style.top = data.top + 'px';
-                });
-
-            t.blocksOff.addClass('cbp-item-off');
-
-            // if blocks are sorted (the index ascending is broken) revert
-            // this state so the index is ascending again
-            if (t.blocksAreSorted) {
-                t.sortBlocks(t.blocks, 'index');
-            }
         },
 
 
@@ -830,7 +844,10 @@
 
                 t.triggerEvent('addItemsToDOM', items);
 
-                t.layoutAndAdjustment();
+                // trigger a sort before layout
+                t.triggerEvent('triggerSort');
+
+                t.layoutAndAdjustment(true);
 
                 // if show count was actived, call show count function again
                 if (t.elems) {
@@ -893,7 +910,10 @@
                 $(el).data('cbp').index = index;
             });
 
-            t.layoutAndAdjustment();
+            // trigger a sort before layout
+            t.triggerEvent('triggerSort');
+
+            t.layoutAndAdjustment(true);
 
             // if show count was actived, call show count function again
             if (t.elems) {
@@ -951,7 +971,7 @@
             t.blocksOn.each(function(index, el) {
                 $(el).data('cbp').pack = false;
 
-                if (t.options.sortToPreventGaps) {
+                if (t.options.sortByDimension) {
                     el.style.height = '';
                 }
             });
@@ -976,8 +996,11 @@
                 if (spaceIndexAndBlock === null) {
                     t.mosaicLayoutReset();
 
-                    // sort blocks
-                    t.sortBlocksToPreventGaps();
+                    // sort blocks to prevent gaps set to true
+                    t.blocksAreSorted = true;
+
+                    // sort by the longer width first, followed by a comparison of the shorter height in descending order
+                    t.sortBlocks(t.blocksOn, 'widthAndGap', 'heightAndGap', true);
 
                     // after the sort is finished start the layout again
                     t.mosaicLayout();
@@ -994,9 +1017,9 @@
                 t.addHeightToBlocks();
             }
 
-            // sort the blocks from top to bottom to add properly displayAnimation and animationType
+            // sort blocksOn from top to bottom to add properly delay from animationType and displayType options
             if (t.blocksAreSorted) {
-                t.sortBlocks(t.blocksOn, 'topNew');
+                t.sortBlocks(t.blocksOn, 'topNew', 'leftNew');
             }
         },
 
@@ -1004,7 +1027,7 @@
         /**
          * Chose from freeSpaces the best space available
          * Find block by verifying if it can fit in bestSpace(top-left space available)
-         * If block doesn't fit in the first space available & t.options.sortToPreventGaps
+         * If block doesn't fit in the first space available & t.options.sortByDimension
          * is set to true then sort the blocks and start the layout once again
          * Decide the free rectangle Fi from F to pack the rectangle R into.
          */
@@ -1040,8 +1063,8 @@
                     }
                 });
 
-                // if first space don't have a block and sortToPreventGaps is true => return from loop
-                if (!t.blocksAreSorted && t.options.sortToPreventGaps && index1 > 0) {
+                // if first space don't have a block and sortByDimension is true => return from loop
+                if (!t.blocksAreSorted && t.options.sortByDimension && index1 > 0) {
                     spaceIndexAndBlock = null;
 
                     return false;
@@ -1362,65 +1385,33 @@
             });
         },
 
-
         /**
-         * Sort by the longer width first, followed by a comparison of the shorter height
+         * Generic sort blocks
          */
-        sortBlocksToPreventGaps: function() {
-            var t = this;
-
-            t.blocksAreSorted = true;
-
-            t.blocksOn.sort(function(block1, block2) {
-                var data1 = $(block1).data('cbp'),
-                    data2 = $(block2).data('cbp');
-
-                // order desc by width
-                if (data1.widthAndGap < data2.widthAndGap) {
-                    return 1;
-                } else if (data1.widthAndGap > data2.widthAndGap) {
-                    return -1;
-                } else {
-                    // order desc by height
-                    if (data1.heightAndGap < data2.heightAndGap) {
-                        return 1;
-                    } else if (data1.heightAndGap > data2.heightAndGap) {
-                        return -1;
-                    } else {
-                        // order asc by index
-                        if (data1.index > data2.index) {
-                            return 1;
-                        } else if (data1.index < data2.index) {
-                            return -1;
-                        }
-                    }
-                }
-            });
-        },
-
-
-        /**
-         * Generic sort block function from lower to highest values
-         */
-        sortBlocks: function(blocks, compare) {
-            var t = this;
+        sortBlocks: function(blocks, compare1, compare2, order) {
+            compare2 = (compare2 === undefined)? 'leftNew' : compare2;
+            order = (order === undefined)? 1 : -1;
 
             blocks.sort(function(block1, block2) {
                 var data1 = $(block1).data('cbp'),
                     data2 = $(block2).data('cbp');
 
-                // if the items are equally order them from left to right
-                if (data1[compare] > data2[compare]) {
-                    return 1;
-                } else if (data1[compare] < data2[compare]) {
-                    return -1;
+                if (data1[compare1] > data2[compare1]) {
+                    return order;
+                } else if (data1[compare1] < data2[compare1]) {
+                    return -order;
                 } else {
-                    if (data1.leftNew > data2.leftNew) {
-                        return 1;
-                    } else if (data1.leftNew < data2.leftNew) {
-                        return -1;
+                    if (data1[compare2] > data2[compare2]) {
+                        return order;
+                    } else if (data1[compare2] < data2[compare2]) {
+                        return -order;
                     } else {
-                        return 0;
+                        // order asc by index
+                        if (data1.index > data2.index) {
+                            return order;
+                        } else if (data1.index < data2.index) {
+                            return -order;
+                        }
                     }
                 }
             });
@@ -1449,11 +1440,11 @@ jQuery.fn.cubeportfolio.options = {
     layoutMode: 'grid',
 
     /**
-     *  Sort the items (bigger to smallest) if there are gaps in grid
+     *  Sort the items by dimension (bigger to smallest) if there are gaps in grid
      *  Option available only for `layoutMode: 'mosaic'`
      *  Values: true or false
      */
-    sortToPreventGaps: false,
+    sortByDimension: false,
 
     /**
      *  Mouse and touch drag support
@@ -1625,7 +1616,7 @@ jQuery.fn.cubeportfolio.options = {
     displayType: 'fadeIn',
 
     /**
-     *  Defines the speed of displaying the items (when `displayType == default` this option will have no effect)
+     *  Defines the speed of displaying the items (when `displayType: 'default'` this option will have no effect)
      *  Values: only integers, values in ms (ex: 200, 300, 500)
      */
     displayTypeSpeed: 400,
@@ -1889,7 +1880,6 @@ jQuery.fn.cubeportfolio.options = {
 
             return supportedProp;
         },
-
     };
 
     CubePortfolio.private.browserInfo();
@@ -2144,6 +2134,39 @@ jQuery.fn.cubeportfolio.options = {
                 });
             } else {
                 t.removeItems(items, callback);
+            }
+        },
+
+        /*
+         * Relayout all elements in the current grid.
+         * Useful when all/some items need to be laid out again, or grid width is changed.
+         */
+        layout: function(callback) {
+            var t = CubePortfolio.private.checkInstance.call(this, 'layout');
+
+            // update the current grid width
+            t.width = t.$obj.outerWidth();
+
+            if (t.isAnimating || (t.width <= 0)) {
+                if ($.isFunction(callback)) {
+                    callback.call(t);
+                }
+
+                return;
+            }
+
+            if (t.options.gridAdjustment === 'alignCenter') {
+                t.wrapper[0].style.maxWidth = '';
+            }
+
+            // store to data values of t.blocks
+            t.storeData(t.blocks);
+
+            // reposition the blocks
+            t.layoutAndAdjustment();
+
+            if ($.isFunction(callback)) {
+                callback.call(t);
             }
         },
     };
@@ -2696,6 +2719,8 @@ if (typeof Object.create !== 'function') {
             t.blocksOn2Off.last().data('cbp').wrapper.one(CubePortfolio.private.animationend, animationend);
         } else if (t.blocksOff2On.length) {
             t.blocksOff2On.last().data('cbp').wrapper.one(CubePortfolio.private.animationend, animationend);
+        } else if (t.blocksOn2On.length) { // this is used for sort feature to animate the items when sort API is triggered
+            t.blocksOn2On.last().one(CubePortfolio.private.transitionend, animationend);
         } else {
             animationend();
         }
@@ -2835,16 +2860,20 @@ if (typeof Object.create !== 'function') {
     // here this value point to parent grid
     Plugin.prototype.filterLayout = function() {
         var t = this,
-            ulClone = t.$ul.clone(true, true);
+            ulCloned = t.$ul.clone(true, true);
 
-        ulClone[0].setAttribute('class', 'cbp-wrapper-helper');
-        t.wrapper[0].insertBefore(ulClone[0], t.$ul[0]);
+        ulCloned[0].setAttribute('class', 'cbp-wrapper-helper');
+        t.wrapper[0].insertBefore(ulCloned[0], t.$ul[0]);
 
         // hack for safari osx because it doesn't want to work if I set animationDelay
         // on cbp-item-wrapper before I clone the t.$ul
-        var items = ulClone.find('.cbp-item').not('.cbp-item-off');
-        t.sortBlocks(items, 'top');
-        items.children('.cbp-item-wrapper').each(function(index, el) {
+        var itemsCloned = ulCloned.find('.cbp-item').not('.cbp-item-off');
+
+        if (t.blocksAreSorted) {
+            t.sortBlocks(itemsCloned, 'top', 'left');
+        }
+
+        itemsCloned.children('.cbp-item-wrapper').each(function(index, el) {
             el.style[CubePortfolio.private.animationDelay] = (index * 50) + 'ms';
         });
 
@@ -2867,12 +2896,12 @@ if (typeof Object.create !== 'function') {
                 });
 
             var onLength = t.blocksOn.length,
-                offLength = items.length;
+                offLength = itemsCloned.length;
 
             if (onLength === 0 && offLength === 0) {
                 animationend();
             } else if (onLength < offLength) {
-                items.last().children('.cbp-item-wrapper').one(CubePortfolio.private.animationend, animationend);
+                itemsCloned.last().children('.cbp-item-wrapper').one(CubePortfolio.private.animationend, animationend);
             } else {
                 t.blocksOn.last().data('cbp').wrapper.one(CubePortfolio.private.animationend, animationend);
             }
@@ -2882,7 +2911,7 @@ if (typeof Object.create !== 'function') {
         });
 
         function animationend() {
-            t.wrapper[0].removeChild(ulClone[0]);
+            t.wrapper[0].removeChild(ulCloned[0]);
 
             t.$obj.removeClass('cbp-animation-' + t.options.animationType);
 
@@ -2923,10 +2952,10 @@ if (typeof Object.create !== 'function') {
     // here this value point to parent grid
     Plugin.prototype.filterLayout = function() {
         var t = this,
-            ulClone = t.$ul[0].cloneNode(true);
+            ulCloned = t.$ul[0].cloneNode(true);
 
-        ulClone.setAttribute('class', 'cbp-wrapper-helper');
-        t.wrapper[0].insertBefore(ulClone, t.$ul[0]);
+        ulCloned.setAttribute('class', 'cbp-wrapper-helper');
+        t.wrapper[0].insertBefore(ulCloned, t.$ul[0]);
 
         requestAnimationFrame(function() {
             t.$obj.addClass('cbp-animation-' + t.options.animationType);
@@ -2947,7 +2976,7 @@ if (typeof Object.create !== 'function') {
             if (t.blocksOn.length) {
                 t.$ul.one(CubePortfolio.private.animationend, animationend);
             } else if (t.blocksOnInitial.length) {
-                $(ulClone).one(CubePortfolio.private.animationend, animationend);
+                $(ulCloned).one(CubePortfolio.private.animationend, animationend);
             } else {
                 animationend();
             }
@@ -2957,7 +2986,7 @@ if (typeof Object.create !== 'function') {
         });
 
         function animationend() {
-            t.wrapper[0].removeChild(ulClone);
+            t.wrapper[0].removeChild(ulCloned);
 
             t.$obj.removeClass('cbp-animation-' + t.options.animationType);
 
@@ -3087,8 +3116,8 @@ if (typeof Object.create !== 'function') {
                     }
                 });
 
-                // reposition the blocks
-                parent.layoutAndAdjustment();
+                // reposition the blocks and set param to update width of grid
+                parent.layoutAndAdjustment(true);
 
                 // set activeWrap to 0 so I can start animation in the next frame
                 activeWrap.css(startStyle);
@@ -3126,11 +3155,15 @@ if (typeof Object.create !== 'function') {
     var CubePortfolio = $.fn.cubeportfolio.constructor;
 
     function Plugin(parent) {
-        var deferred = $.Deferred();
-
-        parent.pushQueue('delayFrame', deferred);
-
         parent.registerEvent('initEndWrite', function() {
+            if (parent.width <= 0) {
+                return;
+            }
+
+            var deferred = $.Deferred();
+
+            parent.pushQueue('delayFrame', deferred);
+
             parent.blocksOn.each(function(index, el) {
                 el.style[CubePortfolio.private.animationDelay] = (index * parent.options.displayTypeSpeed) + 'ms';
             });
@@ -3165,11 +3198,15 @@ if (typeof Object.create !== 'function') {
     var CubePortfolio = $.fn.cubeportfolio.constructor;
 
     function Plugin(parent) {
-        var deferred = $.Deferred();
-
-        parent.pushQueue('delayFrame', deferred);
-
         parent.registerEvent('initEndWrite', function() {
+            if (parent.width <= 0) {
+                return;
+            }
+
+            var deferred = $.Deferred();
+
+            parent.pushQueue('delayFrame', deferred);
+
             parent.obj.style[CubePortfolio.private.animationDuration] = parent.options.displayTypeSpeed + 'ms';
 
             parent.$obj.addClass('cbp-displayType-fadeIn');
@@ -3199,11 +3236,15 @@ if (typeof Object.create !== 'function') {
     var CubePortfolio = $.fn.cubeportfolio.constructor;
 
     function Plugin(parent) {
-        var deferred = $.Deferred();
-
-        parent.pushQueue('delayFrame', deferred);
-
         parent.registerEvent('initEndWrite', function() {
+            if (parent.width <= 0) {
+                return;
+            }
+
+            var deferred = $.Deferred();
+
+            parent.pushQueue('delayFrame', deferred);
+
             parent.obj.style[CubePortfolio.private.animationDuration] = parent.options.displayTypeSpeed + 'ms';
 
             parent.$obj.addClass('cbp-displayType-fadeInToTop');
@@ -3233,11 +3274,15 @@ if (typeof Object.create !== 'function') {
     var CubePortfolio = $.fn.cubeportfolio.constructor;
 
     function Plugin(parent) {
-        var deferred = $.Deferred();
-
-        parent.pushQueue('delayFrame', deferred);
-
         parent.registerEvent('initEndWrite', function() {
+            if (parent.width <= 0) {
+                return;
+            }
+
+            var deferred = $.Deferred();
+
+            parent.pushQueue('delayFrame', deferred);
+
             parent.blocksOn.each(function(index, el) {
                 el.style[CubePortfolio.private.animationDelay] = (index * parent.options.displayTypeSpeed) + 'ms';
             });
@@ -3685,7 +3730,7 @@ if (typeof Object.create !== 'function') {
          *  Define the wrapper for loadMore
          *  Values: strings that represent the elements in the document (DOM selector).
          */
-        selector: '',
+        element: '',
 
         /**
          *  How the loadMore functionality should behave. Load on click on the button or
@@ -3710,7 +3755,7 @@ if (typeof Object.create !== 'function') {
 
         t.options = $.extend({}, options, t.parent.options.plugins.loadMore);
 
-        t.loadMore = $(t.options.selector).find('.cbp-l-loadMore-link');
+        t.loadMore = $(t.options.element).find('.cbp-l-loadMore-link');
 
         // load click or auto action
         if (t.loadMore.length === 0) {
@@ -3964,7 +4009,7 @@ if (typeof Object.create !== 'function') {
                 plugins.loadMore = {};
             }
 
-            plugins.loadMore.selector = parent.options.loadMore;
+            plugins.loadMore.element = parent.options.loadMore;
         }
 
         // backward compatibility
@@ -3976,7 +4021,13 @@ if (typeof Object.create !== 'function') {
             plugins.loadMore.action = parent.options.loadMoreAction;
         }
 
-        if (!plugins.loadMore || !plugins.loadMore.selector) {
+        // rename options
+        if (plugins.loadMore && plugins.loadMore.selector !== undefined) {
+            plugins.loadMore.element = plugins.loadMore.selector;
+            delete plugins.loadMore.selector;
+        }
+
+        if (!plugins.loadMore || !plugins.loadMore.element) {
             return null;
         }
 
@@ -3987,6 +4038,10 @@ if (typeof Object.create !== 'function') {
     'use strict';
 
     var CubePortfolio = $.fn.cubeportfolio.constructor;
+
+    var options = {
+        delay: 0,
+    };
 
     var popup = {
         /**
@@ -4013,6 +4068,8 @@ if (typeof Object.create !== 'function') {
                 t.cubeportfolio.registerEvent('resizeWindow', function() {
                     t.resizeImage();
                 });
+
+                t.localOptions = $.extend({}, options, t.cubeportfolio.options.plugins.lightbox);
             }
 
             if (type === 'singlePageInline') {
@@ -4060,6 +4117,8 @@ if (typeof Object.create !== 'function') {
                     }
                 }
 
+                t.localOptions = $.extend({}, options, t.cubeportfolio.options.plugins.singlePageInline);
+
                 return;
             }
 
@@ -4070,7 +4129,7 @@ if (typeof Object.create !== 'function') {
                 t.cubeportfolio.registerEvent('resizeWindow', function() {
                     if (t.options.singlePageStickyNavigation) {
 
-                        var width = t.wrap[0].clientWidth;
+                        var width = t.contentWrap[0].clientWidth;
 
                         if (width > 0) {
                             t.navigationWrap.width(width);
@@ -4137,6 +4196,8 @@ if (typeof Object.create !== 'function') {
                         t.openSinglePage([fakeLink], fakeLink);
                     }
                 }
+
+                t.localOptions = $.extend({}, options, t.cubeportfolio.options.plugins.singlePage);
             }
         },
 
@@ -4170,10 +4231,25 @@ if (typeof Object.create !== 'function') {
                 }
             });
 
-            // content element
-            t.content = $('<div/>', {
-                'class': 'cbp-popup-content'
-            }).appendTo(t.wrap);
+            if (t.type === 'singlePage') {
+                t.contentWrap = $('<div/>', {
+                    'class': 'cbp-popup-content-wrap'
+                }).appendTo(t.wrap);
+
+                if (CubePortfolio.private.browser === 'ios') {
+                    t.contentWrap.css('overflow', 'auto');
+                }
+
+                // content element
+                t.content = $('<div/>', {
+                    'class': 'cbp-popup-content'
+                }).appendTo(t.contentWrap);
+            } else {
+                // content element
+                t.content = $('<div/>', {
+                    'class': 'cbp-popup-content'
+                }).appendTo(t.wrap);
+            }
 
             // append loading div
             $('<div/>', {
@@ -4188,10 +4264,24 @@ if (typeof Object.create !== 'function') {
                 }).appendTo(t.wrap);
             }
 
-            // create navigation wrap
-            t.navigationWrap = $('<div/>', {
-                'class': 'cbp-popup-navigation-wrap'
-            }).appendTo(t.wrap);
+            if (t.type === 'singlePage') {
+                if (t.options.singlePageStickyNavigation === false) {
+                    // create navigation wrap
+                    t.navigationWrap = $('<div/>', {
+                        'class': 'cbp-popup-navigation-wrap'
+                    }).appendTo(t.contentWrap);
+                } else {
+                    // create navigation wrap
+                    t.navigationWrap = $('<div/>', {
+                        'class': 'cbp-popup-navigation-wrap'
+                    }).appendTo(t.wrap);
+                }
+            } else {
+                // create navigation wrap
+                t.navigationWrap = $('<div/>', {
+                    'class': 'cbp-popup-navigation-wrap'
+                }).appendTo(t.wrap);
+            }
 
             // create navigation block
             t.navigation = $('<div/>', {
@@ -4265,10 +4355,25 @@ if (typeof Object.create !== 'function') {
 
                 });
 
-                // if there are some events than overrides the default scroll behaviour don't go to them
-                t.wrap.on('mousewheel.cbp' + ' DOMMouseScroll.cbp', function(e) {
+                // Test via a getter in the options object to see if the passive property is accessed
+                // https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
+                var supportsOpts = false;
+                try {
+                    var opts = Object.defineProperty({}, 'passive', {
+                        get: function() {
+                            supportsOpts = { passive: true };
+                        }
+                    });
+                    window.addEventListener('testPassive', null, opts);
+                    window.removeEventListener('testPassive', null, opts);
+                } catch (e) {}
+
+                // if there are some events than overrides the default wheel behaviour don't go to them
+                // https://developer.mozilla.org/en-US/docs/Web/Events/wheel
+                var wheel = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+                t.contentWrap[0].addEventListener(wheel, function(e) {
                     e.stopImmediatePropagation();
-                });
+                }, supportsOpts);
             }
 
             $(document).on('keydown.cbp', function(e) {
@@ -4577,7 +4682,7 @@ if (typeof Object.create !== 'function') {
             t.scrollTop = $(window).scrollTop();
 
             // go to top of the page (reset scroll)
-            t.wrap.scrollTop(0);
+            t.contentWrap.scrollTop(0);
 
             // show the wrapper
             t.wrap.show();
@@ -4599,8 +4704,7 @@ if (typeof Object.create !== 'function') {
                 if (t.options.singlePageStickyNavigation) {
 
                     t.wrap.addClass('cbp-popup-singlePage-sticky');
-
-                    t.navigationWrap.width(t.wrap[0].clientWidth);
+                    t.navigationWrap.width(t.contentWrap[0].clientWidth);
                 }
 
                 t.finishOpen--;
@@ -4620,7 +4724,7 @@ if (typeof Object.create !== 'function') {
 
                 // make the navigation sticky
                 if (t.options.singlePageStickyNavigation) {
-                    t.navigationWrap.width(t.wrap[0].clientWidth);
+                    t.navigationWrap.width(t.contentWrap[0].clientWidth);
 
                     setTimeout(function() {
                         t.wrap.addClass('cbp-popup-singlePage-sticky');
@@ -4646,6 +4750,24 @@ if (typeof Object.create !== 'function') {
             // run callback function
             if ($.isFunction(t.options.singlePageCallback)) {
                 t.options.singlePageCallback.call(t, t.dataArray[t.current].url, t.dataArray[t.current].element);
+            }
+
+            // ios bug to prevent
+            // http://stackoverflow.com/questions/9280258/prevent-body-scrolling-but-allow-overlay-scrolling
+            if (CubePortfolio.private.browser === 'ios') {
+                var element = t.contentWrap[0];
+
+                element.addEventListener('touchstart', function() {
+                    var top = element.scrollTop,
+                        totalScroll = element.scrollHeight,
+                        currentScroll = top + element.offsetHeight;
+
+                    if (top === 0) {
+                        element.scrollTop = 1;
+                    } else if (currentScroll === totalScroll) {
+                        element.scrollTop = top - 1;
+                    }
+                });
             }
         },
 
@@ -5033,7 +5155,7 @@ if (typeof Object.create !== 'function') {
                 var media = '';
                 var firstImg = this.content.find('img')[0];
 
-                if(firstImg) {
+                if (firstImg) {
                     media = firstImg.src;
                 }
 
@@ -5053,7 +5175,13 @@ if (typeof Object.create !== 'function') {
             // trigger public event
             t.cubeportfolio.$obj.trigger('updateSinglePageInlineStart.cbp');
 
-            t.singlePageInlineIsOpen.call(t);
+            if (t.localOptions.delay !== 0) {
+                setTimeout(function() {
+                    t.singlePageInlineIsOpen.call(t);
+                }, t.localOptions.delay)
+            } else {
+                t.singlePageInlineIsOpen.call(t);
+            }
         },
 
         singlePageInlineIsOpen: function() {
@@ -5288,7 +5416,7 @@ if (typeof Object.create !== 'function') {
                 t.resetWrap();
 
                 // go to top of the page (reset scroll)
-                t.wrap.scrollTop(0);
+                t.contentWrap.scrollTop(0);
 
                 t.wrap.addClass('cbp-popup-loading');
 
@@ -5347,6 +5475,9 @@ if (typeof Object.create !== 'function') {
 
                 t.cubeportfolio.$obj.removeClass('cbp-popup-singlePageInline-open cbp-popup-singlePageInline-close');
 
+                // now the popup is closed
+                t.isOpen = false;
+
                 if (method === 'promise') {
                     if ($.isFunction(data.callback)) {
                         data.callback.call(t.cubeportfolio);
@@ -5373,13 +5504,14 @@ if (typeof Object.create !== 'function') {
                 }
             }
 
-            // now the popup is closed
-            t.isOpen = false;
-
             if (t.type === 'singlePageInline') {
                 if (method === 'open') {
                     t.wrap.removeClass('cbp-popup-singlePageInline-ready');
                     $(t.dataArray[t.current].element).closest('.cbp-item').removeClass('cbp-singlePageInline-active');
+
+                    // now the popup is closed
+                    t.isOpen = false;
+
                     t.openSinglePageInline(data.blocks, data.currentBlock, data.fromOpen);
                 } else {
                     t.height = 0;
@@ -5401,47 +5533,33 @@ if (typeof Object.create !== 'function') {
             } else if (t.type === 'singlePage') {
                 t.resetWrap();
 
-                t.wrap.removeClass('cbp-popup-ready cbp-popup-transitionend');
+                t.stopScroll = true;
 
-                $(window).scrollTop(t.scrollTop);
-
-                // weird bug on mozilla. fixed with setTimeout
-                setTimeout(function() {
-                    t.stopScroll = true;
-
-                    t.navigationWrap.css({
-                        top: t.wrap.scrollTop()
-                    });
-
-                    t.wrap.removeClass('cbp-popup-singlePage-open cbp-popup-singlePage-sticky');
-
-                    if (CubePortfolio.private.browser === 'ie8' || CubePortfolio.private.browser === 'ie9') {
-                        // remove resize event
-                        if (t.slider) {
-                            CubePortfolio.private.resize.destroyEvent($.data(t.slider[0], 'cubeportfolio'));
-                        }
-
-                        // reset content
-                        t.content.html('');
-
-                        // hide the wrap
-                        t.wrap.detach();
-
-                        $('html').css({
-                            overflow: '',
-                            marginRight: '',
-                            position: ''
-                        });
-
-                        t.navigationWrap.removeAttr('style');
-                    }
-                }, 0);
+                t.wrap.removeClass('cbp-popup-ready cbp-popup-transitionend cbp-popup-singlePage-open cbp-popup-singlePage-sticky');
 
                 $('html').css({
                     overflow: '',
                     marginRight: '',
                     position: ''
                 });
+
+                $(window).scrollTop(t.scrollTop);
+
+                if (CubePortfolio.private.browser === 'ie8' || CubePortfolio.private.browser === 'ie9') {
+                    // remove resize event
+                    if (t.slider) {
+                        CubePortfolio.private.resize.destroyEvent($.data(t.slider[0], 'cubeportfolio'));
+                    }
+
+                    // reset content
+                    t.content.html('');
+
+                    // hide the wrap
+                    t.wrap.detach();
+
+                    // now the popup is closed
+                    t.isOpen = false;
+                }
 
                 t.wrap.one(CubePortfolio.private.transitionend, function() {
                     // remove resize event
@@ -5455,8 +5573,8 @@ if (typeof Object.create !== 'function') {
                     // hide the wrap
                     t.wrap.detach();
 
-
-                    t.navigationWrap.removeAttr('style');
+                    // now the popup is closed
+                    t.isOpen = false;
                 });
             } else {
                 lightboxIsOpen = false;
@@ -5482,6 +5600,9 @@ if (typeof Object.create !== 'function') {
 
                 // hide the wrap
                 t.wrap.detach();
+
+                // now the popup is closed
+                t.isOpen = false;
             }
         },
 
@@ -5668,7 +5789,7 @@ if (typeof Object.create !== 'function') {
                 var oldDate = $.data(this, 'cbp-locked'),
                     newDate = $.data(this, 'cbp-locked', +new Date());
 
-                if(!oldDate || ((newDate - oldDate) > 300)) {
+                if (!oldDate || ((newDate - oldDate) > 300)) {
                     p.singlePageInline.openSinglePageInline(p.blocksOn, this);
                 }
             });
@@ -6009,6 +6130,201 @@ if (typeof Object.create !== 'function') {
             return null;
         }
 
+        return new Plugin(parent);
+    };
+})(jQuery, window, document);
+(function($, window, document, undefined) {
+    'use strict';
+
+    var options = {
+        /**
+         *  Define the wrapper for sort
+         *  Values: strings that represent the elements in the document (DOM selector).
+         */
+        element: '',
+    };
+
+    var CubePortfolio = $.fn.cubeportfolio.constructor;
+
+    function Plugin(parent) {
+        var t = this;
+
+        t.parent = parent;
+
+        t.options = $.extend({}, options, t.parent.options.plugins.sort);
+
+        t.element = $(t.options.element);
+
+        if (t.element.length === 0) {
+            return;
+        }
+
+        t.sort = '';
+        t.sortBy = 'string:asc';
+
+        t.element.on('click.cbp', '.cbp-sort-item', function(event) {
+            event.preventDefault();
+
+            t.target = event.target;
+
+            if ($(t.target).hasClass('cbp-l-dropdown-item--active') || parent.isAnimating) {
+                return;
+            }
+
+            t.processSort();
+            parent.$obj.cubeportfolio('filter', parent.defaultFilter);
+        });
+
+        // reset filters active class after the search is used
+        parent.registerEvent('triggerSort', function() {
+            if (t.target) {
+                t.processSort();
+                parent.$obj.cubeportfolio('filter', parent.defaultFilter);
+            }
+        });
+
+        t.dropdownWrap = t.element.find('.cbp-l-dropdown-wrap')
+            .on({
+                'mouseover.cbp': function() {
+                    $(this).addClass('cbp-l-dropdown-wrap--open');
+                },
+                'mouseleave.cbp': function() {
+                    $(this).removeClass('cbp-l-dropdown-wrap--open');
+                }
+            });
+
+        t.dropdownHeader = t.element.find('.cbp-l-dropdown-header');
+    }
+
+    Plugin.prototype.processSort = function() {
+        var t = this;
+        var parent = t.parent;
+
+        var target = t.target;
+        var hasSort = target.hasAttribute('data-sort');
+        var hasSortBy = target.hasAttribute('data-sortBy');
+
+        if (hasSort && hasSortBy) {
+            t.sort = target.getAttribute('data-sort');
+            t.sortBy = target.getAttribute('data-sortBy');
+        } else if (hasSort) {
+            t.sort = target.getAttribute('data-sort');
+        } else if (hasSortBy) {
+            t.sortBy = target.getAttribute('data-sortBy');
+        } else {
+            return;
+        }
+
+        var sortByArr = t.sortBy.split(':');
+        var sortByType = 'string';
+        var sortByDirection = 1;
+
+        if (sortByArr[0] === 'int') {
+            sortByType = 'int';
+        } else if (sortByArr[0] === 'float') {
+            sortByType = 'float';
+        }
+
+        if (sortByArr[1] === 'desc') {
+            sortByDirection = -1;
+        }
+
+        if (t.sort) {
+            var obj = [];
+
+            parent.blocks.each(function(index, el) {
+                var block = $(el);
+
+                var sortText = block.find(t.sort).text();
+
+                if (sortByType === 'int') {
+                    sortText = parseInt(sortText, 10);
+                }
+
+                if (sortByType === 'float') {
+                    sortText = parseFloat(sortText, 10);
+                }
+
+                obj.push({
+                    sortText: sortText,
+                    data: block.data('cbp'),
+                });
+            });
+
+            obj.sort(function(obj1, obj2) {
+                var sortText1 = obj1.sortText;
+                var sortText2 = obj2.sortText;
+
+                if (sortByType === 'string') {
+                    sortText1 = sortText1.toUpperCase(); // ignore upper and lowercase
+                    sortText2 = sortText2.toUpperCase(); // ignore upper and lowercase
+                }
+
+                if (sortText1 < sortText2) {
+                    return -sortByDirection;
+                } else if (sortText1 > sortText2) {
+                    return sortByDirection;
+                }
+
+                // names must be equal
+                return 0;
+            });
+
+            $.each(obj, function(index, val) {
+                val.data.index = index;
+            });
+        } else {
+            var sortInvers = [];
+
+            if (sortByDirection === -1) {
+                parent.blocks.each(function(index, el) {
+                    sortInvers.push($(el).data('cbp').indexInitial);
+                });
+
+                // put sortInvers in inverse order
+                sortInvers.sort(function(a, b) {
+                    return b - a;
+                });
+            }
+
+            parent.blocks.each(function(index, el) {
+                var data = $(el).data('cbp');
+
+                if (sortByDirection === -1) {
+                    data.index = sortInvers[data.indexInitial];
+                } else {
+                    data.index = data.indexInitial;
+                }
+            });
+        }
+
+        parent.sortBlocks(parent.blocks, 'index');
+
+        t.dropdownWrap.trigger('mouseleave.cbp');
+
+        var target = $(t.target);
+        var targetParent = $(t.target).parent();
+
+        if (targetParent.hasClass('cbp-l-dropdown-list')) {
+            t.dropdownHeader.html(target.html());
+            target.addClass('cbp-l-dropdown-item--active').siblings('.cbp-l-dropdown-item').removeClass('cbp-l-dropdown-item--active');
+        } else if (targetParent.hasClass('cbp-l-direction')) {
+            var index = target.index();
+
+            if (index === 0) {
+                targetParent.addClass('cbp-l-direction--second').removeClass('cbp-l-direction--first');
+            } else {
+                targetParent.addClass('cbp-l-direction--first').removeClass('cbp-l-direction--second');
+            }
+        }
+
+    };
+
+    Plugin.prototype.destroy = function() {
+        this.element.off('click.cbp');
+    };
+
+    CubePortfolio.plugins.sort = function(parent) {
         return new Plugin(parent);
     };
 })(jQuery, window, document);

@@ -27,6 +27,7 @@ export class RestablecerClaveComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.loading = false;
     this.persona = new Persona();
+    this.viewScrollTop();
   }
 
   ngAfterViewInit() {
@@ -69,6 +70,8 @@ export class RestablecerClaveComponent implements OnInit, AfterViewInit {
   }
 
 
-
+  viewScrollTop() {
+    window.scrollTo(600, 1);
+  }
 
 }

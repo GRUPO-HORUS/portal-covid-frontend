@@ -1,73 +1,59 @@
-<div id="page-header" class="bg-gradient bg-shadow">
-    <div class="container">
-        <div class="header-text clearfix">
-            <h3 class="mb-0"><span class="far fa-user-circle text-default menu-item-icon text-center fa-fw"></span> Perfil Ciudadano</h3>
-        </div>
-    </div>
-</div>
+<buscador-widget class="px-0" [childExample]="carpeta"></buscador-widget>
 
 <div class="content pb-4 pb-6" *ngIf="ciudadano">
     <div class="container">
+
         <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
-                <menu-ciudadano></menu-ciudadano>
-            </div>
-            <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12" *ngIf="ciudadano">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 py-4" *ngIf="ciudadano">
+
+                <h3 class="title-divider text-primary mt-2">
+                    <i class="fa fa-user mr-2" style="margin-top: -4px;"></i>
+                    <span>Mi perfil ciudadano</span>
+                </h3>
+
                 <div class="row">
-                    <!--
-                    <div class="col-lg-2 col-md-12 col-xs-12 mt-4">
-                        <div style="padding:10px;border:1px solid #ddd;max-width:150px;">
-                            <img src="assets/img/profile.png" class="img-fluid img-profile"/>
-                        </div>
-                    </div>-->
+
                     <div class="col-lg-12 col-md-12 col-xs-12 mt-4">
-                        <h4 class="mb-2 text-primary">Mi identidad electrónica</h4>
+                        <h4 class="mb-3 text-primary">Mi identidad electrónica</h4>
                         <div class="row mb-1 ml-2">
                             <div class="col-lg-4 col-md-6 col-sm-5"><i class="far fa-id-card fa-fw text-center mr-1"></i><label style="font-weight:bold;">Cédula</label></div>
                             <div class="col-lg-8 col-md-6 col-sm-7">{{ciudadano.cedula}}</div>
                         </div>
-                        <hr class="hidden-sm-up">
 
                         <div class="row mb-1 ml-2">
                             <div class="col-lg-4 col-md-6 col-sm-5"><i class="far fa-user fa-fw text-center mr-1"></i><label style="font-weight:bold;">Nombre y Apellido</label></div>
                             <div class="col-lg-8 col-md-6 col-sm-7">{{ciudadano.nombres}} {{ciudadano.apellidos}}</div>
                         </div>
-                        <hr class="hidden-sm-up">
 
                         <div class="row mb-1 ml-2">
                             <div class="col-lg-4 col-md-6 col-sm-5"><i class="far fa-calendar-alt fa-fw text-center mr-1"></i><label style="font-weight:bold;">Fecha de Nacimiento</label></div>
                             <div class="col-lg-8 col-md-6 col-sm-7" *ngIf="ciudadano.fechaNacimiento">{{formatFechaNacimiento(ciudadano.fechaNacimiento) | date:'dd/MM/yyyy' }}</div>
                             <div class="col-lg-8 col-md-6 col-sm-7" *ngIf="!ciudadano.fechaNacimiento">-</div>
                         </div>
-                        <hr class="hidden-sm-up">
 
                         <div class="row mb-1 ml-2">
                             <div class="col-lg-4 col-md-6 col-sm-5"><i class="far fa-envelope fa-fw text-center mr-1"></i><label style="font-weight:bold;">Email</label></div>
                             <div class="col-lg-8 col-md-6 col-sm-7" *ngIf="ciudadano.email">{{ciudadano?.email}}</div>
                             <div class="col-lg-8 col-md-6 col-sm-7" *ngIf="!ciudadano.email">-</div>
                         </div>
-                        <hr class="hidden-sm-up">
-                        
+
                         <div class="row mb-1 ml-2">
                             <div class="col-lg-4 col-md-6 col-sm-5"><i class="far fa-flag fa-fw text-center mr-1"></i><label style="font-weight:bold;">Nacionalidad</label></div>
                             <div class="col-lg-8 col-md-6 col-sm-7">{{ciudadano.nacionalidad}}</div>
                             <div class="col-lg-8 col-md-6 col-sm-7" *ngIf="!ciudadano.nacionalidad">-</div>
                         </div>
-                        <hr class="hidden-sm-up">
 
                         <br>
-                        <h4 class="mt-2 mb-2 text-primary">Mi información adicional</h4>
+                        <h4 class="mt-2 mb-3 text-primary">Mi información adicional</h4>
                         <div class="row mb-1 ml-2">
                             <div class="col-lg-4 col-md-6 col-sm-5"><i class="fas fa-map-pin fa-fw text-center mr-1"></i><label style="font-weight:bold;">Departamento</label></div>
                             <div class="col-lg-8 col-md-6 col-sm-7">{{ciudadano?.departamento}}</div>
                         </div>
-                        <hr class="hidden-sm-up">
 
                         <div class="row mb-1 ml-2">
                             <div class="col-lg-4 col-md-6 col-sm-5"><i class="fas fa-city fa-fw text-center mr-1"></i><label style="font-weight:bold;">Distrito</label></div>
                             <div class="col-lg-8 col-md-6 col-sm-7">{{ciudadano?.ciudad}}</div>
                         </div>
-                        <hr class="hidden-sm-up">
 
                         <!--TELEFONO DEPARTAMENTO - CIUDAD - BARRIO-->
                         <div class="row mb-1 ml-2">
@@ -108,7 +94,6 @@
                             </div>
                             <div style="position:absolute; right:10px;" *ngIf="!isEditDepCiudadBarrio"><span (click)="isEditDepCiudadBarrio = true" class="fa fa-pencil-alt cursor-mouse text-primary"></span></div>
                         </div>
-                        <hr class="hidden-sm-up">
 
                         <!--TELEFONO DOMICILIO-->
                         <div class="row mb-1 ml-2">
@@ -132,7 +117,6 @@
                             </div>
                             <div style="position:absolute; right:10px;" *ngIf="!isEditDomicilio"><span (click)="isEditDomicilio = true" class="fa fa-pencil-alt cursor-mouse text-primary"></span></div>
                         </div>
-                        <hr class="hidden-sm-up">
 
                         <!--TELEFONO PARTICULAR-->
                         <div class="row mb-1 ml-2">
@@ -156,7 +140,6 @@
                             </div>
                             <div style="position:absolute; right:10px;" *ngIf="!isEditTelefonoParticular"><span (click)="isEditTelefonoParticular = true" class="fa fa-pencil-alt cursor-mouse text-primary"></span></div>
                         </div>
-                        <hr class="hidden-sm-up">
 
                         <!--TELEFONO MOVIL-->
                         <div class="row mb-1 ml-2">
@@ -188,8 +171,11 @@
                     </div>
 
 
-                </div>        
-            </div>    
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <menu-ciudadano></menu-ciudadano>
+            </div>
         </div>
     </div>
 </div>

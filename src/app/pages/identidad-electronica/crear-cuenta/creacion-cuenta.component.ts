@@ -11,6 +11,11 @@ export class CreacionCuentaComponent implements OnInit {
     public messageService: MessageService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.viewScrollTop();
+  }
+
+  viewScrollTop() {
+    window.scrollTo(600, 1);
   }
 }

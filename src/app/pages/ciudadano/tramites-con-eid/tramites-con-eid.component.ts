@@ -40,7 +40,7 @@ export class TramitesConEidComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.viewScrollTop(100);
+    //this.viewScrollTop(100);
     this.viewTramitesEID();    
 
     this.token = this.auth.getToken();

@@ -1,38 +1,38 @@
 {
-  "/api/*": {
-    "target": "http://localhost:8080/portalpy-backend-core",
-    "secure": false,
-    "loglevel": "debug",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/api": "/rest"
+    "/api/*": {
+        "target": "http://devportalpy.senatics.gov.py/",
+        "secure": false,
+        "loglevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/api": "/api"
+        }
+    },
+    "/plugins/*": {
+        "target": "http://localhost:8080/portal-py-plugins",
+        "secure": false,
+        "loglevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/plugins": "/rest"
+        }
+    },
+    "/auth/*": {
+        "target": "http://devportalpy.senatics.gov.py/auth",
+        "secure": false,
+        "loglevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/auth": "/api"
+        }
+    },
+    "/docsapi/*": {
+        "target": "http://devportalpy.senatics.gov.py/documentos-core",
+        "secure": false,
+        "loglevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/docsapi": "/api"
+        }
     }
-  },
-  "/plugins/*": {
-    "target": "http://localhost:8080/portal-py-plugins",
-    "secure": false,
-    "loglevel": "debug",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/plugins": "/rest"
-    }
-  },
-  "/auth/*": {
-    "target": "http://localhost:8080/auth",
-    "secure": false,
-    "loglevel": "debug",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/auth": "/rest"
-    }
-  },
-  "/docsapi/*": {
-    "target": "http://localhost:8080/documentos-core",
-    "secure": false,
-    "loglevel": "debug",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/docsapi": "/rest"
-    }
-  }
 }

@@ -1,15 +1,12 @@
-<div id="page-header" class="bg-gradient bg-shadow">
+<!--<div id="page-header" class="bg-gradient bg-shadow">
     <div class="container clearfix">
         <img src="assets/img/identidad-electronica.png" alt="Identidad Electrónica" class="img-fluid rounded hidden-xs pull-left" width="300" />
     </div>
-</div>
+</div>-->
+<buscador-widget class="px-0"></buscador-widget>
 
 <div id="content" class="pb-0">
     <div class="container pb-6">
-        <div class="text-center mb-4">
-            <img src="assets/img/identidad-electronica.png" alt="Identidad Electrónica" class="img-fluid rounded hidden-sm-up mb-4" width="300" />
-        </div>
-
         <ng-template #content let-modal>
             <div class="modal-header">
                 <h4 class="modal-title" id="modal-basic-title">Atención</h4>
@@ -30,53 +27,12 @@
         </ng-template>
 
         <div class="row">
-            <div class="col-md-4 push-md-8 youtube mb-2 sidebar-section">
-                <div class="nav nav-section-menu nav-section-menu-right pt-0 pb-0 mb-4">
-                    <a class="mb-3" routerLink="/crear-cuenta" style="margin-top:-20px;">
-                        <div class="card card-block p-4 bg-color-primary bg-color-primary-hover card-shadowPro hover-up" style="border:0px solid #000; border-radius:10px;">
-                            <div class="card-ribbon card-ribbon-top card-ribbon-right bg-faded text-color-primary font-weight-bold">ID-e</div>
-                            <p style="z-index: 1;color:#fff;">
-                                ¿Todavía no tenés tu <b>Identidad electrónica</b>?
-                            </p>
-                            <h4 style="z-index: 1;" class="font-weight-bold text-white mb-0">
-                                <i class="fa fa-user-plus mr-2" style="margin-top:-4px;"></i><span class="font-weight-normal text-muted text-white" style="font-size:20px;">Crear</span> cuenta
-                            </h4>
-                            <div class="fondo-buscador_" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; opacity: .3; background-image: url(assets/img/backgrounds/computer-screens.jpg)"></div>
-                        </div>   
-                    </a> 
-                    <div>
-                        <a class="nav-link" style="font-weight: 500;" routerLink="/identidad-electronica">
-                            <i class="fa fa-info-circle text-default" style="font-size:16px; margin-top:-8px;"></i> ¿Qué es la Identidad Electrónica?
-                        </a>
-                        <a class="nav-link" style="font-weight: 500;" routerLink="/identidad-electronica/preguntas-frecuentes-creacion" id="buscar">
-                            <i class="fa fa fa-question-circle text-default" style="font-size:16px; margin-top:-8px;"></i> Preguntas frecuentes
-                        </a>
-                        <a class="nav-link active" style="font-weight: 500;" routerLink="/restablecer-clave">
-                            <i class="fa fa-lock text-default" style="font-size:16px; margin-top:-8px;"></i> Olvidé mi clave
-                        </a>
-                        <a class="nav-link" style="font-weight: 500;" routerLink="/identidad-electronica/terminos" id="buscar">
-                            <i class="fa fa fa-cog text-default" style="font-size:16px; margin-top:-8px;"></i> Términos y Condiciones
-                        </a>
-                        <a class="nav-link" style="font-weight: 500;" href="https://agendarturno.mitic.gov.py" target="_blank" id="buscar">
-                            <i class="fa fa fa-calendar-alt text-default" style="font-size:16px; margin-top:-8px;"></i> Agendar turno
-                        </a>
-                        <a class="nav-link" style="font-weight: 500;" routerLink="/categoria/1/resultado" id="buscar">
-                            <i class="fa fa fa-cog text-default" style="font-size:16px; margin-top:-8px;"></i> Servicios con Identidad Electrónica
-                        </a>
-						
-                        <!--a class="nav-link" style="font-weight: 500;" routerLink="/identidad-electronica/terminos" id="buscar">
-                            <i class="fa fa fa-file-o text-default" style="font-size:16px; margin-top:-8px;"></i> Estadística
-                        </a-->
-                    </div>
 
-                </div>
-
-            </div>
-            <div class="col-md-8 pull-md-4 sidebar-left">
-                <h4 class="title-divider mt-2 texto-accesible-H3">
-                    <span>Restablecer clave
-                    </span>
-                </h4>
+            <div class="col-md-8 pull-md-4 sidebar-left mb-5 pt-2">
+                <h3 class="title-divider text-primary">
+                    <i class="fa fa-unlock mr-2" style="margin-top: -4px;"></i>
+                    <span>Restablecer contraseña</span>
+                </h3>
 
                 <form #miForm="ngForm" class="mt-1">
                     <div class="form-group">
@@ -116,6 +72,48 @@
                 <div class="alert alert-info">
                     <i class="fa fa-info-circle"></i> Debe completar todos los campos en el formato correcto para iniciar.
                 </div>
+            </div>
+            <div class="col-md-4 push-md-8 youtube mb-2 sidebar-section">
+                <div class="nav nav-section-menu nav-section-menu-right pt-0 pb-0 mb-4">
+                    <a class="mb-3" routerLink="/crear-cuenta" style="margin-top:-20px;">
+                        <div class="card card-block p-4 bg-color-primary bg-color-primary-hover card-shadowPro hover-up" style="border:0px solid #000; border-radius:10px;">
+                            <div class="card-ribbon card-ribbon-top card-ribbon-right bg-faded text-color-primary font-weight-bold">ID-e</div>
+                            <p style="z-index: 1;color:#fff;">
+                                ¿Todavía no tenés tu <b>Identidad electrónica</b>?
+                            </p>
+                            <h4 style="z-index: 1;" class="font-weight-bold text-white mb-0">
+                                <i class="fa fa-user-plus mr-2" style="margin-top:-4px;"></i><span class="font-weight-normal text-muted text-white" style="font-size:20px;">Crear</span> cuenta
+                            </h4>
+                            <div class="fondo-buscador_" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; opacity: .3; background-image: url(assets/img/backgrounds/computer-screens.jpg)"></div>
+                        </div>
+                    </a>
+                    <div>
+                        <a class="nav-link" style="font-weight: 500;" routerLink="/identidad-electronica">
+                            <i class="fa fa-info-circle text-default" style="font-size:16px; margin-top:-8px;"></i> ¿Qué es la Identidad Electrónica?
+                        </a>
+                        <a class="nav-link" style="font-weight: 500;" routerLink="/identidad-electronica/preguntas-frecuentes-creacion" id="buscar">
+                            <i class="fa fa fa-question-circle text-default" style="font-size:16px; margin-top:-8px;"></i> Preguntas frecuentes
+                        </a>
+                        <a class="nav-link active" style="font-weight: 500;" routerLink="/restablecer-clave">
+                            <i class="fa fa-lock text-default" style="font-size:16px; margin-top:-8px;"></i> Olvidé mi clave
+                        </a>
+                        <a class="nav-link" style="font-weight: 500;" routerLink="/identidad-electronica/terminos" id="buscar">
+                            <i class="fa fa fa-cog text-default" style="font-size:16px; margin-top:-8px;"></i> Términos y Condiciones
+                        </a>
+                        <a class="nav-link" style="font-weight: 500;" href="https://agendarturno.mitic.gov.py" target="_blank" id="buscar">
+                            <i class="fa fa fa-calendar-alt text-default" style="font-size:16px; margin-top:-8px;"></i> Agendar turno
+                        </a>
+                        <a class="nav-link" style="font-weight: 500;" routerLink="/categoria/1/resultado" id="buscar">
+                            <i class="fa fa fa-cog text-default" style="font-size:16px; margin-top:-8px;"></i> Servicios con Identidad Electrónica
+                        </a>
+
+                        <!--a class="nav-link" style="font-weight: 500;" routerLink="/identidad-electronica/terminos" id="buscar">
+                            <i class="fa fa fa-file-o text-default" style="font-size:16px; margin-top:-8px;"></i> Estadística
+                        </a-->
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </div>

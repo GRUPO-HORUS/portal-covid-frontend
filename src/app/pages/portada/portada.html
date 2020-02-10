@@ -1,6 +1,139 @@
 <buscador-widget class="px-0"></buscador-widget>
 
-<tramites></tramites>
+<div id="content" class="pb-0" style="padding:0px !important;">
+    <div class="fondo-tramites">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-sm-12 py-5">
+
+                    <h4 class="title-divider text-primary">
+                        <i class="fa fa-globe mr-2" style="margin-top: -4px;"></i>
+                        <span>Trámites destacados en línea</span>
+                    </h4>
+
+
+                    <div class="card-deck mt-2">
+                        <div class="card card-outline-primary rounded shadow" *ngFor="let tramite of tramitesEnLinea">
+                            <ng-container *ngIf="tramite.idServicio==1127 || tramite.idServicio==1157 || tramite.idServicio==1197">
+                                <div class="card-ribbon card-ribbon-top card-ribbon-right bg-secondary text-white">¡nuevo!</div>
+                            </ng-container>
+                            <div class="card-body">
+                                <a (click)="getDataServicio(tramite.oee.urlOee, tramite.idServicio)" style="cursor:pointer">
+                                    <h4 class="card-title pr-4">
+                                        {{tramite.nombreServicio}}
+                                    </h4>
+                                </a>
+                                <p class="card-text" style="max-height: 91px; overflow: hidden; text-overflow: ellipsis;">{{tramite.descripcionServicio}}</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a (click)="getDataServicio(tramite.oee.urlOee, tramite.idServicio)" class="btn btn-default">Más información</a>
+                                <a href="{{tramite.urlOnline}}" target="_blank" class="btn btn-primary btn-rounded">Ir al trámite →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a routerLink="/tramites-online" class="btn btn-default btn-block mt-3 mb-5" style="cursor:pointer">
+                        <i class="fa fa-plus text-primary fa-fw"></i> Ver todos los trámites en línea
+                    </a>
+
+
+
+
+                    <h4 class="title-divider text-primary">
+                        <i class="far fa-clock mr-2" style="margin-top: -4px;"></i>
+                        <span>Últimos trámites actualizados</span>
+                    </h4>
+
+                    <div class="card-deck mt-2">
+                        <div class="card rounded shadow" *ngFor="let tramite of ultimosTramitesEnLinea">
+                            <ng-container *ngIf="tramite.idServicio==1127 || tramite.idServicio==1157 || tramite.idServicio==1197">
+                                <div class="card-ribbon card-ribbon-top card-ribbon-right bg-light text-gray">¡nuevo!</div>
+                            </ng-container>
+                            <div class="card-body">
+                                <a (click)="getDataServicio(tramite.oee.urlOee, tramite.idServicio)" style="cursor:pointer">
+                                    <h4 class="card-title">
+                                        {{tramite.nombreServicio}}
+                                    </h4>
+                                </a>
+                                <p class="card-text" style="max-height: 91px; overflow: hidden; text-overflow: ellipsis;">{{tramite.descripcionServicio}}</p>
+                            </div>
+                            <div class="card-footer">
+                                <a (click)="getDataServicio(tramite.oee.urlOee, tramite.idServicio)" class="btn btn-default btn-block">Más información</a>
+                                <a *ngIf="urlOnline" href="{{tramite.urlOnline}}" target="_blank" class="btn btn-primary btn-block">Ir al trámite</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                    <tramites></tramites>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-primary-darkend">
+        <div class="container">
+            <div class="row text-left py-6">
+                <div class="col-md-7">
+                    <h2 class="texto-accesible-H2">
+                        <a href="https://www.paraguay.gov.py/login-ciudadano" target="_blank" class="text-white">
+                            Carpeta Ciudadana e Identidad Electrónica
+                        </a>
+                    </h2>
+                    <p class="text-justify text-white">
+                        Es una carpeta virtual del ciudadano a través de la cual podrá gestionar y acceder a su información personal que se encuentra en las bases de datos del estado de manera integrada y segura.
+                    </p>
+                    <p class="text-white">
+                        Para acceder a la carpeta ciudadana, deberá contar con una identidad electrónica, que le permitirá acceder a varios trámites y servicios electrónicos publicados así como otros trámites y servicios electrónicos que se irán habilitando.
+                    </p>
+                </div>
+                <div class="col-md-5 pt-2 text-white">
+                    <p class="mb-2">
+                        <a routerLink="/login-ciudadano" class="font-weight-bold text-white">
+                            <i class="fa fa-user text-white fa-fw"></i> Iniciar Sesión →
+                        </a>
+                    </p>
+                    <p class="mb-2">
+                        <a routerLink="/crear-cuenta" class="font-weight-bold text-white">
+                            <i class="fa fa-plus text-white fa-fw"></i> Crea tu identidad electrónica →
+                        </a>
+                    </p>
+                    <p class="mb-2">
+                        <a routerLink="/identidad-electronica" class="text-white">
+                            <i class="fa fa-bookmark text-white fa-fw"></i> ¿Qué es Identidad Electrónica?
+                        </a>
+                    </p>
+                    <p class="mb-2">
+                        <a routerLink="/identidad-electronica/preguntas-frecuentes-creacion" class="text-white">
+                            <i class="fa fa-question text-white fa-fw"></i> Preguntas frecuentes →
+                        </a>
+                    </p>
+                    <p class="mb-2">
+                        <a routerLink="/restablecer-clave" class="text-white">
+                            <i class="fa fa-lock text-white fa-fw"></i> Olvidé mi clave →
+                        </a>
+                    </p>
+                    <p class="mb-2">
+                        <a routerLink="/identidad-electronica/terminos" class="text-white">
+                            <i class="fa fa-cog text-white fa-fw"></i> Términos y Condiciones →
+                        </a>
+                    </p>
+                    <p class="mb-2">
+                        <a href="https://agendarturno.mitic.gov.py" target="_blank" class="text-white">
+                            <i class="fa fa-calendar-alt text-white fa-fw"></i> Agendar Turno →
+                        </a>
+                    </p>
+                    <p class="mb-1">
+                        <a routerLink="/categoria/1/resultado" class="text-white">
+                            <i class="fa fa-file text-white fa-fw"></i> Servicios con Identidad Electrónica →
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <estadisticas></estadisticas>
+</div>
+
 
 <!--<sectores></sectores>-->
 

@@ -4,333 +4,274 @@
 data-backstretch-overlay="false" data-backstretch-target="self" data-toggle="backstretch" style="position: relative; z-index: 0; background: transparent none repeat scroll 0% 0%;">
 -->
 <div id="highlighted" style="border:none;" *ngIf="visible">
-    <div class="bg-white pt-9 overlay overlay-op-6 fondo-buscador" data-backstretch-imgs="assets/img/backgrounds/Paisaje-Chaquenho.jpg,assets/img/backgrounds/Palacio.jpg,assets/img/backgrounds/San-Bernardino.jpg" data-backstretch-overlay="false" data-backstretch-target="self"
-        data-toggle="backstretch" style="position: relative; z-index: 0; background: transparent none repeat scroll 0% 0%;">
+    <div class="bg-white pt-10 overlay overlay-op-7 fondo-buscador" data-backstretch-imgs="assets/img/backgrounds/Palacio.jpg" data-backstretch-overlay="false" data-backstretch-target="self" data-toggle="backstretch" style="position: relative; z-index: 0; background: transparent none repeat scroll 0% 0%;">
 
-        <div class="container pt-2 pb-3">
+        <div class="container pt-lg-2 pb-6">
             <div class="row">
-                <div class="col-xl-7 col-lg-7 col col-md-7 col-sm-12 col-xs-12">
-                    <h2 class="display-5 text-white animated fadeIn animated-done" data-animate="fadeIn" data-animate-delay="0.40" style="animation-delay: 0.2s;">
-                        <span *ngIf="!currentUser || currentUser == 'undefined' || currentUser == 'null' || currentUser == null">Portal <span class="font-weight-bold">Paraguay</span></span>
-                        <span *ngIf="currentUser" style="font-size:24px;">HOLA <span class="font-weight-bold">{{ currentUser.nombres }}</span></span>
-                    </h2>
-                    <h3 class="text-grey font-weight-normal animated fadeIn animated-done" data-animate="fadeIn" data-animate-delay="0.35" style="animation-delay: 0.35s; min-height: 66px; line-height: 1.2;" data-typed='["#TransformaciónDigital", "#GobiernoElectrónico"]'>
-                        #TransformaciónDigital<br>#GobiernoElectrónico
-                    </h3>
-                    <hr class="hr-lg w-40 mb-2 animated fadeIn animated-done" data-animate="fadeIn" data-animate-delay="0.45" style="animation-delay: 0.45s;">
+                <div class="col-xl-6 col-lg-6 col col-md-6 col-sm-12 col-xs-12">
+                    <h1 class="display-4 mt-2 mb-2 text-white" style="font-size: 30px; font-weight: 100;">
+                        <span>{{childExample}} PORTAL ÚNICO DE GOBIERNO</span>
+                    </h1>
 
-                    <form id="callback-form" action="#" role="form" class="pb-6">
-                        <div class="input-group input-group-lg card-shadowPro" style="border-radius: 30px;">
-                            <label class="sr-only" for="busqueda">Trámites o servicios...</label>
-                            <input type="text" class="form-control text-sm-fs" style="font-size:20px; border-radius: 40px 0 0 40px;" [value]="busqueda" placeholder="Trámites o servicios..." (keyup.enter)="searchData('tramites_servicios','search')" [(ngModel)]="busqueda" id="busqueda"
-                                name="busqueda" />
-                            <span class="input-group-btn  btn-rounded">
-                                <button class="btn btn-danger bg-color-primary_ btn-rounded" style="border-radius: 0 40px 40px 0;"
+                    <form id="callback-form" action="/buscar" role="form" class="pb-6 pb-xs-0">
+                        <div class="input-group" style="border-radius: 30px;">
+                            <label class="sr-only" for="busqueda">buscar trámites o servicios...</label>
+                            <input type="text" class="form-control" style="padding: 22px; font-size:16px; background: #252A41; color: #FFF; border:none; border-radius: 40px 0 0 40px;" [value]="busqueda" placeholder="buscar trámites o servicios..." (keyup.enter)="searchData('tramites_servicios','search')"
+                                [(ngModel)]="busqueda" id="busqueda" name="busqueda" />
+                            <span class="input-group-btn">
+                            <button class="btn btn-blue-dark" style="border-radius: 3px 40px 40px 3px; padding: 12px 15px; box-shadow:none !important"
                                     type="submit" (click)="searchData('tramites_servicios','search')">
-                                    <i class="fa fa-search mr-md-1"></i>
-                                    <span class="hidden-md-down">Buscar</span>
+                                    <i class="fa fa-search mr-md-1" style="font-size: 14px;"></i>
                             </button>
                             </span>
                         </div>
                     </form>
                 </div>
-                <div class="col-xl-4 offset-xl-1 col-lg-5 col-md-5 col-sm-12 col-xs-12">
-                    <a style="z-index: 1;" data-toggle="collapse" href="#modalID-e" aria-expanded="false" aria-controls="modalID-e">
-                        <div class="card card-block p-4 bg-color-primary card-shadowPro bg-color-primary-hover hover-up" style="border:0px solid #000; border-radius:10px;">
-                            <div class="card-ribbon card-ribbon-top card-ribbon-right bg-faded text-color-primary font-weight-bold">ID-e</div>
-                            <h4 style="z-index: 1;" class="font-weight-bold text-white"><i class="fas fa-id-badge nav-link-icon mr-2" style="font-size: 37px;float: left;margin-top: 4px;"></i><span class="font-weight-normal text-muted text-white" style="font-size:20px;">Mi carpeta ciudadana</span><br>Identidad
+                <div class="col-xl-4 offset-xl-2 col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                    <!--<a *ngIf="!currentUser || currentUser == 'undefined' || currentUser == 'null' || currentUser == null" style="z-index: 1;" data-toggle="modal" href="#" data-target="#modalID-e">
+                        <div class="card card-block p-4 card-shadowPro bg-color-primary-hover hover-up" style="border:0px solid #000; border-radius:10px; background-color: #001c548c;">
+                            <h5 style="z-index: 1;" class="font-weight-bold text-white"><i class="fas fa-id-badge nav-link-icon mr-2" style="font-size: 37px;float: left;margin-top: 4px;"></i><span class="font-weight-normal text-muted text-white" style="font-size:20px;">Mi carpeta ciudadana</span><br>Identidad
                                 Electrónica
-                            </h4>
-                            <p class="pt-2 mb-0 hidden-sm-down" style="z-index: 1;color:#fff; font-size: 14px;">
+                            </h5>
+                            <small class="pt-2 mb-0 hidden-sm-down" style="z-index: 1;color:#fff">
                                 Consulte y descargue sus documentos personales en línea.
-                            </p>
-                            <div class="btn btn-block btn-rounded bg-color-primary text-white mt-1 mb-0 hidden-md-down">
-                                <i class="fa fa-info-circle mr-2"></i>más información</div>
-                            <div class="fondo-buscador_" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; opacity: .3; background-image: url(assets/img/backgrounds/computer-screens.jpg)"></div>
+                            </small>
                         </div>
-                    </a>
+                    </a>-->
+                </div>
+            </div>
+        </div>
+        <div class="tabBarPrimary">
+            <div class="container">
+                <div class="nav nav-pills flex-column flex-lg-row">
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{match:['/', '/buscador'], exact: true}">
+                            <span class="fas fa-th-large text-default menu-item-icon text-center mr-2"></span>
+                            <span class="menu-item-text">EXPLORAR</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" routerLink="/carpeta-ciudadana" routerLinkActive="active" [routerLinkActiveOptions]="{exact: false}">
+                            <span class="far fa-folder-open text-default menu-item-icon text-center mr-2"></span>
+                            <span class="menu-item-text">CARPETA CIUDADANA</span>
+                        </a>
+                    </li>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Modal -->
-    <div class="collapse" id="modalID-e">
-        <div class="modal modal-static overlay overlay-op-9 overlay-primary mb-0" style="background-image: url(assets/img/backgrounds/computer-screens.jpg); background-size: cover">
-            <div class="modal-dialog modal-lg" style="max-width: 1140px" role="document">
-                <div class="modal-contents">
-                    <div class="modal-body">
-                        <button type="button" class="close text-white" data-toggle="collapse" data-target="#modalID-e" aria-expanded="false" aria-controls="modalID-e" aria-label="Close" style="top:5px; right: 5px;"> <span aria-hidden="true">&times;</span> </button>
-                        <div class="row text-left">
-                            <div class="col-md-7">
-                                <div class="media">
-                                    <div class="media-body">
-                                        <div class="media-heading">
-                                            <h2 class="texto-accesible-H2 text-white">
-                                                <a href="https://www.paraguay.gov.py/login-ciudadano" target="_blank">
-                                                    Carpeta Ciudadana e Identidad Electrónica ID-e <!--<small class="text-white">(ID-e)</small>-->
-                                                </a>
-                                            </h2>
-                                        </div>
-                                        <p class="text-white text-justify">
-                                            Es una carpeta virtual del ciudadano a través de la cual podrá gestionar y acceder a su información personal que se encuentra en las bases de datos del estado de manera integrada y segura.
-                                        </p>
-                                        <p class="text-white">
-                                            Para acceder a la carpeta ciudadana, deberá contar con una identidad electrónica, que le permitirá acceder a varios trámites y servicios electrónicos publicados así como otros trámites y servicios electrónicos que se irán habilitando.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-5 pt-3">
-                                <p class="mb-2">
-                                    <a routerLink="/login-ciudadano" class="font-weight-bold">
-                                        <i class="fa fa-plus text-default fa-fw"></i> Iniciar Sesión →
-                                    </a>
-                                </p>
-                                <p class="mb-2">
-                                    <a routerLink="/crear-cuenta" class="font-weight-bold">
-                                        <i class="fa fa-plus text-default fa-fw"></i> Crea tu identidad electrónica →
-                                    </a>
-                                </p>
-                                <p class="mb-2">
-                                    <a routerLink="/identidad-electronica">
-                                        <i class="fa fa-bookmark text-default fa-fw"></i> ¿Qué es Identidad Electrónica?
-                                    </a>
-                                </p>
-                                <p class="mb-2">
-                                    <a routerLink="/identidad-electronica/preguntas-frecuentes-creacion">
-                                        <i class="fa fa-question text-default fa-fw"></i> Preguntas frecuentes →
-                                    </a>
-                                </p>
-                                <p class="mb-2">
-                                    <a routerLink="/restablecer-clave">
-                                        <i class="fa fa-lock text-default fa-fw"></i> Olvidé mi clave →
-                                    </a>
-                                </p>
-                                <p class="mb-2">
-                                    <a routerLink="/identidad-electronica/terminos">
-                                        <i class="fa fa-cog text-default fa-fw"></i> Términos y Condiciones →
-                                    </a>
-                                </p>
-                                <p class="mb-2">
-                                    <a href="https://agendarturno.mitic.gov.py" target="_blank">
-                                        <i class="fa fa-calendar-alt text-default fa-fw"></i> Agendar Turno →
-                                    </a>
-                                </p>
-                                <p class="mb-1">
-                                    <a routerLink="/categoria/1/resultado">
-                                        <i class="fa fa-id-card text-default fa-fw"></i> Servicios con Identidad Electrónica →
-                                    </a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <div #topBusqueda id="topBusqueda"></div>
 
 <div id="content" class="pb-0" *ngIf="searchActive">
     <div class="container pb-6">
-        <h3 class="texto-accesible-H3 title-divider">
-            <span>Resultado de búsqueda</span>
-        </h3>
+        <div class="row">
+            <div class="col-lg-8">
 
-        <div class="texto-accesible-H3 mb-3 text-primary" style="font-size:20px;">Se han encontrado
-            <b>{{countResults}}</b> coincidencias con la palabra
-            <b>"{{busqueda}}"</b> en la sección
-        </div>
 
-        <div class="texto-accesible-H3 mb-3 text-default" *ngIf="tabActive != 'categoria'">
-            <small>También puedes buscar en las secciones de: Por categoría, Datos abiertos, Información Pública.</small>
-        </div>
+                <h3 class="texto-accesible-H3 title-divider mt-2">
+                    <span>Resultado de búsqueda</span>
+                </h3>
 
-        <div class="card" style="border:0px !important;margin:0px;">
-            <ul class="nav nav-tabs tabs-center" style="border:none;">
-                <li class="nav-item" *ngIf="tabActive != 'categoria'">
-                    <a class="nav-link" [ngClass]="{'active':tabActive === 'tramites_servicios'}" (click)="searchData('tramites_servicios','search')" role="tab" data-toggle="tab">
-                        <i class="fa fa-globe" style="margin-top:-5px;" aria-hidden="true"></i> <span class="hidden-xs" style="padding:5px;">Trámites
-                            y servicios</span></a>
-                </li>
-                <li class="nav-item" style="display:none;" *ngIf="tabActive == 'categoria'">
-                    <a class="nav-link" [ngClass]="{'active':tabActive === 'categoria'}" (click)="searchData('categoria','search')" role="tab" data-toggle="tab">
-                        <i class="fa fa-share-alt" style="margin-top:-5px;" aria-hidden="true"></i> <span class="hidden-xs" style="padding:5px;">Por
-                            categoría</span></a>
-                </li>
-                <li class="nav-item" *ngIf="tabActive != 'categoria'">
-                    <a class="nav-link" [ngClass]="{'active':tabActive === 'datos_abiertos'}" (click)="searchData('datos_abiertos','search')" role="tab" data-toggle="tab">
-                        <i class="fa fa-database" style="margin-top:-5px;" aria-hidden="true"></i> <span class="hidden-xs" style="padding:5px;">Datos
-                            Abiertos</span></a>
-                </li>
-                <li class="nav-item" *ngIf="tabActive != 'categoria'">
-                    <a class="nav-link" [ngClass]="{'active':tabActive === 'informacion_publica'}" (click)="searchData('informacion_publica','search')" role="tab" data-toggle="tab">
-                        <i class="fa fa-info" style="margin-top:-5px;" aria-hidden="true"></i> <span class="hidden-xs" style="padding:5px;">Información
-                            Pública</span></a>
-                </li>
-            </ul>
-        </div>
+                <div class="texto-accesible-H3 mb-3 text-primary" style="font-size:20px;">Se han encontrado
+                    <b>{{countResults}}</b> coincidencias con la palabra
+                    <b>"{{busqueda}}"</b>
+                </div>
 
-        <div class="tab-content">
+                <!--<div class="texto-accesible-H3 mb-3 text-default" *ngIf="tabActive != 'categoria'">
+                    <small>También puedes buscar en las secciones de: Por categoría, Datos abiertos, Información Pública.</small>
+                </div>-->
 
-            <div class="texto-accesible-H3 mb-3 py-6 text-info text-center" style="font-size:20px;" *ngIf="loading">
-                <i class="fa fa-spinner fa-spin fa-3x"></i><br><b>Buscando</b>
-            </div>
+                <div class="card" style="border:0px !important;margin:0px;">
+                    <ul class="nav nav-tabs tabs-center" style="border:none;">
+                        <li class="nav-item" *ngIf="tabActive != 'categoria'">
+                            <a class="nav-link" [ngClass]="{'active':tabActive === 'tramites_servicios'}" (click)="searchData('tramites_servicios','search')" role="tab" data-toggle="tab">
+                                <i class="fa fa-globe" style="margin-top:-5px;" aria-hidden="true"></i> <span class="hidden-xs" style="padding:5px;">Trámites
+                                    y servicios</span></a>
+                        </li>
+                        <li class="nav-item" style="display:none;" *ngIf="tabActive == 'categoria'">
+                            <a class="nav-link" [ngClass]="{'active':tabActive === 'categoria'}" (click)="searchData('categoria','search')" role="tab" data-toggle="tab">
+                                <i class="fa fa-share-alt" style="margin-top:-5px;" aria-hidden="true"></i> <span class="hidden-xs" style="padding:5px;">Por
+                                    categoría</span></a>
+                        </li>
+                        <li class="nav-item" *ngIf="tabActive != 'categoria'">
+                            <a class="nav-link" [ngClass]="{'active':tabActive === 'datos_abiertos'}" (click)="searchData('datos_abiertos','search')" role="tab" data-toggle="tab">
+                                <i class="fa fa-database" style="margin-top:-5px;" aria-hidden="true"></i> <span class="hidden-xs" style="padding:5px;">Datos
+                                    Abiertos</span></a>
+                        </li>
+                        <li class="nav-item" *ngIf="tabActive != 'categoria'">
+                            <a class="nav-link" [ngClass]="{'active':tabActive === 'informacion_publica'}" (click)="searchData('informacion_publica','search')" role="tab" data-toggle="tab">
+                                <i class="fa fa-info" style="margin-top:-5px;" aria-hidden="true"></i> <span class="hidden-xs" style="padding:5px;">Información
+                                    Pública</span></a>
+                        </li>
+                    </ul>
+                </div>
 
-            <div class="texto-accesible-H3 mb-3 py-6 text-danger text-center" style="font-size:20px;" *ngIf="!countResults && !loading">
-                <i class="fa fa-dizzy fa-3x"></i><br>No se encontró resultados
-            </div>
+                <div class="tab-content">
 
-            <!--TRAMITES Y SERVICIOS-->
-            <div role="tabpanel" id="tramites_servicios" *ngIf="tabActive === 'tramites_servicios' && countResults > 0">
-                <h3 class="visible-xs text-center text-primary mt-2 mb-4">Trámites y servicios</h3>
-                <div class="card m-0" style="border:0;" *ngFor="let resultado of resultTab2.resultados | paginate: { itemsPerPage: 10, currentPage: nroTramitesServicios }; let i = index">
-                    <div class="card-block p-0 pos-relative row">
-                        <div class="col-md-12 d-flex flex-column align-items-start">
-                            <h4 class="texto-accesible-H4 mb-2">
-                                <a *ngIf="resultado.origen == 'INSTITUCION'" [routerLink]="['/oee/'+resultado.linkDatos]" style="font-size:16px;font-weight:400;color:#1a0dab;font-family:arial,sans-serif;cursor:pointer;">{{resultado.titulo}}</a>
-                                <a *ngIf="resultado.origen == 'SERVICIO'" [routerLink]="['/oee/'+resultado.linkDatos+'/'+resultado.id]" style="font-size:16px;font-weight:400;color:#1a0dab;font-family:arial,sans-serif;cursor:pointer;">{{resultado.titulo}}</a>
-                            </h4>
-                            <a style="cursor:pointer;color:green;font-family:arial,sans-serif;font-size:13px;" [routerLink]="['/oee/'+resultado.linkDatos+'/'+resultado.id]">
-                                {{getUrlServicio(resultado.linkDatos, resultado.id)}}
-                            </a>
-                            <p class="texto-accesible-p text-justify" style="font-size:13px;" [innerHTML]="(resultado.descripcion | slice:0:300) +'..' "></p>
-                            <div class="mt-auto">
-                                <button class="btn btn-link btn-sm" type="button"><i class="fa fa-tag"></i> {{resultado.tipo}}</button>
+                    <div class="texto-accesible-H3 mb-3 py-6 text-info text-center" style="font-size:20px;" *ngIf="loading">
+                        <i class="fa fa-spinner fa-spin fa-3x"></i><br><b>Buscando</b>
+                    </div>
+
+                    <div class="texto-accesible-H3 mb-3 py-6 text-danger text-center" style="font-size:20px;" *ngIf="!countResults && !loading">
+                        <i class="fa fa-dizzy fa-3x"></i><br>No se encontró resultados
+                    </div>
+
+                    <!--TRAMITES Y SERVICIOS-->
+                    <div role="tabpanel" id="tramites_servicios" *ngIf="tabActive === 'tramites_servicios' && countResults > 0">
+                        <h3 class="visible-xs text-center text-primary mt-2 mb-4">Trámites y servicios</h3>
+                        <div class="bg-white mb-4 p-3 rounded shadow" *ngFor="let resultado of resultTab2.resultados | paginate: { itemsPerPage: 10, currentPage: nroTramitesServicios }; let i = index">
+                            <div class="row">
+                                <div class="col-md-12 d-flex flex-column align-items-start">
+                                    <h4 class="texto-accesible-H4 mb-2">
+                                        <a *ngIf="resultado.origen == 'INSTITUCION'" [routerLink]="['/oee/'+resultado.linkDatos]" style="font-size:16px;font-weight:400;color:#1a0dab;font-family:arial,sans-serif;cursor:pointer;">{{resultado.titulo}}</a>
+                                        <a *ngIf="resultado.origen == 'SERVICIO'" [routerLink]="['/oee/'+resultado.linkDatos+'/'+resultado.id]" style="font-size:16px;font-weight:400;color:#1a0dab;font-family:arial,sans-serif;cursor:pointer;">{{resultado.titulo}}</a>
+                                    </h4>
+                                    <a style="cursor:pointer;color:green;font-family:arial,sans-serif;font-size:13px;" [routerLink]="['/oee/'+resultado.linkDatos+'/'+resultado.id]">
+                                        {{getUrlServicio(resultado.linkDatos, resultado.id)}}
+                                    </a>
+                                    <p class="texto-accesible-p text-justify" style="font-size:13px;" [innerHTML]="(resultado.descripcion | slice:0:300) +'..' "></p>
+                                    <div class="mt-auto">
+                                        <button class="btn btn-link btn-sm" type="button"><i class="fa fa-tag"></i> {{resultado.tipo}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <pagination-controls style="text-align:center;" (click)="scrollTop()" (pageChange)="nroTramitesServicios = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                        </div>
+                    </div>
+
+                    <!--POR CATEGORIA-->
+                    <div role="tabpanel" id="categoria" *ngIf="tabActive === 'categoria' && countResults > 0">
+                        <h3 class="visible-xs text-center text-primary mt-2 mb-4">Por categoría</h3>
+                        <div class="card m-0" style="border:0;" *ngFor="let resultado of resultTab5.resultados | orderBy: keyCategoria : reverseCategoria | paginate: { itemsPerPage: 10, currentPage: nroCategoria }; let i = index">
+                            <div class="card-block p-0 pos-relative row">
+                                <div class="col-md-12 d-flex flex-column align-items-start">
+                                    <h4 class="texto-accesible-H4 mb-2">
+                                        <a [routerLink]="['/oee/'+resultado.linkDatos]" style="font-size:16px;font-weight:400;color:#1a0dab;font-family:arial,sans-serif;cursor:pointer;" *ngIf="resultado.origen == 'INSTITUCION'">{{resultado.titulo}}</a>
+                                        <a [routerLink]="['/oee/'+resultado.linkDatos+'/'+resultado.id]" style="font-size:16px;font-weight:400;color:#1a0dab;font-family:arial,sans-serif;cursor:pointer;" *ngIf="resultado.origen == 'SERVICIO'">{{resultado.titulo}}</a>
+                                    </h4>
+                                    <a style="cursor:pointer;color:green;font-family:arial,sans-serif;font-size:13px;" [routerLink]="['/oee/'+resultado.linkDatos+'/'+resultado.id]">
+                                        {{getUrlServicio(resultado.linkDatos, resultado.id)}}
+                                    </a>
+                                    <!--
+                                    <p class="pos-md-absolute pos-t pos-r mr-3 text-md-right">
+                                        <i class="fas fa-star text-primary"></i>
+                                        <i class="fas fa-star text-primary"></i>
+                                        <i class="fas fa-star text-primary"></i>
+                                        <i class="fas fa-star text-primary"></i>
+                                        <i class="far fa-star text-primary"></i>
+                                    </p>
+                                    -->
+                                    <p class="texto-accesible-p text-justify" style="font-size:13px;" [innerHTML]="(resultado.descripcion | slice:0:300) +'..' "></p>
+                                    <div class="mt-auto">
+                                        <button class="btn btn-link btn-sm" type="button"><i class="fa fa-tag"></i> {{resultado.tipo}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <pagination-controls style="text-align:center;" (click)="scrollTop()" (pageChange)="nroCategoria = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                        </div>
+                    </div>
+
+                    <!--DATOS ABIERTOS-->
+                    <div role="tabpanel" id="datos_abiertos" *ngIf="tabActive === 'datos_abiertos' && countResults > 0">
+                        <h3 class="visible-xs text-center text-primary mt-2 mb-4">Datos abiertos</h3>
+                        <div class="card mb-0" style="border:0;">
+                            <div class="card-block p-3 pos-relative row">
+                                <div class="col-md-12 d-flex flex-column">
+                                    <table class="table table-striped table-hovered table-responsive table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <span style="font-weight:bold;font-size:14px;">Título</span>
+                                                </th>
+                                                <th>
+                                                    <span style="font-weight:bold;font-size:14px;">Descripción</span>
+                                                </th>
+                                                <th>
+                                                    <span style="font-weight:bold;font-size:14px;">Enlace</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let resultado of resultTab3.resultados | orderBy: keyDatosAbiertos : reverseDatosAbiertos | paginate: { itemsPerPage: 10, currentPage: nroDatosAbiertos }; let i = index">
+                                                <td style="word-break:break-word;">{{resultado.title}}</td>
+                                                <td style="word-break:break-word;">{{resultado.notes}}</td>
+                                                <td>
+                                                    <a [href]="getUrlDatosAbiertos(resultado.url)" class="btn btn-default btn-link" target="_blank">
+                                                        <i class="fa fa-link mr-2"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <pagination-controls style="text-align:center;" (click)="scrollTop()" (pageChange)="nroDatosAbiertos = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="mt-3">
-                    <pagination-controls style="text-align:center;" (click)="scrollTop()" (pageChange)="nroTramitesServicios = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-                </div>
-            </div>
 
-            <!--POR CATEGORIA-->
-            <div role="tabpanel" id="categoria" *ngIf="tabActive === 'categoria' && countResults > 0">
-                <h3 class="visible-xs text-center text-primary mt-2 mb-4">Por categoría</h3>
-                <div class="card m-0" style="border:0;" *ngFor="let resultado of resultTab5.resultados | orderBy: keyCategoria : reverseCategoria | paginate: { itemsPerPage: 10, currentPage: nroCategoria }; let i = index">
-                    <div class="card-block p-0 pos-relative row">
-                        <div class="col-md-12 d-flex flex-column align-items-start">
-                            <h4 class="texto-accesible-H4 mb-2">
-                                <a [routerLink]="['/oee/'+resultado.linkDatos]" style="font-size:16px;font-weight:400;color:#1a0dab;font-family:arial,sans-serif;cursor:pointer;" *ngIf="resultado.origen == 'INSTITUCION'">{{resultado.titulo}}</a>
-                                <a [routerLink]="['/oee/'+resultado.linkDatos+'/'+resultado.id]" style="font-size:16px;font-weight:400;color:#1a0dab;font-family:arial,sans-serif;cursor:pointer;" *ngIf="resultado.origen == 'SERVICIO'">{{resultado.titulo}}</a>
-                            </h4>
-                            <a style="cursor:pointer;color:green;font-family:arial,sans-serif;font-size:13px;" [routerLink]="['/oee/'+resultado.linkDatos+'/'+resultado.id]">
-                                {{getUrlServicio(resultado.linkDatos, resultado.id)}}
-                            </a>
-                            <!--
-                            <p class="pos-md-absolute pos-t pos-r mr-3 text-md-right">
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="fas fa-star text-primary"></i>
-                                <i class="far fa-star text-primary"></i>
-                            </p>
-                            -->
-                            <p class="texto-accesible-p text-justify" style="font-size:13px;" [innerHTML]="(resultado.descripcion | slice:0:300) +'..' "></p>
-                            <div class="mt-auto">
-                                <button class="btn btn-link btn-sm" type="button"><i class="fa fa-tag"></i> {{resultado.tipo}}</button>
+                    <!--INFORMACION PUBLICA-->
+                    <div role="tabpanel" id="informacion_publica" *ngIf="tabActive === 'informacion_publica' && countResults > 0">
+                        <h3 class="visible-xs text-center text-primary mt-2 mb-4">Información Pública</h3>
+                        <div class="card mb-0" style="border:0;">
+                            <div class="card-block p-3 pos-relative row">
+                                <div class="col-md-12 d-flex flex-column">
+                                    <table class="table table-striped table-hovered table-responsive table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    <span style="font-weight:bold;font-size:14px;">Nro.</span>
+                                                </th>
+                                                <th>
+                                                    <span style="font-weight:bold;font-size:14px;">Fecha de la Solicitud</span>
+                                                </th>
+                                                <th>
+                                                    <span style="font-weight:bold;font-size:14px;">Titulo de la Solicitud</span>
+                                                </th>
+                                                <th>
+                                                    <span style="font-weight:bold;font-size:14px;">Institución</span>
+                                                </th>
+                                                <th>
+                                                    <span style="font-weight:bold;font-size:14px;">Estado</span>
+                                                </th>
+                                                <th>
+                                                    <span style="font-weight:bold;font-size:14px;">Enlace</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let resultado of resultTab4.resultados | orderBy: keyAIP : reverseAIP | paginate: { itemsPerPage: 10, currentPage: nroAIP }; let i = index">
+                                                <td style="word-break:break-word;min-width:100px;">{{resultado.id}}</td>
+                                                <td style="word-break:break-word;">{{resultado.fecha}}</td>
+                                                <td style="word-break:break-word;">{{resultado.titulo}}</td>
+                                                <td style="word-break:break-word;">{{resultado.institucion.nombre}}</td>
+                                                <td [ngStyle]="{'color':resultado.estado.nombre === 'NO_RESPONDIDO' ? '#a94442': '#3c763d'}">{{resultado.estado.nombre}}</td>
+                                                <td>
+                                                    <a [href]="domSanitizer.bypassSecurityTrustResourceUrl(urlAIP + resultado.id)" class="btn btn-default btn-link" target="_blank">
+                                                        <i class="fa fa-link mr-2"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <pagination-controls style="text-align:center;" (click)="scrollTop()" (pageChange)="nroAIP = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="mt-3">
-                    <pagination-controls style="text-align:center;" (click)="scrollTop()" (pageChange)="nroCategoria = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-                </div>
-            </div>
 
-            <!--DATOS ABIERTOS-->
-            <div role="tabpanel" id="datos_abiertos" *ngIf="tabActive === 'datos_abiertos' && countResults > 0">
-                <h3 class="visible-xs text-center text-primary mt-2 mb-4">Datos abiertos</h3>
-                <div class="card mb-0" style="border:0;">
-                    <div class="card-block p-3 pos-relative row">
-                        <div class="col-md-12 d-flex flex-column">
-                            <table class="table table-striped table-hovered table-responsive table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <span style="font-weight:bold;font-size:14px;">Título</span>
-                                        </th>
-                                        <th>
-                                            <span style="font-weight:bold;font-size:14px;">Descripción</span>
-                                        </th>
-                                        <th>
-                                            <span style="font-weight:bold;font-size:14px;">Enlace</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let resultado of resultTab3.resultados | orderBy: keyDatosAbiertos : reverseDatosAbiertos | paginate: { itemsPerPage: 10, currentPage: nroDatosAbiertos }; let i = index">
-                                        <td style="word-break:break-word;">{{resultado.title}}</td>
-                                        <td style="word-break:break-word;">{{resultado.notes}}</td>
-                                        <td>
-                                            <a [href]="getUrlDatosAbiertos(resultado.url)" class="btn btn-default btn-link" target="_blank">
-                                                <i class="fa fa-link mr-2"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <pagination-controls style="text-align:center;" (click)="scrollTop()" (pageChange)="nroDatosAbiertos = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-                        </div>
-                    </div>
                 </div>
-            </div>
 
-            <!--INFORMACION PUBLICA-->
-            <div role="tabpanel" id="informacion_publica" *ngIf="tabActive === 'informacion_publica' && countResults > 0">
-                <h3 class="visible-xs text-center text-primary mt-2 mb-4">Información Pública</h3>
-                <div class="card mb-0" style="border:0;">
-                    <div class="card-block p-3 pos-relative row">
-                        <div class="col-md-12 d-flex flex-column">
-                            <table class="table table-striped table-hovered table-responsive table-condensed">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            <span style="font-weight:bold;font-size:14px;">Nro.</span>
-                                        </th>
-                                        <th>
-                                            <span style="font-weight:bold;font-size:14px;">Fecha de la Solicitud</span>
-                                        </th>
-                                        <th>
-                                            <span style="font-weight:bold;font-size:14px;">Titulo de la Solicitud</span>
-                                        </th>
-                                        <th>
-                                            <span style="font-weight:bold;font-size:14px;">Institución</span>
-                                        </th>
-                                        <th>
-                                            <span style="font-weight:bold;font-size:14px;">Estado</span>
-                                        </th>
-                                        <th>
-                                            <span style="font-weight:bold;font-size:14px;">Enlace</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let resultado of resultTab4.resultados | orderBy: keyAIP : reverseAIP | paginate: { itemsPerPage: 10, currentPage: nroAIP }; let i = index">
-                                        <td style="word-break:break-word;min-width:100px;">{{resultado.id}}</td>
-                                        <td style="word-break:break-word;">{{resultado.fecha}}</td>
-                                        <td style="word-break:break-word;">{{resultado.titulo}}</td>
-                                        <td style="word-break:break-word;">{{resultado.institucion.nombre}}</td>
-                                        <td [ngStyle]="{'color':resultado.estado.nombre === 'NO_RESPONDIDO' ? '#a94442': '#3c763d'}">{{resultado.estado.nombre}}</td>
-                                        <td>
-                                            <a [href]="domSanitizer.bypassSecurityTrustResourceUrl(urlAIP + resultado.id)" class="btn btn-default btn-link" target="_blank">
-                                                <i class="fa fa-link mr-2"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <pagination-controls style="text-align:center;" (click)="scrollTop()" (pageChange)="nroAIP = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
+            </div>
+            <div class="col-lg-4">
+                <tramites></tramites>
+            </div>
         </div>
 
     </div>

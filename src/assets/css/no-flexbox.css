@@ -1,3 +1,24 @@
+/*******************************************************
+ *
+ * Custom theme code styles
+ * Written by Themelize.me (http://themelize.me)
+ *
+ * Removes flexbox support from Bootstrap
+ * 
+ *******************************************************/
+
+/*******************************************************
+ * Custom theme code styles
+ * Written by Themelize.me (http://themelize.me)
+ *
+ * Includes the base variables & mixins needed for all
+ * scss files
+ *******************************************************/
+
+/*******************************************************
+ * General Bootstrap flexbox overrides
+ *******************************************************/
+
 .media {
   display: block;
 }
@@ -72,8 +93,8 @@
 
 .navbar::after {
   display: block;
-  content: "";
   clear: both;
+  content: "";
 }
 
 .navbar,
@@ -237,8 +258,8 @@
 .nav-tabs::after,
 .nav-pill::after {
   display: block;
-  content: "";
   clear: both;
+  content: "";
 }
 
 .nav-tabs .nav-item,
@@ -257,8 +278,8 @@
 
 .btn-toolbar::after {
   display: block;
-  content: "";
   clear: both;
+  content: "";
 }
 
 .btn-toolbar .btn-group,
@@ -327,96 +348,53 @@
 }
 
 .container {
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 15px;
+  width: 100%;
   padding-right: 15px;
-}
-
-.container::after {
-  display: block;
-  content: "";
-  clear: both;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 @media (min-width: 576px) {
   .container {
-    width: 540px;
-    max-width: 100%;
+    max-width: 540px;
   }
 }
 
 @media (min-width: 768px) {
   .container {
-    width: 720px;
-    max-width: 100%;
+    max-width: 720px;
   }
 }
 
 @media (min-width: 992px) {
   .container {
-    width: 960px;
-    max-width: 100%;
+    max-width: 960px;
   }
 }
 
 @media (min-width: 1200px) {
   .container {
-    width: 1140px;
-    max-width: 100%;
+    max-width: 1140px;
   }
 }
 
 .container-fluid {
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 15px;
+  width: 100%;
   padding-right: 15px;
-}
-
-.container-fluid::after {
-  display: block;
-  content: "";
-  clear: both;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .row {
-  margin-right: -15px;
-  margin-left: -15px;
+  display: block;
 }
 
 .row::after {
   display: block;
-  content: "";
   clear: both;
-}
-
-@media (min-width: 576px) {
-  .row {
-    margin-right: -15px;
-    margin-left: -15px;
-  }
-}
-
-@media (min-width: 768px) {
-  .row {
-    margin-right: -15px;
-    margin-left: -15px;
-  }
-}
-
-@media (min-width: 992px) {
-  .row {
-    margin-right: -15px;
-    margin-left: -15px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .row {
-    margin-right: -15px;
-    margin-left: -15px;
-  }
+  content: "";
 }
 
 .no-gutters {
@@ -1405,8 +1383,8 @@
 
 .modal-header::after {
   display: block;
-  content: "";
   clear: both;
+  content: "";
 }
 
 .modal-header .modal-title {
@@ -1442,7 +1420,6 @@
   margin-right: -4px;
 }
 
-
 /*******************************************************
  * Custom AppStrap elements
  *******************************************************/
@@ -1453,8 +1430,8 @@
 
 .header-inner::after {
   display: block;
-  content: "";
   clear: both;
+  content: "";
 }
 
 .header-inner .header-block-flex>* {
@@ -1539,7 +1516,7 @@
   }
 }
 
-#jPanelMenu-menu .nav .nav-item,
-#jPanelMenu-menu .nav .nav-link {
+.navbar-offcanvas .nav .nav-item,
+.navbar-offcanvas .nav .nav-link {
   display: block;
 }

@@ -6,6 +6,7 @@ import { AppConfig } from "app/app.config";
  */
 import { Page404Component } from "./pages/errors/page-404";
 import { BuscadorComponent } from "./pages/buscador/buscador.component";
+import { BuscadorResultadoComponent } from "./pages/buscador/buscador-resultado.component";
 import { FooterComponent } from "./pages/footer/footer.component";
 import { HeaderComponent } from "./pages/header/header.component";
 
@@ -19,6 +20,7 @@ import { PortadaComponent } from "./pages/portada/portada.component";
 import { SectoresComponent } from './pages/portada/sectores/sectores.component';
 import { SitiosInteresComponent } from './pages/portada/sitios-interes/sitios-interes.component';
 import { TramitesComponent } from './pages/portada/tramites/tramites.component';
+import { EstadisticasComponent } from './pages/portada/estadisticas/estadisticas.component';
 import { CategoriasTramitesComponent } from "./pages/portada/categorias-tramites/categorias.component";
 import { TramitesOnlineComponent } from "./pages/portada/tramites-online/tramites-online.component";
 import { TramitesOnlineTemplateComponent } from "./pages/portada/tramites-online/tramites-online-template.component";
@@ -107,6 +109,7 @@ export const appRoutes: Routes = [
   { path: "oee/:urlOee", component: OeeComponent },
   { path: "oee/:urlOee/:idServicio", component: OeeServicioComponent },
   
+  { path: "buscador/:tab/:origen/:busqueda", component: BuscadorResultadoComponent },
   { path: "categoria/:filtro/resultado", component: CategoriaTramiteResultadoComponent },
   { path: "sobre-portal", component: PortalComponent },
   { path: "suscripcion", component: SuscripcionComponent },
@@ -184,7 +187,9 @@ export const routesComponents = [
   SectoresComponent,
   SitiosInteresComponent,
   TramitesComponent,
+  EstadisticasComponent,
   BuscadorComponent,
+  BuscadorResultadoComponent,
   PoderesDelEstadoComponent,
   OeeComponent,
   OeeServicioComponent,

@@ -1,42 +1,103 @@
-<div class="nav nav-section-menu">
-    <a class="nav-link nav-link-custom pr-1" *ngIf="token && ciudadano" style="font-size: 15px;" routerLink="/perfil-ciudadano" routerLinkActive="active">
-        <span class="far fa-user-circle text-default menu-item-icon text-center fa-fw"></span> 
-        <span class="menu-item-text">Mi Perfil</span>
-    </a>
+<div class="barra_lateral_ide" style="border-radius: 30px; margin-top: 40px;">
 
-    <a class="nav-link nav-link-custom pr-1" *ngIf="token && ciudadano" style="font-size: 15px;" routerLink="/carpeta-ciudadana" routerLinkActive="active">
-        <span class="far fa-folder-open text-default menu-item-icon text-center fa-fw"></span> 
-        <span class="menu-item-text">Carpeta Ciudadana</span>
-    </a>
+    <div *ngIf="!token || !ciudadano">
+        <div style="border-radius: 30px 30px 0 30px; background: #252A41; padding: 30px; position: relative;">
+            <h4 class="text-white">Carpeta Ciudadana e Identidad Electrónica ID-e</h4>
+            <p class="text-white mb-0">Es una carpeta virtual del ciudadano a través de la cual podrá gestionar y acceder a su información personal que se encuentra en las bases de datos del estado de manera integrada y segura.</p>
+        </div>
+        <div style="border-radius: 0 0 30px 30px; background: #E7E8EF; padding-top: 15px; margin-top:-30px">
+            <div class="nav nav-section-menu pb-3">
+                <a class="nav-link nav-link-custom pl-4" style="font-size: 15px;" routerLink="/login-ciudadano" routerLinkActive="active">
+                    <span class="fas fa-user text-default menu-item-icon text-center fa-fw"></span>
+                    <span class="menu-item-text">INICIAR SESIÓN</span>
+                </a>
+                <a class="nav-link nav-link-custom pl-4" style="font-size: 15px;" routerLink="/crear-cuenta" routerLinkActive="active">
+                    <span class="fas fa-plus text-default menu-item-icon text-center fa-fw"></span>
+                    <span class="menu-item-text">CREA TU IDENTIDAD ELECTRÓNICA</span>
+                </a>
+                <a routerLink="/restablecer-clave" class="nav-link nav-link-custom pl-4" style="font-size: 15px;">
+                    <span class="fa fa-lock text-default menu-item-icon text-center fa-fw"></span>
+                    <span class="menu-item-text">OLVIDÉ MI CLAVE</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="token || ciudadano">
+        <div style="border-radius: 30px 30px 0 30px; background: #252A41; padding: 30px; position: relative;">
+            <div *ngIf="fotoPerfil" style="text-align: center;">
+                <img style="width: 160px; height: 160px; margin-top:-80px; background-size: cover;
+                                                        border-radius: 50%; border: 4px solid #fff;
+                                                        box-shadow: 1px 1px 1px 1px #ccc;
+                                                        object-fit: cover;object-position: center right;" [src]="fotoPerfil" alt="perfil">
+            </div>
+            <div *ngIf="!fotoPerfil" style="text-align: center;">
+                <img style="width: 160px; height: 160px; margin-top:-80px; background-size: cover;
+                                                        border-radius: 50%; border: 4px solid #fff;
+                                                        box-shadow: 1px 1px 1px 1px #ccc;
+                                                        object-fit: cover;object-position: center right;" src="assets/img/profile.png" alt="perfil">
+            </div>
+            <h3 class="text-white mt-4 text-center">{{ciudadano.nombres}} {{ciudadano.apellidos}}</h3>
+        </div>
+        <div style="border-radius: 0 0 30px 30px; background: #E7E8EF; padding-top: 15px; margin-top:-30px">
+            <div class="nav nav-section-menu pb-3">
+                <a class="nav-link nav-link-custom pl-4" *ngIf="token && ciudadano" style="font-size: 15px;" routerLink="/perfil-ciudadano" routerLinkActive="active">
+                    <span class="far fa-user-circle text-default menu-item-icon text-center fa-fw"></span>
+                    <span class="menu-item-text">MI PERFIL</span>
+                </a>
+                <a class="nav-link nav-link-custom pl-4" *ngIf="token && ciudadano" style="font-size: 15px;" routerLink="/carpeta-ciudadana" routerLinkActive="active">
+                    <span class="far fa-folder-open text-default menu-item-icon text-center fa-fw"></span>
+                    <span class="menu-item-text">CARPETA CIUDADANA</span>
+                </a>
+                <a class="nav-link nav-link-custom pl-4" *ngIf="token && ciudadano" style="font-size: 15px; cursor:pointer" (click)="logout()" routerLinkActive="active">
+                    <span class="fas fa-times text-default menu-item-icon text-center fa-fw"></span>
+                    <span class="menu-item-text">CERRAR SESIÓN</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="nav nav-section-menu py-4">
+        <a routerLink="/identidad-electronica" class="nav-link nav-link-custom pl-4" style="font-size: 15px;">
+            <span class="fa fa-info text-default menu-item-icon text-center fa-fw"></span>
+            <span class="menu-item-text">¿QUÉ ES IDENTIDAD ELECTRÓNICA?</span>
+        </a>
 
-    <a class="nav-link nav-link-custom pr-1" *ngIf="!token || !ciudadano" style="font-size: 15px;" routerLink="/documentos" routerLinkActive="active">
-        <span class="far fa-folder-open text-default menu-item-icon text-center fa-fw"></span> 
-        <span class="menu-item-text">Documentos</span>
-    </a>
+        <a class="nav-link nav-link-custom pl-4" *ngIf="!token || !ciudadano" style="font-size: 15px;" routerLink="/documentos" routerLinkActive="active">
+            <span class="fas fa-file text-default menu-item-icon text-center fa-fw"></span>
+            <span class="menu-item-text">DOCUMENTOS</span>
+        </a>
 
-    <a class="nav-link nav-link-custom pr-1" style="font-size: 15px;" routerLink="/otros-tramites-en-linea" routerLinkActive="active">
-        <span class="far fa-copy text-default menu-item-icon text-center fa-fw"></span> 
-        <span class="menu-item-text">Trámites en Línea</span>
-    </a>
+        <a class="nav-link nav-link-custom pl-4" style="font-size: 15px;" routerLink="/otros-tramites-en-linea" routerLinkActive="active">
+            <span class="fas fa-copy text-default menu-item-icon text-center fa-fw"></span>
+            <span class="menu-item-text">TRÁMITES EN LÍNEA</span>
+        </a>
 
-    <a class="nav-link nav-link-custom pr-1" style="font-size: 15px;" routerLink="/marco-legal" routerLinkActive="active">
-        <span class="fab fa-leanpub text-default menu-item-icon text-center fa-fw"></span> 
-        <span class="menu-item-text">Marco Legal</span>
-    </a>
 
-    <a class="nav-link nav-link-custom pr-1" *ngIf="token && ciudadano" style="font-size: 15px;" (click)="logout()" routerLinkActive="active">
-        <span class="fas fa-times text-default menu-item-icon text-center fa-fw"></span> 
-        <span class="menu-item-text">Cerrar Sesión</span>
-    </a>
-</div>
+        <a routerLink="/identidad-electronica/preguntas-frecuentes-creacion" class="nav-link nav-link-custom pl-4" style="font-size: 15px;">
+            <span class="fa fa-question text-default menu-item-icon text-center fa-fw"></span>
+            <span class="menu-item-text">PREGUNTAS FRECUENTES</span>
+        </a>
 
-<div *ngIf="fotoPerfil">
-    <h4 class="mb-2 text-primary fondo-title-profile">Foto de Perfil</h4>
-    <div class="card" style="border:none;">
-        <img class="card-img-center" style="max-width: 200px; height: auto; background-size: cover;
-                                            border-radius: 50%; border: 4px solid #fff;
-                                            box-shadow: 1px 1px 1px 1px #ccc;
-                                            object-fit: cover;object-position: center right;" [src]="fotoPerfil" alt="perfil">
-        <div class="card-body"></div>
+
+
+        <a href="https://agendarturno.mitic.gov.py" target="_blank" class="nav-link nav-link-custom pl-4" style="font-size: 15px;">
+            <span class="fa fa-calendar-alt text-default menu-item-icon text-center fa-fw"></span>
+            <span class="menu-item-text">AGENDAR TURNO</span>
+        </a>
+
+        <a routerLink="/categoria/1/resultado" class="nav-link nav-link-custom pl-4" style="font-size: 15px;">
+            <span class="fa fa-id-card text-default menu-item-icon text-center fa-fw"></span>
+            <span class="menu-item-text">SERVICIOS CON ID-e</span>
+        </a>
+
+
+        <a class="nav-link nav-link-custom pl-4" style="font-size: 15px;" routerLink="/marco-legal" routerLinkActive="active">
+            <span class="fab fa-leanpub text-default menu-item-icon text-center fa-fw"></span>
+            <span class="menu-item-text">MARCO LEGAL</span>
+        </a>
+
+        <a routerLink="/identidad-electronica/terminos" class="nav-link nav-link-custom pl-4" style="font-size: 15px;">
+            <span class="fa fa-cog text-default menu-item-icon text-center fa-fw"></span>
+            <span class="menu-item-text">TÉRMINOS Y CONDICIONES</span>
+        </a>
     </div>
 </div>

@@ -18,7 +18,7 @@ export class TramitesOnlineTemplateComponent implements OnInit {
   cantidadTramites: number = 0;
 
   currentPage: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 7;
   cantidadInitPorPagina: number = 0;
   cantidadPorPagina: number = 0;
 

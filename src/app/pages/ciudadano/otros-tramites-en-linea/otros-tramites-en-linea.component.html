@@ -1,22 +1,14 @@
-<!--<div [style.padding.px]="(messageService.buscadorVisible) ? messageService.dividerDefault : messageService.divider"></div>-->
-<div id="page-header" class="bg-gradient bg-shadow">
-    <div class="container">
-        <div class="header-text clearfix">
-            <h3 class="mb-0"><span class="far fa-copy text-default menu-item-icon text-center fa-fw"></span> Trámites en Línea</h3>
-            <!--<buscar-informacion [hidden]="true" [hiddenButton]="true"></buscar-informacion>-->
-        </div>
-    </div>
-</div>
+<buscador-widget class="px-0"></buscador-widget>
 
 <div class="content pb-4">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 py-2">
+                <tramites-online-template></tramites-online-template>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <menu-ciudadano></menu-ciudadano>
             </div>
-            <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12">
-                <tramites-online-template></tramites-online-template>
-            </div>        
-        </div>    
-    </div>    
+        </div>
+    </div>
 </div>

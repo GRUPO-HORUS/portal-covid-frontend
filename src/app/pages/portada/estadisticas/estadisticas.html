@@ -1,0 +1,49 @@
+<div class="container pt-6 pb-4">
+    <div class="row">
+        <div class="col">
+            <a style="cursor:pointer;">
+                <div class="text-center p-2 rounded mb-3">
+                    <i class="fa fa-file text-primary fa-2x mb-2"></i>
+                    <h2 data-toggle="count-to" class="font-weight-bold pt-1" attr.data-to="{{cantidadTramites}}" data-from="0">{{ cantidadTramites }}</h2>
+                    <p>Total trámites registrados</p>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a routerLink="/tramites-online">
+                <div class="text-center p-2 rounded mb-3">
+                    <i class="fa fa-globe text-primary fa-2x mb-2"></i>
+                    <h2 data-toggle="count-to" class="font-weight-bold pt-1" attr.data-to="{{ totalTramiteOnline }}" data-from="0">{{ totalTramiteOnline }}</h2>
+                    <p>Total de trámites en línea</p>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a style="cursor:pointer;" (click)="searchDataCategoria(idClasificadorIE)">
+                <div class="text-center p-2 rounded mb-3">
+                    <i class="fa fa-id-card text-primary fa-2x mb-2"></i>
+                    <h2 data-toggle="count-to" class="font-weight-bold pt-1" attr.data-to="{{ cantidadTramitesIE }}" data-from="0">{{ cantidadTramitesIE }}</h2>
+                    <p>Trámites con Identidad Electrónica</p>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a style="cursor:pointer;" routerLink="/estadisticas-portal">
+                <div class="text-center p-2 rounded mb-3">
+                    <i class="fa fa-users text-primary fa-2x mb-2"></i>
+                    <h2 data-toggle="count-to" class="font-weight-bold pt-1" attr.data-to="{{ categoriaPersonasConIE }}" data-from="0">{{ categoriaPersonasConIE }}</h2>
+                    <p>Total Personas con Identidad Electrónica</p>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a style="cursor:pointer;" routerLink="/estadisticas-portal">
+                <div class="text-center p-2 rounded mb-3">
+                    <i class="fa fa-bars text-primary fa-2x mb-2"></i>
+                    <h2 data-toggle="count-to" class="font-weight-bold pt-1" attr.data-to="{{ cantidadEstadistica }}" data-from="0">{{ cantidadEstadistica }}</h2>
+                    <p>Otras estadísticas</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

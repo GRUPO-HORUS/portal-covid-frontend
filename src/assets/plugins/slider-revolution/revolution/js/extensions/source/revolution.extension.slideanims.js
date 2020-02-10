@@ -1,6 +1,6 @@
 /************************************************
- * REVOLUTION 5.3 EXTENSION - SLIDE ANIMATIONS
- * @version: 1.6 (17.11.2016)
+ * REVOLUTION 5.4.2 EXTENSION - SLIDE ANIMATIONS
+ * @version: 1.7 (17.03.2017)
  * @requires jquery.themepunch.revolution.js
  * @author ThemePunch
 ************************************************/
@@ -10,7 +10,7 @@ var _R = jQuery.fn.revolution,
 	extension = {	alias:"SlideAnimations Min JS",
 					name:"revolution.extensions.slideanims.min.js",
 					min_core: "5.0",
-					version:"1.6"
+					version:"1.7"
 			  };
 
 	///////////////////////////////////////////
@@ -278,7 +278,7 @@ var getSliderTransitionParameters = function(container,comingtransition,nextsh,s
 							 ['cube-horizontal', 23, 0,20,500,'vertical',false,true,25,p2o,p2o,500,1],
 							 ['incube-horizontal', 24, 0,20,500,'vertical',false,true,26,p2io,p2io,500,1],
 							 ['turnoff-vertical', 25, 0,1,200,'horizontal',false,true,27,p2io,p2io,500,1],
-							 ['fadefromright', 14, 1,1,0,'horizontal',true,true,28,p2io,p2io,1000,1],
+							 ['fadefromright', 12, 1,1,0,'horizontal',true,true,28,p2io,p2io,1000,1],
 							 ['fadefromleft', 15, 1,1,0,'horizontal',true,true,29,p2io,p2io,1000,1],
 							 ['fadefromtop', 14, 1,1,0,'horizontal',true,true,30,p2io,p2io,1000,1],
 							 ['fadefrombottom', 13, 1,1,0,'horizontal',true,true,31,p2io,p2io,1000,1],

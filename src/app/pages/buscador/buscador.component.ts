@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 import { MessageService } from "app/services/MessageService";
 import { DomSanitizer } from "@angular/platform-browser";
 import { AppConfig } from "app/app.config";
@@ -13,6 +13,7 @@ declare var $: any;
 })
 export class BuscadorComponent implements OnInit {
 
+  @Input() public childExample: string;
   public currentUser: any;
   public urlAIP: string;
   public busqueda: any;
@@ -32,7 +33,7 @@ export class BuscadorComponent implements OnInit {
   public messageEmpty = "No se encontraron resultados coincidentes";
 
   /* PAGINACION */
-  //tramites y servicios
+  //tramites y servicios 
   nroTramitesServicios: number = 1;
   keyTramitesServicios: string = "descripcion";
   reverseTramitesServicios: boolean = false;
@@ -69,22 +70,27 @@ export class BuscadorComponent implements OnInit {
           this.busqueda = infoData.data;
           this.idData = infoData.id;
           this.searchData("tramites_servicios", infoData.origen);
-
-        } else { 
+          
+        }else{ 
           this.searchActive = false;
         }
-      } else {
+      }else{
         this.searchActive = false;
       }
-
     });
   }
 
   ngOnInit(): void {
     this.visible = true;
     this.urlAIP = this.config.URL_AIP_FRONT;
+    /*this.busqueda = "mitic";
+    this.searchData('tramites_servicios','search');*/
   }
 
+  viewScrollTop() {
+    window.scrollTo(600, 1);
+  }
+ 
   getUrlServicio(linkDatos, id) {
     let url = "";
     url = this.config.URL_BASE_PORTAL +'/oee/'+ linkDatos;
@@ -93,6 +99,13 @@ export class BuscadorComponent implements OnInit {
     }
     return url;
   }
+
+  searchData(tab: string, origen: string) {
+    console.log("tab: "+this.childExample);
+    this._router.navigate(["/buscador/", tab, origen, this.busqueda]);
+  }
+
+  /*
   searchData(tab: string, origen: string) {
     this.countResults = 0;
     if (origen === "categoria") { tab = "categoria"; }
@@ -207,10 +220,10 @@ export class BuscadorComponent implements OnInit {
         this.loading = false;
       }
     );
-  }
+  }*/
 
   /* SORT COLUMNS */
-  sortTramitesServicios(keyTramitesServicios) {
+  /*sortTramitesServicios(keyTramitesServicios) {
     this.keyTramitesServicios = keyTramitesServicios;
     this.reverseTramitesServicios = !this.reverseTramitesServicios;
   }
@@ -228,5 +241,5 @@ export class BuscadorComponent implements OnInit {
   sortAIP(keyAIP) {
     this.keyAIP = keyAIP;
     this.reverseAIP = !this.reverseAIP;
-  }
+  }*/
 }

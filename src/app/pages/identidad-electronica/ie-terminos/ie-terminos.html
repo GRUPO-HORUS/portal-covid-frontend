@@ -1,15 +1,20 @@
-<div id="page-header" class="bg-gradient bg-shadow">
+<!--<div id="page-header" class="bg-gradient bg-shadow">
     <div class="container clearfix">
         <img src="assets/img/identidad-electronica.png" alt="Identidad Electrónica" class="img-fluid rounded hidden-xs pull-left" width="300" />
     </div>
-</div>
+</div>-->
+<buscador-widget class="px-0"></buscador-widget>
 
 <div id="content" class="pb-0">
     <div class="container pb-6">
-        <div class="text-center mb-4">
-            <img src="assets/img/identidad-electronica.png" alt="Identidad Electrónica" class="img-fluid rounded hidden-sm-up mb-4" width="300" />
-        </div>
         <div class="row">
+            <div class="col-md-8 pull-md-4 sidebar-left mb-5 pt-2">
+                <h3 class="title-divider text-primary">
+                    <i class="fa fa-cog mr-2" style="margin-top: -4px;"></i>
+                    <span>Terminos y condiciones</span>
+                </h3>
+                <ie-terminos-template></ie-terminos-template>
+            </div>
             <div class="col-md-4 push-md-8 youtube mb-2 sidebar-section">
                 <div class="nav nav-section-menu nav-section-menu-right pt-0 pb-0 mb-4">
                     <a class="mb-3" routerLink="/crear-cuenta" style="margin-top:-20px;">
@@ -22,15 +27,14 @@
                                 <i class="fa fa-user-plus mr-2" style="margin-top:-4px;"></i><span class="font-weight-normal text-muted text-white" style="font-size:20px;">Crear</span> cuenta
                             </h4>
                             <div class="fondo-buscador_" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; opacity: .3; background-image: url(assets/img/backgrounds/computer-screens.jpg)"></div>
-                        </div>   
-                    </a> 
+                        </div>
+                    </a>
                     <div>
                         <a class="nav-link" style="font-weight: 500;" routerLink="/identidad-electronica">
-                            <i class="fa fa-info-circle text-default" style="font-size:16px; margin-top:-8px;"></i> ¿Qué es la
-                            Identidad Electrónica?
+                            <i class="fa fa-info-circle text-default" style="font-size:16px; margin-top:-8px;"></i> ¿Qué es la Identidad Electrónica?
                         </a>
                         <a class="nav-link" style="font-weight: 500;" routerLink="/identidad-electronica/preguntas-frecuentes-creacion" id="buscar">
-                            <i class="fa fa fa-question-circle text-default" style="font-size:16px; margin-top:-8px;"></i> Preguntas frecuentes <small>En el proceso de la creación</small>
+                            <i class="fa fa fa-question-circle text-default" style="font-size:16px; margin-top:-8px;"></i> Preguntas frecuentes
                         </a>
                         <a class="nav-link" style="font-weight: 500;" routerLink="/restablecer-clave">
                             <i class="fa fa-lock text-default" style="font-size:16px; margin-top:-8px;"></i> Olvidé mi clave
@@ -46,7 +50,7 @@
                         </a>
                         <!--<a class="nav-link" style="font-weight: 500;" routerLink="/estadistica" id="buscar">
                             <i class="fa fa fa-file-o text-default" style="font-size:16px; margin-top:-8px;"></i> Estadística
-                        </a>--> 
+                        </a>-->
                     </div>
                 </div>
 
@@ -54,9 +58,6 @@
                 <blockquote class="title-divider">
                     Conocé más sobre Identidad electrónica
                 </blockquote-->
-            </div>
-            <div class="col-md-8 pull-md-4 sidebar-left">
-                <ie-terminos-template></ie-terminos-template>
             </div>
         </div>
     </div>

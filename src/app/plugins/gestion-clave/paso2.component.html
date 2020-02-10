@@ -1,8 +1,11 @@
 <div class="container">
-    <h1>Proceso de validación de identidad</h1>
+    <h3 class="title-divider text-primary">
+        <i class="fa fa-edit mr-2" style="margin-top: -4px;"></i>
+        <span>Proceso de validación de identidad</span>
+    </h3>
     <form #miForm2="ngForm">
         <div class="row">
-            
+
             <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
                 <div *ngIf="siguiente">
                     <div class="form-group">
@@ -10,7 +13,7 @@
                         <input type="text" [(ngModel)]="respUsuario" class="form-control" id="respUsuario" name="respUsuario" *ngIf="tipoPregunta == 1" required />
                         <input type="number" [(ngModel)]="respUsuario" class="form-control" id="respUsuario" name="respUsuario" *ngIf="tipoPregunta == 2" required />
                     </div>
-        
+
                     <div class="form-group" *ngIf="tipoPregunta == 3">
                         <div class="radio" *ngFor="let r of posiblesRespuestas; let i = index;">
                             <label><input type="radio" [id]="r" name="radios" [value]="r" [(ngModel)]="respUsuario"> {{r}}</label>
@@ -18,7 +21,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12" *ngIf="siguiente && textoAyuda && textoAyuda != null && textoAyuda != 'null'">
                 <div class="alert alert-success" style="font-size:14px; word-wrap:break-word; font-weight:bold;">
                     <i class="fa fa-info-circle"></i> <span style="margin-left:2px;" [innerHTML]="textoAyuda | safeHtml"></span>
@@ -26,7 +29,7 @@
             </div>
 
             <div class="col-lg-12">
-                
+
                 <div class="form-group">
                     <button (click)="avanzar('OMITIR-RESPUESTA', idPregunta)" style="margin-top: 10px;margin-left:10px;" type="submit" class="btn btn-default" *ngIf="siguiente" [disabled]="loading">
                         <span class="fa fa-share"></span>

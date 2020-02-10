@@ -1,6 +1,6 @@
 /************************************************
- * REVOLUTION 5.3 EXTENSION - LAYER ANIMATION
- * @version: 3.5.3 (22.02.2017)
+ * REVOLUTION 5.4.2 EXTENSION - LAYER ANIMATION
+ * @version: 3.6.2 (06.04.2017)
  * @requires jquery.themepunch.revolution.js
  * @author ThemePunch
 ************************************************/
@@ -13,7 +13,7 @@ var _R = jQuery.fn.revolution,
 	extension = {	alias:"LayerAnimation Min JS",
 					name:"revolution.extensions.layeranimation.min.js",
 					min_core: "5.4.0",
-					version:"3.5.3"
+					version:"3.6.2"
 			  };
 	
 
@@ -228,7 +228,7 @@ jQuery.extend(true,_R, {
 							if (o.triggerstate=="keep" && _.triggerstate==="on")
 								_R.playAnimationFrame({caption:o.layer,opt:opt,frame:"frame_0", triggerdirection:"in", triggerframein:"frame_0", triggerframeout:"frame_999"});							
 							else 
-								o.timeline.restart(0);						
+								o.timeline.restart();						
 						}															
 					});
 				if (opt.timelines.staticlayers) 				
@@ -358,6 +358,8 @@ jQuery.extend(true,_R, {
 
 		
 		_._lig = _._lig===undefined ? _nc.hasClass("rev_layer_in_group") ? _nc.closest('.rev_group') : _nc.hasClass("rev_layer_in_column") ?_nc.closest('.rev_column_inner')  : _nc.hasClass("rev_column_inner") ?  _nc.closest(".rev_row") : "none" :  _._lig,			
+		_._column = _._column===undefined ? _nc.hasClass("rev_column_inner") ? _nc.closest(".rev_column") : "none" : _._column,
+		_._row = _._row===undefined ? _nc.hasClass("rev_column_inner") ? _nc.closest(".rev_row") : "none" : _._row,		
 		_._ingroup = _._ingroup===undefined ? !_nc.hasClass('rev_group') && _nc.closest('.rev_group') ? true : false :_._ingroup;
 		_._isgroup = _._isgroup===undefined ? _nc.hasClass("rev_group") ? true  : false : _._isgroup;
 		_._nctype = _.type || "none";
@@ -506,11 +508,11 @@ jQuery.extend(true,_R, {
 
 			
 			if (_._ingroup && _._nctype!=="row") {				
-				if (ww!==undefined && !jQuery.isNumeric(ww) && ww.indexOf("%")>0)
+				if (ww!==undefined && !jQuery.isNumeric(ww) && jQuery.type(ww)==="string" && ww.indexOf("%")>0)
 					punchgs.TweenLite.set([_._lw,_._pw,_._mw],{minWidth:ww});						
 				
 
-				if (hh!==undefined && !jQuery.isNumeric(hh) && hh.indexOf("%")>0)
+				if (hh!==undefined && !jQuery.isNumeric(hh) && jQuery.type(hh)==="string" && hh.indexOf("%")>0)
 					punchgs.TweenLite.set([_._lw,_._pw,_._mw],{minHeight:hh});						
 			}
 			
@@ -570,12 +572,26 @@ jQuery.extend(true,_R, {
 			var ww =  makeArray(_nc.data('videowidth'),opt)[opt.curWinRange] || makeArray(_nc.data('videowidth'),opt) || "auto",
 				hh =  makeArray(_nc.data('videoheight'),opt)[opt.curWinRange] || makeArray(_nc.data('videoheight'),opt) || "auto";
 				
-			if (!jQuery.isNumeric(ww) && ww.indexOf("%")>0) {
+			/*if (!jQuery.isNumeric(ww) && ww.indexOf("%")>0) {
 				hh = (parseFloat(hh)*opt.bh)+"px";
 			} else {
 				ww = (parseFloat(ww)*opt.bw)+"px";
 				hh = (parseFloat(hh)*opt.bh)+"px";
+			}*/
+
+
+			if (ww==="auto" || (!jQuery.isNumeric(ww) && ww.indexOf("%")>0)) {
+				ww = ww==="auto" ? "auto" : _._ba==="grid" ? opt.gridwidth[opt.curWinRange]*opt.bw : _._gw;
+			} else {
+				ww = (parseFloat(ww)*opt.bw)+"px";
 			}
+
+			if (hh==="auto" || (!jQuery.isNumeric(hh) && hh.indexOf("%")>0)) {
+				hh = hh==="auto" ? "auto" : _._ba==="grid" ? opt.gridheight[opt.curWinRange]*opt.bw : _._gh;				
+			} else {
+				hh = (parseFloat(hh)*opt.bh)+"px";
+			}
+
 									
 			// READ AND WRITE CSS SETTINGS OF IFRAME AND VIDEO FOR RESIZING ELEMENST ON DEMAND			
 			_.cssobj = _.cssobj===undefined ? getcssParams(_nc,0) : _.cssobj;
@@ -760,6 +776,15 @@ jQuery.extend(true,_R, {
 
 		// LOOP ANIMATION WIDTH/HEIGHT 
 		if (_.loopanimation=="on") punchgs.TweenLite.set(_._lw,{minWidth:_.eow,minHeight:_.eoh});
+
+		//Preset Position of BG 
+		if (_._nctype==="column") {			
+			var tempy = _nc[0]._gsTransform !==undefined ? _nc[0]._gsTransform.y : 0,
+				pT = parseInt(_._column[0].style.paddingTop,0);			
+			punchgs.TweenLite.set(_nc,{y:0});					
+			punchgs.TweenLite.set(_._cbgc_man,{y:parseInt(( pT+_._column.offset().top-_nc.offset().top),0)});
+			punchgs.TweenLite.set(_nc,{y:tempy});			
+		}
 
 		// ELEMENT IN GROUPS WITH % WIDTH AND HEIGHT SHOULD EXTEND PARRENT SIZES				
 		if (_._ingroup && _._nctype!=="row") {					
@@ -1053,9 +1078,11 @@ jQuery.extend(true,_R, {
 		
 		if (timeline.vars.id===undefined)
 			timeline.vars.id=Math.round(Math.random()*100000);
-		if (_._nctype==="column") {
-	  		timeline.add(punchgs.TweenLite.set(_._cbgc_man,{display:"block"}),label);
-	  		timeline.add(punchgs.TweenLite.set(_._cbgc_auto,{display:"none"}),label);
+		if (_._nctype==="column") {						
+	  		timeline.add(punchgs.TweenLite.set(_._cbgc_man,{visibility:"visible"}),label);
+	  		timeline.add(punchgs.TweenLite.set(_._cbgc_auto,{visibility:"hidden"}),label);
+	  		
+	  		
 	  	}
 
 		if (_.splittext && frame_index===0) {
@@ -1279,106 +1306,17 @@ jQuery.extend(true,_R, {
 		
 		
 		// ON START
-		tweens.content.eventCallback("onStart",function(frame_index,ncobj,pw,_,tl,toanim,_nc,ust){		
-			
-			var data={};
-			data.layer = _nc;
-			data.eventtype = frame_index===0 ? "enterstage" : frame_index===_.outframeindex ? "leavestage" : "framestarted";
-			data.layertype = _nc.data('layertype');
-			_.active = true;
-			//_nc.data('active',true);
-									
-			//_.idleanimadded = false;
-			data.frame_index = frame_index;			
-			data.layersettings = _nc.data();			  	
-			opt.c.trigger("revolution.layeraction",[data]);
-			if (_.loopanimation=="on") callCaptionLoops(_._lw,opt.bw);		
-
-			if (data.eventtype==="enterstage") {
-				_.animdirection="in";
-				_.visibleelement=true;
-				_R.toggleState(_.layertoggledby);
-			}
-			if (ncobj.dchildren!=="none" && ncobj.dchildren!==undefined && ncobj.dchildren.length>0) {								
-				if (frame_index===0)
-					for (var q=0;q<ncobj.dchildren.length;q++) {							
-						jQuery(ncobj.dchildren[q]).data('timeline').play(0);						
-					}
-				else
-				if (frame_index===_.outframeindex)
-					for (var q=0;q<ncobj.dchildren.length;q++) {				
-							_R.endMoveCaption({caption:jQuery(ncobj.dchildren[q]), opt:opt, checkchildrens:true});
-					}						
-			}		
-			punchgs.TweenLite.set(pw,{visibility:"visible"});			
-			_.current_frame = frame_index;
-			_.current_timeline = tl;
-			_.current_timeline_time = tl.time();
-			if (ust) _.static_layer_timeline_time = _.current_timeline_time;
-			_.last_frame_started = frame_index;
-			
-						
-		},[frame_index,_nc_tl_obj,_._pw,_,timeline,$to.anim,_nc,obj.updateStaticTimeline]);
+		tweens.content.eventCallback("onStart",tweenOnStart,[frame_index,_nc_tl_obj,_._pw,_,timeline,$to.anim,_nc,obj.updateStaticTimeline,opt]);
+		
 		
 
-
 		// ON UPDATE
-		tweens.content.eventCallback("onUpdate",function(label,id,pw,_,tl,frame_index,toanim,ust) {				
-			if (_._nctype==="column") setColumnBgDimension(_nc,opt);
-			punchgs.TweenLite.set(pw,{visibility:"visible"});				
-			_.current_frame = frame_index;
-			_.current_timeline = tl;
-			_.current_timeline_time = tl.time();
-			if (ust) _.static_layer_timeline_time = _.current_timeline_time;
-			
-			if (_.hoveranim !== undefined && _._gsTransformTo===false) {					
-				_._gsTransformTo = toanim;									
-				if (_._gsTransformTo && _._gsTransformTo.startAt) delete _._gsTransformTo.startAt;
-				
-				if (_.cssobj.styleProps.css===undefined)
-			 		_._gsTransformTo = jQuery.extend(true,{},_.cssobj.styleProps,_._gsTransformTo);					
-			 	else
-			 		_._gsTransformTo = jQuery.extend(true,{},_.cssobj.styleProps.css,_._gsTransformTo);					
-			}
-				
-			_.visibleelement=true;	
-			
-		},[label,_._id,_._pw,_,timeline,frame_index,jQuery.extend(true,{},$to.anim),obj.updateStaticTimeline]);
+		tweens.content.eventCallback("onUpdate",tweenOnUpdate,[label,_._id,_._pw,_,timeline,frame_index,jQuery.extend(true,{},$to.anim),obj.updateStaticTimeline,_nc,opt]);
 		
 
 		
 		// ON COMPLETE
-		tweens.content.eventCallback("onComplete",function(frame_index,frame_max,verylastframe,pw,_,tl,ust) {										
-			var data={};					
-			data.layer = _nc;
-			
-			data.eventtype = frame_index===0 ? "enteredstage" : frame_index===frame_max-1 || frame_index===verylastframe ? "leftstage" : "frameended";
-			data.layertype = _nc.data('layertype');
-			data.layersettings = _nc.data();	
-
-			opt.c.trigger("revolution.layeraction",[data]);			  	
-			if (data.eventtype!=="leftstage") _R.animcompleted(_nc,opt);
-			if (data.eventtype==="leftstage") 
-				if (_R.stopVideo) _R.stopVideo(_nc,opt);
-			
-			if (_._nctype==="column") {
-				punchgs.TweenLite.set(_._cbgc_man,{display:"none"});
-				punchgs.TweenLite.set(_._cbgc_auto,{display:"block"});
-			}							
-			if (data.eventtype === "leftstage") {							
-				_.active = false;
-				punchgs.TweenLite.set(pw,{visibility:"hidden",overwrite:"auto"});				
-				_.animdirection="out";
-				_.visibleelement=false;
-				_R.unToggleState(_.layertoggledby);
-			}
-			_.current_frame = frame_index;
-			_.current_timeline = tl;
-			_.current_timeline_time = tl.time();
-			if (ust) _.static_layer_timeline_time = _.current_timeline_time;
-			
-			
-		},[frame_index,_.frames.length,verylastframe,_._pw,_,timeline,obj.updateStaticTimeline]);
+		tweens.content.eventCallback("onComplete",tweenOnComplete,[frame_index,_.frames.length,verylastframe,_._pw,_,timeline,obj.updateStaticTimeline,_nc,opt]);
 
 		
 		return timeline;
@@ -1500,6 +1438,102 @@ jQuery.extend(true,_R, {
 /**********************************************************************************************
 						-	HELPER FUNCTIONS FOR LAYER TRANSFORMS -
 **********************************************************************************************/
+
+
+var tweenOnStart = function(frame_index,ncobj,pw,_,tl,toanim,_nc,ust,opt){		
+			
+	var data={};
+	data.layer = _nc;
+	data.eventtype = frame_index===0 ? "enterstage" : frame_index===_.outframeindex ? "leavestage" : "framestarted";
+	data.layertype = _nc.data('layertype');
+	_.active = true;
+	//_nc.data('active',true);
+							
+	//_.idleanimadded = false;
+	data.frame_index = frame_index;			
+	data.layersettings = _nc.data();			  	
+	opt.c.trigger("revolution.layeraction",[data]);
+	if (_.loopanimation=="on") callCaptionLoops(_._lw,opt.bw);		
+
+	if (data.eventtype==="enterstage") {
+		_.animdirection="in";
+		_.visibleelement=true;
+		_R.toggleState(_.layertoggledby);
+	}
+	if (ncobj.dchildren!=="none" && ncobj.dchildren!==undefined && ncobj.dchildren.length>0) {								
+		if (frame_index===0)
+			for (var q=0;q<ncobj.dchildren.length;q++) {							
+				jQuery(ncobj.dchildren[q]).data('timeline').play(0);						
+			}
+		else
+		if (frame_index===_.outframeindex)
+			for (var q=0;q<ncobj.dchildren.length;q++) {				
+					_R.endMoveCaption({caption:jQuery(ncobj.dchildren[q]), opt:opt, checkchildrens:true});
+			}						
+	}		
+	punchgs.TweenLite.set(pw,{visibility:"visible"});			
+	_.current_frame = frame_index;
+	_.current_timeline = tl;
+	_.current_timeline_time = tl.time();
+	if (ust) _.static_layer_timeline_time = _.current_timeline_time;
+	_.last_frame_started = frame_index;
+	
+				
+}
+
+var tweenOnUpdate = function(label,id,pw,_,tl,frame_index,toanim,ust,_nc,opt) {				
+	if (_._nctype==="column") setColumnBgDimension(_nc,opt);
+	punchgs.TweenLite.set(pw,{visibility:"visible"});				
+	_.current_frame = frame_index;
+	_.current_timeline = tl;
+	_.current_timeline_time = tl.time();
+	if (ust) _.static_layer_timeline_time = _.current_timeline_time;
+	
+	if (_.hoveranim !== undefined && _._gsTransformTo===false) {					
+		_._gsTransformTo = toanim;									
+		if (_._gsTransformTo && _._gsTransformTo.startAt) delete _._gsTransformTo.startAt;
+		
+		if (_.cssobj.styleProps.css===undefined)
+	 		_._gsTransformTo = jQuery.extend(true,{},_.cssobj.styleProps,_._gsTransformTo);					
+	 	else
+	 		_._gsTransformTo = jQuery.extend(true,{},_.cssobj.styleProps.css,_._gsTransformTo);					
+	}
+		
+	_.visibleelement=true;	
+	
+}
+
+var tweenOnComplete = function(frame_index,frame_max,verylastframe,pw,_,tl,ust,_nc,opt) {										
+	var data={};					
+	data.layer = _nc;
+	
+	data.eventtype = frame_index===0 ? "enteredstage" : frame_index===frame_max-1 || frame_index===verylastframe ? "leftstage" : "frameended";
+	data.layertype = _nc.data('layertype');
+	data.layersettings = _nc.data();	
+
+	opt.c.trigger("revolution.layeraction",[data]);			  	
+	if (data.eventtype!=="leftstage") _R.animcompleted(_nc,opt);
+	if (data.eventtype==="leftstage") 
+		if (_R.stopVideo) _R.stopVideo(_nc,opt);
+	
+	if (_._nctype==="column") {
+		punchgs.TweenLite.to(_._cbgc_man,0.01,{visibility:"hidden"});
+		punchgs.TweenLite.to(_._cbgc_auto,0.01,{visibility:"visible"});				
+	}
+	if (data.eventtype === "leftstage") {							
+		_.active = false;
+		punchgs.TweenLite.set(pw,{visibility:"hidden",overwrite:"auto"});				
+		_.animdirection="out";
+		_.visibleelement=false;
+		_R.unToggleState(_.layertoggledby);
+	}
+	_.current_frame = frame_index;
+	_.current_timeline = tl;
+	_.current_timeline_time = tl.time();
+	if (ust) _.static_layer_timeline_time = _.current_timeline_time;
+	
+	
+}
 
 //////////////////////////////////////////////
 //	-	GET TIMELINE INFOS FROM CAPTION	-  //
@@ -1982,7 +2016,7 @@ var getcssParams = function(nc,level) {
 		}
 		
 		obj.maxWidth = nc.data('width')===undefined ? parseInt(nc.css('maxWidth'),0) || "none" : nc.data('width');
-		obj.maxHeight = nc.data('height')===undefined ? parseInt(nc.css('maxHeight'),0) || "none" : nc.data('height');
+		obj.maxHeight = jQuery.inArray(nc.data('type'),["column","row"])!==-1 ? "none" : nc.data('height')===undefined ? parseInt(nc.css('maxHeight'),0) || "none" : nc.data('height');
 		
 		obj.wan = nc.data('wan')===undefined ? parseInt(nc.css('-webkit-transition'),0) || "none" : nc.data('wan');
 		obj.moan = nc.data('moan')===undefined ? parseInt(nc.css('-moz-animation-transition'),0) || "none" : nc.data('moan');
@@ -2049,6 +2083,7 @@ var calcCaptionResponsive = function(nc,opt,level,responsive) {
 	
 	var _=nc.data();
 
+
 	_ = _===undefined ? {} : _;
 
 	try{
@@ -2075,7 +2110,27 @@ var calcCaptionResponsive = function(nc,opt,level,responsive) {
 	// IE8 FIX FOR AUTO LINEHEIGHT
 	if (obj.lineHeight=="auto") obj.lineHeight = obj.fontSize+4;
 
-						
+	var objmargins = {  Top: obj.marginTop,
+			 			Bottom: obj.marginBottom,
+			 			Left: obj.marginLeft,
+			 			Right: obj.marginRight
+			 		  }
+	if (_._nctype==="column") {
+		punchgs.TweenLite.set(_._column,{
+											paddingTop: Math.round((obj.marginTop * bh)) + "px",
+											paddingBottom: Math.round((obj.marginBottom * bh)) + "px",
+											paddingLeft: Math.round((obj.marginLeft* bw)) + "px",
+											paddingRight: Math.round((obj.marginRight * bw)) + "px"});
+		objmargins = {  Top: 0,
+			 			Bottom: 0,
+			 			Left: 0,
+			 			Right: 0
+			 		  }
+		
+	}
+
+
+
 	if (!nc.hasClass("tp-splitted")) {
 
 		nc.css("-webkit-transition", "none");
@@ -2096,10 +2151,10 @@ var calcCaptionResponsive = function(nc,opt,level,responsive) {
 			 paddingBottom: Math.round((obj.paddingBottom * bh)) + "px",
 			 paddingLeft: Math.round((obj.paddingLeft* bw)) + "px",
 			 paddingRight: Math.round((obj.paddingRight * bw)) + "px",
-			 marginTop: (obj.marginTop * bh) + "px",
-			 marginBottom: (obj.marginBottom * bh) + "px",
-			 marginLeft: (obj.marginLeft * bw) + "px",
-			 marginRight: (obj.marginRight * bw) + "px",			 
+			 marginTop: (objmargins.Top * bh) + "px",
+			 marginBottom: (objmargins.Bottom * bh) + "px",
+			 marginLeft: (objmargins.Left * bw) + "px",
+			 marginRight: (objmargins.Right * bw) + "px",			 
 			 borderTopWidth: Math.round(obj.borderTopWidth * bh) + "px",
 			 borderBottomWidth: Math.round(obj.borderBottomWidth * bh) + "px",
 			 borderLeftWidth: Math.round(obj.borderLeftWidth * bw) + "px",
@@ -2127,10 +2182,10 @@ var calcCaptionResponsive = function(nc,opt,level,responsive) {
 			minh=minh===undefined ? 0 : minh;
 			maxw=maxw===undefined ? "none" : maxw;
 			maxh=maxh===undefined ? "none" : maxh;
-			
 
 			
 			if (_._isgroup) {
+
 				
 				if (minw==="#1/1#")  minw = maxw = winw;
 				if (minw==="#1/2#")  minw = maxw = winw / 2;
@@ -2157,6 +2212,7 @@ var calcCaptionResponsive = function(nc,opt,level,responsive) {
 				_._grouph = minh;
 			}
 
+
 			punchgs.TweenLite.set(nc,{
 				 maxWidth:maxw,
 				 maxHeight:maxh,
@@ -2180,7 +2236,8 @@ var calcCaptionResponsive = function(nc,opt,level,responsive) {
 			
 		}
 
-		if (_._nctype==="column") {						
+		if (_._nctype==="column") {
+
 			if (_._column_bg_set===undefined) {
 				_._column_bg_set = nc.css('backgroundColor');			
 				_._column_bg_image = nc.css('backgroundImage');
@@ -2197,12 +2254,14 @@ var calcCaptionResponsive = function(nc,opt,level,responsive) {
 				});
 			}
 
+
 			setTimeout(function() {
 				setColumnBgDimension(nc,opt);
 			},1);
+
 			
 			// DYNAMIC HEIGHT AUTO CALCULATED BY BROWSER 
-			if (_._cbgc_auto) {		
+			if (_._cbgc_auto && _._cbgc_auto.length>0) {		
 				_._cbgc_auto[0].style.backgroundSize = _._column_bg_image_size;
 				if (jQuery.isArray(obj.marginLeft)) {						
 					punchgs.TweenLite.set(_._cbgc_auto,{						
@@ -2248,10 +2307,10 @@ var calcCaptionResponsive = function(nc,opt,level,responsive) {
 
 var setColumnBgDimension = function(nc,opt) {
 	// DYNAMIC HEIGHT BASED ON ROW HEIGHT
-	var _ = nc.data();
-	if (_._cbgc_man) {						
+	var _ = nc.data();	
+	if (_._cbgc_man && _._cbgc_man.length>0) {						
+
 		
-			
 		var _l,_t,_b,_r,_h,_o;
 
 		if (!jQuery.isArray(_.cssobj.marginLeft)) {			
@@ -2265,11 +2324,10 @@ var setColumnBgDimension = function(nc,opt) {
 			_b = (_.cssobj.marginBottom[opt.curWinRange] * opt.bh);
 			_r = (_.cssobj.marginRight[opt.curWinRange] * opt.bw);
 		}				
-		_h = _._row.hasClass("rev_break_columns") ? "100%" : (_._row.outerHeight() - (_t+_b))+"px";		
-		
+		_h = _._row.hasClass("rev_break_columns") ? "100%" : (_._row.height() - (_t+_b))+"px";		
 
-		
 		_._cbgc_man[0].style.backgroundSize = _._column_bg_image_size;
+		
 		punchgs.TweenLite.set(_._cbgc_man,{						
 			width:"100%",
 			height:_h,
