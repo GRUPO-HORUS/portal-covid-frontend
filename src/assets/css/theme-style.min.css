@@ -11459,11 +11459,6 @@ body.modal-open .jPanelMenu-panel {
     padding: 1rem
 }
 
-.modal-footer {
-    margin-top: 0;
-    padding: 0 1rem 1rem
-}
-
 @media (min-width:576px) {
     .modal-dialog {
         padding-top: 5%;

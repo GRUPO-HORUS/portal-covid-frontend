@@ -149,15 +149,13 @@
                 </div>
 
                 <div class="modal-footer">
-                    <fieldset class="w-100">
-                        <button type="button" style="float:left;margin-left: 5px;" class="btn btn-sm btn-primary pull-left" *ngIf="historicoDocumentos && historicoDocumentos.length > 0" (click)="generarDocumento()">
-                        <i class="fa fa-file-import"></i>  Generar Documento
+                    <button type="button" style="float:left;margin-left: 5px;" class="btn btn-primary pull-left" *ngIf="historicoDocumentos && historicoDocumentos.length > 0" (click)="generarDocumento()">
+                        <i class="fa fa-file-import"></i> Generar Documento
                     </button>
 
-                        <button type="button" class="btn btn-sm btn-primary pull-right" data-dismiss="modal">
+                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">
                         <i class="fa fa-remove"></i> Cerrar
                     </button>
-                    </fieldset>
                 </div>
 
             </div>
