@@ -27,13 +27,13 @@
                             <div class="card-body">
                                 <a (click)="getHistoricoConsultas(data)" style="cursor:pointer">
                                     <h4 class="card-title pr-4">
-                                        {{tramite.nombreServicio}}
+                                        {{data.descripcion}}
                                     </h4>
                                 </a>
                             </div>
-                            <div class="card-footer text-center">
+                            <!-- <div class="card-footer text-center"> -->
                                 <a (click)="getHistoricoConsultas(data)" class="btn btn-light btn-lg btn-block" style="text-transform: capitalize;"><i class="fa fa-file"></i> Consultar</a>
-                            </div>
+                            <!-- </div> -->
                         </div>
                     </div>
                 </div>
@@ -59,6 +59,7 @@
                             <a *ngIf="doc.isSession" (click)="redirect(doc)" class="btn btn-light btn-lg btn-block" style="text-transform: capitalize;"><i class="fa fa-id-card"></i> Identidad Electrónica</a>
                         </div>
                     </div>
+                    
                     <!-- <tfoot>
                         <tr>
                             <th colspan="2" style="color:#999; font-weight:normal;">

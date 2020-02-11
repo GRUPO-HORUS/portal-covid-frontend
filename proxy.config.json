@@ -1,6 +1,6 @@
 {
     "/api/*": {
-        "target": "https://devportalpy.senatics.gov.py/portalpy-backend-core",
+        "target": "http://localhost:8080/portalpy-backend-core",
         "secure": false,
         "loglevel": "debug",
         "changeOrigin": true,
@@ -9,7 +9,7 @@
         }
     },
     "/plugins/*": {
-        "target": "https://devportalpy.senatics.gov.py/portal-py-plugins",
+        "target": "http://localhost:8080/portal-py-plugins",
         "secure": false,
         "loglevel": "debug",
         "changeOrigin": true,
@@ -18,7 +18,7 @@
         }
     },
     "/auth/*": {
-        "target": "https://devportalpy.senatics.gov.py/auth",
+        "target": "http://localhost:8080/auth",
         "secure": false,
         "loglevel": "debug",
         "changeOrigin": true,
@@ -27,7 +27,7 @@
         }
     },
     "/docsapi/*": {
-        "target": "https://devportalpy.senatics.gov.py/documentos-core",
+        "target": "http://localhost:8080/documentos-core",
         "secure": false,
         "loglevel": "debug",
         "changeOrigin": true,
