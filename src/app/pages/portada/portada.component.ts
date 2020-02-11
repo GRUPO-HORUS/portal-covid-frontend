@@ -19,7 +19,6 @@ export class PortadaComponent implements OnInit {
 
   ultimosTramitesEnLinea: any;
   tramitesEnLinea: any;
-
   nroCategoria: number = 1;
   keyCategoria: string = "descripcion";
   reverseCategoria: boolean = false;
@@ -43,7 +42,6 @@ export class PortadaComponent implements OnInit {
   getServiciosClasificador() {
     this.resultTab5 = {};
     this.messageService.getSearchServiciosClasificador(this.idClasificador).subscribe(data => {
-      console.log(data);
       if (data != null && data.length > 0) {
         this.resultTab5 = { resultados: data, encuentra: true };
         this.nombreClasificador = this.resultTab5.resultados[0].nombre;
@@ -71,13 +69,13 @@ export class PortadaComponent implements OnInit {
   getListTramitesDestacados(): void {
     this.poderesDelEstadoService.getListTramitesEnLinea(1,3).subscribe(data => {
         this.tramitesEnLinea = data;
-        console.log(data);
       },
       error => {
         console.log("error", error);
       }
     );
   }
+
   getListTramitesOnline(): void {
     this.poderesDelEstadoService.getListTramitesEnLinea(0,3).subscribe(
       data => {
