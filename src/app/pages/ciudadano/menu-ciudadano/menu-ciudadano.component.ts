@@ -11,7 +11,7 @@ import { IdentidadPersona } from "../model/identidad-persona.model";
 })
 export class MenuCiudadanoComponent {
 
-  carpeta: string = "hola";
+  public carpeta: string = "hola";
   public fotoPerfil: any;
   public ciudadano: IdentidadPersona;
   public token: any;
@@ -25,6 +25,8 @@ export class MenuCiudadanoComponent {
     this.ciudadano = this.auth.getCurrentUser();
 
     this.token = this.auth.getToken();
+
+    this.scrollTop();
 
     if(this.ciudadano != null && this.token != null) {
 
@@ -40,6 +42,14 @@ export class MenuCiudadanoComponent {
 
     }
     
+  }
+
+  scrollTop() {
+    let top = document.getElementById('topcab');
+    if (top !== null) {
+      top.scrollIntoView();
+      top = null;
+    }
   }
 
   logout(){

@@ -17,7 +17,6 @@ export class CategoriaTramiteResultadoComponent implements OnInit {
     public idClasificador: any;
     public nombreClasificador: string;
   
-    //categoria
     nroCategoria: number = 1;
     keyCategoria: string = "descripcion";
     reverseCategoria: boolean = false;
