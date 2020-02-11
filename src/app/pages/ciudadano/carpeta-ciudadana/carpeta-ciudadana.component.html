@@ -27,20 +27,18 @@
                             <div class="card-body">
                                 <a (click)="getHistoricoConsultas(data)" style="cursor:pointer">
                                     <h4 class="card-title pr-4">
-                                        {{tramite.nombreServicio}}
+                                        {{data.descripcion}}
                                     </h4>
                                 </a>
                             </div>
-                            <div class="card-footer text-center">
-                                <a (click)="getHistoricoConsultas(data)" class="btn btn-light btn-lg btn-block" style="text-transform: capitalize;"><i class="fa fa-file"></i> Consultar</a>
-                            </div>
+                            <a (click)="getHistoricoConsultas(data)" class="btn btn-light btn-lg btn-block" style="text-transform: capitalize;"><i class="fa fa-file"></i> Consultar</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="card-deck-wrapper_" *ngIf="!ciudadano || !token">
                     <div class="card-deck_ card-columns mt-2">
-                        <div class="card card-outline-secondary rounded shadow" *ngFor="let doc of documentosIE">
+                        <div class="card card-outline-primary rounded shadow" *ngFor="let doc of documentosIE">
                             <div *ngIf="doc.isSession" class="card-ribbon card-ribbon-top card-ribbon-right bg-grey">ID-e</div>
                             <div class="card-body">
                                 <a *ngIf="!doc.linkExternal" (click)="redirect(doc)" style="cursor:pointer">
