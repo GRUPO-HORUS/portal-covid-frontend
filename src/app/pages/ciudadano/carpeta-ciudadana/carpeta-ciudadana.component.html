@@ -108,7 +108,7 @@
                                     <tr>
                                         <th style="font-size:12px;">Generado por</th>
                                         <th style="font-size:12px;">Fecha</th>
-                                        <th style="font-size:12px;">Sistema</th>
+                                        <!-- <th style="font-size:12px;">Sistema</th> -->
                                         <th style="font-size:12px;"></th>
                                         <th style="font-size:12px;"></th>
                                     </tr>
@@ -117,7 +117,7 @@
                                     <tr>
                                         <td style="font-size:12px;">{{ result.generadoPor }}</td>
                                         <td style="font-size:12px;">{{ result.fechaGeneracion | date: 'dd/MM/yyyy HH:mm' }}</td>
-                                        <td style="font-size:12px;">{{ result.sistemaGenerador }}</td>
+                                        <!-- <td style="font-size:12px;">{{ result.sistemaGenerador }}</td> -->
                                         <td style="font-size:12px;" *ngIf="result.liq">
                                             <b>Fecha: </b> {{ result.liq?.fechaSolicitud | date: 'dd/MM/yyyy' }} <br/>
                                             <b>Estado: </b> {{ result.liq?.estadoSolicitud }}
