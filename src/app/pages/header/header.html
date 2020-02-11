@@ -1,89 +1,57 @@
 <div id="inicio" #topSite></div>
+
 <div id="header">
-    <div data-toggle="sticky">
-        <div class="header-search collapse" id="search">
-            <form class="search-form container">
-                <input type="text" name="search" class="form-control search" value="" placeholder="Buscar en el portal">
-                <button type="button" class="btn btn-link">
-                    <span class="sr-only">Buscar en el portal</span>
-                    <i class="fa fa-search fa-flip-horizontal search-icon"></i>
-                </button>
-                <button type="button" class="btn btn-link close-btn" data-toggle="search-form-close">
-                    <span class="sr-only">Cerrar </span>
-                    <i class="fa fa-times search-icon"></i>
-                </button>
-            </form>
-        </div>
-        <div class="header">
+    <div>
+        <div class="header header-transparent header-dark">
             <div class="header-inner container">
-                
-                <div class="header-brand flex-first">
+
+                <div class="header-brand">
                     <a class="header-brand-text p-1 mr-2" title="Portal Paraguay" routerLink="/">
                         <img src="assets/img/logos/Portal-paraguay-claro-1x.png" class="logo-principal logo-portal-paraguay">
                     </a>
-                    <!--
-                    <img src="assets/img/logos/Gobierno-Nacional-ALT.png" class="logo-principal hidden-md-down logo-gobierno-nacional">
-                    <img src="assets/img/logos/Paraguay-de-la-Gente-ALT.png" class="logo-principal hidden-md-down logo-paraguay">
-                    -->
-                    <!--
-                    <img *ngIf="lang === 'C'" src="assets/img/logos/gobierno-nacional.png" class="logo-principal hidden-md-down logo-gobierno-nacional">
-                    <img *ngIf="lang === 'C'" src="assets/img/logos/paraguay-de-la-gente.png" class="logo-principal hidden-md-down logo-paraguay">
-
-                    <img *ngIf="lang === 'G'" src="assets/img/logos/gobierno-nacional-guarani.png" class="logo-principal hidden-md-down logo-gobierno-nacional-guarani">
-                    <img *ngIf="lang === 'G'" src="assets/img/logos/paraguay-de-la-gente-guarani.png" class="logo-principal hidden-md-down logo-paraguay-guarani">
-
-                    <a class="btn-spanish hidden-md-down" [ngClass]="{ 'btn-active': lang === 'G' }" (click)="lang = 'G'">G</a>
-                    <a class="btn-spanish hidden-md-down" [ngClass]="{ 'btn-active': lang === 'C' }" (click)="lang = 'C'">C</a>
-                    -->
                 </div>
-                
-                <div class="header-block flex-lg-last">
-                    <!--
-                    <a id="buscador_menu" class="buscador_menu btn btn-icon btn-link text-white header-btn float-right flex-last" data-toggle="search-form"
-                        data-target=".header-search">
-                        <i class="fa fa-search fa-flip-horizontal search-icon"></i>
-                    </a>
-                    -->
-                    <a href="#top" class="btn btn-link btn-icon text-white header-btn float-right hidden-lg-up boton-menu-mobile" data-toggle="collapse" data-target=".navbar-main" data-direction="right">
-                        <i class="fa fa-bars"></i>
-                    </a>
+
+                <div class="header-block order-12">
+                    <!-- mobile collapse menu button - data-toggle="collapse" = default BS menu - data-toggle="off-canvas" = Off-cavnas Menu - data-toggle="overlay" = Overlay Menu -->
+                    <a class="btn btn-link btn-icon header-btn float-right d-lg-none mr-2" data-toggle="off-canvas" data-target=".navbar-main" data-settings='{"cloneTarget":true, "targetClassExtras": "navbar-offcanvas"}'> <i class="fa fa-bars"></i> </a>
                 </div>
-                <div class="navbar navbar-toggleable-md navbar-toggleable-collapse">
+
+                <div class="navbar navbar-expand-md navbar-static-top">
                     <div class="navbar-main collapse">
-                        <ul class="nav navbar-nav navbar-inverse navbar-nav-onepager dropdown-effect-fade">
+                        <ul class="nav navbar-nav navbar-nav-stretch float-lg-right dropdown-effect-fade">
                             <li class="nav-item">
                                 <a routerLink="/" (click)="searchData(null, topSite); scrollToTop(topSite);" class="nav-link space-menu-info">
-                                    <i class="fa fa-home nav-link-icon"></i>
-                                    <span class="hidden-lg-up">Portada</span>
+                                    <i class="fa fa-home nav-link-icon mr-2"></i>
+                                    <span class="visible-xs">Portada</span>
                                 </a>
                             </li>
 
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle space-menu-info" id="pages-drop" data-toggle="dropdown" data-hover="dropdown">
-                                    <i class="fa fa-university nav-link-icon hidden-lg-up"></i> 
-                                    El Estado
+                                    <i class="fa fa-university nav-link-icon visible-xs mr-2"></i>
+                                    <span>El Estado</span>
                                 </a>
                                 <div class="dropdown-menu">
                                     <a routerLink="/estado" (click)="scrollToTop(topSite)" class="dropdown-item"><b>El Estado</b></a>
                                     <a routerLink="/estado/poder-ejecutivo" (click)="scrollToTop(topSite)" class="dropdown-item">Ejecutivo</a>
                                     <a routerLink="/estado/poder-legislativo" (click)="scrollToTop(topSite)" class="dropdown-item">Legislativo</a>
                                     <a routerLink="/estado/poder-judicial" (click)="scrollToTop(topSite)" class="dropdown-item">Judicial</a>
-                                    
+
                                     <div class="dropdown dropdown-submenu">
                                         <a href="#" class="dropdown-item active" id="otras-entidades" data-toggle="dropdown" data-hover="dropdown" data-close-others="false">Otras Entidades</a>
                                         <div class="dropdown-menu" role="menu" aria-labelledby="otras-entidades">
                                             <a routerLink="/estado/otros" (click)="scrollToTop(topSite)" class="dropdown-item">Otros Organismos del Estado</a>
                                             <a routerLink="/estado/universidades-nacionales" (click)="scrollToTop(topSite)" class="dropdown-item">Universidades Nacionales</a>
                                             <a routerLink="/estado/cgr" (click)="scrollToTop(topSite)" class="dropdown-item">Contraloría General de la República</a>
-                                            <a routerLink="/estado/binacionales" (click)="scrollToTop(topSite)" class="dropdown-item">Entidades Binacionales</a>                                            
-                                            
+                                            <a routerLink="/estado/binacionales" (click)="scrollToTop(topSite)" class="dropdown-item">Entidades Binacionales</a>
+
                                             <a routerLink="/estado/banca-central" (click)="scrollToTop(topSite)" class="dropdown-item">Banca Central del Estado</a>
                                             <a routerLink="/estado/autonomos-autarquicos" (click)="scrollToTop(topSite)" class="dropdown-item">Entes Autónomos y Autárquicos</a>
                                             <a routerLink="/estado/seguridad-social" (click)="scrollToTop(topSite)" style="word-wrap: break-word ¡important; white-space: normal;" class="dropdown-item">Entidades Públicas de Seguridad Social</a>
                                             <a routerLink="/estado/empresas-publicas" (click)="scrollToTop(topSite)" class="dropdown-item">Empresas Públicas</a>
                                             <a routerLink="/estado/financieras" (click)="scrollToTop(topSite)" class="dropdown-item">Entidades Financieras Oficiales</a>
                                             <a routerLink="/estado/sa" (click)="scrollToTop(topSite)" style="word-wrap: break-word ¡important; white-space: normal;" class="dropdown-item">Sociedades Anónimas</a>
-                                            
+
                                             <a href="https://www.gobernaciones.gov.py/gobernacion/" target="_blank" (click)="scrollToTop(topSite)" class="dropdown-item">Gobernaciones</a>
                                             <a href="https://www.municipios.gov.py/municipios/" target="_blank" (click)="scrollToTop(topSite)" class="dropdown-item">Municipios</a>
 
@@ -93,24 +61,24 @@
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle space-menu-info" id="pages-drop" data-toggle="dropdown" data-hover="dropdown">
-                                    <i class="fa fa-globe nav-link-icon hidden-lg-up"></i> 
-                                    Trámites
+                                <a class="nav-link dropdown-toggle space-menu-info" id="pages-drop" data-toggle="dropdown" data-hover="dropdown">
+                                    <i class="fa fa-file nav-link-icon visible-xs mr-2"></i>
+                                    <span>Trámites</span>
                                 </a>
                                 <div class="dropdown-menu">
                                     <a routerLink="/estadisticas-portal" class="dropdown-item" style="cursor:pointer;">
                                         <b>Estadísticas</b>
                                     </a>
                                     <a *ngFor="let categoria of categoriaTramite" (click)="searchDataCategoria(categoria)" class="dropdown-item no-decoration text-inverse" style="cursor:pointer;">
-                                        {{categoria.nombre_clasificador}}
-                                    </a>
+                                                    {{categoria.nombre_clasificador}}
+                                                </a>
                                 </div>
                             </li>
 
                             <li class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle space-menu-info" id="pages-drop" data-toggle="dropdown" data-hover="dropdown">
-                                    <i class="fa fa-tag nav-link-icon hidden-lg-up"></i> 
-                                    Sitios<span class="hidden-lg-up"> destacados</span>
+                                    <i class="fa fa-globe nav-link-icon visible-xs mr-2"></i>
+                                    <span>Otros sitios</span>
                                 </a>
                                 <div class="dropdown-menu">
                                     <a href="https://www.presidencia.gov.py/" target="_blank" class="dropdown-item" tabindex="-1">Presidencia</a>
@@ -134,10 +102,10 @@
                                 </div>
                             </li>
 
-                            <li class="nav-item dropdown mr-3">
+                            <li class="nav-item dropdown pr-3">
                                 <a href="#" class="nav-link dropdown-toggle space-menu-info" id="pages-drop" data-toggle="dropdown" data-hover="dropdown">
-                                    <i class="fa fa-info-circle nav-link-icon"></i>
-                                    <span class="hidden-lg-up">Enlaces de Interés</span>
+                                    <i class="fa fa-info-circle nav-link-icon mr-2"></i>
+                                    <span class="visible-xs">Enlaces de Interés</span>
                                 </a>
                                 <div class="dropdown-menu">
                                     <a routerLink="/sobre-portal" class="dropdown-item" (click)="searchData(null, topSite);">Sobre el portal</a>
@@ -152,15 +120,20 @@
                                 </div>
                             </li>
 
-                            <li class="nav-item dropdown dropdown-mega-menu_ dropdown-mega-menu-25_" (click)="verificarSession()">
-                                <a href="#" class="nav-link dropdown-toggle space-menu-info btn-menu-destacado" id="pages-drop" data-toggle="dropdown" data-hover="dropdown">
-                                    <i class="fa fa-user-circle nav-link-icon"></i>
-                                    Identidad Electrónica
+                            <li class="nav-item dropdown" (click)="verificarSession()">
+
+                                <a href="#" *ngIf="!currentUser || currentUser == 'undefined' || currentUser == 'null' || currentUser == null" class="nav-link dropdown-toggle space-menu-info btn-menu-destacado" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" style="border: 1px solid #ffffff24 !important">
+                                    <i class="fa fa-user-circle nav-link-icon mr-2"></i>
+                                    <span>Identidad Electrónica</span>
+                                </a>
+                                <a href="#" *ngIf="currentUser" class="nav-link dropdown-toggle space-menu-info btn-menu-destacado" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" style="border: 1px solid #ffffff24 !important">
+                                    <i class="fa fa-user-circle nav-link-icon mr-2"></i>
+                                    <span>{{ currentUser.nombres.split(" ", 3)[0] }} {{ currentUser.apellidos.split(" ", 3)[0] }}</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" *ngIf="!token || token == 'undefined' || token == null || !currentUser || currentUser == 'undefined' || currentUser == null">
                                     <a (click)="loginIdentidadElectronica()" class="dropdown-item mb-2 menu-detacado_"><i class="fas fa-id-badge nav-link-icon mr-2" style="font-size: 32px;float: left;margin-top: 3px;margin-left: -6px;">                                       
-                                        </i> Ingresar con mi <br><b>Identidad electrónica</b>
-                                    </a>
+                                                    </i> Ingresar con mi <br><b>Identidad electrónica</b>
+                                                </a>
                                     <a routerLink="/crear-cuenta" class="dropdown-item" (click)="searchData(null, topSite);"><b>Crea tu identidad electrónica →</b></a>
                                     <a routerLink="/identidad-electronica" class="dropdown-item" (click)="searchData(null, topSite);">¿Qué es Identidad Electrónica?</a>
                                     <a routerLink="/identidad-electronica/preguntas-frecuentes-creacion" class="dropdown-item" (click)="searchData(null, topSite);">Preguntas frecuentes</a>
@@ -174,37 +147,11 @@
                                     <a routerLink="/otros-tramites-en-linea" class="dropdown-item" (click)="searchData(null, topSite);">Otros Trámites en Línea</a>
                                     <a routerLink="/marco-legal" class="dropdown-item" (click)="searchData(null, topSite);">Marco Legal</a>
                                     <a class="dropdown-item" [href]="config.URL_AGENDA_TURNO" target="_blank">Agendar Turno</a>
-                                    <a (click)="logout()" class="dropdown-item" (click)="searchData(null, topSite);"><b>Cerrar Sesión</b></a>
+                                    <a style="cursor:pointer" (click)="logout()" class="dropdown-item" (click)="searchData(null, topSite);"><b>Cerrar Sesión</b></a>
                                 </div>
                             </li>
-                            <!--
-                                <li  class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle space-menu-info" id="pages-drop" data-toggle="dropdown" data-hover="dropdown">
-                                        <i class="fa fa-globe nav-link-icon"></i>
-                                        <span class="hidden-sm-up">Cambiar el idioma</span>
-                                    </a>
-                                    <div class="dropdown-menu translation-icons" style="visibility:hidden">
-                                        <a href="javascript:;" data-placement="48" data-country="inglaterra"><img src="assets/img/lang/gb.png" alt="" class="lang-img" /></a>
-                                        <a href="javascript:;" data-placement="76" data-country="brasil"><img src="assets/img/lang/br.png" alt="" class="lang-img" /></a>
-                                        <a href="javascript:;" data-placement="77" data-country="rumania"><img src="assets/img/lang/ru.png" alt="" class="lang-img" /></a>
-                                        <a href="javascript:;" data-placement="1" data-country="alemania"><img src="assets/img/lang/de.png" alt="" class="lang-img" /></a>
-                                        <a href="javascript:;" data-placement="31" data-country="francia"><img src="assets/img/lang/france.png" alt="" class="lang-img" /></a>
-                                        <a href="javascript:;" data-placement="52" data-country="japon"><img src="assets/img/lang/jp.png" alt="" class="lang-img" /></a>
-                                        <a href="javascript:;" data-placement="18" data-country="china"><img src="assets/img/lang/cn.png" alt="" class="lang-img" /></a>
-                                        <a href="javascript:;" data-placement="20" data-country="korea"><img src="assets/img/lang/kr.png" alt="" class="lang-img" /></a>
-                                        <a href="javascript:;" data-placement="44" data-country="holanda"><img src="assets/img/lang/nl.png" alt="" class="lang-img" /></a>
-                                        <a href="javascript:;" data-placement="30" data-country="finlandia"><img src="assets/img/lang/fi.png" alt="" class="lang-img" /></a>
-                                        <a href="javascript:;" data-placement="71" data-country="noruega"><img src="assets/img/lang/no.png" alt="" class="lang-img" /></a>
-                                        <a href="javascript:;" data-placement="27" data-country="spanish"><img src="assets/img/lang/spain.png" alt="" class="lang-img" /></a>
-                                    </div>
-                                    <div id="google_translate_element" style="display: none"></div>
-                                </li>
-                            -->
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="fondo-degradado-superior_"><div>
-    </div>
-</div>

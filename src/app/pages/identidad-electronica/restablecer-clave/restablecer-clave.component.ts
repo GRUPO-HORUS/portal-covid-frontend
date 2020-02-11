@@ -40,11 +40,12 @@ export class RestablecerClaveComponent implements OnInit {
     this.loading = false;
     this.persona = new Persona();
     this.getRecaptchaToken('registerOAuthReset');
+    this.viewScrollTop();
   }
 
   getRecaptchaToken(action) {
     this.subscription = this.rcv3Service.execute(action).subscribe(response => {
-      console.log('response', response);
+      // console.log('response', response);
       
       this.recentToken = response;
       
@@ -100,6 +101,14 @@ export class RestablecerClaveComponent implements OnInit {
       if (res.success)
         this.router.navigate(['/']);
     });
+  }
+
+  // refreshCaptcha() {
+  //   this.reCaptcha.reset();
+  // }
+
+  viewScrollTop() {
+    window.scrollTo(600, 1);
   }
 
 }

@@ -1,6 +1,6 @@
 /**************************************************************************
  * jquery.themepunch.revolution.js - jQuery Plugin for Revolution Slider
- * @version: 5.4.0 (15.12.2017)
+ * @version: 5.4.4 (27.04.2017)
  * @requires jQuery v1.7 or later (tested on 1.9)
  * @author ThemePunch
 **************************************************************************/
@@ -8,15 +8,15 @@
 "use strict";
 		
 	var version = {
-					core : "5.4.0",
+					core : "5.4.4",
 					"revolution.extensions.actions.min.js":"2.0.4",
 					"revolution.extensions.carousel.min.js":"1.2.1",
 					"revolution.extensions.kenburn.min.js":"1.2.0",
-					"revolution.extensions.layeranimation.min.js":"3.5.2", 
+					"revolution.extensions.layeranimation.min.js":"3.6.1", 
 					"revolution.extensions.navigation.min.js":"1.3.3", 
 					"revolution.extensions.parallax.min.js":"2.2.0",  
-					"revolution.extensions.slideanims.min.js":"1.6", 
-					"revolution.extensions.video.min.js":"2.0.3"  
+					"revolution.extensions.slideanims.min.js":"1.7", 
+					"revolution.extensions.video.min.js":"2.1.1"  
 				   }
 
 	jQuery.fn.extend({
@@ -92,8 +92,9 @@
 				scrolleffect: {
 					fade:"off",
 					blur:"off",
+					scale:"off",
 					grayscale:"off",					
-					maxblur:10,					
+					maxblur:10,									
 					on_layers:"off",
 					on_slidebg:"off",
 					on_static_layers:"off",
@@ -259,7 +260,7 @@
 				
 				// Prepare maxHeight
 				options.minHeight = options.minHeight!=undefined ? parseInt(options.minHeight,0) : options.minHeight;
-				options.scrolleffect.on = options.scrolleffect.fade==="on" || options.scrolleffect.blur==="on" || options.scrolleffect.grayscale==="on";
+				options.scrolleffect.on = options.scrolleffect.fade==="on" || options.scrolleffect.scale==="on" || options.scrolleffect.blur==="on" || options.scrolleffect.grayscale==="on";
 
 				
 
@@ -280,16 +281,14 @@
        				 options.navigation.touch.swipe_min_touches = options.navigation.touch.swipe_min_touches >5 ? 1 : options.navigation.touch.swipe_min_touches;
    
 
-
 				jQuery(this).on("scriptsloaded",function() {
 					if (options.modulesfailing ) {
 						c.html('<div style="margin:auto;line-height:40px;font-size:14px;color:#fff;padding:15px;background:#e74c3c;margin:20px 0px;">!! Error at loading Slider Revolution 5.0 Extrensions.'+options.errorm+'</div>').show();
 						return false;
 					}
-
 					// CHECK FOR MIGRATION
 					if (_R.migration!=undefined) options = _R.migration(c,options);	
-					
+
 					punchgs.force3D = true;
 					if (options.simplifyAll!=="on") punchgs.TweenLite.lagSmoothing(1000,16);													
 					prepareOptions(c,options);
@@ -299,6 +298,24 @@
 				c[0].opt = options;
 				waitForScripts(c,options);
 			})
+		},
+
+		//Get All Loaded Version
+		getRSVersion : function(silent) {					
+			if (silent===true) {
+				return jQuery('body').data('tp_rs_version');
+			} else {				
+				var v = jQuery('body').data('tp_rs_version'),
+					t = "";
+				t += ("---------------------------------------------------------")+"\n";
+				t += ("    Currently Loaded Slider Revolution & SR Modules :")+"\n";
+				t += ("---------------------------------------------------------")+"\n";			
+				for (var key in v) {
+					t += (v[key].alias+": "+v[key].ver)+"\n";
+				}				
+				t +=("---------------------------------------------------------")+"\n";
+				return t;
+			};					
 		},
 
 		
@@ -405,9 +422,12 @@
 							opt.tonpause = true;
 							container.trigger('stoptimer');
 
+							var resizid = "resize.revslider-"+container.attr('id');									
+							jQuery(window).unbind(resizid);
+
 							punchgs.TweenLite.killTweensOf(container.find('*'),false);
 							punchgs.TweenLite.killTweensOf(container,false);
-							container.unbind('hover, mouseover, mouseenter,mouseleave, resize');
+							container.unbind('hover, mouseover, mouseenter,mouseleave, resize');							
 							var resizid = "resize.revslider-"+container.attr('id');
 							jQuery(window).off(resizid);
 							container.find('*').each(function() {
@@ -445,6 +465,8 @@
 							opt = null;
 							delete(self.c);
 							delete(self.opt);
+							delete(self.container);
+							
 
 							return true;
 						} else {
@@ -578,6 +600,15 @@ jQuery.extend(true, _R, {
 	},
 
 	compare_version : function(extension) {
+		var v = jQuery('body').data('tp_rs_version');
+		v = v === undefined ? new Object() : v;
+		if (v.Core===undefined) {
+			v.Core = new Object();
+			v.Core.alias = "Slider Revolution Core";
+			v.Core.name = "jquery.themepunch.revolution.min.js";
+			v.Core.ver = _R.getversion().core;
+		}
+
 		if (extension.check!="stop") {
 			// CHECK FOR CORRECT CORE AND EXTENSION VERSION
 			if (_R.getversion().core<extension.min_core) {			
@@ -601,6 +632,16 @@ jQuery.extend(true, _R, {
 				extension.check="stop";
 			}
 		}
+		
+		if (v[extension.alias]===undefined) {
+			v[extension.alias] = new Object();
+			v[extension.alias].alias = extension.alias;
+			v[extension.alias].ver = extension.version;
+			v[extension.alias].name = extension.name;			
+		}
+
+		jQuery('body').data('tp_rs_version',v);
+		
 		return extension;
 	},
 	
@@ -858,8 +899,7 @@ jQuery.extend(true, _R, {
 		setScale(opt);		
 	},
 
-	enterInViewPort : function(opt) {		
-		
+	enterInViewPort : function(opt) {				
 		// START COUNTER IF VP ENTERED, AND COUNTDOWN WAS NOT ON YET
 		if (opt.waitForCountDown) {
 		
@@ -1123,7 +1163,8 @@ var waitForScripts = function(c,o) {
 			}
 		})
 	}
-	 
+
+ 
 	if (n.filesystem || 
 		(typeof punchgs !== 'undefined' &&
 		(addonsloaded) &&
@@ -1528,6 +1569,7 @@ var initSlider = function (container,opt) {
 				addtofadeout = true,
 				addToStaticFadeout = false;
 
+
 			_.startclasses = _nc.attr('class');
 
 			
@@ -1558,6 +1600,7 @@ var initSlider = function (container,opt) {
 				// PREPARE LAYERS AND WRAP THEM WITH PARALLAX, LOOP, MASK HELP CONTAINERS
 				var ec = _nc.hasClass("slidelink") ? "width:100% !important;height:100% !important;" : "",
 					_ndata = _nc.data(),
+					specec = "",
 					nctype = _ndata.type,
 					_pos = nctype==="row" || nctype==="column" ? "relative" : "absolute",
 					preclas = "";
@@ -1567,6 +1610,7 @@ var initSlider = function (container,opt) {
 					preclas="rev_row_wrap";
 				} else
 				if (nctype==="column") {
+					specec = _ndata.verticalalign === undefined ?  " vertical-align:bottom;"  : " vertical-align:"+_ndata.verticalalign+";";					
 					preclas = "rev_column";
 					_nc.addClass("rev_column_inner").removeClass("tp-resizeme");;
 					_nc.data('width','auto');
@@ -1599,7 +1643,7 @@ var initSlider = function (container,opt) {
 				if (_ndata.wrapper_id!==undefined) preid ='id="'+_ndata.wrapper_id+'"';
 
 
-				_nc.wrap('<div '+preid+' class="tp-parallax-wrap '+preclas+'" style="'+ec+'position:'+_pos+';'+dmode+';visibility:hidden"><div class="tp-loop-wrap" style="'+ec+'position:'+_pos+';'+dmode+';"><div class="tp-mask-wrap" style="'+ec+'position:'+_pos+';'+dmode+';" ></div></div></div>');
+				_nc.wrap('<div '+preid+' class="tp-parallax-wrap '+preclas+'" style="'+specec+' '+ec+'position:'+_pos+';'+dmode+';visibility:hidden"><div class="tp-loop-wrap" style="'+ec+'position:'+_pos+';'+dmode+';"><div class="tp-mask-wrap" style="'+ec+'position:'+_pos+';'+dmode+';" ></div></div></div>');
 				
 				
 				// ONLY ADD LAYERS TO FADEOUT DYNAMIC LIST WHC
@@ -1611,7 +1655,7 @@ var initSlider = function (container,opt) {
 				
 				// Add BG for Columns
 				if (nctype==="column") {
-					_nc.append('<div class="rev_column_bg rev_column_bg_man_sized" style="display:none"></div>');
+					_nc.append('<div class="rev_column_bg rev_column_bg_man_sized" style="visibility:hidden"></div>');
 					_nc.closest('.tp-parallax-wrap').append('<div class="rev_column_bg rev_column_bg_auto_sized"></div>');
 				}
 
@@ -1644,7 +1688,7 @@ var initSlider = function (container,opt) {
 
 			// REMOVE VIDEO AUTOPLAYS FOR MOBILE DEVICES 
 			
-			if (_ISM && (!_ANDROID || !opt.fallbacks.allowHTML5AutoPlayOnAndroid || !htmlvideo)) {
+			if (_ISM && (!opt.fallbacks.allowHTML5AutoPlayOnAndroid || !htmlvideo)) {
 				if (an == true || an=="true") {
 						_.autoplayonlyfirsttime=false;
 						an=false;
@@ -1876,7 +1920,10 @@ var initSlider = function (container,opt) {
 		
 		hideSliderUnder(container,opt);	
 		contWidthManager(opt);		
-		if (!opt.fallbacks.disableFocusListener && opt.fallbacks.disableFocusListener != "true" && opt.fallbacks.disableFocusListener !== true) tabBlurringCheck(container,opt);
+		if (!opt.fallbacks.disableFocusListener && opt.fallbacks.disableFocusListener != "true" && opt.fallbacks.disableFocusListener !== true) {
+			container.addClass("rev_redraw_on_blurfocus");
+			tabBlurringCheck();
+		}
 	}
 }
 
@@ -1944,8 +1991,7 @@ var checkHoverDependencies = function(_nc,opt) {
 
 
 
-var contWidthManager = function(opt) {	
-
+var contWidthManager = function(opt) {		
 	var rl = _R.getHorizontalOffset(opt.c,"left");
 
 	if (opt.sliderLayout!="auto" && (opt.sliderLayout!=="fullscreen" || opt.fullScreenAutoWidth!="on")) {		
@@ -2143,6 +2189,8 @@ var prepareSlides = function(container,opt) {
 
 		bgvid.addClass("defaultvid").css({zIndex:30});
 
+
+
 		img.addClass('defaultimg');				
 						
 		// TURN OF KEN BURNS IF WE ARE ON MOBILE AND IT IS WISHED SO
@@ -2158,8 +2206,10 @@ var prepareSlides = function(container,opt) {
 		var dts = img.data();
 		img.closest('.slotholder').data(dts);
 									
-		if (bgvid.length>0 && dts.bgparallax!=undefined)
+		if (bgvid.length>0 && dts.bgparallax!=undefined) {
 			bgvid.data('bgparallax',dts.bgparallax);
+			bgvid.data('showcoveronpause',"on");
+		}
 
 		if (opt.dottedOverlay!="none" && opt.dottedOverlay!=undefined)
 				img.closest('.slotholder').append('<div class="tp-dottedoverlay '+opt.dottedOverlay+'"></div>');
@@ -2884,7 +2934,7 @@ var letItFree = function(container,nextsh,actsh,nextli,actli,mtl) {
 	}
 
 	nextli.find('.rs-background-video-layer').each(function(i) {		
-		if (_ISM && (!_ANDROID || !opt.fallbacks.allowHTML5AutoPlayOnAndroid)) return false;
+		if (_ISM && (!opt.fallbacks.allowHTML5AutoPlayOnAndroid)) return false;
 		var _nc = jQuery(this);
 		_R.resetVideo(_nc,opt);										
 		punchgs.TweenLite.fromTo(_nc,1,{autoAlpha:0},{autoAlpha:1,ease:punchgs.Power3.easeInOut,delay:0.2,onComplete:function() {		
@@ -2913,6 +2963,19 @@ var letItFree = function(container,nextsh,actsh,nextli,actli,mtl) {
 
 	container.trigger('revolution.slide.onchange',data);
 	container.trigger('revolution.slide.onafterswap',data);	
+	
+	if (opt.startWithSlide!==undefined && opt.startWithSlide!=="done" && opt.sliderType==="carousel") {
+		var callslideindex = opt.startWithSlide;		
+		for (var lis=0;lis<=opt.li.length-1;lis++) {
+			var oindex = jQuery(opt.li[lis]).data('originalindex');			
+			if (oindex === opt.startWithSlide)
+				callslideindex = lis;
+		}
+		if (callslideindex!==0)
+			_R.callingNewSlide(opt.c,callslideindex);
+		opt.startWithSlide = "done";
+	}
+	
 
 	opt.duringslidechange = false;
 
@@ -3102,67 +3165,74 @@ var vis = (function(){
 	    }
 	})();
 
-var restartOnFocus = function(opt) {
-	if (opt==undefined || opt.c==undefined) return false;
-	if (opt.windowfocused!=true) {
-		opt.windowfocused = true;
-	    punchgs.TweenLite.delayedCall(0.3,function(){        	
-	        // TAB IS ACTIVE, WE CAN START ANY PART OF THE SLIDER        
-	        if (opt.fallbacks.nextSlideOnWindowFocus=="on") opt.c.revnext();
-	        opt.c.revredraw();
-	        if (opt.lastsliderstatus=="playing")								
-			opt.c.revresume();
-	    });
-	}
+var restartOnFocus = function() {
+	jQuery('.rev_redraw_on_blurfocus').each(function() {				
+		var opt = jQuery(this)[0].opt;
+		if (opt==undefined || opt.c==undefined || opt.c.length===0) return false;
+		if (opt.windowfocused!=true) {
+			opt.windowfocused = true;
+		    punchgs.TweenLite.delayedCall(0.3,function(){        	
+		        // TAB IS ACTIVE, WE CAN START ANY PART OF THE SLIDER        
+		        if (opt.fallbacks.nextSlideOnWindowFocus=="on") opt.c.revnext();
+		        opt.c.revredraw();
+		        if (opt.lastsliderstatus=="playing")								
+				opt.c.revresume();
+		    });
+		}
+	})
 }
 
-var lastStatBlur = function(opt) {
-	opt.windowfocused = false;
-	opt.lastsliderstatus = opt.sliderstatus;	
-	opt.c.revpause();	
-	var actsh = opt.c.find('.active-revslide .slotholder'),
-		nextsh = opt.c.find('.processing-revslide .slotholder');
+var lastStatBlur = function() {
+	jQuery('.rev_redraw_on_blurfocus').each(function() {	
+		var opt = jQuery(this)[0].opt;		
+		opt.windowfocused = false;
+		opt.lastsliderstatus = opt.sliderstatus;	
+		opt.c.revpause();	
+		var actsh = opt.c.find('.active-revslide .slotholder'),
+			nextsh = opt.c.find('.processing-revslide .slotholder');
 
-	if (nextsh.data('kenburns')=="on") 				
-		_R.stopKenBurn(nextsh,opt);
+		if (nextsh.data('kenburns')=="on") 				
+			_R.stopKenBurn(nextsh,opt);
 
-	if (actsh.data('kenburns')=="on") 				
-		_R.stopKenBurn(actsh,opt);
+		if (actsh.data('kenburns')=="on") 				
+			_R.stopKenBurn(actsh,opt);
+	});
 	
 	
 }
 
-var tabBlurringCheck = function(container,opt) {
+var tabBlurringCheck = function() {
 	var notIE = (document.documentMode === undefined),
 	    isChromium = window.chrome;
-
+	if (jQuery('body').data('revslider_focus_blur_listener')===1) return;
+	jQuery('body').data('revslider_focus_blur_listener',1);
 	if (notIE && !isChromium) {
 	    // checks for Firefox and other  NON IE Chrome versions
 	    jQuery(window).on("focusin", function () {
-			restartOnFocus(opt);
+			restartOnFocus();
 	    }).on("focusout", function () {
-	    	lastStatBlur(opt);	    					
+	    	lastStatBlur();	    					
 	    });
 	} else {
 	    // checks for IE and Chromium versions
 	    if (window.addEventListener) {			    	
 	        // bind focus event
-	        window.addEventListener("focus", function (event) {
-				restartOnFocus(opt);
+	        window.addEventListener("focus", function (event) {	        	
+				restartOnFocus();
 	        }, {capture:false,passive:true});
 	        // bind blur event
 	        window.addEventListener("blur", function (event) {
-				lastStatBlur(opt);	  
+				lastStatBlur();	  
 	        }, {capture:false,passive:true});
 
 	    } else {
 	        // bind focus event
 	        window.attachEvent("focus", function (event) {
-	        	restartOnFocus(opt);
+	        	restartOnFocus();
 	        });
 	        // bind focus event
 	        window.attachEvent("blur", function (event) {
-				lastStatBlur(opt);	  
+				lastStatBlur();	  
 	        });
 	    }
 	}

@@ -29,4 +29,9 @@ export class AppConfig {
   public readonly API_DOCUMENTOS = 'http://localhost:8080/documentos-core/rest';
   /*/
 
+  // public readonly API = 'https://devportalpy.senatics.gov.py/api';
+  // public readonly API_COMPRAS_PUBLICAS = 'plugins';
+  // public readonly API_BOLSA_TRABAJO = 'plugins';
+  // public readonly API_GESTION_CLAVE = 'https://devportalpy.senatics.gov.py/auth';
+  // public readonly API_DOCUMENTOS = 'https://devportalpy.senatics.gov.py/docsapi';
 }

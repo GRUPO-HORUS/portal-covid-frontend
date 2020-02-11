@@ -1,6 +1,14 @@
+/**************************************************************************
+ * tp-color-picker.js - Color Picker Plugin for Revolution Slider
+ * @version: 1.0.1 (2.28.2017)
+ * @author ThemePunch
+**************************************************************************/
+
 ;window.RevColor = {
 	
 	defaultValue: '#ffffff',
+	isColor: /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i,
+	
 	get: function(val) {
 		
 		if(!val) return 'transparent';
@@ -23,26 +31,48 @@
 	
 	convert: function(color, opacity) {
 		
-		if(!color) return RevColor.defaultValue;
+		// falsey or non-string
+		if(!color || typeof color !== 'string') return RevColor.defaultValue;
+		
+		// transparent
 		if(color === 'transparent') return color;
+		
+		// gradients
 		if(color.search(/\[\{/) !== -1 || color.search('gradient') !== -1) return RevColor.process(color, true)[0];
+		
+		// if no opacity value exists
 		if(typeof opacity === 'undefined' || isNaN(opacity)) return RevColor.process(color, true)[0];
 		
+		// convert opacity from float to int
 		opacity = parseFloat(opacity);
 		if(opacity <= 1) opacity *= 100;
 		
+		// min/max opacity
 		opacity = Math.max(Math.min(parseInt(opacity, 10), 100), 0);
 		
+		// transparent for 0 opacity
 		if(opacity === 0) return 'transparent';
-		if(color.search('#') !== -1) {
+		
+		try {
+		
+			if(color.search('#') !== -1 || color.length < 8) {
+				
+				if(!RevColor.isColor.test(color)) color = color.replace(/[^A-Za-z0-9#]/g, '');
+				return RevColor.processRgba(RevColor.sanitizeHex(color), opacity);
+				
+			}
 			
-			return RevColor.processRgba(RevColor.sanitizeHex(color), opacity);
+			else {
+				
+				color = RevColor.rgbValues(color, 3);
+				return RevColor.rgbaString(color[0], color[1], color[2], opacity * 0.01);
+				
+			}
 			
 		}
-		else {
+		catch(e) {
 			
-			color = RevColor.rgbValues(color, 3);
-			return RevColor.rgbaString(color[0], color[1], color[2], opacity * 0.01);
+			return RevColor.defaultValue;
 			
 		}
 		
@@ -123,7 +153,7 @@
 	},
 	
 	rgbValues: function(values, num) {
-						
+		
 		values = values.substring(values.indexOf('(') + 1, values.lastIndexOf(')')).split(',');
 		if(values.length === 3 && num === 4) values[3] = '1';
 		
@@ -281,6 +311,7 @@
 		hitTop,
 		onEdit,
 		onInit,
+		onAjax,
 		cPicker,
 		prepped,
 		reverse,
@@ -289,6 +320,7 @@
 		defMode,
 		inFocus,
 		defEdit,
+		defAjax,
 		colorBox,
 		colorBtn,
 		colorHex,
@@ -314,6 +346,7 @@
 		onReverse,
 		wheelDown,
 		editTitle,
+		colorView,
 		angleWheel,
 		wheelPoint,
 		gradOutput,
@@ -343,6 +376,7 @@
 		supressColor,
 		supressWheel,
 		supressCheck,
+		gradientsOpen,
 		isTransparent,
 		mainContainer,
 		opacityDelete,
@@ -352,8 +386,7 @@
 		currentEditing,
 		defaultClasses,
 		changeCallback,
-		gradientPreview = {},
-		isColor = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i;
+		gradientPreview = {};
 		
 	var hitWidth = 265,
 		maxPoints = 20,
@@ -392,7 +425,22 @@
 		
 	};
 	
-	var defColors = ['#FFFFFF', '#000000', '#FF3A2D', '#007AFF', '#4CD964', '#FFCC00', '#C7C7CC', '#8E8E93', '#FFD3E0', '#34AADC', '#E0F8D8', '#FF9500'];
+	var defColors = [
+	
+		'#FFFFFF', 
+		'#000000', 
+		'#FF3A2D', 
+		'#007AFF', 
+		'#4CD964', 
+		'#FFCC00', 
+		'#C7C7CC', 
+		'#8E8E93', 
+		'#FFD3E0', 
+		'#34AADC', 
+		'#E0F8D8', 
+		'#FF9500'
+		
+	];
 	
 	var defGradients = [
 				
@@ -407,7 +455,31 @@
 		{'8': '{&type&:&linear&,&angle&:&180&,&colors&:[{&r&:255,&g&:149,&b&:0,&a&:&1&,&position&:0,&align&:&top&},{&r&:255,&g&:149,&b&:0,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:255,&g&:94,&b&:58,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:255,&g&:94,&b&:58,&a&:&1&,&position&:100,&align&:&top&}]}'},
 		{'9': '{&type&:&linear&,&angle&:&180&,&colors&:[{&r&:82,&g&:237,&b&:199,&a&:&1&,&position&:0,&align&:&top&},{&r&:82,&g&:237,&b&:199,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:90,&g&:200,&b&:251,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:90,&g&:200,&b&:251,&a&:&1&,&position&:100,&align&:&top&}]}'},
 		{'10': '{&type&:&linear&,&angle&:&180&,&colors&:[{&r&:228,&g&:183,&b&:240,&a&:&1&,&position&:0,&align&:&top&},{&r&:228,&g&:183,&b&:240,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:200,&g&:110,&b&:223,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:200,&g&:110,&b&:223,&a&:&1&,&position&:100,&align&:&top&}]}'},
-		{'11': '{&type&:&linear&,&angle&:&180&,&colors&:[{&r&:135,&g&:252,&b&:112,&a&:&1&,&position&:0,&align&:&top&},{&r&:135,&g&:252,&b&:112,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:11,&g&:211,&b&:24,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:11,&g&:211,&b&:24,&a&:&1&,&position&:100,&align&:&top&}]}'}
+		{'11': '{&type&:&linear&,&angle&:&180&,&colors&:[{&r&:135,&g&:252,&b&:112,&a&:&1&,&position&:0,&align&:&top&},{&r&:135,&g&:252,&b&:112,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:11,&g&:211,&b&:24,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:11,&g&:211,&b&:24,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'12': '{&type&:&linear&,&angle&:&180&,&colors&:[{&r&:61,&g&:78,&b&:129,&a&:&1&,&position&:0,&align&:&top&},{&r&:61,&g&:78,&b&:129,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:87,&g&:83,&b&:201,&a&:&1&,&position&:50,&align&:&bottom&},{&r&:110,&g&:127,&b&:243,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:110,&g&:127,&b&:243,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'13': '{&type&:&linear&,&angle&:&160&,&colors&:[{&r&:35,&g&:21,&b&:87,&a&:&1&,&position&:0,&align&:&top&},{&r&:35,&g&:21,&b&:87,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:68,&g&:16,&b&:122,&a&:&1&,&position&:29,&align&:&bottom&},{&r&:255,&g&:19,&b&:97,&a&:&1&,&position&:67,&align&:&bottom&},{&r&:255,&g&:248,&b&:0,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:255,&g&:248,&b&:0,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'14': '{&type&:&linear&,&angle&:&160&,&colors&:[{&r&:105,&g&:234,&b&:203,&a&:&1&,&position&:0,&align&:&top&},{&r&:105,&g&:234,&b&:203,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:234,&g&:204,&b&:248,&a&:&1&,&position&:50,&align&:&bottom&},{&r&:102,&g&:84,&b&:241,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:102,&g&:84,&b&:241,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'15': '{&type&:&linear&,&angle&:&160&,&colors&:[{&r&:255,&g&:5,&b&:124,&a&:&1&,&position&:0,&align&:&top&},{&r&:255,&g&:5,&b&:124,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:124,&g&:100,&b&:213,&a&:&1&,&position&:50,&align&:&bottom&},{&r&:76,&g&:195,&b&:255,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:76,&g&:195,&b&:255,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'16': '{&type&:&linear&,&angle&:&160&,&colors&:[{&r&:255,&g&:5,&b&:124,&a&:&1&,&position&:0,&align&:&top&},{&r&:255,&g&:5,&b&:124,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:141,&g&:11,&b&:147,&a&:&1&,&position&:50,&align&:&bottom&},{&r&:50,&g&:21,&b&:117,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:50,&g&:21,&b&:117,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'17': '{&type&:&linear&,&angle&:&160&,&colors&:[{&r&:164,&g&:69,&b&:178,&a&:&1&,&position&:0,&align&:&top&},{&r&:164,&g&:69,&b&:178,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:212,&g&:24,&b&:114,&a&:&1&,&position&:50,&align&:&bottom&},{&r&:255,&g&:0,&b&:102,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:255,&g&:0,&b&:102,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'18': '{&type&:&linear&,&angle&:&160&,&colors&:[{&r&:158,&g&:251,&b&:211,&a&:&1&,&position&:0,&align&:&top&},{&r&:158,&g&:251,&b&:211,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:87,&g&:233,&b&:242,&a&:&1&,&position&:50,&align&:&bottom&},{&r&:69,&g&:212,&b&:251,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:69,&g&:212,&b&:251,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'19': '{&type&:&linear&,&angle&:&160&,&colors&:[{&r&:172,&g&:50,&b&:228,&a&:&1&,&position&:0,&align&:&top&},{&r&:172,&g&:50,&b&:228,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:121,&g&:24,&b&:242,&a&:&1&,&position&:50,&align&:&bottom&},{&r&:72,&g&:1,&b&:255,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:72,&g&:1,&b&:255,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'20': '{&type&:&linear&,&angle&:&160&,&colors&:[{&r&:112,&g&:133,&b&:182,&a&:&1&,&position&:0,&align&:&top&},{&r&:112,&g&:133,&b&:182,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:135,&g&:167,&b&:217,&a&:&1&,&position&:50,&align&:&bottom&},{&r&:222,&g&:243,&b&:248,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:222,&g&:243,&b&:248,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'21': '{&type&:&linear&,&angle&:&160&,&colors&:[{&r&:34,&g&:225,&b&:255,&a&:&1&,&position&:0,&align&:&top&},{&r&:34,&g&:225,&b&:255,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:29,&g&:143,&b&:225,&a&:&1&,&position&:50,&align&:&bottom&},{&r&:98,&g&:94,&b&:177,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:98,&g&:94,&b&:177,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'22': '{&type&:&linear&,&angle&:&160&,&colors&:[{&r&:44,&g&:216,&b&:213,&a&:&1&,&position&:0,&align&:&top&},{&r&:44,&g&:216,&b&:213,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:107,&g&:141,&b&:214,&a&:&1&,&position&:50,&align&:&bottom&},{&r&:142,&g&:55,&b&:215,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:142,&g&:55,&b&:215,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'23': '{&type&:&linear&,&angle&:&160&,&colors&:[{&r&:44,&g&:216,&b&:213,&a&:&1&,&position&:0,&align&:&top&},{&r&:44,&g&:216,&b&:213,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:197,&g&:193,&b&:255,&a&:&1&,&position&:56,&align&:&bottom&},{&r&:255,&g&:186,&b&:195,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:255,&g&:186,&b&:195,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'24': '{&type&:&linear&,&angle&:&180&,&colors&:[{&r&:191,&g&:217,&b&:254,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:191,&g&:217,&b&:254,&a&:&1&,&position&:0,&align&:&top&},{&r&:223,&g&:137,&b&:181,&a&:&1&,&position&:100,&align&:&top&},{&r&:223,&g&:137,&b&:181,&a&:&1&,&position&:100,&align&:&bottom&}]}'},
+		{'25': '{&type&:&linear&,&angle&:&340&,&colors&:[{&r&:97,&g&:97,&b&:97,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:97,&g&:97,&b&:97,&a&:&1&,&position&:0,&align&:&top&},{&r&:155,&g&:197,&b&:195,&a&:&1&,&position&:100,&align&:&top&},{&r&:155,&g&:197,&b&:195,&a&:&1&,&position&:100,&align&:&bottom&}]}'},
+		{'26': '{&type&:&linear&,&angle&:&90&,&colors&:[{&r&:36,&g&:57,&b&:73,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:36,&g&:57,&b&:73,&a&:&1&,&position&:0,&align&:&top&},{&r&:81,&g&:127,&b&:164,&a&:&1&,&position&:100,&align&:&top&},{&r&:81,&g&:127,&b&:164,&a&:&1&,&position&:100,&align&:&bottom&}]}'},
+		{'27': '{&type&:&linear&,&angle&:&180&,&colors&:[{&r&:234,&g&:205,&b&:163,&a&:&1&,&position&:0,&align&:&top&},{&r&:234,&g&:205,&b&:163,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:230,&g&:185,&b&:128,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:230,&g&:185,&b&:128,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'28': '{&type&:&linear&,&angle&:&45&,&colors&:[{&r&:238,&g&:156,&b&:167,&a&:&1&,&position&:0,&align&:&top&},{&r&:238,&g&:156,&b&:167,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:255,&g&:221,&b&:225,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:255,&g&:221,&b&:225,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'29': '{&type&:&linear&,&angle&:&340&,&colors&:[{&r&:247,&g&:148,&b&:164,&a&:&1&,&position&:0,&align&:&top&},{&r&:247,&g&:148,&b&:164,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:253,&g&:214,&b&:189,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:253,&g&:214,&b&:189,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'30': '{&type&:&linear&,&angle&:&45&,&colors&:[{&r&:135,&g&:77,&b&:162,&a&:&1&,&position&:0,&align&:&top&},{&r&:135,&g&:77,&b&:162,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:196,&g&:58,&b&:48,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:196,&g&:58,&b&:48,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'31': '{&type&:&linear&,&angle&:&180&,&colors&:[{&r&:243,&g&:231,&b&:233,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:243,&g&:231,&b&:233,&a&:&1&,&position&:0,&align&:&top&},{&r&:218,&g&:212,&b&:236,&a&:&1&,&position&:100,&align&:&top&},{&r&:218,&g&:212,&b&:236,&a&:&1&,&position&:100,&align&:&bottom&}]}'},
+		{'32': '{&type&:&linear&,&angle&:&320&,&colors&:[{&r&:43,&g&:88,&b&:118,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:43,&g&:88,&b&:118,&a&:&1&,&position&:0,&align&:&top&},{&r&:78,&g&:67,&b&:118,&a&:&1&,&position&:100,&align&:&top&},{&r&:78,&g&:67,&b&:118,&a&:&1&,&position&:100,&align&:&bottom&}]}'},
+		{'33': '{&type&:&linear&,&angle&:&60&,&colors&:[{&r&:41,&g&:50,&b&:60,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:41,&g&:50,&b&:60,&a&:&1&,&position&:0,&align&:&top&},{&r&:72,&g&:85,&b&:99,&a&:&1&,&position&:100,&align&:&top&},{&r&:72,&g&:85,&b&:99,&a&:&1&,&position&:100,&align&:&bottom&}]}'},
+		{'34': '{&type&:&linear&,&angle&:&180&,&colors&:[{&r&:233,&g&:233,&b&:231,&a&:&1&,&position&:0,&align&:&top&},{&r&:233,&g&:233,&b&:231,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:239,&g&:238,&b&:236,&a&:&1&,&position&:25,&align&:&bottom&},{&r&:238,&g&:238,&b&:238,&a&:&1&,&position&:70,&align&:&bottom&},{&r&:213,&g&:212,&b&:208,&a&:&1&,&position&:100,&align&:&bottom&},{&r&:213,&g&:212,&b&:208,&a&:&1&,&position&:100,&align&:&top&}]}'},
+		{'35': '{&type&:&linear&,&angle&:&180&,&colors&:[{&r&:251,&g&:200,&b&:212,&a&:&1&,&position&:0,&align&:&bottom&},{&r&:251,&g&:200,&b&:212,&a&:&1&,&position&:0,&align&:&top&},{&r&:151,&g&:149,&b&:240,&a&:&1&,&position&:100,&align&:&top&},{&r&:151,&g&:149,&b&:240,&a&:&1&,&position&:100,&align&:&bottom&}]}'}
 	
 	];
 	
@@ -502,10 +574,10 @@
 								'<br>' + 
 								'<input type="text" id="rev-cpicker-color-hex" class="rev-cpicker-input rev-cpicker-hex" value="#ffffff" />' + 
 								'<br>' + 
-								'<span data-text="opacity"></span>' +
+								'<span data-text="opacity" class="rev-cpicker-hideable"></span>' +
 								'<br>' + 
-								'<input type="text" id="rev-cpicker-color-opacity" class="rev-cpicker-input rev-cpicker-opacity-input" value="100%" />' + 
-								'<span id="rev-cpciker-clear-hex" class="rev-cpicker-btn rev-cpicker-btn-small rev-cpciker-clear" data-text="clear"></span>' + 
+								'<input type="text" id="rev-cpicker-color-opacity" class="rev-cpicker-input rev-cpicker-opacity-input rev-cpicker-hideable" value="100%" />' + 
+								'<span id="rev-cpciker-clear-hex" class="rev-cpicker-btn rev-cpicker-btn-small rev-cpciker-clear rev-cpicker-hideable" data-text="clear"></span>' + 
 							
 							'</div>' + 
 							
@@ -665,7 +737,7 @@
 		
 		'</div>' + 
 		
-		'<span id="rev-cpicker-remove-delete"></span>' + 
+		'<span id="rev-cpicker-remove-delete" data-text="delete_confirm"></span>' + 
 
 	'</div>';
 	
@@ -826,9 +898,13 @@
 		if(presetColor === selectedHex || toCheck) {
 			
 			var $this = $(this);
-			$this.closest('.rev-cpicker-presets-group').find('.rev-cpicker-color.selected').removeClass('selected');
 			
-			selectedColor = $this.addClass('selected');
+			$this.closest('.rev-cpicker-presets-group').find('.rev-cpicker-color.selected').removeClass('selected');
+			selectedColor = $this;
+			
+			if(supressCheck && !colorView) setValue(selectedColor.data('gradient'), true);
+			selectedColor.addClass('selected');
+
 			return false;
 			
 		}
@@ -927,13 +1003,20 @@
 				
 				break;
 				
+				default:
+				
+					colorClear.click();
+					colorBtn.click();
+				
+				// end default
+				
 			}
 			
 			colorIris.val(val).change();
 			if(!fromPreset) colorBtn.click();
 			
 		}
-		else if(type === 'gradient') {
+		else {
 			
 			if(isFull) {
 				
@@ -954,12 +1037,6 @@
 				colorBtn.click();
 				
 			}
-			
-		}
-		else {
-			
-			colorClear.click();
-			colorBtn.click();
 			
 		}
 		
@@ -1175,7 +1252,7 @@
 	
 	function onClose(e, changed) {
 		
-		cPicker.removeClass('active').hide();
+		cPicker.removeClass('active is-basic').hide();
 		bodies.removeClass('rev-colorpicker-open');
 		mainContainer.css({left: '', top: ''});
 		
@@ -1212,7 +1289,17 @@
 		if(!changed) {
 			
 			if(onCancel) onCancel();
-			currentColor[0].style.background = openingValue;
+			if(openingValue && openingValue !== 'transparent') {	
+			
+				currentColor[0].style.background = openingValue;
+				
+			}
+			else {
+				
+				currentColor.css('background', '');
+				
+			}
+			
 			doc.trigger('revcolorpickerupdate', [currentInput, openingValue]);
 			
 		}
@@ -1590,11 +1677,13 @@
 	function onArrowClick() {
 			
 		var $this = $(this);
+		
 		if(this.className.search('down') !== -1) {
 			
 			$this.parent().addClass('active');
 			$this.closest('.rev-cpicker-presets').addClass('active');
 			$(this.id.replace('-btn', '')).addClass('active');
+			gradientsOpen = cPicker.hasClass('gradient-view');
 			
 		}
 		else {
@@ -1602,6 +1691,7 @@
 			$this.parent().removeClass('active');
 			$this.closest('.rev-cpicker-presets').removeClass('active');
 			$(this.id.replace('-btn', '')).removeClass('active');
+			gradientsOpen = false;
 			
 		}
 		
@@ -1658,6 +1748,12 @@
 		
 	}
 	
+	function focusPatch(e) {
+			
+		e.stopImmediatePropagation();
+		
+	}
+	
 	function init() {
 		
 		if(!prepped) $.tpColorPicker();
@@ -1705,7 +1801,12 @@
 		colorBtn.data('state', colorSection.find('.rev-cpicker-color').eq(0).attr('data-color') || '#ffffff');
 		gradBtn.data('state', gradSection.find('.rev-cpicker-color').eq(0).attr('data-color') || 'linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 1) 100%)');
 		
-		mainContainer.draggable({containment: 'window', handle: '.rev-cpicker-draggable'});
+		mainContainer.draggable({containment: 'window', handle: '.rev-cpicker-draggable', stop: function() {
+		
+			mainContainer.css('height', 'auto');
+			
+		}});
+		
 		presetGroups.perfectScrollbar({wheelPropagation: false, suppressScrollX: true});
 		
 		angleWheel.on('mousedown.revcpicker', function(e) {
@@ -1729,7 +1830,8 @@
 			
 			var $this,
 				state;
-				
+			
+			colorView = this.id.search('gradient') === -1;
 			if(currentColor) {
 				
 				$this = $(this);
@@ -1737,7 +1839,7 @@
 				
 			}
 			
-			if(this.id.search('gradient') === -1) {
+			if(colorView) {
 				
 				if(currentColor) selectedHex = colorHex.val();
 				cPicker.removeClass('gradient-view').addClass('color-view');
@@ -1969,7 +2071,7 @@
 			curPoint.css('left', point + '%');
 			buildGradientOutput();
 			
-		});
+		}).on('focusin.revcpicker', focusPatch);
 		
 		$('body').on('click.revcpicker', '.rev-cpicker-point', function() {
 			
@@ -2081,8 +2183,7 @@
 				
 			} 
 			
-			var $this = $(this);
-			selectedColor = $this;
+			selectedColor = $(this);
 			
 			var ids = selectedColor.parent()[0].id,
 				tpe = ids.search('core') !== -1 ? 'core' : 'custom',
@@ -2096,6 +2197,7 @@
 				
 				supressColor = true;
 				colorIris.val(val).change();
+				if(colorHex.val() === 'transparent') colorHex.val(val.toLowerCase());
 				supressColor = false;
 				
 				var opacity = colorOpacity.val();
@@ -2114,72 +2216,78 @@
 				
 			}
 			
-			$this.addClass('selected');
+			selectedColor.addClass('selected');
+			
+		}).on('mouseover.revcpicker', '.rev-cpicker-color:not(.blank)', function() {
+			
+			if(gradientsOpen) gradOutput.style.background = getAttribute(this, 'data-color');
+			
+		}).on('mouseout.revcpicker', '.rev-cpicker-color:not(.blank)', function() {
+			
+			if(gradientsOpen) buildGradientOutput();
 			
 		}).on('click.revcpicker', '.rev-cpicker-delete', function() {
+			
+			if(!onAjax) {
+			
+				console.log('Ajax callback not defined');
+				return;
+				
+			}
 			
 			if(window.confirm(document.getElementById('rev-cpicker-remove-delete').innerHTML)) {
 				
 				cPicker.addClass('onajax onajaxdelete');
 				
 				var $this = $(this),
-					titl = $this.data('title') || '';
-				
-				/* *************************************************** */
-				// AJAX CHANGE ***************************************
-				/* *************************************************** */
-				
-				/*
-				$.post(ajaxurl, {
-				
-					// action: 'tp_cpicker_manage_custom_colors_ajax',
-					// revslider_particles_nonce: revslider_particles_data.revslider_particles_nonce,
-					task: 'delete'
-					data: titl
+					colr = $this.parent(),
+					titl = colr.attr('data-title') || '';
 					
-				}, function() {
+				if(!titl) {
 					
-					// EXECUTE FAKED CODE BELOW HERE 
-				
-				}).fail(function() {
+					console.log('Preset does not have a name/title');
+					return;
 					
-					// need ajax error message here
+				}
+
+				var group = $this.closest('.rev-cpicker-presets-group'),
+					ids = group[0].id,
+					tpe = ids.search('colors') !== -1 ? 'colors' : 'gradients';
 					
-				}).always(function() {
+				doc.off('revcpicker_onajax_delete.revcpicker').on('revcpicker_onajax_delete.revcpicker', function(evt, err) {
+					
+					if(err) console.log(err);
+					
+					var group = $this.closest('.rev-cpicker-presets-group'),
+						scroller = group.find('.ps-scrollbar-x-rail'),
+						btn = $('#' + ids + '-btn');
+						
+					colr.remove();
+					
+					if(!checkRows.call(group[0])) {
+						
+						$('<span class="rev-cpicker-color blank"></span>').insertBefore(scroller);
+						
+					}
+					else {
+						
+						group.perfectScrollbar('update');
+						
+					}
+					
+					if(checkGroup.call(group[0]) < presetColumns + 1) {
+
+						$('<span class="rev-cpicker-color blank"></span>').insertBefore(scroller);
+						if(btn.hasClass('active')) btn.children('.rev-cpicker-arrow-up').click();
+						
+					}
 					
 					cPicker.removeClass('onajax onajaxdelete');
 					
 				});
-				*/
 				
-				/*
-					- BELOW FAKED TEMPORARILY
-					- WOULD NORMALLY BE RUN ON AJAX SUCCESS
-				*/
-				var group = $this.closest('.rev-cpicker-presets-group'),
-					scroller = group.find('.ps-scrollbar-x-rail'),
-					btn = $('#' + group[0].id + '-btn'),
-					colr = $this.parent();
-					
-				colr.remove();
-				
-				if(!checkRows.call(group[0])) {
-					
-					$('<span class="rev-cpicker-color blank"></span>').insertBefore(scroller);
-					
-				}
-				else {
-					
-					group.perfectScrollbar('update');
-					
-				}
-				
-				if(checkGroup.call(group[0]) < presetColumns + 1) {
-
-					$('<span class="rev-cpicker-color blank"></span>').insertBefore(scroller);
-					if(btn.hasClass('active')) btn.children('.rev-cpicker-arrow-up').click();
-					
-				}
+				titl = $.trim(titl.replace(/\W+/g, '_')).replace(/^\_|\_$/g, '').toLowerCase();
+				onAjax('delete', titl, tpe, 'revcpicker_onajax_delete', currentInput);
 				
 			}
 			
@@ -2189,7 +2297,16 @@
 		
 		$('.rev-cpicker-save-preset-btn').on('click.revcpicker', function() {
 			
-			var $this = $(this),
+			if(!onAjax) {
+			
+				console.log('Ajax callback not defined');
+				return;
+				
+			}
+			
+			var presetGroup,
+				duplicateTitle,
+				$this = $(this),
 				input = $this.closest('.rev-cpicker-presets-save-as').find('.rev-cpicker-preset-save'),
 				titl = input.val();
 			
@@ -2200,15 +2317,30 @@
 				
 			}
 			
+			presetGroup = cPicker.hasClass('color-view') ? 'colors' : 'gradients';
+			titl = $.trim(titl.replace(/\W+/g, '_')).replace(/^\_|\_$/g, '').toLowerCase();
+			
+			$('#rev-cpicker-' + presetGroup + '-custom').find('.rev-cpicker-color').not('.blank').each(function() {
+				
+				var atr = $.trim(getAttribute(this, 'data-title').replace(/\W+/g, '_')).replace(/^\_|\_$/g, '').toLowerCase();
+				if(atr === titl) {
+					
+					alert($this.attr('data-message'));
+					duplicateTitle = true;
+					return false;
+					
+				}
+				
+			});
+			
+			if(duplicateTitle) return;
 			cPicker.addClass('onajax onajaxsave');
 			
-			var presetGroup,
+			var newColorValue = {},
 				color,
 				grad;
 				
-			if(cPicker.hasClass('color-view')) {
-			
-				presetGroup = 'colors';
+			if(presetGroup === 'colors') {
 				
 				var hex = colorHex.val(),
 					opacity = colorOpacity.val();
@@ -2220,77 +2352,48 @@
 			}
 			else {
 
-				presetGroup = 'gradients';
 				grad = gradOutput.style.background;
 				color = $.extend({}, buildGradientOutput(false, false, true)[0]);
 			
 			}
 			
-			/* *************************************************** */
-			// AJAX CHANGE ***************************************
-			/* *************************************************** */
-			
-			titl = $.trim(titl.replace(/\W+/g, '_')).replace(/^\_|\_$/g, '').toLowerCase();
-			var newColorValue = {};
 			newColorValue[titl] = color;
-			
-			/*
-			$.post(ajaxurl, {
+			doc.off('revcpicker_onajax_save.revcpicker').on('revcpicker_onajax_save.revcpicker', function(evt, err) {
 				
-				// action: 'tp_cpicker_manage_custom_colors_ajax',
-				// revslider_particles_nonce: revslider_particles_data.revslider_particles_nonce,
-				
-				task: 'save',
-				data: JSON.stringify(newColorValue).replace(/\"/g, '&')
-				
-			}, function(e) {
-				
-				// e is possibly echoed from the backend
-				if(e === 'error') {
+				if(err) {
 					
+					cPicker.removeClass('onajax onajaxsave');
 					alert($this.attr('data-message'));
 					return;
 					
 				}
-				
-				// EXECUTE FAKED CODE BELOW HERE 
-			
-			}).fail(function() {
-				
-				// need ajax error message here
-				
-			}).always(function() {
 					
-				cPicker.removeClass('onajax onajaxsave');
+				var pre = $(newPreset(newColorValue, false, ' rev-picker-color-custom', grad)),
+					group = $('#rev-cpicker-' + presetGroup + '-custom'),
+					box = group.find('.rev-cpicker-color.blank'),
+					btn = $('#' + group[0].id + '-btn');
 					
-			});
-			*/
-			
-			/*
-				- BELOW FAKED TEMPORARILY
-				- WOULD NORMALLY BE RUN ON AJAX SUCCESS
-			*/
-			var pre = $(newPreset(newColorValue, false, ' rev-picker-color-custom', grad)),
-				group = $('#rev-cpicker-' + presetGroup + '-custom'),
-				box = group.find('.rev-cpicker-color.blank'),
-				btn = $('#' + group[0].id + '-btn');
+					
+				if(box.length) pre.insertBefore(box.eq(0));
+				else pre.insertBefore(group.find('.ps-scrollbar-x-rail'));
 				
+				$('#rev-cpicker-' + presetGroup + '-custom-btn').click();
+				var len = checkGroup.call(group[0]);
 				
-			if(box.length) pre.insertBefore(box.eq(0));
-			else pre.insertBefore(group.find('.ps-scrollbar-x-rail'));
-			
-			$('#rev-cpicker-' + presetGroup + '-custom-btn').click();
-			var len = checkGroup.call(group[0]);
-			
-			if(len > 6) {
-				
-				if(box.length) box.last().remove();
-				btn.addClass('active').children('.rev-cpicker-arrow-down').click();
-				group.perfectScrollbar('update');
-				
-			}
+				if(len > 6) {
+					
+					if(box.length) box.last().remove();
+					btn.addClass('active').children('.rev-cpicker-arrow-down').click();
+					group.perfectScrollbar('update');
+					
+				}
 
-			pre.click();
+				pre.click();
+				cPicker.removeClass('onajax onajaxsave');
+				
+			});
+			
+			onAjax('save', newColorValue, presetGroup, 'revcpicker_onajax_save', currentInput);
 			
 		});
 		
@@ -2351,7 +2454,7 @@
 				if(val) {
 					
 					val = RevColor.sanitizeHex(val);
-					if(isColor.test(val)) {
+					if(RevColor.isColor.test(val)) {
 						
 						colorHex.val(val);
 						
@@ -2391,7 +2494,7 @@
 				val = gradHex.val() || RevColor.defaultValue;
 				val = RevColor.sanitizeHex(val);
 				
-				if(!isColor.test(val)) {
+				if(!RevColor.isColor.test(val)) {
 					
 					$this = $(this);
 					oVal = $this.data('orig-value');
@@ -2404,7 +2507,7 @@
 				
 			}
 			
-		});
+		}).on('focusin.revcpicker', focusPatch);
 		
 		$('#rev-cpciker-clear-gradient').on('click.revcpicker', function() {
 			
@@ -2417,7 +2520,7 @@
 			wheelActive = true;
 			angleWheel.addClass('active');
 			
-		});
+		}).on('focusin.revcpicker', focusPatch);
 			
 		directions.on('click.revcpicker', function() {
 			
@@ -2460,6 +2563,7 @@
 			
 		});
 		
+		$('.rev-cpicker-preset-save').on('focusin.revcpicker', focusPatch);
 		$('.rev-cpicker-opacity-input').on('keyup.revcpicker focusout.revcpicker', function(e) {
 			
 			var isColor = this.id.search('grad') === -1,
@@ -2509,7 +2613,7 @@
 				
 			}
 			
-		});
+		}).on('focusin.revcpicker', focusPatch);
 		
 		$('.rev-cpicker-builder-hit').on('click.revcpicker', function(e) {
 			
@@ -2581,7 +2685,7 @@
 			len,
 			el;
 		
-		if(!customAdded) {
+		if(!customAdded || custom) {
 			
 			len = 4;
 			customAdded = custom;
@@ -2674,6 +2778,7 @@
 		}
 		
 		if(settings.init) onInit = settings.init;
+		if(settings.onAjax) defAjax = settings.onAjax;
 		if(settings.onEdit) defEdit = settings.onEdit;
 		if(settings.change) defChange = settings.change;
 		if(settings.cancel) defCancel = settings.cancel;
@@ -2703,7 +2808,7 @@
 				if(val !== 'transparent') $this.data('tpcp')[0].style.background = colorValue;
 				else $this.data('tpcp').css('background', '');
 				
-				$this.attr('data-color', val);
+				$this.attr('data-color', val).data('hex', val);
 			
 			}
 		
@@ -2724,9 +2829,7 @@
 		
 		return this.each(function() {
 			
-			var $this = $(this),
-				instantiated = $this.hasClass('rev-cpicker-component');
-			
+			var $this = $(this);
 			if($this.hasClass('rev-cpicker-component')) {
 				
 				$this.tpColorPicker('refresh');
@@ -2778,7 +2881,7 @@
 			val = colorValue[0];
 			
 			colorValue = colorValue[1] !== 'rgba' || !RevColor.transparentRgba(val, true) ? val : '';
-			box[0].style.background = colorValue;
+			if(colorValue !== 'transparent') box[0].style.background = colorValue;
 			
 			btn[0].innerHTML = txt || langColor || lang.color;
 			$this.attr({type: 'hidden', 'data-color': val}).data('tpcp', box).addClass('rev-cpicker-component');
@@ -2796,7 +2899,7 @@
 				
 			}
 			
-			var initCallback = settings.init || onInit;
+			var initCallback = settings ? settings.init || onInit : false;
 			if(initCallback) initCallback(wrap, $this, val, settings);
 			
 		});
@@ -2828,6 +2931,7 @@
 				cancel,
 				value,
 				edit,
+				ajax,
 				val;
 
 			if(data) {
@@ -2860,6 +2964,7 @@
 				}
 				
 				edit = settings.onEdit;
+				ajax = settings.onAjax;
 				change = settings.change;
 				cancel = settings.cancel;
 				
@@ -2923,11 +3028,12 @@
 			
 			currentEditing.innerHTML = editing;
 			
-			if(mode === 'single') {
+			if(mode === 'single' || mode === 'basic') {
 				
 				isFull = false;
 				gradBtn.hide();
 				colorBtn.show();
+				if(mode === 'basic') cPicker.addClass('is-basic');
 				
 			}
 			else {
@@ -2950,6 +3056,7 @@
 			openingValue = value[0];
 			
 			onEdit = edit || defEdit;
+			onAjax = ajax || defAjax;
 			onCancel = cancel || defCancel;
 			changeCallback = change || defChange;
 			
@@ -2971,7 +3078,6 @@
 	});
 	
 })(jQuery !== 'undefined' ? jQuery : false);
-
 
 
 

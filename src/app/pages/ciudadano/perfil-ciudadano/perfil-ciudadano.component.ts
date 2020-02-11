@@ -24,6 +24,8 @@ export class PerfilCiudadanoComponent implements OnInit {
   public ciudadano: IdentidadPersona;
   public loading: boolean = false;
 
+  public tabBar: string = "CARPETA";
+
   public responseData: any = { status: false, message: ''};
 
   public isEditDepCiudadBarrio: boolean = false;

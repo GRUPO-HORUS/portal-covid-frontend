@@ -35,6 +35,7 @@ export class HeaderComponent  implements OnInit{
     @Inject(DOCUMENT) private document: any
 
   ) {
+    this.currentUser = this.auth.getCurrentUser();
   }
 
   ngOnInit() {

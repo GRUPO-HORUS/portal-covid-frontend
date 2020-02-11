@@ -48,6 +48,7 @@ export class CategoriaTramiteResultadoComponent implements OnInit {
           this.resultTab5 = { resultados: data, encuentra: true };
           this.nombreClasificador = this.resultTab5.resultados[0].nombre;
           this.countResults = data.length;
+          this.viewScrollTop();
         }
       },
       error => {

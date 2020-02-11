@@ -1,38 +1,38 @@
 {
-  "/api/*": {
-    "target": "http://localhost:8080/portalpy-backend-core",
-    "secure": false,
-    "loglevel": "debug",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/api": "/rest"
-    }
-  },
-  "/plugins/*": {
-    "target": "http://localhost:8080/portal-py-plugins",
-    "secure": false,
-    "loglevel": "debug",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/plugins": "/rest"
-    }
-  },
-  "/auth/*": {
-    "target": "http://localhost:8080/auth",
-    "secure": false,
-    "loglevel": "debug",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/auth": "/rest"
-    }
-  },
-  "/docsapi/*": {
-    "target": "http://localhost:8080/documentos-core",
-    "secure": false,
-    "loglevel": "debug",
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/docsapi": "/rest"
+    "/api/*": {
+      "target": "http://localhost:8080/portalpy-backend-core",
+      "secure": false,
+      "loglevel": "debug",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api": "/rest"
+      }
+    },
+    "/plugins/*": {
+      "target": "http://localhost:8080/portal-py-plugins",
+      "secure": false,
+      "loglevel": "debug",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/plugins": "/rest"
+      }
+    },
+    "/auth/*": {
+      "target": "http://localhost:8080/auth",
+      "secure": false,
+      "loglevel": "debug",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/auth": "/rest"
+      }
+    },
+    "/docsapi/*": {
+      "target": "http://localhost:8080/documentos-core",
+      "secure": false,
+      "loglevel": "debug",
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/docsapi": "/rest"
+      }
     }
   }
-}

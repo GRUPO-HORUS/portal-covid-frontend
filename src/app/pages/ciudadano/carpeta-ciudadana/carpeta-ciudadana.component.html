@@ -1,4 +1,6 @@
-<div id="topcab"></div>
+<buscador-widget class="px-0"></buscador-widget>
+
+<!--<div id="topcab"></div>
 <div id="page-header" class="bg-gradient bg-shadow">
     <div class="container">
         <div class="header-text clearfix">
@@ -7,19 +9,17 @@
             </h3>
         </div>
     </div>
-</div>
+</div>-->
 
-<div class="content pb-4">
+<div class="content fondo-tramites pb-4">
     <div class="container">
         <div class="row">
 
-            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
-                <menu-ciudadano></menu-ciudadano>
-            </div>
-
-            <div class="col-lg-9 col-md-12 col-xs-12">
-                
-                <h4 class="mt-4 mb-4 text-primary">Mis documentos en mi carpeta ciudadana</h4>
+            <div class="col-lg-8 col-md-12 col-xs-12 py-4">
+                <h3 class="title-divider text-primary mt-2">
+                    <i class="fa fa-folder mr-2" style="margin-top: -4px;"></i>
+                    <span>Mis documentos</span>
+                </h3>
 
                 <table id="mainTable" class="table table-condensed" *ngIf="token && ciudadano && servicios">
                     <tbody>
@@ -39,7 +39,7 @@
                 <table id="mainTable" class="table table-condensed" *ngIf="!ciudadano || !token">
                     <tbody>
                         <tr *ngFor="let doc of documentosIE">
-                            
+
                             <td class="name">
                                 <a *ngIf="!doc.linkExternal" (click)="redirect(doc)" style="cursor: pointer;" title="{{doc.title}}">{{doc.name}}</a>
 
@@ -47,7 +47,7 @@
                             </td>
 
                             <td class="actions">
-                                
+
                                 <button type="button" *ngIf="!doc.isSession && !doc.linkExternal" (click)="redirect(doc)" class="btn btn-primary" style="color:#ffffff;border-radius:20px;font-size:13px;">
                                     <i class="fa fa-file"></i> Consultar
                                 </button>
@@ -76,9 +76,11 @@
                 </table>
 
             </div>
-                
-        </div>    
-    </div>    
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <menu-ciudadano></menu-ciudadano>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- VIEW DETALLE -->
@@ -100,13 +102,13 @@
                     <div class="alert alert-warning" *ngIf="!historicoDocumentos || historicoDocumentos.length <= 0">
                         <p>No se encontraron datos en tu carpeta ciudadana de este tipo de documento</p>
                         <p> Podés generar el documento dando clic en
-                            <button type="button" style="margin-left: 5px;"  class="btn btn-sm btn-success btn-success-next" (click)="generarDocumento()">
+                            <button type="button" style="margin-left: 5px;" class="btn btn-sm btn-success btn-success-next" (click)="generarDocumento()">
                                 <i class="fa fa-file-import"></i>  Generar Documento
                             </button>
                         </p>
                     </div>
-                    
-                    <div class="table-responsive" *ngIf="historicoDocumentos && historicoDocumentos.length > 0" class="pl-3 mb-3">          
+
+                    <div class="table-responsive" *ngIf="historicoDocumentos && historicoDocumentos.length > 0" class="pl-3 mb-3">
                         <table class="table table-condensed">
                             <thead>
                                 <tr>
@@ -148,7 +150,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
 
@@ -157,7 +159,7 @@
                     <button type="button" style="float:left;margin-left: 5px;" class="btn btn-sm btn-primary pull-left" *ngIf="historicoDocumentos && historicoDocumentos.length > 0" (click)="generarDocumento()">
                         <i class="fa fa-file-import"></i>  Generar Documento
                     </button>
-                    
+
                     <button type="button" class="btn btn-sm btn-primary pull-right" data-dismiss="modal">
                         <i class="fa fa-remove"></i> Cerrar
                     </button>
@@ -181,7 +183,7 @@
                 </button>
             </div>
             <div class="modal-body row">
-                
+
                 <div class="col-lg-12 col-md-12 col-xs-12" style="padding:10px;" *ngFor="let curso of cursos?.data">
                     <ul class="list-group">
                         <a class="list-group-item list-group-item-action flex-column align-items-start" (click)="getCertificadoSnpp(cursos.idTipoServicio, curso)" style="cursor: pointer;">
@@ -193,7 +195,7 @@
                         </a>
                     </ul>
                 </div>
-                
+
                 <div class="text-center" style="margin:40px;" *ngIf="loading">
                     <img src="assets/img/misc/icon_loading.gif" alt="Cargando.." /> Procesando solicitud...
                 </div>
@@ -201,7 +203,7 @@
                 <div class="alert alert-danger" style="margin:40px;" *ngIf="!resultado.status">
                     <i class="fa fa-info-circle"></i> {{resultado.message}}
                 </div>
-        
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
@@ -239,7 +241,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
             <div class="modal-footer">
@@ -299,7 +301,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
             <div class="modal-footer">

@@ -1,5 +1,8 @@
 /* apply a natural box layout model to all elements  - http://www.paulirish.com/2012/box-sizing-border-box-ftw/*/
-*, *:before, *:after {
+
+*,
+*:before,
+*:after {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -13,7 +16,7 @@ html,
 body {
     min-height: 100%;
     width: 100%;
-    font: normal 13px/20px "Open Sans", sans-serif;
+    font: normal 13px/20px "Montserrat", sans-serif;
     color: #555;
 }
 
@@ -47,14 +50,14 @@ strong {
     width: 150px;
 }
 
-.left > a {
+.left>a {
     color: #6F6D6D;
     display: block;
-    font: bold 25px/25px "Open Sans", sans-serif;
+    font: bold 25px/25px "Montserrat", sans-serif;
     margin: 20px 0 0;
 }
 
-.left > a:hover {
+.left>a:hover {
     color: #B3B3B3;
 }
 
@@ -65,7 +68,7 @@ strong {
 .left nav dl dt a {
     color: #848484;
     display: block;
-    font: 14px/21px "Open Sans", sans-serif;
+    font: 14px/21px "Montserrat", sans-serif;
     padding: 6px 0;
 }
 
@@ -91,26 +94,26 @@ strong {
     border-bottom: 2px solid #AAD6F9;
     color: #333;
     display: block;
-    font: bold 20px/20px "Open Sans", sans-serif;
+    font: bold 20px/20px "Montserrat", sans-serif;
     margin: 30px 0 20px;
     padding: 15px 0 15px 15px;
 }
 
 .right h2 {
     color: #4C4A56;
-    font: bold 17px/17px "Open Sans", sans-serif;
+    font: bold 17px/17px "Montserrat", sans-serif;
     padding: 17px 0;
 }
 
 .right h3 {
     color: #4C4A56;
-    font: bold 15px/15px "Open Sans", sans-serif;
+    font: bold 15px/15px "Montserrat", sans-serif;
     padding: 15px 0;
 }
 
 .right h4 {
     color: #555;
-    font: bold 13px/21px "Open Sans", sans-serif;
+    font: bold 13px/21px "Montserrat", sans-serif;
     padding: 5px 0;
 }
 
@@ -145,7 +148,7 @@ p.attention {
 .right .tinycode {
     background: none repeat scroll 0% 0% #e4e4e4;
     color: #42433C;
-    font: italic 12px/18px "Open Sans", sans-serif;
+    font: italic 12px/18px "Montserrat", sans-serif;
     margin: 0 2px;
     padding: 2px 6px;
 }
@@ -173,7 +176,7 @@ p.attention {
     border-bottom: 1px solid #C8C8C8;
     border-left: 1px solid #C8C8C8;
     color: #787878;
-    font: 12px/18px Open Sans, sans-serif;
+    font: 12px/18px Montserrat, sans-serif;
     padding: 8px 12px;
 }
 

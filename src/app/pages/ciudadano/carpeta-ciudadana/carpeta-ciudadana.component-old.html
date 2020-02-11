@@ -1,0 +1,317 @@
+<div id="topcab"></div>
+<div id="page-header" class="bg-gradient bg-shadow">
+    <div class="container">
+        <div class="header-text clearfix">
+            <h3 class="pull-left mb-0">
+                <span class="far fa-folder-open text-default menu-item-icon text-center fa-fw"></span> Carpeta Ciudadana
+            </h3>
+        </div>
+    </div>
+</div>
+
+<div class="content pb-4">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+                <menu-ciudadano></menu-ciudadano>
+            </div>
+
+            <div class="col-lg-9 col-md-12 col-xs-12">
+                
+                <h4 class="mt-4 mb-4 text-primary">Mis documentos en mi carpeta ciudadana</h4>
+
+                <table id="mainTable" class="table table-condensed" *ngIf="token && ciudadano && servicios">
+                    <tbody>
+                        <tr *ngFor="let data of servicios | sort: 'idTipoServicio'; let i = index">
+                            <td class="name">
+                                <a (click)="getHistoricoConsultas(data)" style="cursor: pointer;" title="{{data.descripcion}}">{{data.descripcion}}</a>
+                            </td>
+                            <td class="actions">
+                                <button type="button" (click)="getHistoricoConsultas(data)" class="btn btn-primary preventDoubleRequest hidden-phone" style="color:#ffffff;border-radius:20px;font-size:13px;">
+                                    <i class="fa fa-file"></i> Consultar
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table id="mainTable" class="table table-condensed" *ngIf="!ciudadano || !token">
+                    <tbody>
+                        <tr *ngFor="let doc of documentosIE">
+                            
+                            <td class="name">
+                                <a *ngIf="!doc.linkExternal" (click)="redirect(doc)" style="cursor: pointer;" title="{{doc.title}}">{{doc.name}}</a>
+
+                                <a *ngIf="doc.linkExternal" href="{{doc.link}}" target="_blank" style="cursor: pointer;" title="{{doc.title}}">{{doc.name}}</a>
+                            </td>
+
+                            <td class="actions">
+                                
+                                <button type="button" *ngIf="!doc.isSession && !doc.linkExternal" (click)="redirect(doc)" class="btn btn-primary" style="color:#ffffff;border-radius:20px;font-size:13px;">
+                                    <i class="fa fa-file"></i> Consultar
+                                </button>
+
+                                <a *ngIf="!doc.isSession && doc.linkExternal" href="{{doc.link}}" target="_blank" class="btn btn-primary" style="color:#ffffff;border-radius:20px;background: #001c54;background-image: none;">
+                                    <i class="fa fa-file"></i> Consultar
+                                </a>
+
+                                <a *ngIf="doc.isSession" (click)="redirect(doc)" style="cursor: pointer;">
+                                    <img style="max-width:none;" src="assets/img/claveunica-medium_1.png" alt="ClaveUnica">
+                                </a>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                    <!-- <tfoot>
+                        <tr>
+                            <th colspan="2" style="color:#999; font-weight:normal;">
+                                <span style="color:#552296; font-weight: bold; font-family: Verdana !important;">Obtené tu Identidad Electrónica en línea haciendo clic en el siguiente botón&nbsp;</span>
+                                <a href="/identidad-electronica"><img style="width: 30%;" src="/assets/img/identidad-electronica.png"></a><br>
+                                <br> La información disponible en este portal, proviene del Sistema de Intercambio de Información entre instituciones públicas, autorizado y reglamentado por Decreto N˚ 8709/2018, lo cual garantiza que son datos íntegros, confiables y verificables, emitidos por cada una de las instituciones. <br>
+                                <br> Estos datos son información pública, según la define el Artículo 2˚ de la Ley N˚ 5.282/2014 como aquella producida, obtenida, bajo control o en poder de las fuentes públicas, independientemente de su formato, soporte, fecha de creación, origen, clasificación o procesamiento, salvo que se encuentre establecida como secreta o de carácter reservado por las leyes. Los datos personales públicos expuestos en este portal, se encuentran en estricta observancia a la Ley N˚ 1.682/01, que distingue aquellos datos personales que no podrán ser publicados ni difundidos por ser de carácter privado, a estos últimos solo podrá acceder el titular de los mismos, mediante su identidad electrónica.
+                            </th>
+                        </tr>
+                    </tfoot> -->
+                </table>
+
+            </div>
+                
+        </div>    
+    </div>    
+</div>
+
+<!-- VIEW DETALLE -->
+<div class="modal fade" id="modalDetalleDocumento" tabindex="-1" role="dialog" aria-labelledby="modalDetalleDocumento" aria-hidden="true">
+    <div style="max-width:800px;" class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-4">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalDetalleDocumento">
+                    {{ docSelected.name }}
+                </h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row">
+
+                <div class="col-lg-12 col-md-12 col-xs-12" style="padding:10px;">
+
+                    <div class="alert alert-warning" *ngIf="!historicoDocumentos || historicoDocumentos.length <= 0">
+                        <p>No se encontraron datos en tu carpeta ciudadana de este tipo de documento</p>
+                        <p> Podés generar el documento dando clic en
+                            <button type="button" style="margin-left: 5px;"  class="btn btn-sm btn-success btn-success-next" (click)="generarDocumento()">
+                                <i class="fa fa-file-import"></i>  Generar Documento
+                            </button>
+                        </p>
+                    </div>
+                    
+                    <div class="table-responsive" *ngIf="historicoDocumentos && historicoDocumentos.length > 0" class="pl-3 mb-3">          
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr>
+                                    <th style="font-size:12px;">Generado por</th>
+                                    <th style="font-size:12px;">Fecha</th>
+                                    <!-- <th style="font-size:12px;">Sistema</th> -->
+                                    <th style="font-size:12px;"></th>
+                                    <th style="font-size:12px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let result of historicoDocumentos">
+                                <tr>
+                                    <td style="font-size:12px;">{{ result.generadoPor }}</td>
+                                    <td style="font-size:12px;">{{ result.fechaGeneracion | date: 'dd/MM/yyyy HH:mm' }}</td>
+                                    <!-- <td style="font-size:12px;">{{ result.sistemaGenerador }}</td> -->
+                                    <td style="font-size:12px;" *ngIf="result.liq">
+                                        <b>Fecha: </b> {{ result.liq?.fechaSolicitud | date: 'dd/MM/yyyy' }} <br/>
+                                        <b>Estado: </b> {{ result.liq?.estadoSolicitud }}
+                                    </td>
+                                    <td>
+                                        <button type="button" style="margin:5px;" class="btn btn-sm btn-success btn-success-next" (click)="generarDocumentoHistorico(result)">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="content fullscreen-container" *ngIf="ciudadano && loading">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0" style="margin-top:5px !important;" *ngIf="ciudadano">
+                            <div style="height:100%; width:100%;">
+                                <div class="text-center" style="margin:40px;" *ngIf="loading">
+                                    <img src="assets/img/misc/icon_loading.gif" alt="Cargando.." /> Procesando solicitud...
+                                </div>
+                                <div class="alert alert-danger" style="margin:40px;" *ngIf="!resultado.status">
+                                    <i class="fa fa-info-circle"></i> {{resultado.message}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <fieldset class="w-100">
+                    <button type="button" style="float:left;margin-left: 5px;" class="btn btn-sm btn-primary pull-left" *ngIf="historicoDocumentos && historicoDocumentos.length > 0" (click)="generarDocumento()">
+                        <i class="fa fa-file-import"></i>  Generar Documento
+                    </button>
+                    
+                    <button type="button" class="btn btn-sm btn-primary pull-right" data-dismiss="modal">
+                        <i class="fa fa-remove"></i> Cerrar
+                    </button>
+                </fieldset>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- VIEW SNPP -->
+<div class="modal fade" id="modalView" tabindex="-1" role="dialog" aria-labelledby="modalView" aria-hidden="true">
+    <div style="max-width:800px;" class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-4">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalView">
+                    Lista de Certificados - SNPP
+                </h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row">
+                
+                <div class="col-lg-12 col-md-12 col-xs-12" style="padding:10px;" *ngFor="let curso of cursos?.data">
+                    <ul class="list-group">
+                        <a class="list-group-item list-group-item-action flex-column align-items-start" (click)="getCertificadoSnpp(cursos.idTipoServicio, curso)" style="cursor: pointer;">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{curso.especialidad}}</h5>
+                                <small>{{curso.fecha_fin}}</small>
+                            </div>
+                            <small><b>Fuente Consulta: </b>  {{curso.fuente_consulta}}</small>
+                        </a>
+                    </ul>
+                </div>
+                
+                <div class="text-center" style="margin:40px;" *ngIf="loading">
+                    <img src="assets/img/misc/icon_loading.gif" alt="Cargando.." /> Procesando solicitud...
+                </div>
+
+                <div class="alert alert-danger" style="margin:40px;" *ngIf="!resultado.status">
+                    <i class="fa fa-info-circle"></i> {{resultado.message}}
+                </div>
+        
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VIEW RUC SET -->
+<div class="modal fade" id="modalRucSet" tabindex="-1" role="dialog" aria-labelledby="modalRucSet" aria-hidden="true">
+    <div style="max-width:800px;" class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-4">
+            <div class="modal-header" *ngIf="docSelected && docSelected.params">
+                <h1>{{ docSelected.params.titulo }}</h1>
+            </div>
+            <div class="modal-body row">
+                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+
+                    <div *ngIf="docSelected && docSelected.params">
+                        <div class="form-group">
+                            <label class="control-label" for="dv"><strong> Digito Verificador </strong> </label>
+                            <input type="text" [(ngModel)]="docSelected.params.dv" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="content fullscreen-container" *ngIf="ciudadano && loading">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0" style="margin-top:5px !important;" *ngIf="ciudadano">
+                            <div style="height:100%; width:100%;">
+                                <div class="text-center" style="margin:40px;" *ngIf="loading">
+                                    <img src="assets/img/misc/icon_loading.gif" alt="Cargando.." /> Procesando solicitud...
+                                </div>
+                                <div class="alert alert-danger" style="margin:40px;" *ngIf="!resultado.status">
+                                    <i class="fa fa-info-circle"></i> {{resultado.message}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="getRptDocument(docSelected.params);">
+                    <i class="fa fa-file-import"></i> Aceptar
+                </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    <i class="fa fa-remove"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- VIEW REC -->
+<div class="modal fade" id="modalActaNHijoRec" tabindex="-1" role="dialog" aria-labelledby="modalActaNHijoRec" aria-hidden="true">
+    <div style="max-width:800px;" class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-4">
+            <div class="modal-header" *ngIf="docSelected && docSelected.params">
+                <h1>{{ docSelected.params.titulo }}</h1>
+            </div>
+            <div class="modal-body row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                    <div *ngIf="docSelected && docSelected.params">
+                        <!-- <div class="form-group">
+                            <label class="control-label" for="sistemaConsulta"><strong> Sistema de Consulta </strong> </label>
+                            <select class="form-control" [(ngModel)]="docSelected.params.sistemaConsulta" name="sistemaConsulta">
+                                <option value="0" selected>Seleccione</option>
+                                <option *ngFor="let tp of sistemasDeConsultas" [value]="tp.id">{{ tp.descripcion }}</option>
+                            </select>
+                        </div> -->
+
+                        <div class="form-group">
+                            <label class="control-label" for="cedulaHijo"><strong> Cédula Hijo/a </strong> </label>
+                            <input type="text" [(ngModel)]="docSelected.params.cedulaHijo" class="form-control">
+                        </div>
+
+                        <!-- <div class="form-group">
+                            <div class="alert alert-info">
+                                <i class="fa fa-info-circle"></i> Las fuentes de información se diferencia de la siguiente manera. <br/>
+                                <b>SRI (Sistema de Recuperación de Información)</b>, sus datos no han sido validados aún por usted, en caso de encontrar algún detalle en la información, debe acudir a la Dirección General del Registro  del Estado Civil. <br/>
+                                <b>SGR (Sistema de Gestión Registral)</b>, sus datos ya fueron validados por usted.
+                            </div>
+                        </div> -->
+                    </div>
+
+                    <div class="content fullscreen-container" *ngIf="ciudadano && loading">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 p-0" style="margin-top:5px !important;" *ngIf="ciudadano">
+                            <div style="height:100%; width:100%;">
+                                <div class="text-center" style="margin:40px;" *ngIf="loading">
+                                    <img src="assets/img/misc/icon_loading.gif" alt="Cargando.." /> Procesando solicitud...
+                                </div>
+                                <div class="alert alert-danger" style="margin:40px;" *ngIf="!resultado.status">
+                                    <i class="fa fa-info-circle"></i> {{resultado.message}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="getRptDocument(docSelected.params);">
+                    <i class="fa fa-file-import"></i> Aceptar
+                </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">
+                    <i class="fa fa-remove"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="space-footer"></div>

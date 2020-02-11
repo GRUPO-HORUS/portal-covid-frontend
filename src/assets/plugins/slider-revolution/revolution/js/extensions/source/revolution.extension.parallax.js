@@ -1,6 +1,6 @@
 /********************************************
- * REVOLUTION 5.2.6 EXTENSION - PARALLAX
- * @version: 2.2.0 (16.11.2016)
+ * REVOLUTION 5.4.2 EXTENSION - PARALLAX
+ * @version: 2.2.1 (06.04.2017)
  * @requires jquery.themepunch.revolution.js
  * @author ThemePunch
 *********************************************/
@@ -10,8 +10,8 @@ var _R = jQuery.fn.revolution,
 	_ISM = _R.is_mobile(),
 	extension = {	alias:"Parallax Min JS",
 					name:"revolution.extensions.parallax.min.js",
-					min_core: "5.3",
-					version:"2.2.0"
+					min_core: "5.4",
+					version:"2.2.1"
 			  };
 
 jQuery.extend(true,_R, {	
@@ -383,7 +383,7 @@ jQuery.extend(true,_R, {
 			_fproc = _fproc<0 ? 0 : _fproc;			
 			if (_s.layers!==false) {									
 				var fadelevel = 1 - (_fproc *_s.multiplicator_layers),
-					seo = { backfaceVisibility:"hidden",force3D:"true"};
+					seo = { backfaceVisibility:"hidden",force3D:"true",z:0.001,perspective:600};
 				if (_s.direction=="top" && proc>=0) fadelevel=1;
 				if (_s.direction=="bottom" && proc<=0) fadelevel=1;
 				fadelevel = fadelevel>1 ? 1 : fadelevel < 0 ? 0 : fadelevel;	
@@ -391,6 +391,12 @@ jQuery.extend(true,_R, {
 
 				if (_s.fade==="on")
 					seo.opacity = fadelevel;
+
+				if (_s.scale==="on") {					
+					var scalelevel = (fadelevel);
+					seo.scale = 1+(1-scalelevel);	
+					
+				}
 
 				if (_s.blur==="on") {					
 					var blurlevel = (1-fadelevel) * _s.maxblur;
@@ -417,6 +423,12 @@ jQuery.extend(true,_R, {
 
 				if (_s.fade==="on")
 					seo.opacity = fadelevel;
+
+				if (_s.scale==="on") {					
+					var scalelevel = fadelevel;
+					//seo.scale = scalelevel;
+					punchgs.TweenLite.set(jQuery('.tp-kbimg-wrap'),{transformOrigin:"50% 50%",scale:scalelevel,force3D:true})
+				}
 
 				if (_s.blur==="on") {					
 					var blurlevel = (1-fadelevel) * _s.maxblur;

@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MessageService } from "../../../services/MessageService";
 import { LoginService } from 'app/services/login.service';
 import { AppConfig } from "../../../app.config";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DocumentosService } from "app/services/documentos.service";
-import { RecaptchaComponent } from 'ng-recaptcha';
+// import { RecaptchaComponent } from 'ng-recaptcha';
 import { ToastrService } from 'ngx-toastr';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { Subscription } from 'rxjs';
@@ -96,16 +96,13 @@ export class ConsultaDocumentoComponent implements OnInit {
   
   getRecaptchaToken(action) {
     this.subscription = this.rcv3Service.execute(action).subscribe(response => {
-      console.log('response', response);
-      
+      // console.log('response', response);
       this.recentToken = response;
       
       this.recaptchaAvailable = true;
 
       $('.grecaptcha-badge').css({'visibility':'hidden !important'});
-
-      console.log($('.grecaptcha-badge'));
-
+      // console.log($('.grecaptcha-badge'));
     }, error =>{
       this.recaptchaAvailable = false;
       console.log("error getting recaptcha", error);
@@ -157,7 +154,7 @@ export class ConsultaDocumentoComponent implements OnInit {
     if(this.tipo == 'cedula-policial') params.fechaNacimiento = this.fechaNac;
 
     if(this.recaptchaAvailable) {
-      console.log('captcha', this.recentToken);
+      // console.log('captcha', this.recentToken);
     }
 
     this.documentosService.getRptDocumentSinIE(params, this.recentToken).subscribe(response => {
@@ -179,7 +176,6 @@ export class ConsultaDocumentoComponent implements OnInit {
       this.loading = false;
       this.recentToken = "";
       this.refreshCaptcha();
-      
     }, error => {
       console.log(error);
       this.loading = false;

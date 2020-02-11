@@ -1,6 +1,6 @@
 /********************************************
- * REVOLUTION 5.3 EXTENSION - ACTIONS
- * @version: 2.0.6 (15.12.2016)
+ * REVOLUTION 5.4.2 EXTENSION - ACTIONS
+ * @version: 2.0.7 (28.02.2017)
  * @requires jquery.themepunch.revolution.js
  * @author ThemePunch
 *********************************************/
@@ -10,8 +10,8 @@ var _R = jQuery.fn.revolution,
 	_ISM = _R.is_mobile(),
 	extension = {	alias:"Actions Min JS",
 					name:"revolution.extensions.actions.min.js",
-					min_core: "5.3",
-					version:"2.0.6"
+					min_core: "5.4",
+					version:"2.0.7"
 			  };
 
 
@@ -217,9 +217,9 @@ var actionSwitches = function(tnc,opt,a,_nc) {
 			var off=getOffContH(opt.fullScreenOffsetContainer) || 0,
 				aof = parseInt(a.offset,0) || 0;									 
 			off =  off - aof || 0;				
-			opt.scrollRoot = opt.scrollRoot === undefined ? getScrollRoot() : opt.scrollRoot;			
-			var sobj = {_y:opt.scrollRoot.scrollTop};
-			punchgs.TweenLite.to(sobj,a.speed/1000,{_y:(opt.c.offset().top+(jQuery(opt.li[0]).height())-off), ease:a.ease, onUpdate:function() { opt.scrollRoot.scrollTop = sobj._y}})			
+			opt.scrollRoot = jQuery(document);			
+			var sobj = {_y:opt.scrollRoot.scrollTop()};			
+			punchgs.TweenLite.to(sobj,a.speed/1000,{_y:(opt.c.offset().top+(jQuery(opt.li[0]).height())-off), ease:a.ease, onUpdate:function() { opt.scrollRoot.scrollTop(sobj._y)}})			
 		break;
 		case "callback":
 			eval(a.callback);							
