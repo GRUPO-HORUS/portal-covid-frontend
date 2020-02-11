@@ -83,10 +83,6 @@ export class BuscadorComponent implements OnInit {
   ngOnInit(): void {
     this.visible = true;
     this.urlAIP = this.config.URL_AIP_FRONT;
-    /*this.busqueda = "mitic";
-    this.searchData('tramites_servicios','search');*/
-
-    console.log('tabBar', this.tabBar);
   }
 
   viewScrollTop() {
@@ -103,6 +99,9 @@ export class BuscadorComponent implements OnInit {
   }
 
   searchData(tab: string, origen: string) {
+    if(!this.busqueda)
+      this.busqueda = "-";
+
     this._router.navigate(["/buscador/", tab, origen, this.busqueda]);
   }
 
