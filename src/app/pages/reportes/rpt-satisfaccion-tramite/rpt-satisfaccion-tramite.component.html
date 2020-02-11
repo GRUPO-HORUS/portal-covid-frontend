@@ -8,11 +8,10 @@
     </div>
 </div>
 
-<div class="content pb-4">
+<div id="content" class="content pb-4">
 
     <div class="container pt-5 header-text clearfix">
-        <h3 class="mb-5"><span class="fas fa-chart-pie text-default menu-item-icon text-center fa-fw"></span> 
-            Satisfacción de Tramites
+        <h3 class="mb-5"><span class="fas fa-chart-pie text-default menu-item-icon text-center fa-fw"></span> Satisfacción de Tramites
         </h3>
     </div>
 
@@ -23,12 +22,12 @@
                 <div class="text-center">¿Cómo calificarías este servicio?</div>
                 <ngx-chartjs type="pie" width="100%" height="80px" [plugins]="plugins" [data]="data" [options]="options"></ngx-chartjs>
             </div>
-    
+
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" *ngIf="data1?.labels.length > 0">
                 <div class="text-center">¿Querés que este trámite sea en Línea?</div>
                 <ngx-chartjs type="pie" width="100%" height="80px" [plugins]="plugins" [data]="data1" [options]="options"></ngx-chartjs>
-            </div>  
+            </div>
         </div>
 
-    </div>    
+    </div>
 </div>
