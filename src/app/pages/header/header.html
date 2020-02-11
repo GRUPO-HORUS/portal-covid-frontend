@@ -13,14 +13,20 @@
 
                 <div class="header-block order-12">
                     <!-- mobile collapse menu button - data-toggle="collapse" = default BS menu - data-toggle="off-canvas" = Off-cavnas Menu - data-toggle="overlay" = Overlay Menu -->
-                    <a class="btn btn-link btn-icon header-btn float-right d-lg-none mr-2" data-toggle="off-canvas" data-target=".navbar-main" data-settings='{"cloneTarget":true, "targetClassExtras": "navbar-offcanvas"}'> <i class="fa fa-bars"></i> </a>
+                    <button class="btn btn-outline-slate text-white btn-rounded btn-lg visible-xs" type="button" data-toggle="collapse" data-target="#menu-principal" aria-expanded="false" aria-controls="menu-principal">
+                        <i class="fa fa-bars"></i> Menú
+                    </button>
+                    <!--<a class="btn btn-link btn-icon header-btn float-right d-lg-none mr-2" data-toggle="off-canvas" data-target=".navbar-main" data-settings='{"cloneTarget":true, "targetClassExtras": "navbar-offcanvas"}'> <i class="fa fa-bars"></i> </a>-->
                 </div>
 
                 <div class="navbar navbar-expand-md navbar-static-top">
-                    <div class="navbar-main collapse">
+                    <div id="menu-principal" class="navbar-main collapse">
+                        <button class="btn btn-primary btn-rounded float-right btn-lg m-3 visible-xs" type="button" data-toggle="collapse" data-target="#menu-principal" aria-expanded="false" aria-controls="menu-principal">
+                            <i class="fa fa-times"></i> menú
+                        </button>
                         <ul class="nav navbar-nav navbar-nav-stretch float-lg-right dropdown-effect-fade">
                             <li class="nav-item">
-                                <a routerLink="/" (click)="searchData(null, topSite); scrollToTop(topSite);" class="nav-link space-menu-info">
+                                <a routerLink="/" (click)="searchData(null, topSite); scrollToTop(topSite); colapseMenu();" class="nav-link space-menu-info">
                                     <i class="fa fa-home nav-link-icon mr-2"></i>
                                     <span class="visible-xs">Portada</span>
                                 </a>
@@ -32,28 +38,28 @@
                                     <span>El Estado</span>
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a routerLink="/estado" (click)="scrollToTop(topSite)" class="dropdown-item"><b>El Estado</b></a>
-                                    <a routerLink="/estado/poder-ejecutivo" (click)="scrollToTop(topSite)" class="dropdown-item">Ejecutivo</a>
-                                    <a routerLink="/estado/poder-legislativo" (click)="scrollToTop(topSite)" class="dropdown-item">Legislativo</a>
-                                    <a routerLink="/estado/poder-judicial" (click)="scrollToTop(topSite)" class="dropdown-item">Judicial</a>
+                                    <a routerLink="/estado" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item"><b>El Estado</b></a>
+                                    <a routerLink="/estado/poder-ejecutivo" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Ejecutivo</a>
+                                    <a routerLink="/estado/poder-legislativo" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Legislativo</a>
+                                    <a routerLink="/estado/poder-judicial" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Judicial</a>
 
                                     <div class="dropdown dropdown-submenu">
                                         <a href="#" class="dropdown-item active" id="otras-entidades" data-toggle="dropdown" data-hover="dropdown" data-close-others="false">Otras Entidades</a>
                                         <div class="dropdown-menu" role="menu" aria-labelledby="otras-entidades">
-                                            <a routerLink="/estado/otros" (click)="scrollToTop(topSite)" class="dropdown-item">Otros Organismos del Estado</a>
-                                            <a routerLink="/estado/universidades-nacionales" (click)="scrollToTop(topSite)" class="dropdown-item">Universidades Nacionales</a>
-                                            <a routerLink="/estado/cgr" (click)="scrollToTop(topSite)" class="dropdown-item">Contraloría General de la República</a>
-                                            <a routerLink="/estado/binacionales" (click)="scrollToTop(topSite)" class="dropdown-item">Entidades Binacionales</a>
+                                            <a routerLink="/estado/otros" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Otros Organismos del Estado</a>
+                                            <a routerLink="/estado/universidades-nacionales" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Universidades Nacionales</a>
+                                            <a routerLink="/estado/cgr" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Contraloría General de la República</a>
+                                            <a routerLink="/estado/binacionales" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Entidades Binacionales</a>
 
-                                            <a routerLink="/estado/banca-central" (click)="scrollToTop(topSite)" class="dropdown-item">Banca Central del Estado</a>
-                                            <a routerLink="/estado/autonomos-autarquicos" (click)="scrollToTop(topSite)" class="dropdown-item">Entes Autónomos y Autárquicos</a>
-                                            <a routerLink="/estado/seguridad-social" (click)="scrollToTop(topSite)" style="word-wrap: break-word ¡important; white-space: normal;" class="dropdown-item">Entidades Públicas de Seguridad Social</a>
-                                            <a routerLink="/estado/empresas-publicas" (click)="scrollToTop(topSite)" class="dropdown-item">Empresas Públicas</a>
-                                            <a routerLink="/estado/financieras" (click)="scrollToTop(topSite)" class="dropdown-item">Entidades Financieras Oficiales</a>
-                                            <a routerLink="/estado/sa" (click)="scrollToTop(topSite)" style="word-wrap: break-word ¡important; white-space: normal;" class="dropdown-item">Sociedades Anónimas</a>
+                                            <a routerLink="/estado/banca-central" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Banca Central del Estado</a>
+                                            <a routerLink="/estado/autonomos-autarquicos" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Entes Autónomos y Autárquicos</a>
+                                            <a routerLink="/estado/seguridad-social" (click)="scrollToTop(topSite); colapseMenu();" style="word-wrap: break-word ¡important; white-space: normal;" class="dropdown-item">Entidades Públicas de Seguridad Social</a>
+                                            <a routerLink="/estado/empresas-publicas" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Empresas Públicas</a>
+                                            <a routerLink="/estado/financieras" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Entidades Financieras Oficiales</a>
+                                            <a routerLink="/estado/sa" (click)="scrollToTop(topSite); colapseMenu();" style="word-wrap: break-word ¡important; white-space: normal;" class="dropdown-item">Sociedades Anónimas</a>
 
-                                            <a href="https://www.gobernaciones.gov.py/gobernacion/" target="_blank" (click)="scrollToTop(topSite)" class="dropdown-item">Gobernaciones</a>
-                                            <a href="https://www.municipios.gov.py/municipios/" target="_blank" (click)="scrollToTop(topSite)" class="dropdown-item">Municipios</a>
+                                            <a href="https://www.gobernaciones.gov.py/gobernacion/" target="_blank" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Gobernaciones</a>
+                                            <a href="https://www.municipios.gov.py/municipios/" target="_blank" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Municipios</a>
 
                                         </div>
                                     </div>
@@ -69,7 +75,7 @@
                                     <a routerLink="/estadisticas-portal" class="dropdown-item" style="cursor:pointer;">
                                         <b>Estadísticas</b>
                                     </a>
-                                    <a *ngFor="let categoria of categoriaTramite" (click)="searchDataCategoria(categoria)" class="dropdown-item no-decoration text-inverse" style="cursor:pointer;">
+                                    <a *ngFor="let categoria of categoriaTramite" (click)="searchDataCategoria(categoria); colapseMenu();" class="dropdown-item no-decoration text-inverse" style="cursor:pointer;">
                                                     {{categoria.nombre_clasificador}}
                                                 </a>
                                 </div>
@@ -108,15 +114,15 @@
                                     <span class="visible-xs">Enlaces de Interés</span>
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a routerLink="/sobre-portal" class="dropdown-item" (click)="searchData(null, topSite);">Sobre el portal</a>
-                                    <a routerLink="/consulta-reclamo" class="dropdown-item" (click)="searchData(null, topSite);">Consultas y Reclamos</a>
-                                    <a routerLink="/mapa-del-sitio" class="dropdown-item" (click)="searchData(null, topSite);">Mapa del sitio</a>
-                                    <a routerLink="/datos-abiertos" class="dropdown-item" (click)="searchData(null, topSite);">Datos Abiertos</a>
-                                    <a routerLink="/datos" class="dropdown-item" (click)="searchData(null, topSite);">Datos Abiertos (microdata)</a>
-                                    <a routerLink="/gobierno-electronico" class="dropdown-item" (click)="searchData(null, topSite);">Gobierno Electrónico</a>
-                                    <a routerLink="/firma-digital" class="dropdown-item" (click)="searchData(null, topSite);">Firma Digital</a>
-                                    <a routerLink="/identidad-electronica" class="dropdown-item" (click)="searchData(null, topSite);">Identidad Electrónica</a>
-                                    <a routerLink="/traductor-guarani" class="dropdown-item" (click)="searchData(null, topSite);">Traductor Guaraní</a>
+                                    <a routerLink="/sobre-portal" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Sobre el portal</a>
+                                    <a routerLink="/consulta-reclamo" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Consultas y Reclamos</a>
+                                    <a routerLink="/mapa-del-sitio" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Mapa del sitio</a>
+                                    <a routerLink="/datos-abiertos" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Datos Abiertos</a>
+                                    <a routerLink="/datos" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Datos Abiertos (microdata)</a>
+                                    <a routerLink="/gobierno-electronico" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Gobierno Electrónico</a>
+                                    <a routerLink="/firma-digital" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Firma Digital</a>
+                                    <a routerLink="/identidad-electronica" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Identidad Electrónica</a>
+                                    <a routerLink="/traductor-guarani" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Traductor Guaraní</a>
                                 </div>
                             </li>
 
@@ -131,23 +137,23 @@
                                     <span>{{ currentUser.nombres.split(" ", 3)[0] }} {{ currentUser.apellidos.split(" ", 3)[0] }}</span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" *ngIf="!token || token == 'undefined' || token == null || !currentUser || currentUser == 'undefined' || currentUser == null">
-                                    <a (click)="loginIdentidadElectronica()" class="dropdown-item mb-2 menu-detacado_"><i class="fas fa-id-badge nav-link-icon mr-2" style="font-size: 32px;float: left;margin-top: 3px;margin-left: -6px;">                                       
-                                                    </i> Ingresar con mi <br><b>Identidad electrónica</b>
-                                                </a>
-                                    <a routerLink="/crear-cuenta" class="dropdown-item" (click)="searchData(null, topSite);"><b>Crea tu identidad electrónica →</b></a>
-                                    <a routerLink="/identidad-electronica" class="dropdown-item" (click)="searchData(null, topSite);">¿Qué es Identidad Electrónica?</a>
-                                    <a routerLink="/identidad-electronica/preguntas-frecuentes-creacion" class="dropdown-item" (click)="searchData(null, topSite);">Preguntas frecuentes</a>
-                                    <a routerLink="/restablecer-clave" class="dropdown-item" (click)="searchData(null, topSite);">Olvidé mi clave</a>
-                                    <a routerLink="/identidad-electronica/terminos" class="dropdown-item" (click)="searchData(null, topSite);">Términos y Condiciones</a>
+                                    <a (click)="loginIdentidadElectronica(); colapseMenu();" class="dropdown-item mb-2 menu-detacado_"><i class="fas fa-id-badge nav-link-icon mr-2" style="font-size: 32px;float: left;margin-top: 3px;margin-left: -6px;">                                       
+                                        </i> Ingresar con mi <br><b>Identidad electrónica</b>
+                                    </a>
+                                    <a routerLink="/crear-cuenta" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();"><b>Crea tu identidad electrónica →</b></a>
+                                    <a routerLink="/identidad-electronica" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">¿Qué es Identidad Electrónica?</a>
+                                    <a routerLink="/identidad-electronica/preguntas-frecuentes-creacion" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Preguntas frecuentes</a>
+                                    <a routerLink="/restablecer-clave" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Olvidé mi clave</a>
+                                    <a routerLink="/identidad-electronica/terminos" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Términos y Condiciones</a>
                                     <a class="dropdown-item" [href]="config.URL_AGENDA_TURNO" target="_blank">Agendar Turno</a>
                                 </div>
                                 <div class="dropdown-menu dropdown-menu-right" *ngIf="token && currentUser">
-                                    <a routerLink="/perfil-ciudadano" class="dropdown-item" (click)="searchData(null, topSite);">Mi Perfil</a>
-                                    <a routerLink="/carpeta-ciudadana" class="dropdown-item" (click)="searchData(null, topSite);">Carpeta Ciudadana</a>
-                                    <a routerLink="/otros-tramites-en-linea" class="dropdown-item" (click)="searchData(null, topSite);">Otros Trámites en Línea</a>
-                                    <a routerLink="/marco-legal" class="dropdown-item" (click)="searchData(null, topSite);">Marco Legal</a>
+                                    <a routerLink="/perfil-ciudadano" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Mi Perfil</a>
+                                    <a routerLink="/carpeta-ciudadana" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Carpeta Ciudadana</a>
+                                    <a routerLink="/otros-tramites-en-linea" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Otros Trámites en Línea</a>
+                                    <a routerLink="/marco-legal" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Marco Legal</a>
                                     <a class="dropdown-item" [href]="config.URL_AGENDA_TURNO" target="_blank">Agendar Turno</a>
-                                    <a style="cursor:pointer" (click)="logout()" class="dropdown-item" (click)="searchData(null, topSite);"><b>Cerrar Sesión</b></a>
+                                    <a style="cursor:pointer" (click)="logout()" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();"><b>Cerrar Sesión</b></a>
                                 </div>
                             </li>
                         </ul>

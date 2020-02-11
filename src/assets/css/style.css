@@ -981,6 +981,10 @@ Manejo de scroll: table > body
     height: auto;
 }
 
+.grecaptcha-badge {
+    display: none !important;
+}
+
 .fondo-tramites .title-divider span {
     background: #FCFCFC !important;
 }
@@ -1065,5 +1069,14 @@ Manejo de scroll: table > body
     }
     .backstretch img {
         display: none !important;
+    }
+    .header .navbar-main {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+    .header .navbar-main .navbar-nav {
+        padding: 55px 17px 17px 17px;
     }
 }

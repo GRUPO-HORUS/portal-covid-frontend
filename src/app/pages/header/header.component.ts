@@ -48,6 +48,10 @@ export class HeaderComponent  implements OnInit{
     this.scrollService.scrollTo(event);
   }
 
+  colapseMenu(){
+    $('#menu-principal').removeClass('show');
+  };
+
   searchDataCategoria(data) {
     this.router.navigate(["/categoria/", data.id_clasificador, 'resultado']);
   }
