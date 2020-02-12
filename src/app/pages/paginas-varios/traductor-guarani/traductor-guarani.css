@@ -21,6 +21,10 @@
     left: 0
 }
 
+.color-white {
+    color: white;
+}
+
 .container{
     text-align: justify;
     width: 100% auto;

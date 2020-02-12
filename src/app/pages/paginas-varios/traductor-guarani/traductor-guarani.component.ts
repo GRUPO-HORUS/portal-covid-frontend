@@ -54,7 +54,6 @@ export class TraductorGuaraniComponent implements OnInit {
 
   buscar() {
     if(this.busqueda && typeof this.busqueda != 'undefined') {
-
       this.traductorService.getTraductor(this.trEspAgua, this.busqueda).subscribe(response => {
           if(response && response.data) {
             this.resultado.status = true;
