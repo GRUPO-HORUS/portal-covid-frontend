@@ -40,16 +40,16 @@
                     <div class="card-deck_ card-columns mt-2">
                         <div class="card card-outline-primary rounded shadow" *ngFor="let doc of documentosIE">
                             <div *ngIf="doc.isSession" class="card-ribbon card-ribbon-top card-ribbon-right bg-grey">ID-e</div>
-                            <div class="card-body">
+                            <div class="card-body" style="min-height:90px;">
                                 <a *ngIf="!doc.linkExternal" (click)="redirect(doc)" style="cursor:pointer">
-                                    <h4 class="card-title pr-4">
+                                    <h5 class="card-title pr-4">
                                         {{doc.name}}
-                                    </h4>
+                                    </h5>
                                 </a>
                                 <a *ngIf="doc.linkExternal" href="{{doc.link}}" target="_blank" style="cursor:pointer">
-                                    <h4 class="card-title pr-4">
+                                    <h5 class="card-title pr-4">
                                         {{doc.name}}
-                                    </h4>
+                                    </h5>
                                 </a>
                             </div>
                             <a *ngIf="!doc.isSession && !doc.linkExternal" (click)="redirect(doc)" class="btn btn-primary text-white btn-lg btn-block" style="text-transform: capitalize;"><i class="fa fa-file"></i> Consultar</a>

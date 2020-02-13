@@ -55,8 +55,6 @@ export class Paso1Component implements OnInit {
 
       $('.grecaptcha-badge').css({'visibility':'hidden !important'});
 
-      console.log($('.grecaptcha-badge'));
-
     }, error =>{
       this.recaptchaAvailable = false;
       console.log("error getting recaptcha", error);

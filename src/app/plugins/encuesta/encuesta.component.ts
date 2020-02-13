@@ -55,13 +55,11 @@ export class EncuestaComponent implements OnInit {
       let encuestaEnviada = localStorage.getItem(this.identificador);
       if (!encuestaEnviada) {
         this.encuestaService.getTipoEncuesta(this.identificador, this.version).subscribe(data => {
-          console.log("data-tipo-encuesta:", data);
           this.tipoEncuesta = data;
           this.formulario = data.formulario;
           this.establecerValoresJsonSchemaForm();
         }, error => {
           if (error.status === 404) {
-            console.log("No existe encuesta o está desactivada.");
           } else {
             console.log("Ocurrió un error al obtener el tipo de encuesta.", error);
           }

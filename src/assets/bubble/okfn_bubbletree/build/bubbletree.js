@@ -893,7 +893,7 @@ BubbleTree.Line = function(bc, attr, origin, angle, fromRad, toRad) {
 	
 	this.init = function() {
 		this.getXY();
-		console.log("foo", "M"+this.x1+" "+this.y1+"L"+this.x2+" "+this.y2, attr);
+		// console.log("foo", "M"+this.x1+" "+this.y1+"L"+this.x2+" "+this.y2, attr);
 		this.path = this.bc.paper.path(
 			"M"+this.x1+" "+this.y1+"L"+this.x2+" "+this.y2
 		).attr(this.attr);

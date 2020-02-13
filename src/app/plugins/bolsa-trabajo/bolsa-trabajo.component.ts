@@ -41,13 +41,11 @@ export class BolsaTrabajoComponent implements OnInit {
   }
 
   getListBolsa(): void {
-    console.log("this.codigo", this.codigo);
     if (this.codigo == null || typeof this.codigo === "undefined") {
       return;
     }
     this._bolsaService.getListBolsa(this.codigo).subscribe(
       data => {
-        console.log("bt search: ", data);
         if (data != null && data.length > 0) {
           this.bolsaTrabajo = data;
           this.encuentra = true;

@@ -143,7 +143,6 @@ export class LoginService {
         let expiresIn: any = localStorage.getItem(key+'_expiresIn'); // set expiration for storage
         if (expiresIn === undefined || expiresIn === null) { expiresIn = 0; }
         if (expiresIn < current) { // expired
-            // console.log("token inválido: removed", "expiresIn:  "+expiresIn +" < current: "+ current);
             this.removeStorage(key);
             return null;
         } else {
