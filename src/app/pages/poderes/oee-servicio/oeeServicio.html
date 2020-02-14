@@ -76,19 +76,7 @@
         </div>
     </div>
 
-    <a class='flotanteOnline' href="javascript:;" *ngIf="!yaVoto2">
-        <div class="flotanteOnline dropup" style="display:block;" *ngIf="!infoServicio.servicioEnLineaUrl">
-            <button type="button" class="btn btn-primary dropdown-toggle" style="font-size:11px;" data-toggle="dropdown">
-                ¿Querés que este trámite sea en Línea?
-            </button>
-            <div class="dropdown-menu dropdown-menu-right">
-                <div class="dropdown-header">¿Querés que este trámite sea en Línea?</div>
-                <button class="dropdown-item" (click)="calificar(2,'SI')"><i class="fa fa-arrow-alt-circle-right"></i> SI</button>
-                <button class="dropdown-item" (click)="calificar(2,'NO')"><i class="fa fa-arrow-alt-circle-right"></i> NO</button>
-                <div class="dropdown-divider"></div>
-            </div>
-        </div>
-    </a>
+
 
     <a class='flotante' href="javascript:;" *ngIf="!yaVoto1">
         <div class="flotante dropup" style="display:block;">
@@ -100,6 +88,20 @@
                 <button class="dropdown-item" (click)="calificar(1,'PUEDE_MEJORAR')"><i class="fa fa-arrow-alt-circle-right"></i> PUEDE MEJORAR</button>
                 <button class="dropdown-item" (click)="calificar(1,'BUENO')"><i class="fa fa-arrow-alt-circle-right"></i> BUENO</button>
                 <button class="dropdown-item" (click)="calificar(1,'MUY_BUENO')"><i class="fa fa-arrow-alt-circle-right"></i> MUY BUENO</button>
+                <div class="dropdown-divider"></div>
+            </div>
+        </div>
+    </a>
+
+    <a class='flotanteOnline' href="javascript:;" *ngIf="!yaVoto2">
+        <div class="flotanteOnline dropup" style="display:block;" *ngIf="!infoServicio.servicioEnLineaUrl">
+            <button type="button" class="btn btn-primary dropdown-toggle" style="font-size:11px;" data-toggle="dropdown">
+                ¿Querés que este trámite sea en Línea?
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-header">¿Querés que este trámite sea en Línea?</div>
+                <button class="dropdown-item" (click)="calificar(2,'SI')"><i class="fa fa-arrow-alt-circle-right"></i> SI</button>
+                <button class="dropdown-item" (click)="calificar(2,'NO')"><i class="fa fa-arrow-alt-circle-right"></i> NO</button>
                 <div class="dropdown-divider"></div>
             </div>
         </div>

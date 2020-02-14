@@ -225,42 +225,36 @@
 
             <!--servicios-->
             <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 pt-4" *ngIf="!oees || infos.length > 0">
-                <div class="card bg-shadow bg-gradient">
-                    <div class="card-body p-3">
-                        <h5 id="servicios-ofrecidos" class="text-justify title-divider texto-accesible-H3 mb-2">
+                <div class="card bg-shadow bg-gradient mb-3" style="border-radius: 10px;">
+                    <div class="bg-grey p-3">
+                        <h5 id="servicios-ofrecidos" class="title-divider mb-3">
                             <span>Trámites / servicios</span>
                         </h5>
 
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" (click)="getServicios('difOnline')">
-                                <div class="text-center overlay overlay-op-7 rounded bg-img" data-bg-img="assets/img/instituciones.jpg" style="cursor:pointer;background-image: url('assets/img/instituciones.jpg') !important; background-position: bottom !important;">
-                                    <h4 class="text-white text-uppercase p-1">
-                                        <i class="far fa-hand-point-right" style="float: left;" *ngIf="!cursorServiciosOnline" aria-hidden="true"></i>
-                                        <span data-toggle="count-to" class="font-weight-bold" attr.data-to="{{servicios.length}}" data-from="0">{{ servicios.length }}</span>
-                                        <small class="text-white ml-3">servicios</small>
-                                    </h4>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" (click)="getServicios('online')">
-                                <div class="text-center overlay overlay-op-7 rounded bg-img" data-bg-img="assets/img/backgrounds/computer-screens.jpg" style="cursor:pointer;background-image: url('assets/img/backgrounds/computer-screens.jpg') !important; background-position: center; ">
-                                    <h4 class="text-white text-uppercase p-1">
-                                        <i class="far fa-hand-point-right" style="float: left;" *ngIf="cursorServiciosOnline" aria-hidden="true"></i>
-                                        <span data-toggle="count-to" class="font-weight-bold" attr.data-to="{{ contTramitesOnline }}" data-from="0">{{ contTramitesOnline }}</span>
-                                        <small class="text-white ml-3">en línea</small>
-                                    </h4>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="pb-2">
-                            <input class="form-control bg-shadow" id="buscarServicios" [(ngModel)]="buscarServicios" type="text" placeholder="Buscar.." />
+                            <input class="form-control form-control-rounded bg-shadow" id="buscarServicios" [(ngModel)]="buscarServicios" type="text" placeholder="Buscar.." />
                         </div>
-                        <div class="nav nav-section-menu nav-section-menu-left pt-1" *ngIf="resultsServicios.status">
+
+                        <div class="btn-group btn-block mb-1" role="group" aria-label="Filtrar trámites">
+                            <button type="button" class="btn btn-outline-secondary btn-rounded" [ngClass]="!cursorServiciosOnline ? 'active':''" (click)="getServicios('difOnline')">
+                                <i class="far fa-file fa-fw" style="float: left;" aria-hidden="true"></i>
+                                <span data-toggle="count-to" class="font-weight-bold" attr.data-to="{{servicios.length}}" data-from="0">{{ servicios.length }}</span>
+                                servicios
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary btn-rounded" [ngClass]="cursorServiciosOnline ? 'active':''" (click)="getServicios('online')">
+                                <i class="fa fa-globe fa-fw" style="float: left;" aria-hidden="true"></i>
+                                <span data-toggle="count-to" class="font-weight-bold" attr.data-to="{{ contTramitesOnline }}" data-from="0">{{ contTramitesOnline }}</span>
+                                en línea
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body p-3">
+
+                        <div class="nav nav-section-menu nav-section-menu-left pt-1" style="border:0;" *ngIf="resultsServicios.status">
                             <a scrollTo href="#inicio" *ngFor="let servicio of serviciosFilter | filterdata: buscarServicios : 'nombreServicio' | orderBy: keyTramitesServicios : reverseTramitesServicios | paginate: { itemsPerPage: 10, currentPage: nroTramitesServicios }; let i = index"
                                 class="nav-link m-0" routerLink="/oee/{{urlOee}}/{{servicio.idServicio}}" style="color:#544d4d !important;font-size:13px;font-weight:100;">
                                 <i class="fa fa-globe fa-fw" style="position:relative; margin:0px; font-size: 16px; float: left;" *ngIf="servicio.esOnline == 1" aria-hidden="true"></i>
-                                <i class="fa fa-caret-right fa-fw" style="position:relative; margin:0px; font-size: 16px; float: left;" *ngIf="servicio.esOnline != 1" aria-hidden="true"></i> {{servicio.nombreServicio}}
+                                <i class="far fa-file fa-fw" style="position:relative; margin:0px; font-size: 16px; float: left;" *ngIf="servicio.esOnline != 1" aria-hidden="true"></i> {{servicio.nombreServicio}}
                                 <i class="fa fa-angle-right" style="float:right;"></i>
                             </a>
                         </div>
@@ -272,7 +266,7 @@
                     </div>
                 </div>
 
-                <div class="float-right btn btn-block btn-success" style="border-radius:10px;font-size:1rem;border:none;background-color:#132c5d; margin-bottom: 15px;">
+                <div class="btn btn-block btn-primary" style="border-radius:10px;font-size:1rem;border:none; margin-bottom: 15px;">
                     <a href="{{ urlTransparenciaActiva }}" style="color:#fff; text-align:left; text-decoration: none;" target="_blank">
                         <ul style="list-style-type: none; margin-top: 15px;">
                             <li><i class="fa fa-angle-right"></i> Transparencia Activa</li>
@@ -282,7 +276,7 @@
                     </a>
                 </div>
 
-                <div class="float-right btn btn-block btn-success" (click)="getEncuestaCiudadana()" style="border-radius:10px;font-size:1rem;border:none;background-color:#132c5d;">
+                <div class="btn btn-block btn-primary" (click)="getEncuestaCiudadana()" style="border-radius:10px;font-size:1rem;border:none;">
                     <div style="color:#fff; text-align:left; text-decoration: none;">
                         <ul style="list-style-type: none; margin-top: 15px;">
                             <li>Encuesta Ciudadana de Trámites</li>
