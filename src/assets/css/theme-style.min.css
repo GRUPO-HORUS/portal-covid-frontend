@@ -7038,16 +7038,16 @@ fieldset[disabled] .btn-info.btn-link:hover {
 
 .btn-success {
     color: #fff;
-    background-color: #28a745;
-    border-color: #28a745;
+    background-color: #35CDA4;
+    border-color: rgb(49, 187, 150);
     -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 1px rgba(0, 0, 0, .075);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 1px rgba(0, 0, 0, .075)
 }
 
 .btn-success:hover {
     color: #fff;
-    background-color: #218838;
-    border-color: #1e7e34
+    background-color: rgb(49, 168, 137);
+    border-color: #35CDA4
 }
 
 .btn-success.focus,
@@ -7067,8 +7067,8 @@ fieldset[disabled] .btn-info.btn-link:hover {
 .btn-success:not(:disabled):not(.disabled):active,
 .show>.btn-success.dropdown-toggle {
     color: #fff;
-    background-color: #1e7e34;
-    border-color: #1c7430
+    background-color: rgb(44, 165, 133);
+    border-color: rgb(50, 184, 148)
 }
 
 .btn-success:not(:disabled):not(.disabled).active:focus,
