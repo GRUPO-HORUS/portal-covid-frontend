@@ -134,7 +134,7 @@
                                 </a>
                                 <a href="#" *ngIf="currentUser" class="nav-link dropdown-toggle space-menu-info btn-menu-destacado" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" style="border: 1px solid #ffffff24 !important">
                                     <i class="fa fa-user-circle nav-link-icon mr-2"></i>
-                                    <span>{{ currentUser.nombres.split(" ", 3)[0] }} {{ currentUser.apellidos.split(" ", 3)[0] }}</span>
+                                    <span><b>{{ currentUser.nombres.split(" ", 3)[0] }} {{ currentUser.apellidos.split(" ", 3)[0] }}</b></span>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right" *ngIf="!token || token == 'undefined' || token == null || !currentUser || currentUser == 'undefined' || currentUser == null">
                                     <a (click)="loginIdentidadElectronica(); colapseMenu();" class="dropdown-item mb-2 menu-detacado_"><i class="fas fa-id-badge nav-link-icon mr-2" style="font-size: 32px;float: left;margin-top: 3px;margin-left: -6px;">                                       
