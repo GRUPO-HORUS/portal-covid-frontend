@@ -21064,19 +21064,10 @@ a.text-gray-900:hover {
     font-size: 90% !important
 }
 
-.text-font-slab,
-.text-slab {
-    font-family: 'Roboto Slab', serif !important
-}
-
 .text-alt,
 .text-font-alt,
 .text-roboto {
     font-family: Roboto, Helvetica, Arial, sans-serif !important
-}
-
-.text-font-base {
-    font-family: "Open Sans", Helvetica Neue, Helvetica, Arial, sans-serif !important
 }
 
 .text-font-rufina,
