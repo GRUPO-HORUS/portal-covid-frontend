@@ -46,7 +46,7 @@
                     </ul>
                 </div>
 
-                <div class="tab-content">
+                <div class="tab-content mt-2">
 
                     <div class="texto-accesible-H3 mb-3 py-6 text-info text-center" style="font-size:20px;" *ngIf="loading">
                         <i class="fa fa-spinner fa-spin fa-3x"></i><br><b>Buscando</b>
@@ -59,19 +59,25 @@
                     <!--TRAMITES Y SERVICIOS-->
                     <div role="tabpanel" id="tramites_servicios" *ngIf="tabActive === 'tramites_servicios' && countResults > 0">
                         <h3 class="visible-xs text-center text-primary mt-2 mb-4">Trámites y servicios</h3>
-                        <div class="bg-white mb-4 p-3 rounded shadow" *ngFor="let resultado of resultTab2.resultados | paginate: { itemsPerPage: 10, currentPage: nroTramitesServicios }; let i = index">
-                            <div class="row">
-                                <div class="col-md-12 d-flex flex-column align-items-start">
-                                    <h4 class="texto-accesible-H4 mb-2">
-                                        <a *ngIf="resultado.origen == 'INSTITUCION'" [routerLink]="['/oee/'+resultado.linkDatos]" style="font-size:16px;font-weight:400;color:#1a0dab;font-family:arial,sans-serif;cursor:pointer;">{{resultado.titulo}}</a>
-                                        <a *ngIf="resultado.origen == 'SERVICIO'" [routerLink]="['/oee/'+resultado.linkDatos+'/'+resultado.id]" style="font-size:16px;font-weight:400;color:#1a0dab;font-family:arial,sans-serif;cursor:pointer;">{{resultado.titulo}}</a>
-                                    </h4>
-                                    <a style="cursor:pointer;color:green;font-family:arial,sans-serif;font-size:13px;" [routerLink]="['/oee/'+resultado.linkDatos+'/'+resultado.id]">
-                                        {{getUrlServicio(resultado.linkDatos, resultado.id)}}
-                                    </a>
-                                    <p class="texto-accesible-p text-justify" style="font-size:13px;" [innerHTML]="(resultado.descripcion | slice:0:300) +'..' "></p>
-                                    <div class="mt-auto">
-                                        <button class="btn btn-link btn-sm" type="button"><i class="fa fa-tag"></i> {{resultado.tipo}}</button>
+                        <div class="card bg-white mb-4 rounded shadow tarjeta-grey" [ngClass]="resultado.origen == 'INSTITUCION' ? 'tarjeta-orange':'tarjeta-grey'" *ngFor="let resultado of resultTab2.resultados | paginate: { itemsPerPage: 10, currentPage: nroTramitesServicios }; let i = index">
+                            <div class="card-body pos-relative">
+                                <div class="row">
+                                    <div class="col-md-1 d-flex flex-column align-items-center text-center">
+                                        <i *ngIf="resultado.origen == 'INSTITUCION'" class="fa fa-university fa-2x text-primary hidden-xs"></i>
+                                        <i *ngIf="resultado.origen == 'SERVICIO'" class="far fa-file-alt fa-2x text-primary hidden-xs"></i>
+                                    </div>
+                                    <div class="col-md-11 d-flex flex-column align-items-start">
+                                        <h5 class="texto-accesible-H4 text-primary mb-0">
+                                            <a *ngIf="resultado.origen == 'INSTITUCION'" [routerLink]="['/oee/'+resultado.linkDatos]" style="cursor:pointer;">{{resultado.titulo}}</a>
+                                            <a *ngIf="resultado.origen == 'SERVICIO'" [routerLink]="['/oee/'+resultado.linkDatos+'/'+resultado.id]" style="cursor:pointer;">{{resultado.titulo}}</a>
+                                        </h5>
+                                        <a class="mb-2" style="cursor:pointer;color:green;font-family:arial,sans-serif;font-size:13px;" [routerLink]="['/oee/'+resultado.linkDatos+'/'+resultado.id]">
+                                            {{getUrlServicio(resultado.linkDatos, resultado.id)}}
+                                        </a>
+                                        <p class="texto-accesible-p text-justify" style="font-size:13px;" [innerHTML]="(resultado.descripcion | slice:0:300) +'..' "></p>
+                                        <div class="mt-auto">
+                                            <small class="text-muted"><i class="fa fa-tag"></i> {{resultado.tipo}}</small>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +90,7 @@
                     <!--POR CATEGORIA-->
                     <div role="tabpanel" id="categoria" *ngIf="tabActive === 'categoria' && countResults > 0">
                         <h3 class="visible-xs text-center text-primary mt-2 mb-4">Por categoría</h3>
-                        <div class="card m-0" style="border:0;" *ngFor="let resultado of resultTab5.resultados | orderBy: keyCategoria : reverseCategoria | paginate: { itemsPerPage: 10, currentPage: nroCategoria }; let i = index">
+                        <div class="card m-0 tarjeta-grey" style="border:0;" *ngFor="let resultado of resultTab5.resultados | orderBy: keyCategoria : reverseCategoria | paginate: { itemsPerPage: 10, currentPage: nroCategoria }; let i = index">
                             <div class="card-block p-0 pos-relative row">
                                 <div class="col-md-12 d-flex flex-column align-items-start">
                                     <h4 class="texto-accesible-H4 mb-2">
