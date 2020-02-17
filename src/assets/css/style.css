@@ -4,6 +4,7 @@
 
 body {
     font-weight: 200 !important;
+    padding-right: 0 !important;
 }
 
 body #footer {
@@ -1040,6 +1041,22 @@ Manejo de scroll: table > body
     display: inline-block;
 }
 
+.tarjeta-green {
+    border-left: 5px solid #35CDA4;
+}
+
+.tarjeta-grey {
+    border-left: 5px solid #E6E6E6;
+}
+
+.tarjeta-orange {
+    border-left: 5px solid #F89808;
+}
+
+.tarjeta-purple {
+    border-left: 5px solid rgb(172, 33, 190);
+}
+
 @media (max-width: 576px) {
     .col-xs-6 {
         width: 50%;
@@ -1091,5 +1108,8 @@ Manejo de scroll: table > body
         column-gap: 1.25rem;
         orphans: 1;
         widows: 1;
+    }
+    .min-height-tite-card {
+        min-height: 53px;
     }
 }

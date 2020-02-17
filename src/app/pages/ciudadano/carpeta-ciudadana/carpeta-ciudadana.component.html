@@ -23,38 +23,68 @@
 
                 <div class="card-deck-wrapper_" *ngIf="token && ciudadano && servicios">
                     <div class="card-deck_ card-columns mt-2">
-                        <div class="card card-outline-primary rounded shadow" *ngFor="let data of servicios | sort: 'idTipoServicio'; let i = index">
-                            <div class="card-body">
-                                <a (click)="getHistoricoConsultas(data)" style="cursor:pointer">
-                                    <h4 class="card-title pr-4">
-                                        {{data.descripcion}}
-                                    </h4>
-                                </a>
-                            </div>
-                            <a (click)="getHistoricoConsultas(data)" class="btn btn-primary text-white btn-lg btn-block" style="text-transform: capitalize;"><i class="fa fa-file"></i> Consultar</a>
+                        <div class="card rounded shadow tarjeta-green" *ngFor="let data of servicios | sort: 'idTipoServicio'; let i = index">
+                            <a (click)="getHistoricoConsultas(data)" class="btn btn-light text-primary btn-lg btn-block text-left">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center">
+                                        <i class="far fa-file-alt fa-2x text-primary"></i>
+                                    </div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card">
+                                            {{data.descripcion}}
+                                        </h6>
+                                        <small class="text-muted">Consultar</small>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
 
                 <div class="card-deck-wrapper_" *ngIf="!ciudadano || !token">
                     <div class="card-deck_ card-columns mt-2">
-                        <div class="card card-outline-primary rounded shadow" *ngFor="let doc of documentosIE">
-                            <div *ngIf="doc.isSession" class="card-ribbon card-ribbon-top card-ribbon-right bg-grey">ID-e</div>
-                            <div class="card-body" style="min-height:90px;">
-                                <a *ngIf="!doc.linkExternal" (click)="redirect(doc)" style="cursor:pointer">
-                                    <h6 class="card-title pr-4">
-                                        {{doc.name}}
-                                    </h6>
-                                </a>
-                                <a *ngIf="doc.linkExternal" href="{{doc.link}}" target="_blank" style="cursor:pointer">
-                                    <h6 class="card-title pr-4">
-                                        {{doc.name}}
-                                    </h6>
-                                </a>
-                            </div>
-                            <a *ngIf="!doc.isSession && !doc.linkExternal" (click)="redirect(doc)" class="btn btn-primary text-white btn-lg btn-block" style="text-transform: capitalize;"><i class="fa fa-file"></i> Consultar</a>
-                            <a *ngIf="!doc.isSession && doc.linkExternal" href="{{doc.link}}" target="_blank" class="btn btn-primary text-white btn-lg btn-block" style="text-transform: capitalize;"><i class="fa fa-file"></i> Consultar</a>
-                            <a *ngIf="doc.isSession" (click)="redirect(doc)" class="btn btn-primary text-white btn-lg btn-block" style="text-transform: capitalize;"><i class="fa fa-id-card"></i> Identidad Electrónica</a>
+                        <div class="card rounded shadow" [ngClass]="doc.isSession ? 'tarjeta-green':'tarjeta-grey'" *ngFor="let doc of documentosIE">
+                            <div *ngIf="doc.isSession" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
+                            <a *ngIf="!doc.isSession && !doc.linkExternal" (click)="redirect(doc)" class="btn btn-light text-primary btn-lg btn-block text-left" style="text-transform: capitalize;">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center">
+                                        <i class="far fa-file-alt fa-2x text-primary"></i>
+                                    </div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card">
+                                            {{doc.name}}
+                                        </h6>
+                                        <small class="text-muted">Consultar</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a *ngIf="!doc.isSession && doc.linkExternal" href="{{doc.link}}" target="_blank" class="btn btn-light text-primary btn-lg btn-block text-left" style="text-transform: capitalize;">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center">
+                                        <i class="fas fa-link fa-2x text-primary"></i>
+                                    </div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card">
+                                            {{doc.name}}
+                                        </h6>
+                                        <small class="text-muted">Consultar</small>
+                                    </div>
+                                </div>
+                            </a>
+                            <a *ngIf="doc.isSession" (click)="redirect(doc)" class="btn btn-light text-primary btn-lg btn-block text-left" style="text-transform: capitalize;">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center">
+                                        <i class="far fa-address-card fa-2x text-primary"></i>
+                                    </div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title pr-5 mb-0 min-height-tite-card">
+                                            {{doc.name}}
+                                        </h6>
+                                        <small class="text-muted">Requiere Identidad Electrónica</small>
+                                    </div>
+                                </div>
+                            </a>
+
                         </div>
                     </div>
 

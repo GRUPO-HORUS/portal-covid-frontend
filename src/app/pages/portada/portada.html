@@ -15,11 +15,11 @@
                     <div class="card-deck mt-2">
                         <div class="card card-outline-primary rounded shadow" *ngFor="let tramite of tramitesEnLinea">
                             <ng-container *ngIf="tramite.idServicio==1127 || tramite.idServicio==1157 || tramite.idServicio==1197">
-                                <div class="card-ribbon card-ribbon-top card-ribbon-right bg-secondary text-white">¡nuevo!</div>
+                                <div class="card-ribbon card-ribbon-top card-ribbon-right bg-red text-white">¡nuevo!</div>
                             </ng-container>
                             <div class="card-body">
                                 <a (click)="getDataServicio(tramite.oee.urlOee, tramite.idServicio)" style="cursor:pointer">
-                                    <h4 class="card-title pr-4">
+                                    <h4 class="card-title pr-5">
                                         {{tramite.nombreServicio}}
                                     </h4>
                                 </a>
