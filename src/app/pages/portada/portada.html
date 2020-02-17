@@ -13,21 +13,21 @@
 
 
                     <div class="card-deck mt-2">
-                        <div class="card card-outline-primary_ rounded shadow tarjeta-grey" *ngFor="let tramite of tramitesEnLinea">
+                        <div class="card card-outline-primary_ rounded shadow tarjeta-green" *ngFor="let tramite of tramitesEnLinea">
                             <ng-container *ngIf="tramite.idServicio==1127 || tramite.idServicio==1157 || tramite.idServicio==1197">
-                                <div class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">¡nuevo!</div>
+                                <div class="card-ribbon card-ribbon-top card-ribbon-right bg-red-dark text-white font-weight-bold">¡nuevo!</div>
                             </ng-container>
                             <div class="card-body">
                                 <a (click)="getDataServicio(tramite.oee.urlOee, tramite.idServicio)" style="cursor:pointer">
-                                    <h4 class="card-title pr-5">
+                                    <h5 class="card-title pr-5">
                                         {{tramite.nombreServicio}}
-                                    </h4>
+                                    </h5>
                                 </a>
-                                <p class="card-text" style="max-height: 91px; overflow: hidden; text-overflow: ellipsis;">{{tramite.descripcionServicio}}</p>
+                                <p class="text-muted" style="max-height: 91px; overflow: hidden; text-overflow: ellipsis;">{{tramite.descripcionServicio}}</p>
                             </div>
                             <div class="card-footer text-center">
                                 <a (click)="getDataServicio(tramite.oee.urlOee, tramite.idServicio)" class="btn btn-default">Más información</a>
-                                <a href="{{tramite.urlOnline}}" target="_blank" class="btn btn-primary btn-rounded">Ir al trámite →</a>
+                                <a href="{{tramite.urlOnline}}" target="_blank" class="btn btn-success btn-rounded">Ir al trámite →</a>
                             </div>
                         </div>
                     </div>
@@ -50,11 +50,11 @@
                             </ng-container>
                             <div class="card-body">
                                 <a (click)="getDataServicio(tramite.oee.urlOee, tramite.idServicio)" style="cursor:pointer">
-                                    <h4 class="card-title">
+                                    <h5 class="card-title">
                                         {{tramite.nombreServicio}}
-                                    </h4>
+                                    </h5>
                                 </a>
-                                <p class="card-text" style="max-height: 91px; overflow: hidden; text-overflow: ellipsis;">{{tramite.descripcionServicio}}</p>
+                                <p class="text-muted" style="max-height: 91px; overflow: hidden; text-overflow: ellipsis;">{{tramite.descripcionServicio}}</p>
                             </div>
                             <div class="card-footer">
                                 <a (click)="getDataServicio(tramite.oee.urlOee, tramite.idServicio)" class="btn btn-default btn-block">Más información</a>
