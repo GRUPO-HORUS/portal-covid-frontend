@@ -43,8 +43,8 @@ export class ValidarDocumentoComponent implements OnInit {
     });
   }
 
-  getPathValidateDocument(objId) {
-    return this.documentosService.validateDocument(objId);
+  getPathValidateDocument(codVerificacion, objId) {
+    return this.documentosService.validar(codVerificacion, objId);
   }
 
   validarDocumento() {
@@ -53,7 +53,7 @@ export class ValidarDocumentoComponent implements OnInit {
         this.mensaje = 'Documento no válido';
       } else {
         this.mensaje = '';
-        this.getPDF(response.historico._id);
+        this.getPDF(response.historico.identificadorUnico, response.historico._id);
         //this.router.navigate(["/visor/validar-documento/"+response.historico._id+'/'+response.identificadorUnico]);
       }
       this.loading = false; 
@@ -63,9 +63,9 @@ export class ValidarDocumentoComponent implements OnInit {
     });
   }
 
-  getPDF(objId: string) {
+  getPDF(codVerificacion: string, objId: string) {
     setTimeout(() => {
-        let url =  this.getPathValidateDocument(objId);
+        let url =  this.getPathValidateDocument(codVerificacion, objId);
         let link = document.createElement('a'); 
         link.href = String(url);
         link.setAttribute("type", "hidden"); 
