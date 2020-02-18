@@ -13,7 +13,7 @@
         </div>
         <div class="row">
             <div class="col-md-4 push-md-8 youtube mb-2 sidebar-section">
-                <div class="nav nav-section-menu nav-section-menu-right pt-0 pb-0 mb-4">   
+                <div class="nav nav-section-menu nav-section-menu-right pt-0 pb-0 mb-4">
                     <a class="mb-3" routerLink="/crear-cuenta" style="margin-top:-20px;">
                         <div class="card card-block p-4 bg-color-primary bg-color-primary-hover card-shadowPro hover-up" style="border:0px solid #000; border-radius:10px;">
                             <div class="card-ribbon card-ribbon-top card-ribbon-right bg-faded text-color-primary font-weight-bold">ID-e</div>
@@ -24,8 +24,8 @@
                                 <i class="fa fa-user-plus mr-2" style="margin-top:-4px;"></i><span class="font-weight-normal text-muted text-white" style="font-size:20px;">Crear</span> cuenta
                             </h4>
                             <div class="fondo-buscador_" style="position: absolute; left: 0; right: 0; top: 0; bottom: 0; opacity: .3; background-image: url(assets/img/backgrounds/computer-screens.jpg)"></div>
-                        </div>   
-                    </a>                    
+                        </div>
+                    </a>
                     <div>
                         <a class="nav-link" style="font-weight: 500;" routerLink="/identidad-electronica">
                             <i class="fa fa-info-circle text-default" style="font-size:16px; margin-top:-8px;"></i> ¿Qué es la Identidad Electrónica?
@@ -43,9 +43,9 @@
                             <i class="fa fa fa-calendar-alt text-default" style="font-size:16px; margin-top:-8px;"></i> Agendar turno
                         </a>
                         <a class="nav-link" style="font-weight: 500;" routerLink="/categoria/1/resultado" id="buscar">
-                            <i class="fa fa fa-cog text-default" style="font-size:16px; margin-top:-8px;"></i> Servicios con Identidad Electrónica
+                            <i class="fa fa-id-card text-default" style="font-size:16px; margin-top:-8px;"></i> Servicios con Identidad Electrónica
                         </a>
-						
+
                         <!--a class="nav-link" style="font-weight: 500;" routerLink="/identidad-electronica/terminos" id="buscar">
                             <i class="fa fa fa-file-o text-default" style="font-size:16px; margin-top:-8px;"></i> Estadística
                         </a-->
@@ -56,10 +56,11 @@
                 <!--blockquote class="title-divider">
                     Conocé más sobre Identidad electrónica
                 </blockquote-->
-            </div> <!--FIN DE YOUTUBE-->
-            <div class="col-md-8 pull-md-4 sidebar-left"> 
+            </div>
+            <!--FIN DE YOUTUBE-->
+            <div class="col-md-8 pull-md-4 sidebar-left">
                 <embed [src]="sanitizer.bypassSecurityTrustResourceUrl(url)" width="100%" height="100vh">
-               <!-- <iframe width="100%" height="900" marginheight="0" marginwidth="0" noresize scrolling="yes" frameborder="0" 
+                <!-- <iframe width="100%" height="900" marginheight="0" marginwidth="0" noresize scrolling="yes" frameborder="0" 
                 [src]="sanitizer.bypassSecurityTrustResourceUrl(url)" allowfullscreen></iframe> -->
             </div>
         </div>

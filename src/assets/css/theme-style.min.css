@@ -3095,7 +3095,8 @@ h4 small {
         color: rgba(27, 27, 27, .8);
         background: #fff;
         position: absolute;
-        z-index: 1000
+        z-index: 1000;
+        box-shadow: 0px 13px 15px rgba(0, 0, 0, 0.1);
     }
     .navbar-expand-md .navbar-main .nav>.dropdown-right,
     .navbar-expand-md .navbar-main.collapse .dropdown-menu .dropdown-submenu,
@@ -11427,9 +11428,7 @@ body.modal-open .jPanelMenu-panel {
 }
 
 .modal-content {
-    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
-    box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
-    border-radius: 3px
+    border-radius: 5px
 }
 
 .modal-backdrop {
@@ -11463,10 +11462,6 @@ body.modal-open .jPanelMenu-panel {
     .modal-dialog {
         padding-top: 5%;
         padding-bottom: 30px
-    }
-    .modal-content {
-        -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, .5)
     }
 }
 
