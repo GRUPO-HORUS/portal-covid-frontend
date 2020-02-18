@@ -42,28 +42,21 @@ export class Paso1Component implements OnInit {
   }
 
   ngOnInit() {
-    this.getRecaptchaToken('registerOAuth');
   }
 
   getRecaptchaToken(action) {
-    this.subscription = this.rcv3Service.execute(action).subscribe(response => {
-      console.log('response', response);
-      
-      this.recentToken = response;
-      
-      this.recaptchaAvailable = true;
-
-      $('.grecaptcha-badge').css({'visibility':'hidden !important'});
-
-    }, error =>{
-      this.recaptchaAvailable = false;
-      console.log("error getting recaptcha", error);
+    return new Promise(resolve => {
+      this.subscription = this.rcv3Service.execute(action).subscribe(response => {
+        this.recentToken = response;
+        this.recaptchaAvailable = true;
+        $('.grecaptcha-badge').css({'visibility':'hidden !important'});
+        resolve(true);
+      }, error => {
+        this.recaptchaAvailable = false;
+        console.log("error getting recaptcha", error);
+        resolve(false);
+      });
     });
-  }
-
-  refreshCaptcha() {
-  //   this.captcha = "";
-    this.getRecaptchaToken('registerOAuth');
   }
 
   ngOnDestroy() {
@@ -72,38 +65,36 @@ export class Paso1Component implements OnInit {
     }
   }
 
-  // resolved(captchaResponse: string) {
-  //   this.captchaResponse = captchaResponse;
-  // }
-
   avanzar(cedula: string, email: string, domicilio: string, telefono: string): void {
     this.loading = true;
+    this.getRecaptchaToken('registerOAuth').then((response) => {
+      if(response) {
+        this._preguntasService.verExiste(cedula, email, domicilio, telefono, this.recentToken, false).subscribe(response => {
+            if (response.success) {
 
-    this._preguntasService.verExiste(cedula, email, domicilio, telefono, this.recentToken, false).subscribe(
-        response => {
-          if (response.success) {
-            // save localStorage
-            localStorage.setItem("pregunta", JSON.stringify(response.pregunta));
-            localStorage.setItem("idIntento", response.idIntento);
-            localStorage.setItem("codigoVerificacion", response.codigoVerificacion);
-            localStorage.setItem("textoAyuda", response.textoAyuda);
-            localStorage.setItem("captchaResponse", this.recentToken);
+              // save localStorage
+              localStorage.setItem("pregunta", JSON.stringify(response.pregunta));
+              localStorage.setItem("idIntento", response.idIntento);
+              localStorage.setItem("codigoVerificacion", response.codigoVerificacion);
+              localStorage.setItem("textoAyuda", response.textoAyuda);
+              localStorage.setItem("captchaResponse", this.recentToken);
 
+              this.loading = false;
+              this._router.navigate(["/paso2/", cedula, email]);
+
+            } else {
+              this.loading = false;
+              this.mensaje = response.message;
+              this.openMessageDialog();
+            }
+          }, error => {
             this.loading = false;
-            // redirect paso 2
-            this._router.navigate(["/paso2/", cedula, email]);
-          } else {
-            this.loading = false;
-            this.mensaje = response.message;
+            this.mensaje = "No se pudo procesar la operación!";
             this.openMessageDialog();
           }
-        },
-        error => {
-          this.loading = false;
-          this.mensaje = "No se pudo procesar la operación!";
-          this.openMessageDialog();
-        }
-      );
+        );
+      }
+    });
   }
   
   openMessageDialog() {

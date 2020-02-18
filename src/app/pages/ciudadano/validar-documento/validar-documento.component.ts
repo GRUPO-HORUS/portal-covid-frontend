@@ -54,7 +54,6 @@ export class ValidarDocumentoComponent implements OnInit {
       } else {
         this.mensaje = '';
         this.getPDF(response.historico.identificadorUnico, response.historico._id);
-        //this.router.navigate(["/visor/validar-documento/"+response.historico._id+'/'+response.identificadorUnico]);
       }
       this.loading = false; 
     }, error => {
