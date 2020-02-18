@@ -91,27 +91,26 @@ export class ConsultaDocumentoComponent implements OnInit {
 
   ngOnInit() {
     this.scrollTop();
-    this.getRecaptchaToken('register');
   }
-  
-  getRecaptchaToken(action) {
-    this.subscription = this.rcv3Service.execute(action).subscribe(response => {
-      // console.log('response', response);
-      this.recentToken = response;
-      
-      this.recaptchaAvailable = true;
 
-      $('.grecaptcha-badge').css({'visibility':'hidden !important'});
-      // console.log($('.grecaptcha-badge'));
-    }, error =>{
-      this.recaptchaAvailable = false;
-      console.log("error getting recaptcha", error);
+  getRecaptchaToken(action) {
+    return new Promise(resolve => {
+      this.subscription = this.rcv3Service.execute(action).subscribe(response => {
+        this.recentToken = response;
+        this.recaptchaAvailable = true;
+        $('.grecaptcha-badge').css({'visibility':'hidden !important'});
+        resolve(true);
+      }, error => {
+        this.recaptchaAvailable = false;
+        console.log("error getting recaptcha", error);
+        resolve(false);
+      });
     });
   }
 
   refreshCaptcha() {
     //this.reCaptcha.reset();
-    this.getRecaptchaToken('register');
+    // this.getRecaptchaToken('register');
   }
 
   ngOnDestroy() {
@@ -143,45 +142,43 @@ export class ConsultaDocumentoComponent implements OnInit {
   getRptDocumentSinIE(params: any) {
     this.loading = true;
     this.resultado = { status: true, message: '' };
+
+    this.getRecaptchaToken('register').then((response) => {
+      if(response) {
     
-    if(!params) {
-      params = {};
-      params.cedula = this.cedula;
-      params.tipo = this.documento.id.toString();
-    }
+        if(!params) {
+          params = {};
+          params.cedula = this.cedula;
+          params.tipo = this.documento.id.toString();
+        }
 
-    if(this.tipo == 'ruc-set') params.dv = this.dv;
-    if(this.tipo == 'cedula-policial') params.fechaNacimiento = this.fechaNac;
+        if(this.tipo == 'ruc-set') params.dv = this.dv;
+        if(this.tipo == 'cedula-policial') params.fechaNacimiento = this.fechaNac;
 
-    if(this.recaptchaAvailable) {
-      // console.log('captcha', this.recentToken);
-    }
+        this.documentosService.getRptDocumentSinIE(params, this.recentToken).subscribe(response => {
+          $("body").removeClass("modal-open");
+          
+          if(response.status) {
+            this.cedula = "";
+            this.router.navigate(['/visor/documentos-'+this.tipo+'/'+response.objId+'/'+response.cv]);
+            this.closeModalDocument('#modalView');
 
-    this.documentosService.getRptDocumentSinIE(params, this.recentToken).subscribe(response => {
-      $("body").removeClass("modal-open");
-      
-      if(response.status) {
-        this.cedula = "";
-        this.router.navigate(['/visor/documentos-'+this.tipo+'/'+response.objId+'/'+response.cv]);
-        this.closeModalDocument('#modalView');
+          } else {
+            let message = response.message != null && response.message != "undefined" && response.message != '' ? response.message : "No se pudo generar el documento";
+            this.resultado = { status: false, message: message };
+            this.toastrService.warning('', message);
+          }
 
-      } else {
-        
-        let message = response.message != null && response.message != "undefined" && response.message != '' ? response.message : "No se pudo generar el documento";
-        this.resultado = { status: false, message: message };
-        this.toastrService.warning('', message);
-
+          this.loading = false;
+          this.recentToken = "";
+          
+        }, error => {
+          console.log(error);
+          this.loading = false;
+          this.recentToken = "";
+          this.toastrService.warning('','Ocurrió un error al procesar la operación');
+        });
       }
-
-      this.loading = false;
-      this.recentToken = "";
-      this.refreshCaptcha();
-    }, error => {
-      console.log(error);
-      this.loading = false;
-      this.recentToken = "";
-      this.refreshCaptcha();
-      this.toastrService.warning('','Ocurrió un error al procesar la operación');
     });
   }
 
@@ -193,7 +190,6 @@ export class ConsultaDocumentoComponent implements OnInit {
         this.cursos = { 'key': 10, 'data': response.data };
         this.loading = false;
         this.resultado = {status: true, message: ''};
-      
       } else {
         this.loading = false;
         this.resultado = {status: false, message: 'No se encontraron datos disponibles para el nro. de cédula '+ this.cedula};
@@ -210,14 +206,6 @@ export class ConsultaDocumentoComponent implements OnInit {
       $(name).modal('hide'); 
       $('.modal-backdrop').hide();
     }, 500);
-  }
-
-  scrollBottom() {
-    let top = document.getElementById('topcc');
-    if (top !== null) {
-      top.scrollIntoView();
-      top = null;
-    }
   }
 
   scrollTop() {

@@ -39,31 +39,26 @@ export class RestablecerClaveComponent implements OnInit {
   ngOnInit() {
     this.loading = false;
     this.persona = new Persona();
-    this.getRecaptchaToken('registerOAuthReset');
     this.viewScrollTop();
   }
 
   getRecaptchaToken(action) {
-    this.subscription = this.rcv3Service.execute(action).subscribe(response => {
-      // console.log('response', response);
-      
-      this.recentToken = response;
-      
-      this.recaptchaAvailable = true;
-
-      $('.grecaptcha-badge').css({'visibility':'hidden !important'});
-
-      console.log($('.grecaptcha-badge'));
-
-    }, error =>{
-      this.recaptchaAvailable = false;
-      console.log("error getting recaptcha", error);
+    return new Promise(resolve => {
+      this.subscription = this.rcv3Service.execute(action).subscribe(response => {
+        this.recentToken = response;
+        this.recaptchaAvailable = true;
+        $('.grecaptcha-badge').css({'visibility':'hidden !important'});
+        resolve(true);
+      }, error => {
+        this.recaptchaAvailable = false;
+        console.log("error getting recaptcha", error);
+        resolve(false);
+      });
     });
   }
 
   refreshCaptcha() {
     // this.reCaptcha.reset();
-    this.getRecaptchaToken('registerOAuthReset');
   }
   
   ngOnDestroy() {
@@ -78,18 +73,19 @@ export class RestablecerClaveComponent implements OnInit {
 
   send(content) {
     this.loading = true;
-    this.identidadService.send(this.persona, this.recentToken).subscribe(res => {
-      this.loading = false;
-
-      if (res.success) {
-        this.mensaje = res.message;
-        this.open(content, res);
-      } else {
-        this.mensaje = res.message;
-        this.refreshCaptcha();
-        this.open(content, res);
+    this.getRecaptchaToken('registerOAuthReset').then((response) => {
+      if(response) {
+        this.identidadService.send(this.persona, this.recentToken).subscribe(res => {
+          this.loading = false;
+          if (res.success) {
+            this.mensaje = res.message;
+            this.open(content, res);
+          } else {
+            this.mensaje = res.message;
+            this.open(content, res);
+          }
+        });
       }
-
     });
   }
 
