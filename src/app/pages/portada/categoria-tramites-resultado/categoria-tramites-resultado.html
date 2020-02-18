@@ -1,4 +1,4 @@
-<buscador-widget class="px-0"></buscador-widget>
+<buscador-widget class="px-0" [tabBar]="tabBar"></buscador-widget>
 
 <div id="topBusqueda"></div>
 <div id="content" class="pb-0" style="padding:0px !important;">
@@ -30,7 +30,7 @@
 
                             <!--POR CATEGORIA-->
                             <div role="tabpanel" *ngIf="countResults > 0">
-                                <div class="bg-white mb-4 p-3 rounded shadow tarjeta-green" style="border:0;" *ngFor="let resultado of resultTab5.resultados | orderBy: keyCategoria : reverseCategoria | paginate: { itemsPerPage: 10, currentPage: nroCategoria }; let i = index">
+                                <div class="bg-white mb-4 p-3 rounded shadow tarjeta-grey" *ngFor="let resultado of resultTab5.resultados | orderBy: keyCategoria : reverseCategoria | paginate: { itemsPerPage: 10, currentPage: nroCategoria }; let i = index">
                                     <div class="card-block p-0 pos-relative row">
                                         <div class="col-md-1 d-flex flex-column align-items-center">
                                             <i class="far fa-file-alt fa-2x text-primary hidden-xs"></i>

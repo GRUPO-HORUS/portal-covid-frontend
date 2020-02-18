@@ -16,6 +16,8 @@ export class CategoriaTramiteResultadoComponent implements OnInit {
     public messageEmpty = "No se encontraron resultados coincidentes";
     public idClasificador: any;
     public nombreClasificador: string;
+
+    public tabBar: string = "EXPLORAR";
   
     nroCategoria: number = 1;
     keyCategoria: string = "descripcion";

@@ -2,7 +2,7 @@
 
 <div #topBusqueda id="topBusqueda"></div>
 
-<div id="content" class="p-0" *ngIf="searchActive">
+<div id="content" class="p-0 fondo-tramites" *ngIf="searchActive">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 py-4">
@@ -21,30 +21,28 @@
                     <small>También puedes buscar en las secciones de: Por categoría, Datos abiertos, Información Pública.</small>
                 </div>-->
 
-                <div class="card" style="border:0px !important;margin:0px;">
-                    <ul class="nav nav-tabs tabs-center" style="border:none;">
-                        <li class="nav-item" *ngIf="tabActive != 'categoria'">
-                            <a class="nav-link" [ngClass]="{'active':tabActive === 'tramites_servicios'}" (click)="searchData('tramites_servicios','search')" role="tab" data-toggle="tab">
-                                <i class="fa fa-globe" style="margin-top:-5px;" aria-hidden="true"></i> <span class="hidden-xs" style="padding:5px;">Trámites
-                                    y servicios</span></a>
-                        </li>
-                        <li class="nav-item" style="display:none;" *ngIf="tabActive == 'categoria'">
-                            <a class="nav-link" [ngClass]="{'active':tabActive === 'categoria'}" (click)="searchData('categoria','search')" role="tab" data-toggle="tab">
-                                <i class="fa fa-share-alt" style="margin-top:-5px;" aria-hidden="true"></i> <span class="hidden-xs" style="padding:5px;">Por
-                                    categoría</span></a>
-                        </li>
-                        <li class="nav-item" *ngIf="tabActive != 'categoria'">
-                            <a class="nav-link" [ngClass]="{'active':tabActive === 'datos_abiertos'}" (click)="searchData('datos_abiertos','search')" role="tab" data-toggle="tab">
-                                <i class="fa fa-database" style="margin-top:-5px;" aria-hidden="true"></i> <span class="hidden-xs" style="padding:5px;">Datos
-                                    Abiertos</span></a>
-                        </li>
-                        <li class="nav-item" *ngIf="tabActive != 'categoria'">
-                            <a class="nav-link" [ngClass]="{'active':tabActive === 'informacion_publica'}" (click)="searchData('informacion_publica','search')" role="tab" data-toggle="tab">
-                                <i class="fa fa-info" style="margin-top:-5px;" aria-hidden="true"></i> <span class="hidden-xs" style="padding:5px;">Información
-                                    Pública</span></a>
-                        </li>
-                    </ul>
-                </div>
+                <ul class="nav nav-tabs tabs-center" style="border:none;">
+                    <li class="nav-item" *ngIf="tabActive != 'categoria'">
+                        <a class="nav-link" [ngClass]="{'active':tabActive === 'tramites_servicios'}" (click)="searchData('tramites_servicios','search')" role="tab" data-toggle="tab">
+                            <i class="fa fa-globe" style="margin-top:-5px;" aria-hidden="true"></i> <span class="hidden-xs" style="padding:5px;">Trámites
+                                y servicios</span></a>
+                    </li>
+                    <li class="nav-item" style="display:none;" *ngIf="tabActive == 'categoria'">
+                        <a class="nav-link" [ngClass]="{'active':tabActive === 'categoria'}" (click)="searchData('categoria','search')" role="tab" data-toggle="tab">
+                            <i class="fa fa-share-alt" style="margin-top:-5px;" aria-hidden="true"></i> <span class="hidden-xs" style="padding:5px;">Por
+                                categoría</span></a>
+                    </li>
+                    <li class="nav-item" *ngIf="tabActive != 'categoria'">
+                        <a class="nav-link" [ngClass]="{'active':tabActive === 'datos_abiertos'}" (click)="searchData('datos_abiertos','search')" role="tab" data-toggle="tab">
+                            <i class="fa fa-database" style="margin-top:-5px;" aria-hidden="true"></i> <span class="hidden-xs" style="padding:5px;">Datos
+                                Abiertos</span></a>
+                    </li>
+                    <li class="nav-item" *ngIf="tabActive != 'categoria'">
+                        <a class="nav-link" [ngClass]="{'active':tabActive === 'informacion_publica'}" (click)="searchData('informacion_publica','search')" role="tab" data-toggle="tab">
+                            <i class="fa fa-info" style="margin-top:-5px;" aria-hidden="true"></i> <span class="hidden-xs" style="padding:5px;">Información
+                                Pública</span></a>
+                    </li>
+                </ul>
 
                 <div class="tab-content mt-2">
 
@@ -59,7 +57,7 @@
                     <!--TRAMITES Y SERVICIOS-->
                     <div role="tabpanel" id="tramites_servicios" *ngIf="tabActive === 'tramites_servicios' && countResults > 0">
                         <h3 class="visible-xs text-center text-primary mt-2 mb-4">Trámites y servicios</h3>
-                        <div class="card bg-white mb-4 rounded shadow tarjeta-grey" [ngClass]="resultado.origen == 'INSTITUCION' ? 'tarjeta-orange':'tarjeta-grey'" *ngFor="let resultado of resultTab2.resultados | paginate: { itemsPerPage: 10, currentPage: nroTramitesServicios }; let i = index">
+                        <div class="bg-white mb-4 rounded shadow tarjeta-grey" [ngClass]="resultado.origen == 'INSTITUCION' ? 'tarjeta-orange':'tarjeta-grey'" *ngFor="let resultado of resultTab2.resultados | paginate: { itemsPerPage: 10, currentPage: nroTramitesServicios }; let i = index">
                             <div class="card-body pos-relative">
                                 <div class="row">
                                     <div class="col-md-1 d-flex flex-column align-items-center text-center">

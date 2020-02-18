@@ -1081,6 +1081,10 @@ Manejo de scroll: table > body
     bottom: 0;
 }
 
+.rounded {
+    border-radius: .50rem!important;
+}
+
 @media (max-width: 576px) {
     .col-xs-6 {
         width: 50%;
