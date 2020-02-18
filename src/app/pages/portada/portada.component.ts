@@ -3,6 +3,7 @@ import { MessageService } from "./../../services/MessageService";
 import { AppConfig } from "app/app.config";
 import { PoderesDelEstadoService } from "app/services/PoderesDelEstadoService";
 import { Router, ActivatedRoute } from "@angular/router";
+declare var $: any;
 
 @Component({
   selector: "portada",
@@ -85,6 +86,10 @@ export class PortadaComponent implements OnInit {
         console.log("error", error);
       }
     );
+  }
+
+  openMessage(idServicio:number) {
+    setTimeout(function() { $(".servicio-modal-"+idServicio).modal("toggle"); }, 500);
   }
 
 }

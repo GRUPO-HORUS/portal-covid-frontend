@@ -15,7 +15,7 @@
                     <div class="card-deck mt-2">
                         <div class="card card-outline-primary_ rounded shadow tarjeta-green" *ngFor="let tramite of tramitesEnLinea">
                             <ng-container *ngIf="tramite.idServicio==1127 || tramite.idServicio==1157 || tramite.idServicio==1197">
-                                <div class="card-ribbon card-ribbon-top card-ribbon-right bg-red-dark text-white font-weight-bold">¡nuevo!</div>
+                                <div class="card-ribbon card-ribbon-top card-ribbon-right bg-blue-dark text-white font-weight-bold">¡nuevo!</div>
                             </ng-container>
                             <div class="card-body">
                                 <a (click)="getDataServicio(tramite.oee.urlOee, tramite.idServicio)" style="cursor:pointer">
@@ -27,7 +27,25 @@
                             </div>
                             <div class="card-footer text-center">
                                 <a (click)="getDataServicio(tramite.oee.urlOee, tramite.idServicio)" class="btn btn-default">Más información</a>
-                                <a href="{{tramite.urlOnline}}" target="_blank" class="btn btn-success btn-rounded">Ir al trámite →</a>
+                                <a (click)="openMessage(tramite.idServicio)" class="btn btn-success btn-rounded">Ir al trámite →</a>
+
+                                <div [ngClass]="'modal fade servicio-modal-'+tramite.idServicio" tabindex="-1" role="dialog" aria-labelledby="ServicioModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header text-center b-0">
+                                                <i class="fas fa-exclamation-circle icon-3x text-blue-dark" style="position: absolute; left: 0; right: 0;"></i>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                                            </div>
+                                            <div class="modal-body mt-3">
+                                                <h5>Para realizar tu trámite te redirigiremos al sitio web: <br><span class="text-primary">{{tramite.urlOnline}}</span></h5>
+                                            </div>
+                                            <div class="text-center my-2 p-3">
+                                                <button type="button" class="btn btn-link text-blue btn-rounded mr-2" data-dismiss="modal">Permanecer en este Portal</button>
+                                                <a href="{{tramite.urlOnline}}" target="_blank" class="btn btn-lg btn-primary btn-rounded">Entiendo, Ir al trámite</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -70,7 +88,7 @@
             </div>
         </div>
     </div>
-    <div class="bg-primary-darkend">
+    <div class="bg-blue-dark">
         <div class="container">
             <div class="row text-left py-6">
                 <div class="col-md-7">

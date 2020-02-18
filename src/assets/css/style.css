@@ -783,6 +783,7 @@ Manejo de scroll: table > body
     background-position-y: fixed !important;
     position: relative;
     z-index: 0;
+    overflow: hidden !important;
 }
 
 .fa-spin {
