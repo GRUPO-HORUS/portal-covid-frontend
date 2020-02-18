@@ -45,9 +45,10 @@ export class PoderesDelEstadoComponent implements OnInit {
       this.urlPoder = params.urlPoder;
       this.getListEntidad();
     });
+    this.scrollTop();
   }
 
-  scrollTop(event) {
+  scrollTop() {
     window.scrollTo(400, 1);
   }
 

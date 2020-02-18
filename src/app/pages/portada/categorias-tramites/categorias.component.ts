@@ -21,9 +21,15 @@ export class CategoriasTramitesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListCategorias();
+    this.viewScrollTop();
+  }
+
+  viewScrollTop() {
+    window.scrollTo(0, 1);
   }
 
   getListCategorias(): void {
+    this.viewScrollTop();
     this.categoriasTramitesService.getListCategorias("0", "100").subscribe(
       data => {
         let contador = 0;

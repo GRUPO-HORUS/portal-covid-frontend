@@ -121,6 +121,7 @@ export class OeeComponent implements OnInit {
   }
 
   getListOee(urlEntidad: string): void {
+    this.viewScrollTop(600);
     this.poderesService.getListOee(urlEntidad).subscribe(data => {
       if (data != null && data.length > 0) {
         this.oees = data;
