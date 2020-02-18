@@ -1125,6 +1125,12 @@ Manejo de scroll: table > body
     .header .navbar-main .navbar-nav {
         padding: 55px 17px 17px 17px;
     }
+    .divider-light.divider-arrow-r:before,
+    .divider-light.divider-diagonal:before,
+    .divider-dark.divider-arrow-l:before,
+    .divider-dark.divider-diagonal-r:before {
+        border-color: transparent;
+    }
 }
 
 @media (min-width: 576px) {
