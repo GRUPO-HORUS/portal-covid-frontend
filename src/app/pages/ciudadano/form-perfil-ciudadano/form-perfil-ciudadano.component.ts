@@ -126,8 +126,16 @@ export class FormPerfilCiudadanoComponent implements OnInit {
 
 
   logout(){
+    
     this.auth.logout();
+
+    this.messageService.emitChangeCurrentUserService({
+      currentUser: null,
+      token: null
+    });
+
     this.router.navigate(['/login-ciudadano']);
+
   }
   
 }

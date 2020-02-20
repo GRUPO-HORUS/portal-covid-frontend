@@ -20,7 +20,7 @@ export class ConsultaDocumentoComponent implements OnInit {
 
   public token: string;
   public cedula: string;
-  public dv: string;
+  // public dv: string;
   public fechaNac: string;
   public codAlumno: string;
   
@@ -152,7 +152,7 @@ export class ConsultaDocumentoComponent implements OnInit {
           params.tipo = this.documento.id.toString();
         }
 
-        if(this.tipo == 'ruc-set') params.dv = this.dv;
+        // if(this.tipo == 'ruc-set') params.dv = this.dv;
         if(this.tipo == 'cedula-policial') params.fechaNacimiento = this.fechaNac;
 
         this.documentosService.getRptDocumentSinIE(params, this.recentToken).subscribe(response => {

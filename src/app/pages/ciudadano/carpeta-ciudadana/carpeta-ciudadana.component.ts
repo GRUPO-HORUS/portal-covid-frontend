@@ -152,7 +152,7 @@ export class CarpetaCiudadanaComponent implements OnInit {
       let fechaActual = datePipe.transform(new Date(), 'yyyy-MM-dd');
       let fechaVencimiento = datePipe.transform(ultimoDocumentoGenerado.fechaVencimiento, 'yyyy-MM-dd');
 
-      console.log('consulta', this.validarFechaVencimiento(fechaActual, fechaVencimiento));
+      //console.log('consulta', this.validarFechaVencimiento(fechaActual, fechaVencimiento));
 
       // si la fecha actual es menor a la fecha de vencimiento
       if(this.validarFechaVencimiento(fechaActual, fechaVencimiento)) {

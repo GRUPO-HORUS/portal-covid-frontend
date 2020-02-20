@@ -11,7 +11,7 @@ import { IdentidadPersona } from "../model/identidad-persona.model";
 })
 export class MenuCiudadanoComponent {
 
-  public carpeta: string = "hola";
+  public carpeta: string = "paraguay";
   public fotoPerfil: any;
   public ciudadano: IdentidadPersona;
   public token: any;
@@ -53,8 +53,16 @@ export class MenuCiudadanoComponent {
   }
 
   logout(){
+    
     this.auth.logout();
+
     this.token = null;
+
+    this.messageService.emitChangeCurrentUserService({
+      currentUser: null,
+      token: null
+    });
+
     this.router.navigate(['/']);
   }
 
