@@ -156,7 +156,6 @@ export class CarpetaCiudadanaComponent implements OnInit {
       let datePipe = new DatePipe("en-US");
       let fechaActual = datePipe.transform(new Date(), 'yyyy-MM-dd');
       let fechaVencimiento = datePipe.transform(ultimoDocumentoGenerado.fechaVencimiento, 'yyyy-MM-dd');
-      //console.log('consulta', this.validarFechaVencimiento(fechaActual, fechaVencimiento));
 
       // si la fecha actual es menor a la fecha de vencimiento
       if(this.validarFechaVencimiento(fechaActual, fechaVencimiento)) {
@@ -222,7 +221,6 @@ export class CarpetaCiudadanaComponent implements OnInit {
         this.toastrService.warning('', response.message);
       }
     }, error => {
-      console.log('error', error);
       this.loading = false;
       this.toastrService.warning('','Ocurrió un error al procesar la operación');
     });
@@ -239,7 +237,6 @@ export class CarpetaCiudadanaComponent implements OnInit {
         this.toastrService.warning('','No se encontraron cursos disponibles');
       }
     }, error => {
-      console.log('error', error);
       this.loading = false;
       this.toastrService.warning('','Ocurrió un error al procesar la operación');
     });

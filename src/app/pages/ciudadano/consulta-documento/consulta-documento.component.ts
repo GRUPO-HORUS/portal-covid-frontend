@@ -102,7 +102,6 @@ export class ConsultaDocumentoComponent implements OnInit {
         resolve(true);
       }, error => {
         this.recaptchaAvailable = false;
-        console.log("error getting recaptcha", error);
         resolve(false);
       });
     });
@@ -195,7 +194,6 @@ export class ConsultaDocumentoComponent implements OnInit {
         this.resultado = {status: false, message: 'No se encontraron datos disponibles para el nro. de cédula '+ this.cedula};
       }
     }, error => {
-      console.log("error", error);
       this.loading = false;
       this.resultado = {status: false, message: 'No se pudo obtener el listado de cursos'};
     });

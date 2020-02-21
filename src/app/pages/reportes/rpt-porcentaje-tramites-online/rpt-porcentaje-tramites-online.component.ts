@@ -152,7 +152,6 @@ export class RptPorcentajeTramitesOnlineComponent implements OnInit{
     console.log('chartClicked',event);
     // let idOee = Number(this.data.datasets[0].idsOee[event.element[0]._index]);
     // console.log('index', event.element[0]._index);
-    // console.log('oee',idOee);
   }
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
