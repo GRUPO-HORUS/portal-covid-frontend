@@ -154,9 +154,9 @@
                                 <tbody *ngFor="let result of historicoDocumentos">
                                     <tr>
                                         <td style="font-size:12px;">{{ result.generadoPor }}</td>
-                                        <td style="font-size:12px;">{{ result.fechaGeneracion | date: 'dd/MM/yyyy HH:mm' }}</td>
+                                        <td style="font-size:12px;"> <span *ngIf="result.fechaGeneracion">{{ result.fechaGeneracion.split(' ')[0] }}</span></td>
                                         <td style="font-size:12px;" *ngIf="result.liq">
-                                            <b>Fecha: </b> {{ result.liq?.fechaSolicitud | date: 'dd/MM/yyyy' }} <br/>
+                                            <b>Fecha: </b> <span *ngIf="result.liq?.fechaSolicitud">{{ result.liq?.fechaSolicitud.split(' ')[0] }}</span> <br/>
                                             <b>Estado: </b> {{ result.liq?.estadoSolicitud }}
                                         </td>
                                         <td>
