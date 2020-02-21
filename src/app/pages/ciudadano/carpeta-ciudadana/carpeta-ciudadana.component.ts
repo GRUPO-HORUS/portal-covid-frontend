@@ -110,6 +110,11 @@ export class CarpetaCiudadanaComponent implements OnInit {
 
   }
 
+  redirectMipymes() {
+    this.closeModalDocument('#modalDetalleDocumento');
+    this.router.navigate(['/documentos/mipymes']);
+  }
+
   generarDocumento() {
     this.scrollTop();
     
@@ -121,13 +126,13 @@ export class CarpetaCiudadanaComponent implements OnInit {
       return;
     }
 
-    if(this.docSelected.params.tipo == "11") {
-      this.docSelected.params.dv = '';
-      this.docSelected.params.titulo = 'Constancia de RUC (SET)';
+    // if(this.docSelected.params.tipo == "11") {
+    //   this.docSelected.params.dv = '';
+    //   this.docSelected.params.titulo = 'Constancia de RUC (SET)';
 
-      paramsAditional = true;
-      modalView = '#modalRucSet';
-    }
+    //   paramsAditional = true;
+    //   modalView = '#modalRucSet';
+    // }
 
     if(this.docSelected.params.tipo == "15") {
       this.docSelected.params.titulo = 'Acta de Nacimiento (Hijo/a)';
@@ -151,7 +156,6 @@ export class CarpetaCiudadanaComponent implements OnInit {
       let datePipe = new DatePipe("en-US");
       let fechaActual = datePipe.transform(new Date(), 'yyyy-MM-dd');
       let fechaVencimiento = datePipe.transform(ultimoDocumentoGenerado.fechaVencimiento, 'yyyy-MM-dd');
-
       //console.log('consulta', this.validarFechaVencimiento(fechaActual, fechaVencimiento));
 
       // si la fecha actual es menor a la fecha de vencimiento

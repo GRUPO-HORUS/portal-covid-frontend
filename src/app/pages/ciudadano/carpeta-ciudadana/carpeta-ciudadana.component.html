@@ -132,13 +132,21 @@
                             </p>
                         </div>
 
+                        <div class="alert alert-info" *ngIf="docSelected && docSelected.params && docSelected.params.tipo == '12'">
+                            <p>
+                                Para consultas de cédula MIPYME de personas jurídicas, generar el documento dando clic en 
+                                <a style="color: white;" class="btn btn-sm btn-success btn-success-next" (click)="redirectMipymes()">
+                                    <i class="fa fa-address-card"></i>  Cédula MIPYMES (empresa)
+                                </a>
+                            </p>
+                        </div>
+
                         <div class="table-responsive" *ngIf="historicoDocumentos && historicoDocumentos.length > 0" class="pl-3 mb-3">
                             <table class="table table-condensed">
                                 <thead>
                                     <tr>
                                         <th style="font-size:12px;">Generado por</th>
                                         <th style="font-size:12px;">Fecha</th>
-                                        <!-- <th style="font-size:12px;">Sistema</th> -->
                                         <th style="font-size:12px;"></th>
                                         <th style="font-size:12px;"></th>
                                     </tr>
@@ -147,7 +155,6 @@
                                     <tr>
                                         <td style="font-size:12px;">{{ result.generadoPor }}</td>
                                         <td style="font-size:12px;">{{ result.fechaGeneracion | date: 'dd/MM/yyyy HH:mm' }}</td>
-                                        <!-- <td style="font-size:12px;">{{ result.sistemaGenerador }}</td> -->
                                         <td style="font-size:12px;" *ngIf="result.liq">
                                             <b>Fecha: </b> {{ result.liq?.fechaSolicitud | date: 'dd/MM/yyyy' }} <br/>
                                             <b>Estado: </b> {{ result.liq?.estadoSolicitud }}
