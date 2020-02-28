@@ -10,16 +10,15 @@ declare var $: any;
   providers: [PreguntasService]
 })
 export class Paso3Component implements OnInit {
+
   preguntas: any;
   pregunta: any;
-
   cedula: string;
   respuesta: any;
   respUsuario: string;
   hash: string;
   clave: string = "";
   claveConf: string = "";
-
   captcha: any;
   correcto: boolean;
   mensaje: string;

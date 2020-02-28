@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { Respuesta } from "./respuesta";
-import { Pregunta } from "./pregunta";
 import { PreguntasService } from "./preguntas.service";
 declare var $: any;
 
@@ -11,15 +10,17 @@ declare var $: any;
   providers: [PreguntasService]
 })
 export class Paso2Component implements OnInit {
+
   public loading: boolean;
   // parametros de la trivia
   public idIntento: any;
   public codigoVerificacion: any;
   public textoAyuda: any;
-  public captchaResponse: string;
+  // public captchaResponse: string;
 
   // datos de la pregunta
   public idPregunta: number;
+  public urlAyuda: string;
   public pregunta: any;
   public tipoPregunta: number = 0;
   public posiblesRespuestas: string[];
@@ -43,6 +44,7 @@ export class Paso2Component implements OnInit {
 
   ngOnInit(): void {
     this._route.queryParams.subscribe(params => {
+
       this.cedula = this._route.snapshot.paramMap.get("cedula");
       this.email = this._route.snapshot.paramMap.get("email");
 
@@ -51,7 +53,7 @@ export class Paso2Component implements OnInit {
         // datos de la trivia
         this.idIntento = localStorage.getItem("idIntento");
         this.codigoVerificacion = localStorage.getItem("codigoVerificacion");
-        this.captchaResponse = localStorage.getItem("captchaResponse");
+        // this.captchaResponse = localStorage.getItem("captchaResponse");
         this.textoAyuda = localStorage.getItem("textoAyuda");
 
         // retorna datos de la pregunta
@@ -59,16 +61,19 @@ export class Paso2Component implements OnInit {
         this.idPregunta = resultsPregunta.id;
         this.pregunta = resultsPregunta.pregunta;
         this.tipoPregunta = resultsPregunta.tipo;
+        this.urlAyuda = resultsPregunta.urlAyuda;
 
         if (this.tipoPregunta === 3) {
           this.posiblesRespuestas = resultsPregunta.posiblesRespuestas;
         }
 
         this.siguiente = true;
+
       } else {
         this.siguiente = false;
         this.mensaje = "No se pudo obtener las preguntas";
       }
+
     });
   }
 
@@ -101,6 +106,7 @@ export class Paso2Component implements OnInit {
             this.pregunta = response.pregunta.pregunta;
             this.tipoPregunta = response.pregunta.tipo;
             this.textoAyuda = response.textoAyuda;
+            this.urlAyuda = response.urlAyuda;
 
             if (this.tipoPregunta === 3) {
               this.posiblesRespuestas = response.pregunta.posiblesRespuestas;
@@ -126,7 +132,7 @@ export class Paso2Component implements OnInit {
     this._router.navigate(["/crear-cuenta"]);
   }
 
-  resolved(captchaResponse: string) {
-    console.log("Resolved captcha with response ${captchaResponse}:");
-  }
+  // resolved(captchaResponse: string) {
+  //   console.log("Resolved captcha with response ${captchaResponse}:");
+  // }
 }

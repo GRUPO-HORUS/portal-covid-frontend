@@ -1,49 +1,243 @@
 <buscador-widget class="px-0"></buscador-widget>
 
-<!--<div id="topcab"></div>
-<div id="page-header" class="bg-gradient bg-shadow">
-    <div class="container">
-        <div class="header-text clearfix">
-            <h3 class="pull-left mb-0">
-                <span class="far fa-folder-open text-default menu-item-icon text-center fa-fw"></span> Carpeta Ciudadana
-            </h3>
-        </div>
-    </div>
-</div>-->
-
 <div class="content fondo-tramites pb-4">
     <div class="container">
         <div class="row">
 
-            <div class="col-lg-8 col-md-12 col-xs-12 py-4">
-                <h3 class="title-divider text-primary mt-2">
-                    <i class="fa fa-folder mr-2" style="margin-top: -4px;"></i>
-                    <span>Mis documentos</span>
-                </h3>
+            <div class="col-lg-12 col-md-12 col-xs-12 py-4">
 
-                <div class="card-deck-wrapper_" *ngIf="token && ciudadano && servicios">
+                <div class="card-deck-wrapper_" *ngIf="documentos">
+                    <h4>Policía Nacional</h4> <!--  *ngFor="let data of documentos | sort: 'idTipoServicio'; let i = index"  -->
                     <div class="card-deck_ card-columns mt-2">
-                        <div class="card rounded shadow tarjeta-green" *ngFor="let data of servicios | sort: 'idTipoServicio'; let i = index">
-                            <a (click)="getHistoricoConsultas(data)" class="btn btn-light text-primary btn-lg btn-block text-left">
+                        <div class="card rounded shadow tarjeta-green">
+                            <div *ngIf="!ciudadano && getDocument(1).requiereIE" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
+                            <a (click)="documentRedirect(1)" class="btn btn-light text-primary btn-lg btn-block text-left">
                                 <div class="row">
-                                    <div class="col-md-2 col-2 text-center">
-                                        <i class="far fa-file-alt fa-2x text-primary"></i>
-                                    </div>
+                                    <div class="col-md-2 col-2 text-center"><i class="far fa-file-alt fa-2x text-primary"></i></div>
                                     <div class="col-md-10 col-10">
-                                        <h6 class="card-title mb-0 min-height-tite-card">
-                                            {{data.descripcion}}
-                                        </h6>
-                                        <small class="text-muted">Consultar</small>
+                                        <h6 class="card-title mb-0 min-height-tite-card"> {{getDocument(1).descripcion}} </h6>
+                                        <small class="text-muted" *ngIf="ciudadano || !getDocument(1).requiereIE">Consultar</small>
+                                        <small class="text-muted" *ngIf="!ciudadano && getDocument(1).requiereIE">Requiere Identidad Electrónica</small>
                                     </div>
                                 </div>
                             </a>
                         </div>
                     </div>
+
+                    <h4>Registro Civil</h4>
+                    <div class="card-deck_ card-columns mt-2">
+                        
+                        <div class="card rounded shadow tarjeta-green">
+                            <div *ngIf="!ciudadano && getDocument(13).requiereIE" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
+                            <a (click)="documentRedirect(13)" class="btn btn-light text-primary btn-lg btn-block text-left">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center"><i class="far fa-file-alt fa-2x text-primary"></i></div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card"> {{getDocument(13).descripcion}} </h6>
+                                        <small class="text-muted" *ngIf="ciudadano || !getDocument(13).requiereIE">Consultar</small>
+                                        <small class="text-muted" *ngIf="!ciudadano && getDocument(13).requiereIE">Requiere Identidad Electrónica</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card rounded shadow tarjeta-green">
+                            <div *ngIf="!ciudadano && getDocument(14).requiereIE" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
+                            <a (click)="documentRedirect(14)" class="btn btn-light text-primary btn-lg btn-block text-left">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center"><i class="far fa-file-alt fa-2x text-primary"></i></div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card"> {{getDocument(14).descripcion}} </h6>
+                                        <small class="text-muted" *ngIf="ciudadano || !getDocument(14).requiereIE">Consultar</small>
+                                        <small class="text-muted" *ngIf="!ciudadano && getDocument(14).requiereIE">Requiere Identidad Electrónica</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card rounded shadow tarjeta-green">
+                            <div *ngIf="!ciudadano && getDocument(15).requiereIE" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
+                            <a (click)="documentRedirect(15)" class="btn btn-light text-primary btn-lg btn-block text-left">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center"><i class="far fa-file-alt fa-2x text-primary"></i></div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card"> {{getDocument(15).descripcion}} </h6>
+                                        <small class="text-muted" *ngIf="ciudadano || !getDocument(15).requiereIE">Consultar</small>
+                                        <small class="text-muted" *ngIf="!ciudadano && getDocument(15).requiereIE">Requiere Identidad Electrónica</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <h4>Trabajo</h4>
+                    <div class="card-deck_ card-columns mt-2">
+                        <div class="card rounded shadow tarjeta-green">
+                            <div *ngIf="!ciudadano && getDocument(2).requiereIE" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
+                            <a (click)="documentRedirect(2)" class="btn btn-light text-primary btn-lg btn-block text-left">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center"><i class="far fa-file-alt fa-2x text-primary"></i></div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card"> {{getDocument(2).descripcion}} </h6>
+                                        <small class="text-muted" *ngIf="ciudadano || !getDocument(2).requiereIE">Consultar</small>
+                                        <small class="text-muted" *ngIf="!ciudadano && getDocument(2).requiereIE">Requiere Identidad Electrónica</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card rounded shadow tarjeta-green">
+                            <div *ngIf="!ciudadano && getDocument(3).requiereIE" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
+                            <a (click)="documentRedirect(3)" class="btn btn-light text-primary btn-lg btn-block text-left">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center"><i class="far fa-file-alt fa-2x text-primary"></i></div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card"> {{getDocument(3).descripcion}} </h6>
+                                        <small class="text-muted" *ngIf="ciudadano || !getDocument(3).requiereIE">Consultar</small>
+                                        <small class="text-muted" *ngIf="!ciudadano && getDocument(3).requiereIE">Requiere Identidad Electrónica</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card rounded shadow tarjeta-green">
+                            <div *ngIf="!ciudadano && getDocument(20).requiereIE" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
+                            <a (click)="documentRedirect(20)" class="btn btn-light text-primary btn-lg btn-block text-left">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center"><i class="far fa-file-alt fa-2x text-primary"></i></div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card"> {{getDocument(20).descripcion}} </h6>
+                                        <small class="text-muted" *ngIf="ciudadano || !getDocument(20).requiereIE">Consultar</small>
+                                        <small class="text-muted" *ngIf="!ciudadano && getDocument(20).requiereIE">Requiere Identidad Electrónica</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card rounded shadow tarjeta-green">
+                            <div *ngIf="!ciudadano && getDocument(4).requiereIE" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
+                            <a (click)="documentRedirect(4)" class="btn btn-light text-primary btn-lg btn-block text-left">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center"><i class="far fa-file-alt fa-2x text-primary"></i></div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card"> {{getDocument(4).descripcion}} </h6>
+                                        <small class="text-muted" *ngIf="ciudadano || !getDocument(4).requiereIE">Consultar</small>
+                                        <small class="text-muted" *ngIf="!ciudadano && getDocument(4).requiereIE">Requiere Identidad Electrónica</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card rounded shadow tarjeta-green">
+                            <div *ngIf="!ciudadano && getDocument(6).requiereIE" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
+                            <a (click)="documentRedirect(6)" class="btn btn-light text-primary btn-lg btn-block text-left">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center"><i class="far fa-file-alt fa-2x text-primary"></i></div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card"> {{getDocument(6).descripcion}} </h6>
+                                        <small class="text-muted" *ngIf="ciudadano || !getDocument(6).requiereIE">Consultar</small>
+                                        <small class="text-muted" *ngIf="!ciudadano && getDocument(6).requiereIE">Requiere Identidad Electrónica</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card rounded shadow tarjeta-green">
+                            <div *ngIf="!ciudadano && getDocument(11).requiereIE" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
+                            <a (click)="documentRedirect(11)" class="btn btn-light text-primary btn-lg btn-block text-left">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center"><i class="far fa-file-alt fa-2x text-primary"></i></div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card"> {{getDocument(11).descripcion}} </h6>
+                                        <small class="text-muted" *ngIf="ciudadano || !getDocument(11).requiereIE">Consultar</small>
+                                        <small class="text-muted" *ngIf="!ciudadano && getDocument(11).requiereIE">Requiere Identidad Electrónica</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card rounded shadow tarjeta-green">
+                            <div *ngIf="!ciudadano && getDocument(12).requiereIE" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
+                            <a (click)="documentRedirect(12)" class="btn btn-light text-primary btn-lg btn-block text-left">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center"><i class="far fa-file-alt fa-2x text-primary"></i></div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card"> {{getDocument(12).descripcion}} </h6>
+                                        <small class="text-muted" *ngIf="ciudadano || !getDocument(12).requiereIE">Consultar</small>
+                                        <small class="text-muted" *ngIf="!ciudadano && getDocument(12).requiereIE">Requiere Identidad Electrónica</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <h4>Salud</h4>
+                    <div class="card-deck_ card-columns mt-2">
+                        <div class="card rounded shadow tarjeta-green">
+                            <div *ngIf="!ciudadano && getDocument(7).requiereIE" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
+                            <a (click)="documentRedirect(7)" class="btn btn-light text-primary btn-lg btn-block text-left">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center"><i class="far fa-file-alt fa-2x text-primary"></i></div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card"> {{getDocument(7).descripcion}} </h6>
+                                        <small class="text-muted" *ngIf="ciudadano || !getDocument(7).requiereIE">Consultar</small>
+                                        <small class="text-muted" *ngIf="!ciudadano && getDocument(7).requiereIE">Requiere Identidad Electrónica</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="card rounded shadow tarjeta-green">
+                            <div *ngIf="!ciudadano && getDocument(8).requiereIE" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
+                            <a (click)="documentRedirect(8)" class="btn btn-light text-primary btn-lg btn-block text-left">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center"><i class="far fa-file-alt fa-2x text-primary"></i></div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card"> {{getDocument(8).descripcion}} </h6>
+                                        <small class="text-muted" *ngIf="ciudadano || !getDocument(8).requiereIE">Consultar</small>
+                                        <small class="text-muted" *ngIf="!ciudadano && getDocument(8).requiereIE">Requiere Identidad Electrónica</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <h4>Educación</h4>
+                    <div class="card-deck_ card-columns mt-2">
+                        <div class="card rounded shadow tarjeta-green">
+                            <div *ngIf="!ciudadano && getDocument(5).requiereIE" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
+                            <a (click)="documentRedirect(5)" class="btn btn-light text-primary btn-lg btn-block text-left">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center"><i class="far fa-file-alt fa-2x text-primary"></i></div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card"> {{getDocument(5).descripcion}} </h6>
+                                        <small class="text-muted" *ngIf="ciudadano || !getDocument(5).requiereIE">Consultar</small>
+                                        <small class="text-muted" *ngIf="!ciudadano && getDocument(5).requiereIE">Requiere Identidad Electrónica</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="card rounded shadow tarjeta-green">
+                            <div *ngIf="!ciudadano && getDocument(10).requiereIE" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
+                            <a (click)="documentRedirect(10)" class="btn btn-light text-primary btn-lg btn-block text-left">
+                                <div class="row">
+                                    <div class="col-md-2 col-2 text-center"><i class="far fa-file-alt fa-2x text-primary"></i></div>
+                                    <div class="col-md-10 col-10">
+                                        <h6 class="card-title mb-0 min-height-tite-card"> {{getDocument(10).descripcion}} </h6>
+                                        <small class="text-muted" *ngIf="ciudadano || !getDocument(10).requiereIE">Consultar</small>
+                                        <small class="text-muted" *ngIf="!ciudadano && getDocument(10).requiereIE">Requiere Identidad Electrónica</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
                 </div>
 
+            <!--
                 <div class="card-deck-wrapper_" *ngIf="!ciudadano || !token">
                     <div class="card-deck_ card-columns mt-2">
-                        <div class="card rounded shadow" [ngClass]="doc.isSession ? 'tarjeta-green':'tarjeta-grey'" *ngFor="let doc of documentosIE">
+                        <div class="card rounded shadow" [ngClass]="doc.isSession ? 'tarjeta-green':'tarjeta-grey'" *ngFor="let doc of documentos">
                             <div *ngIf="doc.isSession" class="card-ribbon card-ribbon-top card-ribbon-right bg-info text-white">ID-e</div>
                             <a *ngIf="!doc.isSession && !doc.linkExternal" (click)="redirect(doc)" class="btn btn-light text-primary btn-lg btn-block text-left" style="text-transform: capitalize;">
                                 <div class="row">
@@ -87,23 +281,17 @@
 
                         </div>
                     </div>
-
-                    <!-- <tfoot>
-                        <tr>
-                            <th colspan="2" style="color:#999; font-weight:normal;">
-                                <span style="color:#552296; font-weight: bold; font-family: Verdana !important;">Obtené tu Identidad Electrónica en línea haciendo clic en el siguiente botón&nbsp;</span>
-                                <a href="/identidad-electronica"><img style="width: 30%;" src="/assets/img/identidad-electronica.png"></a><br>
-                                <br> La información disponible en este portal, proviene del Sistema de Intercambio de Información entre instituciones públicas, autorizado y reglamentado por Decreto N˚ 8709/2018, lo cual garantiza que son datos íntegros, confiables y verificables, emitidos por cada una de las instituciones. <br>
-                                <br> Estos datos son información pública, según la define el Artículo 2˚ de la Ley N˚ 5.282/2014 como aquella producida, obtenida, bajo control o en poder de las fuentes públicas, independientemente de su formato, soporte, fecha de creación, origen, clasificación o procesamiento, salvo que se encuentre establecida como secreta o de carácter reservado por las leyes. Los datos personales públicos expuestos en este portal, se encuentran en estricta observancia a la Ley N˚ 1.682/01, que distingue aquellos datos personales que no podrán ser publicados ni difundidos por ser de carácter privado, a estos últimos solo podrá acceder el titular de los mismos, mediante su identidad electrónica.
-                            </th>
-                        </tr>
-                    </tfoot> -->
-
                 </div>
+            -->
+
             </div>
+
+            <!--
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <menu-ciudadano></menu-ciudadano>
-            </div>
+            </div> 
+            -->
+
         </div>
     </div>
 
