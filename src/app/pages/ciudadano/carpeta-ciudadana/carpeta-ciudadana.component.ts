@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalService } from 'app/lib/modal-custom';
 import { DatePipe } from '@angular/common';
 import { InfoServicios } from './carpeta-ciudadana-data.component';
+import * as moment from 'moment';
 declare var $: any;
 
 @Component({
@@ -201,9 +202,9 @@ export class CarpetaCiudadanaComponent implements OnInit {
     if(this.historicoDocumentos.length > 0 && (this.docSelected.params.tipo != '9')) {
 
       let ultimoDocumentoGenerado = this.historicoDocumentos[0];
-      let datePipe = new DatePipe("en-US");
-      let fechaActual = datePipe.transform(new Date(), 'yyyy-MM-dd');
-      let fechaVencimiento = datePipe.transform(ultimoDocumentoGenerado.fechaVencimiento, 'yyyy-MM-dd');
+
+      let fechaActual = moment(new Date()).format('YYYY-MM-DD');
+      let fechaVencimiento = moment(ultimoDocumentoGenerado.fechaVencimiento).format('YYYY-MM-DD');
 
       // si la fecha actual es menor a la fecha de vencimiento
       if(this.validarFechaVencimiento(fechaActual, fechaVencimiento)) {
