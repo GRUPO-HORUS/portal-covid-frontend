@@ -129,12 +129,12 @@
                                 </a>
 
                                 <a href="#" *ngIf="currentUser" class="nav-link dropdown-toggle space-menu-info btn-menu-destacado" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" style="border: 1px solid #ffffff24 !important">
-                                    <div *ngIf="token && ciudadano && fotoPerfil" style="text-align: center; display:inline-block; margin: -11px 10px -9px -13px; ">
+                                    <div *ngIf="currentUser && fotoPerfil" style="text-align: center; display:inline-block; margin: -11px 10px -9px -13px; ">
                                         <img style="width: 40px; height: 40px; border: 1px solid #ffffff7d; background-size: cover;
                                                                                 border-radius: 50%;
                                                                                 object-fit: cover;object-position: center center;" [src]="fotoPerfil" alt="perfil">
                                     </div>
-                                    <div *ngIf="token && ciudadano && !fotoPerfil" style="text-align: center; display:inline-block; margin: -11px 10px -9px -13px; ">
+                                    <div *ngIf="currentUser && !fotoPerfil" style="text-align: center; display:inline-block; margin: -11px 10px -9px -13px; ">
                                         <img style="width: 40px; height: 40px; border: 1px solid #ffffff7d; background-size: cover;
                                                                                 border-radius: 50%;
                                                                                 object-fit: cover;object-position: center center;" src="assets/img/profile.png" alt="perfil">
