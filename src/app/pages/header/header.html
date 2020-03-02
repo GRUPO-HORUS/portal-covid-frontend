@@ -14,7 +14,7 @@
                 <div class="header-block order-12">
                     <!-- mobile collapse menu button - data-toggle="collapse" = default BS menu - data-toggle="off-canvas" = Off-cavnas Menu - data-toggle="overlay" = Overlay Menu -->
                     <button class="btn btn-outline-slate text-white btn-rounded btn-lg visible-xs" type="button" data-toggle="collapse" data-target="#menu-principal" aria-expanded="false" aria-controls="menu-principal">
-                        <i class="fa fa-bars"></i> <span class="hidden-xxs">Menú</span>
+                        <i class="fa fa-bars"></i> <span class="hidden-xxs ml-2" style="vertical-align: text-top;">Menú</span>
                     </button>
                     <!--<a class="btn btn-link btn-icon header-btn float-right d-lg-none mr-2" data-toggle="off-canvas" data-target=".navbar-main" data-settings='{"cloneTarget":true, "targetClassExtras": "navbar-offcanvas"}'> <i class="fa fa-bars"></i> </a>-->
                 </div>
@@ -124,43 +124,58 @@
                             <li class="nav-item dropdown">
 
                                 <a href="#" *ngIf="!currentUser || currentUser == 'undefined' || currentUser == 'null' || currentUser == null" class="nav-link dropdown-toggle space-menu-info btn-menu-destacado" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" style="border: 1px solid #ffffff24 !important">
-                                    <i class="fa fa-user-circle nav-link-icon mr-2"></i>
+                                    <i class="fa fa-user-circle nav-link-icon mr-2" style="font-size: 30px;
+                                    margin: -2px 0 -2px -5px"></i>
                                     <span><b>Identidad Electrónica</b></span>
                                 </a>
 
                                 <a href="#" *ngIf="currentUser" class="nav-link dropdown-toggle space-menu-info btn-menu-destacado" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" style="border: 1px solid #ffffff24 !important">
-                                    <div *ngIf="token && ciudadano && fotoPerfil" style="text-align: center; display:inline-block; margin: -11px 10px -9px -13px; ">
+                                    <div *ngIf="currentUser && fotoPerfil" style="text-align: center; display:inline-block; margin: -10px 10px -8px -11px">
                                         <img style="width: 40px; height: 40px; border: 1px solid #ffffff7d; background-size: cover;
                                                                                 border-radius: 50%;
                                                                                 object-fit: cover;object-position: center center;" [src]="fotoPerfil" alt="perfil">
                                     </div>
-                                    <div *ngIf="token && ciudadano && !fotoPerfil" style="text-align: center; display:inline-block; margin: -11px 10px -9px -13px; ">
+                                    <div *ngIf="currentUser && !fotoPerfil" style="text-align: center; display:inline-block; margin: -10px 10px -8px -11px">
                                         <img style="width: 40px; height: 40px; border: 1px solid #ffffff7d; background-size: cover;
                                                                                 border-radius: 50%;
                                                                                 object-fit: cover;object-position: center center;" src="assets/img/profile.png" alt="perfil">
                                     </div>
-                                    <span><b>{{ currentUser.nombres.split(" ", 3)[0] }} {{ currentUser.apellidos.split(" ", 3)[0] }}</b></span>
+                                    <span style="font-weight: bold; font-size: 14px;">{{ currentUser.nombres.split(" ", 3)[0] }} {{ currentUser.apellidos.split(" ", 3)[0] }}</span>
                                 </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" *ngIf="!token || token == 'undefined' || token == null || !currentUser || currentUser == 'undefined' || currentUser == null">
-                                    <a (click)="loginIdentidadElectronica(); colapseMenu();" class="dropdown-item mb-2 menu-detacado_"><i class="fas fa-id-badge nav-link-icon mr-2" style="font-size: 32px;float: left;margin-top: 3px;margin-left: -6px;">                                       
+                                <div class="dropdown-menu dropdown-menu-right br-20" style="padding: 20px 0;" *ngIf="!token || token == 'undefined' || token == null || !currentUser || currentUser == 'undefined' || currentUser == null">
+                                    <a (click)="loginIdentidadElectronica(); colapseMenu();" class="dropdown-item mb-2 menu-detacado_ text-primary"><i class="fas fa-id-badge nav-link-icon mr-2" style="font-size: 30px;float: left;margin-top: 5px;margin-left: 4px;">                                       
                                         </i> Ingresar con mi <br><b>Identidad electrónica</b>
                                     </a>
-                                    <a routerLink="/crear-cuenta" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();"><b>Crea tu identidad electrónica →</b></a>
-                                    <a routerLink="/identidad-electronica" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">¿Qué es Identidad Electrónica?</a>
-                                    <a routerLink="/identidad-electronica/preguntas-frecuentes-creacion" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Preguntas frecuentes</a>
-                                    <a routerLink="/restablecer-clave" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Olvidé mi clave</a>
-                                    <a routerLink="/identidad-electronica/terminos" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Términos y Condiciones</a>
-                                    <a class="dropdown-item" [href]="config.URL_AGENDA_TURNO" target="_blank">Agendar Turno</a>
+                                    <a routerLink="/crear-cuenta" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">
+                                        <span class="fa fa-plus text-center fa-fw" style="display: inline-block; font-size: 18px; width: 35px;"></span><b>Crea tu identidad electrónica →</b></a>
+                                    <a routerLink="/identidad-electronica" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">
+                                        <span class="fa fa-info text-center fa-fw" style="display: inline-block; font-size: 18px; width: 35px;"></span>¿Qué es Identidad Electrónica?</a>
+                                    <a routerLink="/identidad-electronica/preguntas-frecuentes-creacion" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">
+                                        <span class="fa fa-question text-center fa-fw" style="display: inline-block; font-size: 18px; width: 35px;"></span>Preguntas frecuentes</a>
+                                    <a routerLink="/restablecer-clave" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">
+                                        <span class="fa fa-lock text-center fa-fw" style="display: inline-block; font-size: 18px; width: 35px;"></span>Olvidé mi clave</a>
+                                    <a routerLink="/identidad-electronica/terminos" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">
+                                        <span class="fas fa-cog text-center fa-fw" style="display: inline-block; font-size: 18px; width: 35px;"></span>Términos y Condiciones</a>
+                                    <a class="dropdown-item" [href]="config.URL_AGENDA_TURNO" target="_blank">
+                                        <span class="fa fa-calendar-alt text-center fa-fw" style="display: inline-block; font-size: 18px; width: 35px;"></span>Agendar Turno</a>
                                 </div>
 
-                                <div class="dropdown-menu dropdown-menu-right" *ngIf="token && currentUser">
-                                    <a routerLink="/perfil-ciudadano" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Mi Perfil</a>
-                                    <a routerLink="/carpeta-ciudadana" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Carpeta Ciudadana</a>
-                                    <a routerLink="/otros-tramites-en-linea" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Otros Trámites en Línea</a>
-                                    <a routerLink="/marco-legal" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Marco Legal</a>
-                                    <a class="dropdown-item" [href]="config.URL_AGENDA_TURNO" target="_blank">Agendar Turno</a>
-                                    <a style="cursor:pointer" (click)="logout()" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();"><b>Cerrar Sesión</b></a>
+                                <div class="dropdown-menu dropdown-menu-right br-20" style="padding: 20px 0;" *ngIf="token && currentUser">
+                                    <a routerLink="/perfil-ciudadano" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">
+                                        <span class="fas fa-user-circle text-center fa-fw" style="display: inline-block; font-size: 18px; width: 35px;"></span>Mi Perfil</a>
+                                    <a routerLink="/carpeta-ciudadana" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">
+                                        <span class="fas fa-folder-open text-center fa-fw" style="display: inline-block; font-size: 18px; width: 35px;"></span>Carpeta Ciudadana</a>
+                                    <a routerLink="/otros-tramites-en-linea" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">
+                                        <span class="fas fa-copy text-center fa-fw" style="display: inline-block; font-size: 18px; width: 35px;"></span>Otros Trámites en Línea</a>
+                                    <a routerLink="/marco-legal" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">
+                                        <span class="fab fa-leanpub text-center fa-fw" style="display: inline-block; font-size: 18px; width: 35px;"></span>Marco Legal</a>
+                                    <a class="dropdown-item" [href]="config.URL_AGENDA_TURNO" target="_blank">
+                                        <span class="fa fa-calendar-alt text-center fa-fw" style="display: inline-block; font-size: 18px; width: 35px;"></span>Agendar Turno</a>
+                                    <a routerLink="/identidad-electronica/terminos" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">
+                                        <span class="fas fa-cog text-center fa-fw" style="display: inline-block; font-size: 18px; width: 35px;"></span>Términos y Condiciones</a>
+                                    <a style="cursor:pointer" (click)="logout()" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">
+                                        <span class="fas fa-times text-center fa-fw" style="display: inline-block; font-size: 18px; width: 35px;"></span><b>Cerrar Sesión</b></a>
                                 </div>
 
                             </li>

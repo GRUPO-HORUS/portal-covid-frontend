@@ -21,41 +21,41 @@
 <div class="content pb-4">
     <div class="container">
         <div class="row">
-                
-                <div class="text-center" style="padding:40px;" *ngIf="loading">
-                    <img src="assets/img/misc/icon_loading.gif" alt="Cargando.." /> Cargando documento...
-                </div>
-                
-                <div class="offset-lg-3 col-lg-6 col-md-12 col-sm-12 col-xs-12 p-5">
-                    <div class="card text-center">
-                        
-                        <div class="alert">
-                            <div class="alert-success" style="padding:10px;"> 
-                                <span class="fa fa-check"></span>
-                                Se ha generado con éxito el documento.
-                            </div>
+
+            <div class="text-center" style="padding:40px;" *ngIf="loading">
+                <img src="assets/img/misc/icon_loading.gif" alt="Cargando.." /> Cargando documento...
+            </div>
+
+            <div class="offset-lg-3 col-lg-6 col-md-12 col-sm-12 col-xs-12 p-5">
+                <div class="card text-center shadow-lg" style="border-radius: 20px; overflow: visible; border:0">
+
+                    <div class="alert">
+                        <div class="alert-success text-center" style="padding:0 10px 10px 10px; border-radius: 15px;">
+                            <span class="fa fa-check-circle fa-5x" style="margin-top: -20px;"></span><br> Se ha generado con éxito el documento.
                         </div>
-                        
-                        <h5 class="p-2">
-                            Podés bajar el documento dando clic en <i class="fa fa-download nav-link-icon"></i>
-                        </h5>
+                    </div>
 
-                        <div class="card-header white-text text-uppercase font-weight-bold text-center">
+                    <h5 class="p-2 mb-4">
+                        Podés bajar el documento dando clic en <i class="fa fa-download nav-link-icon"></i>
+                    </h5>
 
-                            <button type="button" class="btn btn-primary" style="margin-right:10px;" (click)="getDocumento(true)">
-                                <i class="fa fa-download nav-link-icon"></i> Descargar
-                            </button>
+                    <div class="card-header white-text text-uppercase font-weight-bold text-center" style="border-bottom: 0; border-radius: 0 0 20px 20px;">
 
-                            <button type="button" class="btn btn-default" style="margin-right:10px;" (click)="cancelGenerarDocumento()">
-                                <i class="fa fa-angle-double-left"></i> Atrás
-                            </button>
-                        </div>
+                        <button type="button" class="btn btn-default btn-lg btn-rounded" style="margin-right:10px;" (click)="cancelGenerarDocumento()">
+                            <i class="fa fa-angle-double-left"></i> Atrás
+                        </button>
+
+                        <button type="button" class="btn btn-primary btn-lg btn-rounded" style="margin-right:10px;" (click)="getDocumento(true)">
+                            <i class="fa fa-download nav-link-icon"></i> Descargar
+                        </button>
 
                     </div>
-                </div>
 
-        </div>    
-    </div>    
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
 <div class="divider"></div>

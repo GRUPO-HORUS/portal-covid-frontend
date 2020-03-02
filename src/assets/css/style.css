@@ -854,7 +854,7 @@ Manejo de scroll: table > body
         min-width: 30px;
     }
     .navbar .nav-link-icon {
-        color: #001c54;
+        color: #001c54 !important;
     }
     .navbar-main {
         background-color: #FFF !important;
@@ -897,6 +897,14 @@ Manejo de scroll: table > body
 
 .menu-detacado {
     background-color: #293855 !important;
+}
+
+.table tbody+tbody {
+    border-top: 2px solid #f1f1f1;
+}
+
+.btn-primary {
+    border: 0;
 }
 
 #page-header,
@@ -957,8 +965,8 @@ Manejo de scroll: table > body
     .btn-menu-destacado {
         border: 0px solid #FFF !important;
         border-radius: 30px !important;
-        padding: 14px 15px 11px 15px !important;
-        margin-top: 6px !important;
+        padding: 12px 15px 11px 15px !important;
+        margin-top: 2px !important;
     }
 }
 
@@ -1086,12 +1094,44 @@ Manejo de scroll: table > body
     border-radius: .50rem!important;
 }
 
+.br-20 {
+    border-radius: 20px !important;
+}
+
+.card-flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.card-flex .card {
+    flex-shrink: 0;
+    flex-grow: 0;
+    flex-basis: 32.2%;
+    margin-right: 12px;
+}
+
+.card-flex .card:nth-child(3n+0) {
+    margin-right: 0;
+}
+
 @media (max-width: 992px) {
     .hidden-md {
         display: none;
     }
     .card-columns {
         column-count: 2 !important;
+    }
+    .card-flex .card {
+        flex-basis: 48%;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-flex .card {
+        flex-basis: 100%;
+        margin-right: 0;
     }
 }
 
