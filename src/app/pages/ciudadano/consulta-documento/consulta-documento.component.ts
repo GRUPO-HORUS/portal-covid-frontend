@@ -10,6 +10,9 @@ import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { Subscription } from 'rxjs';
 declare var $: any;
 
+//5290181
+//84d985
+
 @Component({
   selector: "consulta-documento",
   styleUrls: ['consulta-documento.component.css'],
@@ -20,7 +23,7 @@ export class ConsultaDocumentoComponent implements OnInit {
 
   public token: string;
   public cedula: string;
-  public dv: string;
+  // public dv: string;
   public fechaNac: string;
   public codAlumno: string;
   
@@ -87,6 +90,7 @@ export class ConsultaDocumentoComponent implements OnInit {
       this.auth.setTokenTmp("-");
       this.token = this.auth.getTokenTmp();
     }
+
   }
 
   ngOnInit() {
@@ -102,7 +106,6 @@ export class ConsultaDocumentoComponent implements OnInit {
         resolve(true);
       }, error => {
         this.recaptchaAvailable = false;
-        console.log("error getting recaptcha", error);
         resolve(false);
       });
     });
@@ -152,7 +155,7 @@ export class ConsultaDocumentoComponent implements OnInit {
           params.tipo = this.documento.id.toString();
         }
 
-        if(this.tipo == 'ruc-set') params.dv = this.dv;
+        // if(this.tipo == 'ruc-set') params.dv = this.dv;
         if(this.tipo == 'cedula-policial') params.fechaNacimiento = this.fechaNac;
 
         this.documentosService.getRptDocumentSinIE(params, this.recentToken).subscribe(response => {
@@ -183,21 +186,26 @@ export class ConsultaDocumentoComponent implements OnInit {
   }
 
   getCursosSnpp() {
-    this.loading = true;
-    this.documentosService.getCursosSnpp("-", this.cedula, this.codAlumno, this.recentToken).subscribe(response => {
-      setTimeout(function() { $("#modalView").modal("show"); }, 500);
-      if(response.status) {
-        this.cursos = { 'key': 10, 'data': response.data };
-        this.loading = false;
-        this.resultado = {status: true, message: ''};
-      } else {
-        this.loading = false;
-        this.resultado = {status: false, message: 'No se encontraron datos disponibles para el nro. de cédula '+ this.cedula};
+    console.log('this.recentToken', this.recentToken);
+    this.getRecaptchaToken('register').then((response) => {
+      if(response) {
+        this.loading = true;
+        this.documentosService.getCursosSnpp("-", this.cedula, this.codAlumno, this.recentToken).subscribe(response => {
+          setTimeout(function() { $("#modalView").modal("show"); }, 500);
+          if(response.status) {
+            this.cursos = { 'key': 10, 'data': response.data };
+            this.loading = false;
+            this.resultado = {status: true, message: ''};
+
+          } else {
+            this.loading = false;
+            this.resultado = {status: false, message: 'No se encontraron datos disponibles para el nro. de cédula '+ this.cedula};
+          }
+        }, error => {
+          this.loading = false;
+          this.resultado = {status: false, message: 'No se pudo obtener el listado de cursos'};
+        });
       }
-    }, error => {
-      console.log("error", error);
-      this.loading = false;
-      this.resultado = {status: false, message: 'No se pudo obtener el listado de cursos'};
     });
   }
 

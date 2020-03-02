@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output, OnInit, Inject } from "@angular/core";
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Component, OnInit, Inject } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
 import { ScrollToService } from "ng2-scroll-to-el";
 import { MessageService } from "app/services/MessageService";
 import { PoderesDelEstadoService } from "app/services/PoderesDelEstadoService";
@@ -18,7 +18,6 @@ export class HeaderComponent  implements OnInit{
 
   public categoriaTramite: any;
   public lang: string = 'G';
-
   public ieUrl: string;
   public token: string;
   public currentUser: any;
@@ -33,15 +32,25 @@ export class HeaderComponent  implements OnInit{
     private auth: LoginService,
     private config: AppConfig,
     @Inject(DOCUMENT) private document: any
-
   ) {
-    this.currentUser = this.auth.getCurrentUser();
+
+    this.messageService.currentUserResult.subscribe(userSession => {
+      this.currentUser = userSession.currentUser;
+      this.token = userSession.token;
+    });
+
   }
 
   ngOnInit() {
-    this.token = this.auth.getToken();
-    this.currentUser = this.auth.getCurrentUser();
+    this.verificarSession();
     this.getCategoriaTramite();
+  }
+
+  verificarSession() {
+    if(this.auth.getToken() != null && this.auth.getCurrentUser() != null) {
+      this.token = this.auth.getToken();
+      this.currentUser = this.auth.getCurrentUser();
+    }
   }
 
   scrollToTop(event) {
@@ -77,13 +86,9 @@ export class HeaderComponent  implements OnInit{
     );
   }
 
-  verificarSession() {
-    this.token = this.auth.getToken();
-    this.currentUser = this.auth.getCurrentUser();
-  }
-
   loginIdentidadElectronica(){
     this.verificarSession();
+
     if (!this.currentUser || this.token == null) {
       this.route.queryParams.subscribe(params => {
         if (params['code'] && this.auth.getState() == params['state']) {
@@ -113,6 +118,7 @@ export class HeaderComponent  implements OnInit{
   logout(){
     this.auth.logout();
     this.token = null;
+    this.currentUser = null;
     this.router.navigate(['/']);
   }
 
@@ -122,19 +128,16 @@ export class HeaderComponent  implements OnInit{
 
   getConfig() {
     this.auth.getConfig().subscribe(response => {
-
       this.uuid = this.auth.guid();
-
       this.ieUrl = response['URL_IDENTIDAD_ELECTRONICA_LOGIN'] + '&state=' + this.uuid;
-
       this.auth.setState(this.uuid);
-
       //this.router.navigate(["/"]).then(result=>{ window.location.href = this.ieUrl; });
       this.document.location.href =  this.ieUrl;
-
     }, error => {
       console.log("error", error);
       this.auth.logout();
+      this.token = null;
+      this.currentUser = null;
     });
   }
 
@@ -145,6 +148,5 @@ export class HeaderComponent  implements OnInit{
       this.router.navigate(['/form-perfil-ciudadano']);
     }
   }
-
 
 }

@@ -42,7 +42,6 @@
                                     <a routerLink="/estado/poder-ejecutivo" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Ejecutivo</a>
                                     <a routerLink="/estado/poder-legislativo" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Legislativo</a>
                                     <a routerLink="/estado/poder-judicial" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Judicial</a>
-
                                     <div class="dropdown dropdown-submenu">
                                         <a href="#" class="dropdown-item active" id="otras-entidades" data-toggle="dropdown" data-hover="dropdown" data-close-others="false">Otras Entidades</a>
                                         <div class="dropdown-menu" role="menu" aria-labelledby="otras-entidades">
@@ -50,17 +49,14 @@
                                             <a routerLink="/estado/universidades-nacionales" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Universidades Nacionales</a>
                                             <a routerLink="/estado/cgr" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Contraloría General de la República</a>
                                             <a routerLink="/estado/binacionales" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Entidades Binacionales</a>
-
                                             <a routerLink="/estado/banca-central" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Banca Central del Estado</a>
                                             <a routerLink="/estado/autonomos-autarquicos" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Entes Autónomos y Autárquicos</a>
                                             <a routerLink="/estado/seguridad-social" (click)="scrollToTop(topSite); colapseMenu();" style="word-wrap: break-word ¡important; white-space: normal;" class="dropdown-item">Entidades Públicas de Seguridad Social</a>
                                             <a routerLink="/estado/empresas-publicas" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Empresas Públicas</a>
                                             <a routerLink="/estado/financieras" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Entidades Financieras Oficiales</a>
                                             <a routerLink="/estado/sa" (click)="scrollToTop(topSite); colapseMenu();" style="word-wrap: break-word ¡important; white-space: normal;" class="dropdown-item">Sociedades Anónimas</a>
-
                                             <a href="https://www.gobernaciones.gov.py/gobernacion/" target="_blank" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Gobernaciones</a>
                                             <a href="https://www.municipios.gov.py/municipios/" target="_blank" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Municipios</a>
-
                                         </div>
                                     </div>
                                 </div>
@@ -76,8 +72,8 @@
                                         <b>Estadísticas</b>
                                     </a>
                                     <a *ngFor="let categoria of categoriaTramite" (click)="searchDataCategoria(categoria); colapseMenu();" class="dropdown-item no-decoration text-inverse" style="cursor:pointer;">
-                                                    {{categoria.nombre_clasificador}}
-                                                </a>
+                                        {{categoria.nombre_clasificador}}
+                                    </a>
                                 </div>
                             </li>
 
@@ -115,7 +111,6 @@
                                 </a>
                                 <div class="dropdown-menu">
                                     <a routerLink="/sobre-portal" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Sobre el Portal Único de Gobierno</a>
-                                    <!--<a routerLink="/consulta-reclamo" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Consultas y Reclamos</a>-->
                                     <a routerLink="/mapa-del-sitio" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Mapa del sitio</a>
                                     <a routerLink="/datos-abiertos" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Datos Abiertos</a>
                                     <a routerLink="/datos" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Datos Abiertos (microdata)</a>
@@ -126,16 +121,18 @@
                                 </div>
                             </li>
 
-                            <li class="nav-item dropdown" (click)="verificarSession()">
+                            <li class="nav-item dropdown">
 
                                 <a href="#" *ngIf="!currentUser || currentUser == 'undefined' || currentUser == 'null' || currentUser == null" class="nav-link dropdown-toggle space-menu-info btn-menu-destacado" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" style="border: 1px solid #ffffff24 !important">
                                     <i class="fa fa-user-circle nav-link-icon mr-2"></i>
                                     <span><b>Identidad Electrónica</b></span>
                                 </a>
+
                                 <a href="#" *ngIf="currentUser" class="nav-link dropdown-toggle space-menu-info btn-menu-destacado" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" style="border: 1px solid #ffffff24 !important">
                                     <i class="fa fa-user-circle nav-link-icon mr-2"></i>
                                     <span><b>{{ currentUser.nombres.split(" ", 3)[0] }} {{ currentUser.apellidos.split(" ", 3)[0] }}</b></span>
                                 </a>
+                                
                                 <div class="dropdown-menu dropdown-menu-right" *ngIf="!token || token == 'undefined' || token == null || !currentUser || currentUser == 'undefined' || currentUser == null">
                                     <a (click)="loginIdentidadElectronica(); colapseMenu();" class="dropdown-item mb-2 menu-detacado_"><i class="fas fa-id-badge nav-link-icon mr-2" style="font-size: 32px;float: left;margin-top: 3px;margin-left: -6px;">                                       
                                         </i> Ingresar con mi <br><b>Identidad electrónica</b>
@@ -147,6 +144,7 @@
                                     <a routerLink="/identidad-electronica/terminos" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Términos y Condiciones</a>
                                     <a class="dropdown-item" [href]="config.URL_AGENDA_TURNO" target="_blank">Agendar Turno</a>
                                 </div>
+
                                 <div class="dropdown-menu dropdown-menu-right" *ngIf="token && currentUser">
                                     <a routerLink="/perfil-ciudadano" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Mi Perfil</a>
                                     <a routerLink="/carpeta-ciudadana" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Carpeta Ciudadana</a>
@@ -155,7 +153,9 @@
                                     <a class="dropdown-item" [href]="config.URL_AGENDA_TURNO" target="_blank">Agendar Turno</a>
                                     <a style="cursor:pointer" (click)="logout()" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();"><b>Cerrar Sesión</b></a>
                                 </div>
+
                             </li>
+
                         </ul>
                     </div>
                 </div>

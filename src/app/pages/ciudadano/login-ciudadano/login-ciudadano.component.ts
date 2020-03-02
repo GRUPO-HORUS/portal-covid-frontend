@@ -54,12 +54,14 @@ export class LoginCiudadanoComponent implements OnInit {
               } else {
                 this.loading = false;
                 this.auth.logout();
+                this.messageService.emitChangeCurrentUserService({ currentUser: null, token: null });
               }
 
             }, error => {
               console.log("error", error);
               this.loading = false;
               this.auth.logout();
+              this.messageService.emitChangeCurrentUserService({ currentUser: null, token: null });
             });
 
         } else {
@@ -87,12 +89,20 @@ export class LoginCiudadanoComponent implements OnInit {
     }, error => {
       console.log("error", error);
       this.auth.logout();
+      this.messageService.emitChangeCurrentUserService({ currentUser: null, token: null });
     });
   }
 
   redirect(datoActualizado: boolean) {
-    if(datoActualizado){
+    if(datoActualizado) {
+      
+      this.messageService.emitChangeCurrentUserService({
+        currentUser: this.auth.getCurrentUser(),
+        token: this.auth.getToken()
+      });
+
       this.router.navigate(['/carpeta-ciudadana']);
+
     } else {
       this.router.navigate(['/form-perfil-ciudadano']);
     }

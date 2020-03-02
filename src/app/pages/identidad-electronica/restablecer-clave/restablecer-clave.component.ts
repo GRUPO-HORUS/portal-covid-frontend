@@ -51,7 +51,6 @@ export class RestablecerClaveComponent implements OnInit {
         resolve(true);
       }, error => {
         this.recaptchaAvailable = false;
-        console.log("error getting recaptcha", error);
         resolve(false);
       });
     });

@@ -22,14 +22,6 @@ export class LoginService {
         return this.http.post<any>(this.config.API + '/auth/validarAcceso', { code: this.getToken(), state: this.getState() }, {})
           .pipe(catchError(this.handler.handleError<any>('verifyAuthentication', {})));
     }
-    /*
-    verifyAuthentication(): Observable<any[]> {
-        console.log('verifyAuthentication');
-        return this.http.post<any[]>(this.config.API + '/auth/validarAcceso', {
-            code: this.getToken(),
-            state: this.getState()
-        });
-    }*/
 
     getConfig(){
         return this.http.get<any[]>(this.config.API + '/auth/getConfig', {});
@@ -133,7 +125,6 @@ export class LoginService {
             localStorage.removeItem(name);
             localStorage.removeItem(name + '_expiresIn');
         } catch(e) {
-            console.log('removeStorage: Error removing key from localStorage: ' + JSON.stringify(e) );
             return false;
         }
         return true;

@@ -8,6 +8,8 @@ import { DocumentosService } from 'app/services/documentos.service';
 import { ToastrService } from 'ngx-toastr';
 import { ModalService } from 'app/lib/modal-custom';
 import { DatePipe } from '@angular/common';
+import { InfoServicios } from './carpeta-ciudadana-data.component';
+import * as moment from 'moment';
 declare var $: any;
 
 @Component({
@@ -18,25 +20,25 @@ declare var $: any;
 })
 export class CarpetaCiudadanaComponent implements OnInit {
 
-  public ciudadano: IdentidadPersona;
+  public ciudadano: IdentidadPersona; 
   public token: string;
   public loading: boolean;
   public resultado: any = { status: true, message: ''};
   public menuDocument: any[];
-  public servicios: any[] = [];
   public docSelected:any = {};
   public historicoDocumentos: any[] = [];
   public cursos: any;
-  public documentosIE: any[] = [];
+  public documentos: any[] = [];
 
   constructor(
     public messageService: MessageService,
     public config: AppConfig,
+    public infoServicios: InfoServicios,
     private router: Router,
     public auth: LoginService,
     public documentosService: DocumentosService,
     private toastrService: ToastrService,
-    private modalService: ModalService,
+    private modalService: ModalService
   ) { }
 
   ngOnInit() {
@@ -45,32 +47,79 @@ export class CarpetaCiudadanaComponent implements OnInit {
 
     this.token = this.auth.getToken();
 
-    if(this.ciudadano != null && this.token != null) {
-
-      this.getServicios();
-
-    } else {
-
-      this.getListDocumentos();
-
-    }
+    this.documentos = this.infoServicios.SERVICIOS_CON_IE;
 
     this.scrollTop();
     
   }
 
-  cancelGenerarDocumento() {
-    this.scrollTop();
-    this.loading = false;
+  getDocument(idTipoServicio): any {
+    return this.documentos.find(x => Number(x.idTipoServicio) == idTipoServicio);
   }
 
-  getServicios() {
-    this.documentosService.getServicios(this.token).subscribe(response => {
-      this.servicios = response;
-    }, error => {
-      console.log('error', error);
-    });
+  documentRedirect(idTipoServicio) {
+
+    let documento =  this.getDocument(idTipoServicio);
+
+    if(this.ciudadano != null && documento.urlExternal == null) {
+    
+      this.getHistoricoConsultas(documento);
+
+    } else {
+
+      let urlExternal = '';
+      if(idTipoServicio == 2) {
+        urlExternal = '/documentos/funcionario-publico';
+      } else if(idTipoServicio == 3) {
+        urlExternal = '/documentos/ips-asegurado';
+      } else if(idTipoServicio == 6) {
+        urlExternal = '/documentos/inscripcion-empleado';
+      } else if(idTipoServicio == 10) {
+        urlExternal = '/documentos/snpp';
+      } else if(idTipoServicio == 11) {
+        urlExternal = '/documentos/ruc-set';
+      } else if(idTipoServicio == 12) {
+        urlExternal = '/documentos/mipymes';
+
+      } else  if(documento.urlExternal != null && documento.urlExternal != '') {
+        window.location.href = documento.urlExternal;
+        return;
+
+      } else {
+        urlExternal = '/login-ciudadano';
+      }
+
+      console.log('redirect', urlExternal);
+      this.router.navigate([urlExternal]);
+    }
+
   }
+
+  redirect(doc) {
+    if(doc.linkExternal) {
+      window.location.href = doc.link;
+      return true;
+
+    } else {
+      this.router.navigate([doc.link]);
+    }
+  }
+
+  cancelGenerarDocumento() {
+
+    this.scrollTop();
+
+    this.loading = false;
+
+  }
+
+  // getServicios() {
+  //   this.documentosService.getServicios(this.token).subscribe(response => {
+  //     this.servicios = response;
+  //   }, error => {
+  //     console.log('error', error);
+  //   });
+  // }
   
   getHistoricoConsultas(servicio: any) {
     this.loading = true;
@@ -110,6 +159,11 @@ export class CarpetaCiudadanaComponent implements OnInit {
 
   }
 
+  redirectMipymes() {
+    this.closeModalDocument('#modalDetalleDocumento');
+    this.router.navigate(['/documentos/mipymes']);
+  }
+
   generarDocumento() {
     this.scrollTop();
     
@@ -121,13 +175,13 @@ export class CarpetaCiudadanaComponent implements OnInit {
       return;
     }
 
-    if(this.docSelected.params.tipo == "11") {
-      this.docSelected.params.dv = '';
-      this.docSelected.params.titulo = 'Constancia de RUC (SET)';
+    // if(this.docSelected.params.tipo == "11") {
+    //   this.docSelected.params.dv = '';
+    //   this.docSelected.params.titulo = 'Constancia de RUC (SET)';
 
-      paramsAditional = true;
-      modalView = '#modalRucSet';
-    }
+    //   paramsAditional = true;
+    //   modalView = '#modalRucSet';
+    // }
 
     if(this.docSelected.params.tipo == "15") {
       this.docSelected.params.titulo = 'Acta de Nacimiento (Hijo/a)';
@@ -148,11 +202,9 @@ export class CarpetaCiudadanaComponent implements OnInit {
     if(this.historicoDocumentos.length > 0 && (this.docSelected.params.tipo != '9')) {
 
       let ultimoDocumentoGenerado = this.historicoDocumentos[0];
-      let datePipe = new DatePipe("en-US");
-      let fechaActual = datePipe.transform(new Date(), 'yyyy-MM-dd');
-      let fechaVencimiento = datePipe.transform(ultimoDocumentoGenerado.fechaVencimiento, 'yyyy-MM-dd');
 
-      console.log('consulta', this.validarFechaVencimiento(fechaActual, fechaVencimiento));
+      let fechaActual = moment(new Date()).format('YYYY-MM-DD');
+      let fechaVencimiento = moment(ultimoDocumentoGenerado.fechaVencimiento).format('YYYY-MM-DD');
 
       // si la fecha actual es menor a la fecha de vencimiento
       if(this.validarFechaVencimiento(fechaActual, fechaVencimiento)) {
@@ -218,7 +270,6 @@ export class CarpetaCiudadanaComponent implements OnInit {
         this.toastrService.warning('', response.message);
       }
     }, error => {
-      console.log('error', error);
       this.loading = false;
       this.toastrService.warning('','Ocurrió un error al procesar la operación');
     });
@@ -235,96 +286,9 @@ export class CarpetaCiudadanaComponent implements OnInit {
         this.toastrService.warning('','No se encontraron cursos disponibles');
       }
     }, error => {
-      console.log('error', error);
       this.loading = false;
       this.toastrService.warning('','Ocurrió un error al procesar la operación');
     });
-  }
-
-  getListDocumentos() {
-    this.documentosIE = [
-        /** NO REQUIERE I.E */
-        {
-          "name": "Constancia de ser o no Funcionario Público (SFP)", "isSession": false, 
-          "linkExternal": false, "link": "/documentos/funcionario-publico", "title": "Obtené la constancia de ser o no ser funcionario público, proveniente de la Secretaría de la Función Pública (SFP) con datos consultados desde el SINARH y Nómina de Funcionarios Permanentes o Contratos."
-        }, 
-        {
-          "name": "Consulta de Asegurado (IPS)", "isSession": false, 
-          "linkExternal": false, "link": "/documentos/ips-asegurado", "title": "Consultá si una persona está o no inscripta como asegurada ante el IPS, y los datos respectivos en caso de estarlo."
-        },   
-        {
-          "name": "Consulta de Inscripción de  Empleado (Ministerio de Trabajo)", "isSession": false, 
-          "linkExternal": false, "link": "/documentos/inscripcion-empleado", "title": "Obtené la información de estar o no inscripto ante la Dirección de Registro Obrero Patronal del Ministerio de Trabajo, Empleo y Seguridad Social (MTEES)."
-        },
-        {
-          "name": "Consulta de Datos de RUC (SET)", "isSession": false, 
-          "linkExternal": false, "link": "/documentos/ruc-set", "title": "Accede a los datos de la Cédula Tributaria de contribuyentes provenientes de la Subsecretaría de Estado de Tributación (SET)."
-        },
-        {
-          "name": "Certificado de Cumplimiento  Tributario (SET)", "isSession": false, 
-          "linkExternal": true, "link": "https://servicios.set.gov.py/eset-publico/certificadoCumplimientoIService.do", "title": "Obtené el Certificado de Cumplimiento Tributario emitido en línea por la Subsecretaría de Estado de Tributación (SET)"
-        },
-        {
-          "name": "Consulta de Cédula de MIPYMES", "isSession": false, 
-          "linkExternal": false, "link": "/documentos/mipymes", "title": "Podrás validar y verificar datos de una Cédula de MIPYMES con la información del Viceministerio de Micro, Pequeñas y Medianas Empresas del Ministerio de Industria y Comercio."
-        },
-        {
-          "name": "Descarga de Certificados de Cursos (SNPP)", "isSession": false, 
-          "linkExternal": false, "link": "/documentos/snpp", "title": ""
-        },
-
-        /** REQUIERE I.E */
-        {
-          "name": "Consulta de Datos de Cédula (Policía Nacional)", "isSession": true, 
-          "linkExternal": false, "link": '/login-ciudadano',  "title": "Podrás validar y verificar datos de una Cédula de Identidad con la información proveniente en línea desde el Departamento de Identificaciones de la Policía Nacional."
-        },
-        {
-          "name": "Constancia de Acta de Nacimiento (Registro Civil)", "isSession": true, 
-          "linkExternal": false, "link": "/login-ciudadano", "title": ""
-        },
-        {
-          "name": "Constancia de Acta de Matrimonio (Registro Civil)", "isSession": true, 
-          "linkExternal": false, "link": "/login-ciudadano", "title": ""
-        },
-        {
-          "name": "Constancia de Acta de Defunción (Registro Civil)", "isSession": true, 
-          "linkExternal": false, "link": "/login-ciudadano", "title": ""
-        },
-        {
-          "name": "Consulta de Salario del Asegurado (IPS)", "isSession": true, 
-          "linkExternal": false, "link": "/login-ciudadano", "title": ""
-        },
-        {
-          "name": "Consulta de Nivel Académico (MEC)", "isSession": true, 
-          "linkExternal": false, "link": "/login-ciudadano", "title": ""
-        },
-        {
-          "name": "Constancia de Acta de Nacimiento Hijo/a (Registro Civil)", "isSession": true, 
-          "linkExternal": false, "link": "/login-ciudadano", "title": ""
-        },
-        {
-          "name": "Constancia de vacunación (MSPyBS)", "isSession": true, 
-          "linkExternal": false, "link": "/login-ciudadano", "title": ""
-        },
-        {
-          "name": "Constancia de Vacunación - Hijo/a (MSPyBS)", "isSession": true, 
-          "linkExternal": false, "link": "/login-ciudadano", "title": ""
-        },
-        {
-          "name": "Consulta de Certificados (SNPP)", "isSession": true, 
-          "linkExternal": false, "link": "/login-ciudadano", "title": ""
-        },
-    ];
-  }
-
-  redirect(doc) {
-    if(doc.linkExternal) {
-      window.location.href = doc.link;
-      return true;
-
-    } else {
-      this.router.navigate([doc.link]);
-    }
   }
 
   openModal(id: string) {

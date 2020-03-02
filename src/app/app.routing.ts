@@ -95,6 +95,7 @@ import { ConsultaDocumentoComponent } from "./pages/ciudadano/consulta-documento
 import { RptCantidadDocumentosComponent } from './pages/reportes/rpt-cantidad-documentos/rpt-cantidad-documentos.component';
 import { RptTramitesSinTag } from "./pages/reportes/rpt-tramites-sin-tag/rpt-tramites-sin-tag.component";
 import { RptListadoTmp } from "./pages/reportes/rpt-listado-tmp/rpt-listado-tmp.component";
+import { InfoServicios } from "./pages/ciudadano/carpeta-ciudadana/carpeta-ciudadana-data.component";
 
 //Listado de rutas para la aplicación
 export const appRoutes: Routes = [
@@ -258,6 +259,7 @@ export const routesComponents = [
 // Listado de providers para la aplicación
 export const appRoutingProviders: any[] = [
   AppConfig,
+  InfoServicios,
   MessageService,
   PoderesDelEstadoService,
 ];

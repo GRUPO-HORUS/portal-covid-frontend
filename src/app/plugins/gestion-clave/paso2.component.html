@@ -1,8 +1,10 @@
 <div class="container">
+
     <h3 class="title-divider text-primary">
         <i class="fa fa-edit mr-2" style="margin-top: -4px;"></i>
         <span>Proceso de validación de identidad</span>
     </h3>
+
     <form #miForm2="ngForm">
         <div class="row">
 
@@ -22,14 +24,21 @@
                 </div>
             </div>
 
+            <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12" *ngIf="siguiente && urlAyuda && urlAyuda != null && urlAyuda != 'null'">
+                <div style="font-size:14px; word-wrap:break-word; font-weight:bold;">
+                    <div style="margin-left:2px;" [innerHTML]="urlAyuda | safeHtml"></div>
+                </div>
+            </div>
+
+        <!---
             <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12" *ngIf="siguiente && textoAyuda && textoAyuda != null && textoAyuda != 'null'">
                 <div class="alert alert-success" style="font-size:14px; word-wrap:break-word; font-weight:bold;">
                     <i class="fa fa-info-circle"></i> <span style="margin-left:2px;" [innerHTML]="textoAyuda | safeHtml"></span>
                 </div>
             </div>
+        -->
 
             <div class="col-lg-12">
-
                 <div class="form-group">
                     <button (click)="avanzar('OMITIR-RESPUESTA', idPregunta)" style="margin-top: 10px;margin-left:10px;" type="submit" class="btn btn-default" *ngIf="siguiente" [disabled]="loading">
                         <span class="fa fa-share"></span>
@@ -55,8 +64,10 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </form>
+
     <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -66,7 +77,7 @@
                 </div>
                 <div class="modal-body"> {{mensaje}} </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-remove"></i>  Cerrar</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-remove"></i> Cerrar</button>
                 </div>
             </div>
         </div>

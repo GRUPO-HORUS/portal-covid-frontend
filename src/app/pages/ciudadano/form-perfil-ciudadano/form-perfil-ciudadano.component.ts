@@ -73,7 +73,6 @@ export class FormPerfilCiudadanoComponent implements OnInit {
     }, error => {
       this.loading = false;
       this.message = 'No se pudo procesar la operación. Favor intente nuevamente..';
-      console.log("error", error, "Error al obtener el token de autorización");
     });
   }
 
@@ -126,8 +125,16 @@ export class FormPerfilCiudadanoComponent implements OnInit {
 
 
   logout(){
+    
     this.auth.logout();
+
+    this.messageService.emitChangeCurrentUserService({
+      currentUser: null,
+      token: null
+    });
+
     this.router.navigate(['/login-ciudadano']);
+
   }
   
 }
