@@ -129,10 +129,19 @@
                                 </a>
 
                                 <a href="#" *ngIf="currentUser" class="nav-link dropdown-toggle space-menu-info btn-menu-destacado" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" style="border: 1px solid #ffffff24 !important">
-                                    <i class="fa fa-user-circle nav-link-icon mr-2"></i>
+                                    <div *ngIf="token && ciudadano && fotoPerfil" style="text-align: center; display:inline-block; margin: -11px 10px -9px -13px; ">
+                                        <img style="width: 40px; height: 40px; border: 1px solid #ffffff7d; background-size: cover;
+                                                                                border-radius: 50%;
+                                                                                object-fit: cover;object-position: center center;" [src]="fotoPerfil" alt="perfil">
+                                    </div>
+                                    <div *ngIf="token && ciudadano && !fotoPerfil" style="text-align: center; display:inline-block; margin: -11px 10px -9px -13px; ">
+                                        <img style="width: 40px; height: 40px; border: 1px solid #ffffff7d; background-size: cover;
+                                                                                border-radius: 50%;
+                                                                                object-fit: cover;object-position: center center;" src="assets/img/profile.png" alt="perfil">
+                                    </div>
                                     <span><b>{{ currentUser.nombres.split(" ", 3)[0] }} {{ currentUser.apellidos.split(" ", 3)[0] }}</b></span>
                                 </a>
-                                
+
                                 <div class="dropdown-menu dropdown-menu-right" *ngIf="!token || token == 'undefined' || token == null || !currentUser || currentUser == 'undefined' || currentUser == null">
                                     <a (click)="loginIdentidadElectronica(); colapseMenu();" class="dropdown-item mb-2 menu-detacado_"><i class="fas fa-id-badge nav-link-icon mr-2" style="font-size: 32px;float: left;margin-top: 3px;margin-left: -6px;">                                       
                                         </i> Ingresar con mi <br><b>Identidad electrónica</b>

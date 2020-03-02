@@ -4,6 +4,7 @@ import { ScrollToService } from "ng2-scroll-to-el";
 import { MessageService } from "app/services/MessageService";
 import { PoderesDelEstadoService } from "app/services/PoderesDelEstadoService";
 import { LoginService } from 'app/services/login.service';
+import { IdentidadPersona } from "../ciudadano/model/identidad-persona.model";
 import { AppConfig } from "app/app.config";
 import { DOCUMENT } from '@angular/common';
 declare var $: any;
@@ -23,6 +24,9 @@ export class HeaderComponent  implements OnInit{
   public currentUser: any;
   public uuid: string;
 
+  public fotoPerfil: any;
+  public ciudadano: IdentidadPersona;
+
   constructor(
     private route: ActivatedRoute,
     private scrollService: ScrollToService,
@@ -38,6 +42,25 @@ export class HeaderComponent  implements OnInit{
       this.currentUser = userSession.currentUser;
       this.token = userSession.token;
     });
+
+    this.ciudadano = this.auth.getCurrentUser();
+
+    this.token = this.auth.getToken();
+
+    if(this.ciudadano != null && this.token != null) {
+
+      if(this.auth.getImgProf() ==  null) {
+
+        this.getImageProfile();
+
+      } else {
+
+        this.fotoPerfil = this.auth.getImgProf();
+        
+      }
+
+    }
+    
 
   }
 
@@ -147,6 +170,18 @@ export class HeaderComponent  implements OnInit{
     } else {
       this.router.navigate(['/form-perfil-ciudadano']);
     }
+  }
+
+  getImageProfile(): void {
+    this.auth.getImageProfile(this.token).subscribe(response => {
+      if(response.status) {
+        this.fotoPerfil = response.data.fotoPerfil;
+        this.auth.setImgProf(this.fotoPerfil);
+      }
+    },
+    error => {
+      console.log("error", error);
+    });
   }
 
 }

@@ -1086,6 +1086,15 @@ Manejo de scroll: table > body
     border-radius: .50rem!important;
 }
 
+@media (max-width: 992px) {
+    .hidden-md {
+        display: none;
+    }
+    .card-columns {
+        column-count: 2 !important;
+    }
+}
+
 @media (max-width: 576px) {
     .col-xs-6 {
         width: 50%;
@@ -1137,6 +1146,9 @@ Manejo de scroll: table > body
     .ngx-pagination .pagination-previous span {
         display: none;
     }
+    .card-columns {
+        column-count: 1 !important;
+    }
 }
 
 @media (min-width: 576px) {
@@ -1144,11 +1156,9 @@ Manejo de scroll: table > body
         -webkit-column-count: 3;
         -moz-column-count: 3;
         column-count: 3;
-        
         -webkit-column-gap: 1.25rem;
         -moz-column-gap: 1.25rem;
         column-gap: 1.25rem;
-
         orphans: 1;
         widows: 1;
     }
