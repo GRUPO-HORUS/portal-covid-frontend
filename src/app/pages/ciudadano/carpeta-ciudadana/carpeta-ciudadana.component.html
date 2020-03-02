@@ -292,7 +292,7 @@
         <div style="max-width:800px;" class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content p-4">
                 <div class="modal-header b-0">
-                    <h3 class="modal-title" id="modalDetalleDocumento">
+                    <h3 class="modal-title text-primary" id="modalDetalleDocumento">
                         {{ docSelected.name }}
                     </h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -304,8 +304,8 @@
                     <div class="alert alert-warning" *ngIf="!historicoDocumentos || historicoDocumentos.length <= 0">
                         <p>No se encontraron datos en tu carpeta ciudadana de este tipo de documento</p>
                         <p>Podés generar el documento dando clic en
-                            <button type="button" style="margin-left: 5px; vertical-align: initial;" class="btn btn-sm btn-success btn-success-next" (click)="generarDocumento()">
-                                <i class="fa fa-file-import"></i>  Generar Documento
+                            <button type="button" style="margin-left: 5px; vertical-align: initial;" class="btn btn-sm btn-success btn-rounded btn-success-next" (click)="generarDocumento()">
+                                <i class="fa fa-file-import"></i> Generar Documento
                             </button>
                         </p>
                     </div>
@@ -360,12 +360,12 @@
                     </div>
                 </div>
 
-                <div class="modal-footer">
-                    <button type="button" style="float:left; margin-left: 5px;" class="btn btn-primary pull-left" *ngIf="historicoDocumentos && historicoDocumentos.length > 0" (click)="generarDocumento()">
+                <div class="modal-footer pb-0">
+                    <button type="button" style="float:left; margin-left: 5px;" class="btn btn-primary btn-rounded btn-lg pull-left" *ngIf="historicoDocumentos && historicoDocumentos.length > 0" (click)="generarDocumento()">
                         <i class="fa fa-file-import"></i> Generar Documento
                     </button>
 
-                    <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">
                         <i class="fa fa-remove"></i> Cerrar
                     </button>
                 </div>
