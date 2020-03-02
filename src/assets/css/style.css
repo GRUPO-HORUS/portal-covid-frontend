@@ -1131,6 +1131,12 @@ Manejo de scroll: table > body
     .divider-dark.divider-diagonal-r:before {
         border-color: transparent;
     }
+    .ngx-pagination {
+        padding: 0;
+    }
+    .ngx-pagination .pagination-previous span {
+        display: none;
+    }
 }
 
 @media (min-width: 576px) {
@@ -1146,5 +1152,14 @@ Manejo de scroll: table > body
     }
     .min-height-tite-card {
         min-height: 53px;
+    }
+}
+
+@media (max-width: 350px) {
+    .hidden-xxs {
+        display: none !important;
+    }
+    * {
+        zoom: 0.98;
     }
 }

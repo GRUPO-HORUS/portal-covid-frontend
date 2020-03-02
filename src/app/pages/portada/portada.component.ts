@@ -88,7 +88,7 @@ export class PortadaComponent implements OnInit {
     );
   }
 
-  openMessage(idServicio:number) {
+  openMessage(idServicio:number, urlOnline:string) {
     setTimeout(function() { $(".servicio-modal-"+idServicio).modal("toggle"); }, 500);
   }
 
