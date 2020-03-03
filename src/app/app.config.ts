@@ -13,11 +13,11 @@ export class AppConfig {
   public readonly URL_AGENDA_TURNO = 'https://agendarturno.mitic.gov.py/';
 
   //PRODUCCION
-  //public readonly API = "api";
+  public readonly API = "api";
   public readonly API_COMPRAS_PUBLICAS = 'plugins';
   public readonly API_BOLSA_TRABAJO = 'plugins';
-  //public readonly API_GESTION_CLAVE = 'auth';
-  //public readonly API_DOCUMENTOS = 'docsapi';
+  public readonly API_GESTION_CLAVE = 'auth';
+  public readonly API_DOCUMENTOS = 'docsapi';
   
   /*/
   //DESARROLLO
@@ -27,12 +27,12 @@ export class AppConfig {
   public readonly API_GESTION_CLAVE = 'http://localhost:8080/auth/rest';
   public readonly API_GESTION_CLAVE = 'https://devportalpy.mitic.gov.py/auth';
   public readonly API_DOCUMENTOS = 'http://localhost:8080/documentos-core/rest';
-  /*/
+  */
 
-  public readonly API = 'https://devportalpy.mitic.gov.py/api';
+  // public readonly API = 'https://devportalpy.mitic.gov.py/api';
   // public readonly API_COMPRAS_PUBLICAS = 'plugins';
   // public readonly API_BOLSA_TRABAJO = 'plugins';
-  public readonly API_GESTION_CLAVE = 'https://devportalpy.mitic.gov.py/auth';
-  public readonly API_DOCUMENTOS = 'https://devportalpy.mitic.gov.py/docsapi';
+  // public readonly API_GESTION_CLAVE = 'https://devportalpy.mitic.gov.py/auth';
+  // public readonly API_DOCUMENTOS = 'https://devportalpy.mitic.gov.py/docsapi';
   
 }
