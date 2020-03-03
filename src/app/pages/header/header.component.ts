@@ -43,30 +43,21 @@ export class HeaderComponent  implements OnInit{
       this.token = userSession.token;
     });
 
-    this.ciudadano = this.auth.getCurrentUser();
-
-    this.token = this.auth.getToken();
-
-    if(this.ciudadano != null && this.token != null) {
-
-      if(this.auth.getImgProf() ==  null) {
-
-        this.getImageProfile();
-
-      } else {
-
-        this.fotoPerfil = this.auth.getImgProf();
-        
-      }
-
-    }
-    
-
   }
 
   ngOnInit() {
     this.verificarSession();
     this.getCategoriaTramite();
+
+    this.ciudadano = this.auth.getCurrentUser();
+    this.token = this.auth.getToken();
+    if(this.ciudadano != null && this.token != null) {
+      if(this.auth.getImgProf() ==  null) {
+        this.getImageProfile();
+      } else {
+        this.fotoPerfil = this.auth.getImgProf();
+      }
+    }
   }
 
   verificarSession() {
