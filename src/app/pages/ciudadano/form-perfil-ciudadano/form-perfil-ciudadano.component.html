@@ -9,12 +9,11 @@
 <div class="content container pb-4" *ngIf="ciudadano">
     <h4 class="mt-2 mt-4 mb-4">Bienvenido {{ciudadano.nombres}} {{ciudadano.apellidos}}</h4>
 
-
     <div class="alert alert-info">
-        Debe completar todos los campos (<span class="text-danger">*</span>) y aceptar los términos y condiciones para continuar.
+        Debe completar <span style="font-weight: bold;">todos los campos</span> (<span style="font-weight: bold;" class="text-danger">*</span>) y aceptar los términos y condiciones para continuar.
     </div>
 
-    <p>Para acceder a su perfil ciudadano y a los servicios, deberá de completar los siguientes datos:</p>
+    <!-- <p>Para acceder a su perfil ciudadano y a los servicios, deberá de completar los siguientes datos:</p> -->
 
     <form #miForm="ngForm" class="mt-1">
         <div class="row">
@@ -70,7 +69,7 @@
                     <div class="col-sm-3"></div>
                     <div class="col-sm-9">
                         <input type="checkbox" style="width:20px;height:20px;" id="terminos" name="terminos" [(ngModel)]="terminos" />
-                        <b>Acepto los términos y condiciones <span class="text-danger">*</span></b>
+                        <b> Acepto los términos y condiciones <span class="text-danger">*</span></b>
                         <p><a data-toggle="modal" href="#" data-target="#modalTerminosIE">Ver términos y condiciones</a> </p>
                     </div>
                 </div>
@@ -91,6 +90,11 @@
                 </button>
 
                 <div class="clearfix"><br/></div>
+
+                <div>Debe completar todos los campos (<span style="font-weight: bold;" class="text-danger">*</span>)</div>
+
+                <div class="clearfix"><br/></div>
+
                 <div class="alert alert-danger" *ngIf="message">
                     <i class="fa fa-info-circle"></i> {{message}}
                 </div>
