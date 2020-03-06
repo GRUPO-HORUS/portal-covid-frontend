@@ -30,7 +30,6 @@ export class MarcoLegalComponent implements OnInit {
     //   this.router.navigate(['/login-ciudadano']);
     //   return;
     // }
-
   }
   
 }

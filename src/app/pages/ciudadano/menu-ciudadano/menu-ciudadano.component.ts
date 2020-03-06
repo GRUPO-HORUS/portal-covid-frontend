@@ -44,6 +44,17 @@ export class MenuCiudadanoComponent {
     
   }
 
+  getImageProfile(): void {
+      this.auth.getImageProfile(this.token).subscribe(response => {
+        if(response.status) {
+          this.auth.setImgProf(response.data.fotoPerfil);
+          this.fotoPerfil = this.auth.getImgProf();
+        } 
+      }, error => {
+        console.log("error", error);
+      });
+  }
+
   scrollTop() {
     let top = document.getElementById('topcab');
     if (top !== null) {
@@ -60,22 +71,12 @@ export class MenuCiudadanoComponent {
 
     this.messageService.emitChangeCurrentUserService({
       currentUser: null,
-      token: null
+      token: null,
+      fotoPerfil: this.fotoPerfil
     });
 
     this.router.navigate(['/']);
   }
 
-  getImageProfile(): void {
-    this.auth.getImageProfile(this.token).subscribe(response => {
-      if(response.status) {
-        this.fotoPerfil = response.data.fotoPerfil;
-        this.auth.setImgProf(this.fotoPerfil);
-      }
-    },
-    error => {
-      console.log("error", error);
-    });
-  }
 
 }

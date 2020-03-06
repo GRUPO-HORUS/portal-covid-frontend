@@ -39,8 +39,16 @@ export class HeaderComponent  implements OnInit{
   ) {
 
     this.messageService.currentUserResult.subscribe(userSession => {
-      this.currentUser = userSession.currentUser;
-      this.token = userSession.token;
+      console.log('userSession', userSession);
+      if(userSession.currentUser) {
+        this.currentUser = userSession.currentUser;
+      }
+      if(userSession.token) {
+        this.token = userSession.token;
+      }
+      if(userSession.fotoPerfil) {
+        this.fotoPerfil = userSession.fotoPerfil;
+      }
     });
 
   }
@@ -51,13 +59,8 @@ export class HeaderComponent  implements OnInit{
 
     this.ciudadano = this.auth.getCurrentUser();
     this.token = this.auth.getToken();
-    if(this.ciudadano != null && this.token != null) {
-      if(this.auth.getImgProf() ==  null) {
-        this.getImageProfile();
-      } else {
-        this.fotoPerfil = this.auth.getImgProf();
-      }
-    }
+    this.fotoPerfil = this.auth.getImgProf();
+
   }
 
   verificarSession() {
@@ -102,7 +105,6 @@ export class HeaderComponent  implements OnInit{
 
   loginIdentidadElectronica(){
     this.verificarSession();
-
     if (!this.currentUser || this.token == null) {
       this.route.queryParams.subscribe(params => {
         if (params['code'] && this.auth.getState() == params['state']) {
@@ -161,18 +163,6 @@ export class HeaderComponent  implements OnInit{
     } else {
       this.router.navigate(['/form-perfil-ciudadano']);
     }
-  }
-
-  getImageProfile(): void {
-    this.auth.getImageProfile(this.token).subscribe(response => {
-      if(response.status) {
-        this.fotoPerfil = response.data.fotoPerfil;
-        this.auth.setImgProf(this.fotoPerfil);
-      }
-    },
-    error => {
-      console.log("error", error);
-    });
   }
 
 }
