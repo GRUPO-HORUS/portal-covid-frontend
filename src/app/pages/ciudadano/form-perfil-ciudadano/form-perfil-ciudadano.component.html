@@ -79,7 +79,8 @@
                 </div>
 
                 <div class="clearfix"></div>
-                <button (click)="actualizarDatosPersona()" type="button" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || !terminos">
+
+                <button (click)="actualizarDatosPersona()" type="button" class="btn btn-success btn-success-next" [disabled]="loading || !terminos"> <!--!miForm.form.valid || -->
                     Aceptar
                     <span class="fa fa-check"></span>
                 </button>
@@ -117,6 +118,27 @@
             </div>
             <div class="modal-body row">
                 <ie-terminos-template></ie-terminos-template>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalRespuesta" tabindex="-1" role="dialog" aria-labelledby="modalRespuestaLabel" aria-hidden="true">
+    <div style="max-width:400px;" class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content p-4">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalRespuestaLabel">
+                    Atención!
+                </h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body row" style="font-size: 14px;">
+                (<span style="font-weight: bold;" class="text-danger">*</span>) Debe completar todos los campos.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>

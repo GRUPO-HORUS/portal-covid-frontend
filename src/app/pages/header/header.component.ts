@@ -39,7 +39,7 @@ export class HeaderComponent  implements OnInit{
   ) {
 
     this.messageService.currentUserResult.subscribe(userSession => {
-      console.log('userSession', userSession);
+      //console.log('userSession', userSession);
       if(userSession.currentUser) {
         this.currentUser = userSession.currentUser;
       }
