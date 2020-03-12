@@ -93,6 +93,7 @@ export class FormPerfilCiudadanoComponent implements OnInit {
        || this.ciudadano.domicilio == null || this.ciudadano.domicilio.length <= 0
        || this.ciudadano.telefonoParticular == null  || this.ciudadano.telefonoParticular.length <= 0
        || this.ciudadano.telefonoMovil == null  || this.ciudadano.telefonoMovil.length <= 0
+       || !this.terminos
     ) {
       valido = false;
     }

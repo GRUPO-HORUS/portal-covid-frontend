@@ -2,7 +2,6 @@
 <div id="page-header" class="bg-gradient bg-shadow">
     <div class="container header-text clearfix">
         <h3>Perfil Ciudadano</h3>
-        <!--<buscar-informacion [hidden]="true" [hiddenButton]="true"></buscar-informacion>-->
     </div>
 </div>
 
@@ -12,8 +11,6 @@
     <div class="alert alert-info">
         Debe completar <span style="font-weight: bold;">todos los campos</span> (<span style="font-weight: bold;" class="text-danger">*</span>) y aceptar los términos y condiciones para continuar.
     </div>
-
-    <!-- <p>Para acceder a su perfil ciudadano y a los servicios, deberá de completar los siguientes datos:</p> -->
 
     <form #miForm="ngForm" class="mt-1">
         <div class="row">
@@ -40,12 +37,6 @@
                         <option *ngFor="let tp of barrios" [value]="tp.idBarrio">{{ tp.descripcion }}</option>
                     </select>
                 </div>
-                <!--
-                <div class="form-group">
-                    <label for="barrio"><strong> <i class="fa fa-info-circle"></i> Barrio </strong> </label>
-                    <input type="text" [(ngModel)]="ciudadano.barrio" name="barrio" class="form-control" required>
-                </div>
-                -->
             </div>
 
             <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
@@ -80,7 +71,7 @@
 
                 <div class="clearfix"></div>
 
-                <button (click)="actualizarDatosPersona()" type="button" class="btn btn-success btn-success-next" [disabled]="loading || !terminos"> <!--!miForm.form.valid || -->
+                <button (click)="actualizarDatosPersona()" type="button" class="btn btn-success btn-success-next" [disabled]="loading"> <!--!miForm.form.valid || -->
                     Aceptar
                     <span class="fa fa-check"></span>
                 </button>
@@ -91,10 +82,7 @@
                 </button>
 
                 <div class="clearfix"><br/></div>
-
-                <div>Debe completar todos los campos (<span style="font-weight: bold;" class="text-danger">*</span>)</div>
-
-                <div class="clearfix"><br/></div>
+                <!-- <div>Debe completar todos los campos (<span style="font-weight: bold;" class="text-danger">*</span>)</div> -->
 
                 <div class="alert alert-danger" *ngIf="message">
                     <i class="fa fa-info-circle"></i> {{message}}
@@ -130,15 +118,15 @@
     <div style="max-width:400px;" class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content p-4">
             <div class="modal-header">
-                <h3 class="modal-title" id="modalRespuestaLabel">
+                <h4 class="modal-title" id="modalRespuestaLabel">
                     Atención!
-                </h3>
+                </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body row" style="font-size: 14px;">
-                (<span style="font-weight: bold;" class="text-danger">*</span>) Debe completar todos los campos.
+            <div class="modal-body row" style="font-size: 15px;">
+                Debe completar todos los campos y aceptar los términos y condiciones para continuar.
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
