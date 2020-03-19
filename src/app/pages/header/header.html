@@ -7,7 +7,7 @@
 
                 <div class="header-brand">
                     <a class="header-brand-text p-1 mr-2" title="Portal Paraguay" routerLink="/">
-                        <img src="assets/img/logos/Portal-paraguay-claro-1x.png" class="logo-principal logo-portal-paraguay">
+                        <img src="assets/img/logos/GN-B-claro.png" class="logo-principal logo-portal-paraguay">
                     </a>
                 </div>
 
@@ -25,108 +25,12 @@
                             <i class="fa fa-times"></i> menú
                         </button>
                         <ul class="nav navbar-nav navbar-nav-stretch float-lg-right dropdown-effect-fade">
-                            <li class="nav-item">
-                                <a routerLink="/" (click)="searchData(null, topSite); scrollToTop(topSite); colapseMenu();" class="nav-link space-menu-info">
-                                    <i class="fa fa-home nav-link-icon mr-2"></i>
-                                    <span class="visible-xs">Portada</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle space-menu-info" id="pages-drop" data-toggle="dropdown" data-hover="dropdown">
-                                    <i class="fa fa-university nav-link-icon visible-xs mr-2"></i>
-                                    <span>El Estado</span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a routerLink="/estado" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item"><b>El Estado</b></a>
-                                    <a routerLink="/estado/poder-ejecutivo" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Ejecutivo</a>
-                                    <a routerLink="/estado/poder-legislativo" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Legislativo</a>
-                                    <a routerLink="/estado/poder-judicial" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Judicial</a>
-                                    <div class="dropdown dropdown-submenu">
-                                        <a href="#" class="dropdown-item active" id="otras-entidades" data-toggle="dropdown" data-hover="dropdown" data-close-others="false">Otras Entidades</a>
-                                        <div class="dropdown-menu" role="menu" aria-labelledby="otras-entidades">
-                                            <a routerLink="/estado/otros" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Otros Organismos del Estado</a>
-                                            <a routerLink="/estado/universidades-nacionales" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Universidades Nacionales</a>
-                                            <a routerLink="/estado/cgr" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Contraloría General de la República</a>
-                                            <a routerLink="/estado/binacionales" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Entidades Binacionales</a>
-                                            <a routerLink="/estado/banca-central" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Banca Central del Estado</a>
-                                            <a routerLink="/estado/autonomos-autarquicos" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Entes Autónomos y Autárquicos</a>
-                                            <a routerLink="/estado/seguridad-social" (click)="scrollToTop(topSite); colapseMenu();" style="word-wrap: break-word ¡important; white-space: normal;" class="dropdown-item">Entidades Públicas de Seguridad Social</a>
-                                            <a routerLink="/estado/empresas-publicas" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Empresas Públicas</a>
-                                            <a routerLink="/estado/financieras" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Entidades Financieras Oficiales</a>
-                                            <a routerLink="/estado/sa" (click)="scrollToTop(topSite); colapseMenu();" style="word-wrap: break-word ¡important; white-space: normal;" class="dropdown-item">Sociedades Anónimas</a>
-                                            <a href="https://www.gobernaciones.gov.py/gobernacion/" target="_blank" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Gobernaciones</a>
-                                            <a href="https://www.municipios.gov.py/municipios/" target="_blank" (click)="scrollToTop(topSite); colapseMenu();" class="dropdown-item">Municipios</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle space-menu-info" id="pages-drop" data-toggle="dropdown" data-hover="dropdown">
-                                    <i class="fa fa-file nav-link-icon visible-xs mr-2"></i>
-                                    <span>Trámites</span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a routerLink="/estadisticas-portal" class="dropdown-item" style="cursor:pointer;">
-                                        <b>Estadísticas</b>
-                                    </a>
-                                    <a *ngFor="let categoria of categoriaTramite" (click)="searchDataCategoria(categoria); colapseMenu();" class="dropdown-item no-decoration text-inverse" style="cursor:pointer;">
-                                        {{categoria.nombre_clasificador}}
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle space-menu-info" id="pages-drop" data-toggle="dropdown" data-hover="dropdown">
-                                    <i class="fa fa-globe nav-link-icon visible-xs mr-2"></i>
-                                    <span>Otros sitios</span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a href="https://www.presidencia.gov.py/" target="_blank" class="dropdown-item" tabindex="-1">Presidencia</a>
-                                    <a href="https://www.mspbs.gov.py" target="_blank" class="dropdown-item" tabindex="-1">Salud</a>
-                                    <a href="https://www.mec.gov.py" target="_blank" class="dropdown-item" tabindex="-1">Educación</a>
-                                    <a href="http://www.mtess.gov.py" target="_blank" class="dropdown-item" tabindex="-1">Trabajo</a>
-                                    <a href="http://portal.ips.gov.py" target="_blank" class="dropdown-item" tabindex="-1">Seguro social</a>
-                                    <a href="http://www.hacienda.gov.py" target="_blank" class="dropdown-item" tabindex="-1">Hacienda</a>
-                                    <a href="http://www.senatur.gov.py" target="_blank" class="dropdown-item" tabindex="-1">Turismo</a>
-                                    <a href="http://www.rediex.gov.py/" target="_blank" class="dropdown-item" tabindex="-1">Inversión</a>
-                                    <div class="dropdown dropdown-submenu">
-                                        <a href="#" class="dropdown-item active" id="otros-sitios" data-toggle="dropdown" data-hover="dropdown" data-close-others="false">Otros sitios</a>
-                                        <div class="dropdown-menu" role="menu" aria-labelledby="otros-sitios">
-                                            <a href="https://informacionpublica.paraguay.gov.py/" target="_blank" class="dropdown-item">Acceso a la Información Pública </a>
-                                            <a href="https://datos.gov.py/" target="_blank" class="dropdown-item">Datos Abiertos</a>
-                                            <a href="https://www.paraguayconcursa.gov.py/" target="_blank" class="dropdown-item">Trabaja en el Estado</a>
-                                            <a href="http://www.denuncias.gov.py/ssps/" target="_blank" class="dropdown-item">Denuncias Anticorrupción</a>
-                                            <a href="http://www.cursos.gov.py/" target="_blank" class="dropdown-item">Cursos grátuitos en Línea</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="nav-item dropdown pr-3">
-                                <a href="#" class="nav-link dropdown-toggle space-menu-info" id="pages-drop" data-toggle="dropdown" data-hover="dropdown">
-                                    <i class="fa fa-info-circle nav-link-icon mr-2"></i>
-                                    <span class="visible-xs">Enlaces de Interés</span>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a routerLink="/sobre-portal" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Sobre el Portal Único de Gobierno</a>
-                                    <a routerLink="/mapa-del-sitio" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Mapa del sitio</a>
-                                    <a routerLink="/datos-abiertos" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Datos Abiertos</a>
-                                    <a routerLink="/datos" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Datos Abiertos (microdata)</a>
-                                    <a routerLink="/gobierno-electronico" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Gobierno Electrónico</a>
-                                    <a routerLink="/firma-digital" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Firma Digital</a>
-                                    <a routerLink="/identidad-electronica" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Identidad Electrónica</a>
-                                    <a routerLink="/traductor-guarani" class="dropdown-item" (click)="searchData(null, topSite); colapseMenu();">Traductor Guaraní-Español</a>
-                                </div>
-                            </li>
 
                             <li class="nav-item dropdown">
 
                                 <a href="#" *ngIf="!currentUser || currentUser == 'undefined' || currentUser == 'null' || currentUser == null" class="nav-link dropdown-toggle space-menu-info btn-menu-destacado" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" style="border: 1px solid #ffffff24 !important">
                                     <i class="fa fa-user-circle nav-link-icon mr-2" style="font-size: 30px;
                                     margin: -2px 0 -2px -5px"></i>
-                                    <span><b>Identidad Electrónica</b></span>
                                 </a>
 
                                 <a href="#" *ngIf="currentUser" class="nav-link dropdown-toggle space-menu-info btn-menu-destacado" id="pages-drop" data-toggle="dropdown" data-hover="dropdown" style="border: 1px solid #ffffff24 !important">

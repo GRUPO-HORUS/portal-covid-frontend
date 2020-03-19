@@ -35,6 +35,8 @@ import { RestablecerClaveComponent } from './pages/identidad-electronica/restabl
 import {DemoMaterialModule} from './material-module';
 import { ChartjsModule } from '@ctrl/ngx-chartjs';
 import { ModalModule } from './lib/modal-custom';
+import { Covid19Component } from './pages/covid19/covid19.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 /*
   @autor: Luis Cardozo
@@ -54,6 +56,7 @@ import { ModalModule } from './lib/modal-custom';
     KeysPipe,
     ArraySortPipe,
     RestablecerClaveComponent,
+    Covid19Component
   ],
   // dependencias de módulos
   imports: [
@@ -78,7 +81,8 @@ import { ModalModule } from './lib/modal-custom';
     ToastrModule.forRoot(),
     ToastContainerModule,
     ModalModule,
-    RecaptchaV3Module
+    RecaptchaV3Module,
+    DropdownModule
   ],
   providers: [
     appRoutingProviders,
