@@ -87,7 +87,7 @@ export class FormPerfilCiudadanoComponent implements OnInit {
   validarDatos(): boolean {
     let valido = true;
     if(
-          this.ciudadano.idDepartamento == null || this.ciudadano.idDepartamento <= 0 
+          this.ciudadano.idDepartamento == null || this.ciudadano.idDepartamento < 0 
        || this.ciudadano.idCiudad == null  || this.ciudadano.idCiudad <= 0
        || this.ciudadano.idBarrio == null  || this.ciudadano.idBarrio <= 0
        || this.ciudadano.domicilio == null || this.ciudadano.domicilio.length <= 0
