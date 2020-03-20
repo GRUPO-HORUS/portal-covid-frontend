@@ -36,10 +36,16 @@ import {DemoMaterialModule} from './material-module';
 import { ChartjsModule } from '@ctrl/ngx-chartjs';
 import { ModalModule } from './lib/modal-custom';
 import { Covid19Component } from './pages/covid19/covid19.component';
+import { CargaCodigoComponent } from './pages/covid19/carga-codigo.component';
+import { DatosClinicosComponent } from './pages/covid19/datos-clinicos.component';
 import { DropdownModule } from 'primeng/dropdown';
 
+import {CheckboxModule} from 'primeng/checkbox';
+
+import { QRCodeModule } from 'angularx-qrcode';
+
 /*
-  @autor: Luis Cardozo
+  @autor:
   @date: 29/06/2017
 */
 @NgModule({
@@ -56,13 +62,14 @@ import { DropdownModule } from 'primeng/dropdown';
     KeysPipe,
     ArraySortPipe,
     RestablecerClaveComponent,
-    Covid19Component
+    Covid19Component,
+    CargaCodigoComponent,
+    DatosClinicosComponent
   ],
   // dependencias de módulos
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule,
     ScrollToModule.forRoot(),
     routing,
     OwlModule,
@@ -82,7 +89,10 @@ import { DropdownModule } from 'primeng/dropdown';
     ToastContainerModule,
     ModalModule,
     RecaptchaV3Module,
-    DropdownModule
+    DropdownModule,
+    CheckboxModule,
+    FormsModule,
+    QRCodeModule
   ],
   providers: [
     appRoutingProviders,

@@ -1,7 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from 'rxjs';
 import { Covid19Service } from '../../services/Covid19Service';
+
+import {FormDatosBasicos} from './model/formDatosBasicos.model';
+
 declare var $: any;
 
 @Component({
@@ -13,6 +16,9 @@ export class Covid19Component implements OnInit {
 
   public loading: boolean;
   public mensaje: string;
+
+  //Formulario
+  public formDatosBasicos: FormDatosBasicos;
 
   // datos del formulario 
   public cedula: string;
@@ -34,9 +40,12 @@ export class Covid19Component implements OnInit {
   public recentToken: string = ''
   public recaptchaAvailable = false;
 
+  public origen: string;
+
   constructor(
     private _router: Router,
-    private service: Covid19Service
+    private service: Covid19Service,
+    private _route: ActivatedRoute
   ) {
     this.loading = false;
     if (typeof localStorage !== "undefined") {
@@ -45,6 +54,12 @@ export class Covid19Component implements OnInit {
   }
 
   ngOnInit() {
+    this.formDatosBasicos = new FormDatosBasicos();
+
+    this._route.params.subscribe(params => {
+      //this.origen = params["origen"];
+      this.formDatosBasicos.tipoInicio = "Aeropuerto";
+    });
   }
 
   ngOnDestroy() {
@@ -53,9 +68,34 @@ export class Covid19Component implements OnInit {
     }
   }
 
+  guardar(formDatosBasicos): void {
+    this.loading = true;
+        this.service.guardarDatosBasicos(formDatosBasicos).subscribe(response => {
+            console.log(response);
+            if (response) {
+              this.loading = false;
+              this.mensaje = "Mensaje Enviado con Éxito";
+              //this.openMessageDialog();
+              this._router.navigate(["covid19/carga-codigo/"]);
+            } else {
+              this.loading = false;
+              this.mensaje = "Fallo";
+              this.openMessageDialog();
+
+            }
+          }, error => {
+            this.loading = false;
+            this.mensaje = "No se pudo procesar la operación!";
+            this.openMessageDialog();
+            
+          }
+        );
+  }
+
   avanzar(telefono: string): void {
     this.loading = true;
         this.service.sendMessage(telefono).subscribe(response => {
+            console.log(response);
             if (response) {
               this.loading = false;
               this.mensaje = "Mensaje Enviado con Éxito";
@@ -64,11 +104,13 @@ export class Covid19Component implements OnInit {
               this.loading = false;
               this.mensaje = "Fallo";
               this.openMessageDialog();
+
             }
           }, error => {
             this.loading = false;
             this.mensaje = "No se pudo procesar la operación!";
-            this.openMessageDialog();
+            //this.openMessageDialog();
+            this._router.navigate(["covid19/carga-codigo/"]);
           }
         );
   }
