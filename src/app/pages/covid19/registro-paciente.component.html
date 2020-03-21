@@ -59,14 +59,14 @@
 
                     <div class="clearfix"><br/></div>
 
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <input type="checkbox" style="width:20px;height:20px;" id="terminos" name="terminos" [(ngModel)]="terminos" />
                         <b><span class="text-danger">*</span>Acepto los términos y condiciones</b>
                         <p><a data-toggle="modal" href="#" data-target="#modalTerminosIE">Ver términos y condiciones</a> </p>
-                    </div>
+                    </div>-->
 
                     <div class="clearfix"><br/></div>
-                    <button (click)="registrar(formDatosBasicos)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || !terminos">
+                    <button (click)="registrar(formDatosBasicos)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
                         <!--  || !telefValido || telefono.indexOf('+')!=0 -->
                             Guardar
                             <span class="fa fa-check"></span>            

@@ -43,8 +43,12 @@ import { DropdownModule } from 'primeng/dropdown';
 
 import {CheckboxModule} from 'primeng/checkbox';
 
+import {RadioButtonModule} from 'primeng/radiobutton';
+
 import { QRCodeModule } from 'angularx-qrcode';
 import { MostrarDatosPacienteComponent } from "./pages/covid19/mostrar-datos-paciente.component";
+
+import { MostrarDatosAlPacienteComponent } from "./pages/covid19/mostrar-datos-al-paciente.component";
 
 /*
   @autor:
@@ -68,7 +72,8 @@ import { MostrarDatosPacienteComponent } from "./pages/covid19/mostrar-datos-pac
     CargaCodigoComponent,
     DatosClinicosComponent,
     RegistroPacienteComponent,
-    MostrarDatosPacienteComponent
+    MostrarDatosPacienteComponent,
+    MostrarDatosAlPacienteComponent
   ],
   // dependencias de módulos
   imports: [
@@ -95,6 +100,7 @@ import { MostrarDatosPacienteComponent } from "./pages/covid19/mostrar-datos-pac
     RecaptchaV3Module,
     DropdownModule,
     CheckboxModule,
+    RadioButtonModule,
     FormsModule,
     QRCodeModule
   ],

@@ -5,11 +5,10 @@ import { HttpClient } from "@angular/common/http";
 
 import { HttpErrorHandler } from 'app/pages/identidad-electronica/model/http.error.handler';
 import { catchError } from '../../../node_modules/rxjs/operators';
+import { FormDatosBasicos } from "app/pages/covid19/model/formDatosBasicos.model";
 
 @Injectable()
 export class Covid19Service {
-
-  public data:any;
 
   constructor(private config: AppConfig, private httpClient: HttpClient) {}
 
@@ -27,6 +26,16 @@ export class Covid19Service {
     registrarPaciente(formDatosBasicos): Observable<string> {
       return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/datosBasicos', formDatosBasicos)
         .pipe(catchError(this.handler.handleError<string>('/covid19api/aislamiento/datosBasicos')));
+    }
+
+    guardarDatosClinicos(formDatosClinicos): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/datosClinicos', formDatosClinicos)
+        .pipe(catchError(this.handler.handleError<string>('/covid19api/aislamiento/datosClinicos')));
+    }
+
+    getDatosBasicos(idRegistro, codigoVerif): Observable<FormDatosBasicos> {
+      return this.httpClient.get<FormDatosBasicos>(this.config.API + '/covid19api/aislamiento/datosBasicosAislamiento/'+idRegistro+"/"+codigoVerif)
+        .pipe(catchError(this.handler.handleError<FormDatosBasicos>('/covid19api/aislamiento/datosBasicosAislamiento')));
     }
 
     /*crearConfiguracion(configuracion: Configuracion): Observable<MessageResponse> {

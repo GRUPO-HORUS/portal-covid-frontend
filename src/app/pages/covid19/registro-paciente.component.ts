@@ -73,18 +73,15 @@ export class RegistroPacienteComponent implements OnInit {
     localStorage.setItem('numeroCelular', formDatosBasicos.numeroCelular);
     localStorage.setItem('direccion', formDatosBasicos.direccionDomicilio);
     localStorage.setItem('email', formDatosBasicos.correoElectronico);
-    localStorage.setItem('codigo', 'bcdaspwe');
-
-    this.service.data = formDatosBasicos.nombre;
+    
     this._router.navigate(["covid19/datos-paciente/"]);
-      /*this.loading = true;
+      this.loading = true;
       this.service.registrarPaciente(formDatosBasicos).subscribe(response => {
             console.log(response);
             if (response) {
               this.loading = false;
               this.mensaje = "Mensaje Enviado con Éxito";
-              //this.openMessageDialog();
-              this.service.state = formDatosBasicos;
+              localStorage.setItem('codigo', response);
               this._router.navigate(["covid19/datos-paciente/"]);
             } else {
               this.loading = false;
@@ -98,7 +95,7 @@ export class RegistroPacienteComponent implements OnInit {
             this.openMessageDialog();
             
           }
-      );*/
+      );
   }
 
   avanzar(telefono: string): void {

@@ -52,6 +52,8 @@ import { RegistroPacienteComponent } from "./pages/covid19/registro-paciente.com
 
 import { MostrarDatosPacienteComponent } from "./pages/covid19/mostrar-datos-paciente.component";
 
+import { MostrarDatosAlPacienteComponent } from "./pages/covid19/mostrar-datos-al-paciente.component";
+
 import { CargaCodigoComponent } from "./pages/covid19/carga-codigo.component";
 import { DatosClinicosComponent } from "./pages/covid19/datos-clinicos.component";
 /**
@@ -188,9 +190,11 @@ export const appRoutes: Routes = [
   { path: "covid19/registro-paciente", component: RegistroPacienteComponent },
   { path: "covid19/datos-paciente", component: MostrarDatosPacienteComponent },
 
+  { path: "covid19/aislamiento/datos-al-paciente", component: MostrarDatosAlPacienteComponent },
+
   { path: "covid19/carga-codigo", component: CargaCodigoComponent },
 
-  { path: "covid19/datos-clinicos", component: DatosClinicosComponent },
+  { path: "covid19/aislamiento/datos-clinicos/:idRegistro/:codigoVerif", component: DatosClinicosComponent },
 
   { path: "**", component: Page404Component }
 ];
