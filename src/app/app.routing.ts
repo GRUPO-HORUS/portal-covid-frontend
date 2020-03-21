@@ -48,8 +48,11 @@ import { PasoFinalCreacionClaveComponent } from "./pages/identidad-electronica/p
 import { IdentidadElectronicaComponent } from "./pages/identidad-electronica/identidad-electronica.component";
 import { Covid19Component } from "./pages/covid19/covid19.component";
 
-import { CargaCodigoComponent } from "./pages/covid19/carga-codigo.component";
+import { RegistroPacienteComponent } from "./pages/covid19/registro-paciente.component";
 
+import { MostrarDatosPacienteComponent } from "./pages/covid19/mostrar-datos-paciente.component";
+
+import { CargaCodigoComponent } from "./pages/covid19/carga-codigo.component";
 import { DatosClinicosComponent } from "./pages/covid19/datos-clinicos.component";
 /**
  *  PLUGINS
@@ -181,7 +184,9 @@ export const appRoutes: Routes = [
   { path: "listados", component: RptListadoTmp },
   { path: "listados/:tipo", component: RptTramitesSinTag },
 
-  { path: "covid19", component: Covid19Component },
+  //{ path: "covid19", component: Covid19Component },
+  { path: "covid19/registro-paciente", component: RegistroPacienteComponent },
+  { path: "covid19/datos-paciente", component: MostrarDatosPacienteComponent },
 
   { path: "covid19/carga-codigo", component: CargaCodigoComponent },
 

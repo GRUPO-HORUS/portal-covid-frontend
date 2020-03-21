@@ -38,11 +38,13 @@ import { ModalModule } from './lib/modal-custom';
 import { Covid19Component } from './pages/covid19/covid19.component';
 import { CargaCodigoComponent } from './pages/covid19/carga-codigo.component';
 import { DatosClinicosComponent } from './pages/covid19/datos-clinicos.component';
+import { RegistroPacienteComponent } from './pages/covid19/registro-paciente.component';
 import { DropdownModule } from 'primeng/dropdown';
 
 import {CheckboxModule} from 'primeng/checkbox';
 
 import { QRCodeModule } from 'angularx-qrcode';
+import { MostrarDatosPacienteComponent } from "./pages/covid19/mostrar-datos-paciente.component";
 
 /*
   @autor:
@@ -64,7 +66,9 @@ import { QRCodeModule } from 'angularx-qrcode';
     RestablecerClaveComponent,
     Covid19Component,
     CargaCodigoComponent,
-    DatosClinicosComponent
+    DatosClinicosComponent,
+    RegistroPacienteComponent,
+    MostrarDatosPacienteComponent
   ],
   // dependencias de módulos
   imports: [

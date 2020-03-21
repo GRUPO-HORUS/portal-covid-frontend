@@ -8,11 +8,11 @@ import {FormDatosBasicos} from './model/formDatosBasicos.model';
 declare var $: any;
 
 @Component({
-  selector: "covid19-selector",
-  templateUrl: "./covid19.component.html",
+  selector: "mostrar-datos-paciente-selector",
+  templateUrl: "./mostrar-datos-paciente.component.html",
   providers: [Covid19Service]
 })
-export class Covid19Component implements OnInit {
+export class MostrarDatosPacienteComponent implements OnInit {
 
   public loading: boolean;
   public mensaje: string;
@@ -42,24 +42,32 @@ export class Covid19Component implements OnInit {
 
   public origen: string;
 
+  public codigoVerif: string;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
     private _route: ActivatedRoute
   ) {
     this.loading = false;
-    if (typeof localStorage !== "undefined") {
-      localStorage.clear();
-    }
+    /*if (typeof localStorage !== "undefined") {
+        localStorage.clear();
+    }*/
   }
 
   ngOnInit() {
+    console.log("datos paciente");
+    //console.log(localStorage.getItem('datos'));
     this.formDatosBasicos = new FormDatosBasicos();
+    this.formDatosBasicos.numeroDocumento = localStorage.getItem('tipoDocumento');
+    this.formDatosBasicos.numeroDocumento = localStorage.getItem('numeroDocumento');
+    this.formDatosBasicos.nombre = localStorage.getItem('nombre');
+    this.formDatosBasicos.apellido = localStorage.getItem('apellido');
+    this.formDatosBasicos.numeroCelular = localStorage.getItem('numeroCelular');
+    this.formDatosBasicos.direccionDomicilio = localStorage.getItem('direccion');
+    this.formDatosBasicos.correoElectronico = localStorage.getItem('email');
+    this.codigoVerif = localStorage.getItem('codigo');
 
-    this._route.params.subscribe(params => {
-      //this.origen = params["origen"];
-      this.formDatosBasicos.tipoInicio = "Aeropuerto";
-    });
   }
 
   ngOnDestroy() {
@@ -68,11 +76,11 @@ export class Covid19Component implements OnInit {
     }
   }
 
-  guardar(formDatosBasicos): void {
-    console.log("Aprieto");
-    //this.loading = true;
-        /*this.service.guardarDatosBasicos(formDatosBasicos).subscribe(response => {
-            
+  registrar(formDatosBasicos): void {
+    
+    this.loading = true;
+        this.service.registrarPaciente(formDatosBasicos).subscribe(response => {
+            console.log(response);
             if (response) {
               this.loading = false;
               this.mensaje = "Mensaje Enviado con Éxito";
@@ -90,13 +98,12 @@ export class Covid19Component implements OnInit {
             this.openMessageDialog();
             
           }
-        );*/
+        );
   }
 
   avanzar(telefono: string): void {
     this.loading = true;
         this.service.sendMessage(telefono).subscribe(response => {
-            console.log(response);
             if (response) {
               this.loading = false;
               this.mensaje = "Mensaje Enviado con Éxito";
@@ -110,8 +117,7 @@ export class Covid19Component implements OnInit {
           }, error => {
             this.loading = false;
             this.mensaje = "No se pudo procesar la operación!";
-            //this.openMessageDialog();
-            this._router.navigate(["covid19/carga-codigo/"]);
+            this.openMessageDialog();
           }
         );
   }

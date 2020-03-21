@@ -9,6 +9,8 @@ import { catchError } from '../../../node_modules/rxjs/operators';
 @Injectable()
 export class Covid19Service {
 
+  public data:any;
+
   constructor(private config: AppConfig, private httpClient: HttpClient) {}
 
   handler: HttpErrorHandler = new HttpErrorHandler();
@@ -20,6 +22,11 @@ export class Covid19Service {
     guardarDatosBasicos(formDatosBasicos): Observable<any[]> {
       return this.httpClient.post<any[]>(this.config.API + '/covid19api/ingresoPais/datosBasicosViajero', formDatosBasicos)
         .pipe(catchError(this.handler.handleError<any[]>('/covid19api/ingresoPais/datosBasicosViajero')));
+    }
+
+    registrarPaciente(formDatosBasicos): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/datosBasicos', formDatosBasicos)
+        .pipe(catchError(this.handler.handleError<string>('/covid19api/aislamiento/datosBasicos')));
     }
 
     /*crearConfiguracion(configuracion: Configuracion): Observable<MessageResponse> {

@@ -31,7 +31,6 @@ export class DatosClinicosComponent implements OnInit {
   public dolorGarganta: boolean;
   public declarationAgreement: boolean;
   public sintomasOtro: string;
-  
 
   private subscription: Subscription;
   public recentToken: string = ''
@@ -50,7 +49,7 @@ export class DatosClinicosComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    console.log("datos clinicos");
   }
 
   ngOnDestroy() {

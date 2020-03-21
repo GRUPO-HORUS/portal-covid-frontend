@@ -44,7 +44,7 @@
 
                     <div class="form-group">
                         <label for="ocupacion"><strong>Ocupación</strong></label>
-                        <input type="text" [(ngModel)]="ocupacion" name="ocupacion" class="form-control" style="max-width: 300px;" id="ocupacion">
+                        <input type="text" [(ngModel)]="ocupacion" name="ocupacion" class="form-control" style="max-width: 300px;" id="ocupacion" required>
                     </div>
 
                     <p-dropdown id="paisOrigen" [options]="paisOrigenOptions" label="label" placeholder="Seleccionar" [(ngModel)]="paisOrigen" name="paisOrigen" id="paisOrigen"></p-dropdown>

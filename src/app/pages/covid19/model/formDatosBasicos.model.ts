@@ -9,8 +9,10 @@ export class FormDatosBasicos {
     numeroCelular: string;
     correoElectronico: string;
     direccionDomicilio: string;
-
     paisEmisorDocumento: string;
     tipoInicio: string;
+
+    contrasenha: string;
+    contrasenhaConfirm: string;
 
 }

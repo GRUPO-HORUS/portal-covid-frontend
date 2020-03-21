@@ -8,11 +8,11 @@ import {FormDatosBasicos} from './model/formDatosBasicos.model';
 declare var $: any;
 
 @Component({
-  selector: "covid19-selector",
-  templateUrl: "./covid19.component.html",
+  selector: "registro-paciente-selector",
+  templateUrl: "./registro-paciente.component.html",
   providers: [Covid19Service]
 })
-export class Covid19Component implements OnInit {
+export class RegistroPacienteComponent implements OnInit {
 
   public loading: boolean;
   public mensaje: string;
@@ -33,9 +33,6 @@ export class Covid19Component implements OnInit {
   public apellido: string;
   public direccion: string;
 
-  // recaptcha
-  // public captchaResponse: string;
-  // public captcha: any;
   private subscription: Subscription;
   public recentToken: string = ''
   public recaptchaAvailable = false;
@@ -54,12 +51,12 @@ export class Covid19Component implements OnInit {
   }
 
   ngOnInit() {
+    console.log("registro paciente");
     this.formDatosBasicos = new FormDatosBasicos();
 
-    this._route.params.subscribe(params => {
-      //this.origen = params["origen"];
-      this.formDatosBasicos.tipoInicio = "Aeropuerto";
-    });
+    /*this._route.params.subscribe(params => {
+        this.formDatosBasicos.tipoInicio = params["tipoInicio"];
+    });*/
   }
 
   ngOnDestroy() {
@@ -68,16 +65,27 @@ export class Covid19Component implements OnInit {
     }
   }
 
-  guardar(formDatosBasicos): void {
-    console.log("Aprieto");
-    //this.loading = true;
-        /*this.service.guardarDatosBasicos(formDatosBasicos).subscribe(response => {
-            
+  registrar(formDatosBasicos): void {
+    localStorage.setItem('tipoDocumento', formDatosBasicos.tipoDocumento);
+    localStorage.setItem('numeroDocumento', formDatosBasicos.numeroDocumento);
+    localStorage.setItem('nombre', formDatosBasicos.nombre);
+    localStorage.setItem('apellido', formDatosBasicos.apellido);
+    localStorage.setItem('numeroCelular', formDatosBasicos.numeroCelular);
+    localStorage.setItem('direccion', formDatosBasicos.direccionDomicilio);
+    localStorage.setItem('email', formDatosBasicos.correoElectronico);
+    localStorage.setItem('codigo', 'bcdaspwe');
+
+    this.service.data = formDatosBasicos.nombre;
+    this._router.navigate(["covid19/datos-paciente/"]);
+      /*this.loading = true;
+      this.service.registrarPaciente(formDatosBasicos).subscribe(response => {
+            console.log(response);
             if (response) {
               this.loading = false;
               this.mensaje = "Mensaje Enviado con Éxito";
               //this.openMessageDialog();
-              this._router.navigate(["covid19/carga-codigo/"]);
+              this.service.state = formDatosBasicos;
+              this._router.navigate(["covid19/datos-paciente/"]);
             } else {
               this.loading = false;
               this.mensaje = "Fallo";
@@ -90,13 +98,12 @@ export class Covid19Component implements OnInit {
             this.openMessageDialog();
             
           }
-        );*/
+      );*/
   }
 
   avanzar(telefono: string): void {
     this.loading = true;
         this.service.sendMessage(telefono).subscribe(response => {
-            console.log(response);
             if (response) {
               this.loading = false;
               this.mensaje = "Mensaje Enviado con Éxito";
@@ -110,8 +117,7 @@ export class Covid19Component implements OnInit {
           }, error => {
             this.loading = false;
             this.mensaje = "No se pudo procesar la operación!";
-            //this.openMessageDialog();
-            this._router.navigate(["covid19/carga-codigo/"]);
+            this.openMessageDialog();
           }
         );
   }
