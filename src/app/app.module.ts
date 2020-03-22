@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { HttpClientModule } from '@angular/common/http';
 import { ScrollToModule } from "ng2-scroll-to";
 import { ScrollToService } from "ng2-scroll-to-el";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSnackBarModule } from "@angular/material";
 import { routing, routesComponents, appRoutingProviders } from "./app.routing";
 import { AppComponent } from "./app.component";
@@ -138,7 +138,8 @@ import { UsuarioEditarRolComponent } from './pages/usuario/usuario-editar-rol/us
     QRCodeModule,
     MessagesModule,
     MessageModule,
-    WebStorageModule
+    WebStorageModule,
+    ReactiveFormsModule 
   ],
   providers: [
     appRoutingProviders,
