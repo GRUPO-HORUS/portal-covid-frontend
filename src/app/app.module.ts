@@ -82,6 +82,8 @@ import { TableModule } from 'primeng/table';
 
 import { DialogModule } from 'primeng/dialog';
 
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 /*
   @autor:
   @date: 29/06/2017
@@ -152,7 +154,8 @@ import { DialogModule } from 'primeng/dialog';
     BlockUIModule,
     ProgressSpinnerModule,
     TableModule,
-    DialogModule
+    DialogModule,
+    ConfirmDialogModule
   ],
   providers: [
     appRoutingProviders,

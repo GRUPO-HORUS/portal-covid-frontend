@@ -93,8 +93,6 @@
                     <div [formGroup]="formGroup">
                       <input pInputText type="text" formControlName="oee" required style="width: 90%">
                       <button pButton icon="pi pi-search" (click)="searchOee()" style="width: 5%"></button>
-                      <app-listar-oee [(visible)]="showOeeDialog" (onSelect)="onSelectOee(rowData,$event)"
-                        (bindVisible)="changeDialogOeeVisibility($event)"></app-listar-oee>
                     </div>
                   </ng-template>
                   <ng-template pTemplate="output">
