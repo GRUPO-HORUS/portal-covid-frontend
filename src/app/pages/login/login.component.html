@@ -7,7 +7,7 @@
 </div>
 <div id="content" class="pb-0">
 <div id="login-wrapper">
-  <img src="assets/layout/images/login/icon-login.svg" />
+  <!--img src="assets/layout/images/login/icon-login.svg" /-->
   <style>
   @media (min-width: 1025px){
     .layout-wrapper.menu-layout-static.layout-menu-static-inactive .layout-menu-container {
@@ -17,18 +17,17 @@
   </style>
 
   <p-messages [value]="msgs"></p-messages>
-  <div id="login-container" style="height: 330px !important;">
+  <div id="login-container" style="height: 330px !important;max-width:400px;margin: auto;text-align:center;">
     <!-- <span class="title">Bienvenido </span> -->
-    <h2 class="welcome-text">Bienvenido</h2>
-    <span class="guest-sign-in">Inicie sesión para administrar sus recursos</span>
+    <h3 class="welcome-text">Gestión de Pacientes <br> en Aislamiento</h3>
+    <!--span class="guest-sign-in">Inicie sesión para administrar sus recursos</span-->
 
     <form #loginForm="ngForm">
       <div class="ui-g ui-fluid">
 
         <div class="ui-g-12">
           <input type="text" pInputText autocomplete="off"
-            [ngClass]="{'ui-inputtext ui-corner-all ui-state-default ui-widget': usuario.valid || usuario.pristine ,'ng-dirty ng-invalid ui-inputtext ui-corner-all ui-state-default ui-widget': !usuario.valid || !usuario.pristine }"
-            placeholder="Email" id="usuario" name="usuario" [(ngModel)]="up.username" required #usuario="ngModel" />
+            placeholder="Cédula" id="usuario" name="usuario" [(ngModel)]="up.username" required #usuario="ngModel" />
           <div [hidden]="usuario.valid || usuario.pristine">
             <p-message severity="error" text="Nombre de usuario requerido"></p-message>
           </div>
@@ -36,7 +35,6 @@
 
         <div class="ui-g-12">
           <input type="password" autocomplete="off"
-            [ngClass]="{'ui-inputtext ui-corner-all ui-state-default ui-widget': clave.valid || clave.pristine ,'ng-dirty ng-invalid ui-inputtext ui-corner-all ui-state-default ui-widget': !clave.valid || !clave.pristine }"
             placeholder="Clave" id="clave" name="clave" [(ngModel)]="up.password" required #clave="ngModel" />
           <div [hidden]="clave.valid || clave.pristine">
             <p-message severity="error" text="Clave requerida"></p-message>
@@ -45,12 +43,12 @@
 
         <div class="ui-g-12">
           <button type="button" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left"
-            [disabled]="!loginForm.form.valid" (click)="doLogin()">
+            [disabled]="!loginForm.form.valid" (click)="doLogin()" style="width:200px;">
             <span class="ui-button-icon-left ui-c fa fa-fw ui-icon-person"></span>
             <span class="ui-button-text ui-c">Iniciar sesión</span>
           </button>
           <br><br>
-          <a [routerLink]="['/generarClave']" >Crear/Cambiar contraseña</a>
+          <!--a [routerLink]="['/generarClave']" >Crear/Cambiar contraseña</a-->
         </div>
 
         <div class="ui-g-12 link-pane">
