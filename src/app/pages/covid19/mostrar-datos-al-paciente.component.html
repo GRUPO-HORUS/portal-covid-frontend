@@ -16,16 +16,16 @@
                 </h3>
 
                 <form #miForm="ngForm" class="mt-4">
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label for="tipoDocumento"><strong>Tipo de Documento</strong></label>
                         <br>
                         <p-dropdown id="tipoDocumento" [options]="tipoDocumentoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.tipoDocumento" name="tipoDocumento" id="tipoDocumento" required disabled></p-dropdown>
-                    </div>
+                    </div>-->
 
-                    <!--<div class="form-group">
+                    <div class="form-group">
                         <label for="tipoDocumento"><strong>Tipo de Documento </strong></label>
                         <input type="text" [(ngModel)]="tipoDocumento" class="form-control" style="max-width: 200px;" id="tipoDocumento" name="tipoDocumento" required readonly>
-                    </div>-->
+                    </div>
 
                     <div class="form-group">
                         <label for="numeroDocumento"><strong>Cédula </strong></label>
@@ -63,6 +63,16 @@
                         <input type="text" [(ngModel)]="codigoVerif" name="codigoVerif" class="form-control" style="max-width: 300px;" id="codigoVerif" required readonly>
                     </div>
 
+                    <div class="form-group">
+                        <label for="contrasenha"><strong>Contraseña </strong></label>
+                        <input type="password" [(ngModel)]="contrasenha" class="form-control" id="contrasenha" style="max-width: 300px;" name="contrasenha" minlength="8" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contrasenhaConfirm"><strong>Confirmar contraseña</strong></label>
+                        <input type="password" [(ngModel)]="contrasenhaConfirm" name="contrasenhaConfirm" class="form-control" style="max-width: 300px;" id="contrasenhaConfirm" required>
+                    </div>
+
                     <div class="text-center" *ngIf="loading">
                         <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> A partir de ahora vamos a validar que sos vos...
                     </div>
@@ -76,16 +86,17 @@
                     </div>-->
 
                     <div class="clearfix"><br/></div>
-                    <button (click)="registrar(formDatosBasicos)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || !terminos">
+                    <button (click)="validarTelefono(formDatosBasicos.contrasenha)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || contrasenha !== contrasenhaConfirm">
                             Guardar
                             <span class="fa fa-check"></span>            
                         </button>
                 </form>
 
                 <div class="clearfix"><br/></div>
-                <!--<div class="alert alert-info">
-                    <i class="fa fa-info-circle"></i> Debe completar todos los campos en el formato correcto para iniciar.
-                </div>-->
+                <div class="alert alert-info">
+                    <br><i class="fa fa-info-circle"></i> La contraseña debe tener un mínimo de 8 caracteres.
+                    <!--<i class="fa fa-info-circle"></i> Debe completar todos los campos en el formato correcto para iniciar.-->
+                </div>
             </div>
 
             <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

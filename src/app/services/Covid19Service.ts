@@ -38,6 +38,11 @@ export class Covid19Service {
         .pipe(catchError(this.handler.handleError<FormDatosBasicos>('/covid19api/aislamiento/datosBasicosAislamiento')));
     }
 
+    validarTelefono(idRegistro, codigoVerif, contrasenha): Observable<any> {
+      return this.httpClient.post<any>(this.config.API + '/covid19api/aislamiento/validarTelefono/'+idRegistro+"/"+codigoVerif, contrasenha);
+        //.pipe(catchError(this.handler.handleError<any>('/covid19api/aislamiento/validarTelefono')));
+    }
+
     /*crearConfiguracion(configuracion: Configuracion): Observable<MessageResponse> {
       this.loading.next(true);
       return this.http.post<MessageResponse>(this.url + '/crear', configuracion)

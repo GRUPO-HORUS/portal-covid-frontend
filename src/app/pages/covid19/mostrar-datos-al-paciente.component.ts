@@ -8,11 +8,11 @@ import {FormDatosBasicos} from './model/formDatosBasicos.model';
 declare var $: any;
 
 @Component({
-  selector: "mostrar-datos-paciente-selector",
-  templateUrl: "./mostrar-datos-paciente.component.html",
+  selector: "mostrar-datos-al-paciente-selector",
+  templateUrl: "./mostrar-datos-al-paciente.component.html",
   providers: [Covid19Service]
 })
-export class MostrarDatosPacienteComponent implements OnInit {
+export class MostrarDatosAlPacienteComponent implements OnInit {
 
   public loading: boolean;
   public mensaje: string;
@@ -42,7 +42,11 @@ export class MostrarDatosPacienteComponent implements OnInit {
 
   public origen: string;
 
+  public idRegistro: number;
   public codigoVerif: string;
+
+  public contrasenha: string;
+  public contrasenhaConfirm: string;
 
   constructor(
     private _router: Router,
@@ -56,22 +60,41 @@ export class MostrarDatosPacienteComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("datos paciente");
-    this.formDatosBasicos = new FormDatosBasicos();
+    console.log("mostrar datos al paciente");
+    this._route.params.subscribe(params => {
+      this.idRegistro = params["idRegistro"];
+      this.codigoVerif = params["codigoVerif"];
+    });
     
-    this.formDatosBasicos.tipoDocumento = +localStorage.getItem('tipoDocumento');
-    if(this.formDatosBasicos.tipoDocumento==='0'){
-      this.tipoDocumento = 'Cédula de Identidad';
-    }else{
-      this.tipoDocumento = 'Pasaporte';
+    this.service.getDatosBasicos(this.idRegistro, this.codigoVerif).subscribe(response => {
+      console.log(response);
+      if (response) {
+        this.loading = false;
+        this.mensaje = "Mensaje Enviado con Éxito";
+
+        this.formDatosBasicos = new FormDatosBasicos();     
+        this.formDatosBasicos = response;
+
+        if(this.formDatosBasicos.tipoDocumento==='0'){
+          this.tipoDocumento = 'Cédula de Identidad';
+        }else{
+          this.tipoDocumento = 'Pasaporte';
+        }
+
+        //this._router.navigate(["covid19/carga-codigo/"]);
+      } else {
+        /*this.loading = false;
+        this.mensaje = "Fallo";
+        this.openMessageDialog();*/
+
+      }
+    }, error => {
+      this.loading = false;
+      this.mensaje = "No se pudo procesar la operación!";
+      this.openMessageDialog();
+      
     }
-    this.formDatosBasicos.numeroDocumento = localStorage.getItem('numeroDocumento');
-    this.formDatosBasicos.nombre = localStorage.getItem('nombre');
-    this.formDatosBasicos.apellido = localStorage.getItem('apellido');
-    this.formDatosBasicos.numeroCelular = localStorage.getItem('numeroCelular');
-    this.formDatosBasicos.direccionDomicilio = localStorage.getItem('direccion');
-    this.formDatosBasicos.correoElectronico = localStorage.getItem('email');
-    this.codigoVerif = localStorage.getItem('codigo');
+  );
 
   }
 
@@ -81,29 +104,24 @@ export class MostrarDatosPacienteComponent implements OnInit {
     }
   }
 
-  registrar(formDatosBasicos): void {
+  validarTelefono(contrasenha): void {
     
     this.loading = true;
-        this.service.registrarPaciente(formDatosBasicos).subscribe(response => {
+    this.service.validarTelefono(this.idRegistro, this.codigoVerif, contrasenha).subscribe(response => {
             console.log(response);
-            if (response) {
-              this.loading = false;
-              this.mensaje = "Mensaje Enviado con Éxito";
-              //this.openMessageDialog();
-              this._router.navigate(["covid19/carga-codigo/"]);
-            } else {
-              this.loading = false;
-              this.mensaje = "Fallo";
-              this.openMessageDialog();
+            
+            this.loading = false;
+            this.mensaje = "Mensaje Enviado con Éxito";
+            //this.openMessageDialog();
+            this._router.navigate(["covid19/aislamiento/datos-clinicos/",this.idRegistro, this.codigoVerif]);
 
-            }
           }, error => {
             this.loading = false;
             this.mensaje = "No se pudo procesar la operación!";
             this.openMessageDialog();
             
           }
-        );
+    );
   }
 
   avanzar(telefono: string): void {

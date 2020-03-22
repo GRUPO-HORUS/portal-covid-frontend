@@ -190,7 +190,7 @@ export const appRoutes: Routes = [
   { path: "covid19/registro-paciente", component: RegistroPacienteComponent },
   { path: "covid19/datos-paciente", component: MostrarDatosPacienteComponent },
 
-  { path: "covid19/aislamiento/datos-al-paciente", component: MostrarDatosAlPacienteComponent },
+  { path: "covid19/aislamiento/datos-al-paciente/:idRegistro/:codigoVerif", component: MostrarDatosAlPacienteComponent },
 
   { path: "covid19/carga-codigo", component: CargaCodigoComponent },
 

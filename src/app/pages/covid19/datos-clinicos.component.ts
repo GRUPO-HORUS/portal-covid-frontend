@@ -1,7 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from 'rxjs';
 import { Covid19Service } from '../../services/Covid19Service';
+
+import {FormDatosClinicos} from './model/formDatosClinicos.model';
+
 declare var $: any;
 
 @Component({
@@ -13,6 +16,9 @@ export class DatosClinicosComponent implements OnInit {
 
   public loading: boolean;
   public mensaje: string;
+
+  //Formulario
+  public formDatosClinicos: FormDatosClinicos;
 
   //Datos del formulario 
   public empresaTransporte: string;
@@ -33,14 +39,16 @@ export class DatosClinicosComponent implements OnInit {
   public sintomasOtro: string;
 
   private subscription: Subscription;
-  public recentToken: string = ''
   public recaptchaAvailable = false;
   public telefValido: boolean;
 
+  public idRegistro: number;
+  public codigoVerif: string;
 
   constructor(
     private _router: Router,
-    private service: Covid19Service
+    private service: Covid19Service,
+    private _route: ActivatedRoute
   ) {
     this.loading = false;
     if (typeof localStorage !== "undefined") {
@@ -50,6 +58,13 @@ export class DatosClinicosComponent implements OnInit {
 
   ngOnInit() {
     console.log("datos clinicos");
+    this.formDatosClinicos = new FormDatosClinicos();
+    this._route.params.subscribe(params => {
+      this.formDatosClinicos.idRegistro = params["idRegistro"];
+      this.codigoVerif = params["codigoVerif"];
+
+      console.log(this.formDatosClinicos.idRegistro);
+    });
   }
 
   ngOnDestroy() {
@@ -58,20 +73,16 @@ export class DatosClinicosComponent implements OnInit {
     }
   }
 
-  enviar(sintomasTos){
-    console.log(sintomasTos);
-    /*this.service.enviarCodigo(codigo, idRegistro).subscribe(response => { }
-    );*/
-  }
-
-  avanzar(telefono: string): void {
+  enviar(formDatosClinicos){
+    this.service.registrarPaciente
     this.loading = true;
-        this.service.sendMessage(telefono).subscribe(response => {
+      this.service.guardarDatosClinicos(formDatosClinicos).subscribe(response => {
             console.log(response);
             if (response) {
               this.loading = false;
               this.mensaje = "Mensaje Enviado con Éxito";
-              this.openMessageDialog();
+              //this.openMessageDialog();
+              //this._router.navigate(["covid19/datos-paciente/"]);
             } else {
               this.loading = false;
               this.mensaje = "Fallo";
@@ -82,8 +93,9 @@ export class DatosClinicosComponent implements OnInit {
             this.loading = false;
             this.mensaje = "No se pudo procesar la operación!";
             this.openMessageDialog();
+            
           }
-        );
+      );
   }
   
   openMessageDialog() {

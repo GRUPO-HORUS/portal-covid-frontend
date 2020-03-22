@@ -4,7 +4,7 @@ export class FormDatosBasicos {
     apellido: string;
     paisNacionalidad: string;
     ciudadNacimiento: string;
-    tipoDocumento: string;
+    tipoDocumento: any;
     numeroDocumento: string;
     numeroCelular: string;
     correoElectronico: string;
