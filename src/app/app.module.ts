@@ -58,6 +58,22 @@ import { MessageModule } from 'primeng/message';
 
 import { WebStorageModule } from 'ngx-store';
 
+import { CambiarClaveComponent } from './pages/login/cambiar-clave/cambiar-clave.component';
+
+import { GenerarClaveComponent } from './pages/login/generar-clave/generar-clave.component';
+
+import { PermisoComponent } from './pages/permiso/permiso.component';
+
+import { RolComponent } from './pages/rol/rol.component';
+
+import { RolCrearComponent } from './pages/rol/rol-crear/rol-crear.component';
+
+import { UsuarioComponent } from './pages/usuario/usuario.component';
+
+import { UsuarioCrearComponent } from './pages/usuario/usuario-crear/usuario-crear.component';
+
+import { UsuarioEditarRolComponent } from './pages/usuario/usuario-editar-rol/usuario-editar-rol.component';
+
 /*
   @autor:
   @date: 29/06/2017
@@ -81,8 +97,16 @@ import { WebStorageModule } from 'ngx-store';
     DatosClinicosComponent,
     RegistroPacienteComponent,
     MostrarDatosPacienteComponent,
-    MostrarDatosAlPacienteComponent
-    LoginComponent
+    MostrarDatosAlPacienteComponent,
+    LoginComponent,
+    CambiarClaveComponent,
+    GenerarClaveComponent,
+    PermisoComponent,
+    RolComponent,
+    RolCrearComponent,
+    UsuarioComponent,
+    UsuarioCrearComponent,
+    UsuarioEditarRolComponent,
   ],
   // dependencias de módulos
   imports: [
