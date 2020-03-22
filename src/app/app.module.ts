@@ -84,6 +84,8 @@ import { DialogModule } from 'primeng/dialog';
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
+import { MultiSelectModule } from 'primeng/multiselect';
+
 /*
   @autor:
   @date: 29/06/2017
@@ -155,7 +157,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     ProgressSpinnerModule,
     TableModule,
     DialogModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    MultiSelectModule
   ],
   providers: [
     appRoutingProviders,
