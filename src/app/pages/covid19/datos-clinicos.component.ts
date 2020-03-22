@@ -77,18 +77,11 @@ export class DatosClinicosComponent implements OnInit {
     this.service.registrarPaciente
     this.loading = true;
       this.service.guardarDatosClinicos(formDatosClinicos).subscribe(response => {
-            console.log(response);
-            if (response) {
+            
               this.loading = false;
               this.mensaje = "Se ha registrado con Éxito";
               //this.openMessageDialog();
               this._router.navigate(["covid19/aislamiento/mensaje-final/"]);
-            } else {
-              this.loading = false;
-              this.mensaje = "Fallo";
-              this.openMessageDialog();
-
-            }
           }, error => {
             this.loading = false;
             this.mensaje = "No se pudo procesar la operación!";
