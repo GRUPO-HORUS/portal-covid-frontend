@@ -44,7 +44,7 @@ import {CheckboxModule} from 'primeng/checkbox';
 
 import {RadioButtonModule} from 'primeng/radiobutton';
 
-import { QRCodeModule } from 'angularx-qrcode';
+//import { QRCodeModule } from 'angularx-qrcode';
 import { MostrarDatosPacienteComponent } from "./pages/covid19/mostrar-datos-paciente.component";
 
 import { MostrarDatosAlPacienteComponent } from "./pages/covid19/mostrar-datos-al-paciente.component";
@@ -145,7 +145,7 @@ import { MultiSelectModule } from 'primeng/multiselect';
     CheckboxModule,
     RadioButtonModule,
     FormsModule,
-    QRCodeModule,
+    //QRCodeModule,
     MessagesModule,
     MessageModule,
     WebStorageModule,
