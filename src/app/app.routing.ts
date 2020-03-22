@@ -46,7 +46,6 @@ import { CreacionCuentaComponent } from "./pages/identidad-electronica/crear-cue
 import { ValidacionIdentidadComponent } from "./pages/identidad-electronica/validacion-identidad/validacion-identidad.component";
 import { PasoFinalCreacionClaveComponent } from "./pages/identidad-electronica/paso-final-creacion-clave/paso-final-creacion-clave.component";
 import { IdentidadElectronicaComponent } from "./pages/identidad-electronica/identidad-electronica.component";
-import { Covid19Component } from "./pages/covid19/covid19.component";
 
 import { HomeOperadorComponent } from "./pages/covid19/home-operador.component";
 import { RegistroPacienteComponent } from "./pages/covid19/registro-paciente.component";
@@ -59,6 +58,7 @@ import { CargaCodigoComponent } from "./pages/covid19/carga-codigo.component";
 import { DatosClinicosComponent } from "./pages/covid19/datos-clinicos.component";
 
 import { MensajeFinalComponent } from "./pages/covid19/mensaje-final.component";
+import { LoginComponent } from './pages/login/login.component';
 /**
  *  PLUGINS
  */
@@ -202,6 +202,7 @@ export const appRoutes: Routes = [
   { path: "covid19/aislamiento/datos-clinicos/:idRegistro/:codigoVerif", component: DatosClinicosComponent },
 
   { path: "covid19/aislamiento/mensaje-final", component: MensajeFinalComponent},
+  { path: "login", component: LoginComponent },
 
   { path: "**", component: Page404Component }
 ];

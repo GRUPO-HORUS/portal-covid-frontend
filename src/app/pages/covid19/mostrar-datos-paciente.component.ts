@@ -32,6 +32,7 @@ export class MostrarDatosPacienteComponent implements OnInit {
   public nombre: string;
   public apellido: string;
   public direccion: string;
+  public codigo: string;
 
   // recaptcha
   // public captchaResponse: string;

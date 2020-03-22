@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { HttpClientModule } from '@angular/common/http';
 import { ScrollToModule } from "ng2-scroll-to";
 import { ScrollToService } from "ng2-scroll-to-el";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSnackBarModule } from "@angular/material";
 import { routing, routesComponents, appRoutingProviders } from "./app.routing";
 import { AppComponent } from "./app.component";
@@ -35,7 +35,6 @@ import { RestablecerClaveComponent } from './pages/identidad-electronica/restabl
 import {DemoMaterialModule} from './material-module';
 import { ChartjsModule } from '@ctrl/ngx-chartjs';
 import { ModalModule } from './lib/modal-custom';
-import { Covid19Component } from './pages/covid19/covid19.component';
 import { CargaCodigoComponent } from './pages/covid19/carga-codigo.component';
 import { DatosClinicosComponent } from './pages/covid19/datos-clinicos.component';
 import { RegistroPacienteComponent } from './pages/covid19/registro-paciente.component';
@@ -45,12 +44,48 @@ import {CheckboxModule} from 'primeng/checkbox';
 
 import {RadioButtonModule} from 'primeng/radiobutton';
 
-import { QRCodeModule } from 'angularx-qrcode';
+//import { QRCodeModule } from 'angularx-qrcode';
 import { MostrarDatosPacienteComponent } from "./pages/covid19/mostrar-datos-paciente.component";
 
 import { MostrarDatosAlPacienteComponent } from "./pages/covid19/mostrar-datos-al-paciente.component";
 import { HomeOperadorComponent } from "./pages/covid19/home-operador.component";
 import { MensajeFinalComponent } from "./pages/covid19/mensaje-final.component";
+
+import { LoginComponent } from './pages/login/login.component';
+
+import { MessagesModule } from 'primeng/messages';
+
+import { MessageModule } from 'primeng/message';
+
+import { WebStorageModule } from 'ngx-store';
+
+import { CambiarClaveComponent } from './pages/login/cambiar-clave/cambiar-clave.component';
+
+import { GenerarClaveComponent } from './pages/login/generar-clave/generar-clave.component';
+
+import { PermisoComponent } from './pages/permiso/permiso.component';
+
+import { RolComponent } from './pages/rol/rol.component';
+
+import { RolCrearComponent } from './pages/rol/rol-crear/rol-crear.component';
+
+import { UsuarioComponent } from './pages/usuario/usuario.component';
+
+import { UsuarioCrearComponent } from './pages/usuario/usuario-crear/usuario-crear.component';
+
+import { UsuarioEditarRolComponent } from './pages/usuario/usuario-editar-rol/usuario-editar-rol.component';
+
+import { GrowlModule } from 'primeng/growl';
+
+import {BlockUIModule, ConfirmationService, ProgressSpinnerModule} from 'primeng/primeng';
+
+import { TableModule } from 'primeng/table';
+
+import { DialogModule } from 'primeng/dialog';
+
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
+import { MultiSelectModule } from 'primeng/multiselect';
 
 /*
   @autor:
@@ -70,14 +105,22 @@ import { MensajeFinalComponent } from "./pages/covid19/mensaje-final.component";
     KeysPipe,
     ArraySortPipe,
     RestablecerClaveComponent,
-    Covid19Component,
     CargaCodigoComponent,
     DatosClinicosComponent,
     RegistroPacienteComponent,
     MostrarDatosPacienteComponent,
     MostrarDatosAlPacienteComponent,
     HomeOperadorComponent,
-    MensajeFinalComponent
+    MensajeFinalComponent,
+    LoginComponent,
+    CambiarClaveComponent,
+    GenerarClaveComponent,
+    PermisoComponent,
+    RolComponent,
+    RolCrearComponent,
+    UsuarioComponent,
+    UsuarioCrearComponent,
+    UsuarioEditarRolComponent
   ],
   // dependencias de módulos
   imports: [
@@ -106,7 +149,18 @@ import { MensajeFinalComponent } from "./pages/covid19/mensaje-final.component";
     CheckboxModule,
     RadioButtonModule,
     FormsModule,
-    QRCodeModule
+    //QRCodeModule,
+    MessagesModule,
+    MessageModule,
+    WebStorageModule,
+    ReactiveFormsModule,
+    GrowlModule,
+    BlockUIModule,
+    ProgressSpinnerModule,
+    TableModule,
+    DialogModule,
+    ConfirmDialogModule,
+    MultiSelectModule
   ],
   providers: [
     appRoutingProviders,
