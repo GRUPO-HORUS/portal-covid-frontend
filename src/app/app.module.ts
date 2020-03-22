@@ -80,7 +80,7 @@ import {BlockUIModule, ConfirmationService, ProgressSpinnerModule} from 'primeng
 
 import { TableModule } from 'primeng/table';
 
-
+import { DialogModule } from 'primeng/dialog';
 
 /*
   @autor:
@@ -151,7 +151,8 @@ import { TableModule } from 'primeng/table';
     GrowlModule,
     BlockUIModule,
     ProgressSpinnerModule,
-    TableModule
+    TableModule,
+    DialogModule
   ],
   providers: [
     appRoutingProviders,
