@@ -56,6 +56,8 @@ import { MostrarDatosAlPacienteComponent } from "./pages/covid19/mostrar-datos-a
 
 import { CargaCodigoComponent } from "./pages/covid19/carga-codigo.component";
 import { DatosClinicosComponent } from "./pages/covid19/datos-clinicos.component";
+
+import { LoginComponent } from './pages/login/login.component';
 /**
  *  PLUGINS
  */
@@ -195,6 +197,8 @@ export const appRoutes: Routes = [
   { path: "covid19/carga-codigo", component: CargaCodigoComponent },
 
   { path: "covid19/aislamiento/datos-clinicos/:idRegistro/:codigoVerif", component: DatosClinicosComponent },
+
+  { path: "login", component: LoginComponent },
 
   { path: "**", component: Page404Component }
 ];

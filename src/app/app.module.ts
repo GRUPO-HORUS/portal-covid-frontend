@@ -50,6 +50,14 @@ import { MostrarDatosPacienteComponent } from "./pages/covid19/mostrar-datos-pac
 
 import { MostrarDatosAlPacienteComponent } from "./pages/covid19/mostrar-datos-al-paciente.component";
 
+import { LoginComponent } from './pages/login/login.component';
+
+import { MessagesModule } from 'primeng/messages';
+
+import { MessageModule } from 'primeng/message';
+
+import { WebStorageModule } from 'ngx-store';
+
 /*
   @autor:
   @date: 29/06/2017
@@ -74,6 +82,7 @@ import { MostrarDatosAlPacienteComponent } from "./pages/covid19/mostrar-datos-a
     RegistroPacienteComponent,
     MostrarDatosPacienteComponent,
     MostrarDatosAlPacienteComponent
+    LoginComponent
   ],
   // dependencias de módulos
   imports: [
@@ -102,7 +111,10 @@ import { MostrarDatosAlPacienteComponent } from "./pages/covid19/mostrar-datos-a
     CheckboxModule,
     RadioButtonModule,
     FormsModule,
-    QRCodeModule
+    QRCodeModule,
+    MessagesModule,
+    MessageModule,
+    WebStorageModule
   ],
   providers: [
     appRoutingProviders,
