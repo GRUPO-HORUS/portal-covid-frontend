@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
         } else if(this.checkRol("Administrador de Carpeta Ciudadana")) {
           this.router.navigate(['/documentos']);
         } else {*/
-          this.router.navigate(['/covid19/registro-paciente']);
+          this.router.navigate(['/covid19/aislamiento/registro-paciente']);
         //}
       } else {
         this.msgs = [];

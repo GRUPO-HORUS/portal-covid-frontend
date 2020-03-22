@@ -10,6 +10,7 @@ export class FormDatosBasicos {
     correoElectronico: string;
     ciudadDomicilio: string;
     paisDomicilio: string;
+    departamentoDomicilio: string;
     direccionDomicilio: string;
     paisEmisorDocumento: string;
     tipoInicio: string;

@@ -33,6 +33,8 @@ export class FormDatosClinicos {
 
     public sintomasOtro:string;
 
+    public ocupacion:string;
+
     /*public medioTransporte: string;
     public tipoEmpresaTransporte: string;
     public transporteNoAsiento: string;
