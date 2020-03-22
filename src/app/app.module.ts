@@ -74,6 +74,14 @@ import { UsuarioCrearComponent } from './pages/usuario/usuario-crear/usuario-cre
 
 import { UsuarioEditarRolComponent } from './pages/usuario/usuario-editar-rol/usuario-editar-rol.component';
 
+import { GrowlModule } from 'primeng/growl';
+
+import {BlockUIModule, ConfirmationService, ProgressSpinnerModule} from 'primeng/primeng';
+
+import { TableModule } from 'primeng/table';
+
+
+
 /*
   @autor:
   @date: 29/06/2017
@@ -139,7 +147,11 @@ import { UsuarioEditarRolComponent } from './pages/usuario/usuario-editar-rol/us
     MessagesModule,
     MessageModule,
     WebStorageModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    GrowlModule,
+    BlockUIModule,
+    ProgressSpinnerModule,
+    TableModule
   ],
   providers: [
     appRoutingProviders,
