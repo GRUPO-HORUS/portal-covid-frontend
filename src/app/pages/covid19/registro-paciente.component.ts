@@ -6,7 +6,6 @@ import { Covid19Service } from '../../services/Covid19Service';
 import {FormDatosBasicos} from './model/formDatosBasicos.model';
 
 declare var $: any;
-
 @Component({
   selector: "registro-paciente-selector",
   templateUrl: "./registro-paciente.component.html",
@@ -39,6 +38,28 @@ export class RegistroPacienteComponent implements OnInit {
 
   public origen: string;
 
+  public tipoRegistroOptions=[{value:'ingreso_pais',label:'Ingreso al país'},{value:'aislamiento',label:'Caso sospechoso Covid-19'}];
+
+  /*public departamentoOptions=[{value:1,label:'Concepción'},{value:2,label:'San Pedro'},
+                              {value:3,label:'Cordillera'},{value:4,label:'Guairá'},
+                              {value:5,label:'Caaguazú'},{value:6,label:'Caazapá'},
+                              {value:7,label:'Itapúa'},{value:8,label:'Misiones'},
+                              {value:9,label:'Paraguarí'},{value:10,label:'Alto Paraná'},
+                              {value:11,label:'Central'},{value:12,label:'Ñeembucú'},
+                              {value:13,label:'Amambay'},{value:14,label:'Canindeyú'},
+                              {value:15,label:'Presidente Hayes'},{value:16,label:'Alto Paraguay'},
+                              {value:17,label:'Boquerón'}];*/
+
+  public departamentoOptions=[{value:'Concepción',label:'Concepción'},{value:'San Pedro',label:'San Pedro'},
+                              {value:'Cordillera',label:'Cordillera'},{value:'Guairá',label:'Guairá'},
+                              {value:'Caaguazú',label:'Caaguazú'},{value:'Caazapá',label:'Caazapá'},
+                              {value:'Itapúa',label:'Itapúa'},{value:'Misiones',label:'Misiones'},
+                              {value:'Paraguarí',label:'Paraguarí'},{value:'Alto Paraná',label:'Alto Paraná'},
+                              {value:'Central',label:'Central'},{value:'Ñeembucú',label:'Ñeembucú'},
+                              {value:'Amambay',label:'Amambay'},{value:'Canindeyú',label:'Canindeyú'},
+                              {value:'Presidente Hayes',label:'Presidente Hayes'},{value:'Alto Paraguay',label:'Alto Paraguay'},
+                              {value:'Boquerón',label:'Boquerón'}];
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -53,6 +74,8 @@ export class RegistroPacienteComponent implements OnInit {
   ngOnInit() {
     console.log("registro paciente");
     this.formDatosBasicos = new FormDatosBasicos();
+
+    this.formDatosBasicos.tipoDocumento = 0;
 
     /*this._route.params.subscribe(params => {
         this.formDatosBasicos.tipoInicio = params["tipoInicio"];
@@ -74,7 +97,6 @@ export class RegistroPacienteComponent implements OnInit {
     localStorage.setItem('direccion', formDatosBasicos.direccionDomicilio);
     localStorage.setItem('email', formDatosBasicos.correoElectronico);
     
-    this._router.navigate(["covid19/datos-paciente/"]);
       this.loading = true;
       this.service.registrarPaciente(formDatosBasicos).subscribe(response => {
             console.log(response);
@@ -82,7 +104,8 @@ export class RegistroPacienteComponent implements OnInit {
               this.loading = false;
               this.mensaje = "Mensaje Enviado con Éxito";
               localStorage.setItem('codigo', response);
-              this._router.navigate(["covid19/datos-paciente/"]);
+              //this._router.navigate(["covid19/aislamiento/datos-paciente/"]);
+              this._router.navigate(["covid19/home-operador/"]);
             } else {
               this.loading = false;
               this.mensaje = "Fallo";

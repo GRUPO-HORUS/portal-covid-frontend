@@ -15,13 +15,44 @@
                     <span>Datos Básicos del Paciente</span>
                 </h3>
 
-                <form #miForm="ngForm" class="mt-4">
+                <p style="font-size: 30px;" align="justify">
+                    {{this.formDatosBasicos?.nombre}}&nbsp;{{this.formDatosBasicos?.apellido}}, como medida de prevención usted 
+                    debe realizar aislamiento domiciliario.<br> Tenemos registrados los siguientes datos:<br>
+                    Nombre y Apellido: {{this.formDatosBasicos?.nombre}}&nbsp;{{this.formDatosBasicos?.apellido}} <br>
+                    Cédula de Identidad: {{this.formDatosBasicos?.numeroDocumento}} <br>
+                    Dirección de Aislamiento: {{this.formDatosBasicos?.direccionDomicilio}} <br>
+                    A continuación, deberá completar informaciones referentes a su estado de salud. 
+                    Por favor, escriba una clave de seguridad que utilizará para consultar sus registros:</p>
+
+                    <form #miForm="ngForm" class="mt-4">
+                    
+                        <div class="form-group">
+                            <label for="contrasenha"><strong>Clave de seguridad </strong></label>
+                            <input type="password" [(ngModel)]="contrasenha" class="form-control" id="contrasenha" style="max-width: 300px;" name="contrasenha" minlength="8" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contrasenhaConfirm"><strong>Confirmar Clave de seguridad</strong></label>
+                    <input type="password" [(ngModel)]="contrasenhaConfirm" name="contrasenhaConfirm" class="form-control" style="max-width: 300px;" id="contrasenhaConfirm" required>
+                        </div>
+                    </form>      
+
+                    <div class="clearfix"><br/></div>
+                    <div class="alert alert-danger">
+                        <i class="fa fa-info-circle"></i> La contraseña debe tener un mínimo de 8 caracteres.
+                    </div>
+
+                    <button (click)="validarTelefono(contrasenha)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || contrasenha !== contrasenhaConfirm">
+                        Guardar
+                        <span class="fa fa-check"></span>            
+                    </button>
+
                     <!--<div class="form-group">
                         <label for="tipoDocumento"><strong>Tipo de Documento</strong></label>
                         <br>
                         <p-dropdown id="tipoDocumento" [options]="tipoDocumentoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.tipoDocumento" name="tipoDocumento" id="tipoDocumento" required disabled></p-dropdown>
                     </div>-->
-
+                <!--<form #miForm="ngForm" class="mt-4">
+                    
                     <div class="form-group">
                         <label for="tipoDocumento"><strong>Tipo de Documento </strong></label>
                         <input type="text" [(ngModel)]="tipoDocumento" class="form-control" style="max-width: 200px;" id="tipoDocumento" name="tipoDocumento" required readonly>
@@ -45,7 +76,6 @@
                     <div class="form-group">
                         <label for="numeroCelular"><strong>Nro teléfono</strong></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.numeroCelular" class="form-control" id="numeroCelular" style="max-width: 300px;" name="numeroCelular" placeholder="Ej. +595961123456" minlength="6" required readonly>
-                        <!-- (keypress)="keyPress($event)" -->
                     </div>
 
                     <div class="form-group">
@@ -79,24 +109,13 @@
 
                     <div class="clearfix"><br/></div>
 
-                    <!--<div class="form-group">
-                        <input type="checkbox" style="width:20px;height:20px;" id="terminos" name="terminos" [(ngModel)]="terminos" />
-                        <b><span class="text-danger">*</span>Acepto los términos y condiciones</b>
-                        <p><a data-toggle="modal" href="#" data-target="#modalTerminosIE">Ver términos y condiciones</a> </p>
-                    </div>-->
-
                     <div class="clearfix"><br/></div>
                     <button (click)="validarTelefono(formDatosBasicos.contrasenha)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || contrasenha !== contrasenhaConfirm">
                             Guardar
                             <span class="fa fa-check"></span>            
                         </button>
-                </form>
+                </form>-->
 
-                <div class="clearfix"><br/></div>
-                <div class="alert alert-info">
-                    <br><i class="fa fa-info-circle"></i> La contraseña debe tener un mínimo de 8 caracteres.
-                    <!--<i class="fa fa-info-circle"></i> Debe completar todos los campos en el formato correcto para iniciar.-->
-                </div>
             </div>
 
             <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

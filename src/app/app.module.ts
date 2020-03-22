@@ -49,6 +49,8 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { MostrarDatosPacienteComponent } from "./pages/covid19/mostrar-datos-paciente.component";
 
 import { MostrarDatosAlPacienteComponent } from "./pages/covid19/mostrar-datos-al-paciente.component";
+import { HomeOperadorComponent } from "./pages/covid19/home-operador.component";
+import { MensajeFinalComponent } from "./pages/covid19/mensaje-final.component";
 
 /*
   @autor:
@@ -73,7 +75,9 @@ import { MostrarDatosAlPacienteComponent } from "./pages/covid19/mostrar-datos-a
     DatosClinicosComponent,
     RegistroPacienteComponent,
     MostrarDatosPacienteComponent,
-    MostrarDatosAlPacienteComponent
+    MostrarDatosAlPacienteComponent,
+    HomeOperadorComponent,
+    MensajeFinalComponent
   ],
   // dependencias de módulos
   imports: [

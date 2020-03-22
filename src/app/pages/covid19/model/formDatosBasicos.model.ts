@@ -8,9 +8,13 @@ export class FormDatosBasicos {
     numeroDocumento: string;
     numeroCelular: string;
     correoElectronico: string;
+    ciudadDomicilio: string;
+    paisDomicilio: string;
     direccionDomicilio: string;
     paisEmisorDocumento: string;
     tipoInicio: string;
+
+    tipoRegistro: string;
 
     contrasenha: string;
     contrasenhaConfirm: string;

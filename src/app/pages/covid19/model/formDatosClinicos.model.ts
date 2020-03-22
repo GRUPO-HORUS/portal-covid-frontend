@@ -1,15 +1,16 @@
 export class FormDatosClinicos {
     id: number;
     public idRegistro: number;
-    public viveSolo: boolean;
-    public tieneCasaPropia: boolean;
+    public evaluacionRiesgoViveSolo: boolean;
+    public evaluacionRiesgoTieneHabitacionPropria: boolean;
     public enfermedadBaseCardiopatiaCronica: boolean;
     public enfermedadBasePulmonarCronico: boolean;
     public enfermedadBaseAsma: boolean;
     public enfermedadBaseDiabetes: boolean;
     public enfermedadBaseRenalCronico: boolean;
     public enfermedadBaseHepaticaGrave: boolean;
-    public medicamentoHabitual: boolean;
+    public evaluacionRiesgoUsomedicamento: boolean;
+    public evaluacionRiesgoMedicamento: string;
 
     public sintomasFiebre: boolean;
     public sintomasDificultadRespirarDolorGarganta:boolean;

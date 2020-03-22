@@ -80,9 +80,9 @@ export class DatosClinicosComponent implements OnInit {
             console.log(response);
             if (response) {
               this.loading = false;
-              this.mensaje = "Mensaje Enviado con Éxito";
+              this.mensaje = "Se ha registrado con Éxito";
               //this.openMessageDialog();
-              //this._router.navigate(["covid19/datos-paciente/"]);
+              this._router.navigate(["covid19/aislamiento/mensaje-final/"]);
             } else {
               this.loading = false;
               this.mensaje = "Fallo";

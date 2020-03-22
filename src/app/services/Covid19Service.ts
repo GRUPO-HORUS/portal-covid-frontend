@@ -24,13 +24,13 @@ export class Covid19Service {
     }
 
     registrarPaciente(formDatosBasicos): Observable<string> {
-      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/datosBasicos', formDatosBasicos)
-        .pipe(catchError(this.handler.handleError<string>('/covid19api/aislamiento/datosBasicos')));
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/datosBasicos', formDatosBasicos);
+        //.pipe(catchError(this.handler.handleError<string>('/covid19api/aislamiento/datosBasicos')));
     }
 
     guardarDatosClinicos(formDatosClinicos): Observable<string> {
-      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/datosClinicos', formDatosClinicos)
-        .pipe(catchError(this.handler.handleError<string>('/covid19api/aislamiento/datosClinicos')));
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/datosClinicos', formDatosClinicos);
+        //.pipe(catchError(this.handler.handleError<string>('/covid19api/aislamiento/datosClinicos')));
     }
 
     getDatosBasicos(idRegistro, codigoVerif): Observable<FormDatosBasicos> {

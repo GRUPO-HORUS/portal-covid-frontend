@@ -21,15 +21,19 @@
                         <tr><h3>Evaluación de riesgo</h3><hr></tr>
                         <tr>
                             <td><h4>Vive sólo/a?</h4></td>
-                            <td><div class="ui-g-12"><p-radioButton name="group1" value=true label="Si" [(ngModel)]="formDatosClinicos.viveSolo" inputId="opt1"></p-radioButton></div></td>
-                            <td><div class="ui-g-12"><p-radioButton name="group1" value=false label="No" [(ngModel)]="formDatosClinicos.viveSolo" inputId="opt2"></p-radioButton></div></td>
+                            <td><div class="ui-g-12"><p-radioButton name="group1" value=true label="Si" [(ngModel)]="formDatosClinicos.evaluacionRiesgoViveSolo" inputId="opt1"></p-radioButton></div></td>
+                            <td><div class="ui-g-12"><p-radioButton name="group1" value=false label="No" [(ngModel)]="formDatosClinicos.evaluacionRiesgoViveSolo" inputId="opt2"></p-radioButton></div></td>
                         </tr>
                         <tr>
                             <td><h4>Tiene habitación propia?</h4></td>
-                            <td><div class="ui-g-12"><p-radioButton name="group2" value=true label="Si" [(ngModel)]="formDatosClinicos.tieneHabitacionPropia" inputId="opt1"></p-radioButton></div></td>
-                            <td><div class="ui-g-12"><p-radioButton name="group2" value=false label="No" [(ngModel)]="formDatosClinicos.tieneHabitacionPropia" inputId="opt2"></p-radioButton></div></td>
+                            <td><div class="ui-g-12"><p-radioButton name="group2" value=true label="Si" [(ngModel)]="formDatosClinicos.evaluacionRiesgoTieneHabitacionPropria" inputId="opt1"></p-radioButton></div></td>
+                            <td><div class="ui-g-12"><p-radioButton name="group2" value=false label="No" [(ngModel)]="formDatosClinicos.evaluacionRiesgoTieneHabitacionPropria" inputId="opt2"></p-radioButton></div></td>
                         </tr>
-                        <tr><h4>Antecedentes de salud</h4></tr>
+                        <tr>
+                            <label for="ocupacion"><strong>Indique su Ocupación</strong></label>
+                            <input type="text" [(ngModel)]="formDatosClinicos.ocupacion" name="ocupacion" class="form-control" style="max-width: 300px;" id="ocupacion">
+                        </tr>
+                        <!--<tr><h4>Antecedentes de salud</h4></tr>-->
                         <tr>
                             <td><h4>Tiene cardiopatía crónica?</h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="group3" value=true label="Si" [(ngModel)]="formDatosClinicos.enfermedadBaseCardiopatiaCronica" inputId="opt1"></p-radioButton></div></td>
@@ -62,25 +66,26 @@
                         </tr>
                         <tr>
                             <td><h4>Toma algún medicamento de forma habitual?</h4></td>
-                            <td><div class="ui-g-12"><p-radioButton name="group9" value="true" label="Si" [(ngModel)]="formDatosClinicos.medicamentoHabitual" inputId="opt1"></p-radioButton></div></td>
-                            <td><div class="ui-g-12"><p-radioButton name="group9" value="false" label="No" [(ngModel)]="formDatosClinicos.medicamentoHabitual" inputId="opt2"></p-radioButton></div></td>
+                            <td><div class="ui-g-12"><p-radioButton name="group9" value="true" label="Si" [(ngModel)]="formDatosClinicos.evaluacionRiesgoUsomedicamento" inputId="opt1"></p-radioButton></div></td>
+                            <td><div class="ui-g-12"><p-radioButton name="group9" value="false" label="No" [(ngModel)]="formDatosClinicos.evaluacionRiesgoUsomedicamento" inputId="opt2"></p-radioButton></div></td>
                         </tr>
                         <tr>
-                            <div class="form-group" *ngIf="formDatosClinicos.medicamentoHabitual">
+                            <div class="form-group" *ngIf="formDatosClinicos.evaluacionRiesgoUsomedicamento">
                         
                                 <label for="medicamento"><strong>Especificar</strong></label>
-                                <input type="text" [(ngModel)]="formDatosClinicos.medicamentoHabitual" name="medicamento" class="form-control" style="max-width: 300px;" id="medicamento">
+                                <input type="text" [(ngModel)]="formDatosClinicos.evaluacionRiesgoMedicamento" name="medicamento" class="form-control" style="max-width: 300px;" id="medicamento">
                             </div>
                         </tr>
-                        <tr><h3>Síntomas:</h3><hr></tr>
+                        <br>
+                        <tr><h3>Estado de salud en los últimos 15 días:</h3><hr></tr>
                         <tr>
                             <td><h4>Tuvo fiebre o sensación febril?</h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="group10" value=true label="Si" [(ngModel)]="formDatosClinicos.sintomasFiebre" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group10" value=false label="No" [(ngModel)]="formDatosClinicos.sintomasFiebre" inputId="opt2"></p-radioButton></div></td>
                         </tr>
                         <tr *ngIf="formDatosClinicos.sintomasFiebre">
-                            <td><label for="fiebreValor"><strong>T°</strong></label></td>
-                            <td><input type="text" [(ngModel)]="formDatosClinicos.sintomasFiebreValor" name="medicamento" class="form-control" style="max-width: 300px;" id="fiebreValor"></td>
+                            <label for="fiebreValor"><strong>Indique la temperatura máxima medida:</strong></label>
+                            <input type="number" [(ngModel)]="formDatosClinicos.sintomasFiebreValor" name="medicamento" class="form-control" style="max-width: 100px;" id="fiebreValor">
                         </tr>
                         <tr>
                             <td><h4>Tuvo tos?</h4></td>
@@ -103,7 +108,7 @@
                             <td> <div class="ui-g-12"><p-radioButton name="group14" value=false label="No" [(ngModel)]="formDatosClinicos.sintomasDificultadRespirarCansancioCaminar" inputId="opt2"></p-radioButton></div></td>
                         </tr>
                         <tr>
-                            <td><h4>Tuvo rinorrea?</h4></td>
+                            <td><h4>Tuvo rinorrea? (Goteo de secreción nasal)</h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="group15" value=true label="Si" [(ngModel)]="formDatosClinicos.sintomasDificultadRespirarRinorrea" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group15" value=false label="No" [(ngModel)]="formDatosClinicos.sintomasDificultadRespirarRinorrea" inputId="opt2"></p-radioButton></div></td>
                         </tr>
@@ -193,6 +198,11 @@
                         <p><a data-toggle="modal" href="#" data-target="#modalTerminosIE">Ver términos y condiciones</a> </p>
                     </div>
 
+                    <div class="alert alert-info" *ngIf="!formDatosClinicos.declaracionAgreement">
+                        <i class="fa fa-info-circle"></i> Debe completar todos los campos en el formato correcto para iniciar.<br>
+                        <i class="fa fa-info-circle"></i> Debe aceptar los términos y condiciones para poder guardar.
+                    </div>
+
                     <div class="clearfix"><br/></div>
                     <button (click)="enviar(formDatosClinicos)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || !formDatosClinicos.declaracionAgreement">
                         <!--  || !telefValido || telefono.indexOf('+')!=0  [disabled]="!miForm.form.valid || loading || !terminos"-->
@@ -202,10 +212,10 @@
                 </form>
 
                 <div class="clearfix"><br/></div>
-                <!--<qrcode [qrdata]="qrCode" [width]="128" [errorCorrectionLevel]="'M'"></qrcode>-->
+                <!--<qrcode [qrdata]="qrCode" [width]="128" [errorCorrectionLevel]="'M'"></qrcode>
                 <div class="alert alert-info">
                     <i class="fa fa-info-circle"></i> Debe completar todos los campos en el formato correcto para iniciar.
-                </div>
+                </div>-->
             </div>
 
             <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

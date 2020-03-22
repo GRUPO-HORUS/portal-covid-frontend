@@ -83,9 +83,9 @@ export class MostrarDatosAlPacienteComponent implements OnInit {
 
         //this._router.navigate(["covid19/carga-codigo/"]);
       } else {
-        /*this.loading = false;
-        this.mensaje = "Fallo";
-        this.openMessageDialog();*/
+        this.loading = false;
+        this.mensaje = "No se pudieron obtener los datos básicos";
+        this.openMessageDialog();
 
       }
     }, error => {
@@ -117,7 +117,7 @@ export class MostrarDatosAlPacienteComponent implements OnInit {
 
           }, error => {
             this.loading = false;
-            this.mensaje = "No se pudo procesar la operación!";
+            this.mensaje = "No se pudo validar el teléfono!";
             this.openMessageDialog();
             
           }

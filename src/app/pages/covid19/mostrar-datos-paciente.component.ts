@@ -90,7 +90,7 @@ export class MostrarDatosPacienteComponent implements OnInit {
               this.loading = false;
               this.mensaje = "Mensaje Enviado con Éxito";
               //this.openMessageDialog();
-              this._router.navigate(["covid19/carga-codigo/"]);
+              this._router.navigate(["covid19/aislamiento/carga-codigo/"]);
             } else {
               this.loading = false;
               this.mensaje = "Fallo";

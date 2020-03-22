@@ -10,77 +10,64 @@
     <div class="container pb-6">
         <div class="row">
             <div class="col-md-8 mb-4">
-                <h3 class="title-divider text-primary">
-                    <i class="fa fa-edit mr-2" style="margin-top: -4px;"></i>
-                    <span>Datos Básicos del Paciente</span>
-                </h3>
+                <!--<h4 align="justify">                   
+                    Datos ingresados correctamente. El Paciente recibirá un mensaje de texto para completar el formulario de estado de salud. El código de verificación que se informó en el mensaje al paciente es: {{codigoVerif}}
+                        .Por favor, confirme con el paciente el código de verificación.
+                </h4>-->
 
-                <form #miForm="ngForm" class="mt-4">
+                <p align="justify" style="font-size: 30px;">
+                    Datos ingresados correctamente. El Paciente recibirá un mensaje de texto para completar el formulario de estado de salud. El código de verificación que se informó en el mensaje al paciente es: <b>{{codigoVerif}}</b>
+                        .Por favor, confirme con el paciente el código de verificación.
+                </p>
+                
+                <!--<form #miForm="ngForm" class="mt-4">
                     <div class="form-group">
                         <label for="tipoDocumento"><strong>Tipo de Documento</strong></label>
                         <br>
                         <p-dropdown id="tipoDocumento" [options]="tipoDocumentoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.tipoDocumento" name="tipoDocumento" id="tipoDocumento" required disabled></p-dropdown>
                     </div>
-
-                    <!--<div class="form-group">
+                    <div class="form-group">
                         <label for="tipoDocumento"><strong>Tipo de Documento </strong></label>
                         <input type="text" [(ngModel)]="tipoDocumento" class="form-control" style="max-width: 200px;" id="tipoDocumento" name="tipoDocumento" required readonly>
-                    </div>-->
-
+                    </div>
                     <div class="form-group">
                         <label for="numeroDocumento"><strong>Cédula </strong></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.numeroDocumento" class="form-control" style="max-width: 200px;" id="numeroDocumento" name="numeroDocumento" placeholder="Ej. 123456" required readonly>
                     </div>
-
                     <div class="form-group">
                         <label for="nombre"><strong>Nombre</strong></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" style="max-width: 300px;" id="nombre" required readonly>
                     </div>
-
                     <div class="form-group">
                         <label for="apellido"><strong>Apellido</strong></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.apellido" name="apellido" class="form-control" style="max-width: 300px;" id="apellido" required readonly>
                     </div>
-
                     <div class="form-group">
                         <label for="numeroCelular"><strong>Nro teléfono</strong></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.numeroCelular" class="form-control" id="numeroCelular" style="max-width: 300px;" name="numeroCelular" placeholder="Ej. +595961123456" minlength="6" required readonly>
-                        <!-- (keypress)="keyPress($event)" -->
                     </div>
-
                     <div class="form-group">
                         <label for="direccionDomicilio"><strong>Dirección</strong></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control" style="max-width: 300px;" id="direccionDomicilio" required readonly>
                     </div>
-
                     <div class="form-group">
                         <label for="correoElectronico"><strong>Correo Electrónico</strong></label>
                         <input type="email" [(ngModel)]="formDatosBasicos.correoElectronico" name="correoElectronico" class="form-control" style="max-width: 300px;" id="correoElectronico" email required readonly>
                     </div>
-
                     <div class="form-group">
                         <label for="codigoVerif"><strong>Código de verificación</strong></label>
                         <input type="text" [(ngModel)]="codigoVerif" name="codigoVerif" class="form-control" style="max-width: 300px;" id="codigoVerif" required readonly>
                     </div>
-
                     <div class="text-center" *ngIf="loading">
                         <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> A partir de ahora vamos a validar que sos vos...
                     </div>
-
                     <div class="clearfix"><br/></div>
-
-                    <!--<div class="form-group">
-                        <input type="checkbox" style="width:20px;height:20px;" id="terminos" name="terminos" [(ngModel)]="terminos" />
-                        <b><span class="text-danger">*</span>Acepto los términos y condiciones</b>
-                        <p><a data-toggle="modal" href="#" data-target="#modalTerminosIE">Ver términos y condiciones</a> </p>
-                    </div>-->
-
                     <div class="clearfix"><br/></div>
-                    <button (click)="registrar(formDatosBasicos)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || !terminos">
+                    <button (click)="registrar(formDatosBasicos)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
                             Guardar
                             <span class="fa fa-check"></span>            
                         </button>
-                </form>
+                </form>-->
 
                 <div class="clearfix"><br/></div>
                 <!--<div class="alert alert-info">
@@ -88,44 +75,7 @@
                 </div>-->
             </div>
 
-            <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Aviso</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">{{mensaje}}
-                            <br><label for="direccion"><strong>Ingrese el código</strong></label>
-                            <input type="text" [(ngModel)]="codigo" name="codigo" class="form-control" style="max-width: 300px;" id="codigo">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-remove"></i>  Cerrar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="modalTerminosIE" tabindex="-1" role="dialog" aria-labelledby="modalTerminosIELabel" aria-hidden="true">
-                <div style="max-width:1100px;" class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content p-4">
-                        <div class="modal-header">
-                            <h2 class="modal-title" id="modalTerminosIELabel">
-                                Términos y Condiciones
-                            </h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body row">
-                            <ie-terminos-template></ie-terminos-template>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
     </div>
 </div>

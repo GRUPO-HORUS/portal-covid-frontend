@@ -48,6 +48,7 @@ import { PasoFinalCreacionClaveComponent } from "./pages/identidad-electronica/p
 import { IdentidadElectronicaComponent } from "./pages/identidad-electronica/identidad-electronica.component";
 import { Covid19Component } from "./pages/covid19/covid19.component";
 
+import { HomeOperadorComponent } from "./pages/covid19/home-operador.component";
 import { RegistroPacienteComponent } from "./pages/covid19/registro-paciente.component";
 
 import { MostrarDatosPacienteComponent } from "./pages/covid19/mostrar-datos-paciente.component";
@@ -56,6 +57,8 @@ import { MostrarDatosAlPacienteComponent } from "./pages/covid19/mostrar-datos-a
 
 import { CargaCodigoComponent } from "./pages/covid19/carga-codigo.component";
 import { DatosClinicosComponent } from "./pages/covid19/datos-clinicos.component";
+
+import { MensajeFinalComponent } from "./pages/covid19/mensaje-final.component";
 /**
  *  PLUGINS
  */
@@ -187,14 +190,18 @@ export const appRoutes: Routes = [
   { path: "listados/:tipo", component: RptTramitesSinTag },
 
   //{ path: "covid19", component: Covid19Component },
-  { path: "covid19/registro-paciente", component: RegistroPacienteComponent },
-  { path: "covid19/datos-paciente", component: MostrarDatosPacienteComponent },
+
+  { path: "covid19/home-operador", component: HomeOperadorComponent},
+
+  { path: "covid19/aislamiento/carga-codigo", component: CargaCodigoComponent },
+  { path: "covid19/aislamiento/registro-paciente", component: RegistroPacienteComponent },
+  { path: "covid19/aislamiento/datos-paciente", component: MostrarDatosPacienteComponent },
 
   { path: "covid19/aislamiento/datos-al-paciente/:idRegistro/:codigoVerif", component: MostrarDatosAlPacienteComponent },
 
-  { path: "covid19/carga-codigo", component: CargaCodigoComponent },
-
   { path: "covid19/aislamiento/datos-clinicos/:idRegistro/:codigoVerif", component: DatosClinicosComponent },
+
+  { path: "covid19/aislamiento/mensaje-final", component: MensajeFinalComponent},
 
   { path: "**", component: Page404Component }
 ];
