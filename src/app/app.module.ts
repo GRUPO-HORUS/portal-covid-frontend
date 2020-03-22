@@ -35,7 +35,6 @@ import { RestablecerClaveComponent } from './pages/identidad-electronica/restabl
 import {DemoMaterialModule} from './material-module';
 import { ChartjsModule } from '@ctrl/ngx-chartjs';
 import { ModalModule } from './lib/modal-custom';
-import { Covid19Component } from './pages/covid19/covid19.component';
 import { CargaCodigoComponent } from './pages/covid19/carga-codigo.component';
 import { DatosClinicosComponent } from './pages/covid19/datos-clinicos.component';
 import { RegistroPacienteComponent } from './pages/covid19/registro-paciente.component';
@@ -104,7 +103,6 @@ import { MultiSelectModule } from 'primeng/multiselect';
     KeysPipe,
     ArraySortPipe,
     RestablecerClaveComponent,
-    Covid19Component,
     CargaCodigoComponent,
     DatosClinicosComponent,
     RegistroPacienteComponent,

@@ -46,7 +46,6 @@ import { CreacionCuentaComponent } from "./pages/identidad-electronica/crear-cue
 import { ValidacionIdentidadComponent } from "./pages/identidad-electronica/validacion-identidad/validacion-identidad.component";
 import { PasoFinalCreacionClaveComponent } from "./pages/identidad-electronica/paso-final-creacion-clave/paso-final-creacion-clave.component";
 import { IdentidadElectronicaComponent } from "./pages/identidad-electronica/identidad-electronica.component";
-import { Covid19Component } from "./pages/covid19/covid19.component";
 
 import { RegistroPacienteComponent } from "./pages/covid19/registro-paciente.component";
 
