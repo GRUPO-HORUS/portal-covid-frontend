@@ -26,6 +26,11 @@ export class FormDatosClinicos {
 
     public declaracionAgreement: boolean;
 
+    public tieneHabitacionPropia:boolean;
+
+    public sintomasTos:boolean;
+
+    public sintomasOtro:string;
 
     /*public medioTransporte: string;
     public tipoEmpresaTransporte: string;

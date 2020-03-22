@@ -32,6 +32,7 @@ export class RegistroPacienteComponent implements OnInit {
   public nombre: string;
   public apellido: string;
   public direccion: string;
+  public codigo: string;
 
   private subscription: Subscription;
   public recentToken: string = ''

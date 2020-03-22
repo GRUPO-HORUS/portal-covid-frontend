@@ -26,6 +26,8 @@ export class CargaCodigoComponent implements OnInit {
   public nombre: string;
   public apellido: string;
   public direccion: string;
+  public codigo: string;
+  public idRegisto: number;
 
   private subscription: Subscription;
   public recentToken: string = ''
