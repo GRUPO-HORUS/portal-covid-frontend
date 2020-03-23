@@ -71,7 +71,7 @@
                         </tr>
                         <tr>
                             
-                            <div class="form-group" *ngIf="formDatosClinicos.evaluacionRiesgoUsomedicamento==true">
+                            <div class="form-group" *ngIf="formDatosClinicos.evaluacionRiesgoUsomedicamento=='true'">
                         
                                 <label for="medicamento"><strong>Especificar</strong></label>
                                 <input type="text" [(ngModel)]="formDatosClinicos.evaluacionRiesgoMedicamento" name="medicamento" class="form-control" style="max-width: 300px;" id="medicamento">
@@ -84,37 +84,43 @@
                             <td><div class="ui-g-12"><p-radioButton name="group10" value=true label="Si" [(ngModel)]="formDatosClinicos.sintomasFiebre" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group10" value=false label="No" [(ngModel)]="formDatosClinicos.sintomasFiebre" inputId="opt2"></p-radioButton></div></td>
                         </tr>
-                        <tr *ngIf="formDatosClinicos.sintomasFiebre==true">
+                        <tr *ngIf="false">
                             <label for="fiebreValor"><strong>Indique la temperatura máxima medida:</strong></label>
                             <input type="number" [(ngModel)]="formDatosClinicos.sintomasFiebreValor" name="medicamento" class="form-control" style="max-width: 100px;" id="fiebreValor">
                         </tr>
                         <tr>
-                            <td><h4>Tuvo tos?</h4></td>
+                            <td><h4>Tuvo alguna dificultad para respirar?</h4></td>
+                            <td><div class="ui-g-12"><p-radioButton name="group11" value="true" label="Si" [(ngModel)]="formDatosClinicos.sintomasDificultadRespirar" inputId="opt1"></p-radioButton></div></td>
+                            <td><div class="ui-g-12"><p-radioButton name="group11" value="false" label="No" [(ngModel)]="formDatosClinicos.sintomasDificultadRespirar" inputId="opt2"></p-radioButton></div></td>
+                        </tr>
+
+                        <tr *ngIf="formDatosClinicos.sintomasDificultadRespirar=='true'">
+                            <td><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tuvo tos?</h5></td>
                             <td><div class="ui-g-12"><p-radioButton name="group11" value=true label="Si" [(ngModel)]="formDatosClinicos.sintomasTos" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group11" value=false label="No" [(ngModel)]="formDatosClinicos.sintomasTos" inputId="opt2"></p-radioButton></div></td>
                         </tr>
-                        <tr>
-                            <td><h4>Tuvo dolor de garganta?</h4></td>
+                        <tr *ngIf="formDatosClinicos.sintomasDificultadRespirar=='true'">
+                            <td><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tuvo dolor de garganta?</h5></td>
                             <td><div class="ui-g-12"><p-radioButton name="group12" value=true label="Si" [(ngModel)]="formDatosClinicos.sintomasDificultadRespirarDolorGarganta" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group12" value=false label="No" [(ngModel)]="formDatosClinicos.sintomasDificultadRespirarDolorGarganta" inputId="opt2"></p-radioButton></div></td>
                         </tr>
-                        <tr>
-                            <td><h4>Tuvo falta de aire?</h4></td>
+                        <tr *ngIf="formDatosClinicos.sintomasDificultadRespirar=='true'">
+                            <td><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tuvo falta de aire?</h5></td>
                             <td><div class="ui-g-12"><p-radioButton name="group13" value=true label="Si" [(ngModel)]="formDatosClinicos.sintomasDificultadRespirarFaltaAire" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group13" value=false label="No" [(ngModel)]="formDatosClinicos.sintomasDificultadRespirarFaltaAire" inputId="opt2"></p-radioButton></div></td>
                         </tr>
-                        <tr>
-                            <td><h4>Tuvo dificultad para caminar?</h4></td>
+                        <tr *ngIf="formDatosClinicos.sintomasDificultadRespirar=='true'">
+                            <td><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tuvo dificultad para caminar?</h5></td>
                             <td><div class="ui-g-12"><p-radioButton name="group14" value=true label="Si" [(ngModel)]="formDatosClinicos.sintomasDificultadRespirarCansancioCaminar" inputId="opt1"></p-radioButton></div></td>
                             <td> <div class="ui-g-12"><p-radioButton name="group14" value=false label="No" [(ngModel)]="formDatosClinicos.sintomasDificultadRespirarCansancioCaminar" inputId="opt2"></p-radioButton></div></td>
                         </tr>
-                        <tr>
-                            <td><h4>Tuvo rinorrea? (Goteo de secreción nasal)</h4></td>
+                        <tr *ngIf="formDatosClinicos.sintomasDificultadRespirar=='true'">
+                            <td><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tuvo rinorrea? (Goteo de secreción nasal)</h5></td>
                             <td><div class="ui-g-12"><p-radioButton name="group15" value=true label="Si" [(ngModel)]="formDatosClinicos.sintomasDificultadRespirarRinorrea" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group15" value=false label="No" [(ngModel)]="formDatosClinicos.sintomasDificultadRespirarRinorrea" inputId="opt2"></p-radioButton></div></td>
                         </tr>
-                        <tr>
-                            <td><h4>Tuvo congestión nasal?</h4></td>
+                        <tr *ngIf="formDatosClinicos.sintomasDificultadRespirar=='true'">
+                            <td><h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tuvo congestión nasal?</h5></td>
                             <td><div class="ui-g-12"><p-radioButton name="group16" value=true label="Si" [(ngModel)]="formDatosClinicos.sintomasDificultadRespirarCongestionNasal" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group16" value=false label="No" [(ngModel)]="formDatosClinicos.sintomasDificultadRespirarCongestionNasal" inputId="opt2"></p-radioButton></div></td>
                         </tr>
