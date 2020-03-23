@@ -71,7 +71,7 @@
                         </tr>
                         <tr>
                             
-                            <div class="form-group" *ngIf="formDatosClinicos.evaluacionRiesgoUsomedicamento=='true'">
+                            <div class="form-group" *ngIf="formDatosClinicos.evaluacionRiesgoUsomedicamento==true">
                         
                                 <label for="medicamento"><strong>Especificar</strong></label>
                                 <input type="text" [(ngModel)]="formDatosClinicos.evaluacionRiesgoMedicamento" name="medicamento" class="form-control" style="max-width: 300px;" id="medicamento">
@@ -84,7 +84,7 @@
                             <td><div class="ui-g-12"><p-radioButton name="group10" value=true label="Si" [(ngModel)]="formDatosClinicos.sintomasFiebre" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group10" value=false label="No" [(ngModel)]="formDatosClinicos.sintomasFiebre" inputId="opt2"></p-radioButton></div></td>
                         </tr>
-                        <tr *ngIf="formDatosClinicos.sintomasFiebre=='true'">
+                        <tr *ngIf="formDatosClinicos.sintomasFiebre==true">
                             <label for="fiebreValor"><strong>Indique la temperatura máxima medida:</strong></label>
                             <input type="number" [(ngModel)]="formDatosClinicos.sintomasFiebreValor" name="medicamento" class="form-control" style="max-width: 100px;" id="fiebreValor">
                         </tr>
