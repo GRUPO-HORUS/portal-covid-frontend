@@ -15,12 +15,21 @@
                     <span>Datos Básicos del Paciente</span>
                 </h3>
 
-                <p style="font-size: 30px;" align="justify">
+                <p style="text-align:justify">
                     {{this.formDatosBasicos?.nombre}}&nbsp;{{this.formDatosBasicos?.apellido}}, como medida de prevención usted 
-                    debe realizar aislamiento domiciliario.<br> Tenemos registrados los siguientes datos:<br>
-                    Nombre y Apellido: {{this.formDatosBasicos?.nombre}}&nbsp;{{this.formDatosBasicos?.apellido}} <br>
-                    Cédula de Identidad: {{this.formDatosBasicos?.numeroDocumento}} <br>
-                    Dirección de Aislamiento: {{this.formDatosBasicos?.direccionDomicilio}} <br>
+                    debe realizar aislamiento domiciliario.</p><p style="text-align:justify">Tenemos registrados los siguientes datos:</p> 
+                        <ul>
+                            <li>
+                                Nombre y Apellido: {{this.formDatosBasicos?.nombre}}&nbsp;{{this.formDatosBasicos?.apellido}}
+                            </li>
+                            <li>
+                                Cédula de Identidad: {{this.formDatosBasicos?.numeroDocumento}}
+                            </li>
+                            <li>
+                                Dirección de Aislamiento: {{this.formDatosBasicos?.direccionDomicilio}}
+                            </li>
+                        </ul>
+                    <p style="text-align:justify">
                     A continuación, deberá completar informaciones referentes a su estado de salud. 
                     Por favor, escriba una clave de seguridad que utilizará para consultar sus registros:</p>
 

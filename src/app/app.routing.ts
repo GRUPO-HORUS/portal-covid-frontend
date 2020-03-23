@@ -197,7 +197,7 @@ export const appRoutes: Routes = [
   { path: "covid19/aislamiento/registro-paciente", component: RegistroPacienteComponent },
   { path: "covid19/aislamiento/datos-paciente", component: MostrarDatosPacienteComponent },
 
-  { path: "covid19/aislamiento/datos-al-paciente/:idRegistro/:codigoVerif", component: MostrarDatosAlPacienteComponent },
+  { path: "i/:idRegistro/:codigoVerif", component: MostrarDatosAlPacienteComponent },
 
   { path: "covid19/aislamiento/datos-clinicos/:idRegistro/:codigoVerif", component: DatosClinicosComponent },
 
@@ -292,4 +292,4 @@ export const appRoutingProviders: any[] = [
   PoderesDelEstadoService,
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
+export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes,{ useHash: true });

@@ -105,8 +105,8 @@ export class RegistroPacienteComponent implements OnInit {
               this.loading = false;
               this.mensaje = "Mensaje Enviado con Éxito";
               localStorage.setItem('codigo', response);
-              //this._router.navigate(["covid19/aislamiento/datos-paciente/"]);
-              this._router.navigate(["covid19/home-operador/"]);
+              this._router.navigate(["covid19/aislamiento/datos-paciente/"]);
+              //this._router.navigate(["covid19/home-operador/"]);
             } else {
               this.loading = false;
               this.mensaje = "Fallo";

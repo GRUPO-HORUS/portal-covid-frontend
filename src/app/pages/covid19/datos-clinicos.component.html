@@ -29,10 +29,10 @@
                             <td><div class="ui-g-12"><p-radioButton name="group2" value=true label="Si" [(ngModel)]="formDatosClinicos.evaluacionRiesgoTieneHabitacionPropria" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group2" value=false label="No" [(ngModel)]="formDatosClinicos.evaluacionRiesgoTieneHabitacionPropria" inputId="opt2"></p-radioButton></div></td>
                         </tr>
-                        <tr>
+                        <!--tr>
                             <label for="ocupacion"><strong>Indique su Ocupación</strong></label>
                             <input type="text" [(ngModel)]="formDatosClinicos.ocupacion" name="ocupacion" class="form-control" style="max-width: 300px;" id="ocupacion">
-                        </tr>
+                        </tr-->
                         <!--<tr><h4>Antecedentes de salud</h4></tr>-->
                         <tr>
                             <td><h4>Tiene cardiopatía crónica?</h4></td>
@@ -70,7 +70,7 @@
                             <td><div class="ui-g-12"><p-radioButton name="group9" value="false" label="No" [(ngModel)]="formDatosClinicos.evaluacionRiesgoUsomedicamento" inputId="opt2"></p-radioButton></div></td>
                         </tr>
                         <tr>
-                            {{formDatosClinicos.evaluacionRiesgoUsomedicamento}}
+                            
                             <div class="form-group" *ngIf="formDatosClinicos.evaluacionRiesgoUsomedicamento=='true'">
                         
                                 <label for="medicamento"><strong>Especificar</strong></label>

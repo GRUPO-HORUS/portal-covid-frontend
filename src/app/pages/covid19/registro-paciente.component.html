@@ -72,7 +72,7 @@
                     </div>
 
                     <div class="text-center" *ngIf="loading">
-                        <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> A partir de ahora vamos a validar que sos vos...
+                        <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> Registrando...
                     </div>
 
                     <div class="clearfix"><br/></div>
@@ -86,7 +86,7 @@
                     <div class="clearfix"><br/></div>
                     <button (click)="registrar(formDatosBasicos)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
                         <!--  || !telefValido || telefono.indexOf('+')!=0 -->
-                            Volver
+                            Registrar
                             <span class="fa fa-check"></span>            
                         </button>
                 </form>
@@ -106,8 +106,6 @@
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         </div>
                         <div class="modal-body">{{mensaje}}
-                            <br><label for="direccion"><strong>Ingrese el código</strong></label>
-                            <input type="text" [(ngModel)]="codigo" name="codigo" class="form-control" style="max-width: 300px;" id="codigo">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-remove"></i>  Cerrar</button>
