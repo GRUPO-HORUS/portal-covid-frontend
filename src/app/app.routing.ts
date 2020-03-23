@@ -112,7 +112,7 @@ import { InfoServicios } from "./pages/ciudadano/carpeta-ciudadana/carpeta-ciuda
 
 //Listado de rutas para la aplicación
 export const appRoutes: Routes = [
-  { path: "", component: PortadaComponent },
+  { path: "noportada", component: PortadaComponent },
   { path: "portada", component: PortadaComponent, runGuardsAndResolvers: 'always' },
   //{ path: "sitemap.xml", loadChildren: 'app/pages/sitemap/sitemap.module#SitemapModule'},
 
@@ -202,7 +202,7 @@ export const appRoutes: Routes = [
   { path: "covid19/aislamiento/datos-clinicos/:idRegistro/:codigoVerif", component: DatosClinicosComponent },
 
   { path: "covid19/aislamiento/mensaje-final", component: MensajeFinalComponent},
-  { path: "login", component: LoginComponent },
+  { path: "", component: LoginComponent },
 
   { path: "**", component: Page404Component }
 ];
