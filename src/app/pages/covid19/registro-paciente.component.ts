@@ -114,8 +114,9 @@ export class RegistroPacienteComponent implements OnInit {
 
             }
           }, error => {
+            console.log(error);
             this.loading = false;
-            this.mensaje = "No se pudo procesar la operación!";
+            this.mensaje = error.error;
             this.openMessageDialog();
             
           }
