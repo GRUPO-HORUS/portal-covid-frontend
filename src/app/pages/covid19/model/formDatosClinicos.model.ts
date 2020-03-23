@@ -9,7 +9,7 @@ export class FormDatosClinicos {
     public enfermedadBaseDiabetes: boolean;
     public enfermedadBaseRenalCronico: boolean;
     public enfermedadBaseHepaticaGrave: boolean;
-    public evaluacionRiesgoUsomedicamento: boolean;
+    public evaluacionRiesgoUsomedicamento: string;
     public evaluacionRiesgoMedicamento: string;
 
     public sintomasFiebre: boolean;
