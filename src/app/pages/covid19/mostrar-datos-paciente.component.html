@@ -10,15 +10,26 @@
     <div class="container pb-6">
         <div class="row">
             <div class="col-md-8 mb-4">
+                <h3 class="title-divider text-primary">
+                    <i class="fa fa-edit mr-2" style="margin-top: -4px;"></i>
+                    <span>Registro de nuevo paciente - Confirmación</span>
+                </h3>
                 <!--<h4 align="justify">                   
                     Datos ingresados correctamente. El Paciente recibirá un mensaje de texto para completar el formulario de estado de salud. El código de verificación que se informó en el mensaje al paciente es: {{codigoVerif}}
                         .Por favor, confirme con el paciente el código de verificación.
                 </h4>-->
 
-                <p align="justify" style="font-size: 30px;">
-                    Datos ingresados correctamente. El Paciente recibirá un mensaje de texto para completar el formulario de estado de salud. El código de verificación que se informó en el mensaje al paciente es: <b>{{codigoVerif}}</b>
-                        .Por favor, confirme con el paciente el código de verificación.
+                <p>
+                    Datos ingresados correctamente.</p><p> El Paciente recibirá un mensaje de texto para completar el formulario de estado de salud.</p>
+                    <p>Código de verificación enviado al paciente es: <b>{{codigoVerif}}.</b>
+                        Por favor, confirme con el paciente el código de verificación.
                 </p>
+
+                <button class="btn btn-secondary" routerLink="/covid19/home-operador">
+                    <!--  || !telefValido || telefono.indexOf('+')!=0 -->
+                        Volver
+                        <span class="fa fa-times"></span>            
+                    </button>
                 
                 <!--<form #miForm="ngForm" class="mt-4">
                     <div class="form-group">

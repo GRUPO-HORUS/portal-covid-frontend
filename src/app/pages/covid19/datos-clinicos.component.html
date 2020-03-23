@@ -18,7 +18,7 @@
                 <form #miForm="ngForm" class="mt-4">
                     
                     <table>
-                        <tr><h3>Evaluación de riesgo</h3><hr></tr>
+                        <tr><td colspan="2"><h3>Evaluación de riesgo</h3></td></tr>
                         <tr>
                             <td><h4>Vive sólo/a?</h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="group1" value=true label="Si" [(ngModel)]="formDatosClinicos.evaluacionRiesgoViveSolo" inputId="opt1"></p-radioButton></div></td>
@@ -78,7 +78,7 @@
                             </div>
                         </tr>
                         <br>
-                        <tr><h3>Estado de salud en los últimos 15 días:</h3><hr></tr>
+                        <tr><td colspan="2"><h3>Estado de salud en los últimos 15 días:</h3></td></tr>
                         <tr>
                             <td><h4>Tuvo fiebre o sensación febril?</h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="group10" value=true label="Si" [(ngModel)]="formDatosClinicos.sintomasFiebre" inputId="opt1"></p-radioButton></div></td>
@@ -229,7 +229,7 @@
                         <div class="modal-body">{{mensaje}}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-remove"></i>  Cerrar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-remove"></i>  Cerrar</button>
                         </div>
                     </div>
                 </div>

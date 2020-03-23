@@ -19,21 +19,23 @@
   <p-messages [value]="msgs"></p-messages>
   <div id="login-container" style="height: 330px !important;max-width:400px;margin: auto;text-align:center;">
     <!-- <span class="title">Bienvenido </span> -->
-    <h3 class="welcome-text">Gestión de Pacientes <br> en Aislamiento</h3>
+    <h3 class="welcome-text">Módulo del Operador Sanitario</h3>
     <!--span class="guest-sign-in">Inicie sesión para administrar sus recursos</span-->
 
     <form #loginForm="ngForm">
       <div class="ui-g ui-fluid">
 
         <div class="ui-g-12">
+          <label>Login</label>
           <input type="text" pInputText autocomplete="off"
-            placeholder="Cédula" id="usuario" name="usuario" [(ngModel)]="up.username" required #usuario="ngModel" />
+            placeholder="Identificador" id="usuario" name="usuario" [(ngModel)]="up.username" required #usuario="ngModel" />
           <div [hidden]="usuario.valid || usuario.pristine">
             <p-message severity="error" text="Nombre de usuario requerido"></p-message>
           </div>
         </div>
 
         <div class="ui-g-12">
+          <label>Informe su clave</label>
           <input type="password" autocomplete="off"
             placeholder="Clave" id="clave" name="clave" [(ngModel)]="up.password" required #clave="ngModel" />
           <div [hidden]="clave.valid || clave.pristine">
