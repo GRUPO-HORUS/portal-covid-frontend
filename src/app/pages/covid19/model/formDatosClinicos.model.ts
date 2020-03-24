@@ -13,7 +13,7 @@ export class FormDatosClinicos {
     public evaluacionRiesgoMedicamento: string;
     public sintomasFiebreValor:string;
 
-    public sintomasFiebre: boolean;
+    public sintomasFiebre: string;
     public sintomasDificultadRespirar:string;
     public sintomasDificultadRespirarDolorGarganta:boolean;
 
