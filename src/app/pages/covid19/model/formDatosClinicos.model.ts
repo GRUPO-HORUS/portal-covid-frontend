@@ -11,6 +11,7 @@ export class FormDatosClinicos {
     public enfermedadBaseHepaticaGrave: boolean;
     public evaluacionRiesgoUsomedicamento: string;
     public evaluacionRiesgoMedicamento: string;
+    public sintomasFiebreValor:string;
 
     public sintomasFiebre: boolean;
     public sintomasDificultadRespirar:string;

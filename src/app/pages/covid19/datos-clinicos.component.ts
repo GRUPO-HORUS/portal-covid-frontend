@@ -81,6 +81,8 @@ export class DatosClinicosComponent implements OnInit {
               this.loading = false;
               this.mensaje = "Se ha registrado con Éxito";
               //this.openMessageDialog();
+              localStorage.setItem('token',response);
+              //window.open("https://app.coronavirus.gov.py/login?token="+response);
               this._router.navigate(["covid19/aislamiento/mensaje-final/"]);
           }, error => {
             this.loading = false;

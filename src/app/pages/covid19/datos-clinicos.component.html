@@ -12,7 +12,7 @@
             <div class="col-md-8 mb-4">
                 <h3 class="title-divider text-primary">
                     <i class="fa fa-edit mr-2" style="margin-top: -4px;"></i>
-                    <span>Formulario de Registro de Salud - Datos Clínicos.</span>
+                    <span>Tu Estado de Salud - Registro</span>
                 </h3>
 
                 <form #miForm="ngForm" class="mt-4">
@@ -84,9 +84,11 @@
                             <td><div class="ui-g-12"><p-radioButton name="group10" value=true label="Si" [(ngModel)]="formDatosClinicos.sintomasFiebre" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group10" value=false label="No" [(ngModel)]="formDatosClinicos.sintomasFiebre" inputId="opt2"></p-radioButton></div></td>
                         </tr>
-                        <tr *ngIf="false">
-                            <label for="fiebreValor"><strong>Indique la temperatura máxima medida:</strong></label>
-                            <input type="number" [(ngModel)]="formDatosClinicos.sintomasFiebreValor" name="medicamento" class="form-control" style="max-width: 100px;" id="fiebreValor">
+                        <tr *ngIf="formDatosClinicos.sintomasFiebre=='true'">
+                            <td>
+                                <label for="fiebreValor">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Indique la temperatura máxima medida:</strong></label><br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="number" [(ngModel)]="formDatosClinicos.sintomasFiebreValor" name="medicamento" style="max-width: 100px;" id="fiebreValor" step=".1">
+                            </td>
                         </tr>
                         <tr>
                             <td><h4>Tuvo alguna dificultad para respirar?</h4></td>
@@ -194,7 +196,7 @@
                     
 
                     <div class="text-center" *ngIf="loading">
-                        <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> A partir de ahora vamos a validar que sos vos...
+                        <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> Registrando...
                     </div>
 
                     <div class="clearfix"><br/></div>

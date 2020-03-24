@@ -32,15 +32,17 @@ export class MensajeFinalComponent implements OnInit {
   public recaptchaAvailable = false;
 
   public qrCode: string;
+  public token:string;
 
   constructor(
     private _router: Router,
     private service: Covid19Service
   ) {
     this.loading = false;
-    if (typeof localStorage !== "undefined") {
+    /*if (typeof localStorage !== "undefined") {
       localStorage.clear();
-    }
+    }*/
+    this.token=localStorage.getItem('token');
   }
 
   ngOnInit() {
