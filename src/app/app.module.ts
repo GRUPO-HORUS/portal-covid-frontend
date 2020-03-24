@@ -35,9 +35,13 @@ import { RestablecerClaveComponent } from './pages/identidad-electronica/restabl
 import {DemoMaterialModule} from './material-module';
 import { ChartjsModule } from '@ctrl/ngx-chartjs';
 import { ModalModule } from './lib/modal-custom';
-import { CargaCodigoComponent } from './pages/covid19/carga-codigo.component';
+import { CargaCodigoComponent } from './pages/covid19/ingreso-pais/carga-codigo.component';
 import { DatosClinicosComponent } from './pages/covid19/datos-clinicos.component';
 import { RegistroPacienteComponent } from './pages/covid19/registro-paciente.component';
+
+import {RegistroIngresoPaisComponent} from './pages/covid19/ingreso-pais/registro-ingreso-pais.component';
+import {MensajeFinalIngresoComponent} from './pages/covid19/ingreso-pais/mensaje-final-ingreso.component';
+
 import { DropdownModule } from 'primeng/dropdown';
 
 import {CheckboxModule} from 'primeng/checkbox';
@@ -86,6 +90,7 @@ import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 import { MultiSelectModule } from 'primeng/multiselect';
+import { DatosClinicosIngresoComponent } from "./pages/covid19/ingreso-pais/datos-clinicos-ingreso.component";
 
 /*
   @autor:
@@ -120,7 +125,10 @@ import { MultiSelectModule } from 'primeng/multiselect';
     RolCrearComponent,
     UsuarioComponent,
     UsuarioCrearComponent,
-    UsuarioEditarRolComponent
+    UsuarioEditarRolComponent,
+    RegistroIngresoPaisComponent,
+    DatosClinicosIngresoComponent,
+    MensajeFinalIngresoComponent
   ],
   // dependencias de módulos
   imports: [

@@ -1,15 +1,15 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subscription } from 'rxjs';
-import { Covid19Service } from '../../services/Covid19Service';
+import { Covid19Service } from '../../../services/Covid19Service';
 declare var $: any;
 
 @Component({
-  selector: "carga-codigo-selector",
-  templateUrl: "./carga-codigo.component.html",
+  selector: "mensaje-final-ingreso-selector",
+  templateUrl: "./mensaje-final-ingreso.component.html",
   providers: [Covid19Service]
 })
-export class CargaCodigoComponent implements OnInit {
+export class MensajeFinalIngresoComponent implements OnInit {
 
   public loading: boolean;
   public mensaje: string;
@@ -26,60 +26,33 @@ export class CargaCodigoComponent implements OnInit {
   public nombre: string;
   public apellido: string;
   public direccion: string;
-  public codigo: string;
-  public idRegistro: number;
 
   private subscription: Subscription;
   public recentToken: string = ''
   public recaptchaAvailable = false;
 
-  public qrCode: string;
+  public token:string;
+  public codigoVerif: string;
 
   constructor(
     private _router: Router,
     private service: Covid19Service
   ) {
     this.loading = false;
-    if (typeof localStorage !== "undefined") {
+    /*if (typeof localStorage !== "undefined") {
       localStorage.clear();
-    }
+    }*/
+    this.token=localStorage.getItem('token');
   }
 
   ngOnInit() {
-    this.qrCode = 'qwertyu';
+    this.codigoVerif = localStorage.getItem('codigoVerif');
   }
 
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
-  }
-
-  enviar(codigo: string, idRegistro: number){
-    /*this.service.enviarCodigo(codigo, idRegistro).subscribe(response => { }
-    );*/
-  }
-
-  avanzar(telefono: string): void {
-    this.loading = true;
-        this.service.sendMessage(telefono).subscribe(response => {
-            console.log(response);
-            if (response) {
-              this.loading = false;
-              this.mensaje = "Mensaje Enviado con Éxito";
-              this.openMessageDialog();
-            } else {
-              this.loading = false;
-              this.mensaje = "Fallo";
-              this.openMessageDialog();
-
-            }
-          }, error => {
-            this.loading = false;
-            this.mensaje = "No se pudo procesar la operación!";
-            this.openMessageDialog();
-          }
-        );
   }
   
   openMessageDialog() {

@@ -12,8 +12,14 @@
             <div class="col-md-8 mb-4">
                 <h3 class="title-divider text-primary">
                     <i class="fa fa-edit mr-2" style="margin-top: -4px;"></i>
-                    <span>Se ha enviado un mensaje a su teléfono con un código. Favor ingrese el código.</span>
+                    <span>Registro de Salud - Confirmar Teléfono</span>
                 </h3>
+
+                <p>Hemos enviado un código en un mensaje de texto a su teléfono de contacto.</p>
+                    <p> Por favor informe el código recibido en el teléfono.</p>
+                    
+                <!--<span>{{this?.nombre}}&nbsp;{{this?.apellido}}, se ha enviado un mensaje a su teléfono con un código. 
+                        A continuación, por favor ingrese el código.</span>-->
 
                 <form #miForm="ngForm" class="mt-4">
 
@@ -23,13 +29,13 @@
                     </div>
 
                     <div class="text-center" *ngIf="loading">
-                        <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> A partir de ahora vamos a validar que sos vos...
+                        <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." />Registrando...
                     </div>
 
                     <div class="clearfix"><br/></div>
 
                     <div class="clearfix"><br/></div>
-                    <button (click)="enviar(codigo, idRegistro)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || !terminos">
+                    <button (click)="validarTelefono(codigo)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
                         <!--  || !telefValido || telefono.indexOf('+')!=0 -->
                             Enviar
                             <span class="fa fa-check"></span>            

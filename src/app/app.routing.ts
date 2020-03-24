@@ -53,12 +53,16 @@ import { RegistroPacienteComponent } from "./pages/covid19/registro-paciente.com
 import { MostrarDatosPacienteComponent } from "./pages/covid19/mostrar-datos-paciente.component";
 
 import { MostrarDatosAlPacienteComponent } from "./pages/covid19/mostrar-datos-al-paciente.component";
-
-import { CargaCodigoComponent } from "./pages/covid19/carga-codigo.component";
 import { DatosClinicosComponent } from "./pages/covid19/datos-clinicos.component";
 
 import { MensajeFinalComponent } from "./pages/covid19/mensaje-final.component";
 import { LoginComponent } from './pages/login/login.component';
+
+import { RegistroIngresoPaisComponent } from "./pages/covid19/ingreso-pais/registro-ingreso-pais.component";
+import { CargaCodigoComponent } from "./pages/covid19/ingreso-pais/carga-codigo.component";
+import { DatosClinicosIngresoComponent } from "./pages/covid19/ingreso-pais/datos-clinicos-ingreso.component";
+import { MensajeFinalIngresoComponent } from "./pages/covid19/ingreso-pais/mensaje-final-ingreso.component";
+
 /**
  *  PLUGINS
  */
@@ -193,7 +197,6 @@ export const appRoutes: Routes = [
 
   { path: "covid19/home-operador", component: HomeOperadorComponent},
 
-  { path: "covid19/aislamiento/carga-codigo", component: CargaCodigoComponent },
   { path: "covid19/aislamiento/registro-paciente", component: RegistroPacienteComponent },
   { path: "covid19/aislamiento/datos-paciente", component: MostrarDatosPacienteComponent },
 
@@ -202,6 +205,12 @@ export const appRoutes: Routes = [
   { path: "covid19/aislamiento/datos-clinicos/:idRegistro/:codigoVerif", component: DatosClinicosComponent },
 
   { path: "covid19/aislamiento/mensaje-final", component: MensajeFinalComponent},
+
+  { path: "covid19/ingreso-pais/registro", component: RegistroIngresoPaisComponent},
+  { path: "covid19/ingreso-pais/carga-codigo", component: CargaCodigoComponent },
+  { path: "covid19/ingreso-pais/datos-clinicos/:idRegistro/:codigoVerif", component: DatosClinicosIngresoComponent },
+  { path: "covid19/ingreso-pais/mensaje-final", component: MensajeFinalIngresoComponent},
+
   { path: "", component: LoginComponent },
 
   { path: "**", component: Page404Component }

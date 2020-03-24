@@ -18,9 +18,9 @@ export class Covid19Service {
       return this.httpClient.get<any[]>(this.config.API +"/covid19/sendMessage?phone="+phone);
     }
 
-    guardarDatosBasicos(formDatosBasicos): Observable<any[]> {
-      return this.httpClient.post<any[]>(this.config.API + '/covid19api/ingresoPais/datosBasicosViajero', formDatosBasicos)
-        .pipe(catchError(this.handler.handleError<any[]>('/covid19api/ingresoPais/datosBasicosViajero')));
+    guardarDatosBasicos(formDatosBasicos): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/ingresoPais/datosBasicosViajero', formDatosBasicos)
+        //.pipe(catchError(this.handler.handleError<any[]>('/covid19api/ingresoPais/datosBasicosViajero')));
     }
 
     registrarPaciente(formDatosBasicos): Observable<string> {
@@ -43,15 +43,10 @@ export class Covid19Service {
         //.pipe(catchError(this.handler.handleError<any>('/covid19api/aislamiento/validarTelefono')));
     }
 
-    /*crearConfiguracion(configuracion: Configuracion): Observable<MessageResponse> {
-      this.loading.next(true);
-      return this.http.post<MessageResponse>(this.url + '/crear', configuracion)
-        .pipe(finalize(() => { this.loading.next(false) }))
-        .pipe(catchError(this.handler.handlePostError<MessageResponse>('crearConfiguracion')));
-    }*/
 
-    enviarCodigo(codigo, idRegistro){
-
+    validarTelefonoIngresoPais(idRegistro, codigoVerif): Observable<any> {
+      return this.httpClient.post<any>(this.config.API + '/covid19api/ingresoPais/validarTelefono/'+idRegistro+"/"+codigoVerif, {});
+        //.pipe(catchError(this.handler.handleError<any>('/covid19api/aislamiento/validarTelefono')));
     }
  }
 
