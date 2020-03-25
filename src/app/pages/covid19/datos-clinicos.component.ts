@@ -87,7 +87,7 @@ export class DatosClinicosComponent implements OnInit {
               this._router.navigate(["covid19/aislamiento/mensaje-final/"]);
           }, error => {
             this.loading = false;
-            this.mensaje = "No se pudo procesar la operación!";
+            this.mensaje = error.error;
             this.openMessageDialog();
             
           }
