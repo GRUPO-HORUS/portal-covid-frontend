@@ -5,6 +5,8 @@ import { Covid19Service } from '../../../services/Covid19Service';
 
 import {FormDatosBasicos} from '../model/formDatosBasicos.model';
 
+import { ReCaptchaV3Service } from 'ng-recaptcha';
+
 declare var $: any;
 @Component({
   selector: "registro-ingreso-pais-selector",
@@ -33,9 +35,9 @@ export class RegistroIngresoPaisComponent implements OnInit {
   public direccion: string;
   public codigo: string;
 
-  private subscription: Subscription;
-  public recentToken: string = ''
-  public recaptchaAvailable = false;
+  //private subscription: Subscription;
+  //public recentToken: string = ''
+  //public recaptchaAvailable = false;
 
   public origen: string;
 
@@ -61,10 +63,16 @@ export class RegistroIngresoPaisComponent implements OnInit {
                               {value:'Presidente Hayes',label:'Presidente Hayes'},{value:'Alto Paraguay',label:'Alto Paraguay'},
                               {value:'Boquerón',label:'Boquerón'}];
 
+  // recaptcha
+  public recentToken: string = ''
+  private subscription: Subscription;
+  public recaptchaAvailable = false;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private recaptchaV3Service: ReCaptchaV3Service
   ) {
     this.loading = false;
     if (typeof localStorage !== "undefined") {
@@ -77,6 +85,8 @@ export class RegistroIngresoPaisComponent implements OnInit {
     this.formDatosBasicos = new FormDatosBasicos();
 
     this.formDatosBasicos.tipoDocumento = 0;
+
+    this.getRecaptchaToken('register');
 
     /*this._route.params.subscribe(params => {
         this.formDatosBasicos.tipoInicio = params["tipoInicio"];
@@ -97,9 +107,13 @@ export class RegistroIngresoPaisComponent implements OnInit {
     localStorage.setItem('numeroCelular', formDatosBasicos.numeroCelular);
     localStorage.setItem('direccion', formDatosBasicos.direccionDomicilio);
     localStorage.setItem('email', formDatosBasicos.correoElectronico);
+
+    /*if(this.recaptchaAvailable){
+      this.formDatosBasicos.rcToken = this.recentToken;
+    }*/
     
       this.loading = true;
-      this.service.guardarDatosBasicos(formDatosBasicos).subscribe(response => {
+      this.service.guardarDatosBasicos(formDatosBasicos, this.recentToken).subscribe(response => {
           console.log(response);
           this.loading = false;
           this.mensaje = "Mensaje Enviado con Éxito";
@@ -117,6 +131,19 @@ export class RegistroIngresoPaisComponent implements OnInit {
             
         }
       );
+  }
+
+  getRecaptchaToken(action){
+
+    this.subscription = this.recaptchaV3Service.execute(action)
+        .subscribe(response => {
+            this.recentToken = response;
+            this.recaptchaAvailable = true;
+        },error=>{
+          console.log("error getting recaptcha");
+          this.ngOnDestroy()
+
+        });
   }
 
   avanzar(telefono: string): void {

@@ -18,8 +18,8 @@ export class Covid19Service {
       return this.httpClient.get<any[]>(this.config.API +"/covid19/sendMessage?phone="+phone);
     }
 
-    guardarDatosBasicos(formDatosBasicos): Observable<string> {
-      return this.httpClient.post<string>(this.config.API + '/covid19api/ingresoPais/datosBasicosViajero', formDatosBasicos)
+    guardarDatosBasicos(formDatosBasicos, rcToken): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/ingresoPais/datosBasicosViajero/'+rcToken, formDatosBasicos)
         //.pipe(catchError(this.handler.handleError<any[]>('/covid19api/ingresoPais/datosBasicosViajero')));
     }
 

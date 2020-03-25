@@ -13,7 +13,7 @@ import { NgxPaginationModule } from "ngx-pagination";
 import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { Ng2OrderModule } from "ng2-order-pipe";
 
-import { RecaptchaFormsModule } from "ng-recaptcha/forms";
+//import { RecaptchaFormsModule } from "ng-recaptcha/forms";
 import { RecaptchaModule, RECAPTCHA_LANGUAGE } from "ng-recaptcha";
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha';
 
@@ -143,7 +143,7 @@ import { DatosClinicosIngresoComponent } from "./pages/covid19/ingreso-pais/dato
     Ng2OrderModule,
     NgxPaginationModule,
     RecaptchaModule.forRoot(),
-    RecaptchaFormsModule,
+    //RecaptchaFormsModule,
     MyDatePickerModule,
     NgbModule.forRoot(),
     MatSnackBarModule,
@@ -175,7 +175,7 @@ import { DatosClinicosIngresoComponent } from "./pages/covid19/ingreso-pais/dato
     ScrollToService,
     // web: 6LeaIdMUAAAAALRst4PI1YiD5PHdBmf0O56FJ6a7  secreta: 6LeaIdMUAAAAAPeDIInz4Erxo6lAM80rwZsxbs3r
     { provide: RECAPTCHA_LANGUAGE, useValue: "es" },
-    { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LeaIdMUAAAAALRst4PI1YiD5PHdBmf0O56FJ6a7' },
+    { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LfJyuMUAAAAAIV7rrC6RWZdrotQYQfHCbrLIgAY' },
   ],
   bootstrap: [AppComponent]
 })

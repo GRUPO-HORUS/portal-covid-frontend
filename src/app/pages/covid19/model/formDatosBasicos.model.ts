@@ -14,10 +14,11 @@ export class FormDatosBasicos {
     direccionDomicilio: string;
     paisEmisorDocumento: string;
     tipoInicio: string;
-
     tipoRegistro: string;
 
     contrasenha: string;
     contrasenhaConfirm: string;
+
+    //rcToken: string;
 
 }
