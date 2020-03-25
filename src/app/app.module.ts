@@ -92,6 +92,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { DatosClinicosIngresoComponent } from "./pages/covid19/ingreso-pais/datos-clinicos-ingreso.component";
 
+import { OperadorIngresoPaisPaciente } from './pages/covid19/operador-ingreso-pais-paciente.component';
+
 /*
   @autor:
   @date: 29/06/2017
@@ -128,7 +130,8 @@ import { DatosClinicosIngresoComponent } from "./pages/covid19/ingreso-pais/dato
     UsuarioEditarRolComponent,
     RegistroIngresoPaisComponent,
     DatosClinicosIngresoComponent,
-    MensajeFinalIngresoComponent
+    MensajeFinalIngresoComponent,
+    OperadorIngresoPaisPaciente
   ],
   // dependencias de módulos
   imports: [

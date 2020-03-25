@@ -21,8 +21,16 @@
                     <p>Utilize esta opción para registrar una persona en la aplicación de seguimiento de aislamiento domiciliario.  Deberá tener información de los datos básicos de la persona y su número de celular. El paciente recibirá un mensaje de texto con información e instrucciones para utilizar la aplicación.</p>
                     <br>
                     <button class="btn btn-success btn-success-next" routerLink="/covid19/aislamiento/registro-paciente">
-                        <!--  || !telefValido || telefono.indexOf('+')!=0 -->
-                            Registrar Persona
+                            Registrar Persona Aislamiento
+                            <span class="fa fa-check"></span>            
+                        </button>
+                        <br>
+                        <br>
+                        <h4>Registrar Persona Ingreso al País</h4>
+                        <p>Utilize esta opción para registrar una persona que ingresa al pais.  Deberá tener el número de documento y el código de verificación de la persona. El paciente recibirá un mensaje de texto con información e instrucciones para utilizar la aplicación.</p>
+                        <br>
+                        <button class="btn btn-success btn-success-next" routerLink="/covid19/operador/registroPersona">
+                            Registrar Ingreso Persona
                             <span class="fa fa-check"></span>            
                         </button>
                 <!--<qrcode [qrdata]="qrCode" [width]="128" [errorCorrectionLevel]="'M'"></qrcode>

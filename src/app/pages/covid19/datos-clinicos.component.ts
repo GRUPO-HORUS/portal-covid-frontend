@@ -59,6 +59,7 @@ export class DatosClinicosComponent implements OnInit {
   ngOnInit() {
     console.log("datos clinicos");
     this.formDatosClinicos = new FormDatosClinicos();
+    this.formDatosClinicos.sintomasFiebreValor='35.5';
     this._route.params.subscribe(params => {
       this.formDatosClinicos.idRegistro = params["idRegistro"];
       this.codigoVerif = params["codigoVerif"];

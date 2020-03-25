@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
         //}
       } else {
         this.msgs = [];
-        this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Clave inválida.' });
+        this.msgs.push({ severity: 'error', summary: 'Error', detail: 'Login o Clave Inválida' });
       }
 
     });

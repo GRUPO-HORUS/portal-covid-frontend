@@ -48,6 +48,15 @@ export class Covid19Service {
       return this.httpClient.post<any>(this.config.API + '/covid19api/ingresoPais/validarTelefono/'+idRegistro+"/"+codigoVerif, {});
         //.pipe(catchError(this.handler.handleError<any>('/covid19api/aislamiento/validarTelefono')));
     }
+
+    getDatosBasicosByNumeroDocumentoAndCodigoVerificacion(numeroDocumento, codigoVerif): Observable<FormDatosBasicos> {
+      return this.httpClient.get<FormDatosBasicos>(this.config.API + '/covid19api/ingresoPais/obtenerPersona/'+numeroDocumento+"/"+codigoVerif);
+    }
+
+    confirmarPersona(numeroDocumento, codigoVerif): Observable<any> {
+      return this.httpClient.post<any>(this.config.API + '/covid19api/ingresoPais/confirmarPersona/'+numeroDocumento+"/"+codigoVerif,null);
+        //.pipe(catchError(this.handler.handleError<any>('/covid19api/aislamiento/validarTelefono')));
+    }
  }
 
 

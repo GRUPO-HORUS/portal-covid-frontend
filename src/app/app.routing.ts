@@ -63,6 +63,7 @@ import { CargaCodigoComponent } from "./pages/covid19/ingreso-pais/carga-codigo.
 import { DatosClinicosIngresoComponent } from "./pages/covid19/ingreso-pais/datos-clinicos-ingreso.component";
 import { MensajeFinalIngresoComponent } from "./pages/covid19/ingreso-pais/mensaje-final-ingreso.component";
 
+import { OperadorIngresoPaisPaciente } from './pages/covid19/operador-ingreso-pais-paciente.component';
 /**
  *  PLUGINS
  */
@@ -210,6 +211,8 @@ export const appRoutes: Routes = [
   { path: "covid19/ingreso-pais/carga-codigo", component: CargaCodigoComponent },
   { path: "covid19/ingreso-pais/datos-clinicos/:idRegistro/:codigoVerif", component: DatosClinicosIngresoComponent },
   { path: "covid19/ingreso-pais/mensaje-final", component: MensajeFinalIngresoComponent},
+
+  { path: "covid19/operador/registroPersona", component: OperadorIngresoPaisPaciente},
 
   { path: "", component: LoginComponent },
 
