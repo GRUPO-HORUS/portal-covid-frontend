@@ -40,6 +40,7 @@ export class RegistroIngresoPaisComponent implements OnInit {
   //public recaptchaAvailable = false;
 
   public origen: string;
+  public contrasenhaConfirm: string;
 
   public tipoRegistroOptions=[{value:'ingreso_pais',label:'Ingreso al país'},{value:'aislamiento',label:'Caso sospechoso Covid-19'}];
 

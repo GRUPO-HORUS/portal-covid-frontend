@@ -15,9 +15,23 @@
                     <span>Datos Básicos del Paciente</span>
                 </h3>
 
-                <p style="text-align:justify">
-                    {{this.formDatosBasicos?.nombre}}&nbsp;{{this.formDatosBasicos?.apellido}}, como medida de prevención usted 
-                    debe realizar aislamiento domiciliario.</p><p style="text-align:justify">Tenemos registrados los siguientes datos:</p> 
+                <form #miForm="ngForm" class="mt-4">
+                    
+                    <div class="form-group">
+                        <label for="cedula"><strong>Cédula</strong></label>
+                        <input [(ngModel)]="cedula" class="form-control" id="cedula" style="max-width: 300px;" name="cedula" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="codigoVerificacion"><strong>Código de Verificación</strong></label>
+                        <input [(ngModel)]="codigoVerificacion" class="form-control" id="codigoVerificacion" style="max-width: 300px;" name="codigoVerificacion" required>
+                    </div>
+                    <button (click)="obtenerPersona(cedula,codigoVerificacion)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
+                        Obtener
+                        <span class="fa fa-check"></span>            
+                    </button>
+                </form>      
+                <div *ngIf="formDatosBasicos">
+                    <p style="text-align:justify">Tenemos registrados los siguientes datos:</p> 
                         <ul>
                             <li>
                                 Nombre y Apellido: {{this.formDatosBasicos?.nombre}}&nbsp;{{this.formDatosBasicos?.apellido}}
@@ -29,30 +43,15 @@
                                 Dirección de Aislamiento: {{this.formDatosBasicos?.direccionDomicilio}}
                             </li>
                         </ul>
-                    <p style="text-align:justify">
-                    A continuación, deberá completar informaciones referentes a su estado de salud. 
-                    Por favor, escriba una clave de seguridad que utilizará para consultar sus registros:</p>
 
-                    <form #miForm="ngForm" class="mt-4">
-                    
-                        <div class="form-group">
-                            <label for="contrasenha"><strong>Clave de seguridad </strong></label>
-                            <input type="password" [(ngModel)]="contrasenha" class="form-control" id="contrasenha" style="max-width: 300px;" name="contrasenha" minlength="8" required pPassword>
-                        </div>
-                        <div class="form-group">
-                            <label for="contrasenhaConfirm"><strong>Confirmar Clave de seguridad</strong></label>
-                            <input type="password" [(ngModel)]="contrasenhaConfirm" name="contrasenhaConfirm" class="form-control" style="max-width: 300px;" id="contrasenhaConfirm" required>
-                        </div>
-                    </form>      
-
-                    <div class="clearfix"><br/></div>
-                    <div class="alert alert-danger">
-                        <i class="fa fa-info-circle"></i> La contraseña debe tener un mínimo de 8 caracteres.
-                    </div>
-
-                    <button (click)="validarTelefono(contrasenha)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || contrasenha !== contrasenhaConfirm">
-                        Guardar
+                    <button (click)="confirmarPaciente()" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
+                        Confirmar Paciente
                         <span class="fa fa-check"></span>            
+                    </button>
+                </div>
+                
+                    <button class="btn btn-secondary" routerLink="/covid19/home-operador">
+                        Volver al Menú
                     </button>
 
                     <!--<div class="form-group">
