@@ -12,7 +12,7 @@ import { UsernamePassword } from '../model/username-password.model';
 )
 export class LoginService {
 
-  private authenticationUrl = 'api/covid19/seguridad';
+  private authenticationUrl = 'api/covid19/seguridad/gestion';
 
   private handler: HttpErrorHandler = new HttpErrorHandler();
 

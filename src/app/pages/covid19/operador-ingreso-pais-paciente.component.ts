@@ -85,7 +85,7 @@ export class OperadorIngresoPaisPaciente implements OnInit {
         this.formDatosBasicos = response;
     }, error => {
       this.loading = false;
-      this.mensaje = "No se encontró a la pesona";
+      this.mensaje = "No se encontró a la persona";
       this.openMessageDialog();
       
     }
