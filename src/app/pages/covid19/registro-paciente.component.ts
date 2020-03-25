@@ -51,7 +51,8 @@ export class RegistroPacienteComponent implements OnInit {
                               {value:15,label:'Presidente Hayes'},{value:16,label:'Alto Paraguay'},
                               {value:17,label:'Boquerón'}];*/
 
-  public departamentoOptions=[{value:'Concepción',label:'Concepción'},{value:'San Pedro',label:'San Pedro'},
+  public departamentoOptions=[{value:'Capital',label:'Capital'},
+                              {value:'Concepción',label:'Concepción'},{value:'San Pedro',label:'San Pedro'},
                               {value:'Cordillera',label:'Cordillera'},{value:'Guairá',label:'Guairá'},
                               {value:'Caaguazú',label:'Caaguazú'},{value:'Caazapá',label:'Caazapá'},
                               {value:'Itapúa',label:'Itapúa'},{value:'Misiones',label:'Misiones'},
