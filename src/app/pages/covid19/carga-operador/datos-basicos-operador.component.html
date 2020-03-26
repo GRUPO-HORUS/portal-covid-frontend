@@ -16,11 +16,11 @@
                 </h3>
 
                 <form #miForm="ngForm" class="mt-4">
-                    <!--<div class="form-group">
+                    <div class="form-group">
                         <label for="tipoRegistro"><strong>Motivo de aislamiento</strong></label>
                         <br>
                         <p-dropdown id="tipoRegistro" [options]="tipoRegistroOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.tipoRegistro" name="tipoRegistro" id="tipoRegistro" [style]="{'width':'300px'}" required></p-dropdown>
-                    </div>-->
+                    </div>
 
                     <div class="form-group">
                         <label for="tipoDocumento"><strong>Tipo de Documento</strong></label>
@@ -70,8 +70,7 @@
                     <!--<div class="form-group">
                         <label for="correoElectronico"><strong>Correo Electrónico</strong></label>
                         <input type="email" [(ngModel)]="formDatosBasicos.correoElectronico" name="correoElectronico" class="form-control" style="max-width: 300px;" id="correoElectronico" email required>
-                    </div>-->
-
+                    </div>
                     <div class="form-group">
                         <label for="contrasenha"><strong>Clave de seguridad </strong></label>
                         <input type="password" [(ngModel)]="formDatosBasicos.contrasenha" class="form-control" id="contrasenha" style="max-width: 300px;" name="contrasenha" minlength="8" required>
@@ -79,7 +78,7 @@
                     <div class="form-group">
                         <label for="contrasenhaConfirm"><strong>Confirmar Clave de seguridad</strong></label>
                         <input type="password" [(ngModel)]="contrasenhaConfirm" name="contrasenhaConfirm" class="form-control" style="max-width: 300px;" id="contrasenhaConfirm" required>
-                    </div>
+                    </div>-->
 
                     <div class="text-center" *ngIf="loading">
                         <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> Registrando...
@@ -87,17 +86,11 @@
 
                     <div class="clearfix"><br/></div>
 
-                    <!--<div class="form-group">
-                        <input type="checkbox" style="width:20px;height:20px;" id="terminos" name="terminos" [(ngModel)]="terminos" />
-                        <b><span class="text-danger">*</span>Acepto los términos y condiciones</b>
-                        <p><a data-toggle="modal" href="#" data-target="#modalTerminosIE">Ver términos y condiciones</a> </p>
-                    </div>-->
-
                     <div class="clearfix">
                     <table>
                         <tr>
                             <td>
-                                <button (click)="registrar(formDatosBasicos)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || formDatosBasicos.contrasenha !== contrasenhaConfirm">
+                                <button (click)="registrar(formDatosBasicos)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
                                     <!--  || !telefValido || telefono.indexOf('+')!=0 -->
                                         Registrar
                                         <span class="fa fa-check"></span>            
@@ -118,7 +111,7 @@
                 <div class="clearfix"><br/></div>
                 <div class="alert alert-info">
                     <i class="fa fa-info-circle"></i> Debe completar todos los campos en el formato correcto para iniciar.
-                    <br><i class="fa fa-info-circle"></i> La contraseña debe tener un mínimo de 8 caracteres.
+                    <!--<br><i class="fa fa-info-circle"></i> La contraseña debe tener un mínimo de 8 caracteres.-->
                 </div>
             </div>
 

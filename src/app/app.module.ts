@@ -93,6 +93,11 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { DatosClinicosIngresoComponent } from "./pages/covid19/ingreso-pais/datos-clinicos-ingreso.component";
 
 import { OperadorIngresoPaisPaciente } from './pages/covid19/operador-ingreso-pais-paciente.component';
+import { DatosBasicosOperadorComponent } from "./pages/covid19/carga-operador/datos-basicos-operador.component";
+import { DatosClinicosOperadorComponent } from "./pages/covid19/carga-operador/datos-clinicos-operador.component";
+import { MensajeFinalOperadorComponent } from "./pages/covid19/carga-operador/mensaje-final-operador.component";
+
+import { ClaveSeguridadComponent } from "./pages/covid19/carga-operador/clave-seguridad.component";
 
 /*
   @autor:
@@ -131,6 +136,10 @@ import { OperadorIngresoPaisPaciente } from './pages/covid19/operador-ingreso-pa
     RegistroIngresoPaisComponent,
     DatosClinicosIngresoComponent,
     MensajeFinalIngresoComponent,
+    DatosBasicosOperadorComponent,
+    DatosClinicosOperadorComponent,
+    MensajeFinalOperadorComponent,
+    ClaveSeguridadComponent,
     OperadorIngresoPaisPaciente
   ],
   // dependencias de módulos

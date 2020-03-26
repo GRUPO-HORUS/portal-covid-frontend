@@ -63,6 +63,11 @@ import { CargaCodigoComponent } from "./pages/covid19/ingreso-pais/carga-codigo.
 import { DatosClinicosIngresoComponent } from "./pages/covid19/ingreso-pais/datos-clinicos-ingreso.component";
 import { MensajeFinalIngresoComponent } from "./pages/covid19/ingreso-pais/mensaje-final-ingreso.component";
 
+import { DatosBasicosOperadorComponent } from "./pages/covid19/carga-operador/datos-basicos-operador.component";
+import { DatosClinicosOperadorComponent } from "./pages/covid19/carga-operador/datos-clinicos-operador.component";
+import { MensajeFinalOperadorComponent } from "./pages/covid19/carga-operador/mensaje-final-operador.component";
+import { ClaveSeguridadComponent } from "./pages/covid19/carga-operador/clave-seguridad.component";
+
 import { OperadorIngresoPaisPaciente } from './pages/covid19/operador-ingreso-pais-paciente.component';
 /**
  *  PLUGINS
@@ -212,6 +217,13 @@ export const appRoutes: Routes = [
   { path: "covid19/ingreso-pais/datos-clinicos/:idRegistro/:codigoVerif", component: DatosClinicosIngresoComponent },
   { path: "covid19/ingreso-pais/mensaje-final", component: MensajeFinalIngresoComponent},
 
+  { path: "covid19/carga-operador/datos-basicos", component: DatosBasicosOperadorComponent},
+  { path: "covid19/carga-operador/datos-clinicos/:idRegistro", component: DatosClinicosOperadorComponent },
+
+  { path: "covid19/carga-operador/mensaje-final", component: MensajeFinalOperadorComponent},
+
+  { path: "covid19/carga-operador/clave-seguridad/:idRegistro", component: ClaveSeguridadComponent},
+
   { path: "covid19/operador/registroPersona", component: OperadorIngresoPaisPaciente},
 
   { path: "", component: LoginComponent },
@@ -304,4 +316,4 @@ export const appRoutingProviders: any[] = [
   PoderesDelEstadoService,
 ];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes,{ useHash: true });
+export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes,{ useHash: true, scrollPositionRestoration: 'enabled' });

@@ -19,7 +19,7 @@ export class Covid19Service {
     }
 
     guardarDatosBasicos(formDatosBasicos, rcToken): Observable<string> {
-      return this.httpClient.post<string>(this.config.API + '/covid19api/ingresoPais/datosBasicosViajero/'+rcToken, formDatosBasicos)
+      return this.httpClient.post<string>(this.config.API + '/covid19api/ingresoPais/datosBasicosViajero/'+rcToken, formDatosBasicos);
         //.pipe(catchError(this.handler.handleError<any[]>('/covid19api/ingresoPais/datosBasicosViajero')));
     }
 
@@ -56,6 +56,21 @@ export class Covid19Service {
     confirmarPersona(numeroDocumento, codigoVerif): Observable<any> {
       return this.httpClient.post<any>(this.config.API + '/covid19api/ingresoPais/confirmarPersona/'+numeroDocumento+"/"+codigoVerif,null);
         //.pipe(catchError(this.handler.handleError<any>('/covid19api/aislamiento/validarTelefono')));
+    }
+
+    guardarDatosBasicosOperador(formDatosBasicos): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/datosBasicos/', formDatosBasicos);
+        //.pipe(catchError(this.handler.handleError<any[]>('/covid19api/ingresoPais/datosBasicosViajero')));
+    }
+
+    guardarDatosClinicosOperador(formDatosClinicos): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/datosClinicos', formDatosClinicos);
+        //.pipe(catchError(this.handler.handleError<string>('/covid19api/aislamiento/datosClinicos')));
+    }
+
+    setearClave(idRegistro, clave): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/claveSeguridad/'+idRegistro, clave);
+        //.pipe(catchError(this.handler.handleError<string>('/covid19api/aislamiento/datosClinicos')));
     }
  }
 
