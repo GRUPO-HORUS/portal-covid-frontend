@@ -67,10 +67,10 @@
                         <p-dropdown id="departamento" [options]="departamentoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.departamentoDomicilio" name="departamento" id="departamento" [style]="{'width':'300px'}" required></p-dropdown>
                     </div>
 
-                    <div class="form-group">
+                    <!--div class="form-group">
                         <label for="correoElectronico"><strong>Correo Electrónico</strong></label>
                         <input type="email" [(ngModel)]="formDatosBasicos.correoElectronico" name="correoElectronico" class="form-control" style="max-width: 300px;" id="correoElectronico" email required>
-                    </div>
+                    </div-->
 
                     <div class="text-center" *ngIf="loading">
                         <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> Registrando...
@@ -109,7 +109,7 @@
 
                 <div class="clearfix"><br/></div>
                 <div class="alert alert-info">
-                    <i class="fa fa-info-circle"></i> Debe completar todos los campos en el formato correcto para iniciar.
+                    <i class="fa fa-info-circle"></i> Debe completar todos los campos en el formato correcto
                     <!--<br><i class="fa fa-info-circle"></i> La contraseña debe tener un mínimo de 8 caracteres.-->
                 </div>
             </div>

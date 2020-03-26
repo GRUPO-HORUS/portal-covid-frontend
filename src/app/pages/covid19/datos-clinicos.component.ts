@@ -63,9 +63,8 @@ export class DatosClinicosComponent implements OnInit {
     this._route.params.subscribe(params => {
       this.formDatosClinicos.idRegistro = params["idRegistro"];
       this.codigoVerif = params["codigoVerif"];
-
-      console.log(this.formDatosClinicos.idRegistro);
     });
+    window.scrollTo(0, 0);
   }
 
   ngOnDestroy() {
