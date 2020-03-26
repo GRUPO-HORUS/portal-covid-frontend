@@ -37,6 +37,11 @@ export class FormDatosClinicos {
 
     public ocupacion:string;
 
+    public enfermedadBaseHipertensionArterial: string;
+    public enfermedadBaseAutoinmune: string;
+    public enfermedadBaseNeoplasias: string;
+    public enfermedadBaseEPOC: string;
+
     /*public medioTransporte: string;
     public tipoEmpresaTransporte: string;
     public transporteNoAsiento: string;
