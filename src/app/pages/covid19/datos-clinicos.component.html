@@ -81,7 +81,26 @@
                                 <input type="text" [(ngModel)]="formDatosClinicos.evaluacionRiesgoMedicamento" name="medicamento" class="form-control" style="max-width: 300px;" id="medicamento">
                             </div>
                         </tr>
-                        <br>
+                        <tr>
+                            <td><h4>Tiene Hipertensión Arterial?<span class="text-danger">*</span></h4></td>
+                            <td><div class="ui-g-12"><p-radioButton name="enfermedadBaseHipertensionArterial" value="true" label="Si" [(ngModel)]="formDatosClinicos.enfermedadBaseHipertensionArterial" inputId="opt1"></p-radioButton></div></td>
+                            <td><div class="ui-g-12"><p-radioButton name="enfermedadBaseHipertensionArterial" value="false" label="No" [(ngModel)]="formDatosClinicos.enfermedadBaseHipertensionArterial" inputId="opt2"></p-radioButton></div></td>
+                        </tr>
+                        <tr>
+                            <td><h4>Tiene Enfermedaes Autoinmunes?<span class="text-danger">*</span></h4></td>
+                            <td><div class="ui-g-12"><p-radioButton name="enfermedadBaseAutoinmune" value="true" label="Si" [(ngModel)]="formDatosClinicos.enfermedadBaseAutoinmune" inputId="opt1"></p-radioButton></div></td>
+                            <td><div class="ui-g-12"><p-radioButton name="enfermedadBaseAutoinmune" value="false" label="No" [(ngModel)]="formDatosClinicos.enfermedadBaseAutoinmune" inputId="opt2"></p-radioButton></div></td>
+                        </tr>
+                        <tr>
+                            <td><h4>Tiene Neoplasia?<span class="text-danger">*</span></h4></td>
+                            <td><div class="ui-g-12"><p-radioButton name="enfermedadBaseNeoplasias" value="true" label="Si" [(ngModel)]="formDatosClinicos.enfermedadBaseNeoplasias" inputId="opt1"></p-radioButton></div></td>
+                            <td><div class="ui-g-12"><p-radioButton name="enfermedadBaseNeoplasias" value="false" label="No" [(ngModel)]="formDatosClinicos.enfermedadBaseNeoplasias" inputId="opt2"></p-radioButton></div></td>
+                        </tr>
+                        <tr>
+                            <td><h4>Tiene EPOC?<span class="text-danger">*</span></h4></td>
+                            <td><div class="ui-g-12"><p-radioButton name="enfermedadBaseEPOC" value="true" label="Si" [(ngModel)]="formDatosClinicos.enfermedadBaseEPOC" inputId="opt1"></p-radioButton></div></td>
+                            <td><div class="ui-g-12"><p-radioButton name="enfermedadBaseEPOC" value="false" label="No" [(ngModel)]="formDatosClinicos.enfermedadBaseEPOC" inputId="opt2"></p-radioButton></div></td>
+                        </tr>
                         <!--tr><td colspan="2"><h3>Estado de salud en los últimos 15 días:</h3></td></tr>
                         <tr>
                             <td><h4>Tuvo fiebre o sensación febril?<span class="text-danger">*</span></h4></td>
