@@ -48,6 +48,7 @@ import {CheckboxModule} from 'primeng/checkbox';
 
 import {RadioButtonModule} from 'primeng/radiobutton';
 
+//import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 //import { QRCodeModule } from 'angularx-qrcode';
 import { MostrarDatosPacienteComponent } from "./pages/covid19/mostrar-datos-paciente.component";
 
@@ -181,6 +182,7 @@ import { ClaveSeguridadComponent } from "./pages/covid19/carga-operador/clave-se
     DialogModule,
     ConfirmDialogModule,
     MultiSelectModule
+    //GooglePlaceModule
   ],
   providers: [
     appRoutingProviders,

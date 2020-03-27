@@ -46,7 +46,7 @@ export class DatosBasicosOperadorComponent implements OnInit {
 
   public tipoRegistroOptions=[{value:'ingreso_pais',label:'Ingreso al país'},{value:'aislamiento',label:'Caso sospechoso Covid-19'}];
 
-  public departamentoOptions=[{value:'Capital',label:'Capital'},
+  /*public departamentoOptions=[{value:'Capital',label:'Capital'},
                               {value:'Concepción',label:'Concepción'},{value:'San Pedro',label:'San Pedro'},
                               {value:'Cordillera',label:'Cordillera'},{value:'Guairá',label:'Guairá'},
                               {value:'Caaguazú',label:'Caaguazú'},{value:'Caazapá',label:'Caazapá'},
@@ -55,12 +55,27 @@ export class DatosBasicosOperadorComponent implements OnInit {
                               {value:'Central',label:'Central'},{value:'Ñeembucú',label:'Ñeembucú'},
                               {value:'Amambay',label:'Amambay'},{value:'Canindeyú',label:'Canindeyú'},
                               {value:'Presidente Hayes',label:'Presidente Hayes'},{value:'Alto Paraguay',label:'Alto Paraguay'},
-                              {value:'Boquerón',label:'Boquerón'}];
+                              {value:'Boquerón',label:'Boquerón'}];*/
+  
+  public departamentoOptions=[{value:0,label:'ASUNCIÓN'}, {value:1,label:'CONCEPCIÓN'},
+                              {value:2,label:'SAN PEDRO'},
+                              {value:3,label:'CORDILLERA'},{value:4,label:'GUAIRÁ'},
+                              {value:5,label:'CAAGUAZÚ'},{value:6,label:'CAAZAPÁ'},
+                              {value:7,label:'ITAPÚA'},{value:8,label:'MISIONES'},
+                              {value:9,label:'PARAGUARÍ'},{value:10,label:'ALTO PARANÁ'},
+                              {value:11,label:'CENTRAL'},{value:12,label:'ÑEEMBUCÚ'},
+                              {value:13,label:'AMAMBAY'},{value:14,label:'CANINDEYÚ'},
+                              {value:15,label:'PRESIDENTE HAYES'},{value:16,label:'ALTO PARAGUAY'},
+                              {value:17,label:'BOQUERÓN'}];
+
+  public ciudadOptions: any[];
 
   // recaptcha
   public recentToken: string = ''
   private subscription: Subscription;
   public recaptchaAvailable = false;
+
+  public options: string;
 
   constructor(
     private _router: Router,
@@ -80,12 +95,35 @@ export class DatosBasicosOperadorComponent implements OnInit {
 
     this.formDatosBasicos.tipoDocumento = 0;
 
+    this.options="{types: ['(cities)'], componentRestrictions: { country: 'PY' }}"
+
     window.scrollTo(0, 0);
 
     //this.getRecaptchaToken('register');
     /*this._route.params.subscribe(params => {
         this.formDatosBasicos.tipoInicio = params["tipoInicio"];
     });*/
+  }
+
+  onChange(event){
+
+    this.service.getCiudadesPorDepto(event.value).subscribe(ciudades => {
+      console.log(ciudades);
+      this.ciudadOptions = ciudades;
+      
+        for (let i = 0; i < ciudades.length; i++) {
+          let c = ciudades[i];
+          this.ciudadOptions[i] = { label: c.descripcion, value: c.idCiudad };
+        }
+      
+        
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+        
+    }
+    );
   }
 
   ngOnDestroy() {

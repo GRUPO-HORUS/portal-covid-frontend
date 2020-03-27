@@ -55,16 +55,17 @@
                         <input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control" style="max-width: 300px;" id="direccionDomicilio" required>
                     </div>
                     
-
-                    <div class="form-group">
-                        <label for="ciudad"><strong>Ciudad</strong></label>
-                        <input type="text" [(ngModel)]="formDatosBasicos.ciudadDomicilio" name="ciudadDomicilio" class="form-control" style="max-width: 300px;" id="ciudadDomicilio" required>
-                    </div>
-
                     <div class="form-group">
                         <label for="departamento"><strong>Departamento</strong></label>
                         <br>
-                        <p-dropdown id="departamento" [options]="departamentoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.departamentoDomicilio" name="departamento" id="departamento" [style]="{'width':'300px'}" required></p-dropdown>
+                        <p-dropdown id="departamento" [options]="departamentoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.departamentoDomicilio" name="departamento" id="departamento" [style]="{'width':'300px'}" required (onChange)="onChange($event)"></p-dropdown>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ciudad"><strong>Ciudad</strong></label>
+                        <br>
+                        <!--<input type="text" [(ngModel)]="formDatosBasicos.ciudadDomicilio" name="ciudadDomicilio" class="form-control" style="max-width: 300px;" id="ciudadDomicilio" required>-->
+                        <p-dropdown id="ciudad" [options]="ciudadOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.ciudadDomicilio" name="ciudad" id="ciudad" [style]="{'width':'300px'}" required></p-dropdown>
                     </div>
 
                     <!--<div class="form-group">

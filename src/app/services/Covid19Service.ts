@@ -72,6 +72,10 @@ export class Covid19Service {
       return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/claveSeguridad/'+idRegistro, clave);
         //.pipe(catchError(this.handler.handleError<string>('/covid19api/aislamiento/datosClinicos')));
     }
+
+    getCiudadesPorDepto(idDepto): Observable<any[]>{
+      return this.httpClient.get<any[]>(this.config.API +"/covid19/ciudades/"+idDepto);
+    }
  }
 
 
