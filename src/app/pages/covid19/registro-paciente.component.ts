@@ -41,7 +41,7 @@ export class RegistroPacienteComponent implements OnInit {
 
   public tipoRegistroOptions=[{value:'ingreso_pais',label:'Ingreso al país'},{value:'aislamiento',label:'Caso sospechoso Covid-19'}];
 
-  public departamentoOptions=[{value:0,label:'ASUNCIÓN'}, {value:1,label:'CONCEPCIÓN'},
+  /*public departamentoOptions=[{value:0,label:'ASUNCIÓN'}, {value:1,label:'CONCEPCIÓN'},
                               {value:2,label:'SAN PEDRO'},
                               {value:3,label:'CORDILLERA'},{value:4,label:'GUAIRÁ'},
                               {value:5,label:'CAAGUAZÚ'},{value:6,label:'CAAZAPÁ'},
@@ -50,9 +50,9 @@ export class RegistroPacienteComponent implements OnInit {
                               {value:11,label:'CENTRAL'},{value:12,label:'ÑEEMBUCÚ'},
                               {value:13,label:'AMAMBAY'},{value:14,label:'CANINDEYÚ'},
                               {value:15,label:'PRESIDENTE HAYES'},{value:16,label:'ALTO PARAGUAY'},
-                              {value:17,label:'BOQUERÓN'}];
+                              {value:17,label:'BOQUERÓN'}];*/
 
-  /*public departamentoOptions=[{value:'Capital',label:'Capital'},
+  public departamentoOptions=[{value:'Capital',label:'Capital'},
                               {value:'Concepción',label:'Concepción'},{value:'San Pedro',label:'San Pedro'},
                               {value:'Cordillera',label:'Cordillera'},{value:'Guairá',label:'Guairá'},
                               {value:'Caaguazú',label:'Caaguazú'},{value:'Caazapá',label:'Caazapá'},
@@ -61,7 +61,7 @@ export class RegistroPacienteComponent implements OnInit {
                               {value:'Central',label:'Central'},{value:'Ñeembucú',label:'Ñeembucú'},
                               {value:'Amambay',label:'Amambay'},{value:'Canindeyú',label:'Canindeyú'},
                               {value:'Presidente Hayes',label:'Presidente Hayes'},{value:'Alto Paraguay',label:'Alto Paraguay'},
-                              {value:'Boquerón',label:'Boquerón'}];*/
+                              {value:'Boquerón',label:'Boquerón'}];
   
   public ciudadOptions: any[];
 
