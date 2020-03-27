@@ -12,7 +12,8 @@
             <div class="col-md-8 mb-4">
                 <h3 class="title-divider text-primary">
                     <i class="fa fa-edit mr-2" style="margin-top: -4px;"></i>
-                    <span>Registro de Salud - Datos Básicos</span>
+                    <!--<span>Registro de Salud - Datos Básicos</span>-->
+                    <span>Declaración de Salud al Ingresar al País</span>
                 </h3>
 
                 <form #miForm="ngForm" class="mt-4">
@@ -46,7 +47,7 @@
 
                     <div class="form-group">
                         <label for="numeroCelular"><strong>Número de teléfono</strong></label>
-                        <input type="text" [(ngModel)]="formDatosBasicos.numeroCelular" class="form-control" id="numeroCelular" style="max-width: 300px;" name="numeroCelular" placeholder="Ej. +0961123456" minlength="6" required>
+                        <input type="text" [(ngModel)]="formDatosBasicos.numeroCelular" class="form-control" id="numeroCelular" style="max-width: 300px;" name="numeroCelular" placeholder="Ej. 0961123456" minlength="6" required>
                         <!-- (keypress)="keyPress($event)" -->
                     </div>
 
@@ -58,14 +59,15 @@
                     <div class="form-group">
                         <label for="departamento"><strong>Departamento</strong></label>
                         <br>
-                        <p-dropdown id="departamento" [options]="departamentoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.departamentoDomicilio" name="departamento" id="departamento" [style]="{'width':'300px'}" required (onChange)="onChange($event)"></p-dropdown>
+                        <p-dropdown id="departamento" [options]="departamentoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.departamentoDomicilio" name="departamento" id="departamento" [style]="{'width':'300px'}" required></p-dropdown>
+                        <!--(onChange)="onChange($event)"-->
                     </div>
 
                     <div class="form-group">
                         <label for="ciudad"><strong>Ciudad</strong></label>
                         <br>
-                        <!--<input type="text" [(ngModel)]="formDatosBasicos.ciudadDomicilio" name="ciudadDomicilio" class="form-control" style="max-width: 300px;" id="ciudadDomicilio" required>-->
-                        <p-dropdown id="ciudad" [options]="ciudadOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.ciudadDomicilio" name="ciudad" id="ciudad" [style]="{'width':'300px'}" required></p-dropdown>
+                        <input type="text" [(ngModel)]="formDatosBasicos.ciudadDomicilio" name="ciudadDomicilio" class="form-control" style="max-width: 300px;" id="ciudadDomicilio" required>
+                        <!--<p-dropdown id="ciudad" [options]="ciudadOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.ciudadDomicilio" name="ciudad" id="ciudad" [style]="{'width':'300px'}" required></p-dropdown>-->
                     </div>
 
                     <!--<div class="form-group">
@@ -119,7 +121,7 @@
                 <div class="clearfix"><br/></div>
                 <div class="alert alert-info">
                     <i class="fa fa-info-circle"></i> Debe completar todos los campos en el formato correcto para iniciar.
-                    <br><i class="fa fa-info-circle"></i> La contraseña debe tener un mínimo de 8 caracteres.
+                    <br><i class="fa fa-info-circle"></i> La Clave de seguridad debe tener un mínimo de 8 caracteres.
                 </div>
             </div>
 

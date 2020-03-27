@@ -52,7 +52,7 @@ export class RegistroPacienteComponent implements OnInit {
                               {value:15,label:'PRESIDENTE HAYES'},{value:16,label:'ALTO PARAGUAY'},
                               {value:17,label:'BOQUERÓN'}];*/
 
-  public departamentoOptions=[{value:'Capital',label:'Capital'},
+  public departamentoOptions=[{value:'Asunción',label:'Asunción'},
                               {value:'Concepción',label:'Concepción'},{value:'San Pedro',label:'San Pedro'},
                               {value:'Cordillera',label:'Cordillera'},{value:'Guairá',label:'Guairá'},
                               {value:'Caaguazú',label:'Caaguazú'},{value:'Caazapá',label:'Caazapá'},
@@ -88,7 +88,6 @@ export class RegistroPacienteComponent implements OnInit {
   }
 
   onChange(event){
-
     this.service.getCiudadesPorDepto(event.value).subscribe(ciudades => {
       console.log(ciudades);
       this.ciudadOptions = ciudades;
@@ -97,7 +96,6 @@ export class RegistroPacienteComponent implements OnInit {
           let c = ciudades[i];
           this.ciudadOptions[i] = { label: c.descripcion, value: c.idCiudad };
         }
-      
         
     }, error => {
       console.log(error);
