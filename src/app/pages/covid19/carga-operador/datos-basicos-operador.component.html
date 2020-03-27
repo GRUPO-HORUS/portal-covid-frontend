@@ -46,7 +46,7 @@
 
                     <div class="form-group">
                         <label for="numeroCelular"><strong>Número de teléfono</strong></label>
-                        <input type="text" [(ngModel)]="formDatosBasicos.numeroCelular" class="form-control" id="numeroCelular" style="max-width: 300px;" name="numeroCelular" placeholder="Ej. +0961123456" minlength="6" required>
+                        <input type="text" [(ngModel)]="formDatosBasicos.numeroCelular" class="form-control" id="numeroCelular" style="max-width: 300px;" name="numeroCelular" placeholder="Ej. 0961123456" minlength="6" required>
                         <!-- (keypress)="keyPress($event)" -->
                     </div>
 
@@ -58,7 +58,8 @@
                     <div class="form-group">
                         <label for="departamento"><strong>Departamento</strong></label>
                         <br>
-                        <p-dropdown id="departamento" [options]="departamentoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.departamentoDomicilio" name="departamento" id="departamento" [style]="{'width':'300px'}" required (onChange)="onChange($event)"></p-dropdown>
+                        <p-dropdown id="departamento" [options]="departamentoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.departamentoDomicilio" name="departamento" id="departamento" [style]="{'width':'300px'}" required></p-dropdown>
+                        <!--(onChange)="onChange($event)"-->
                     </div>
 
                     <div class="form-group">

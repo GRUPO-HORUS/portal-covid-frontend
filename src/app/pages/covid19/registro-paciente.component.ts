@@ -88,7 +88,6 @@ export class RegistroPacienteComponent implements OnInit {
   }
 
   onChange(event){
-
     this.service.getCiudadesPorDepto(event.value).subscribe(ciudades => {
       console.log(ciudades);
       this.ciudadOptions = ciudades;
@@ -97,7 +96,6 @@ export class RegistroPacienteComponent implements OnInit {
           let c = ciudades[i];
           this.ciudadOptions[i] = { label: c.descripcion, value: c.idCiudad };
         }
-      
         
     }, error => {
       console.log(error);
