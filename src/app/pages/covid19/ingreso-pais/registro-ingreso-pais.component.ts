@@ -55,7 +55,7 @@ export class RegistroIngresoPaisComponent implements OnInit {
                               {value:15,label:'PRESIDENTE HAYES'},{value:16,label:'ALTO PARAGUAY'},
                               {value:17,label:'BOQUERÓN'}];*/
 
-  public departamentoOptions=[{value:'Asunción',label:'Asunción'},
+  public departamentoOptions=[{value:'Capital',label:'Capital'},
                               {value:'Concepción',label:'Concepción'},{value:'San Pedro',label:'San Pedro'},
                               {value:'Cordillera',label:'Cordillera'},{value:'Guairá',label:'Guairá'},
                               {value:'Caaguazú',label:'Caaguazú'},{value:'Caazapá',label:'Caazapá'},

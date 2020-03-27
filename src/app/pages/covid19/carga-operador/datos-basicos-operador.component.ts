@@ -46,7 +46,7 @@ export class DatosBasicosOperadorComponent implements OnInit {
 
   public tipoRegistroOptions=[{value:'ingreso_pais',label:'Ingreso al país'},{value:'aislamiento',label:'Caso sospechoso Covid-19'}];
 
-  public departamentoOptions=[{value:'Asunción',label:'Asunción'},
+  public departamentoOptions=[{value:'Capital',label:'Capital'},
                               {value:'Concepción',label:'Concepción'},{value:'San Pedro',label:'San Pedro'},
                               {value:'Cordillera',label:'Cordillera'},{value:'Guairá',label:'Guairá'},
                               {value:'Caaguazú',label:'Caaguazú'},{value:'Caazapá',label:'Caazapá'},

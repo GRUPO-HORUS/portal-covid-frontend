@@ -26,12 +26,19 @@
                         <label for="codigoVerificacion"><strong>Código de Verificación</strong></label>
                         <input [(ngModel)]="codigoVerificacion" class="form-control" id="codigoVerificacion" style="max-width: 300px;" name="codigoVerificacion" required>
                     </div>
-                    <button (click)="obtenerPersona(cedula,codigoVerificacion)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
-                        Obtener
-                        <span class="fa fa-check"></span>            
-                    </button>
+                    <div>
+                        <button (click)="obtenerPersona(cedula,codigoVerificacion)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
+                            Obtener
+                            <span class="fa fa-check"></span>            
+                        </button>&nbsp;
+                        <button class="btn btn-secondary btn-success-next" routerLink="/covid19/home-operador">
+                            Volver al Menú
+                            <span class="fa fa-times"></span>
+                        </button>
+                    </div>
                 </form>      
                 <div *ngIf="formDatosBasicos">
+               
                     <p style="text-align:justify">Tenemos registrados los siguientes datos:</p> 
                         <ul>
                             <li>
@@ -49,12 +56,13 @@
                         Confirmar Paciente
                         <span class="fa fa-check"></span>            
                     </button>
+                    
                 </div>
                 
-                    <button class="btn btn-secondary" routerLink="/covid19/home-operador">
-                        Volver al Menú
-                    </button>
-
+                <!--<button class="btn btn-secondary" routerLink="/covid19/home-operador">
+                    Volver al Menú
+                </button>-->
+            
                     <!--<div class="form-group">
                         <label for="tipoDocumento"><strong>Tipo de Documento</strong></label>
                         <br>
