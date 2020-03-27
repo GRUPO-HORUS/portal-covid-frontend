@@ -84,7 +84,7 @@ export class DatosClinicosComponent implements OnInit {
               localStorage.setItem('token',response);
               //window.open("https://app.coronavirus.gov.py/login?token="+response);
               //this._router.navigate(["covid19/aislamiento/mensaje-final/"]);
-              window.location.href = 'https://appcoronavirus.mspbs.gov.py/login?token='+response;
+              window.location.href = 'https://appcoronavirus.mspbs.gov.py/login?token='+response+'&redirect=/reporte-medico';
           }, error => {
             this.loading = false;
             this.mensaje = error.error;
