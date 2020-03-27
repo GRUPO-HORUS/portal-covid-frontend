@@ -137,11 +137,16 @@ export class RegistroPacienteComponent implements OnInit {
 
             }
           }, error => {
-            console.log(error);
-            this.loading = false;
-            this.mensaje = error.error;
-            this.openMessageDialog();
-            
+            if(error.status == 401)
+            {
+              this._router.navigate(["/"]);
+            }
+            else
+            {
+              this.loading = false;
+              this.mensaje = error.error;
+              this.openMessageDialog();
+            }
           }
       );
   }
