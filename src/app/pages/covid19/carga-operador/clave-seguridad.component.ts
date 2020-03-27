@@ -25,6 +25,8 @@ export class ClaveSeguridadComponent implements OnInit {
   public nombre: string;
   public apellido: string;
   public direccion: string;
+  public contrasenha: string;
+  public contrasenhaConfirm: string;
 
   private subscription: Subscription;
   public recentToken: string = ''
