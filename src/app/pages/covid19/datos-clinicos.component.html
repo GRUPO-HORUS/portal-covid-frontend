@@ -16,7 +16,7 @@
                 </h3>
 
                 <div class="alert alert-info">
-                    <i class="fa fa-info-circle"></i> Debe completar todos los campos<br>
+                    <i class="fa fa-info-circle"></i>Todos los campos son requeridos, para realizar una buena evaluación de su estado de salud<br>
                 </div>
 
                 <form #miForm="ngForm" class="mt-4">
@@ -24,12 +24,12 @@
                     <table>
                         <tr><td colspan="2"><h3>Evaluación de riesgo</h3></td></tr>
                         <tr>
-                            <td><h4>Vive sólo/a?<span class="text-danger">*</span></h4></td>
+                            <td><h4>¿Vive sólo/a?<span class="text-danger">*</span></h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="group1" value=true label="Si" [(ngModel)]="formDatosClinicos.evaluacionRiesgoViveSolo" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group1" value=false label="No" [(ngModel)]="formDatosClinicos.evaluacionRiesgoViveSolo" inputId="opt2"></p-radioButton></div></td>
                         </tr>
                         <tr>
-                            <td><h4>Tiene habitación propia?<span class="text-danger">*</span></h4></td>
+                            <td><h4>¿Tiene habitación propia?<span class="text-danger">*</span></h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="group2" value=true label="Si" [(ngModel)]="formDatosClinicos.evaluacionRiesgoTieneHabitacionPropria" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group2" value=false label="No" [(ngModel)]="formDatosClinicos.evaluacionRiesgoTieneHabitacionPropria" inputId="opt2"></p-radioButton></div></td>
                         </tr>
@@ -39,37 +39,37 @@
                         </tr-->
                         <!--<tr><h4>Antecedentes de salud</h4></tr>-->
                         <tr>
-                            <td><h4>Tiene cardiopatía crónica?<span class="text-danger">*</span></h4></td>
+                            <td><h4>¿Tiene cardiopatía crónica?<span class="text-danger">*</span></h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="group3" value=true label="Si" [(ngModel)]="formDatosClinicos.enfermedadBaseCardiopatiaCronica" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group3" value=false label="No" [(ngModel)]="formDatosClinicos.enfermedadBaseCardiopatiaCronica" inputId="opt2"></p-radioButton></div></td>
                         </tr>
                         <tr>
-                            <td><h4>Tiene enfermedad pulmonar crónica?<span class="text-danger">*</span></h4></td>
+                            <td><h4>¿Tiene enfermedad pulmonar obstructiva crónica (EPOC y otros)?<span class="text-danger">*</span></h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="group4" value=true label="Si" [(ngModel)]="formDatosClinicos.enfermedadBasePulmonarCronico" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group4" value=false label="No" [(ngModel)]="formDatosClinicos.enfermedadBasePulmonarCronico" inputId="opt2"></p-radioButton></div></td>
                         </tr>
                         <tr>
-                            <td><h4>Tiene asma?<span class="text-danger">*</span></h4></td>
+                            <td><h4>¿Tiene asma?<span class="text-danger">*</span></h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="group5" value=true label="Si" [(ngModel)]="formDatosClinicos.enfermedadBaseAsma" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group5" value=false label="No" [(ngModel)]="formDatosClinicos.enfermedadBaseAsma" inputId="opt2"></p-radioButton></div></td>
                         </tr>
                         <tr>
-                            <td><h4>Tiene diabetes?<span class="text-danger">*</span></h4></td>
+                            <td><h4>¿Tiene diabetes?<span class="text-danger">*</span></h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="group6" value=true label="Si" [(ngModel)]="formDatosClinicos.enfermedadBaseDiabetes" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group6" value=false label="No" [(ngModel)]="formDatosClinicos.enfermedadBaseDiabetes" inputId="opt2"></p-radioButton></div></td>
                         </tr>
                         <tr>
-                            <td><h4>Tiene enfermedad renal crónica?<span class="text-danger">*</span></h4></td>
+                            <td><h4>¿Tiene enfermedad renal crónica?<span class="text-danger">*</span></h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="group7" value=true label="Si" [(ngModel)]="formDatosClinicos.enfermedadBaseRenalCronico" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group7" value=false label="No" [(ngModel)]="formDatosClinicos.enfermedadBaseRenalCronico" inputId="opt2"></p-radioButton></div></td>
                         </tr>
                         <tr>
-                            <td><h4>Tiene enfermedad hepática grave?<span class="text-danger">*</span></h4></td>
+                            <td><h4>¿Tiene enfermedad hepática grave?<span class="text-danger">*</span></h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="group8" value=true label="Si" [(ngModel)]="formDatosClinicos.enfermedadBaseHepaticaGrave" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group8" value=false label="No" [(ngModel)]="formDatosClinicos.enfermedadBaseHepaticaGrave" inputId="opt2"></p-radioButton></div></td>
                         </tr>
                         <tr>
-                            <td><h4>Toma algún medicamento de forma habitual?<span class="text-danger">*</span></h4></td>
+                            <td><h4>¿Toma algún medicamento de forma habitual?<span class="text-danger">*</span></h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="group9" value="true" label="Si" [(ngModel)]="formDatosClinicos.evaluacionRiesgoUsomedicamento" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group9" value="false" label="No" [(ngModel)]="formDatosClinicos.evaluacionRiesgoUsomedicamento" inputId="opt2"></p-radioButton></div></td>
                         </tr>
@@ -82,25 +82,25 @@
                             </div>
                         </tr>
                         <tr>
-                            <td><h4>Tiene Hipertensión Arterial?<span class="text-danger">*</span></h4></td>
+                            <td><h4>¿Tiene Hipertensión Arterial?<span class="text-danger">*</span></h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="enfermedadBaseHipertensionArterial" value="true" label="Si" [(ngModel)]="formDatosClinicos.enfermedadBaseHipertensionArterial" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="enfermedadBaseHipertensionArterial" value="false" label="No" [(ngModel)]="formDatosClinicos.enfermedadBaseHipertensionArterial" inputId="opt2"></p-radioButton></div></td>
                         </tr>
                         <tr>
-                            <td><h4>Tiene Enfermedades Autoinmunes?<span class="text-danger">*</span></h4></td>
+                            <td><h4>¿Tiene Enfermedades Autoinmunes?<span class="text-danger">*</span></h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="enfermedadBaseAutoinmune" value="true" label="Si" [(ngModel)]="formDatosClinicos.enfermedadBaseAutoinmune" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="enfermedadBaseAutoinmune" value="false" label="No" [(ngModel)]="formDatosClinicos.enfermedadBaseAutoinmune" inputId="opt2"></p-radioButton></div></td>
                         </tr>
                         <tr>
-                            <td><h4>Tiene Neoplasia?<span class="text-danger">*</span></h4></td>
+                            <td><h4>¿Tiene diagnóstico de Cancer?<span class="text-danger">*</span></h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="enfermedadBaseNeoplasias" value="true" label="Si" [(ngModel)]="formDatosClinicos.enfermedadBaseNeoplasias" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="enfermedadBaseNeoplasias" value="false" label="No" [(ngModel)]="formDatosClinicos.enfermedadBaseNeoplasias" inputId="opt2"></p-radioButton></div></td>
                         </tr>
-                        <tr>
+                        <!--tr>
                             <td><h4>Tiene EPOC?<span class="text-danger">*</span></h4></td>
                             <td><div class="ui-g-12"><p-radioButton name="enfermedadBaseEPOC" value="true" label="Si" [(ngModel)]="formDatosClinicos.enfermedadBaseEPOC" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="enfermedadBaseEPOC" value="false" label="No" [(ngModel)]="formDatosClinicos.enfermedadBaseEPOC" inputId="opt2"></p-radioButton></div></td>
-                        </tr>
+                        </tr-->
                         <!--tr><td colspan="2"><h3>Estado de salud en los últimos 15 días:</h3></td></tr>
                         <tr>
                             <td><h4>Tuvo fiebre o sensación febril?<span class="text-danger">*</span></h4></td>
@@ -224,18 +224,8 @@
 
                     <div class="clearfix"><br/></div>
 
-                    <div class="form-group">
-                        <input type="checkbox" style="width:20px;height:20px;" id="terminos" name="terminos" [(ngModel)]="formDatosClinicos.declaracionAgreement" />
-                        <b><span class="text-danger">*</span>Acepto los términos y condiciones</b>
-                        <p><a data-toggle="modal" href="#" data-target="#modalTerminosIE">Ver términos y condiciones</a> </p>
-                    </div>
-
-                    <div class="alert alert-info" *ngIf="!formDatosClinicos.declaracionAgreement">
-                        <i class="fa fa-info-circle"></i> Debe aceptar los términos y condiciones para poder guardar.
-                    </div>
-
                     <div class="clearfix"><br/></div>
-                    <button (click)="enviar(formDatosClinicos)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || !formDatosClinicos.declaracionAgreement">
+                    <button (click)="enviar(formDatosClinicos)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading ">
                         <!--  || !telefValido || telefono.indexOf('+')!=0  [disabled]="!miForm.form.valid || loading || !terminos"-->
                             Guardar
                             <span class="fa fa-check"></span>            

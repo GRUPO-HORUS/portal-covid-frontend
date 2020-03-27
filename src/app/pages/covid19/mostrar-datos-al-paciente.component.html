@@ -43,6 +43,16 @@
                             <label for="contrasenhaConfirm"><strong>Confirmar Clave de seguridad</strong></label>
                             <input type="password" [(ngModel)]="contrasenhaConfirm" name="contrasenhaConfirm" class="form-control" style="max-width: 300px;" id="contrasenhaConfirm" required>
                         </div>
+
+                        <div class="form-group">
+                            <input type="checkbox" style="width:20px;height:20px;" id="terminos" name="terminos" [(ngModel)]="declaracionAgreement" />
+                            <b><span class="text-danger">*</span>Acepto los términos y condiciones</b>
+                            <p><a data-toggle="modal" href="#" data-target="#modalTerminosIE">Ver términos y condiciones</a> </p>
+                        </div>
+    
+                        <div class="alert alert-info" *ngIf="!declaracionAgreement">
+                            <i class="fa fa-info-circle"></i> Debe aceptar los términos y condiciones para poder guardar.
+                        </div>
                     </form>      
 
                     <div class="clearfix"><br/></div>
@@ -50,7 +60,7 @@
                         <i class="fa fa-info-circle"></i> La contraseña debe tener un mínimo de 8 caracteres.
                     </div>
 
-                    <button (click)="validarTelefono(contrasenha)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || contrasenha !== contrasenhaConfirm">
+                    <button (click)="validarTelefono(contrasenha)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || contrasenha !== contrasenhaConfirm || !declaracionAgreement">
                         Guardar
                         <span class="fa fa-check"></span>            
                     </button>
