@@ -106,14 +106,19 @@ export class MostrarDatosAlPacienteComponent implements OnInit {
   }
 
   validarTelefono(contrasenha): void {
-    
-    this.loading = true;
-    this.service.validarTelefono(this.idRegistro, this.codigoVerif, contrasenha).subscribe(response => {
+
+    if(!this.verificarClave(contrasenha)){
+      this.mensaje = "Clave de seguridad muy débil. Favor cambiarla.";
+      //this.formDatosBasicos.contrasenha = null;
+      //this.formDatosBasicos.contrasenhaConfirm = null;
+      this.openMessageDialog();
+    }else{
+      this.loading = true;
+      this.service.validarTelefono(this.idRegistro, this.codigoVerif, contrasenha).subscribe(response => {
             console.log(response);
             
             this.loading = false;
             this.mensaje = "Mensaje Enviado con Éxito";
-            //this.openMessageDialog();
             this._router.navigate(["covid19/aislamiento/datos-clinicos/",this.idRegistro, this.codigoVerif]);
 
           }, error => {
@@ -122,7 +127,17 @@ export class MostrarDatosAlPacienteComponent implements OnInit {
             this.openMessageDialog();
             
           }
-    );
+      );
+    }
+  }
+
+  verificarClave(contrasenha){
+    if(contrasenha==="12345678" || contrasenha==="123456789" || contrasenha==="87654321" || contrasenha==="987654321"
+      || contrasenha==="abcdefgh" || contrasenha==="qwertyui" || contrasenha==="asdfghjk"){
+        return false;
+    }else{
+      return true;
+    }
   }
 
   avanzar(telefono: string): void {

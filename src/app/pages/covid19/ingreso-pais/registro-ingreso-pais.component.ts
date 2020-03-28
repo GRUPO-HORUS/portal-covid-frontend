@@ -138,7 +138,12 @@ public ciudadOptions: any[];
     /*if(this.recaptchaAvailable){
       this.formDatosBasicos.rcToken = this.recentToken;
     }*/
-    
+    if(!this.verificarClave(formDatosBasicos.contrasenha)){
+      this.mensaje = "Clave de seguridad muy débil. Favor cambiarla.";
+      //this.formDatosBasicos.contrasenha = null;
+      //this.formDatosBasicos.contrasenhaConfirm = null;
+      this.openMessageDialog();
+    }else{
       this.loading = true;
       this.service.guardarDatosBasicos(formDatosBasicos, this.recentToken).subscribe(response => {
           console.log(response);
@@ -158,6 +163,17 @@ public ciudadOptions: any[];
             
         }
       );
+
+    }
+  }
+
+  verificarClave(contrasenha){
+    if(contrasenha==="12345678" || contrasenha==="123456789" || contrasenha==="87654321" || contrasenha==="987654321"
+      || contrasenha==="abcdefgh" || contrasenha==="qwertyui" || contrasenha==="asdfghjk"){
+        return false;
+    }else{
+      return true;
+    }
   }
 
   getRecaptchaToken(action){
