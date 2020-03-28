@@ -42,7 +42,7 @@ export class MensajeFinalIngresoComponent implements OnInit {
     /*if (typeof localStorage !== "undefined") {
       localStorage.clear();
     }*/
-    this.token=localStorage.getItem('token');
+    //this.token=localStorage.getItem('token');
   }
 
   ngOnInit() {

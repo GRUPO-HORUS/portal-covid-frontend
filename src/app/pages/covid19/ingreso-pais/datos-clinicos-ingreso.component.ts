@@ -81,13 +81,13 @@ export class DatosClinicosIngresoComponent implements OnInit {
               this.loading = false;
               this.mensaje = "Se ha registrado con Éxito";
               //this.openMessageDialog();
-              localStorage.setItem('token',response);
+              //localStorage.setItem('token',response);
               localStorage.setItem('codigoVerif',this.codigoVerif);
               //window.open("https://app.coronavirus.gov.py/login?token="+response);
               this._router.navigate(["covid19/ingreso-pais/mensaje-final/"]);
           }, error => {
             this.loading = false;
-            this.mensaje = "No se pudo procesar la operación!";
+            this.mensaje = error.error;
             this.openMessageDialog();
             
           }

@@ -29,7 +29,7 @@ export class Covid19Service {
     }
 
     guardarDatosClinicos(formDatosClinicos): Observable<string> {
-      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/datosClinicos', formDatosClinicos);
+      return this.httpClient.post<string>(this.config.API + '/covid19api/ingresoPais/datosClinicos', formDatosClinicos);
         //.pipe(catchError(this.handler.handleError<string>('/covid19api/aislamiento/datosClinicos')));
     }
 
