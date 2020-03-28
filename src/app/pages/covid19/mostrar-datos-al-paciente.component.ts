@@ -109,7 +109,7 @@ export class MostrarDatosAlPacienteComponent implements OnInit {
   validarTelefono(contrasenha): void {
 
     if(!this.verificarClave(contrasenha)){
-      this.mensaje = "Clave de seguridad muy débil. Favor cambiarla.";
+      this.mensaje = "Su clave de seguridad es insegura. Le recomendamos cambiar por una clave de seguridad con letras y números.";
       //this.formDatosBasicos.contrasenha = null;
       //this.formDatosBasicos.contrasenhaConfirm = null;
       this.openMessageDialog();
