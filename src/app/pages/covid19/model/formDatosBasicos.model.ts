@@ -19,6 +19,9 @@ export class FormDatosBasicos {
     contrasenha: string;
     contrasenhaConfirm: string;
 
+    inicioAislamiento:string;
+    fechaHabilitadaTomaMuestraLaboratorial:string;
+
     //rcToken: string;
 
 }

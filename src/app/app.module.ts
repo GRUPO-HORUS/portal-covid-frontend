@@ -100,6 +100,8 @@ import { MensajeFinalOperadorComponent } from "./pages/covid19/carga-operador/me
 
 import { ClaveSeguridadComponent } from "./pages/covid19/carga-operador/clave-seguridad.component";
 
+import {CalendarModule} from 'primeng/calendar';
+
 /*
   @autor:
   @date: 29/06/2017
@@ -181,8 +183,9 @@ import { ClaveSeguridadComponent } from "./pages/covid19/carga-operador/clave-se
     TableModule,
     DialogModule,
     ConfirmDialogModule,
-    MultiSelectModule
+    MultiSelectModule,
     //GooglePlaceModule
+    CalendarModule
   ],
   providers: [
     appRoutingProviders,
