@@ -102,6 +102,8 @@ import { ClaveSeguridadComponent } from "./pages/covid19/carga-operador/clave-se
 
 import {CalendarModule} from 'primeng/calendar';
 
+import { OperadorTomaMuestraLaboratorial } from "./pages/covid19/operador-toma-muestra-laboratorial.component";
+
 /*
   @autor:
   @date: 29/06/2017
@@ -143,7 +145,8 @@ import {CalendarModule} from 'primeng/calendar';
     DatosClinicosOperadorComponent,
     MensajeFinalOperadorComponent,
     ClaveSeguridadComponent,
-    OperadorIngresoPaisPaciente
+    OperadorIngresoPaisPaciente,
+    OperadorTomaMuestraLaboratorial
   ],
   // dependencias de módulos
   imports: [

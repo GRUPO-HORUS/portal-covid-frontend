@@ -76,6 +76,11 @@ export class Covid19Service {
     getCiudadesPorDepto(idDepto): Observable<any[]>{
       return this.httpClient.get<any[]>(this.config.API +"/covid19/ciudades/"+idDepto);
     }
+
+    getDatosPacienteByNumeroDocumento(numeroDocumento): Observable<FormDatosBasicos> {
+      return this.httpClient.get<FormDatosBasicos>(this.config.API + '/covid19api/aislamiento/obtenerPaciente/'+numeroDocumento);
+    }
+
  }
 
 

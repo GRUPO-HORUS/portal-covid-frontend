@@ -69,6 +69,8 @@ import { MensajeFinalOperadorComponent } from "./pages/covid19/carga-operador/me
 import { ClaveSeguridadComponent } from "./pages/covid19/carga-operador/clave-seguridad.component";
 
 import { OperadorIngresoPaisPaciente } from './pages/covid19/operador-ingreso-pais-paciente.component';
+
+import { OperadorTomaMuestraLaboratorial } from './pages/covid19/operador-toma-muestra-laboratorial.component';
 /**
  *  PLUGINS
  */
@@ -225,6 +227,8 @@ export const appRoutes: Routes = [
   { path: "covid19/carga-operador/clave-seguridad/:idRegistro", component: ClaveSeguridadComponent},
 
   { path: "covid19/operador/registroPersona", component: OperadorIngresoPaisPaciente},
+
+  { path: "covid19/operador/toma-muestra-laboratorial", component: OperadorTomaMuestraLaboratorial},
 
   { path: "", component: LoginComponent },
 
