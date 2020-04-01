@@ -45,7 +45,7 @@
                                 Número de Documento: {{cedula}}
                                 <br>
                                 <br>
-                                Existe Registro: <span style="color:green;">SI</span>
+                                Existe Registro: <span style="color:green;"><strong>SI</strong></span>
                                 <br>
                                 <span style="font-size: smaller">
                                     Fecha Registro: {{response.fechaRegistro}}
@@ -54,17 +54,17 @@
                                 </span>
                                 <br>
                                 <br>
-                                Existe Reporte Salud:<span style="color:green;" *ngIf="response.fechaUltimoReporteSalud">SI</span><span style="color:red;" *ngIf="!response.fechaUltimoReporteSalud">NO</span>
+                                Existe Reporte Salud:<span style="color:green;" *ngIf="response.fechaUltimoReporteSalud"><strong>SI</strong></span><span style="color:red;" *ngIf="!response.fechaUltimoReporteSalud"><strong>NO</strong></span>
                                 <br>
                                 <span *ngIf="response.fechaUltimoReporteSalud" style="font-size: smaller">Fecha Último Reporte Salud: {{response.fechaUltimoReporteSalud}}</span>
                                 <br>
                                 <br>
-                                Existe Reporte de Ubicación:<span style="color:green;" *ngIf="response.fechaUltimaUbicacion">SI</span><span style="color:red;" *ngIf="!response.fechaUltimaUbicacion">NO</span>
+                                Existe Reporte de Ubicación:<span style="color:green;" *ngIf="response.fechaUltimaUbicacion"><strong>SI</strong></span><span style="color:red;" *ngIf="!response.fechaUltimaUbicacion"><strong>NO</strong></span>
                                 <br>
                                 <span *ngIf="response.fechaUltimaUbicacion" style="font-size: smaller">Fecha último reporte Ubicacion: {{response.fechaUltimaUbicacion}}</span>
                                 <br>
                                 <br>
-                                Existe Agendamiento Laboratorial:<span style="color:green;" *ngIf="response.fechaPrevistaTomaMuestraLaboratorial">SI</span><span style="color:red;" *ngIf="!response.fechaPrevistaTomaMuestraLaboratorial">NO</span>
+                                Existe Agendamiento Laboratorial:<span style="color:green;" *ngIf="response.fechaPrevistaTomaMuestraLaboratorial"><strong>SI</strong></span><span style="color:red;" *ngIf="!response.fechaPrevistaTomaMuestraLaboratorial"><strong>NO</strong></span>
                                 <br>
                                 <span *ngIf="response.fechaPrevistaTomaMuestraLaboratorial">Fecha Prevista para Toma de Muestra: {{response.fechaPrevistaTomaMuestraLaboratorial}}</span>
                 </div>
