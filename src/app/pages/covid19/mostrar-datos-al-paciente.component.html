@@ -12,12 +12,12 @@
             <div class="col-md-8 mb-4">
                 <h3 class="title-divider text-primary">
                     <i class="fa fa-edit mr-2" style="margin-top: -4px;"></i>
-                    <span>Datos Básicos del Paciente</span>
+                    <span>Datos Básicos</span>
                 </h3>
 
                 <p style="text-align:justify">
-                    {{this.formDatosBasicos?.nombre}}&nbsp;{{this.formDatosBasicos?.apellido}}, como medida de prevención usted 
-                    debe realizar aislamiento domiciliario.</p><p style="text-align:justify">Tenemos registrados los siguientes datos:</p> 
+                    {{this.formDatosBasicos?.nombre}}&nbsp;{{this.formDatosBasicos?.apellido}}, como medida de prevención usted debe realizar aislamiento domiciliario por 14 días en total.
+                </p><p style="text-align:justify">Tenemos registrados los siguientes datos:</p> 
                         <ul>
                             <li>
                                 Nombre y Apellido: {{this.formDatosBasicos?.nombre}}&nbsp;{{this.formDatosBasicos?.apellido}}
@@ -30,8 +30,7 @@
                             </li>
                         </ul>
                     <p style="text-align:justify">
-                    A continuación, deberá completar informaciones referentes a su estado de salud. 
-                    Por favor, escriba una clave de seguridad que utilizará para consultar sus registros:</p>
+                        En esta plataforma deberá completar la información solicitada para que podamos hacerle seguimiento y cuidar de su salud. Por favor, escriba una clave de seguridad que utilizará para realizar los registros necesarios:</p>
 
                     <form #miForm="ngForm" class="mt-4">
                     

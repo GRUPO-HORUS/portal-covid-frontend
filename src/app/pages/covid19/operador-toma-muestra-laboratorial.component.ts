@@ -84,10 +84,12 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
         this.loading = false;
         this.cedula=cedula;
         this.response = response;
+        this.mensaje= null;
     }, error => {
       this.loading = false;
-      this.mensaje = "No se encontró a la persona";
-      this.openMessageDialog();
+      this.mensaje = "No se encontró una persona con este identificador";
+      this.response = null;
+      //this.openMessageDialog();
       
     }
   );

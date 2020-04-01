@@ -56,7 +56,7 @@
                         <p-calendar [(ngModel)]="formDatosBasicos.inicioAislamiento" id="inicioAislamiento" name="inicioAislamiento" dateFormat="dd/mm/yy" [locale]="es" dataType="string"></p-calendar>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="formDatosBasicos.tipoRegistro=='examen_laboratorio'">
                         <label for="fechaPrevistaTomaMuestraLaboratorial"><strong>Fecha Prevista Toma Muestra Laboratorial</strong></label>
                         <br>
                         <p-calendar [(ngModel)]="formDatosBasicos.fechaPrevistaTomaMuestraLaboratorial" id="fechaPrevistaTomaMuestraLaboratorial" name="fechaPrevistaTomaMuestraLaboratorial" dateFormat="dd/mm/yy" [locale]="es" dataType="string"></p-calendar>

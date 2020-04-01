@@ -32,28 +32,41 @@
                             <span class="fa fa-times"></span>
                         </button>
                     </div>
-                </form>      
+                </form>
+                <br>
+                {{mensaje}}
                 <div *ngIf="response">
                
                     <p style="text-align:justify">Tenemos registrados los siguientes datos:</p> 
-                        <ul>
-                            <li>
                                 Nombre y Apellido: {{response.nombre}}
-                            </li>
-                            <li>
-                                Fecha Registro: {{response.fechaRegistro}}
-                            </li>
-                            <li>
-                                Fecha Último Reporte Salud: {{response.fechaUltimoReporteSalud}}
-                            </li>
-                            <li>
-                                Fecha Última Ubicacion: {{response.fechaUltimaUbicacion}}
-                            </li>
-                            <li>
-                                Fecha Prevista Toma Muestra Laboratorial: {{response.fechaPrevistaTomaMuestraLaboratorial}}
-                            </li>
-                        </ul>
-                    
+                                <br>
+                                Tipo de Documento: {{response.tipoDocumento}}
+                                <br>
+                                Número de Documento: {{cedula}}
+                                <br>
+                                <br>
+                                Existe Registro: <span style="color:green;">SI</span>
+                                <br>
+                                <span style="font-size: smaller">
+                                    Fecha Registro: {{response.fechaRegistro}}
+                                    <br>
+                                    Inicio Aislamiento: {{response.inicioAislamiento}}
+                                </span>
+                                <br>
+                                <br>
+                                Existe Reporte Salud:<span style="color:green;" *ngIf="response.fechaUltimoReporteSalud">SI</span><span style="color:red;" *ngIf="!response.fechaUltimoReporteSalud">NO</span>
+                                <br>
+                                <span *ngIf="response.fechaUltimoReporteSalud" style="font-size: smaller">Fecha Último Reporte Salud: {{response.fechaUltimoReporteSalud}}</span>
+                                <br>
+                                <br>
+                                Existe Reporte de Ubicación:<span style="color:green;" *ngIf="response.fechaUltimaUbicacion">SI</span><span style="color:red;" *ngIf="!response.fechaUltimaUbicacion">NO</span>
+                                <br>
+                                <span *ngIf="response.fechaUltimaUbicacion" style="font-size: smaller">Fecha último reporte Ubicacion: {{response.fechaUltimaUbicacion}}</span>
+                                <br>
+                                <br>
+                                Existe Agendamiento Laboratorial:<span style="color:green;" *ngIf="response.fechaPrevistaTomaMuestraLaboratorial">SI</span><span style="color:red;" *ngIf="!response.fechaPrevistaTomaMuestraLaboratorial">NO</span>
+                                <br>
+                                <span *ngIf="response.fechaPrevistaTomaMuestraLaboratorial">Fecha Prevista para Toma de Muestra: {{response.fechaPrevistaTomaMuestraLaboratorial}}</span>
                 </div>
                 
                 <!--<button class="btn btn-secondary" routerLink="/covid19/home-operador">
