@@ -16,7 +16,7 @@
                 </h3>
 
                 <div class="clearfix"><br/></div>
-
+                <div *ngIf="hasRol('Operador')">
                     <h4>Registrar Persona en Aislamiento Domiciliario</h4>
                     <p>Utilice esta opción para registrar una persona en la aplicación de seguimiento de aislamiento domiciliario.  Deberá tener información de los datos básicos de la persona y su número de celular. El paciente recibirá un mensaje de texto con información e instrucciones para utilizar la aplicación.</p>
                     <!--<br>-->
@@ -24,19 +24,27 @@
                             Registrar Persona Aislamiento
                             <span class="fa fa-check"></span>            
                         </button>
+                </div>
                         <br>
                         <br>
                         <br>
-                        <h4>Verificar Ingreso Persona al País</h4>
-                        <!--<p>Utilize esta opción para registrar una persona que ingresa al pais.  Deberá tener el número de documento y el código de verificación de la persona. El paciente recibirá un mensaje de texto con información e instrucciones para utilizar la aplicación.</p>-->
+                        <div *ngIf="hasRol('Operador')||hasRol('Tecnico Salud')">
+                            <h4>Verificar Registro de Persona</h4>
+                            <p>Utilice esta opción para verificar el registro de una persona.  Deberá tener su número de documento.</p>
+                            <!--<br>-->
+                            <button class="btn btn-success btn-success-next" routerLink="/covid19/operador/toma-muestra-laboratorial">
+                                    Verificar Registro de Persona
+                                    <span class="fa fa-check"></span>            
+                                </button>
+                        </div>
+                        <!--h4>Verificar Ingreso Persona al País</h4>
                         <p>Utilice esta opción para verificar si la persona registró su declaración de estado de salud al ingresar al país. Deberá conocer el número de documento y código de verificación de la persona que
                             quiere verificar. Una vez verificado, el paciente recibirá un mensaje de texto con información e instrucciones para activar la aplicación de seguimiento.
                         </p>
-                        <!--<br>-->
                         <button class="btn btn-success btn-success-next" routerLink="/covid19/operador/registroPersona">
                             Registrar Ingreso Persona
                             <span class="fa fa-check"></span>            
-                        </button>
+                        </button-->
                 <!--<qrcode [qrdata]="qrCode" [width]="128" [errorCorrectionLevel]="'M'"></qrcode>
                 <div class="alert alert-info">
                     <i class="fa fa-info-circle"></i> Debe completar todos los campos en el formato correcto para iniciar.

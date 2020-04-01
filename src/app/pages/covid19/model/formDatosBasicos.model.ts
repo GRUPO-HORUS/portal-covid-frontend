@@ -20,7 +20,7 @@ export class FormDatosBasicos {
     contrasenhaConfirm: string;
 
     inicioAislamiento:string;
-    fechaHabilitadaTomaMuestraLaboratorial:string;
+    fechaPrevistaTomaMuestraLaboratorial:string;
 
     //rcToken: string;
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Subscription } from 'rxjs';
 import { Covid19Service } from '../../services/Covid19Service';
+import { StorageManagerService } from '../login/shared/storage-manager.service';
 declare var $: any;
 
 @Component({
@@ -35,7 +36,8 @@ export class HomeOperadorComponent implements OnInit {
 
   constructor(
     private _router: Router,
-    private service: Covid19Service
+    private service: Covid19Service,
+    private storageManager: StorageManagerService
   ) {
     this.loading = false;
     if (typeof localStorage !== "undefined") {
@@ -64,6 +66,26 @@ export class HomeOperadorComponent implements OnInit {
       this.telefValido = true;
     }else {
       this.telefValido = false;
+    }
+  }
+
+  hasRol(rolName: string)
+  {
+    let credentials=this.storageManager.getLoginData();
+    if(credentials)
+    {
+      for(let rol of credentials.usuario.rols)
+      {
+        if(rol.nombre==rolName)
+        {
+          return true;
+        }
+      }
+      return false;
+    }
+    else
+    {
+      return false;
     }
   }
 
