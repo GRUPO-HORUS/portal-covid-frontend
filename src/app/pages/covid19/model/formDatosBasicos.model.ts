@@ -23,5 +23,6 @@ export class FormDatosBasicos {
     fechaPrevistaTomaMuestraLaboratorial:string;
 
     //rcToken: string;
+    fechaNacimiento:string;
 
 }

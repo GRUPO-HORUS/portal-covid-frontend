@@ -202,4 +202,39 @@ export class RegistroPacienteComponent implements OnInit {
     }
   }
 
+  consultarIdentificaciones(formDatosBasicos: FormDatosBasicos) {
+    if(formDatosBasicos.tipoDocumento==0&&formDatosBasicos.numeroDocumento)
+    {
+      this.loading = true;
+      this.service.getIdentificacionesByNumeroDocumento(formDatosBasicos.numeroDocumento).subscribe(response => {
+          this.loading = false;
+          if(response.obtenerPersonaPorNroCedulaResponse.return.error)
+          {
+            this.mensaje = response.obtenerPersonaPorNroCedulaResponse.return.error;
+            this.openMessageDialog();
+          }
+          else
+          {
+            formDatosBasicos.nombre=response.obtenerPersonaPorNroCedulaResponse.return.nombres;
+            formDatosBasicos.apellido=response.obtenerPersonaPorNroCedulaResponse.return.apellido;
+            formDatosBasicos.fechaNacimiento=response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(8, 10)+'/'+
+                                              response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(5, 7)+'/'+
+                                              response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(0, 4);
+          }
+      }, error => {
+        if(error.status == 401)
+        {
+          this._router.navigate(["/"]);
+        }
+        else
+        {
+          this.loading = false;
+          this.mensaje = error.error;
+          this.openMessageDialog();
+        }
+      }
+  );
+    }
+  }
+
 }

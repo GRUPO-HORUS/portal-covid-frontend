@@ -81,6 +81,10 @@ export class Covid19Service {
       return this.httpClient.get<FormDatosBasicos>(this.config.API + '/covid19api/aislamiento/obtenerPaciente/'+numeroDocumento);
     }
 
+    getIdentificacionesByNumeroDocumento(numeroDocumento): Observable<any> {
+      return this.httpClient.get<any>(this.config.API + '/covid19/sii/identificaciones/'+numeroDocumento);
+    }
+
  }
 
 
