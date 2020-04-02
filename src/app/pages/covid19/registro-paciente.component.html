@@ -34,18 +34,21 @@
                         <label for="numeroDocumento" *ngIf="formDatosBasicos.tipoDocumento===0"><strong>Número de Cédula </strong> <small>sin puntos</small><span class="text-danger">*</span></label>
                         <label for="numeroDocumento" *ngIf="formDatosBasicos.tipoDocumento===1"><strong>Número de Pasaporte </strong> <small>sin puntos</small><span class="text-danger">*</span></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.numeroDocumento" class="form-control" style="max-width: 300px;" id="numeroDocumento" name="numeroDocumento" placeholder="Ej. 123456" required (change)="consultarIdentificaciones(formDatosBasicos)" *ngIf="!formDatosBasicos.fechaNacimiento">
+                        <br>
                         <span *ngIf="formDatosBasicos.fechaNacimiento">{{formDatosBasicos.numeroDocumento}}</span>
                     </div>
 
                     <div class="form-group">
                         <label for="nombre"><strong>Nombres</strong><span class="text-danger">*</span></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" style="max-width: 300px;" id="nombre" required *ngIf="!formDatosBasicos.fechaNacimiento">
+                        <br>
                         <span *ngIf="formDatosBasicos.fechaNacimiento">{{formDatosBasicos.nombre}}</span>
                     </div>
 
                     <div class="form-group">
                         <label for="apellido"><strong>Apellidos</strong><span class="text-danger">*</span></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.apellido" name="apellido" class="form-control" style="max-width: 300px;" id="apellido" required *ngIf="!formDatosBasicos.fechaNacimiento">
+                        <br>
                         <span *ngIf="formDatosBasicos.fechaNacimiento">{{formDatosBasicos.apellido}}</span>
                     </div>
 
