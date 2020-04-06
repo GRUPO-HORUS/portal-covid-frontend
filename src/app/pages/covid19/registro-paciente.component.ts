@@ -1,9 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, SecurityContext } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from 'rxjs';
 import { Covid19Service } from '../../services/Covid19Service';
 
 import {FormDatosBasicos} from './model/formDatosBasicos.model';
+
+import { DomSanitizer } from "@angular/platform-browser";
 
 declare var $: any;
 @Component({
@@ -84,7 +86,8 @@ export class RegistroPacienteComponent implements OnInit {
   constructor(
     private _router: Router,
     private service: Covid19Service,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private domSanitizer: DomSanitizer
   ) {
     this.loading = false;
     if (typeof localStorage !== "undefined") {
@@ -129,6 +132,84 @@ export class RegistroPacienteComponent implements OnInit {
   }
 
   registrar(formDatosBasicos): void {
+    if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.nombre)!=formDatosBasicos.nombre)
+    {
+      this.mensaje = "Se detectaron carácteres especiales en el nombre.";
+      this.openMessageDialog();
+      return;
+    }
+    if(this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.nombre)!=formDatosBasicos.nombre)
+    {
+      this.mensaje = "Se detectaron carácteres especiales en el nombre.";
+      this.openMessageDialog();
+      return;
+    }
+
+    if(this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.apellido)!=formDatosBasicos.apellido)
+    {
+      this.mensaje = "Se detectaron carácteres especiales en el apellido.";
+      this.openMessageDialog();
+      return;
+    }
+    if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.apellido)!=formDatosBasicos.apellido)
+    {
+      this.mensaje = "Se detectaron carácteres especiales en el apellido.";
+      this.openMessageDialog();
+      return;
+    }
+
+    if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.numeroDocumento)!=formDatosBasicos.numeroDocumento)
+    {
+      this.mensaje = "Se detectaron carácteres especiales en el numero de documento.";
+      this.openMessageDialog();
+      return;
+    }
+    if(this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.numeroDocumento)!=formDatosBasicos.numeroDocumento)
+    {
+      this.mensaje = "Se detectaron carácteres especiales en el numero de documento.";
+      this.openMessageDialog();
+      return;
+    }
+
+    if(this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.numeroCelular)!=formDatosBasicos.numeroCelular)
+    {
+      this.mensaje = "Se detectaron carácteres especiales en el numero de celular.";
+      this.openMessageDialog();
+      return;
+    }
+    if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.numeroCelular)!=formDatosBasicos.numeroCelular)
+    {
+      this.mensaje = "Se detectaron carácteres especiales en el numero de celular.";
+      this.openMessageDialog();
+      return;
+    }
+
+    if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.direccionDomicilio)!=formDatosBasicos.direccionDomicilio)
+    {
+      this.mensaje = "Se detectaron carácteres especiales en la dirección.";
+      this.openMessageDialog();
+      return;
+    }
+    if(this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.direccionDomicilio)!=formDatosBasicos.direccionDomicilio)
+    {
+      this.mensaje = "Se detectaron carácteres especiales en la dirección.";
+      this.openMessageDialog();
+      return;
+    }
+
+    if(this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.ciudadDomicilio)!=formDatosBasicos.ciudadDomicilio)
+    {
+      this.mensaje = "Se detectaron carácteres especiales en la ciudad.";
+      this.openMessageDialog();
+      return;
+    }
+    if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.ciudadDomicilio)!=formDatosBasicos.ciudadDomicilio)
+    {
+      this.mensaje = "Se detectaron carácteres especiales en la ciudad.";
+      this.openMessageDialog();
+      return;
+    }
+
     localStorage.setItem('tipoDocumento', formDatosBasicos.tipoDocumento);
     localStorage.setItem('numeroDocumento', formDatosBasicos.numeroDocumento);
     localStorage.setItem('nombre', formDatosBasicos.nombre);
@@ -205,35 +286,43 @@ export class RegistroPacienteComponent implements OnInit {
   consultarIdentificaciones(formDatosBasicos: FormDatosBasicos) {
     if(formDatosBasicos.tipoDocumento==0&&formDatosBasicos.numeroDocumento)
     {
-      this.loading = true;
-      this.service.getIdentificacionesByNumeroDocumento(formDatosBasicos.numeroDocumento).subscribe(response => {
-          this.loading = false;
-          if(response.obtenerPersonaPorNroCedulaResponse.return.error)
+      if(formDatosBasicos.numeroDocumento.includes('.'))
+      {
+        this.mensaje = 'La cédula no debe poseer puntos.';
+        this.openMessageDialog();
+      }
+      else
+      {
+        this.loading = true;
+        this.service.getIdentificacionesByNumeroDocumento(formDatosBasicos.numeroDocumento).subscribe(response => {
+            this.loading = false;
+            if(response.obtenerPersonaPorNroCedulaResponse.return.error)
+            {
+              this.mensaje = response.obtenerPersonaPorNroCedulaResponse.return.error;
+              this.openMessageDialog();
+            }
+            else
+            {
+              formDatosBasicos.nombre=response.obtenerPersonaPorNroCedulaResponse.return.nombres;
+              formDatosBasicos.apellido=response.obtenerPersonaPorNroCedulaResponse.return.apellido;
+              formDatosBasicos.fechaNacimiento=response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(8, 10)+'/'+
+                                                response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(5, 7)+'/'+
+                                                response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(0, 4);
+            }
+        }, error => {
+          if(error.status == 401)
           {
-            this.mensaje = response.obtenerPersonaPorNroCedulaResponse.return.error;
-            this.openMessageDialog();
+            this._router.navigate(["/"]);
           }
           else
           {
-            formDatosBasicos.nombre=response.obtenerPersonaPorNroCedulaResponse.return.nombres;
-            formDatosBasicos.apellido=response.obtenerPersonaPorNroCedulaResponse.return.apellido;
-            formDatosBasicos.fechaNacimiento=response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(8, 10)+'/'+
-                                              response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(5, 7)+'/'+
-                                              response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(0, 4);
+            this.loading = false;
+            this.mensaje = error.error;
+            this.openMessageDialog();
           }
-      }, error => {
-        if(error.status == 401)
-        {
-          this._router.navigate(["/"]);
         }
-        else
-        {
-          this.loading = false;
-          this.mensaje = error.error;
-          this.openMessageDialog();
-        }
+    );
       }
-  );
     }
   }
 
