@@ -42,8 +42,8 @@ export class RegistroPacienteComponent implements OnInit {
   public tipoRegistroOptions=[{value:'ingreso_pais',label:'Viajeros que llegaron al País'}
     ,{value:'aislamiento_confirmado',label:'Casos confirmados de COVID-19'}
     ,{value:'aislamiento_contacto',label:'Contactos de casos confirmados de COVID-19'}
-    ,{value:'caso_sospechoso',label:'Caso sospechoso COVID-19'}
-    ,{value:'examen_laboratorio',label:'Examen Laboratorio COVID-19'}
+    ,{value:'caso_sospechoso',label:'Caso sospechoso de COVID-19'}
+    ,{value:'examen_laboratorio',label:'Examen de Laboratorio de COVID-19'}
   ];
 
   /*public departamentoOptions=[{value:0,label:'ASUNCIÓN'}, {value:1,label:'CONCEPCIÓN'},
