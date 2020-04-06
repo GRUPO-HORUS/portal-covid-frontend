@@ -1,6 +1,6 @@
 {
     "/api/*": {
-        "target": "http://localhost:8080/portalpy-backend-core",
+        "target": "http://localhost:8080/portal-covid-core",
         "secure": false,
         "loglevel": "debug",
         "changeOrigin": true,

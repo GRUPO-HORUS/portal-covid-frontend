@@ -1,12 +1,13 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, DoCheck } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ScrollToService } from "ng2-scroll-to-el";
 import { MessageService } from "app/services/MessageService";
 import { PoderesDelEstadoService } from "app/services/PoderesDelEstadoService";
-import { LoginService } from 'app/services/login.service';
+import { LoginService } from 'app/pages/login/shared/login.service';
 import { IdentidadPersona } from "../ciudadano/model/identidad-persona.model";
 import { AppConfig } from "app/app.config";
 import { DOCUMENT } from '@angular/common';
+import { StorageManagerService } from 'app/pages/login/shared/storage-manager.service';
 declare var $: any;
 
 @Component({
@@ -15,7 +16,7 @@ declare var $: any;
   providers: [LoginService],
   styleUrls: ["./header.component.css"]
 })
-export class HeaderComponent  implements OnInit{
+export class HeaderComponent  implements DoCheck {
 
   public categoriaTramite: any;
   public lang: string = 'G';
@@ -35,39 +36,12 @@ export class HeaderComponent  implements OnInit{
     private router: Router,
     private auth: LoginService,
     private config: AppConfig,
-    @Inject(DOCUMENT) private document: any
-  ) {
+    @Inject(DOCUMENT) private document: any,
+    private storageManagerService: StorageManagerService
+  ) {  }
 
-    this.messageService.currentUserResult.subscribe(userSession => {
-      //console.log('userSession', userSession);
-      if(userSession.currentUser) {
-        this.currentUser = userSession.currentUser;
-      }
-      if(userSession.token) {
-        this.token = userSession.token;
-      }
-      if(userSession.fotoPerfil) {
-        this.fotoPerfil = userSession.fotoPerfil;
-      }
-    });
-
-  }
-
-  ngOnInit() {
-    this.verificarSession();
-    this.getCategoriaTramite();
-
-    this.ciudadano = this.auth.getCurrentUser();
-    this.token = this.auth.getToken();
-    this.fotoPerfil = this.auth.getImgProf();
-
-  }
-
-  verificarSession() {
-    if(this.auth.getToken() != null && this.auth.getCurrentUser() != null) {
-      this.token = this.auth.getToken();
-      this.currentUser = this.auth.getCurrentUser();
-    }
+  ngDoCheck() {
+    this.currentUser = this.storageManagerService.getLoginData();
   }
 
   scrollToTop(event) {
@@ -92,69 +66,15 @@ export class HeaderComponent  implements OnInit{
     this.messageService.emitChangeDataSearch(busqueda);
   }
 
-  getCategoriaTramite(): void {
-    this.poderesDelEstadoService.getCategoriaTramite().subscribe(
-      data => {
-        this.categoriaTramite = data;
-      },
-      error => {
-        console.log("error", error);
-      }
-    );
-  }
-
-  loginIdentidadElectronica(){
-    this.verificarSession();
-    if (!this.currentUser || this.token == null) {
-      this.route.queryParams.subscribe(params => {
-        if (params['code'] && this.auth.getState() == params['state']) {
-            this.auth.setToken(params['code']);
-            this.auth.verifyAuthentication().subscribe(rsp => {
-              let response: any = rsp;
-              if (response.error) {
-                this.auth.logout();
-              } else {
-                this.auth.setCurrentUser(response.ipersona);
-                this.auth.setToken(response.token);
-                this.redirect(response.ipersona.datosActualizado);
-              }
-            }, error => {
-              console.log("error", error);
-              this.auth.logout();
-            });
-        } else {
-          this.getConfig();
-        }
-      });
-    } else {
-      this.redirect(this.currentUser.datosActualizado);        
-    }
-  }
-
   logout(){
-    this.auth.logout();
-    this.token = null;
     this.currentUser = null;
+    this.storageManagerService.deleteStorage();
+    document.cookie = "Authorization=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     this.router.navigate(['/']);
   }
 
   redirectExternUrl(url){
     this.router.navigate(["/"]).then(result=>{ window.location.href = url; });
-  }
-
-  getConfig() {
-    this.auth.getConfig().subscribe(response => {
-      this.uuid = this.auth.guid();
-      this.ieUrl = response['URL_IDENTIDAD_ELECTRONICA_LOGIN'] + '&state=' + this.uuid;
-      this.auth.setState(this.uuid);
-      //this.router.navigate(["/"]).then(result=>{ window.location.href = this.ieUrl; });
-      this.document.location.href =  this.ieUrl;
-    }, error => {
-      console.log("error", error);
-      this.auth.logout();
-      this.token = null;
-      this.currentUser = null;
-    });
   }
 
   redirect(datoActualizado){
@@ -163,6 +83,11 @@ export class HeaderComponent  implements OnInit{
     } else {
       this.router.navigate(['/form-perfil-ciudadano']);
     }
+  }
+
+  isLogin()
+  {
+    return window.location.hash=='#/';
   }
 
 }

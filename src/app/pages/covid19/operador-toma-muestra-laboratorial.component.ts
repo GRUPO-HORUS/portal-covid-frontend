@@ -86,9 +86,16 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
         this.response = response;
         this.mensaje= null;
     }, error => {
-      this.loading = false;
-      this.mensaje = "No se encontró una persona con este identificador";
-      this.response = null;
+      if(error.status == 401)
+      {
+        this._router.navigate(["/"]);
+      }
+      else
+      {
+        this.loading = false;
+        this.mensaje = "No se encontró una persona con este identificador";
+        this.response = null;
+      }
       //this.openMessageDialog();
       
     }

@@ -13,7 +13,9 @@
                                     <img src="assets/img/logos/M_Salud-Publica-y-bien-estar-social.png" class="logo-principal logo-portal-paraguay">
                                 </td>
                                 <td style="text-align: right;">
-                                    <img src="assets/img/logos/GN-B-claro.png" class="logo-principal logo-portal-paraguay">
+                                    <img src="assets/img/logos/GN-B-claro.png" class="logo-principal logo-portal-paraguay" style="vertical-align: middle;">
+                                    &nbsp;
+                                    <i *ngIf="!isLogin()&&currentUser" (click)="logout()" pToolTip="Salir" class="pi pi-sign-out" style="font-size: 2em;vertical-align: middle;"></i>
                                 </td>
                             </tr>
 
