@@ -85,6 +85,7 @@ export class HomeOperadorComponent implements OnInit {
     }
     else
     {
+      this._router.navigate(["/"]);
       return false;
     }
   }

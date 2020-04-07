@@ -85,6 +85,10 @@ export class Covid19Service {
       return this.httpClient.get<any>(this.config.API + '/covid19/sii/identificaciones/'+numeroDocumento);
     }
 
+    actualizarDiagnosticoPaciente(diagnosticoPaciente): Observable<any> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/paciente/actualizarDiagnostico', diagnosticoPaciente);
+    }
+
  }
 
 

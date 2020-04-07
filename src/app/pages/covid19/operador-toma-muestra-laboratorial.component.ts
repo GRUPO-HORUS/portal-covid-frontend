@@ -5,6 +5,10 @@ import { Covid19Service } from '../../services/Covid19Service';
 
 import {FormDatosBasicos} from './model/formDatosBasicos.model';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { StorageManagerService } from '../login/shared/storage-manager.service';
+
 declare var $: any;
 
 @Component({
@@ -53,10 +57,32 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
 
   public response: any;
 
+  cedulaObtenida:string;
+
+  showActualizarDiagnostico=false;
+  resultadoUltimoDiagnosticoOptions=[{value:"positivo", label: "Positivo"},
+                              {value:"negativo", label: "Negativo"},
+                              {value:"sospechoso", label: "Sospechoso"}
+                             ];
+  actualizarDiagnosticoFormGroup: FormGroup;
+
+  es = {
+    firstDayOfWeek: 0,
+    dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
+    dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
+    dayNamesMin: [ "D","L","M","M","J","V","S" ],
+    monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
+    monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ],
+    today: 'Hoy',
+    clear: 'Borrar'
+  };
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private formBuilder: FormBuilder,
+    private storageManager: StorageManagerService
   ) {
     this.loading = false;
     /*if (typeof localStorage !== "undefined") {
@@ -65,7 +91,10 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
   }
 
   ngOnInit() {  
-
+    this.actualizarDiagnosticoFormGroup = this.formBuilder.group({
+      resultadoUltimoDiagnostico: [null,Validators.required],
+      fechaUltimoDiagnostico: [null,Validators.required]
+    });
   }
 
   ngOnDestroy() {
@@ -82,7 +111,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     this.formDatosBasicos = null;
     this.service.getDatosPacienteByNumeroDocumento(cedula).subscribe(response => {
         this.loading = false;
-        this.cedula=cedula;
+        this.cedulaObtenida=cedula;
         this.response = response;
         this.mensaje= null;
     }, error => {
@@ -113,6 +142,74 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
       this.telefValido = true;
     }else {
       this.telefValido = false;
+    }
+  }
+
+  showPopupActualizarDiagnostico()
+  {
+    this.showActualizarDiagnostico=true;
+    for(let resultadoUltimoDiagnostico of this.resultadoUltimoDiagnosticoOptions)
+    {
+      if(this.response.resultadoUltimoDiagnostico==resultadoUltimoDiagnostico.value)
+      {
+        this.actualizarDiagnosticoFormGroup.controls.resultadoUltimoDiagnostico.setValue(resultadoUltimoDiagnostico);
+        break;
+      }
+    }
+    this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.setValue(this.response.fechaUltimoDiagnostico);
+  }
+
+  actualizarDiagnostico(): void {
+    this.loading = true;
+    let diagnostico:any={};
+    diagnostico.numeroDocumento=this.cedulaObtenida;
+    diagnostico.resultadoUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.resultadoUltimoDiagnostico.value.value;
+    diagnostico.fechaUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.value;
+    this.service.actualizarDiagnosticoPaciente(diagnostico).subscribe(response => {
+        this.loading = false;
+        this.mensaje= "Diagnóstico del Paciente registrado exitósamente.";
+        this.showActualizarDiagnostico=false;
+        this.response.fechaUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.value;
+        this.response.resultadoUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.resultadoUltimoDiagnostico.value.value;
+        this.openMessageDialog();
+    }, error => {
+      if(error.status == 401)
+      {
+        this._router.navigate(["/"]);
+      }
+      else
+      {
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
+    }
+  );
+  }
+
+  closeActualizarDiagnostico()
+  {
+    this.showActualizarDiagnostico=false;
+  }
+
+  hasRol(rolName: string)
+  {
+    let credentials=this.storageManager.getLoginData();
+    if(credentials)
+    {
+      for(let rol of credentials.usuario.rols)
+      {
+        if(rol.nombre==rolName)
+        {
+          return true;
+        }
+      }
+      return false;
+    }
+    else
+    {
+      this._router.navigate(["/"]);
+      return false;
     }
   }
 

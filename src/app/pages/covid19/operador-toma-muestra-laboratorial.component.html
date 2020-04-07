@@ -42,7 +42,7 @@
                                 <br>
                                 Tipo de Documento: {{response.tipoDocumento}}
                                 <br>
-                                Número de Documento: {{cedula}}
+                                Número de Documento: {{cedulaObtenida}}
                                 <br>
                                 <br>
                                 Existe Registro: <span style="color:green;"><strong>SI</strong></span>
@@ -67,6 +67,11 @@
                                 Existe Agendamiento Laboratorial:<span style="color:green;" *ngIf="response.fechaPrevistaTomaMuestraLaboratorial"><strong>SI</strong></span><span style="color:red;" *ngIf="!response.fechaPrevistaTomaMuestraLaboratorial"><strong>NO</strong></span>
                                 <br>
                                 <span *ngIf="response.fechaPrevistaTomaMuestraLaboratorial">Fecha Prevista para Toma de Muestra: {{response.fechaPrevistaTomaMuestraLaboratorial}}</span>
+                                <br>
+                                <button (click)="showPopupActualizarDiagnostico()" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')&&response.fechaUltimoDiagnostico">
+                                    Actualizar Diagnóstico
+                                    <span class="fa fa-check"></span>
+                                </button>
                 </div>
                 
                 <!--<button class="btn btn-secondary" routerLink="/covid19/home-operador">
@@ -181,6 +186,28 @@
                     </div>
                 </div>
             </div>
+            <p-dialog [(visible)]="showActualizarDiagnostico" [formGroup]="actualizarDiagnosticoFormGroup" modal="true" header="Actualizar Diagnóstico">
+                <div class="form-group">
+                    <label for="resultadoUltimoDiagnostico">Resultado Último Diagnóstico</label>
+                    <br>
+                    <p-dropdown [options]="resultadoUltimoDiagnosticoOptions" optionLabel="label" formControlName="resultadoUltimoDiagnostico" id="resultadoUltimoDiagnostico"></p-dropdown>
+                </div>
+                <div class="form-group">
+                    <label for="fechaUltimoDiagnostico">Fecha Último Diagnóstico</label>
+                    <br>
+                    <p-calendar formControlName="fechaUltimoDiagnostico" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaUltimoDiagnostico"></p-calendar>
+                </div>
+                <div>
+                    <button (click)="actualizarDiagnostico()" class="btn btn-success btn-success-next" [disabled]="!actualizarDiagnosticoFormGroup.valid || loading">
+                        Actualizar Diagnóstico
+                        <span class="fa fa-check"></span>
+                    </button>&nbsp;
+                    <button class="btn btn-secondary btn-success-next" (click)="closeActualizarDiagnostico()">
+                        Cerrar
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+            </p-dialog>
         </div>
     </div>
 </div>
