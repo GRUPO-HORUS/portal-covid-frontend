@@ -138,20 +138,27 @@ export class RegistroPacienteComponent implements OnInit {
       this.openMessageDialog();
       return;
     }
-    if(this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.nombre)!=formDatosBasicos.nombre)
+    try{
+      this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.nombre);
+    }
+    catch(e)
     {
       this.mensaje = "Se detectaron carácteres especiales en el nombre.";
       this.openMessageDialog();
       return;
     }
+    
 
-    if(this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.apellido)!=formDatosBasicos.apellido)
+    if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.apellido)!=formDatosBasicos.apellido)
     {
       this.mensaje = "Se detectaron carácteres especiales en el apellido.";
       this.openMessageDialog();
       return;
     }
-    if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.apellido)!=formDatosBasicos.apellido)
+    try{
+      this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.apellido);
+    }
+    catch(e)
     {
       this.mensaje = "Se detectaron carácteres especiales en el apellido.";
       this.openMessageDialog();
@@ -164,20 +171,26 @@ export class RegistroPacienteComponent implements OnInit {
       this.openMessageDialog();
       return;
     }
-    if(this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.numeroDocumento)!=formDatosBasicos.numeroDocumento)
+    try{
+      this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.numeroDocumento);
+    }
+    catch(e)
     {
       this.mensaje = "Se detectaron carácteres especiales en el numero de documento.";
       this.openMessageDialog();
       return;
     }
 
-    if(this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.numeroCelular)!=formDatosBasicos.numeroCelular)
+    if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.numeroCelular)!=formDatosBasicos.numeroCelular)
     {
       this.mensaje = "Se detectaron carácteres especiales en el numero de celular.";
       this.openMessageDialog();
       return;
     }
-    if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.numeroCelular)!=formDatosBasicos.numeroCelular)
+    try{
+      this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.numeroCelular);
+    }
+    catch(e)
     {
       this.mensaje = "Se detectaron carácteres especiales en el numero de celular.";
       this.openMessageDialog();
@@ -190,20 +203,26 @@ export class RegistroPacienteComponent implements OnInit {
       this.openMessageDialog();
       return;
     }
-    if(this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.direccionDomicilio)!=formDatosBasicos.direccionDomicilio)
+    try{
+      this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.direccionDomicilio);
+    }
+    catch(e)
     {
       this.mensaje = "Se detectaron carácteres especiales en la dirección.";
       this.openMessageDialog();
       return;
     }
 
-    if(this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.ciudadDomicilio)!=formDatosBasicos.ciudadDomicilio)
+    if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.ciudadDomicilio)!=formDatosBasicos.ciudadDomicilio)
     {
       this.mensaje = "Se detectaron carácteres especiales en la ciudad.";
       this.openMessageDialog();
       return;
     }
-    if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.ciudadDomicilio)!=formDatosBasicos.ciudadDomicilio)
+    try{
+      this.domSanitizer.sanitize(SecurityContext.SCRIPT,formDatosBasicos.ciudadDomicilio);
+    }
+    catch(e)
     {
       this.mensaje = "Se detectaron carácteres especiales en la ciudad.";
       this.openMessageDialog();
