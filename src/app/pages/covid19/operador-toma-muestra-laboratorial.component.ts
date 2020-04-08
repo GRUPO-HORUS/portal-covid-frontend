@@ -63,9 +63,9 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
   resultadoUltimoDiagnosticoOptions=[{value:"positivo", label: "Examen Positivo"},
                               {value:"negativo", label: "Examen Negativo"},
                               {value:"sospechoso", label: "Caso Sospechoso"},
-                              {value:"fallecido", label: "Fallecido"},
                               {value:"alta_confirmado", label: "Alta de Caso Confirmado"},
-                              {value:"alta_aislamiento", label: "Alta de Aislamiento"}
+                              {value:"alta_aislamiento", label: "Alta de Aislamiento"},
+                              {value:"fallecido", label: "Fallecido"}
                              ];
   actualizarDiagnosticoFormGroup: FormGroup;
 
