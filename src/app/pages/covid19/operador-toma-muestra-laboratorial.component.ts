@@ -96,7 +96,8 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
   ngOnInit() {  
     this.actualizarDiagnosticoFormGroup = this.formBuilder.group({
       resultadoUltimoDiagnostico: [null,Validators.required],
-      fechaUltimoDiagnostico: [null,Validators.required]
+      fechaUltimoDiagnostico: [null,Validators.required],
+      fechaPrevistaFinAislamiento: [null],
     });
   }
 
@@ -160,6 +161,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
       }
     }
     this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.setValue(this.response.fechaUltimoDiagnostico);
+    this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.setValue(this.response.fechaPrevistaFinAislamiento);
   }
 
   actualizarDiagnostico(): void {
@@ -168,12 +170,14 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     diagnostico.numeroDocumento=this.cedulaObtenida;
     diagnostico.resultadoUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.resultadoUltimoDiagnostico.value.value;
     diagnostico.fechaUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.value;
+    diagnostico.fechaPrevistaFinAislamiento=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.value;
     this.service.actualizarDiagnosticoPaciente(diagnostico).subscribe(response => {
         this.loading = false;
         this.mensaje= "Diagnóstico del Paciente registrado exitósamente.";
         this.showActualizarDiagnostico=false;
         this.response.fechaUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.value;
         this.response.resultadoUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.resultadoUltimoDiagnostico.value.value;
+        this.response.fechaPrevistaFinAislamiento=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.value;
         this.openMessageDialog();
     }, error => {
       if(error.status == 401)

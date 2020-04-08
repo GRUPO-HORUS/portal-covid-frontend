@@ -197,6 +197,11 @@
                     <br>
                     <p-calendar formControlName="fechaUltimoDiagnostico" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaUltimoDiagnostico"></p-calendar>
                 </div>
+                <div class="form-group">
+                    <label for="fechaPrevistaFinAislamiento">Fecha Prevista Fin Aislamiento</label>
+                    <br>
+                    <p-calendar formControlName="fechaPrevistaFinAislamiento" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaPrevistaFinAislamiento"></p-calendar>
+                </div>
                 <div>
                     <button (click)="actualizarDiagnostico()" class="btn btn-success btn-success-next" [disabled]="!actualizarDiagnosticoFormGroup.valid || loading">
                         Actualizar Diagnóstico
