@@ -24,7 +24,7 @@
                     </div>
                     <div>
                         <button (click)="obtenerPersona(cedula)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
-                            Obtener
+                            Verificar
                             <span class="fa fa-check"></span>            
                         </button>&nbsp;
                         <button class="btn btn-secondary btn-success-next" routerLink="/covid19/home-operador">
@@ -50,18 +50,18 @@
                                 <span style="font-size: smaller">
                                     Fecha Registro: {{response.fechaRegistro}}
                                     <br>
-                                    Inicio Aislamiento: {{response.inicioAislamiento}}
+                                    Inicio de Aislamiento: {{response.inicioAislamiento}}
                                 </span>
                                 <br>
                                 <br>
-                                Existe Reporte Salud:<span style="color:green;" *ngIf="response.fechaUltimoReporteSalud"><strong>SI</strong></span><span style="color:red;" *ngIf="!response.fechaUltimoReporteSalud"><strong>NO</strong></span>
+                                Existe Reporte de Salud:<span style="color:green;" *ngIf="response.fechaUltimoReporteSalud"><strong>SI</strong></span><span style="color:red;" *ngIf="!response.fechaUltimoReporteSalud"><strong>NO</strong></span>
                                 <br>
-                                <span *ngIf="response.fechaUltimoReporteSalud" style="font-size: smaller">Fecha Último Reporte Salud: {{response.fechaUltimoReporteSalud}}</span>
+                                <span *ngIf="response.fechaUltimoReporteSalud" style="font-size: smaller">Fecha de Último Reporte de Salud: {{response.fechaUltimoReporteSalud}}</span>
                                 <br>
                                 <br>
                                 Existe Reporte de Ubicación:<span style="color:green;" *ngIf="response.fechaUltimaUbicacion"><strong>SI</strong></span><span style="color:red;" *ngIf="!response.fechaUltimaUbicacion"><strong>NO</strong></span>
                                 <br>
-                                <span *ngIf="response.fechaUltimaUbicacion" style="font-size: smaller">Fecha último reporte Ubicacion: {{response.fechaUltimaUbicacion}}</span>
+                                <span *ngIf="response.fechaUltimaUbicacion" style="font-size: smaller">Fecha de último reporte de Ubicación: {{response.fechaUltimaUbicacion}}</span>
                                 <br>
                                 <br>
                                 Existe Agendamiento Laboratorial:<span style="color:green;" *ngIf="response.fechaPrevistaTomaMuestraLaboratorial"><strong>SI</strong></span><span style="color:red;" *ngIf="!response.fechaPrevistaTomaMuestraLaboratorial"><strong>NO</strong></span>
