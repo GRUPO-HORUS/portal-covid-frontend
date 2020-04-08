@@ -132,7 +132,7 @@ export class RegistroPacienteComponent implements OnInit {
   }
 
   registrar(formDatosBasicos): void {
-    if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.nombre)!=formDatosBasicos.nombre)
+    /*if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.nombre)!=formDatosBasicos.nombre)
     {
       this.mensaje = "Se detectaron carácteres especiales en el nombre.";
       this.openMessageDialog();
@@ -227,7 +227,7 @@ export class RegistroPacienteComponent implements OnInit {
       this.mensaje = "Se detectaron carácteres especiales en la ciudad.";
       this.openMessageDialog();
       return;
-    }
+    }*/
 
     localStorage.setItem('tipoDocumento', formDatosBasicos.tipoDocumento);
     localStorage.setItem('numeroDocumento', formDatosBasicos.numeroDocumento);
