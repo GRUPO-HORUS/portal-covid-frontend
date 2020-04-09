@@ -60,7 +60,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
   cedulaObtenida:string;
 
   showActualizarDiagnostico=false;
-  resultadoUltimoDiagnosticoOptions=[{value:"positivo", label: "Examen Positivo"},
+  resultadoUltimoDiagnosticoOptions=[{value:"positivo", label: "Caso Confirmado"},
                               {value:"negativo", label: "Examen Negativo"},
                               {value:"sospechoso", label: "Caso Sospechoso"},
                               {value:"alta_confirmado", label: "Alta de Caso Confirmado"},
