@@ -55,7 +55,7 @@
                     </form>      
 
                     <div class="clearfix"><br/></div>
-                    <div class="alert alert-danger">
+                    <div class="alert alert-danger" *ngIf="contrasenha?.length<8">
                         <i class="fa fa-info-circle"></i> La contraseña debe tener un mínimo de 8 caracteres.
                     </div>
 
