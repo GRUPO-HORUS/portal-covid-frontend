@@ -71,10 +71,11 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
 
 
   private loadReporte() {
-    this._reporteService.getAllQueryReporte(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField).subscribe(reportes => {
-      console.log(reportes)
-      this.reportes = reportes;
-      // this.totalRecords = ;
+    this._reporteService.getAllQueryReporte(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField).subscribe(res => {
+      if(res.status === 200){
+        this.reportes = res.body;
+        this.totalRecords = res.headers.get('x-total-count');
+      }
     });
   }
 

@@ -14,7 +14,7 @@ export class ReporteNoUbicacionService  {
 
   }
 
-  getAllQueryReporte(start: number, pageSize: number, filter: string, sortAsc: boolean, sortField: string): Observable<ReporteNoUbicacionModel[]> {
+  getAllQueryReporte(start: number, pageSize: number, filter: string, sortAsc: boolean, sortField: string): Observable<any> {
 
     let params = new HttpParams();
 
@@ -24,11 +24,15 @@ export class ReporteNoUbicacionService  {
     if (sortField)
       params = params.set('sortField', sortField);
 
-    params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
+    params = params
+      .set('ubicacionNoReportada', '720')
+      .set('start', start.toString())
+      .set('pageSize', pageSize.toString())
+      .set('sortAsc', sortAsc.toString());
 
-    return this.http.get<ReporteNoUbicacionModel[]>(this.url + '/', { params })
+    return this.http.get<any>(this.url + '/', { params, observe: 'response'})
       .pipe(finalize(() => { }))
-      .pipe(catchError(this.handler.handleError<ReporteNoUbicacionModel[]>('getAllQueryReporte', new Array<ReporteNoUbicacionModel>())));
+      .pipe(catchError(this.handler.handleError<any>('getAllQueryReporte', new Array<ReporteNoUbicacionModel>())));
   }
 
 }
