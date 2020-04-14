@@ -1,3 +1,11 @@
+<div id="page-header" class="bg-gradient bg-shadow" style="padding: 0px 0;">
+  <div class="container clearfix">
+    <nav class="breadcrumb">
+
+    </nav>
+  </div>
+</div>
+<div id="content" class="pb-0">
 <div class="ui-fluid">
   <p-growl [value]="msgs" sticky="sticky"></p-growl>
   <div class="ui-g">
@@ -13,7 +21,6 @@
           paginatorPosition="bottom" [resizableColumns]="true" columnResizeMode="expand">
 
           <ng-template pTemplate="caption">
-            <button type="button" pButton icon="fa fa-plus" style="float:left;width: 100px;" label="Agregar"></button>
             <div style="text-align: right">
               <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
               <input type="text" pInputText size="30%" placeholder="Filtrar"
@@ -23,17 +30,22 @@
 
           <ng-template pTemplate="header" let-columns>
             <tr>
-              <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn [style.width]="col.width">
+              <th *ngFor="let col of columns" [pSortableColumn]="col.sort ? col.field : ''" pResizableColumn [style.width]="col.width">
                 {{col.header}}
-                <p-sortIcon [field]="col.field"></p-sortIcon>
+                <p-sortIcon *ngIf="col.sort" [field]="col.field"></p-sortIcon>
               </th>
               <th></th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-car let-columns="columns">
+          <ng-template pTemplate="body" let-reporte let-columns="columns">
             <tr>
               <td *ngFor="let col of columns">
-                {{car[col.field]}}
+                <span *ngIf="!col.isDate; else dateFormatField">
+                   {{reporte[col.field]}}
+                </span>
+                <ng-template #dateFormatField>
+                  {{reporte[col.field]  | date:'dd/MM/yyyy HH:mm'}}
+                </ng-template>
               </td>
             </tr>
           </ng-template>

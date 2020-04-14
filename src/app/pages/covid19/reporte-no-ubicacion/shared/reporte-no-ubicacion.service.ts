@@ -14,21 +14,20 @@ export class ReporteNoUbicacionService  {
 
   }
 
-  getAllQueryReporte(start: number, pageSize: number, filter: string, sortAsc: boolean, sortField: string): Observable<any> {
+  getAllQueryReporte(start: number, pageSize: number, filter: string, sortDesc: boolean, sortField: string): Observable<any> {
 
     let params = new HttpParams();
 
-    if (filter)
-      params = params.set('filter', filter);
-
     if (sortField)
-      params = params.set('sortField', sortField);
+      params = params.set('orderBy', sortField);
 
     params = params
-      .set('ubicacionNoReportada', '720')
-      .set('start', start.toString())
+      .set('page', start.toString())
       .set('pageSize', pageSize.toString())
-      .set('sortAsc', sortAsc.toString());
+      .set('orderDesc', sortDesc.toString());
+
+    if (filter)
+      params = params.set('ubicacionNoReportada', filter);
 
     return this.http.get<any>(this.url + '/', { params, observe: 'response'})
       .pipe(finalize(() => { }))

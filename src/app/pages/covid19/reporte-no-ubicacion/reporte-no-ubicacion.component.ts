@@ -29,7 +29,7 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
 
   totalRecords: number = 0;
 
-  sortAsc: boolean = true;
+  sortDesc: boolean = true;
 
   sortField: string;
 
@@ -43,11 +43,11 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
     this.cols = [
       { field: 'nombreCompleto', header: 'Nombre', width: '25%' },
       { field: 'cedula', header: 'Cédula', width: '10%' },
-      { field: 'clasificacionPaciente', header: 'Clasificación', width: '12%' },
-      { field: 'inicioAislamiento', header: 'Inicio de Aislamiento', width: '12%' },
-      { field: 'finAislamiento', header: 'Fin de Aislamiento', width: '12%' },
-      { field: 'fechaUltimoDiagnostico', header: 'Fecha Último Diagnostico', width: '12%' },
-      { field: 'resultadoUltimoDiagnostico', header: 'Resultado Último Diagnostico', width: '25%' },
+      { field: 'clasificacionPaciente', header: 'Clasificación', width: '12%', sort: true },
+      { field: 'inicioAislamiento', header: 'Inicio de Aislamiento', width: '12%' , isDate: true, sort: true},
+      { field: 'finAislamiento', header: 'Fin de Aislamiento', width: '12%', isDate: true, sort: true },
+      { field: 'fechaUltimoDiagnostico', header: 'Fecha Último Diagnostico', width: '12%', isDate: true, sort: true },
+      { field: 'resultadoUltimoDiagnostico', header: 'Resultado Último Diagnostico', width: '25%', sort: true },
     ];
   }
 
@@ -59,11 +59,10 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
 
     if ($event) {
       this.filter = $event.globalFilter;
-      this.start = $event.first;
       this.pageSize = $event.rows;
+      this.start = $event.first / this.pageSize;
       this.sortField = $event.sortField;
-
-      this.sortAsc = $event.sortOrder == 1;
+      this.sortDesc = $event.sortOrder == -1;
     }
 
     this.loadReporte();
@@ -71,7 +70,7 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
 
 
   private loadReporte() {
-    this._reporteService.getAllQueryReporte(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField).subscribe(res => {
+    this._reporteService.getAllQueryReporte(this.start, this.pageSize, this.filter, this.sortDesc, this.sortField).subscribe(res => {
       if(res.status === 200){
         this.reportes = res.body;
         this.totalRecords = res.headers.get('x-total-count');
