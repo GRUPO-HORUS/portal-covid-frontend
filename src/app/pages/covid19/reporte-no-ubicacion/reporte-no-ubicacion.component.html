@@ -23,6 +23,7 @@
           <ng-template pTemplate="caption">
             <div class="ui-helper-clearfix">
               <button type="button" pButton icon="fa fa-file" style="float:left;width: 120px;"
+                      class="btn btn-success btn-success-next"
                       label="Exportar" (click)="onDownloadCsv()"></button>
               <div style="text-align: right">
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -55,6 +56,10 @@
           </ng-template>
         </p-table>
       </div>
+      <button type="button" pButton icon="fa fa-arrow-left"
+              style="width: 100px"
+              class="btn btn-success btn-success-next"
+              label="Volver" routerLink="/covid19/home-operador"></button>
     </div>
   </div>
 </div>

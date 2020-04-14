@@ -26,18 +26,17 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
   sortField: string;
   reportes: ReporteNoUbicacionModel[];
   formGroup: FormGroup;
-  loading: boolean;
+  loading = true;
   error = false;
   private loadSubsciption: Subscription;
 
   constructor(private _reporteService: ReporteNoUbicacionService, private permission: PermissionGuardService, private datepipe: DatePipe) { }
 
   ngOnInit() {
-    this.loading = false;
     this.cols = [
       { field: 'nombreCompleto', header: 'Nombre', width: '40%' },
       { field: 'cedula', header: 'Cédula', width: '20%' },
-      { field: 'fechaUltimoReporte', header: 'Fecha Último Reporte', width: '40%', isDate: true, sort: true, fieldEntity: 'fechaUltimoReporteUbicacion' },
+      { field: 'fechaUltimoReporte', header: 'Fecha Último Reporte', width: '40%', isDate: true, sort: false, fieldEntity: 'fechaUltimoReporteUbicacion' },
     ];
   }
 
