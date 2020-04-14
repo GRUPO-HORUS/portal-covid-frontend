@@ -107,6 +107,7 @@ import {ReporteNoUbicacionComponent} from "./pages/covid19/reporte-no-ubicacion/
 import {ReporteNoUbicacionService} from "./pages/covid19/reporte-no-ubicacion/shared/reporte-no-ubicacion.service";
 import {HttpModule} from "@angular/http";
 import {HttpErrorHandler} from "./util/http.error.handler";
+import { DatePipe } from "@angular/common";
 
 /*
   @autor:
@@ -201,6 +202,7 @@ import {HttpErrorHandler} from "./util/http.error.handler";
     ScrollToService,
     ReporteNoUbicacionService,
     HttpErrorHandler,
+    DatePipe,
     // web: 6LeaIdMUAAAAALRst4PI1YiD5PHdBmf0O56FJ6a7  secreta: 6LeaIdMUAAAAAPeDIInz4Erxo6lAM80rwZsxbs3r
     { provide: RECAPTCHA_LANGUAGE, useValue: "es" },
     { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LfJyuMUAAAAAIV7rrC6RWZdrotQYQfHCbrLIgAY' },

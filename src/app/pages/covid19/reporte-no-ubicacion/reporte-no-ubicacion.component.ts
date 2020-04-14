@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Message, ConfirmationService } from 'primeng/api';
-import { delay } from 'rxjs/operators';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import {ReporteNoUbicacionModel} from "./model/reporte-no-ubicacion.model";
 import {PermissionGuardService} from "../../../services/permission-guard.service";
-import {Usuario} from "../../usuario/model/usuario.model";
+import {saveAs} from 'file-saver';
 import {ReporteNoUbicacionService} from "./shared/reporte-no-ubicacion.service";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-reporte-no-ubicacion',
@@ -15,39 +15,26 @@ import {ReporteNoUbicacionService} from "./shared/reporte-no-ubicacion.service";
 export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
 
   msgs: Message[] = [];
-
   block: boolean;
-
   cols: any[];
-
-
   pageSize: number = 10;
-
   start: number = 0;
-
   filter: string;
-
   totalRecords: number = 0;
-
   sortDesc: boolean = true;
-
   sortField: string;
-
   reportes: ReporteNoUbicacionModel[];
-
   formGroup: FormGroup;
+  loading = true;
 
-  constructor(private _reporteService: ReporteNoUbicacionService, private permission: PermissionGuardService) { }
+  constructor(private _reporteService: ReporteNoUbicacionService, private permission: PermissionGuardService, private datepipe: DatePipe) { }
 
   ngOnInit() {
+    this.loading = false;
     this.cols = [
-      { field: 'nombreCompleto', header: 'Nombre', width: '25%' },
-      { field: 'cedula', header: 'Cédula', width: '10%' },
-      { field: 'clasificacionPaciente', header: 'Clasificación', width: '12%', sort: true },
-      { field: 'inicioAislamiento', header: 'Inicio de Aislamiento', width: '12%' , isDate: true, sort: true},
-      { field: 'finAislamiento', header: 'Fin de Aislamiento', width: '12%', isDate: true, sort: true },
-      { field: 'fechaUltimoDiagnostico', header: 'Fecha Último Diagnostico', width: '12%', isDate: true, sort: true },
-      { field: 'resultadoUltimoDiagnostico', header: 'Resultado Último Diagnostico', width: '25%', sort: true },
+      { field: 'nombreCompleto', header: 'Nombre', width: '40%' },
+      { field: 'cedula', header: 'Cédula', width: '20%' },
+      { field: 'fechaUltimoReporte', header: 'Fecha Último Reporte', width: '40%', isDate: true, sort: true, fieldEntity: 'fechaUltimoReporteUbicacion' },
     ];
   }
 
@@ -61,7 +48,8 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
       this.filter = $event.globalFilter;
       this.pageSize = $event.rows;
       this.start = $event.first / this.pageSize;
-      this.sortField = $event.sortField;
+      let field = this.cols.find(c => c.field === $event.sortField);
+      this.sortField = (field ? field.fieldEntity : field) || $event.sortField;
       this.sortDesc = $event.sortOrder == -1;
     }
 
@@ -70,16 +58,32 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
 
 
   private loadReporte() {
+    this.loading = true;
     this._reporteService.getAllQueryReporte(this.start, this.pageSize, this.filter, this.sortDesc, this.sortField).subscribe(res => {
       if(res.status === 200){
         this.reportes = res.body;
         this.totalRecords = res.headers.get('x-total-count');
       }
+      this.loading = false;
     });
   }
 
   checkPermission(nombre: string): boolean {
     return this.permission.hasPermission(nombre);
+  }
+
+  onDownloadCsv() {
+    this.loading = true;
+    this._reporteService.downloadCSV(this.filter, this.sortDesc, this.sortField).subscribe(
+      (data: any) => {
+        let latest_date = this.datepipe.transform(new Date(), 'yyyyMMddHHmmss');
+        saveAs(data,`ListaPacientes${latest_date}.csv`);
+        this.loading = false;
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
+      });
   }
 
 }

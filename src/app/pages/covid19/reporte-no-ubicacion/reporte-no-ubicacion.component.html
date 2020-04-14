@@ -18,13 +18,17 @@
         <h1>Personas Sin Reportar Ubicación</h1>
         <p-table #table [columns]="cols" [value]="reportes" selectionMode="single" dataKey="id" [paginator]="true"
           [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="load($event)"
-          paginatorPosition="bottom" [resizableColumns]="true" columnResizeMode="expand">
+          paginatorPosition="bottom" [resizableColumns]="true" columnResizeMode="expand" [loading]="loading" loadingIcon="fa fa-spinner">
 
           <ng-template pTemplate="caption">
-            <div style="text-align: right">
-              <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
-              <input type="text" pInputText size="30%" placeholder="Filtrar"
-                (input)="table.filterGlobal($event.target.value, 'contains')" style="width:auto">
+            <div class="ui-helper-clearfix">
+              <button type="button" pButton icon="fa fa-file" style="float:left;width: 120px;"
+                      label="Exportar" (click)="onDownloadCsv()"></button>
+              <div style="text-align: right">
+                <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                <input type="text" pInputText size="30%" placeholder="Filtrar"
+                       (input)="table.filterGlobal($event.target.value, 'contains')" style="width:auto">
+              </div>
             </div>
           </ng-template>
 
