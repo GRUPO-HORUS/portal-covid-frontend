@@ -26,6 +26,7 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
   reportes: ReporteNoUbicacionModel[];
   formGroup: FormGroup;
   loading = true;
+  error = false;
 
   constructor(private _reporteService: ReporteNoUbicacionService, private permission: PermissionGuardService, private datepipe: DatePipe) { }
 
@@ -59,10 +60,13 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
 
   private loadReporte() {
     this.loading = true;
+    this.error = false;
     this._reporteService.getAllQueryReporte(this.start, this.pageSize, this.filter, this.sortDesc, this.sortField).subscribe(res => {
       if(res.status === 200){
         this.reportes = res.body;
         this.totalRecords = res.headers.get('x-total-count');
+      } else {
+        this.error = true;
       }
       this.loading = false;
     });

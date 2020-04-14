@@ -26,8 +26,7 @@ export class ReporteNoUbicacionService  {
       .set('pageSize', pageSize.toString())
       .set('orderDesc', sortDesc.toString());
 
-    if (filter)
-      params = params.set('ubicacionNoReportada', filter);
+    params = params.set('filters', 'ubicacionNoReportada:720');
 
     return this.http.get<any>(this.url + '/', { params, observe: 'response'})
       .pipe(finalize(() => { }))
