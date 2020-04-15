@@ -229,6 +229,14 @@ export class RegistroPacienteComponent implements OnInit {
       return;
     }*/
 
+    if(formDatosBasicos.numeroDocumento.includes('.'))
+    {
+      this.mensaje = 'La cédula no debe poseer puntos.';
+      this.openMessageDialog();
+      return;
+    }
+    formDatosBasicos.numeroDocumento=formDatosBasicos.numeroDocumento.trim();
+
     localStorage.setItem('tipoDocumento', formDatosBasicos.tipoDocumento);
     localStorage.setItem('numeroDocumento', formDatosBasicos.numeroDocumento);
     localStorage.setItem('nombre', formDatosBasicos.nombre);
@@ -313,6 +321,7 @@ export class RegistroPacienteComponent implements OnInit {
       else
       {
         this.loading = true;
+        formDatosBasicos.numeroDocumento=formDatosBasicos.numeroDocumento.trim();
         this.service.getIdentificacionesByNumeroDocumento(formDatosBasicos.numeroDocumento).subscribe(response => {
             this.loading = false;
             if(response.obtenerPersonaPorNroCedulaResponse.return.error)
