@@ -132,7 +132,7 @@ export class RegistroPacienteComponent implements OnInit {
   }
 
   registrar(formDatosBasicos): void {
-    if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.nombre)!=formDatosBasicos.nombre)
+    /*if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.nombre)!=formDatosBasicos.nombre)
     {
       this.mensaje = "Se detectaron carácteres especiales en el nombre.";
       this.openMessageDialog();
@@ -227,7 +227,15 @@ export class RegistroPacienteComponent implements OnInit {
       this.mensaje = "Se detectaron carácteres especiales en la ciudad.";
       this.openMessageDialog();
       return;
+    }*/
+
+    if(formDatosBasicos.numeroDocumento.includes('.'))
+    {
+      this.mensaje = 'La cédula no debe poseer puntos.';
+      this.openMessageDialog();
+      return;
     }
+    formDatosBasicos.numeroDocumento=formDatosBasicos.numeroDocumento.trim();
 
     localStorage.setItem('tipoDocumento', formDatosBasicos.tipoDocumento);
     localStorage.setItem('numeroDocumento', formDatosBasicos.numeroDocumento);
@@ -313,6 +321,7 @@ export class RegistroPacienteComponent implements OnInit {
       else
       {
         this.loading = true;
+        formDatosBasicos.numeroDocumento=formDatosBasicos.numeroDocumento.trim();
         this.service.getIdentificacionesByNumeroDocumento(formDatosBasicos.numeroDocumento).subscribe(response => {
             this.loading = false;
             if(response.obtenerPersonaPorNroCedulaResponse.return.error)
