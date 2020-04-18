@@ -25,10 +25,11 @@
               <button type="button" pButton icon="fa fa-file" style="float:left;width: 120px;"
                       class="btn btn-success btn-success-next"
                       label="Exportar" (click)="onDownloadCsv()"></button>
-              <div style="text-align: right">
+              <div style="display: flex; justify-content: flex-end">
                 <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                 <input type="text" pInputText size="30%" placeholder="Filtrar"
                        (input)="table.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                <p-dropdown [options]="filters" [(ngModel)]="selectedFilter" [showClear]="true" [style]="{'width':'180px'}"></p-dropdown>
               </div>
             </div>
           </ng-template>
