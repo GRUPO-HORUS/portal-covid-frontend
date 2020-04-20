@@ -1,0 +1,11 @@
+:host>>> .ui-overlaypanel-content {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+.div-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px
+}
