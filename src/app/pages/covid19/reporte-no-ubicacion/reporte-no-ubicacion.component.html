@@ -25,6 +25,12 @@
                         [showClear]="true" [style]="{'width':'100%'}" name="motivoIngreso" appendTo="body"></p-dropdown>
           </div>
         </div>
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12 ui-md-6">
+            <p-spinner type="number" size="30" [(ngModel)]="advancedSearch.horaRetraso" placeholder="Horas de retraso"
+            [min]="0" name="horaRetraso"></p-spinner>
+          </div>
+        </div>
         <div class="div-action">
           <button type="button" pButton style="width: 120px;"
                   class="ui-button-secondary"
@@ -50,14 +56,14 @@
               <button type="button" pButton icon="fa fa-file" style="float:left;width: 120px;"
                       class="btn btn-success btn-success-next"
                       label="Exportar" (click)="onDownloadCsv()"></button>
-                <div class="ui-inputgroup" style="display: flex; justify-content: flex-end" #searchAdvanced>
+                <div class="ui-inputgroup" style="display: flex; justify-content: flex-end">
                   <span class="ui-inputgroup-addon">
                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
                   </span>
                   <input type="text" pInputText size="30%" placeholder="Filtrar"
                          (input)="table.filterGlobal($event.target.value, 'contains')" style="width:auto">
                   <button pButton type="button" icon="{{op.visible ? 'fa fa-angle-up' : 'fa fa-angle-down'}}"
-                          class="btn btn-success btn-success-next"
+                          class="btn btn-success btn-success-next" #searchAdvanced
                           (click)="op.visible ? op.hide() :op.show($event, searchAdvanced)"></button>
                 </div>
             </div>

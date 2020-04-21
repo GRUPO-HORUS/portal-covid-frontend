@@ -82,7 +82,7 @@ import { UsuarioEditarRolComponent } from './pages/usuario/usuario-editar-rol/us
 
 import { GrowlModule } from 'primeng/growl';
 
-import {BlockUIModule, ConfirmationService, FieldsetModule, OverlayPanelModule, ProgressSpinnerModule} from 'primeng/primeng';
+import {BlockUIModule, ConfirmationService, FieldsetModule, OverlayPanelModule, ProgressSpinnerModule, SpinnerModule} from 'primeng/primeng';
 
 import { TableModule } from 'primeng/table';
 
@@ -198,6 +198,7 @@ import { DatePipe } from "@angular/common";
     CalendarModule,
     FieldsetModule,
     OverlayPanelModule,
+    SpinnerModule,
   ],
   providers: [
     appRoutingProviders,
