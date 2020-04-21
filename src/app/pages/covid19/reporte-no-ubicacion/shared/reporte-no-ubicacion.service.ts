@@ -14,7 +14,7 @@ export class ReporteNoUbicacionService  {
 
   }
 
-  getAllQueryReporte(start: number, pageSize: number, filter: string, sortDesc: boolean, sortField: string): Observable<any> {
+  getAllQueryReporte(start: number, pageSize: number, search: string, sortDesc: boolean, sortField: string, filterList: string[]): Observable<any> {
 
     let params = new HttpParams();
 
@@ -26,11 +26,17 @@ export class ReporteNoUbicacionService  {
       .set('pageSize', pageSize.toString())
       .set('orderDesc', sortDesc.toString());
 
-    if (filter) {
-      params = params.set('search', filter);
+    if (search) {
+      params = params.set('search', search);
     }
 
     params = params.set('filters', 'ubicacionNoReportada:720');
+
+    if(filterList && filterList.length > 0) {
+      for (let filter of filterList) {
+        params = params.append('filters', filter);
+      }
+    }
 
     return this.http.get<any>(this.url + '/', { params, observe: 'response'})
       .pipe(finalize(() => { }))
