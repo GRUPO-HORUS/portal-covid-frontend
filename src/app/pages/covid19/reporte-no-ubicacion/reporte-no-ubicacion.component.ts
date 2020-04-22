@@ -52,7 +52,8 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
     this.cols = [
       { field: 'nombreCompleto', header: 'Nombre', width: '40%' },
       { field: 'cedula', header: 'Cédula', width: '20%' },
-      { field: 'fechaUltimoReporte', header: 'Fecha Último Reporte', width: '40%', isDate: true, sort: false, fieldEntity: 'fechaUltimoReporteUbicacion' },
+      { field: 'fechaUltimoReporte', header: 'Fecha Último Reporte', width: '25%', isDate: true, sort: false, fieldEntity: 'fechaUltimoReporteUbicacion' },
+      { field: 'horasRetraso', header: 'Horas de Retraso', width: '15%', sort: false, fieldEntity: 'horasRetraso' },
     ];
     this.resetAdvancedSearch();
     this.tipoPacienteList = [
