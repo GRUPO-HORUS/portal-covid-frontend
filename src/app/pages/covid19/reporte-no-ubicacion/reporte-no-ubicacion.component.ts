@@ -9,8 +9,12 @@ import {DatePipe} from "@angular/common";
 import {Subscription} from 'rxjs';
 import {ReporteNoUbicacionSearch} from "./model/reporte-no-ubicacion.search";
 import {OverlayPanel} from "primeng/primeng";
+import {TipoPacienteService} from "./shared/tipo-paciente.service";
 
-const nameof = <T>(name: keyof T) => name;
+interface Catalogo {
+  id: string;
+  descripcion: string;
+}
 
 @Component({
   selector: 'app-reporte-no-ubicacion',
@@ -33,12 +37,12 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
   loading = true;
   error = false;
   private loadSubsciption: Subscription;
-  tipoPacienteList: any[];
-  motivoIngresoList: any[];
+  tipoPacienteList: Catalogo[] = [];
+  motivoIngresoList: Catalogo[] = [];
   filterList: string[] = [];
   advancedSearch: ReporteNoUbicacionSearch;
 
-  constructor(private _reporteService: ReporteNoUbicacionService, private permission: PermissionGuardService, private datepipe: DatePipe) { }
+  constructor(private _reporteService: ReporteNoUbicacionService, private permission: PermissionGuardService, private datepipe: DatePipe, private _tipoPaciente : TipoPacienteService) { }
 
   ngOnInit() {
     this.init();
@@ -49,26 +53,19 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
   }
 
   init() {
+    this.getTipoPacienteList();
     this.cols = [
       { field: 'nombreCompleto', header: 'Nombre', width: '40%' },
       { field: 'cedula', header: 'Cédula', width: '20%' },
       { field: 'fechaUltimoReporte', header: 'Fecha Último Reporte', width: '40%', isDate: true, sort: false, fieldEntity: 'fechaUltimoReporteUbicacion' },
     ];
     this.resetAdvancedSearch();
-    this.tipoPacienteList = [
-      {value:"positivo", label: "Caso Confirmado"},
-      {value:"negativo", label: "Examen Negativo"},
-      {value:"sospechoso", label: "Caso Sospechoso"},
-      {value:"alta_confirmado", label: "Alta de Caso Confirmado"},
-      {value:"alta_aislamiento", label: "Alta de Aislamiento"},
-      {value:"fallecido", label: "Fallecido"}
-      ];
     this.motivoIngresoList = [
-      {value:'ingreso_pais',label:'Viajeros que llegaron al País'},
-      {value:'aislamiento_confirmado',label:'Casos confirmados de COVID-19'},
-      {value:'aislamiento_contacto',label:'Contactos de casos confirmados de COVID-19'},
-      {value:'caso_sospechoso',label:'Caso sospechoso de COVID-19'},
-      {value:'examen_laboratorio',label:'Examen de Laboratorio de COVID-19'}
+      {id:'ingreso_pais',descripcion:'Viajeros que llegaron al País'},
+      {id:'aislamiento_confirmado',descripcion:'Casos confirmados de COVID-19'},
+      {id:'aislamiento_contacto',descripcion:'Contactos de casos confirmados de COVID-19'},
+      {id:'caso_sospechoso',descripcion:'Caso sospechoso de COVID-19'},
+      {id:'examen_laboratorio',descripcion:'Examen de Laboratorio de COVID-19'}
     ];
   }
 
@@ -81,10 +78,6 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
       let field = this.cols.find(c => c.field === $event.sortField);
       this.sortField = (field ? field.fieldEntity : field) || $event.sortField;
       this.sortDesc = $event.sortOrder == -1;
-      // if(this.selectedFilter && $event.globalFilter) {
-      //   this.filter = `${this.selectedFilter}:${$event.globalFilter}`;
-      //   this.search = null;
-      // }
     }
 
     this.loadReporte();
@@ -94,7 +87,7 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
     this.filterList = [];
     this._op.visible = false;
     Object.keys(this.advancedSearch).forEach(property => {
-      if(this.advancedSearch[property]) this.filterList.push(`${property}:${this.advancedSearch[property]}`)
+      if(this.advancedSearch[property]) this.filterList.push(`${property}:${this.advancedSearch[property].id}`)
     });
     this.loadReporte();
   }
@@ -124,6 +117,18 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
         }
         this.loading = false;
     });
+  }
+
+  private getTipoPacienteList() {
+    let filterDebeReportarUbicacion = [];
+    filterDebeReportarUbicacion.push(`debeReportarUbicacion:true`);
+
+    this._tipoPaciente.getAll(null, filterDebeReportarUbicacion)
+      .subscribe(res => {
+        if(res.status === 200) {
+          this.tipoPacienteList = res.body;
+        }
+      });
   }
 
   checkPermission(nombre: string): boolean {
