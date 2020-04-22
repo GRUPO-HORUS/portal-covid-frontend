@@ -121,6 +121,7 @@ import { RptCantidadDocumentosComponent } from './pages/reportes/rpt-cantidad-do
 import { RptTramitesSinTag } from "./pages/reportes/rpt-tramites-sin-tag/rpt-tramites-sin-tag.component";
 import { RptListadoTmp } from "./pages/reportes/rpt-listado-tmp/rpt-listado-tmp.component";
 import { InfoServicios } from "./pages/ciudadano/carpeta-ciudadana/carpeta-ciudadana-data.component";
+import {ReporteNoUbicacionComponent} from "./pages/covid19/reporte-no-ubicacion/reporte-no-ubicacion.component";
 
 //Listado de rutas para la aplicación
 export const appRoutes: Routes = [
@@ -134,7 +135,7 @@ export const appRoutes: Routes = [
   { path: "estado/:urlPoder/:urlEntidad/:urlOee", component: OeeComponent },
   { path: "oee/:urlOee", component: OeeComponent },
   { path: "oee/:urlOee/:idServicio", component: OeeServicioComponent },
-  
+
   { path: "buscador/:tab/:origen/:busqueda", component: BuscadorResultadoComponent },
   { path: "categoria/:filtro/resultado", component: CategoriaTramiteResultadoComponent },
   { path: "sobre-portal", component: PortalComponent },
@@ -157,7 +158,7 @@ export const appRoutes: Routes = [
   { path: "consultas-publicas-datos-abiertos", component: ConsultaPublicaComponent },
   { path: "consultas-publicas-datos-abiertos-resultados", component: ConsultaPublicaResultadoComponent },
   { path: "guia-estandar", component: GuiaEstandarComponent },
-  
+
   // identidad electronica
   { path: "identidad-electronica", component: IdentidadElectronicaComponent },
   { path: "crear-cuenta", component: CreacionCuentaComponent },
@@ -165,7 +166,7 @@ export const appRoutes: Routes = [
   { path: "establecer-clave/:hash", component: PasoFinalCreacionClaveComponent },
   { path: "identidad-electronica/terminos", component: IETerminosComponent },
   { path: "identidad-electronica/preguntas-frecuentes-creacion", component: IEPreguntasFrecuentesCreacionComponent },
-  { path: "estadistica", component:  EstadisticaComponent}, 
+  { path: "estadistica", component:  EstadisticaComponent},
   { path: "restablecer-clave", component: RestablecerClaveComponent },
   { path: "identidad-electronica/agendar-turno", component: AgendarTurnoComponent },
 
@@ -175,7 +176,7 @@ export const appRoutes: Routes = [
   { path: "perfil-ciudadano", component: PerfilCiudadanoComponent },
   { path: "form-perfil-ciudadano", component: FormPerfilCiudadanoComponent },
   { path: "marco-legal", component: MarcoLegalComponent },
-  
+
   { path: "carpeta-ciudadana", component: CarpetaCiudadanaComponent },
   { path: "solicitud-documento/:liquidacion", component: SolicitudDocumentoComponent },
 
@@ -229,6 +230,8 @@ export const appRoutes: Routes = [
   { path: "covid19/operador/registroPersona", component: OperadorIngresoPaisPaciente},
 
   { path: "covid19/operador/toma-muestra-laboratorial", component: OperadorTomaMuestraLaboratorial},
+
+  { path: "covid19/reportes/sin-ubicacion", component: ReporteNoUbicacionComponent},
 
   { path: "", component: LoginComponent },
 

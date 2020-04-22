@@ -1,0 +1,22 @@
+:host>>> .ui-overlaypanel-content {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+}
+
+.div-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px
+}
+
+:host>>> .ui-spinner-button {
+  background-color: #001c54;
+  border-color: #001c54;
+}
+
+:host>>> .ui-paginator .ui-paginator-pages .ui-paginator-page.ui-state-active {
+  background-color: #001c54 !important;
+  color: #ffffff;
+  border-color: #001c54;
+}

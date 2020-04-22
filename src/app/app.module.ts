@@ -82,7 +82,7 @@ import { UsuarioEditarRolComponent } from './pages/usuario/usuario-editar-rol/us
 
 import { GrowlModule } from 'primeng/growl';
 
-import {BlockUIModule, ConfirmationService, ProgressSpinnerModule} from 'primeng/primeng';
+import {BlockUIModule, ConfirmationService, FieldsetModule, OverlayPanelModule, ProgressSpinnerModule, SpinnerModule} from 'primeng/primeng';
 
 import { TableModule } from 'primeng/table';
 
@@ -103,6 +103,11 @@ import { ClaveSeguridadComponent } from "./pages/covid19/carga-operador/clave-se
 import {CalendarModule} from 'primeng/calendar';
 
 import { OperadorTomaMuestraLaboratorial } from "./pages/covid19/operador-toma-muestra-laboratorial.component";
+import {ReporteNoUbicacionComponent} from "./pages/covid19/reporte-no-ubicacion/reporte-no-ubicacion.component";
+import {ReporteNoUbicacionService} from "./pages/covid19/reporte-no-ubicacion/shared/reporte-no-ubicacion.service";
+import {HttpModule} from "@angular/http";
+import {HttpErrorHandler} from "./util/http.error.handler";
+import { DatePipe } from "@angular/common";
 
 /*
   @autor:
@@ -146,12 +151,14 @@ import { OperadorTomaMuestraLaboratorial } from "./pages/covid19/operador-toma-m
     MensajeFinalOperadorComponent,
     ClaveSeguridadComponent,
     OperadorIngresoPaisPaciente,
-    OperadorTomaMuestraLaboratorial
+    OperadorTomaMuestraLaboratorial,
+    ReporteNoUbicacionComponent
   ],
   // dependencias de módulos
   imports: [
     BrowserModule,
     HttpClientModule,
+    HttpModule,
     ScrollToModule.forRoot(),
     routing,
     OwlModule,
@@ -188,11 +195,17 @@ import { OperadorTomaMuestraLaboratorial } from "./pages/covid19/operador-toma-m
     ConfirmDialogModule,
     MultiSelectModule,
     //GooglePlaceModule
-    CalendarModule
+    CalendarModule,
+    FieldsetModule,
+    OverlayPanelModule,
+    SpinnerModule,
   ],
   providers: [
     appRoutingProviders,
     ScrollToService,
+    ReporteNoUbicacionService,
+    HttpErrorHandler,
+    DatePipe,
     // web: 6LeaIdMUAAAAALRst4PI1YiD5PHdBmf0O56FJ6a7  secreta: 6LeaIdMUAAAAAPeDIInz4Erxo6lAM80rwZsxbs3r
     { provide: RECAPTCHA_LANGUAGE, useValue: "es" },
     { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LfJyuMUAAAAAIV7rrC6RWZdrotQYQfHCbrLIgAY' },
