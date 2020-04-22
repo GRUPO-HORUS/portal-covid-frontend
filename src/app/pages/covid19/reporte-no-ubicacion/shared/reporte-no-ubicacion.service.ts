@@ -52,8 +52,7 @@ export class ReporteNoUbicacionService  {
 
     params = params.set('orderDesc', sortDesc.toString());
 
-    if (filter)
-      params = params.set('ubicacionNoReportada', filter);
+    params = params.set('filters', 'ubicacionNoReportada:720');
 
     return this.http.get(this.url + "/csv/", {params, responseType: 'blob', observe: 'response' })
       .pipe(map((data: HttpResponse<Blob>) => {
