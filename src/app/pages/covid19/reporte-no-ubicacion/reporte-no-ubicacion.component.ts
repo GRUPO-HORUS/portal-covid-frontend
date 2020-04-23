@@ -88,7 +88,7 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
     this.filterList = [];
     this._op.visible = false;
     Object.keys(this.advancedSearch).forEach(property => {
-      if(this.advancedSearch[property]) this.filterList.push(`${property}:${this.advancedSearch[property].id}`)
+      if(this.advancedSearch[property]) this.filterList.push(`${property}:${this.advancedSearch[property].id || this.advancedSearch[property]}`)
     });
     this.loadReporte();
   }
