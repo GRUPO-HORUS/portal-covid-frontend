@@ -18,11 +18,13 @@
         <div class="ui-g ui-fluid">
           <div class="ui-g-12 ui-md-6">
             <p-dropdown [options]="tipoPacienteList" [(ngModel)]="advancedSearch.resultadoUltimoDiagnostico" appendTo="body"
-                        [showClear]="true" [style]="{'width':'100%'}" name="tipoPaciente" placeholder="Tipo de Paciente"></p-dropdown>
+                        [showClear]="true" [style]="{'width':'100%'}" name="tipoPaciente" placeholder="Tipo de Paciente"
+                        optionLabel="descripcion"></p-dropdown>
           </div>
           <div class="ui-g-12 ui-md-6">
             <p-dropdown [options]="motivoIngresoList" [(ngModel)]="advancedSearch.motivoIngreso" placeholder="Motivo de Ingreso"
-                        [showClear]="true" [style]="{'width':'100%'}" name="motivoIngreso" appendTo="body"></p-dropdown>
+                        [showClear]="true" [style]="{'width':'100%'}" name="motivoIngreso" appendTo="body"
+                        optionLabel="descripcion"></p-dropdown>
           </div>
         </div>
         <div class="ui-g ui-fluid">
