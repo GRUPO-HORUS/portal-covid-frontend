@@ -93,7 +93,7 @@
             </tr>
           </ng-template>
           <ng-template pTemplate="emptymessage" let-columns>
-            <tr>
+            <tr *ngIf="!loading">
               <td [attr.colspan]="columns.length">
                 Sin registros
               </td>
