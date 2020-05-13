@@ -68,6 +68,8 @@
                                 <br>
                                 <span *ngIf="response.fechaPrevistaTomaMuestraLaboratorial">Fecha Prevista para Toma de Muestra: {{response.fechaPrevistaTomaMuestraLaboratorial}}</span>
                                 <br>
+                                <span *ngIf="response.localTomaMuestra">Local para Toma de Muestra: {{response.localTomaMuestra}}</span>
+                                <br>
                                 <button (click)="showPopupActualizarDiagnostico()" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')&&response.fechaUltimoDiagnostico">
                                     Actualizar Diagnóstico
                                     <span class="fa fa-check"></span>
@@ -202,6 +204,22 @@
                     <br>
                     <p-calendar formControlName="fechaPrevistaFinAislamiento" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaPrevistaFinAislamiento"></p-calendar>
                 </div>
+
+                <div class="form-group">
+                    <label for="fechaPrevistaTomaMuestraLaboratorial">Fecha Prevista Toma Muestra Laboratorial</label>
+                    <br>
+                    <p-calendar formControlName="fechaPrevistaTomaMuestraLaboratorial" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaPrevistaTomaMuestraLaboratorial"></p-calendar>
+                </div>
+
+                <!--Local toma-->
+                <div class="form-group">
+                    <label for="localTomaMuestra">Local de toma de muestra</label>
+                    <br>
+                    <!--<input type="text" formControlName="localTomaMuestra" name="localTomaMuestra" class="form-control" style="max-width: 175px;" id="localTomaMuestra">-->
+                    <p-dropdown id="localTomaMuestra" [options]="localTomaMuestraOptions" label="label" placeholder="Seleccionar" formControlName="localTomaMuestra" name="localTomaMuestra" id="localTomaMuestra" required></p-dropdown><!--[style]="{'width':'300px'}"-->
+                </div>
+                <!---->
+
                 <div>
                     <button (click)="actualizarDiagnostico()" class="btn btn-success btn-success-next" [disabled]="!actualizarDiagnosticoFormGroup.valid || loading">
                         Actualizar Diagnóstico

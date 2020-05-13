@@ -80,6 +80,8 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     clear: 'Borrar'
   };
 
+  public localTomaMuestraOptions=[{value:'Costanera',label:'Costanera'},{value:'San Lorenzo',label:'San Lorenzo'}];
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -98,6 +100,8 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
       resultadoUltimoDiagnostico: [null,Validators.required],
       fechaUltimoDiagnostico: [null,Validators.required],
       fechaPrevistaFinAislamiento: [null],
+      fechaPrevistaTomaMuestraLaboratorial: [null],
+      localTomaMuestra:['',Validators.required]
     });
   }
 
@@ -162,6 +166,9 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     }
     this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.setValue(this.response.fechaUltimoDiagnostico);
     this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.setValue(this.response.fechaPrevistaFinAislamiento);
+
+    this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.setValue(this.response.fechaPrevistaTomaMuestraLaboratorial);
+    this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.setValue(this.response.localTomaMuestra);
   }
 
   actualizarDiagnostico(): void {
@@ -171,13 +178,21 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     diagnostico.resultadoUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.resultadoUltimoDiagnostico.value.value;
     diagnostico.fechaUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.value;
     diagnostico.fechaPrevistaFinAislamiento=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.value;
+    
+    diagnostico.fechaPrevistaTomaMuestraLaboratorial=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value;
+    diagnostico.localTomaMuestra=this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value;
+
     this.service.actualizarDiagnosticoPaciente(diagnostico).subscribe(response => {
         this.loading = false;
-        this.mensaje= "Diagnóstico del Paciente registrado exitósamente.";
+        this.mensaje= "Diagnóstico del Paciente registrado exitosamente.";
         this.showActualizarDiagnostico=false;
         this.response.fechaUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.value;
         this.response.resultadoUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.resultadoUltimoDiagnostico.value.value;
         this.response.fechaPrevistaFinAislamiento=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.value;
+
+        this.response.fechaPrevistaTomaMuestraLaboratorial=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value;
+        this.response.localTomaMuestra=this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value;
+
         this.openMessageDialog();
     }, error => {
       if(error.status == 401)

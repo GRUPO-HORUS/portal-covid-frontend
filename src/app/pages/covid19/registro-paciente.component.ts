@@ -72,6 +72,10 @@ export class RegistroPacienteComponent implements OnInit {
   
   public ciudadOptions: any[];
 
+  public localTomaMuestraOptions=[{value:'Costanera',label:'Costanera'},{value:'San Lorenzo',label:'San Lorenzo'}];
+
+  public localTomaMuestra:string;
+
   es = {
     firstDayOfWeek: 0,
     dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
@@ -96,7 +100,6 @@ export class RegistroPacienteComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("registro paciente");
     this.formDatosBasicos = new FormDatosBasicos();
 
     this.formDatosBasicos.tipoDocumento = 0;
@@ -131,7 +134,7 @@ export class RegistroPacienteComponent implements OnInit {
     }
   }
 
-  registrar(formDatosBasicos): void {
+  registrar(formDatosBasicos, localTomaMuestra): void {
     /*if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.nombre)!=formDatosBasicos.nombre)
     {
       this.mensaje = "Se detectaron carácteres especiales en el nombre.";
@@ -246,7 +249,7 @@ export class RegistroPacienteComponent implements OnInit {
     localStorage.setItem('email', formDatosBasicos.correoElectronico);
     
       this.loading = true;
-      this.service.registrarPaciente(formDatosBasicos).subscribe(response => {
+      this.service.registrarPaciente(formDatosBasicos, localTomaMuestra).subscribe(response => {
             console.log(response);
             if (response) {
               this.loading = false;
