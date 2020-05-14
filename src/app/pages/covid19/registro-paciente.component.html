@@ -70,6 +70,12 @@
                         <p-calendar [(ngModel)]="formDatosBasicos.fechaPrevistaTomaMuestraLaboratorial" id="fechaPrevistaTomaMuestraLaboratorial" name="fechaPrevistaTomaMuestraLaboratorial" dateFormat="dd/mm/yy" [locale]="es" dataType="string"></p-calendar>
                     </div>
 
+                    <div class="form-group" *ngIf="formDatosBasicos.tipoRegistro=='examen_laboratorio'">
+                        <label for="localTomaMuestra"><strong>Local de toma de muestra</strong></label>
+                        <!--<input type="text" [(ngModel)]="localTomaMuestra" name="localTomaMuestra" class="form-control" style="max-width: 300px;" id="localTomaMuestra">-->
+                        <br><p-dropdown id="localTomaMuestra" [options]="localTomaMuestraOptions" label="label" placeholder="Seleccionar" [(ngModel)]="localTomaMuestra" name="localTomaMuestra" id="localTomaMuestra" [style]="{'width':'300px'}" required></p-dropdown>
+                    </div>
+
                     <div class="form-group">
                         <label for="direccionDomicilio"><strong>Dirección en que guardará aislamiento</strong></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control" style="max-width: 300px;" id="direccionDomicilio">
@@ -109,7 +115,7 @@
                     <table>
                         <tr>
                             <td>
-                                <button (click)="registrar(formDatosBasicos)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
+                                <button (click)="registrar(formDatosBasicos, localTomaMuestra)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
                                     <!--  || !telefValido || telefono.indexOf('+')!=0 -->
                                         Registrar
                                         <span class="fa fa-check"></span>            
