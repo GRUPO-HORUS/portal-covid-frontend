@@ -62,6 +62,7 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
       { field: 'tipoPaciente', header: 'Tipo de Paciente', width: '15%' },
       { field: 'fechaUltimoReporte', header: 'Fecha Último Reporte', width: '25%', isDate: true, sort: false, fieldEntity: 'fechaUltimoReporteUbicacion' },
       { field: 'horasRetraso', header: 'Horas de Retraso', width: '15%', sort: false, fieldEntity: 'horasRetraso' },
+      { field: '', header: 'Acción', width: '18%', isAction: true }
     ];
     this.resetAdvancedSearch();
     this.motivoIngresoList = [
