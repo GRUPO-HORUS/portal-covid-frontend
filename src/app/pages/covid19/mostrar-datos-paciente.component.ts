@@ -20,7 +20,7 @@ export class MostrarDatosPacienteComponent implements OnInit {
   //Formulario
   public formDatosBasicos: FormDatosBasicos;
 
-  // datos del formulario 
+  // datos del formulario
   public cedula: string;
   public email: string;
   public domicilio: string;
@@ -59,7 +59,7 @@ export class MostrarDatosPacienteComponent implements OnInit {
   ngOnInit() {
     console.log("datos paciente");
     this.formDatosBasicos = new FormDatosBasicos();
-    
+
     this.formDatosBasicos.tipoDocumento = +localStorage.getItem('tipoDocumento');
     if(this.formDatosBasicos.tipoDocumento==='0'){
       this.tipoDocumento = 'Cédula de Identidad';
@@ -83,9 +83,9 @@ export class MostrarDatosPacienteComponent implements OnInit {
   }
 
   registrar(formDatosBasicos): void {
-    
+
     this.loading = true;
-        this.service.registrarPaciente(formDatosBasicos).subscribe(response => {
+        this.service.registrarPaciente(formDatosBasicos, null).subscribe(response => {
             console.log(response);
             if (response) {
               this.loading = false;
@@ -102,7 +102,7 @@ export class MostrarDatosPacienteComponent implements OnInit {
             this.loading = false;
             this.mensaje = "No se pudo procesar la operación!";
             this.openMessageDialog();
-            
+
           }
         );
   }
@@ -127,12 +127,12 @@ export class MostrarDatosPacienteComponent implements OnInit {
           }
         );
   }
-  
+
   openMessageDialog() {
     setTimeout(function() { $("#miModal").modal("toggle"); }, 1000);
   }
 
-  keyPress(event: any) { 
+  keyPress(event: any) {
     const pattern = /[0-9\+\ ]/;
     let inputChar = String.fromCharCode(event.charCode);
     if (pattern.test(inputChar)) {
