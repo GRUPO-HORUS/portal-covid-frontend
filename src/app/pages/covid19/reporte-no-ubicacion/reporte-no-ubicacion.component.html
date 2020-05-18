@@ -92,6 +92,13 @@
               </td>
             </tr>
           </ng-template>
+          <ng-template pTemplate="emptymessage" let-columns>
+            <tr *ngIf="!loading">
+              <td [attr.colspan]="columns.length">
+                Sin registros
+              </td>
+            </tr>
+          </ng-template>
         </p-table>
       </div>
       <button type="button" pButton icon="fa fa-arrow-left"

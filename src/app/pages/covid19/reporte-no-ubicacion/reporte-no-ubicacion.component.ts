@@ -55,8 +55,11 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
   init() {
     this.getTipoPacienteList();
     this.cols = [
-      { field: 'nombreCompleto', header: 'Nombre', width: '40%' },
-      { field: 'cedula', header: 'Cédula', width: '20%' },
+      { field: 'nombreCompleto', header: 'Nombre', width: '25%' },
+      { field: 'cedula', header: 'Cédula', width: '10%' },
+      { field: 'telefono', header: 'Teléfono', width: '15%' },
+      { field: 'tipoIngreso', header: 'Motivo de Ingreso', width: '15%' },
+      { field: 'tipoPaciente', header: 'Tipo de Paciente', width: '15%' },
       { field: 'fechaUltimoReporte', header: 'Fecha Último Reporte', width: '25%', isDate: true, sort: false, fieldEntity: 'fechaUltimoReporteUbicacion' },
       { field: 'horasRetraso', header: 'Horas de Retraso', width: '15%', sort: false, fieldEntity: 'horasRetraso' },
     ];
