@@ -45,6 +45,8 @@ export class MostrarDatosPacienteComponent implements OnInit {
 
   public codigoVerif: string;
 
+  public localTomaMuestra:string;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -74,6 +76,8 @@ export class MostrarDatosPacienteComponent implements OnInit {
     this.formDatosBasicos.correoElectronico = localStorage.getItem('email');
     this.codigoVerif = localStorage.getItem('codigo');
 
+    this.localTomaMuestra = localStorage.getItem('localTomaMuestra');
+
   }
 
   ngOnDestroy() {
@@ -82,10 +86,9 @@ export class MostrarDatosPacienteComponent implements OnInit {
     }
   }
 
-  registrar(formDatosBasicos): void {
-
+  registrar(formDatosBasicos, localTomaMuestra): void {
     this.loading = true;
-        this.service.registrarPaciente(formDatosBasicos).subscribe(response => {
+        this.service.registrarPaciente(formDatosBasicos, localTomaMuestra).subscribe(response => {
             console.log(response);
             if (response) {
               this.loading = false;
