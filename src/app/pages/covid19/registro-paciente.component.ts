@@ -247,6 +247,8 @@ export class RegistroPacienteComponent implements OnInit {
     localStorage.setItem('numeroCelular', formDatosBasicos.numeroCelular);
     localStorage.setItem('direccion', formDatosBasicos.direccionDomicilio);
     localStorage.setItem('email', formDatosBasicos.correoElectronico);
+
+    localStorage.setItem('localTomaMuestra', localTomaMuestra);
     
       this.loading = true;
       this.service.registrarPaciente(formDatosBasicos, localTomaMuestra).subscribe(response => {
