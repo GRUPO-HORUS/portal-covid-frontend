@@ -10,6 +10,7 @@ import {Subscription} from 'rxjs';
 import {ReporteNoUbicacionSearch} from "./model/reporte-no-ubicacion.search";
 import {OverlayPanel} from "primeng/primeng";
 import {TipoPacienteService} from "./shared/tipo-paciente.service";
+import {Router} from "@angular/router";
 
 interface Catalogo {
   id: string;
@@ -42,7 +43,8 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
   filterList: string[] = [];
   advancedSearch: ReporteNoUbicacionSearch;
 
-  constructor(private _reporteService: ReporteNoUbicacionService, private permission: PermissionGuardService, private datepipe: DatePipe, private _tipoPaciente : TipoPacienteService) { }
+  constructor(private _reporteService: ReporteNoUbicacionService, private permission: PermissionGuardService, private datepipe: DatePipe, private _tipoPaciente : TipoPacienteService,
+              private _router: Router) { }
 
   ngOnInit() {
     this.init();
@@ -62,6 +64,7 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
       { field: 'tipoPaciente', header: 'Tipo de Paciente', width: '15%' },
       { field: 'fechaUltimoReporte', header: 'Fecha Último Reporte', width: '25%', isDate: true, sort: false, fieldEntity: 'fechaUltimoReporteUbicacion' },
       { field: 'horasRetraso', header: 'Horas de Retraso', width: '15%', sort: false, fieldEntity: 'horasRetraso' },
+      { field: '', header: 'Acción', width: '18%', isAction: true }
     ];
     this.resetAdvancedSearch();
     this.motivoIngresoList = [
@@ -151,6 +154,10 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
         console.log(error);
         this.loading = false;
       });
+  }
+
+  navigateVerificarCedula(value) {
+    this._router.navigate(['/covid19/operador/toma-muestra-laboratorial', value.cedula]);
   }
 
 }

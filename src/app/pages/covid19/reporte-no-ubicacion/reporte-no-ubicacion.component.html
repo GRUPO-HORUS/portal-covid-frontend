@@ -85,12 +85,19 @@
           </ng-template>
           <ng-template pTemplate="body" let-reporte let-columns="columns">
             <tr>
-              <td *ngFor="let col of columns">
-                <span *ngIf="!col.isDate; else dateFormatField">
+              <td *ngFor="let col of columns" [class]="col.isAction ? 'text-center' : ''">
+                <span *ngIf="!col.isDate && !col.isAction; else dateFormatField">
                    {{reporte[col.field]}}
                 </span>
                 <ng-template #dateFormatField>
-                  {{reporte[col.field]  | date:'dd/MM/yyyy HH:mm'}}
+                  <ng-container *ngIf="!col.isAction else action">
+                    {{reporte[col.field]  | date:'dd/MM/yyyy HH:mm'}}
+                  </ng-container>
+                </ng-template>
+                <ng-template #action>
+                  <button pButton type="button" icon="fa fa-eye" tooltipPosition="bottom" pTooltip="Verificar registro persona"
+                          class="btn-success-next" (click)="navigateVerificarCedula(reporte)" >
+                  </button>
                 </ng-template>
               </td>
             </tr>
