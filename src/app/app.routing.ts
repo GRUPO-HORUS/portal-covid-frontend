@@ -231,6 +231,8 @@ export const appRoutes: Routes = [
 
   { path: "covid19/operador/toma-muestra-laboratorial", component: OperadorTomaMuestraLaboratorial},
 
+  { path: "covid19/operador/toma-muestra-laboratorial/:cedula", component: OperadorTomaMuestraLaboratorial},
+
   { path: "covid19/reportes/sin-ubicacion", component: ReporteNoUbicacionComponent},
 
   { path: "", component: LoginComponent },

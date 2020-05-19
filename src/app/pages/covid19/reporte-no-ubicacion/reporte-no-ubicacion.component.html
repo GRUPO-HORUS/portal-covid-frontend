@@ -85,7 +85,7 @@
           </ng-template>
           <ng-template pTemplate="body" let-reporte let-columns="columns">
             <tr>
-              <td *ngFor="let col of columns">
+              <td *ngFor="let col of columns" [class]="col.isAction ? 'text-center' : ''">
                 <span *ngIf="!col.isDate && !col.isAction; else dateFormatField">
                    {{reporte[col.field]}}
                 </span>
@@ -95,9 +95,8 @@
                   </ng-container>
                 </ng-template>
                 <ng-template #action>
-                  <button pButton type="button" label="Verificar registro persona" icon="fa fa-check" iconPos="right"
-                          class="ui-button-text btn-success-next" title="Verificar registro persona" tooltipPosition="bottom"
-                          routerLink="/covid19/operador/toma-muestra-laboratorial">
+                  <button pButton type="button" icon="fa fa-eye" tooltipPosition="bottom" pTooltip="Verificar registro persona"
+                          class="btn-success-next" (click)="navigateVerificarCedula(reporte)" >
                   </button>
                 </ng-template>
               </td>
