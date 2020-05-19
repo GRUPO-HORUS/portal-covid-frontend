@@ -21,6 +21,10 @@
   border-color: #001c54;
 }
 
+:host>>> .ui-table .ui-sortable-column.ui-state-highlight {
+  background-color: #001c54 !important;
+}
+
 .ui-fluid{
   padding-bottom: 70px;
 }
