@@ -76,7 +76,8 @@
 
           <ng-template pTemplate="header" let-columns>
             <tr>
-              <th *ngFor="let col of columns" [pSortableColumn]="col.sort ? col.field : ''" pResizableColumn [style.width]="col.width">
+              <th *ngFor="let col of columns"
+                  [pSortableColumn]="col.sort ? col.field : ''" pResizableColumn [style.width]="col.width">
                 {{col.header}}
                 <p-sortIcon *ngIf="col.sort" [field]="col.field"></p-sortIcon>
               </th>
@@ -110,11 +111,11 @@
             </tr>
           </ng-template>
         </p-table>
+        <button type="button" pButton icon="fa fa-arrow-left"
+                style="width: 100px; margin-top: 16px"
+                class="btn btn-success btn-success-next"
+                label="Volver" routerLink="/covid19/home-operador"></button>
       </div>
-      <button type="button" pButton icon="fa fa-arrow-left"
-              style="width: 100px"
-              class="btn btn-success btn-success-next"
-              label="Volver" routerLink="/covid19/home-operador"></button>
     </div>
   </div>
 </div>
