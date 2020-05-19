@@ -10,7 +10,8 @@ import {Subscription} from 'rxjs';
 import {ReporteNoUbicacionSearch} from "./model/reporte-no-ubicacion.search";
 import {OverlayPanel} from "primeng/primeng";
 import {TipoPacienteService} from "./shared/tipo-paciente.service";
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {finalize} from 'rxjs/operators';
 
 interface Catalogo {
   id: string;
@@ -43,7 +44,12 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
   filterList: string[] = [];
   advancedSearch: ReporteNoUbicacionSearch;
 
-  constructor(private _reporteService: ReporteNoUbicacionService, private permission: PermissionGuardService, private datepipe: DatePipe, private _tipoPaciente : TipoPacienteService,
+  constructor(
+    private _reporteService: ReporteNoUbicacionService,
+    private permission: PermissionGuardService,
+    private datepipe: DatePipe,
+    private router: Router,
+    private _tipoPaciente : TipoPacienteService,
               private _router: Router) { }
 
   ngOnInit() {
@@ -57,13 +63,13 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
   init() {
     this.getTipoPacienteList();
     this.cols = [
-      { field: 'nombreCompleto', header: 'Nombre', width: '25%' },
-      { field: 'cedula', header: 'Cédula', width: '10%' },
-      { field: 'telefono', header: 'Teléfono', width: '15%' },
-      { field: 'tipoIngreso', header: 'Motivo de Ingreso', width: '15%' },
-      { field: 'tipoPaciente', header: 'Tipo de Paciente', width: '15%' },
-      { field: 'fechaUltimoReporte', header: 'Fecha Último Reporte', width: '25%', isDate: true, sort: false, fieldEntity: 'fechaUltimoReporteUbicacion' },
-      { field: 'horasRetraso', header: 'Horas de Retraso', width: '15%', sort: false, fieldEntity: 'horasRetraso' },
+      { field: 'nombreCompleto', header: 'Nombre', width: '25%', sort: true, },
+      { field: 'cedula', header: 'Cédula', width: '10%', sort: true, },
+      { field: 'telefono', header: 'Teléfono', width: '15%', sort: true,  },
+      { field: 'tipoIngreso', header: 'Motivo de Ingreso', width: '15%', sort: true, },
+      { field: 'tipoPaciente', header: 'Tipo de Paciente', width: '15%', sort: true,  },
+      { field: 'fechaUltimoReporte', header: 'Fecha Último Reporte', width: '25%', isDate: true, sort: true, fieldEntity: 'fechaUltimoReporteUbicacion' },
+      { field: 'horasRetraso', header: 'Horas de Retraso', width: '15%', sort: true, fieldEntity: 'horasRetraso' },
       { field: '', header: 'Acción', width: '18%', isAction: true }
     ];
     this.resetAdvancedSearch();
@@ -115,14 +121,20 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
       this.loadSubsciption.unsubscribe();
     }
     this.loadSubsciption = this._reporteService.getAllQueryReporte(this.start, this.pageSize, this.search, this.sortDesc, this.sortField, this.filterList)
+      .pipe(finalize(() => {
+        this.loading = false;
+      }))
       .subscribe(res => {
-        if(res.status === 200){
+        if(res.status === 200) {
           this.reportes = res.body;
           this.totalRecords = res.headers.get('x-total-count');
-        } else {
-          this.error = true;
         }
-        this.loading = false;
+    }, (err) => {
+    if (err.status === 401) {
+        this.router.navigate(["/"]);
+      } else {
+        this.error = true;
+      }
     });
   }
 
