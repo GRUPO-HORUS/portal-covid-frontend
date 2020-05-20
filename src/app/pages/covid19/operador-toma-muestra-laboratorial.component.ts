@@ -103,7 +103,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
       fechaUltimoDiagnostico: [null,Validators.required],
       fechaPrevistaFinAislamiento: [null],
       fechaPrevistaTomaMuestraLaboratorial: [null],
-      localTomaMuestra:['',Validators.required]
+      localTomaMuestra:['']
     });
     /*this._route.params.subscribe(params => {
       this.cedula = params["cedula"];
