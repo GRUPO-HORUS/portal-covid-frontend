@@ -72,7 +72,7 @@ export class RegistroPacienteComponent implements OnInit {
   
   public ciudadOptions: any[];
 
-  public localTomaMuestraOptions=[{value:'Costanera',label:'Costanera'},{value:'San Lorenzo',label:'San Lorenzo'}];
+  public localTomaMuestraOptions=[{value:'Costanera',label:'Costanera'},{value:'San Lorenzo',label:'San Lorenzo'},{value:'A definir',label:'A definir'}];
 
   public localTomaMuestra:string;
 

@@ -81,7 +81,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     clear: 'Borrar'
   };
 
-  public localTomaMuestraOptions=[{value:'Costanera',label:'Costanera'},{value:'San Lorenzo',label:'San Lorenzo'}];
+  public localTomaMuestraOptions=[{value:'Costanera',label:'Costanera'},{value:'San Lorenzo',label:'San Lorenzo'},{value:'A definir',label:'A definir'}];
 
   constructor(
     private _router: Router,
@@ -105,10 +105,10 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
       fechaPrevistaTomaMuestraLaboratorial: [null],
       localTomaMuestra:['',Validators.required]
     });
-    this._route.params.subscribe(params => {
+    /*this._route.params.subscribe(params => {
       this.cedula = params["cedula"];
       this.obtenerPersona(this.cedula);
-    });
+    });*/
   }
 
   ngOnDestroy() {
