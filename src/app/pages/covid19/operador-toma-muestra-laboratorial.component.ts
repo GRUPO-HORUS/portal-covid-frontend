@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
+import {Location} from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Covid19Service } from '../../services/Covid19Service';
 
@@ -24,7 +25,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
   //Formulario
   public formDatosBasicos: FormDatosBasicos;
 
-  // datos del formulario 
+  // datos del formulario
   public cedula: string;
   public email: string;
   public domicilio: string;
@@ -87,7 +88,8 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     private service: Covid19Service,
     private _route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private storageManager: StorageManagerService
+    private storageManager: StorageManagerService,
+    private _location: Location
   ) {
     this.loading = false;
     /*if (typeof localStorage !== "undefined") {
@@ -95,13 +97,17 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     }*/
   }
 
-  ngOnInit() {  
+  ngOnInit() {
     this.actualizarDiagnosticoFormGroup = this.formBuilder.group({
       resultadoUltimoDiagnostico: [null,Validators.required],
       fechaUltimoDiagnostico: [null,Validators.required],
       fechaPrevistaFinAislamiento: [null],
       fechaPrevistaTomaMuestraLaboratorial: [null],
       localTomaMuestra:['',Validators.required]
+    });
+    this._route.params.subscribe(params => {
+      this.cedula = params["cedula"];
+      this.obtenerPersona(this.cedula);
     });
   }
 
@@ -112,7 +118,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
   }
 
   obtenerPersona(cedula): void {
-    
+
     this.loading = true;
     this.cedula=null;
     this.codigoVerificacion=null;
@@ -134,16 +140,16 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
         this.response = null;
       }
       //this.openMessageDialog();
-      
+
     }
   );
   }
-  
+
   openMessageDialog() {
     setTimeout(function() { $("#miModal").modal("toggle"); }, 1000);
   }
 
-  keyPress(event: any) { 
+  keyPress(event: any) {
     const pattern = /[0-9\+\ ]/;
     let inputChar = String.fromCharCode(event.charCode);
     if (pattern.test(inputChar)) {
@@ -178,7 +184,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     diagnostico.resultadoUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.resultadoUltimoDiagnostico.value.value;
     diagnostico.fechaUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.value;
     diagnostico.fechaPrevistaFinAislamiento=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.value;
-    
+
     diagnostico.fechaPrevistaTomaMuestraLaboratorial=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value;
     diagnostico.localTomaMuestra=this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value;
 
@@ -233,6 +239,10 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
       this._router.navigate(["/"]);
       return false;
     }
+  }
+
+  goBack() {
+    this._location.back();
   }
 
 }

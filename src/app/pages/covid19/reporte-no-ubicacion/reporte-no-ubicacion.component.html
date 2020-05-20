@@ -48,8 +48,11 @@
     </p-overlayPanel>
 
     <div class="ui-g-12">
-      <div class="card card-w-title ui-shadow-2">
-        <h1>Personas Sin Reportar Ubicación</h1>
+      <div class="card ui-shadow-2">
+        <h3 class="title-divider text-primary">
+          <i class="fa fa-edit mr-2" style="margin-top: -4px;"></i>
+          <span>Personas Sin Reportar Ubicación</span>
+        </h3>
         <p-table #table [columns]="cols" [value]="reportes" selectionMode="single" dataKey="id" [paginator]="true"
           [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="load($event)"
           paginatorPosition="bottom" [resizableColumns]="true" columnResizeMode="expand" [loading]="loading" loadingIcon="fa fa-spinner">
@@ -73,7 +76,8 @@
 
           <ng-template pTemplate="header" let-columns>
             <tr>
-              <th *ngFor="let col of columns" [pSortableColumn]="col.sort ? col.field : ''" pResizableColumn [style.width]="col.width">
+              <th *ngFor="let col of columns"
+                  [pSortableColumn]="col.sort ? col.field : ''" pResizableColumn [style.width]="col.width">
                 {{col.header}}
                 <p-sortIcon *ngIf="col.sort" [field]="col.field"></p-sortIcon>
               </th>
@@ -82,12 +86,19 @@
           </ng-template>
           <ng-template pTemplate="body" let-reporte let-columns="columns">
             <tr>
-              <td *ngFor="let col of columns">
-                <span *ngIf="!col.isDate; else dateFormatField">
+              <td *ngFor="let col of columns" [class]="col.isAction ? 'text-center' : ''">
+                <span *ngIf="!col.isDate && !col.isAction; else dateFormatField">
                    {{reporte[col.field]}}
                 </span>
                 <ng-template #dateFormatField>
-                  {{reporte[col.field]  | date:'dd/MM/yyyy HH:mm'}}
+                  <ng-container *ngIf="!col.isAction else action">
+                    {{reporte[col.field]  | date:'dd/MM/yyyy HH:mm'}}
+                  </ng-container>
+                </ng-template>
+                <ng-template #action>
+                  <button pButton type="button" icon="fa fa-eye" tooltipPosition="bottom" pTooltip="Verificar registro persona"
+                          class="btn-success-next" (click)="navigateVerificarCedula(reporte)" >
+                  </button>
                 </ng-template>
               </td>
             </tr>
@@ -100,11 +111,11 @@
             </tr>
           </ng-template>
         </p-table>
+        <button type="button" pButton icon="fa fa-arrow-left"
+                style="width: 100px; margin-top: 16px"
+                class="btn btn-success btn-success-next"
+                label="Volver" routerLink="/covid19/home-operador"></button>
       </div>
-      <button type="button" pButton icon="fa fa-arrow-left"
-              style="width: 100px"
-              class="btn btn-success btn-success-next"
-              label="Volver" routerLink="/covid19/home-operador"></button>
     </div>
   </div>
 </div>

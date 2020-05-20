@@ -82,7 +82,7 @@ import { UsuarioEditarRolComponent } from './pages/usuario/usuario-editar-rol/us
 
 import { GrowlModule } from 'primeng/growl';
 
-import {BlockUIModule, ConfirmationService, FieldsetModule, OverlayPanelModule, ProgressSpinnerModule, SpinnerModule} from 'primeng/primeng';
+import {BlockUIModule, ConfirmationService, FieldsetModule, OverlayPanelModule, ProgressSpinnerModule, SpinnerModule, TooltipModule} from 'primeng/primeng';
 
 import { TableModule } from 'primeng/table';
 
@@ -200,6 +200,7 @@ import {TipoPacienteService} from "./pages/covid19/reporte-no-ubicacion/shared/t
     FieldsetModule,
     OverlayPanelModule,
     SpinnerModule,
+    TooltipModule
   ],
   providers: [
     appRoutingProviders,

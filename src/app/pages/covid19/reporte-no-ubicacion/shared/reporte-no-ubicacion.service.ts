@@ -38,9 +38,7 @@ export class ReporteNoUbicacionService  {
       }
     }
 
-    return this.http.get<any>(this.url + '/', { params, observe: 'response'})
-      .pipe(finalize(() => { }))
-      .pipe(catchError(this.handler.handleError<any>('getAllQueryReporte', new Array<ReporteNoUbicacionModel>())));
+    return this.http.get<any>(this.url + '/', { params, observe: 'response'});
   }
 
   downloadCSV(filter: string, sortDesc: boolean, sortField: string): Observable<any> {
