@@ -64,6 +64,8 @@
                                 <span *ngIf="response.fechaUltimaUbicacion" style="font-size: smaller">Fecha de último reporte de Ubicación: {{response.fechaUltimaUbicacion}}</span>
                                 <br>
                                 <br>
+                                <span *ngIf="response.tieneSintomas">Tiene Síntomas:</span><span style="color:red;" *ngIf="response.tieneSintomas=='Si'"><strong>SI</strong></span><span style="color:green;" *ngIf="response.tieneSintomas=='No'"><strong>NO</strong></span>
+                                <br>
                                 Existe Agendamiento Laboratorial:<span style="color:green;" *ngIf="response.fechaPrevistaTomaMuestraLaboratorial"><strong>SI</strong></span><span style="color:red;" *ngIf="!response.fechaPrevistaTomaMuestraLaboratorial"><strong>NO</strong></span>
                                 <br>
                                 <span *ngIf="response.fechaPrevistaTomaMuestraLaboratorial">Fecha Prevista para Toma de Muestra: {{response.fechaPrevistaTomaMuestraLaboratorial}}</span>
@@ -206,6 +208,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="tieneSintomas">Tiene Síntomas?</label>
+                    <br>
+                    <p-dropdown id="tieneSintomas" [options]="tieneSintomasOptions" label="label" placeholder="Seleccionar" formControlName="tieneSintomas" name="tieneSintomas"></p-dropdown>
+                </div>
+
+                <div class="form-group">
                     <label for="fechaPrevistaTomaMuestraLaboratorial">Fecha Prevista Toma Muestra Laboratorial</label>
                     <br>
                     <p-calendar formControlName="fechaPrevistaTomaMuestraLaboratorial" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaPrevistaTomaMuestraLaboratorial"></p-calendar>
@@ -216,7 +224,7 @@
                     <label for="localTomaMuestra">Local de toma de muestra</label>
                     <br>
                     <!--<input type="text" formControlName="localTomaMuestra" name="localTomaMuestra" class="form-control" style="max-width: 175px;" id="localTomaMuestra">-->
-                    <p-dropdown id="localTomaMuestra" [options]="localTomaMuestraOptions" label="label" placeholder="Seleccionar" formControlName="localTomaMuestra" name="localTomaMuestra" id="localTomaMuestra"></p-dropdown><!--[style]="{'width':'300px'}"-->
+                    <p-dropdown id="localTomaMuestra" [options]="localTomaMuestraOptions" label="label" placeholder="Seleccionar" formControlName="localTomaMuestra" name="localTomaMuestra"></p-dropdown><!--[style]="{'width':'300px'}"-->
                 </div>
                 <!---->
 
