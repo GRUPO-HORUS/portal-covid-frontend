@@ -195,33 +195,40 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
 
     diagnostico.tieneSintomas = this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.value;
 
-    this.service.actualizarDiagnosticoPaciente(diagnostico).subscribe(response => {
+    if((this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value && !diagnostico.localTomaMuestra) || 
+      (!this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value && diagnostico.localTomaMuestra)){
         this.loading = false;
-        this.mensaje= "Diagnóstico del Paciente registrado exitosamente.";
-        this.showActualizarDiagnostico=false;
-        this.response.fechaUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.value;
-        this.response.resultadoUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.resultadoUltimoDiagnostico.value.value;
-        this.response.fechaPrevistaFinAislamiento=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.value;
-
-        this.response.fechaPrevistaTomaMuestraLaboratorial=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value;
-        this.response.localTomaMuestra=this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value;
-
-        this.response.tieneSintomas=this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.value;
-
+        this.mensaje = "Favor completar fecha prevista y local de toma de muestra.";
         this.openMessageDialog();
-    }, error => {
-      if(error.status == 401)
-      {
-        this._router.navigate(["/"]);
+    }else{
+      this.service.actualizarDiagnosticoPaciente(diagnostico).subscribe(response => {
+          this.loading = false;
+          this.mensaje= "Diagnóstico del Paciente registrado exitosamente.";
+          this.showActualizarDiagnostico=false;
+          this.response.fechaUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.value;
+          this.response.resultadoUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.resultadoUltimoDiagnostico.value.value;
+          this.response.fechaPrevistaFinAislamiento=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.value;
+
+          this.response.fechaPrevistaTomaMuestraLaboratorial=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value;
+          this.response.localTomaMuestra=this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value;
+
+          this.response.tieneSintomas=this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.value;
+
+          this.openMessageDialog();
+      }, error => {
+        if(error.status == 401)
+        {
+          this._router.navigate(["/"]);
+        }
+        else
+        {
+          this.loading = false;
+          this.mensaje = error.error;
+          this.openMessageDialog();
+        }
       }
-      else
-      {
-        this.loading = false;
-        this.mensaje = error.error;
-        this.openMessageDialog();
-      }
-    }
-  );
+    );
+  }
   }
 
   closeActualizarDiagnostico()
