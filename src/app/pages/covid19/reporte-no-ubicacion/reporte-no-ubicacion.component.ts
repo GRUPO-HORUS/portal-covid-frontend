@@ -133,9 +133,12 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
           this.totalRecords = res.headers.get('x-total-count');
         }
     }, (err) => {
+        console.log(err);
     if (err.status === 401) {
         this.router.navigate(["/"]);
       } else {
+        this.reportes = [];
+        this.totalRecords = 0;
         this.error = true;
       }
     });
