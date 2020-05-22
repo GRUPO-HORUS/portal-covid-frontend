@@ -12,6 +12,7 @@ import {OverlayPanel} from "primeng/primeng";
 import {TipoPacienteService} from "./shared/tipo-paciente.service";
 import {Router} from '@angular/router';
 import {finalize} from 'rxjs/operators';
+import {Table} from 'primeng/table';
 
 interface Catalogo {
   id: string;
@@ -25,6 +26,7 @@ interface Catalogo {
 })
 export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
   @ViewChild('op') _op: OverlayPanel;
+  @ViewChild('table') table: Table;
 
   msgs: Message[] = [];
   block: boolean;
@@ -85,9 +87,9 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
   load($event: any) {
 
     if ($event) {
+      this.start = this.search !== $event.globalFilter ? 0 : $event.first / this.pageSize;
       this.search = $event.globalFilter;
       this.pageSize = $event.rows;
-      this.start = $event.first / this.pageSize;
       let field = this.cols.find(c => c.field === $event.sortField);
       this.sortField = (field ? field.fieldEntity : field) || $event.sortField;
       this.sortDesc = $event.sortOrder == -1;
@@ -102,6 +104,7 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
     Object.keys(this.advancedSearch).forEach(property => {
       if(this.advancedSearch[property]) this.filterList.push(`${property}:${this.advancedSearch[property].id || this.advancedSearch[property]}`)
     });
+    this.start = this.table.first = 0;
     this.loadReporte();
   }
 
@@ -115,11 +118,11 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
   }
 
   private loadReporte() {
-    this.loading = true;
-    this.error = false;
     if (this.loadSubsciption && !this.loadSubsciption.closed) {
       this.loadSubsciption.unsubscribe();
     }
+    this.loading = true;
+    this.error = false;
     this.loadSubsciption = this._reporteService.getAllQueryReporte(this.start, this.pageSize, this.search, this.sortDesc, this.sortField, this.filterList)
       .pipe(finalize(() => {
         this.loading = false;
@@ -163,7 +166,6 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
         this.loading = false;
       },
       error => {
-        console.log(error);
         this.loading = false;
       });
   }
