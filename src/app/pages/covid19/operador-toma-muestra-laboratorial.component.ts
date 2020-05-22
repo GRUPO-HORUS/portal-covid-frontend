@@ -108,10 +108,12 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
       localTomaMuestra:[''],
       tieneSintomas: [null],
     });
-    /*this._route.params.subscribe(params => {
+    this._route.params.subscribe(params => {
       this.cedula = params["cedula"];
-      this.obtenerPersona(this.cedula);
-    });*/
+      if (this.cedula) {
+        this.obtenerPersona(this.cedula);
+      }
+    });
   }
 
   ngOnDestroy() {
@@ -195,7 +197,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
 
     diagnostico.tieneSintomas = this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.value;
 
-    if((this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value && !diagnostico.localTomaMuestra) || 
+    if((this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value && !diagnostico.localTomaMuestra) ||
       (!this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value && diagnostico.localTomaMuestra)){
         this.loading = false;
         this.mensaje = "Favor completar fecha prevista y local de toma de muestra.";
