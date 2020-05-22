@@ -89,6 +89,14 @@ export class Covid19Service {
       return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/paciente/actualizarDiagnostico', diagnosticoPaciente);
     }
 
+    reenviarSms(cedula): Observable<any> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/paciente/reenviarSms', cedula);
+    }
+
+    cambiarNroCelular(datosPaciente): Observable<any> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/paciente/cambiarNroCelular', datosPaciente);
+    }
+
  }
 
 

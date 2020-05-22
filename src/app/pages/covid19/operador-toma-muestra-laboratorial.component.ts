@@ -85,6 +85,10 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
 
   public tieneSintomasOptions=[{value:'Si',label:'Si'},{value:'No',label:'No'}];
 
+  showCambiarNroCelular = false;
+  msjCambiarNroCelular = '';
+  nroCelularCambiar: string='';
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -259,6 +263,67 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
 
   goBack() {
     this._location.back();
+  }
+
+  reenviarSms(){
+    this.loading = true;
+    this.service.reenviarSms(this.cedulaObtenida).subscribe(response => {
+      this.loading = false;
+      this.mensaje = "Se ha enviado correctamente el SMS.";
+      this.openMessageDialog();
+    }, error => {
+      if(error.status == 401)
+      {
+        this._router.navigate(["/"]);
+      }
+      else
+      {
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
+    }
+    );
+  }
+
+  showPopupCambiarNroCelular(){
+    this.showCambiarNroCelular = true;
+    if(this.response.numeroCelularVerificado==='verificado'){
+      this.msjCambiarNroCelular = "El paciente ya se registró. No se enviará SMS de activación. El operador debe estar seguro de ingresar un número correcto.";
+    }else{
+      this.msjCambiarNroCelular = "El paciente no se registró aún. Se enviará SMS de activación.";
+    }
+    
+  }
+
+  closePopupCambiarNroCelular(){
+    this.nroCelularCambiar = '';
+    this.showCambiarNroCelular = false;
+  }
+
+  cambiarNroCelular(nroCelularCambiar){
+      this.loading = true;
+      let datosPaciente:any={};
+      datosPaciente.numeroCelular = nroCelularCambiar;
+      datosPaciente.numeroDocumento = this.cedulaObtenida;
+      datosPaciente.numeroCelularVerificado = this.response.numeroCelularVerificado;
+      this.service.cambiarNroCelular(datosPaciente).subscribe(response => {
+        this.loading = false;
+        this.mensaje = "Se ha cambiado correctamente el número de celular.";
+        this.openMessageDialog();
+      }, error => {
+        if(error.status == 401)
+        {
+          this._router.navigate(["/"]);
+        }
+        else
+        {
+          this.loading = false;
+          this.mensaje = error.error;
+          this.openMessageDialog();
+        }
+      }
+      );
   }
 
 }
