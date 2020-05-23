@@ -109,6 +109,7 @@ import {HttpModule} from "@angular/http";
 import {HttpErrorHandler} from "./util/http.error.handler";
 import { DatePipe } from "@angular/common";
 import {TipoPacienteService} from "./pages/covid19/reporte-no-ubicacion/shared/tipo-paciente.service";
+import { HistoricoSaludComponent } from './pages/covid19/historico-salud/historico-salud.component';
 
 /*
   @autor:
@@ -153,7 +154,8 @@ import {TipoPacienteService} from "./pages/covid19/reporte-no-ubicacion/shared/t
     ClaveSeguridadComponent,
     OperadorIngresoPaisPaciente,
     OperadorTomaMuestraLaboratorial,
-    ReporteNoUbicacionComponent
+    ReporteNoUbicacionComponent,
+    HistoricoSaludComponent
   ],
   // dependencias de módulos
   imports: [

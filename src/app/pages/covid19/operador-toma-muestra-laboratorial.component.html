@@ -84,12 +84,16 @@
                                     Cambiar Nro Celular
                                     <span class="fa fa-check"></span>
                                 </button>
+                    <button [routerLink]="'/covid19/historico-salud/' + cedulaObtenida" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')" [disabled]="loading">
+                      Ver Histórico de Salud
+                      <span class="fa fa-check"></span>
+                    </button>
 
                 </div>
 
-                <!--<button class="btn btn-secondary" routerLink="/covid19/home-operador">
-                    Volver al Menú
-                </button>-->
+              <!--<button class="btn btn-secondary" routerLink="/covid19/home-operador">
+                  Volver al Menú
+              </button>-->
 
                     <!--<div class="form-group">
                         <label for="tipoDocumento"><strong>Tipo de Documento</strong></label>
