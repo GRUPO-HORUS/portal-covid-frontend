@@ -35,7 +35,10 @@
                 </form>
                 <br>
                 {{mensaje}}
-                <div *ngIf="response">
+              <div *ngIf="loading" class="text-left">
+                <img src="assets/img/misc/icon_loading.gif" alt="" /> Cargando...
+              </div>
+              <div *ngIf="response">
 
                     <p style="text-align:justify">Tenemos registrados los siguientes datos:</p>
                                 Nombre y Apellido: {{response.nombre}}

@@ -22,7 +22,7 @@ export class ReporteSaludPacienteService {
 
     if (sortField) {
       params = params.set('orderBy', sortField);
-      params = params.set('sortDesc', String(sortDesc));
+      params = params.set('orderDesc', String(sortDesc));
     }
 
     params = params
@@ -47,16 +47,20 @@ export class ReporteSaludPacienteService {
     );
   }
 
-  downloadCSV(filter: string, sortDesc: boolean, sortField: string): Observable<Blob> {
+  downloadCSV(search?: string, sortField?: string, sortDesc?: boolean, filterList?: string[]): Observable<Blob> {
 
     let params = new HttpParams();
 
     if (sortField) {
       params = params.set('orderBy', sortField);
+      params = params.set('orderDesc', sortDesc.toString());
     }
 
-    params = params.set('orderDesc', sortDesc.toString());
-
+    if (filterList && filterList.length > 0) {
+      for (let filter of filterList) {
+        params = params.append('filters', filter);
+      }
+    }
     return this.http.get(this.url + "/csv/", {params, responseType: 'blob', observe: 'response' })
       .pipe(map((data: HttpResponse<Blob>) => {
         return new Blob([data.body], { type: 'text/csv;charset=utf-8' });
