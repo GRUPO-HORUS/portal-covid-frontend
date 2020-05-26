@@ -87,7 +87,7 @@
           <button type="button" pButton icon="fa fa-arrow-left"
                   style="width: 100px; margin-top: 16px"
                   class="btn btn-success btn-success-next"
-                  label="Volver" [routerLink]="backLink$|async"></button>
+                  label="Volver" (click)="goBack()"></button>
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ import {ReporteNoUbicacionModel} from '../reporte-no-ubicacion/model/reporte-no-
 import {ReporteNoUbicacionSearch} from '../reporte-no-ubicacion/model/reporte-no-ubicacion.search';
 import {Table} from 'primeng/table';
 import {PagedList} from './shared/paged-list';
-import {DatePipe} from '@angular/common';
+import {DatePipe, Location} from '@angular/common';
 import {saveAs} from 'file-saver';
 
 @Component({
@@ -37,11 +37,9 @@ export class HistoricoSaludComponent implements OnInit, OnDestroy {
   historico$: Observable<ReporteSaludPaciente[]>;
   private load$: Observable<any>;
   start$: Observable<number>;
-  backLink$: Observable<string>;
   onCsvDownload$ = new Subject<void>();
   onDestroy$ = new Subject<void>();
 
-  private readonly backLinkBase = '/covid19/operador/toma-muestra-laboratorial/';
   private readonly defaultOrder = 'timestampCreacion';
   private readonly defaultOrderDesc = true;
 
@@ -75,6 +73,7 @@ export class HistoricoSaludComponent implements OnInit, OnDestroy {
     private saludPacienteService: ReporteSaludPacienteService,
     private router: Router,
     private datepipe: DatePipe,
+    private _location: Location,
   ) { }
 
   ngOnInit() {
@@ -102,10 +101,6 @@ export class HistoricoSaludComponent implements OnInit, OnDestroy {
     this.totalRecords$ = httpCall$.pipe(
       map(paged => paged.total),
       startWith(0)
-    );
-
-    this.backLink$ = this.cedula$.pipe(
-      map(cedula => this.backLinkBase + cedula),
     );
 
     // subscriptions
@@ -149,5 +144,9 @@ export class HistoricoSaludComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.onDestroy$.next();
     this.onDestroy$.complete();
+  }
+
+  goBack() {
+    this._location.back();
   }
 }
