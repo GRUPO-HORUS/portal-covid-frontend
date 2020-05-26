@@ -81,7 +81,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     clear: 'Borrar'
   };
 
-  public localTomaMuestraOptions=[{value:'null',label:'No examen laboratorial'},{value:'Costanera',label:'Costanera'},{value:'San Lorenzo',label:'San Lorenzo'},{value:'A definir',label:'A definir'}];
+  public localTomaMuestraOptions=[{value:null,label:'No examen laboratorial'},{value:'Costanera',label:'Costanera'},{value:'San Lorenzo',label:'San Lorenzo'},{value:'A definir',label:'A definir'}];
 
   public tieneSintomasOptions=[{value:'Si',label:'Si'},{value:'No',label:'No'}];
 
