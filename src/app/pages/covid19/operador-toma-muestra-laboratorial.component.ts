@@ -197,8 +197,10 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     diagnostico.fechaPrevistaFinAislamiento=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.value;
 
     diagnostico.fechaPrevistaTomaMuestraLaboratorial=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value;
+    console.log(this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial);
     if(this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value)
     {
+      console.log(this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value);
       diagnostico.localTomaMuestra=this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value.value;
     }
     
