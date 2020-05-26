@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild, ViewEncapsulation} from '@angular/core';
 import {Message, ConfirmationService, SelectItem} from 'primeng/api';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import {ReporteNoUbicacionModel} from "./model/reporte-no-ubicacion.model";
@@ -19,14 +19,18 @@ interface Catalogo {
   descripcion: string;
 }
 
+
 @Component({
   selector: 'app-reporte-no-ubicacion',
   templateUrl: './reporte-no-ubicacion.component.html',
   styleUrls: ['./reporte-no-ubicacion.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
   @ViewChild('op') _op: OverlayPanel;
   @ViewChild('table') table: Table;
+  readonly PersonasSinReportarUbicacionTitle = 'Personas Sin Reportar Ubicación';
+  readonly PersonasSinReportarEstadoSaludTitle = 'Personas Sin Reportar Estado De Salud';
 
   msgs: Message[] = [];
   block: boolean;
@@ -45,6 +49,9 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
   motivoIngresoList: Catalogo[] = [];
   filterList: string[] = [];
   advancedSearch: ReporteNoUbicacionSearch;
+  title: string;
+  tipoReporte: Catalogo[] = [];
+  tipoReporteSelect: Catalogo;
 
   constructor(
     private _reporteService: ReporteNoUbicacionService,
@@ -63,6 +70,8 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
   }
 
   init() {
+    this.tipoReporteSelect = {id:'ubicacion',descripcion:'No reportaron ubicación'};
+    this.title =  this.PersonasSinReportarUbicacionTitle;
     this.getTipoPacienteList();
     this.cols = [
       { field: 'nombreCompleto', header: 'Nombre', width: '25%', sort: true, },
@@ -70,8 +79,8 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
       { field: 'telefono', header: 'Teléfono', width: '15%', sort: true,  },
       { field: 'tipoIngreso', header: 'Motivo de Ingreso', width: '15%', sort: true, },
       { field: 'tipoPaciente', header: 'Tipo de Paciente', width: '15%', sort: true,  },
-      { field: 'fechaUltimoReporte', header: 'Fecha Último Reporte', width: '25%', isDate: true, sort: true, fieldEntity: 'fechaUltimoReporteUbicacion' },
-      { field: 'horasRetraso', header: 'Horas de Retraso', width: '15%', sort: true, fieldEntity: 'horasRetraso' },
+      { field: 'fechaUltimoReporte', header: 'Fecha Último Reporte', width: '25%', isDate: true, sort: true, fieldEntityUbicacion: 'fechaUltimoReporteUbicacion', fieldEntityEstadoSalud: 'fechaUltimoReporteEstadoSalud' },
+      { field: 'horasRetraso', header: 'Horas de Retraso', width: '15%', sort: true, fieldEntityUbicacion: 'horasRetraso', fieldEntityEstadoSalud: 'horasRetrasoEstadoSalud' },
       { field: '', header: 'Acción', width: '18%', isAction: true }
     ];
     this.resetAdvancedSearch();
@@ -82,6 +91,10 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
       {id:'caso_sospechoso',descripcion:'Caso sospechoso de COVID-19'},
       {id:'examen_laboratorio',descripcion:'Examen de Laboratorio de COVID-19'}
     ];
+    this.tipoReporte = [
+      {id:'ubicacion',descripcion:'No reportaron ubicación'},
+      {id:'estadosalud',descripcion:'No reportaron estado de salud'},
+    ];
   }
 
   load($event: any) {
@@ -91,7 +104,7 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
       this.search = $event.globalFilter;
       this.pageSize = $event.rows;
       let field = this.cols.find(c => c.field === $event.sortField);
-      this.sortField = (field ? field.fieldEntity : field) || $event.sortField;
+      this.sortField = (field ? this.tipoReporteSelect.id == 'ubicacion' ? field.fieldEntityUbicacion : field.fieldEntityEstadoSalud : field) || $event.sortField;
       this.sortDesc = $event.sortOrder == -1;
     }
 
@@ -123,7 +136,8 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
     }
     this.loading = true;
     this.error = false;
-    this.loadSubsciption = this._reporteService.getAllQueryReporte(this.start, this.pageSize, this.search, this.sortDesc, this.sortField, this.filterList)
+    this.loadSubsciption = this._reporteService.getAllQueryReporte(this.start, this.pageSize, this.search, this.sortDesc, this.sortField,
+      this.filterList, this.tipoReporteSelect.id)
       .pipe(finalize(() => {
         this.loading = false;
       }))
@@ -146,7 +160,7 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
 
   private getTipoPacienteList() {
     let filterDebeReportarUbicacion = [];
-    filterDebeReportarUbicacion.push(`debeReportarUbicacion:true`);
+    filterDebeReportarUbicacion.push(this.tipoReporteSelect.id == 'ubicacion' ? `debeReportarUbicacion:true` : `debeReportarEstadoSalud:true`);
 
     this._tipoPaciente.getAll(null, filterDebeReportarUbicacion)
       .subscribe(res => {
@@ -162,7 +176,7 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
 
   onDownloadCsv() {
     this.loading = true;
-    this._reporteService.downloadCSV(this.search, this.sortDesc, this.sortField).subscribe(
+    this._reporteService.downloadCSV(this.search, this.sortDesc, this.sortField, this.tipoReporteSelect.id).subscribe(
       (data: any) => {
         let latest_date = this.datepipe.transform(new Date(), 'yyyyMMddHHmmss');
         saveAs(data,`ListaPacientes${latest_date}.csv`);
@@ -175,6 +189,14 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
 
   navigateVerificarCedula(value) {
     this._router.navigate(['/covid19/operador/toma-muestra-laboratorial', value.cedula]);
+  }
+
+  onChangeTipoReporte(event) {
+    this.resetAdvancedSearch();
+    this.sortField = '';
+    this.getTipoPacienteList();
+    this.title = event.value.id == 'ubicacion' ? this.PersonasSinReportarUbicacionTitle : this.PersonasSinReportarEstadoSaludTitle;
+    this.onSearch();
   }
 
 }

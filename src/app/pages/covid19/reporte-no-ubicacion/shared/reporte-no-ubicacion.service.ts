@@ -14,9 +14,10 @@ export class ReporteNoUbicacionService  {
 
   }
 
-  getAllQueryReporte(start: number, pageSize: number, search: string, sortDesc: boolean, sortField: string, filterList: string[]): Observable<any> {
+  getAllQueryReporte(start: number, pageSize: number, search: string, sortDesc: boolean, sortField: string, filterList: string[], tipoReporte: string): Observable<any> {
 
     let params = new HttpParams();
+    let urlBase = tipoReporte == 'ubicacion' ? this.url : this.url + '/estadosalud';
 
     if (sortField)
       params = params.set('orderBy', sortField);
@@ -30,7 +31,8 @@ export class ReporteNoUbicacionService  {
       params = params.set('search', search);
     }
 
-    params = params.set('filters', 'ubicacionNoReportada:720');
+    params = tipoReporte == 'ubicacion' ? params.set('filters', 'ubicacionNoReportada:720') :  params.set('filters', 'estadoSaludNoReportado:true');
+
 
     if(filterList && filterList.length > 0) {
       for (let filter of filterList) {
@@ -38,21 +40,23 @@ export class ReporteNoUbicacionService  {
       }
     }
 
-    return this.http.get<any>(this.url + '/', { params, observe: 'response'});
+    return this.http.get<any>(urlBase + '/', { params, observe: 'response'});
   }
 
-  downloadCSV(filter: string, sortDesc: boolean, sortField: string): Observable<any> {
+  downloadCSV(filter: string, sortDesc: boolean, sortField: string, tipoReporte: string): Observable<any> {
 
     let params = new HttpParams();
+    let urlBase = tipoReporte == 'ubicacion' ? this.url : this.url + '/estadosalud';
 
     if (sortField)
       params = params.set('orderBy', sortField);
 
     params = params.set('orderDesc', sortDesc.toString());
 
-    params = params.set('filters', 'ubicacionNoReportada:720');
+    params = tipoReporte == 'ubicacion' ? params.set('filters', 'ubicacionNoReportada:720') :  params.set('filters', 'estadoSaludNoReportado:true');
 
-    return this.http.get(this.url + "/csv/", {params, responseType: 'blob', observe: 'response' })
+
+    return this.http.get(urlBase + "/csv/", {params, responseType: 'blob', observe: 'response' })
       .pipe(map((data: HttpResponse<Blob>) => {
           return new Blob([data.body], { type: 'text/csv;charset=utf-8' });
       }));
