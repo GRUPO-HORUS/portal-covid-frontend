@@ -182,8 +182,8 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.setValue(this.response.fechaUltimoDiagnostico);
     this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.setValue(this.response.fechaPrevistaFinAislamiento);
 
-    //this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.setValue(this.response.fechaPrevistaTomaMuestraLaboratorial);
-    //this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.setValue(this.response.localTomaMuestra);
+    this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.reset();
+    this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.reset();
 
     this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.setValue(this.response.tieneSintomas);
   }
@@ -196,7 +196,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     diagnostico.fechaUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.value;
     diagnostico.fechaPrevistaFinAislamiento=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.value;
 
-    diagnostico.fechaPrevistaTomaMuestraLaboratorial=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value.value;
+    diagnostico.fechaPrevistaTomaMuestraLaboratorial=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value;
     diagnostico.localTomaMuestra=this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value;
 
     diagnostico.tieneSintomas = this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.value;
