@@ -4,6 +4,8 @@ import {Observable, of, throwError} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import {ReporteSaludPaciente} from '../model/reporte-salud-paciente.model';
 import {PagedList} from './paged-list';
+import {FieldInfo} from './field-info';
+import {flattenArray} from '../../../../util/flatten-array';
 
 @Injectable({
   providedIn: 'root'
@@ -66,5 +68,19 @@ export class ReporteSaludPacienteService {
         return new Blob([data.body], { type: 'text/csv;charset=utf-8' });
       }));
 
+  }
+
+  getForm(): Observable<FieldInfo[]> {
+    return this.http.get<FieldInfo[][]>(this.url + "/form").pipe(
+      map(fieldsArr =>  {
+        const fields = flattenArray(fieldsArr);
+        for (let f of fields) {
+          if (typeof(f.optionsSource) === 'string' && (<string>f.optionsSource).startsWith("[")) {
+            f.optionsSource = JSON.parse(f.optionsSource);
+          }
+        }
+        return fields;
+      })
+    );
   }
 }

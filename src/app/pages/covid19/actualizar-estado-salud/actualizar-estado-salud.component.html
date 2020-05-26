@@ -1,0 +1,91 @@
+<div id="content" class="pb-0 pt-2">
+  <div class="container pb-6">
+    <div class="row">
+      <div class="col-md-8 mb-4">
+        <h3 class="title-divider text-primary">
+          <i class="fa fa-edit mr-2" style="margin-top: -4px;"></i>
+          <span>Actualizar Estado de Salud - Nro. de Documento: {{cedula$|async}}</span>
+        </h3>
+        <form class="mt-4" *ngIf="fields$|async">
+          <div class="form-group"
+               [ngSwitch]="field.fieldType"
+               *ngFor="let field of fields$|async">
+            <ng-template [ngIf]="showField(field)">
+            <ng-template ngSwitchCase="String">
+              <label [for]="field.fieldName"><strong>{{field.label}}</strong></label>
+              <input type="text" [name]="field.fieldName" class="form-control" style="max-width: 300px;"
+                     [(ngModel)]="model[field.fieldName]"
+                     [id]="field.fieldName">
+            </ng-template>
+            <ng-template ngSwitchCase="PrettyRadio">
+              <label [for]="field.fieldName"><strong>{{field.label}}</strong></label>
+              <div class="p-grid">
+                <div class="p-col"
+                     *ngFor="let option of field.optionsSource"
+                >
+                  <p-radioButton [name]="field.fieldName"
+                                 [value]="option[field.optionsIdProp]"
+                                 [label]="option[field.optionsTextProp]"
+                                 [(ngModel)]="model[field.fieldName]"
+                                 [inputId]="option[field.optionsIdProp]"></p-radioButton>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template ngSwitchCase="DateTime">
+              <label [for]="field.fieldName"><strong>{{field.fieldName}}</strong></label>
+              <br>
+              <p-calendar [id]="field.fieldName"
+                          [(ngModel)]="model[field.fieldName]"
+                          [name]="field.fieldName"
+                          dateFormat="yyyy-mm-dd"
+                          showTime="true"
+                          [locale]="es"
+                          dataType="string"></p-calendar>
+            </ng-template>
+              <ng-template ngSwitchCase="Temp">
+                <label [for]="field.fieldName"><strong>{{field.label}}</strong></label>
+                <br>
+                <input type="number" [name]="field.fieldName" class="form-control" style="max-width: 300px;"
+                       min="35"
+                       max="42"
+                       step="0.1"
+                       [(ngModel)]="model[field.fieldName]"
+                       [id]="field.fieldName">
+              </ng-template>
+              <ng-template ngSwitchCase="Smiley">
+                <label [for]="field.fieldName"><strong>{{field.label}}</strong></label>
+                <br>
+                <div class="p-grid">
+                  <div class="p-col"
+                       *ngFor="let option of smileyOptions"
+                  >
+                    <p-radioButton [name]="field.fieldName"
+                                   [value]="option[field.optionsIdProp]"
+                                   [label]="option[field.optionsTextProp]"
+                                   [(ngModel)]="model[field.fieldName]"
+                                   [inputId]="option[field.optionsIdProp]"></p-radioButton>
+                  </div>
+                </div>
+              </ng-template>
+            </ng-template>
+          </div>
+          <div class="p-grid">
+            <div class="p-col">
+
+              <button type="submit"
+                      class="btn btn-success btn-success-next"
+                      >
+                Guardar
+                <span class="fa fa-check"></span>
+              </button>
+              <button class="btn btn-success btn-success-next" (click)="goBack()">
+                Cancelar
+                <span class="fa fa-times"></span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

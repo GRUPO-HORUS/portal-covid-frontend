@@ -91,8 +91,12 @@
                       Ver Histórico de Salud
                       <span class="fa fa-check"></span>
                     </button>
+                <button style="margin-left: 16px;" [routerLink]="'/covid19/actualizar-salud/' + cedulaObtenida" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')" [disabled]="loading">
+                  Actualizar Estado de Salud
+                  <span class="fa fa-check"></span>
+                </button>
 
-                </div>
+              </div>
 
               <!--<button class="btn btn-secondary" routerLink="/covid19/home-operador">
                   Volver al Menú
