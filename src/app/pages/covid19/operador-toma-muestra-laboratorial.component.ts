@@ -109,7 +109,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
       fechaUltimoDiagnostico: [null,Validators.required],
       fechaPrevistaFinAislamiento: [null],
       fechaPrevistaTomaMuestraLaboratorial: [null],
-      localTomaMuestra:[''],
+      localTomaMuestra:[null],
       tieneSintomas: [null],
     });
     this._route.params.subscribe(params => {
