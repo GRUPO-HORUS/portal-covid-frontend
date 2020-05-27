@@ -35,7 +35,10 @@
                 </form>
                 <br>
                 {{mensaje}}
-                <div *ngIf="response">
+              <div *ngIf="loading" class="text-left">
+                <img src="assets/img/misc/icon_loading.gif" alt="" /> Cargando...
+              </div>
+              <div *ngIf="response">
 
                     <p style="text-align:justify">Tenemos registrados los siguientes datos:</p>
                                 Nombre y Apellido: {{response.nombre}}
@@ -75,12 +78,25 @@
                                 <button (click)="showPopupActualizarDiagnostico()" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')&&response.fechaUltimoDiagnostico">
                                     Actualizar Diagnóstico
                                     <span class="fa fa-check"></span>
+                                </button>&nbsp;
+                                <button (click)="reenviarSms()" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')&&response.numeroCelularVerificado==='no verificado'" [disabled]="loading">
+                                    Re-enviar SMS
+                                    <span class="fa fa-check"></span>
+                                </button>&nbsp;
+                                <button (click)="showPopupCambiarNroCelular()" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')" [disabled]="loading">
+                                    Cambiar Nro Celular
+                                    <span class="fa fa-check"></span>
                                 </button>
+                    <button style="margin-left: 16px;" [routerLink]="'/covid19/historico-salud/' + cedulaObtenida" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')" [disabled]="loading">
+                      Ver Histórico de Salud
+                      <span class="fa fa-check"></span>
+                    </button>
+
                 </div>
 
-                <!--<button class="btn btn-secondary" routerLink="/covid19/home-operador">
-                    Volver al Menú
-                </button>-->
+              <!--<button class="btn btn-secondary" routerLink="/covid19/home-operador">
+                  Volver al Menú
+              </button>-->
 
                     <!--<div class="form-group">
                         <label for="tipoDocumento"><strong>Tipo de Documento</strong></label>
@@ -233,7 +249,29 @@
                         Actualizar Diagnóstico
                         <span class="fa fa-check"></span>
                     </button>&nbsp;
+
                     <button class="btn btn-secondary btn-success-next" (click)="closeActualizarDiagnostico()">
+                        Cerrar
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+            </p-dialog>
+
+            <p-dialog [(visible)]="showCambiarNroCelular" modal="true" header="Cambiar Número de Celular">
+                <div class="form-group">
+                    <label for="numeroCelular"><strong>Número de celular</strong><span class="text-danger">*</span></label>
+                    <input type="text" [(ngModel)]="nroCelularCambiar" class="form-control" id="numeroCelular" style="max-width: 300px;" name="numeroCelular" placeholder="Ejemplo: 0961123456" minlength="6" required>
+                </div>
+                <div class="alert alert-info">
+                    <i class="fa fa-info-circle"></i> {{msjCambiarNroCelular}}
+                </div>
+                <div>
+                    <button (click)="cambiarNroCelular(nroCelularCambiar)" class="btn btn-success btn-success-next" [disabled]="nroCelularCambiar==='' || loading">
+                        Cambiar Nro Celular
+                        <span class="fa fa-check"></span>
+                    </button>&nbsp;
+
+                    <button class="btn btn-secondary btn-success-next" (click)="closePopupCambiarNroCelular()">
                         Cerrar
                         <span class="fa fa-times"></span>
                     </button>
