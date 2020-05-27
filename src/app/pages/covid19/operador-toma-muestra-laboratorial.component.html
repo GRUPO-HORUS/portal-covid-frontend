@@ -69,6 +69,12 @@
                                 <br>
                                 <span *ngIf="response.tieneSintomas">Tiene Síntomas:</span><span style="color:red;" *ngIf="response.tieneSintomas=='Si'"><strong>SI</strong></span><span style="color:green;" *ngIf="response.tieneSintomas=='No'"><strong>NO</strong></span>
                                 <br>
+                                <span style="font-size: smaller" *ngIf="response.tieneSintomas=='Si'">
+                                                    Fecha Inicio Sintoma: {{response.fechaInicioSintoma}}
+                                  <br>
+                                                    Fecha de Exposición: {{response.fechaExposicion}}
+                                                </span>
+                                <br>
                                 Existe Agendamiento Laboratorial:<span style="color:green;" *ngIf="response.fechaPrevistaTomaMuestraLaboratorial"><strong>SI</strong></span><span style="color:red;" *ngIf="!response.fechaPrevistaTomaMuestraLaboratorial"><strong>NO</strong></span>
                                 <br>
                                 <span *ngIf="response.fechaPrevistaTomaMuestraLaboratorial">Fecha Prevista para Toma de Muestra: {{response.fechaPrevistaTomaMuestraLaboratorial}}</span>
@@ -215,7 +221,7 @@
                 <div class="form-group">
                     <label for="fechaUltimoDiagnostico">Fecha Último Diagnóstico</label>
                     <br>
-                    <p-calendar formControlName="fechaUltimoDiagnostico" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaUltimoDiagnostico"></p-calendar>
+                    <p-calendar formControlName="fechaUltimoDionchagnostico" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaUltimoDiagnostico"></p-calendar>
                 </div>
                 <div class="form-group">
                     <label for="fechaPrevistaFinAislamiento">Fecha Prevista Fin Aislamiento</label>
@@ -228,6 +234,18 @@
                     <br>
                     <p-dropdown id="tieneSintomas" [options]="tieneSintomasOptions" label="label" placeholder="Seleccionar" formControlName="tieneSintomas" name="tieneSintomas"></p-dropdown>
                 </div>
+
+              <div class="form-group" *ngIf="actualizarDiagnosticoFormGroup.controls.tieneSintomas.value == 'Si'">
+                <label for="fechaInicioSintoma">Fecha Inicio Sintoma</label>
+                <br>
+                <p-calendar formControlName="fechaInicioSintoma" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaInicioSintoma"></p-calendar>
+              </div>
+
+              <div class="form-group" *ngIf="actualizarDiagnosticoFormGroup.controls.tieneSintomas.value == 'Si'">
+                <label for="fechaExposicion">Fecha de Exposición</label>
+                <br>
+                <p-calendar formControlName="fechaExposicion" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaExposicion"></p-calendar>
+              </div>
 
                 <div class="form-group">
                     <label for="fechaPrevistaTomaMuestraLaboratorial">Fecha Prevista Toma Muestra Laboratorial</label>
