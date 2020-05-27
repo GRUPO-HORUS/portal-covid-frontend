@@ -176,7 +176,7 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
 
   onDownloadCsv() {
     this.loading = true;
-    this._reporteService.downloadCSV(this.search, this.sortDesc, this.sortField, this.tipoReporteSelect.id).subscribe(
+    this._reporteService.downloadCSV(this.search, this.sortDesc, this.sortField, this.filterList, this.tipoReporteSelect.id).subscribe(
       (data: any) => {
         let latest_date = this.datepipe.transform(new Date(), 'yyyyMMddHHmmss');
         saveAs(data,`ListaPacientes${latest_date}.csv`);
