@@ -115,7 +115,13 @@ export class ReporteNoUbicacionComponent implements OnInit, OnDestroy {
     this.filterList = [];
     this._op.visible = false;
     Object.keys(this.advancedSearch).forEach(property => {
-      if(this.advancedSearch[property]) this.filterList.push(`${property}:${this.advancedSearch[property].id || this.advancedSearch[property]}`)
+      if(this.advancedSearch[property]){
+        if(property == 'horaRetraso' && this.tipoReporteSelect.id == 'estadosalud') {
+          this.filterList.push(`horaRetrasoEstadoSalud:${this.advancedSearch[property]}`)
+        }else{
+          this.filterList.push(`${property}:${this.advancedSearch[property].id || this.advancedSearch[property]}`)
+        }
+      }
     });
     this.start = this.table.first = 0;
     this.loadReporte();
