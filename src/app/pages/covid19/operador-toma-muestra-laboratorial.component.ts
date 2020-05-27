@@ -206,7 +206,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
 
     diagnostico.tieneSintomas = this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.value;
     diagnostico.fechaInicioSintoma = diagnostico.tieneSintomas == 'Si' ? this.actualizarDiagnosticoFormGroup.controls.fechaInicioSintoma.value : null;
-    diagnostico.fechaExposicion = diagnostico.tieneSintomas == 'Si' ? this.actualizarDiagnosticoFormGroup.controls.fechaExposicion.value : null;
+    diagnostico.fechaExposicion =this.actualizarDiagnosticoFormGroup.controls.fechaExposicion.value;
 
     if((this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value && !diagnostico.localTomaMuestra) ||
       (!this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value && diagnostico.localTomaMuestra)){
@@ -227,7 +227,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
 
           this.response.tieneSintomas=this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.value;
           this.response.fechaInicioSintoma = this.response.tieneSintomas == 'Si' ? this.actualizarDiagnosticoFormGroup.controls.fechaInicioSintoma.value : null;
-          this.response.fechaExposicion = this.response.tieneSintomas == 'Si' ? this.actualizarDiagnosticoFormGroup.controls.fechaExposicion.value : null;
+          this.response.fechaExposicion = this.actualizarDiagnosticoFormGroup.controls.fechaExposicion.value;
 
           this.openMessageDialog();
       }, error => {
