@@ -1,7 +1,7 @@
 export class ReporteNoUbicacionSearch {
   resultadoUltimoDiagnostico: string;
   motivoIngreso: string;
-  horaRetraso: number
+  horaRetraso: number;
 
   constructor() {
     this.resultadoUltimoDiagnostico = null;
