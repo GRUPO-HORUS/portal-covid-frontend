@@ -43,7 +43,7 @@ export class ReporteNoUbicacionService  {
     return this.http.get<any>(urlBase + '/', { params, observe: 'response'});
   }
 
-  downloadCSV(filter: string, sortDesc: boolean, sortField: string, tipoReporte: string): Observable<any> {
+  downloadCSV(filter: string, sortDesc: boolean, sortField: string,  filterList: string[],  tipoReporte: string): Observable<any> {
 
     let params = new HttpParams();
     let urlBase = tipoReporte == 'ubicacion' ? this.url : this.url + '/estadosalud';
@@ -55,6 +55,11 @@ export class ReporteNoUbicacionService  {
 
     params = tipoReporte == 'ubicacion' ? params.set('filters', 'ubicacionNoReportada:720') :  params.set('filters', 'estadoSaludNoReportado:true');
 
+    if(filterList && filterList.length > 0) {
+      for (let filter of filterList) {
+        params = params.append('filters', filter);
+      }
+    }
 
     return this.http.get(urlBase + "/csv/", {params, responseType: 'blob', observe: 'response' })
       .pipe(map((data: HttpResponse<Blob>) => {
