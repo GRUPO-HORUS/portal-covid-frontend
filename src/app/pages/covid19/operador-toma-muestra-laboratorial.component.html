@@ -35,7 +35,10 @@
                 </form>
                 <br>
                 {{mensaje}}
-                <div *ngIf="response">
+              <div *ngIf="loading" class="text-left">
+                <img src="assets/img/misc/icon_loading.gif" alt="" /> Cargando...
+              </div>
+              <div *ngIf="response">
 
                     <p style="text-align:justify">Tenemos registrados los siguientes datos:</p>
                                 Nombre y Apellido: {{response.nombre}}
@@ -84,12 +87,16 @@
                                     Cambiar &#8470; Celular
                                     <span class="fa fa-check"></span>
                                 </button>
+                    <button style="margin-left: 16px;" [routerLink]="'/covid19/historico-salud/' + cedulaObtenida" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')" [disabled]="loading">
+                      Ver Histórico de Salud
+                      <span class="fa fa-check"></span>
+                    </button>
 
                 </div>
 
-                <!--<button class="btn btn-secondary" routerLink="/covid19/home-operador">
-                    Volver al Menú
-                </button>-->
+              <!--<button class="btn btn-secondary" routerLink="/covid19/home-operador">
+                  Volver al Menú
+              </button>-->
 
                     <!--<div class="form-group">
                         <label for="tipoDocumento"><strong>Tipo de Documento</strong></label>
