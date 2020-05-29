@@ -110,6 +110,8 @@ import {HttpErrorHandler} from "./util/http.error.handler";
 import { DatePipe } from "@angular/common";
 import {TipoPacienteService} from "./pages/covid19/reporte-no-ubicacion/shared/tipo-paciente.service";
 
+import { ContactosPaciente } from "./pages/covid19/contactos-paciente.component";
+
 /*
   @autor:
   @date: 29/06/2017
@@ -153,7 +155,8 @@ import {TipoPacienteService} from "./pages/covid19/reporte-no-ubicacion/shared/t
     ClaveSeguridadComponent,
     OperadorIngresoPaisPaciente,
     OperadorTomaMuestraLaboratorial,
-    ReporteNoUbicacionComponent
+    ReporteNoUbicacionComponent,
+    ContactosPaciente
   ],
   // dependencias de módulos
   imports: [

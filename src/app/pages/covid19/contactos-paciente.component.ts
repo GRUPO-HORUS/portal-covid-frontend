@@ -9,15 +9,17 @@ import {FormDatosBasicos} from './model/formDatosBasicos.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { StorageManagerService } from '../login/shared/storage-manager.service';
+import { CensoContacto } from "./model/censoContacto.model";
+import { Paciente } from "./model/paciente.model";
 
 declare var $: any;
 
 @Component({
-  selector: "operador-toma-muestra-laboratorial",
-  templateUrl: "./operador-toma-muestra-laboratorial.component.html",
+  selector: "contactos-paciente",
+  templateUrl: "./contactos-paciente.component.html",
   providers: [Covid19Service]
 })
-export class OperadorTomaMuestraLaboratorial implements OnInit {
+export class ContactosPaciente implements OnInit {
 
   public loading: boolean;
   public mensaje: string;
@@ -39,9 +41,6 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
   public direccion: string;
   public codigo: string;
 
-  // recaptcha
-  // public captchaResponse: string;
-  // public captcha: any;
   private subscription: Subscription;
   public recentToken: string = ''
   public recaptchaAvailable = false;
@@ -61,6 +60,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
   cedulaObtenida:string;
 
   showActualizarDiagnostico=false;
+
   resultadoUltimoDiagnosticoOptions=[{value:"positivo", label: "Caso Confirmado"},
                               {value:"negativo", label: "Examen Negativo"},
                               {value:"sospechoso", label: "Caso Sospechoso"},
@@ -81,13 +81,29 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     clear: 'Borrar'
   };
 
-  public localTomaMuestraOptions=[{value:'Costanera',label:'Costanera'},{value:'San Lorenzo',label:'San Lorenzo'},{value:'A definir',label:'A definir'}];
-
   public tieneSintomasOptions=[{value:'Si',label:'Si'},{value:'No',label:'No'}];
 
   showCambiarNroCelular = false;
   msjCambiarNroCelular = '';
   nroCelularCambiar: string='';
+
+  cols: any[];
+  contactosList: any[];
+  pageSize: number = 10;
+  start: number = 0;
+  filter: string;
+  totalRecords: number = 0;
+  sortAsc: boolean = true;
+  sortField: string;
+
+  idPaciente: number;
+  showBorrarContacto: boolean = false;
+  idContacto: number;
+  showAgregarContacto: boolean = false;
+  agregarContactoFormGroup: FormGroup;
+
+  showEditarContacto: boolean = false;
+  public cedulaPaciente: string;
 
   constructor(
     private _router: Router,
@@ -112,13 +128,58 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
       localTomaMuestra:[''],
       tieneSintomas: [null],
     });
-    this._route.params.subscribe(params => {
-      this.cedula = params["cedula"];
-      if(this.cedula !== undefined){
-        this.obtenerPersona(this.cedula);
-      }
+
+    this.agregarContactoFormGroup = this.formBuilder.group({
+      nroDocumento: [null,Validators.required],
+      nombres: [null,Validators.required],
+      apellidos: [null,Validators.required],
+      telefono: [null,Validators.required],
+      domicilio: [null,Validators.required],
+      fechaUltimoContacto: [null],
+      paciente: [null],
+      tipo: [null,Validators.required],
     });
+
+    this._route.params.subscribe(params => {
+      this.idPaciente = params["id"];
+      this.cedulaPaciente = params["cedula"];
+      console.log(this.idPaciente+" "+this.cedulaPaciente);
+    });
+
+    this.cols = [{ field: 'nroDocumento', header: 'Nro de Documento', width: '9%' },
+        { field: 'nombres', header: 'Nombres', width: '15%' },
+        { field: 'apellidos', header: 'Apellidos', width: '15%' },
+        { field: 'telefono', header: 'Teléfono', width: '11%' },
+        { field: 'domicilio', header: 'Domicilio', width: '17%' },
+        { field: 'tipo', header: 'Tipo', width: '9%' },
+        { field: 'fechaUltimoContacto', header: 'Último Contacto', width: '15%' },
+        { field: '', header: 'Acciones', width: '9%' }];
   }
+
+  load($event: any) {
+    if ($event) {
+      this.filter = $event.globalFilter;
+      this.start = $event.first;
+      this.pageSize = $event.rows;
+      this.sortField = $event.sortField;
+
+      if ($event.sortOrder == 1)
+        this.sortAsc = true;
+      else
+        this.sortAsc = false;
+    }
+    this.buscarContactos();
+    
+}
+
+buscarContactos(){
+  this.service.getContactosPaciente(this.idPaciente, this.start, this.pageSize, this.filter, this.sortAsc, this.sortField).subscribe(contactos => {
+    this.contactosList = contactos.lista;
+    this.totalRecords = contactos.totalRecords;
+
+    console.log(this.contactosList);   
+  });
+}
 
   ngOnDestroy() {
     if (this.subscription) {
@@ -237,11 +298,6 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
   }
   }
 
-  closeActualizarDiagnostico()
-  {
-    this.showActualizarDiagnostico=false;
-  }
-
   hasRol(rolName: string)
   {
     let credentials=this.storageManager.getLoginData();
@@ -263,17 +319,141 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     }
   }
 
-  goBack() {
+  volver() {
+    //covid19/operador/toma-muestra-laboratorial/:cedula
     //this._location.back();
-    this._router.navigate(["covid19/home-operador"]);
+    this._router.navigate(["covid19/operador/toma-muestra-laboratorial/", this.cedulaPaciente]);
   }
 
-  reenviarSms(){
+  mostrarEditarContacto(contacto){
+    this.showEditarContacto = true;
+    this.idContacto = contacto.id;
+
+    this.agregarContactoFormGroup.controls.nroDocumento.setValue(contacto.nroDocumento);
+    this.agregarContactoFormGroup.controls.nombres.setValue(contacto.nombres);
+    this.agregarContactoFormGroup.controls.apellidos.setValue(contacto.apellidos);
+    this.agregarContactoFormGroup.controls.telefono.setValue(contacto.telefono);
+    this.agregarContactoFormGroup.controls.domicilio.setValue(contacto.domicilio);
+    console.log(contacto.fechaUltimoContacto);
+    let dateParts = contacto.fechaUltimoContacto.split("-");
+    let fechaContactoString = dateParts[2]+"/"+dateParts[1]+"/"+dateParts[0]
+    console.log(fechaContactoString);
+    this.agregarContactoFormGroup.controls.fechaUltimoContacto.setValue(fechaContactoString);
+    this.agregarContactoFormGroup.controls.tipo.setValue(contacto.tipo);
+  }
+
+  closeEditarContacto(){
+    this.showEditarContacto = false;
+  }
+
+  editarContacto(){
     this.loading = true;
-    this.service.reenviarSms(this.cedulaObtenida).subscribe(response => {
+    let contacto = new CensoContacto();
+    let paciente = new Paciente();
+    contacto.id = this.idContacto;
+    contacto.nroDocumento = this.agregarContactoFormGroup.controls.nroDocumento.value;
+    contacto.nombres = this.agregarContactoFormGroup.controls.nombres.value;
+    contacto.apellidos = this.agregarContactoFormGroup.controls.apellidos.value;
+    contacto.telefono = this.agregarContactoFormGroup.controls.telefono.value;
+    contacto.domicilio = this.agregarContactoFormGroup.controls.domicilio.value;
+    contacto.tipo = this.agregarContactoFormGroup.controls.tipo.value;
+
+    let dateParts = this.agregarContactoFormGroup.controls.fechaUltimoContacto.value.split("/");
+    let fechaContacto = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+    contacto.fechaUltimoContacto = fechaContacto;
+    paciente.id = this.idPaciente;
+    contacto.paciente = paciente;
+
+    this.service.editarContacto(contacto).subscribe(response => {
       this.loading = false;
-      this.mensaje = "Se ha enviado correctamente el SMS.";
+      this.mensaje = "Se ha editado correctamente el contacto.";
       this.openMessageDialog();
+      this.showEditarContacto = false;
+
+      this.buscarContactos();
+    }, error => {
+      if(error.status == 401)
+      {
+        this._router.navigate(["/"]);
+      }
+      else
+      {
+        console.log(error);
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
+    }
+    );
+  }
+
+  mostrarAgregarContacto(){
+    this.showAgregarContacto = true;
+  }
+
+  closeAgregarContacto(){
+    this.showAgregarContacto = false;
+  }
+
+  agregarContacto(){
+    this.loading = true;
+    let contacto = new CensoContacto();
+    let paciente = new Paciente();
+    contacto.nroDocumento = this.agregarContactoFormGroup.controls.nroDocumento.value;
+    contacto.nombres = this.agregarContactoFormGroup.controls.nombres.value;
+    contacto.apellidos = this.agregarContactoFormGroup.controls.apellidos.value;
+    contacto.telefono = this.agregarContactoFormGroup.controls.telefono.value;
+    contacto.domicilio = this.agregarContactoFormGroup.controls.domicilio.value;
+    let dateParts = this.agregarContactoFormGroup.controls.fechaUltimoContacto.value.split("/");
+    let fechaContacto = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0]);
+    contacto.fechaUltimoContacto = fechaContacto;
+    contacto.tipo = this.agregarContactoFormGroup.controls.tipo.value;
+
+    paciente.id = this.idPaciente;
+    contacto.paciente = paciente;
+
+    this.service.agregarContacto(contacto).subscribe(response => {
+      this.loading = false;
+      this.mensaje = "Se ha creado correctamente el contacto.";
+      this.openMessageDialog();
+      this.showAgregarContacto = false;
+
+      this.buscarContactos();
+    }, error => {
+      if(error.status == 401)
+      {
+        this._router.navigate(["/"]);
+      }
+      else
+      {
+        console.log(error);
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
+    }
+    );
+  }
+
+  confirmarBorrado(id){
+    this.showBorrarContacto = true;
+    this.idContacto = id;
+  }
+
+  closePopupBorrarContacto(){
+    //this.nroCelularCambiar = '';
+    this.showBorrarContacto = false;
+  }
+
+  borrarContacto(){
+
+    this.service.borrarContacto(this.idContacto).subscribe(response => {
+      this.loading = false;
+      this.mensaje = "Se ha borrado correctamente el contacto.";
+      this.openMessageDialog();
+      this.showBorrarContacto = false;
+
+      this.buscarContactos();
     }, error => {
       if(error.status == 401)
       {
@@ -287,51 +467,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
       }
     }
     );
-  }
 
-  showPopupCambiarNroCelular(){
-    this.showCambiarNroCelular = true;
-    if(this.response.numeroCelularVerificado==='verificado'){
-      this.msjCambiarNroCelular = "El paciente ya se registró. No se enviará SMS de activación. El operador debe estar seguro de ingresar un número correcto.";
-    }else{
-      this.msjCambiarNroCelular = "El paciente no se registró aún. Se enviará SMS de activación.";
-    }
-    
-  }
-
-  closePopupCambiarNroCelular(){
-    this.nroCelularCambiar = '';
-    this.showCambiarNroCelular = false;
-  }
-
-  cambiarNroCelular(nroCelularCambiar){
-      this.loading = true;
-      let datosPaciente:any={};
-      datosPaciente.numeroCelular = nroCelularCambiar;
-      datosPaciente.numeroDocumento = this.cedulaObtenida;
-      datosPaciente.numeroCelularVerificado = this.response.numeroCelularVerificado;
-      this.service.cambiarNroCelular(datosPaciente).subscribe(response => {
-        this.loading = false;
-        this.mensaje = "Se ha cambiado correctamente el número de celular.";
-        this.openMessageDialog();
-      }, error => {
-        if(error.status == 401)
-        {
-          this._router.navigate(["/"]);
-        }
-        else
-        {
-          this.loading = false;
-          this.mensaje = error.error;
-          this.openMessageDialog();
-        }
-      }
-      );
-  }
-
-  irContactos(){
-    console.log(this.response.id);
-    this._router.navigate(["covid19/operador/contactos-paciente/", this.response.id, this.cedulaObtenida]);
   }
 
 }

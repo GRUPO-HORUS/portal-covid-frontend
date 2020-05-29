@@ -122,6 +122,7 @@ import { RptTramitesSinTag } from "./pages/reportes/rpt-tramites-sin-tag/rpt-tra
 import { RptListadoTmp } from "./pages/reportes/rpt-listado-tmp/rpt-listado-tmp.component";
 import { InfoServicios } from "./pages/ciudadano/carpeta-ciudadana/carpeta-ciudadana-data.component";
 import {ReporteNoUbicacionComponent} from "./pages/covid19/reporte-no-ubicacion/reporte-no-ubicacion.component";
+import { ContactosPaciente } from "./pages/covid19/contactos-paciente.component";
 
 //Listado de rutas para la aplicación
 export const appRoutes: Routes = [
@@ -232,6 +233,8 @@ export const appRoutes: Routes = [
   { path: "covid19/operador/toma-muestra-laboratorial", component: OperadorTomaMuestraLaboratorial},
 
   { path: "covid19/operador/toma-muestra-laboratorial/:cedula", component: OperadorTomaMuestraLaboratorial},
+
+  { path: "covid19/operador/contactos-paciente/:id/:cedula", component: ContactosPaciente},
 
   { path: "covid19/reportes/sin-ubicacion", component: ReporteNoUbicacionComponent},
 

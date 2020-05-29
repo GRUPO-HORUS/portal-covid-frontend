@@ -1,11 +1,13 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { AppConfig } from "app/app.config";
-import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject, Observable } from "rxjs";
+import { AppConfig } from "../../app/app.config";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
-import { HttpErrorHandler } from 'app/pages/identidad-electronica/model/http.error.handler';
+import { HttpErrorHandler } from '../../app/pages/identidad-electronica/model/http.error.handler';
 import { catchError } from '../../../node_modules/rxjs/operators';
-import { FormDatosBasicos } from "app/pages/covid19/model/formDatosBasicos.model";
+import { FormDatosBasicos } from "../../app/pages/covid19/model/formDatosBasicos.model";
+
+import {ContactoTable} from '../pages/covid19/model/contacto-table.model';
 
 @Injectable()
 export class Covid19Service {
@@ -13,6 +15,8 @@ export class Covid19Service {
   constructor(private config: AppConfig, private httpClient: HttpClient) {}
 
   handler: HttpErrorHandler = new HttpErrorHandler();
+
+  private loading = new BehaviorSubject<boolean>(false);
 
     sendMessage(phone: string): Observable<any[]>{
       return this.httpClient.get<any[]>(this.config.API +"/covid19/sendMessage?phone="+phone);
@@ -96,6 +100,40 @@ export class Covid19Service {
     cambiarNroCelular(datosPaciente): Observable<any> {
       return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/paciente/cambiarNroCelular', datosPaciente);
     }
+
+    getContactosPaciente(idPaciente:number, start: number, pageSize: number, filter: string, sortAsc: boolean,
+      sortField: string): Observable<ContactoTable> {
+     this.loading.next(true);
+  
+     let params = new HttpParams();
+        
+     if (idPaciente)
+       params = params.set('idPaciente', idPaciente.toString());
+
+     if (filter)
+       params = params.set('filter', filter);
+  
+     if (sortField)
+       params = params.set('sortField', sortField);
+  
+     params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
+     return this.httpClient.get<ContactoTable>(this.config.API + '/covid19/contactos/getContactosPaciente', {params});
+       /*return this.httpClient.get<ContactoTable>(this.config.API + '/covid19/contactos/getContactosPaciente', { params })
+       .pipe(finalize(() => { this.loading.next(false) }))
+       .pipe(catchError(this.handler.handleError<ContactoTable>('getContactosPaciente', new ContactoTable())));*/
+   }
+
+  borrarContacto(idContacto): Observable<any> {
+    return this.httpClient.post<string>(this.config.API + '/covid19/contactos/borrar', idContacto);
+  }
+
+  agregarContacto(contacto): Observable<any> {
+    return this.httpClient.post<string>(this.config.API + '/covid19/contactos', contacto);
+  }
+
+  editarContacto(contacto): Observable<any> {
+    return this.httpClient.post<string>(this.config.API + '/covid19/contactos/'+contacto.id, contacto);
+  }
 
  }
 
