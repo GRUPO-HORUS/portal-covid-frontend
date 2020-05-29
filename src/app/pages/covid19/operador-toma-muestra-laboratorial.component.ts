@@ -111,6 +111,8 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
       fechaPrevistaTomaMuestraLaboratorial: [null],
       localTomaMuestra:[null],
       tieneSintomas: [null],
+      fechaInicioSintoma: [null],
+      fechaExposicion: [null],
     });
     this._route.params.subscribe(params => {
       this.cedula = params["cedula"];
@@ -186,6 +188,9 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.reset();
 
     this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.setValue(this.response.tieneSintomas);
+    this.actualizarDiagnosticoFormGroup.controls.fechaInicioSintoma.setValue(this.response.fechaInicioSintoma);
+    this.actualizarDiagnosticoFormGroup.controls.fechaExposicion.setValue(this.response.fechaExposicion);
+
   }
 
   actualizarDiagnostico(): void {
@@ -204,6 +209,8 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     
 
     diagnostico.tieneSintomas = this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.value;
+    diagnostico.fechaInicioSintoma = diagnostico.tieneSintomas == 'Si' ? this.actualizarDiagnosticoFormGroup.controls.fechaInicioSintoma.value : null;
+    diagnostico.fechaExposicion =this.actualizarDiagnosticoFormGroup.controls.fechaExposicion.value;
 
     if((this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value && !diagnostico.localTomaMuestra) ||
       (!this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value && diagnostico.localTomaMuestra)){
@@ -227,6 +234,8 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
           
 
           this.response.tieneSintomas=this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.value;
+          this.response.fechaInicioSintoma = this.response.tieneSintomas == 'Si' ? this.actualizarDiagnosticoFormGroup.controls.fechaInicioSintoma.value : null;
+          this.response.fechaExposicion = this.actualizarDiagnosticoFormGroup.controls.fechaExposicion.value;
 
           this.openMessageDialog();
       }, error => {
@@ -303,7 +312,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     }else{
       this.msjCambiarNroCelular = "El paciente no se registró aún. Se enviará SMS de activación.";
     }
-    
+
   }
 
   closePopupCambiarNroCelular(){
