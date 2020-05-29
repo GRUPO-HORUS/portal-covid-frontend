@@ -3,9 +3,10 @@ import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import {ReporteSaludPaciente} from '../model/reporte-salud-paciente.model';
-import {PagedList} from './paged-list';
-import {FieldInfo} from './field-info';
+import {PagedList} from '../model/paged-list';
+import {FieldInfo} from '../model/field-info';
 import {flattenArray} from '../../../../util/flatten-array';
+import {FirstTime} from '../model/first-time';
 
 @Injectable({
   providedIn: 'root'
@@ -82,5 +83,21 @@ export class ReporteSaludPacienteService {
         return fields;
       })
     );
+  }
+
+  enviarReporteSalud(cedula: string, model: any): Observable<HttpResponse<any>> {
+    return this.http.post(this.url + '/cedula/' + cedula, model, {observe: "response"});
+  }
+
+  getFirstTime(cedula: string): Observable<FirstTime> {
+    return this.http.get<any>(this.url + '/primera-vez/' + cedula).pipe(
+      map(r => {
+        const f = new FirstTime();
+        f.debeReportarFiebreAyer = r.debeReportarFiebreAyer.toString();
+        f.esPrimeraVez = r.firstTime.toString();
+        return f;
+      }),
+    );
+
   }
 }

@@ -88,6 +88,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
   showCambiarNroCelular = false;
   msjCambiarNroCelular = '';
   nroCelularCambiar: string='';
+  private cedulaParam: string;
 
   constructor(
     private _router: Router,
@@ -115,6 +116,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     this._route.params.subscribe(params => {
       this.cedula = params["cedula"];
       if (this.cedula) {
+        this.cedulaParam = this.cedula;
         this.obtenerPersona(this.cedula);
       }
     });
@@ -123,6 +125,14 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
+    }
+  }
+
+  formSubmit(cedula) {
+    if (this.cedulaParam !== cedula){
+      this._router.navigate([this.cedulaParam ? '..': '.', cedula], {replaceUrl: true, relativeTo: this._route});
+    } else {
+      this.obtenerPersona(cedula);
     }
   }
 
@@ -201,7 +211,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     {
       diagnostico.localTomaMuestra=this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value.value;
     }
-    
+
 
     diagnostico.tieneSintomas = this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.value;
 
@@ -224,7 +234,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
           {
             this.response.localTomaMuestra=this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value.value;
           }
-          
+
 
           this.response.tieneSintomas=this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.value;
 
@@ -303,7 +313,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     }else{
       this.msjCambiarNroCelular = "El paciente no se registró aún. Se enviará SMS de activación.";
     }
-    
+
   }
 
   closePopupCambiarNroCelular(){
