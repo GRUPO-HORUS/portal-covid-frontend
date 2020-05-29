@@ -81,7 +81,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     clear: 'Borrar'
   };
 
-  public localTomaMuestraOptions=[{value:'Costanera',label:'Costanera'},{value:'San Lorenzo',label:'San Lorenzo'},{value:'A definir',label:'A definir'}];
+  public localTomaMuestraOptions=[{value:null,label:'No examen laboratorial'},{value:'Costanera',label:'Costanera'},{value:'San Lorenzo',label:'San Lorenzo'},{value:'A definir',label:'A definir'}];
 
   public tieneSintomasOptions=[{value:'Si',label:'Si'},{value:'No',label:'No'}];
 
@@ -109,12 +109,12 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
       fechaUltimoDiagnostico: [null,Validators.required],
       fechaPrevistaFinAislamiento: [null],
       fechaPrevistaTomaMuestraLaboratorial: [null],
-      localTomaMuestra:[''],
+      localTomaMuestra:[null],
       tieneSintomas: [null],
     });
     this._route.params.subscribe(params => {
       this.cedula = params["cedula"];
-      if(this.cedula !== undefined){
+      if (this.cedula) {
         this.obtenerPersona(this.cedula);
       }
     });
@@ -182,8 +182,8 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.setValue(this.response.fechaUltimoDiagnostico);
     this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.setValue(this.response.fechaPrevistaFinAislamiento);
 
-    this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.setValue(this.response.fechaPrevistaTomaMuestraLaboratorial);
-    this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.setValue(this.response.localTomaMuestra);
+    this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.reset();
+    this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.reset();
 
     this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.setValue(this.response.tieneSintomas);
   }
@@ -197,11 +197,15 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     diagnostico.fechaPrevistaFinAislamiento=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.value;
 
     diagnostico.fechaPrevistaTomaMuestraLaboratorial=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value;
-    diagnostico.localTomaMuestra=this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value;
+    if(this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value)
+    {
+      diagnostico.localTomaMuestra=this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value.value;
+    }
+    
 
     diagnostico.tieneSintomas = this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.value;
 
-    if((this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value && !diagnostico.localTomaMuestra) || 
+    if((this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value && !diagnostico.localTomaMuestra) ||
       (!this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value && diagnostico.localTomaMuestra)){
         this.loading = false;
         this.mensaje = "Favor completar fecha prevista y local de toma de muestra.";
@@ -216,7 +220,11 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
           this.response.fechaPrevistaFinAislamiento=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.value;
 
           this.response.fechaPrevistaTomaMuestraLaboratorial=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value;
-          this.response.localTomaMuestra=this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value;
+          if(this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value)
+          {
+            this.response.localTomaMuestra=this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value.value;
+          }
+          
 
           this.response.tieneSintomas=this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.value;
 

@@ -104,9 +104,17 @@
             </tr>
           </ng-template>
           <ng-template pTemplate="emptymessage" let-columns>
-            <tr *ngIf="!loading">
+            <tr>
               <td [attr.colspan]="columns.length">
-                Sin registros
+                <span *ngIf="!loading && !error">
+                  Sin registros
+                </span>
+                <span *ngIf="loading">
+                  Cargando
+                </span>
+                <span *ngIf="!loading && error">
+                  Ocurrió un error al cargar los datos
+                </span>
               </td>
             </tr>
           </ng-template>

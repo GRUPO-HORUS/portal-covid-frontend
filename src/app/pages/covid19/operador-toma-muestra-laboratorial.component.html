@@ -68,7 +68,7 @@
                                 <br>
                                 Existe Agendamiento Laboratorial:<span style="color:green;" *ngIf="response.fechaPrevistaTomaMuestraLaboratorial"><strong>SI</strong></span><span style="color:red;" *ngIf="!response.fechaPrevistaTomaMuestraLaboratorial"><strong>NO</strong></span>
                                 <br>
-                                <span *ngIf="response.fechaPrevistaTomaMuestraLaboratorial">Fecha Prevista para Toma de Muestra: {{response.fechaPrevistaTomaMuestraLaboratorial}}</span>
+                                <span *ngIf="response.fechaPrevistaTomaMuestraLaboratorial">Última Fecha Prevista para Toma de Muestra: {{response.fechaPrevistaTomaMuestraLaboratorial}}</span>
                                 <br>
                                 <span *ngIf="response.localTomaMuestra">Local para Toma de Muestra: {{response.localTomaMuestra}}</span>
                                 <br>
@@ -81,7 +81,7 @@
                                     <span class="fa fa-check"></span>
                                 </button>&nbsp;
                                 <button (click)="showPopupCambiarNroCelular()" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')" [disabled]="loading">
-                                    Cambiar Nro Celular
+                                    Cambiar &#8470; Celular
                                     <span class="fa fa-check"></span>
                                 </button>&nbsp;
                                 <button (click)="irContactos()" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')" [disabled]="loading">
@@ -237,7 +237,7 @@
                     <label for="localTomaMuestra">Local de toma de muestra</label>
                     <br>
                     <!--<input type="text" formControlName="localTomaMuestra" name="localTomaMuestra" class="form-control" style="max-width: 175px;" id="localTomaMuestra">-->
-                    <p-dropdown id="localTomaMuestra" [options]="localTomaMuestraOptions" label="label" placeholder="Seleccionar" formControlName="localTomaMuestra" name="localTomaMuestra"></p-dropdown><!--[style]="{'width':'300px'}"-->
+                    <p-dropdown id="localTomaMuestra" [options]="localTomaMuestraOptions" optionLabel="label" formControlName="localTomaMuestra"></p-dropdown><!--[style]="{'width':'300px'}"-->
                 </div>
                 <!---->
 
