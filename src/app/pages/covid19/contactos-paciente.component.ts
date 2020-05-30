@@ -135,7 +135,7 @@ export class ContactosPaciente implements OnInit {
       apellidos: [null,Validators.required],
       telefono: [null,Validators.required],
       domicilio: [null,Validators.required],
-      fechaUltimoContacto: [null],
+      fechaUltimoContacto: [null,Validators.required],
       paciente: [null],
       tipo: [null,Validators.required],
     });
@@ -229,26 +229,6 @@ buscarContactos(){
     }
   }
 
-  showPopupActualizarDiagnostico()
-  {
-    this.showActualizarDiagnostico=true;
-    for(let resultadoUltimoDiagnostico of this.resultadoUltimoDiagnosticoOptions)
-    {
-      if(this.response.resultadoUltimoDiagnostico==resultadoUltimoDiagnostico.value)
-      {
-        this.actualizarDiagnosticoFormGroup.controls.resultadoUltimoDiagnostico.setValue(resultadoUltimoDiagnostico);
-        break;
-      }
-    }
-    this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.setValue(this.response.fechaUltimoDiagnostico);
-    this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.setValue(this.response.fechaPrevistaFinAislamiento);
-
-    this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.setValue(this.response.fechaPrevistaTomaMuestraLaboratorial);
-    this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.setValue(this.response.localTomaMuestra);
-
-    this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.setValue(this.response.tieneSintomas);
-  }
-
   actualizarDiagnostico(): void {
     this.loading = true;
     let diagnostico:any={};
@@ -320,7 +300,6 @@ buscarContactos(){
   }
 
   volver() {
-    //covid19/operador/toma-muestra-laboratorial/:cedula
     //this._location.back();
     this._router.navigate(["covid19/operador/toma-muestra-laboratorial/", this.cedulaPaciente]);
   }

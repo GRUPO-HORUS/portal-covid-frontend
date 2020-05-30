@@ -49,11 +49,14 @@
     paginatorPosition="bottom" [resizableColumns]="true" columnResizeMode="expand">
 
           <ng-template pTemplate="caption">
-              <div class="ui-helper-clearfix" style="text-align: right">
-                  <!--<button type="button" pButton icon="pi pi-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;" [disabled]="totalRecords===0"></button>
-                  <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="XLS" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success" [disabled]="totalRecords===0"></button>
-                  <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning" [disabled]="totalRecords===0"></button>-->
+               <div style="text-align: left;width:auto;">
+                    <input type="text" pInputText style="width:500px;" placeholder="Filtrar Contactos por Nro de documento, nombres o apellidos" (input)="dt.filterGlobal($event.target.value, 'contains')">
               </div>
+              <!--<div class="ui-helper-clearfix" style="text-align: right">
+                  <button type="button" pButton icon="pi pi-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;" [disabled]="totalRecords===0"></button>
+                  <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="XLS" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success" [disabled]="totalRecords===0"></button>
+                  <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning" [disabled]="totalRecords===0"></button>
+              </div>-->
            </ng-template>
            <ng-template pTemplate="header" let-columns>
                 <tr>
@@ -179,32 +182,32 @@
             </div>
             <p-dialog [(visible)]="showEditarContacto" [formGroup]="agregarContactoFormGroup" modal="true" header="Editar Contacto">
                 <div class="form-group">
-                    <label for="nroDocumento"><strong>Número de Documento</strong></label>
+                    <label for="nroDocumento"><strong>Número de Documento</strong><span class="text-danger">*</span></label>
                     <input type="text" formControlName="nroDocumento" name="nroDocumento" class="form-control" style="max-width: 400px;" id="nroDocumento" required>
                 </div>
                 <div class="form-group">
-                        <label for="nombres"><strong>Nombres</strong></label>
+                        <label for="nombres"><strong>Nombres</strong><span class="text-danger">*</span></label>
                         <input type="text" formControlName="nombres" name="nombres" class="form-control" style="max-width: 400px;" id="nombres" required>
                 </div>
                 <div class="form-group">
-                    <label for="apellidos"><strong>Apellidos</strong></label>
+                    <label for="apellidos"><strong>Apellidos</strong><span class="text-danger">*</span></label>
                     <input type="text" formControlName="apellidos" name="apellidos" class="form-control" style="max-width: 400px;" id="apellidos" required>
                 </div>
                 <div class="form-group">
-                    <label for="telefono"><strong>Teléfono</strong></label>
-                    <input type="text" formControlName="telefono" name="telefono" class="form-control" style="max-width: 400px;" id="telefono" required>
+                    <label for="telefono"><strong>Teléfono</strong><span class="text-danger">*</span></label>
+                    <input type="text" formControlName="telefono" name="telefono" class="form-control" style="max-width: 400px;" id="telefono" placeholder="Introducir mínimo 9 números" minlength="9" required>
                 </div>
                 <div class="form-group">
-                    <label for="domicilio"><strong>Domicilio</strong></label>
+                    <label for="domicilio"><strong>Domicilio</strong><span class="text-danger">*</span></label>
                     <input type="text" formControlName="domicilio" name="domicilio" class="form-control" style="max-width: 400px;" id="domicilio" required>
                 </div>
                 <div class="form-group">
-                    <label for="fechaUltimoContacto">Fecha Último Contacto</label>
+                    <label for="fechaUltimoContacto">Fecha Último Contacto<span class="text-danger">*</span></label>
                     <br>
                     <p-calendar formControlName="fechaUltimoContacto" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaUltimoContacto"></p-calendar>
                 </div>
                 <div class="form-group">
-                    <label for="tipo"><strong>Tipo</strong></label>
+                    <label for="tipo"><strong>Tipo</strong><span class="text-danger">*</span></label>
                     <input type="text" formControlName="tipo" name="tipo" class="form-control" style="max-width: 400px;" id="tipo" required>
                 </div>
                 <div>
@@ -222,32 +225,32 @@
 
             <p-dialog [(visible)]="showAgregarContacto" [formGroup]="agregarContactoFormGroup" modal="true" header="Agregar Contacto">
                 <div class="form-group">
-                    <label for="nroDocumento"><strong>Número de Documento</strong></label>
+                    <label for="nroDocumento"><strong>Número de Documento</strong><span class="text-danger">*</span></label>
                     <input type="text" formControlName="nroDocumento" name="nroDocumento" class="form-control" style="max-width: 300px;" id="nroDocumento" required>
                 </div>
                 <div class="form-group">
-                        <label for="nombres"><strong>Nombres</strong></label>
+                        <label for="nombres"><strong>Nombres</strong><span class="text-danger">*</span></label>
                         <input type="text" formControlName="nombres" name="nombres" class="form-control" style="max-width: 300px;" id="nombres" required>
                 </div>
                 <div class="form-group">
-                    <label for="apellidos"><strong>Apellidos</strong></label>
+                    <label for="apellidos"><strong>Apellidos</strong><span class="text-danger">*</span></label>
                     <input type="text" formControlName="apellidos" name="apellidos" class="form-control" style="max-width: 300px;" id="apellidos" required>
                 </div>
                 <div class="form-group">
-                    <label for="telefono"><strong>Teléfono</strong></label>
-                    <input type="text" formControlName="telefono" name="telefono" class="form-control" style="max-width: 300px;" id="telefono" required>
+                    <label for="telefono"><strong>Teléfono</strong><span class="text-danger">*</span></label>
+                    <input type="text" formControlName="telefono" name="telefono" class="form-control" style="max-width: 300px;" id="telefono" placeholder="Introducir mínimo 9 números" minlength="9" required>
                 </div>
                 <div class="form-group">
-                    <label for="domicilio"><strong>Domicilio</strong></label>
+                    <label for="domicilio"><strong>Domicilio</strong><span class="text-danger">*</span></label>
                     <input type="text" formControlName="domicilio" name="domicilio" class="form-control" style="max-width: 300px;" id="domicilio" required>
                 </div>
                 <div class="form-group">
-                    <label for="fechaUltimoContacto">Fecha Último Contacto</label>
+                    <label for="fechaUltimoContacto">Fecha Último Contacto<span class="text-danger">*</span></label>
                     <br>
                     <p-calendar formControlName="fechaUltimoContacto" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaUltimoContacto"></p-calendar>
                 </div>
                 <div class="form-group">
-                    <label for="tipo"><strong>Tipo</strong></label>
+                    <label for="tipo"><strong>Tipo</strong><span class="text-danger">*</span></label>
                     <input type="text" formControlName="tipo" name="tipo" class="form-control" style="max-width: 300px;" id="tipo" required>
                 </div>
 
