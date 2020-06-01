@@ -8,7 +8,7 @@ import {Message} from 'primeng/api';
 import {ReporteNoUbicacionModel} from '../reporte-no-ubicacion/model/reporte-no-ubicacion.model';
 import {ReporteNoUbicacionSearch} from '../reporte-no-ubicacion/model/reporte-no-ubicacion.search';
 import {Table} from 'primeng/table';
-import {PagedList} from './shared/paged-list';
+import {PagedList} from './model/paged-list';
 import {DatePipe, Location} from '@angular/common';
 import {saveAs} from 'file-saver';
 

@@ -3,7 +3,10 @@ import {HttpClient, HttpParams, HttpResponse} from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
 import {ReporteSaludPaciente} from '../model/reporte-salud-paciente.model';
-import {PagedList} from './paged-list';
+import {PagedList} from '../model/paged-list';
+import {FieldInfo} from '../model/field-info';
+import {flattenArray} from '../../../../util/flatten-array';
+import {FirstTime} from '../model/first-time';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +68,36 @@ export class ReporteSaludPacienteService {
       .pipe(map((data: HttpResponse<Blob>) => {
         return new Blob([data.body], { type: 'text/csv;charset=utf-8' });
       }));
+
+  }
+
+  getForm(): Observable<FieldInfo[]> {
+    return this.http.get<FieldInfo[][]>(this.url + "/form").pipe(
+      map(fieldsArr =>  {
+        const fields = flattenArray(fieldsArr);
+        for (let f of fields) {
+          if (typeof(f.optionsSource) === 'string' && (<string>f.optionsSource).startsWith("[")) {
+            f.optionsSource = JSON.parse(f.optionsSource);
+          }
+        }
+        return fields;
+      })
+    );
+  }
+
+  enviarReporteSalud(cedula: string, model: any): Observable<HttpResponse<any>> {
+    return this.http.post(this.url + '/cedula/' + cedula, model, {observe: "response"});
+  }
+
+  getFirstTime(cedula: string): Observable<FirstTime> {
+    return this.http.get<any>(this.url + '/primera-vez/' + cedula).pipe(
+      map(r => {
+        const f = new FirstTime();
+        f.debeReportarFiebreAyer = r.debeReportarFiebreAyer.toString();
+        f.esPrimeraVez = r.firstTime.toString();
+        return f;
+      }),
+    );
 
   }
 }
