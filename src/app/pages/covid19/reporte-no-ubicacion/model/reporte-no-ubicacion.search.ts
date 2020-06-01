@@ -1,11 +1,12 @@
 export class ReporteNoUbicacionSearch {
   resultadoUltimoDiagnostico: string;
   motivoIngreso: string;
-  horaRetraso: number;
+  horaRetrasoMinimo: number;
+  horaRetrasoMaximo: number = null;
 
   constructor() {
     this.resultadoUltimoDiagnostico = null;
     this.motivoIngreso = null;
-    this.horaRetraso = null;
+    this.horaRetrasoMinimo = null;
   }
 }
