@@ -103,6 +103,14 @@
                   Actualizar Estado de Salud
                   <span class="fa fa-check"></span>
                 </button>
+                <button style="margin-left: 16px;"
+                        [routerLink]="'/covid19/ultimo-reporte-salud/' + cedulaObtenida"
+                        class="btn btn-success btn-success-next"
+                        *ngIf="hasRol('Operador') && response.fechaUltimoReporteSalud"
+                        [disabled]="loading">
+                  Ver Último Reporte de Estado de Salud
+                  <span class="fa fa-check"></span>
+                </button>
 
               </div>
 

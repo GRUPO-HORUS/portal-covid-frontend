@@ -23,4 +23,5 @@ export class ReporteSaludPaciente {
   sentisTristeDesanimado: string;
   sentisAngustia: string;
   timestampCreacion: string;
+  esPrimeraVez: string;
 }

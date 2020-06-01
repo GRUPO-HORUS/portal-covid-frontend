@@ -100,4 +100,8 @@ export class ReporteSaludPacienteService {
     );
 
   }
+
+  getUltimoReporte(cedula: string): Observable<ReporteSaludPaciente> {
+    return this.http.get<ReporteSaludPaciente>(this.url + '/ultimo-reporte/' + cedula);
+  }
 }
