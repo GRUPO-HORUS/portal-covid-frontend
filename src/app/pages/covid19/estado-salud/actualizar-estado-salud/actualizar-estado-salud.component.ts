@@ -2,11 +2,11 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {catchError, distinctUntilChanged, finalize, map, share, switchMap, takeUntil, tap, withLatestFrom} from 'rxjs/operators';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {combineLatest, EMPTY, Observable, of, Subject} from 'rxjs';
-import {calendarEsLocale} from '../../../util/calendar-es-locale';
-import {FieldInfo} from '../historico-salud/model/field-info';
-import {ReporteSaludPacienteService} from '../historico-salud/shared/reporte-salud-paciente.service';
+import {calendarEsLocale} from '../../../../util/calendar-es-locale';
+import {FieldInfo} from '../model/field-info';
+import {ReporteSaludPacienteService} from '../shared/reporte-salud-paciente.service';
 import {Location} from '@angular/common';
-import {FirstTime} from '../historico-salud/model/first-time';
+import {FirstTime} from '../model/first-time';
 import {HttpErrorResponse, HttpResponseBase} from '@angular/common/http';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
@@ -18,19 +18,10 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 export class ActualizarEstadoSaludComponent implements OnInit, OnDestroy {
   private cedula$: Observable<string>;
 
-  readonly es = calendarEsLocale;
 
   fields$: Observable<FieldInfo[]>;
   private onDestroy$ = new Subject<void>();
 
-  model$: Observable<any>;
-  readonly smileyOptions = [
-    {id: '1', descripcion: 'Muy poco'},
-    {id: '2', descripcion: 'Poco'},
-    {id: '3', descripcion: 'Ni mucho ni poco'},
-    {id: '4', descripcion: 'Algo'},
-    {id: '5', descripcion: 'Mucho'},
-  ];
   loading: boolean;
   private saveClick$ = new Subject<void>();
   errores: any;
@@ -140,11 +131,6 @@ export class ActualizarEstadoSaludComponent implements OnInit, OnDestroy {
     this.onDestroy$.complete();
   }
 
-  showField(field: FieldInfo, model: any): boolean {
-    return field.conditions ? field.conditions.map(
-      c => model[c.fieldName] === c.fieldValue
-    ).every(x => x) : true;
-  }
 
   getPrimeraVez(cedula: string): Observable<FirstTime>{
     return this.reporteSaludPacienteService.getFirstTime(cedula).pipe(
