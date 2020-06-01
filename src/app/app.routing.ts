@@ -122,7 +122,10 @@ import { RptTramitesSinTag } from "./pages/reportes/rpt-tramites-sin-tag/rpt-tra
 import { RptListadoTmp } from "./pages/reportes/rpt-listado-tmp/rpt-listado-tmp.component";
 import { InfoServicios } from "./pages/ciudadano/carpeta-ciudadana/carpeta-ciudadana-data.component";
 import {ReporteNoUbicacionComponent} from "./pages/covid19/reporte-no-ubicacion/reporte-no-ubicacion.component";
-import {HistoricoSaludComponent} from './pages/covid19/historico-salud/historico-salud.component';
+import {HistoricoSaludComponent} from './pages/covid19/estado-salud/historico-salud/historico-salud.component';
+import {HeaderBaseComponent} from './pages/covid19/header-base/header-base.component';
+import {ActualizarEstadoSaludComponent} from './pages/covid19/estado-salud/actualizar-estado-salud/actualizar-estado-salud.component';
+import {VisualizarEstadoSaludComponent} from './pages/covid19/estado-salud/visualizar-estado-salud/visualizar-estado-salud.component';
 
 //Listado de rutas para la aplicación
 export const appRoutes: Routes = [
@@ -235,6 +238,7 @@ export const appRoutes: Routes = [
   { path: "covid19/operador/toma-muestra-laboratorial/:cedula", component: OperadorTomaMuestraLaboratorial},
 
   { path: "covid19",
+    component: HeaderBaseComponent,
     children: [
       {
         path: "reportes/sin-ubicacion",
@@ -243,6 +247,14 @@ export const appRoutes: Routes = [
       {
         path: "historico-salud/:cedula",
         component: HistoricoSaludComponent,
+      },
+      {
+        path: "actualizar-salud/:cedula",
+        component: ActualizarEstadoSaludComponent,
+      },
+      {
+        path: "ultimo-reporte-salud/:cedula",
+        component: VisualizarEstadoSaludComponent,
       },
     ],
   },

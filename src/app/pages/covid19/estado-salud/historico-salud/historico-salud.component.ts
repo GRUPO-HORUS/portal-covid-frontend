@@ -2,13 +2,13 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {catchError, distinctUntilChanged, finalize, map, share, startWith, switchMap, takeUntil, tap, withLatestFrom} from 'rxjs/operators';
 import {BehaviorSubject, combineLatest, fromEvent, Observable, Subject, Subscription} from 'rxjs';
-import {ReporteSaludPaciente} from './model/reporte-salud-paciente.model';
-import {ReporteSaludPacienteService} from './shared/reporte-salud-paciente.service';
+import {ReporteSaludPaciente} from '../model/reporte-salud-paciente.model';
+import {ReporteSaludPacienteService} from '../shared/reporte-salud-paciente.service';
 import {Message} from 'primeng/api';
-import {ReporteNoUbicacionModel} from '../reporte-no-ubicacion/model/reporte-no-ubicacion.model';
-import {ReporteNoUbicacionSearch} from '../reporte-no-ubicacion/model/reporte-no-ubicacion.search';
+import {ReporteNoUbicacionModel} from '../../reporte-no-ubicacion/model/reporte-no-ubicacion.model';
+import {ReporteNoUbicacionSearch} from '../../reporte-no-ubicacion/model/reporte-no-ubicacion.search';
 import {Table} from 'primeng/table';
-import {PagedList} from './shared/paged-list';
+import {PagedList} from '../model/paged-list';
 import {DatePipe, Location} from '@angular/common';
 import {saveAs} from 'file-saver';
 

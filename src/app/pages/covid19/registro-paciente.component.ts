@@ -6,6 +6,7 @@ import { Covid19Service } from '../../services/Covid19Service';
 import {FormDatosBasicos} from './model/formDatosBasicos.model';
 
 import { DomSanitizer } from "@angular/platform-browser";
+import {calendarEsLocale} from '../../util/calendar-es-locale';
 
 declare var $: any;
 @Component({
@@ -21,7 +22,7 @@ export class RegistroPacienteComponent implements OnInit {
   //Formulario
   public formDatosBasicos: FormDatosBasicos;
 
-  // datos del formulario 
+  // datos del formulario
   public cedula: string;
   public email: string;
   public domicilio: string;
@@ -69,23 +70,14 @@ export class RegistroPacienteComponent implements OnInit {
                               {value:'Amambay',label:'Amambay'},{value:'Canindeyú',label:'Canindeyú'},
                               {value:'Presidente Hayes',label:'Presidente Hayes'},{value:'Alto Paraguay',label:'Alto Paraguay'},
                               {value:'Boquerón',label:'Boquerón'}];
-  
+
   public ciudadOptions: any[];
 
   public localTomaMuestraOptions=[{value:'Costanera',label:'Costanera'},{value:'San Lorenzo',label:'San Lorenzo'},{value:'A definir',label:'A definir'}];
 
   public localTomaMuestra:string;
 
-  es = {
-    firstDayOfWeek: 0,
-    dayNames: [ "domingo","lunes","martes","miércoles","jueves","viernes","sábado" ],
-    dayNamesShort: [ "dom","lun","mar","mié","jue","vie","sáb" ],
-    dayNamesMin: [ "D","L","M","M","J","V","S" ],
-    monthNames: [ "enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre" ],
-    monthNamesShort: [ "ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic" ],
-    today: 'Hoy',
-    clear: 'Borrar'
-  };
+  es = calendarEsLocale;
 
   constructor(
     private _router: Router,
@@ -113,17 +105,17 @@ export class RegistroPacienteComponent implements OnInit {
     this.service.getCiudadesPorDepto(event.value).subscribe(ciudades => {
       console.log(ciudades);
       this.ciudadOptions = ciudades;
-      
+
         for (let i = 0; i < ciudades.length; i++) {
           let c = ciudades[i];
           this.ciudadOptions[i] = { label: c.descripcion, value: c.idCiudad };
         }
-        
+
     }, error => {
       console.log(error);
       this.mensaje = error.error;
       this.openMessageDialog();
-        
+
     }
     );
   }
@@ -150,7 +142,7 @@ export class RegistroPacienteComponent implements OnInit {
       this.openMessageDialog();
       return;
     }
-    
+
 
     if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.apellido)!=formDatosBasicos.apellido)
     {
@@ -249,7 +241,7 @@ export class RegistroPacienteComponent implements OnInit {
     localStorage.setItem('email', formDatosBasicos.correoElectronico);
 
     localStorage.setItem('localTomaMuestra', localTomaMuestra);
-    
+
       this.loading = true;
       this.service.registrarPaciente(formDatosBasicos, localTomaMuestra).subscribe(response => {
             console.log(response);
@@ -300,12 +292,12 @@ export class RegistroPacienteComponent implements OnInit {
           }
         );
   }
-  
+
   openMessageDialog() {
     setTimeout(function() { $("#miModal").modal("toggle"); }, 1000);
   }
 
-  keyPress(event: any) { 
+  keyPress(event: any) {
     const pattern = /[0-9\+\ ]/;
     let inputChar = String.fromCharCode(event.charCode);
     if (pattern.test(inputChar)) {
