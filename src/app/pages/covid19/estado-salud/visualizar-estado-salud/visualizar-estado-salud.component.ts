@@ -17,7 +17,7 @@ import {ReporteSaludPaciente} from '../model/reporte-salud-paciente.model';
 })
 export class VisualizarEstadoSaludComponent implements OnInit, OnDestroy {
 
-  private cedula$: Observable<string>;
+  cedula$: Observable<string>;
 
 
   fields$: Observable<FieldInfo[]>;

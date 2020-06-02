@@ -16,7 +16,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
   styleUrls: ['./actualizar-estado-salud.component.css']
 })
 export class ActualizarEstadoSaludComponent implements OnInit, OnDestroy {
-  private cedula$: Observable<string>;
+  cedula$: Observable<string>;
 
 
   fields$: Observable<FieldInfo[]>;

@@ -33,7 +33,7 @@ export class HistoricoSaludComponent implements OnInit, OnDestroy {
   filterList: string[] = [];
   advancedSearch: ReporteNoUbicacionSearch;
 
-  private cedula$: Observable<string>;
+  cedula$: Observable<string>;
   historico$: Observable<ReporteSaludPaciente[]>;
   private load$: Observable<any>;
   start$: Observable<number>;
