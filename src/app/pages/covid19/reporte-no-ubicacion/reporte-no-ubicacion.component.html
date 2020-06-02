@@ -1,6 +1,48 @@
 <p-growl [value]="msgs" sticky="sticky"></p-growl>
 <div class="ui-fluid">
   <div class="ui-g">
+    <p-blockUI [target]="table" [blocked]="block">
+      <p-progressSpinner class="spinner-position"></p-progressSpinner>
+    </p-blockUI>
+
+    <p-overlayPanel #op [dismissable]="false">
+      <form>
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12 ui-md-6">
+            <p-dropdown [options]="tipoPacienteList" [(ngModel)]="advancedSearch.resultadoUltimoDiagnostico" appendTo="body"
+                        [showClear]="true" [style]="{'width':'100%'}" name="tipoPaciente" placeholder="Tipo de Paciente"
+                        optionLabel="descripcion"></p-dropdown>
+          </div>
+          <div class="ui-g-12 ui-md-6">
+            <p-dropdown [options]="motivoIngresoList" [(ngModel)]="advancedSearch.motivoIngreso" placeholder="Motivo de Ingreso"
+                        [showClear]="true" [style]="{'width':'100%'}" name="motivoIngreso" appendTo="body"
+                        optionLabel="descripcion"></p-dropdown>
+          </div>
+        </div>
+        <div class="ui-g ui-fluid">
+          <div class="ui-g-12 ui-md-6">
+            <p-spinner type="number" size="30" [(ngModel)]="advancedSearch.horaRetrasoMinimo" placeholder="Horas de retraso mínimo"
+                       [min]="0" name="horaRetrasoMinimo"></p-spinner>
+          </div>
+          <div class="ui-g-12 ui-md-6">
+            <p-spinner type="number" size="30" [(ngModel)]="advancedSearch.horaRetrasoMaximo" placeholder="Horas de retraso máximo"
+                       [min]="0" name="horaRetrasoMaximo"></p-spinner>
+          </div>
+        </div>
+        <div class="div-action">
+          <button type="button" pButton style="width: 120px;"
+                  class="ui-button-secondary"
+                  label="Cancelar" (click)="cancelSearch()"></button>
+          <button type="button" pButton style="width: 120px;"
+                  class="ui-button-secondary"
+                  label="Limpiar" (click)="resetAdvancedSearch()"></button>
+          <button type="button" pButton style="width: 120px;"
+                  class="btn btn-success btn-success-next"
+                  label="Buscar" (click)="onSearch()"></button>
+        </div>
+      </form>
+    </p-overlayPanel>
+
     <div class="ui-g-12">
       <div class="card ui-shadow-2">
         <h3 class="title-divider text-primary">
@@ -89,38 +131,4 @@
       </div>
     </div>
   </div>
-
-  <p-overlayPanel #op [dismissable]="false">
-    <form>
-      <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-md-6">
-          <p-dropdown [options]="tipoPacienteList" [(ngModel)]="advancedSearch.resultadoUltimoDiagnostico" appendTo="body"
-                      [showClear]="true" [style]="{'width':'100%'}" name="tipoPaciente" placeholder="Tipo de Paciente"
-                      optionLabel="descripcion"></p-dropdown>
-        </div>
-        <div class="ui-g-12 ui-md-6">
-          <p-dropdown [options]="motivoIngresoList" [(ngModel)]="advancedSearch.motivoIngreso" placeholder="Motivo de Ingreso"
-                      [showClear]="true" [style]="{'width':'100%'}" name="motivoIngreso" appendTo="body"
-                      optionLabel="descripcion"></p-dropdown>
-        </div>
-      </div>
-      <div class="ui-g ui-fluid">
-        <div class="ui-g-12 ui-md-6">
-          <p-spinner type="number" size="30" [(ngModel)]="advancedSearch.horaRetraso" placeholder="Horas de retraso"
-                     [min]="0" name="horaRetraso"></p-spinner>
-        </div>
-      </div>
-      <div class="div-action">
-        <button type="button" pButton style="width: 120px;"
-                class="ui-button-secondary"
-                label="Cancelar" (click)="cancelSearch()"></button>
-        <button type="button" pButton style="width: 120px;"
-                class="ui-button-secondary"
-                label="Limpiar" (click)="resetAdvancedSearch()"></button>
-        <button type="button" pButton style="width: 120px;"
-                class="btn btn-success btn-success-next"
-                label="Buscar" (click)="onSearch()"></button>
-      </div>
-    </form>
-  </p-overlayPanel>
-
+</div>
