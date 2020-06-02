@@ -115,6 +115,8 @@ import { HeaderBaseComponent } from './pages/covid19/header-base/header-base.com
 import { FormBaseComponent } from './pages/covid19/estado-salud/form-base/form-base.component';
 import { VisualizarEstadoSaludComponent } from './pages/covid19/estado-salud/visualizar-estado-salud/visualizar-estado-salud.component';
 
+import { ContactosPaciente } from "./pages/covid19/contactos-paciente.component";
+
 /*
   @autor:
   @date: 29/06/2017
@@ -163,7 +165,8 @@ import { VisualizarEstadoSaludComponent } from './pages/covid19/estado-salud/vis
     ActualizarEstadoSaludComponent,
     HeaderBaseComponent,
     FormBaseComponent,
-    VisualizarEstadoSaludComponent
+    VisualizarEstadoSaludComponent,
+    ContactosPaciente,
   ],
   // dependencias de módulos
   imports: [

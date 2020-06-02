@@ -126,6 +126,7 @@ import {HistoricoSaludComponent} from './pages/covid19/estado-salud/historico-sa
 import {HeaderBaseComponent} from './pages/covid19/header-base/header-base.component';
 import {ActualizarEstadoSaludComponent} from './pages/covid19/estado-salud/actualizar-estado-salud/actualizar-estado-salud.component';
 import {VisualizarEstadoSaludComponent} from './pages/covid19/estado-salud/visualizar-estado-salud/visualizar-estado-salud.component';
+import { ContactosPaciente } from "./pages/covid19/contactos-paciente.component";
 
 //Listado de rutas para la aplicación
 export const appRoutes: Routes = [
@@ -236,6 +237,8 @@ export const appRoutes: Routes = [
   { path: "covid19/operador/toma-muestra-laboratorial", component: OperadorTomaMuestraLaboratorial},
 
   { path: "covid19/operador/toma-muestra-laboratorial/:cedula", component: OperadorTomaMuestraLaboratorial},
+
+  { path: "covid19/operador/contactos-paciente/:id/:cedula", component: ContactosPaciente},
 
   { path: "covid19",
     component: HeaderBaseComponent,
