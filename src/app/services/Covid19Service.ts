@@ -135,6 +135,10 @@ export class Covid19Service {
     return this.httpClient.post<string>(this.config.API + '/covid19/contactos/'+contacto.id, contacto);
   }
 
+  crearExamenLaboratorial(examen): Observable<any> {
+    return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/paciente/crearExamenLaboratorial', examen);
+  }
+
  }
 
 

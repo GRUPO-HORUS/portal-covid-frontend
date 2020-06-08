@@ -105,6 +105,8 @@ export class ContactosPaciente implements OnInit {
   showEditarContacto: boolean = false;
   public cedulaPaciente: string;
 
+  hoy: Date;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -307,6 +309,7 @@ buscarContactos(){
   mostrarEditarContacto(contacto){
     this.showEditarContacto = true;
     this.idContacto = contacto.id;
+    this.hoy = new Date();
 
     this.agregarContactoFormGroup.controls.nroDocumento.setValue(contacto.nroDocumento);
     this.agregarContactoFormGroup.controls.nombres.setValue(contacto.nombres);
@@ -368,10 +371,18 @@ buscarContactos(){
 
   mostrarAgregarContacto(){
     this.showAgregarContacto = true;
+    this.hoy = new Date();
   }
 
   closeAgregarContacto(){
     this.showAgregarContacto = false;
+    this.agregarContactoFormGroup.controls.nroDocumento.setValue(null);
+    this.agregarContactoFormGroup.controls.nombres.setValue(null);
+    this.agregarContactoFormGroup.controls.apellidos.setValue(null);
+    this.agregarContactoFormGroup.controls.telefono.setValue(null);
+    this.agregarContactoFormGroup.controls.domicilio.setValue(null);
+    this.agregarContactoFormGroup.controls.fechaUltimoContacto.setValue(null);
+    this.agregarContactoFormGroup.controls.tipo.setValue(null);
   }
 
   agregarContacto(){
@@ -396,6 +407,13 @@ buscarContactos(){
       this.mensaje = "Se ha creado correctamente el contacto.";
       this.openMessageDialog();
       this.showAgregarContacto = false;
+      this.agregarContactoFormGroup.controls.nroDocumento.setValue(null);
+      this.agregarContactoFormGroup.controls.nombres.setValue(null);
+      this.agregarContactoFormGroup.controls.apellidos.setValue(null);
+      this.agregarContactoFormGroup.controls.telefono.setValue(null);
+      this.agregarContactoFormGroup.controls.domicilio.setValue(null);
+      this.agregarContactoFormGroup.controls.fechaUltimoContacto.setValue(null);
+      this.agregarContactoFormGroup.controls.tipo.setValue(null);
 
       this.buscarContactos();
     }, error => {

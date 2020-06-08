@@ -204,7 +204,7 @@
                 <div class="form-group">
                     <label for="fechaUltimoContacto">Fecha Último Contacto<span class="text-danger">*</span></label>
                     <br>
-                    <p-calendar formControlName="fechaUltimoContacto" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaUltimoContacto"></p-calendar>
+                    <p-calendar formControlName="fechaUltimoContacto" [maxDate]="hoy" [readonlyInput]="true" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaUltimoContacto"></p-calendar>
                 </div>
                 <div class="form-group">
                     <label for="tipo"><strong>Tipo</strong><span class="text-danger">*</span></label>
@@ -247,7 +247,7 @@
                 <div class="form-group">
                     <label for="fechaUltimoContacto">Fecha Último Contacto<span class="text-danger">*</span></label>
                     <br>
-                    <p-calendar formControlName="fechaUltimoContacto" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaUltimoContacto"></p-calendar>
+                    <p-calendar formControlName="fechaUltimoContacto" [maxDate]="hoy" [readonlyInput]="true" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaUltimoContacto"></p-calendar>
                 </div>
                 <div class="form-group">
                     <label for="tipo"><strong>Tipo</strong><span class="text-danger">*</span></label>

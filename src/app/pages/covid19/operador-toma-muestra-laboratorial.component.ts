@@ -81,14 +81,19 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     clear: 'Borrar'
   };
 
-  public localTomaMuestraOptions=[{value:null,label:'No examen laboratorial'},{value:'Costanera',label:'Costanera'},{value:'San Lorenzo',label:'San Lorenzo'},{value:'A definir',label:'A definir'}];
-
+  public localTomaMuestraOptions=[{value:'Costanera',label:'Costanera'},{value:'San Lorenzo',label:'San Lorenzo'},{value:'A definir',label:'A definir'}];
+  //{value:null,label:'No examen laboratorial'},
   public tieneSintomasOptions=[{value:'Si',label:'Si'},{value:'No',label:'No'}];
 
   showCambiarNroCelular = false;
   msjCambiarNroCelular = '';
   nroCelularCambiar: string='';
   private cedulaParam: string;
+
+  hoy: Date;
+  showExamenLaboratorial: boolean = false;
+
+  examenLaboratorialFormGroup: FormGroup;
 
   constructor(
     private _router: Router,
@@ -114,6 +119,11 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
       tieneSintomas: [null],
       fechaInicioSintoma: [null],
       fechaExposicion: [null],
+    });
+
+    this.examenLaboratorialFormGroup = this.formBuilder.group({
+      fechaPrevistaTomaMuestraLaboratorial: [null, Validators.required],
+      localTomaMuestra:[null, Validators.required]
     });
     this._route.params.subscribe(params => {
       this.cedula = params["cedula"];
@@ -182,6 +192,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
 
   showPopupActualizarDiagnostico()
   {
+    this.hoy = new Date();
     this.showActualizarDiagnostico=true;
     for(let resultadoUltimoDiagnostico of this.resultadoUltimoDiagnosticoOptions)
     {
@@ -211,23 +222,23 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
     diagnostico.fechaUltimoDiagnostico=this.actualizarDiagnosticoFormGroup.controls.fechaUltimoDiagnostico.value;
     diagnostico.fechaPrevistaFinAislamiento=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaFinAislamiento.value;
 
-    diagnostico.fechaPrevistaTomaMuestraLaboratorial=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value;
+    /*diagnostico.fechaPrevistaTomaMuestraLaboratorial=this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value;
     if(this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value)
     {
       diagnostico.localTomaMuestra=this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value.value;
-    }
+    }*/
 
 
     diagnostico.tieneSintomas = this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.value;
     diagnostico.fechaInicioSintoma = diagnostico.tieneSintomas == 'Si' ? this.actualizarDiagnosticoFormGroup.controls.fechaInicioSintoma.value : null;
     diagnostico.fechaExposicion =this.actualizarDiagnosticoFormGroup.controls.fechaExposicion.value;
 
-    if((this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value && !diagnostico.localTomaMuestra) ||
+    /*if((this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value && !diagnostico.localTomaMuestra) ||
       (!this.actualizarDiagnosticoFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value && diagnostico.localTomaMuestra)){
         this.loading = false;
         this.mensaje = "Favor completar fecha prevista y local de toma de muestra.";
         this.openMessageDialog();
-    }else{
+    }else{*/
       this.service.actualizarDiagnosticoPaciente(diagnostico).subscribe(response => {
           this.loading = false;
           this.mensaje= "Diagnóstico del Paciente registrado exitosamente.";
@@ -241,7 +252,6 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
           {
             this.response.localTomaMuestra=this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value.value;
           }
-
 
           this.response.tieneSintomas=this.actualizarDiagnosticoFormGroup.controls.tieneSintomas.value;
           this.response.fechaInicioSintoma = this.response.tieneSintomas == 'Si' ? this.actualizarDiagnosticoFormGroup.controls.fechaInicioSintoma.value : null;
@@ -261,7 +271,7 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
         }
       }
     );
-  }
+  //}
   }
 
   closeActualizarDiagnostico()
@@ -359,6 +369,48 @@ export class OperadorTomaMuestraLaboratorial implements OnInit {
   irContactos(){
     console.log(this.response.id);
     this._router.navigate(["covid19/operador/contactos-paciente/", this.response.id, this.cedulaObtenida]);
+  }
+
+  showPopupExamenLaboratorial(){
+    this.showExamenLaboratorial = true;
+  }
+
+  closePopupExamenLaboratorial(){
+    this.showExamenLaboratorial = false;
+  }
+
+  nuevoExamenLaboratorial(): void {
+    this.loading = true;
+    let examenLaboratorial:any={};
+    examenLaboratorial.numeroDocumento=this.cedulaObtenida;
+    examenLaboratorial.fechaPrevistaTomaMuestraLaboratorial=this.examenLaboratorialFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value;
+    examenLaboratorial.localTomaMuestra=this.examenLaboratorialFormGroup.controls.localTomaMuestra.value.value;
+
+    this.service.crearExamenLaboratorial(examenLaboratorial).subscribe(response => {
+      this.loading = false;
+      this.mensaje= "Examen Laboratorial registrado exitosamente.";
+      this.showExamenLaboratorial=false;
+      this.response.fechaPrevistaTomaMuestraLaboratorial=this.examenLaboratorialFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.value;
+      if(this.actualizarDiagnosticoFormGroup.controls.localTomaMuestra.value)
+      {
+        this.response.localTomaMuestra=this.examenLaboratorialFormGroup.controls.localTomaMuestra.value.value;
+      }
+      this.examenLaboratorialFormGroup.controls.fechaPrevistaTomaMuestraLaboratorial.setValue(null);
+      this.examenLaboratorialFormGroup.controls.localTomaMuestra.setValue(null);
+      this.openMessageDialog();
+  }, error => {
+    if(error.status == 401)
+    {
+      this._router.navigate(["/"]);
+    }
+    else
+    {
+      this.loading = false;
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    }
+  }
+);
   }
 
 }

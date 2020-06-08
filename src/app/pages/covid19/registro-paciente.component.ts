@@ -265,7 +265,8 @@ export class RegistroPacienteComponent implements OnInit {
             else
             {
               this.loading = false;
-              this.mensaje = error.error;
+              //this.mensaje = error.error;
+              this.mensaje = "No se pudo registrar el paciente. Favor volver a intentarlo.";
               this.openMessageDialog();
             }
           }
@@ -342,7 +343,8 @@ export class RegistroPacienteComponent implements OnInit {
           else
           {
             this.loading = false;
-            this.mensaje = error.error;
+            //this.mensaje = error.error;
+            this.mensaje = "No se pudieron obtener los datos del paciente.";
             this.openMessageDialog();
           }
         }

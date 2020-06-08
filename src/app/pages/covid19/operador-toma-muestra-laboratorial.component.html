@@ -50,7 +50,7 @@
                                 <br>
                                 Existe Registro: <span style="color:green;"><strong>SI</strong></span>
                                 <br>
-                                <span style="font-size: smaller">
+                                <span>
                                     Fecha Registro: {{response.fechaRegistro}}
                                     <br>
                                     Inicio de Aislamiento: {{response.inicioAislamiento}}
@@ -59,20 +59,20 @@
                                 <br>
                                 Existe Reporte de Salud:<span style="color:green;" *ngIf="response.fechaUltimoReporteSalud"><strong>SI</strong></span><span style="color:red;" *ngIf="!response.fechaUltimoReporteSalud"><strong>NO</strong></span>
                                 <br>
-                                <span *ngIf="response.fechaUltimoReporteSalud" style="font-size: smaller">Fecha de Último Reporte de Salud: {{response.fechaUltimoReporteSalud}}</span>
+                                <span *ngIf="response.fechaUltimoReporteSalud">Fecha de Último Reporte de Salud: {{response.fechaUltimoReporteSalud}}</span>
                                 <br>
                                 <br>
                                 Existe Reporte de Ubicación:<span style="color:green;" *ngIf="response.fechaUltimaUbicacion"><strong>SI</strong></span><span style="color:red;" *ngIf="!response.fechaUltimaUbicacion"><strong>NO</strong></span>
                                 <br>
-                                <span *ngIf="response.fechaUltimaUbicacion" style="font-size: smaller">Fecha de último reporte de Ubicación: {{response.fechaUltimaUbicacion}}</span>
+                                <span *ngIf="response.fechaUltimaUbicacion">Fecha de último reporte de Ubicación: {{response.fechaUltimaUbicacion}}</span>
                                 <br>
                                 <br>
                                 <span *ngIf="response.tieneSintomas">Tiene Síntomas:</span><span style="color:red;" *ngIf="response.tieneSintomas=='Si'"><strong>SI</strong></span><span style="color:green;" *ngIf="response.tieneSintomas=='No'"><strong>NO</strong></span>
-                                <span style="font-size: smaller" *ngIf="response.tieneSintomas=='Si'">
+                                <span *ngIf="response.tieneSintomas=='Si'">
                                     <br>
                                     Fecha Inicio Sintoma: {{response.fechaInicioSintoma}}
                                 </span>
-                                <span style="font-size: smaller">
+                                <span><!--style="font-size: smaller"-->
                                   <br>
                                     Fecha de Exposición: {{response.fechaExposicion}}
                                 </span>
@@ -83,37 +83,40 @@
                                 <br>
                                 <span *ngIf="response.localTomaMuestra">Local para Toma de Muestra: {{response.localTomaMuestra}}</span>
                                 <br>
-                                <button (click)="showPopupActualizarDiagnostico()" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')&&response.fechaUltimoDiagnostico">
+                                <button (click)="showPopupActualizarDiagnostico()" class="btn btn-success btn-success-next" style="width:245px" *ngIf="hasRol('Operador')&&response.fechaUltimoDiagnostico">
                                     Actualizar Diagnóstico
                                     <span class="fa fa-check"></span>
                                 </button>&nbsp;
-                                <button (click)="reenviarSms()" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')&&response.numeroCelularVerificado==='no verificado'" [disabled]="loading">
+                                <button (click)="reenviarSms()" class="btn btn-success btn-success-next" style="width:245px" *ngIf="hasRol('Operador')&&response.numeroCelularVerificado==='no verificado'" [disabled]="loading">
                                     Re-enviar SMS
                                     <span class="fa fa-check"></span>
                                 </button>&nbsp;
-                                <button (click)="showPopupCambiarNroCelular()" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')" [disabled]="loading">
+                                <button (click)="showPopupCambiarNroCelular()" class="btn btn-success btn-success-next" style="width:245px" *ngIf="hasRol('Operador')" [disabled]="loading">
                                     Cambiar &#8470; Celular
                                     <span class="fa fa-check"></span>
                                 </button>&nbsp;
-                                <button (click)="irContactos()" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')" [disabled]="loading">
+                                <button (click)="irContactos()" class="btn btn-success btn-success-next" style="width:245px" *ngIf="hasRol('Operador')" [disabled]="loading">
                                     Contactos Paciente
                                     <span class="fa fa-check"></span>
-                                </button>
-                    <button style="margin-left: 16px;" [routerLink]="'/covid19/historico-salud/' + cedulaObtenida" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')" [disabled]="loading">
+                                </button>&nbsp;
+                    <button [routerLink]="'/covid19/historico-salud/' + cedulaObtenida" class="btn btn-success btn-success-next" style="width:245px" *ngIf="hasRol('Operador')" [disabled]="loading">
                       Ver Histórico de Salud
                       <span class="fa fa-check"></span>
-                    </button>
-                <button style="margin-left: 16px;" [routerLink]="'/covid19/actualizar-salud/' + cedulaObtenida" class="btn btn-success btn-success-next" *ngIf="hasRol('Operador')" [disabled]="loading">
+                    </button> &nbsp;<!--style="margin-left: 16px;"-->
+                <button [routerLink]="'/covid19/actualizar-salud/' + cedulaObtenida" class="btn btn-success btn-success-next" style="width:245px" *ngIf="hasRol('Operador')" [disabled]="loading">
                   Actualizar Estado de Salud
                   <span class="fa fa-check"></span>
                 </button>
-                <button style="margin-left: 16px;"
-                        [routerLink]="'/covid19/ultimo-reporte-salud/' + cedulaObtenida"
-                        class="btn btn-success btn-success-next"
+                <button [routerLink]="'/covid19/ultimo-reporte-salud/' + cedulaObtenida"
+                        class="btn btn-success btn-success-next" style="width:245px"
                         *ngIf="hasRol('Operador') && response.fechaUltimoReporteSalud"
                         [disabled]="loading">
                   Ver Último Reporte de Estado de Salud
                   <span class="fa fa-check"></span>
+                </button>&nbsp;
+                <button (click)="showPopupExamenLaboratorial()" class="btn btn-success btn-success-next" style="width:245px" *ngIf="hasRol('Operador')&&response.fechaUltimoDiagnostico">
+                    Nuevo Examen Laboratorial
+                    <span class="fa fa-check"></span>
                 </button>
 
               </div>
@@ -239,7 +242,7 @@
                 <div class="form-group">
                     <label for="fechaUltimoDiagnostico">Fecha Último Diagnóstico</label>
                     <br>
-                    <p-calendar formControlName="fechaUltimoDiagnostico" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaUltimoDiagnostico"></p-calendar>
+                    <p-calendar formControlName="fechaUltimoDiagnostico" [maxDate]="hoy" [readonlyInput]="true" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaUltimoDiagnostico"></p-calendar>
                 </div>
                 <div class="form-group">
                     <label for="fechaPrevistaFinAislamiento">Fecha Prevista Fin Aislamiento</label>
@@ -254,31 +257,28 @@
                 </div>
 
               <div class="form-group" *ngIf="actualizarDiagnosticoFormGroup.controls.tieneSintomas.value == 'Si'">
-                <label for="fechaInicioSintoma">Fecha Inicio Sintoma</label>
+                <label for="fechaInicioSintoma">Fecha Inicio Síntoma</label>
                 <br>
-                <p-calendar formControlName="fechaInicioSintoma" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaInicioSintoma"></p-calendar>
+                <p-calendar formControlName="fechaInicioSintoma" [maxDate]="hoy" [readonlyInput]="true" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaInicioSintoma"></p-calendar>
               </div>
 
               <div class="form-group">
                 <label for="fechaExposicion">Fecha de Exposición</label>
                 <br>
-                <p-calendar formControlName="fechaExposicion" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaExposicion"></p-calendar>
+                <p-calendar formControlName="fechaExposicion" [maxDate]="hoy" [readonlyInput]="true" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaExposicion"></p-calendar>
               </div>
 
-                <div class="form-group">
+                 <!--<div class="form-group">
                     <label for="fechaPrevistaTomaMuestraLaboratorial">Fecha Prevista Toma Muestra Laboratorial</label>
                     <br>
                     <p-calendar formControlName="fechaPrevistaTomaMuestraLaboratorial" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaPrevistaTomaMuestraLaboratorial"></p-calendar>
                 </div>
 
-                <!--Local toma-->
-                <div class="form-group">
+               <div class="form-group">
                     <label for="localTomaMuestra">Local de toma de muestra</label>
                     <br>
-                    <!--<input type="text" formControlName="localTomaMuestra" name="localTomaMuestra" class="form-control" style="max-width: 175px;" id="localTomaMuestra">-->
-                    <p-dropdown id="localTomaMuestra" [options]="localTomaMuestraOptions" optionLabel="label" formControlName="localTomaMuestra"></p-dropdown><!--[style]="{'width':'300px'}"-->
-                </div>
-                <!---->
+                    <p-dropdown id="localTomaMuestra" [options]="localTomaMuestraOptions" optionLabel="label" formControlName="localTomaMuestra"></p-dropdown>
+                </div>-->
 
                 <div>
                     <button (click)="actualizarDiagnostico()" class="btn btn-success btn-success-next" [disabled]="!actualizarDiagnosticoFormGroup.valid || loading">
@@ -312,6 +312,34 @@
                         <span class="fa fa-times"></span>
                     </button>
                 </div>
+            </p-dialog>
+
+            <p-dialog [(visible)]="showExamenLaboratorial" [formGroup]="examenLaboratorialFormGroup" modal="true" header="Nuevo Examen Laboratorial">
+                
+                    <div class="form-group">
+                        <label for="fechaPrevistaTomaMuestraLaboratorial">Fecha Prevista Toma Muestra Laboratorial<span class="text-danger">*</span></label>
+                        <br>
+                        <p-calendar formControlName="fechaPrevistaTomaMuestraLaboratorial" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaPrevistaTomaMuestraLaboratorial"></p-calendar>
+                    </div>
+    
+                    <div class="form-group">
+                        <label for="localTomaMuestra">Local de toma de muestra<span class="text-danger">*</span></label>
+                        <br>
+                        <!--<input type="text" formControlName="localTomaMuestra" name="localTomaMuestra" class="form-control" style="max-width: 175px;" id="localTomaMuestra">-->
+                        <p-dropdown id="localTomaMuestra" [options]="localTomaMuestraOptions" optionLabel="label" formControlName="localTomaMuestra" placeholder="Seleccione"></p-dropdown><!--[style]="{'width':'300px'}"-->
+                    </div>
+
+                    <div>
+                        <button (click)="nuevoExamenLaboratorial()" class="btn btn-success btn-success-next" [disabled]="!examenLaboratorialFormGroup.valid || loading">
+                            Nuevo Examen Laboratorial
+                            <span class="fa fa-check"></span>
+                        </button>&nbsp;
+
+                        <button class="btn btn-secondary btn-success-next" (click)="closePopupExamenLaboratorial()">
+                            Cerrar
+                            <span class="fa fa-times"></span>
+                        </button>
+                    </div>
             </p-dialog>
         </div>
     </div>
