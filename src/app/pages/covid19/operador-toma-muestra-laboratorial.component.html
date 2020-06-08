@@ -83,38 +83,38 @@
                                 <br>
                                 <span *ngIf="response.localTomaMuestra">Local para Toma de Muestra: {{response.localTomaMuestra}}</span>
                                 <br>
-                                <button (click)="showPopupActualizarDiagnostico()" class="btn btn-success btn-success-next" style="width:245px" *ngIf="hasRol('Operador')&&response.fechaUltimoDiagnostico">
+                                <button (click)="showPopupActualizarDiagnostico()" class="btn btn-success btn-success-next" style="width:245px; margin-left: 12px; margin-right: 12px" *ngIf="hasRol('Operador')&&response.fechaUltimoDiagnostico">
                                     Actualizar Diagnóstico
                                     <span class="fa fa-check"></span>
-                                </button>&nbsp;
-                                <button (click)="reenviarSms()" class="btn btn-success btn-success-next" style="width:245px" *ngIf="hasRol('Operador')&&response.numeroCelularVerificado==='no verificado'" [disabled]="loading">
+                                </button>
+                                <button (click)="reenviarSms()" class="btn btn-success btn-success-next" style="width:245px; margin-left: 12px; margin-right: 12px" *ngIf="hasRol('Operador')&&response.numeroCelularVerificado==='no verificado'" [disabled]="loading">
                                     Re-enviar SMS
                                     <span class="fa fa-check"></span>
-                                </button>&nbsp;
-                                <button (click)="showPopupCambiarNroCelular()" class="btn btn-success btn-success-next" style="width:245px" *ngIf="hasRol('Operador')" [disabled]="loading">
+                                </button>
+                                <button (click)="showPopupCambiarNroCelular()" class="btn btn-success btn-success-next" style="width:245px; margin-left: 12px; margin-right: 12px" *ngIf="hasRol('Operador')" [disabled]="loading">
                                     Cambiar &#8470; Celular
                                     <span class="fa fa-check"></span>
-                                </button>&nbsp;
-                                <button (click)="irContactos()" class="btn btn-success btn-success-next" style="width:245px" *ngIf="hasRol('Operador')" [disabled]="loading">
+                                </button>
+                                <button (click)="irContactos()" class="btn btn-success btn-success-next" style="width:245px; margin-left: 12px; margin-right: 12px" *ngIf="hasRol('Operador')" [disabled]="loading">
                                     Contactos Paciente
                                     <span class="fa fa-check"></span>
-                                </button>&nbsp;
-                    <button [routerLink]="'/covid19/historico-salud/' + cedulaObtenida" class="btn btn-success btn-success-next" style="width:245px" *ngIf="hasRol('Operador')" [disabled]="loading">
+                                </button>
+                    <button [routerLink]="'/covid19/historico-salud/' + cedulaObtenida" class="btn btn-success btn-success-next" style="width:245px; margin-left: 12px; margin-right: 12px" *ngIf="hasRol('Operador')" [disabled]="loading">
                       Ver Histórico de Salud
                       <span class="fa fa-check"></span>
-                    </button> &nbsp;<!--style="margin-left: 16px;"-->
-                <button [routerLink]="'/covid19/actualizar-salud/' + cedulaObtenida" class="btn btn-success btn-success-next" style="width:245px" *ngIf="hasRol('Operador')" [disabled]="loading">
+                    </button><!--style="margin-left: 16px;"-->
+                <button [routerLink]="'/covid19/actualizar-salud/' + cedulaObtenida" class="btn btn-success btn-success-next" style="width:245px; margin-left: 12px; margin-right: 12px" *ngIf="hasRol('Operador')" [disabled]="loading">
                   Actualizar Estado de Salud
                   <span class="fa fa-check"></span>
                 </button>
                 <button [routerLink]="'/covid19/ultimo-reporte-salud/' + cedulaObtenida"
-                        class="btn btn-success btn-success-next" style="width:245px"
+                        class="btn btn-success btn-success-next" style="width:245px; margin-left: 12px; margin-right: 12px"
                         *ngIf="hasRol('Operador') && response.fechaUltimoReporteSalud"
                         [disabled]="loading">
                   Ver Último Reporte de Estado de Salud
                   <span class="fa fa-check"></span>
-                </button>&nbsp;
-                <button (click)="showPopupExamenLaboratorial()" class="btn btn-success btn-success-next" style="width:245px" *ngIf="hasRol('Operador')&&response.fechaUltimoDiagnostico">
+                </button>
+                <button (click)="showPopupExamenLaboratorial()" class="btn btn-success btn-success-next" style="width:245px; margin-left: 12px; margin-right: 12px" *ngIf="hasRol('Operador')&&response.fechaUltimoDiagnostico">
                     Nuevo Examen Laboratorial
                     <span class="fa fa-check"></span>
                 </button>
