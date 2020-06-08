@@ -15,7 +15,7 @@
                     <span>Menú Principal del Operador Sanitario</span>
                 </h3>
 
-                <div class="clearfix"><br/></div>
+                <div class="clearfix" *ngIf="hasRol('Operador')"><br/></div>
                 <div *ngIf="hasRol('Operador')">
                     <h4>Registrar Persona en Aislamiento Domiciliario</h4>
                     <p>Utilice esta opción para registrar una persona en la aplicación de seguimiento de aislamiento domiciliario.  Deberá tener información de los datos básicos de la persona y su número de celular. El paciente recibirá un mensaje de texto con información e instrucciones para utilizar la aplicación.</p>
@@ -25,9 +25,8 @@
                             <span class="fa fa-check"></span>
                         </button>
                 </div>
-                        <br>
-                        <br>
-                        <br>
+                        <br *ngIf="hasRol('Operador')">
+                        <br *ngIf="hasRol('Operador')">
                         <div *ngIf="hasRol('Operador')||hasRol('Tecnico Salud')">
                             <h4>Verificar Registro de Persona</h4>
                             <p>Utilice esta opción para verificar el registro de una persona.  Deberá tener su número de documento. También podrá actualizar su diagnóstico.</p>
@@ -37,7 +36,8 @@
                                     <span class="fa fa-check"></span>
                                 </button>
                         </div>
-              <div *ngIf="hasRol('Consulta')" style="margin-top: 24px">
+                        <div class="clearfix" *ngIf="hasRol('Consulta')"><br/></div>
+              <div *ngIf="hasRol('Consulta')"><!--style="margin-top: 24px"-->
                 <h4>Personas Sin Reportar Ubicación/Estado de Salud</h4>
                 <p>Lista de personas que no reportaron su ubicación o estado de salud en las últimas 24 horas</p>
                 <!--<br>-->
