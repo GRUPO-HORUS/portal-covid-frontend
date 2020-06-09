@@ -21,6 +21,7 @@ export class FormDatosBasicos {
 
     inicioAislamiento:string;
     fechaPrevistaTomaMuestraLaboratorial:string;
+    localTomaMuestra:string;
 
     //rcToken: string;
     fechaNacimiento:string;

@@ -27,8 +27,8 @@ export class Covid19Service {
         //.pipe(catchError(this.handler.handleError<any[]>('/covid19api/ingresoPais/datosBasicosViajero')));
     }
 
-    registrarPaciente(formDatosBasicos, localTomaMuestra): Observable<string> {
-      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/datosBasicos/'+localTomaMuestra, formDatosBasicos);
+    registrarPaciente(formDatosBasicos): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/datosBasicos', formDatosBasicos);
         //.pipe(catchError(this.handler.handleError<string>('/covid19api/aislamiento/datosBasicos')));
     }
 

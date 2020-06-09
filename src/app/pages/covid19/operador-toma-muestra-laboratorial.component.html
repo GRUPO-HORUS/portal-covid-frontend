@@ -111,7 +111,7 @@
                         class="btn btn-success btn-success-next" style="width:245px; margin-left: 12px; margin-right: 12px"
                         *ngIf="hasRol('Operador') && response.fechaUltimoReporteSalud"
                         [disabled]="loading">
-                  Ver Último Reporte de Estado de Salud
+                  Ver Último Reporte de Salud
                   <span class="fa fa-check"></span>
                 </button>
                 <button (click)="showPopupExamenLaboratorial()" class="btn btn-success btn-success-next" style="width:245px; margin-left: 12px; margin-right: 12px" *ngIf="hasRol('Operador')&&response.fechaUltimoDiagnostico">

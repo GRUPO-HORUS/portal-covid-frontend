@@ -126,7 +126,7 @@ export class RegistroPacienteComponent implements OnInit {
     }
   }
 
-  registrar(formDatosBasicos, localTomaMuestra): void {
+  registrar(formDatosBasicos): void {
     /*if(this.domSanitizer.sanitize(SecurityContext.HTML,formDatosBasicos.nombre)!=formDatosBasicos.nombre)
     {
       this.mensaje = "Se detectaron carácteres especiales en el nombre.";
@@ -240,10 +240,10 @@ export class RegistroPacienteComponent implements OnInit {
     localStorage.setItem('direccion', formDatosBasicos.direccionDomicilio);
     localStorage.setItem('email', formDatosBasicos.correoElectronico);
 
-    localStorage.setItem('localTomaMuestra', localTomaMuestra);
+    localStorage.setItem('localTomaMuestra', formDatosBasicos.localTomaMuestra);
 
       this.loading = true;
-      this.service.registrarPaciente(formDatosBasicos, localTomaMuestra).subscribe(response => {
+      this.service.registrarPaciente(formDatosBasicos).subscribe(response => {
             console.log(response);
             if (response) {
               this.loading = false;
