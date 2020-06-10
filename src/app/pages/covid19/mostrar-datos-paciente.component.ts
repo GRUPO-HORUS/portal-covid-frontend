@@ -76,7 +76,7 @@ export class MostrarDatosPacienteComponent implements OnInit {
     this.formDatosBasicos.correoElectronico = localStorage.getItem('email');
     this.codigoVerif = localStorage.getItem('codigo');
 
-    this.localTomaMuestra = localStorage.getItem('localTomaMuestra');
+    this.formDatosBasicos.localTomaMuestra = localStorage.getItem('localTomaMuestra');
 
   }
 
@@ -86,9 +86,9 @@ export class MostrarDatosPacienteComponent implements OnInit {
     }
   }
 
-  registrar(formDatosBasicos, localTomaMuestra): void {
+  registrar(formDatosBasicos): void {
     this.loading = true;
-        this.service.registrarPaciente(formDatosBasicos, localTomaMuestra).subscribe(response => {
+        this.service.registrarPaciente(formDatosBasicos).subscribe(response => {
             console.log(response);
             if (response) {
               this.loading = false;
