@@ -262,6 +262,12 @@ export class RegistroPacienteComponent implements OnInit {
             {
               this._router.navigate(["/"]);
             }
+            else if(error.status == 400)
+            {
+              this.loading = false;
+              this.mensaje = error.error;
+              this.openMessageDialog();
+            }
             else
             {
               this.loading = false;
