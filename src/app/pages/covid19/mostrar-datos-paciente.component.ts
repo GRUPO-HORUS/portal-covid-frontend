@@ -88,7 +88,7 @@ export class MostrarDatosPacienteComponent implements OnInit {
 
   registrar(formDatosBasicos, localTomaMuestra): void {
     this.loading = true;
-        this.service.registrarPaciente(formDatosBasicos, localTomaMuestra).subscribe(response => {
+        this.service.registrarPaciente(formDatosBasicos).subscribe(response => {
             console.log(response);
             if (response) {
               this.loading = false;
