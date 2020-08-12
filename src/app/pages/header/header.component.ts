@@ -2,9 +2,7 @@ import { Component, OnInit, Inject, DoCheck } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { ScrollToService } from "ng2-scroll-to-el";
 import { MessageService } from "app/services/MessageService";
-import { PoderesDelEstadoService } from "app/services/PoderesDelEstadoService";
 import { LoginService } from 'app/pages/login/shared/login.service';
-import { IdentidadPersona } from "../ciudadano/model/identidad-persona.model";
 import { AppConfig } from "app/app.config";
 import { DOCUMENT } from '@angular/common';
 import { StorageManagerService } from 'app/pages/login/shared/storage-manager.service';
@@ -24,15 +22,12 @@ export class HeaderComponent  implements DoCheck {
   public token: string;
   public currentUser: any;
   public uuid: string;
-
   public fotoPerfil: any;
-  public ciudadano: IdentidadPersona;
 
   constructor(
     private route: ActivatedRoute,
     private scrollService: ScrollToService,
     public messageService: MessageService,
-    private poderesDelEstadoService: PoderesDelEstadoService,
     private router: Router,
     private auth: LoginService,
     private config: AppConfig,

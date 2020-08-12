@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "http://localhost:8080/portalpy-backend-core/",
+    "target": "https://devformcoronavirus.mitic.gov.py/",
     "secure": false,
     "loglevel": "debug",
     "pathRewrite": {
@@ -10,7 +10,7 @@
   },
 
   "/auth/*": {
-	"target": "http://localhost:8080/auth/",
+	"target": "https://devformcoronavirus.mitic.gov.py/",
     "secure": false,
     "loglevel": "debug",
     "pathRewrite": {

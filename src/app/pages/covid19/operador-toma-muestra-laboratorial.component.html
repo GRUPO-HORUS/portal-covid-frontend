@@ -213,7 +213,7 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="modalTerminosIE" tabindex="-1" role="dialog" aria-labelledby="modalTerminosIELabel" aria-hidden="true">
+            <!-- <div class="modal fade" id="modalTerminosIE" tabindex="-1" role="dialog" aria-labelledby="modalTerminosIELabel" aria-hidden="true">
                 <div style="max-width:1100px;" class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content p-4">
                         <div class="modal-header">
@@ -232,7 +232,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <p-dialog [(visible)]="showActualizarDiagnostico" [formGroup]="actualizarDiagnosticoFormGroup" modal="true" header="Actualizar Diagnóstico">
                 <div class="form-group">
                     <label for="resultadoUltimoDiagnostico">Resultado Último Diagnóstico</label>
@@ -315,13 +315,13 @@
             </p-dialog>
 
             <p-dialog [(visible)]="showExamenLaboratorial" [formGroup]="examenLaboratorialFormGroup" modal="true" header="Nuevo Examen Laboratorial">
-                
+
                     <div class="form-group">
                         <label for="fechaPrevistaTomaMuestraLaboratorial">Fecha Prevista Toma Muestra Laboratorial<span class="text-danger">*</span></label>
                         <br>
                         <p-calendar formControlName="fechaPrevistaTomaMuestraLaboratorial" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" id="fechaPrevistaTomaMuestraLaboratorial"></p-calendar>
                     </div>
-    
+
                     <div class="form-group">
                         <label for="localTomaMuestra">Local de toma de muestra<span class="text-danger">*</span></label>
                         <br>

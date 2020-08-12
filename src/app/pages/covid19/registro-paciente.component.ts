@@ -2,9 +2,7 @@ import { Component, OnInit, SecurityContext } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Subscription } from 'rxjs';
 import { Covid19Service } from '../../services/Covid19Service';
-
 import {FormDatosBasicos} from './model/formDatosBasicos.model';
-
 import { DomSanitizer } from "@angular/platform-browser";
 import {calendarEsLocale} from '../../util/calendar-es-locale';
 

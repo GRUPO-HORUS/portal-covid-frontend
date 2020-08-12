@@ -1,7 +1,7 @@
 <div id="page-header" class="bg-gradient bg-shadow" style="padding: 0px 0;">
     <div class="container clearfix">
         <nav class="breadcrumb">
-            
+
         </nav>
     </div>
 </div>
@@ -17,8 +17,8 @@
 
                 <p>Hemos enviado un código en un mensaje de texto a su teléfono de contacto.</p>
                     <p> Por favor informe el código recibido en el teléfono.</p>
-                    
-                <!--<span>{{this?.nombre}}&nbsp;{{this?.apellido}}, se ha enviado un mensaje a su teléfono con un código. 
+
+                <!--<span>{{this?.nombre}}&nbsp;{{this?.apellido}}, se ha enviado un mensaje a su teléfono con un código.
                         A continuación, por favor ingrese el código.</span>-->
 
                 <form #miForm="ngForm" class="mt-4">
@@ -38,7 +38,7 @@
                     <button (click)="validarTelefono(codigo)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
                         <!--  || !telefValido || telefono.indexOf('+')!=0 -->
                             Enviar
-                            <span class="fa fa-check"></span>            
+                            <span class="fa fa-check"></span>
                         </button>
                 </form>
 
@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="modalTerminosIE" tabindex="-1" role="dialog" aria-labelledby="modalTerminosIELabel" aria-hidden="true">
+            <!-- <div class="modal fade" id="modalTerminosIE" tabindex="-1" role="dialog" aria-labelledby="modalTerminosIELabel" aria-hidden="true">
                 <div style="max-width:1100px;" class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content p-4">
                         <div class="modal-header">
@@ -84,7 +84,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

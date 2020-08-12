@@ -1,21 +1,11 @@
 {
-  "/api/*": {
-    "target": "https://devportalpy.mitic.gov.py/",
-    "secure": false,
-    "loglevel": "debug",
-    "pathRewrite": {
-         "^/api": "/api"
-     },
-    "changeOrigin" : true
-  },
-
-  "/auth/*": {
-	"target": "https://devportalpy.mitic.gov.py/",
-    "secure": false,
-    "loglevel": "debug",
-    "pathRewrite": {
-         "^/auth": "/auth"
-     },
-    "changeOrigin": true
-  }
+    "/api/*": {
+      "target": "https://devformcoronavirus.mitic.gov.py/",
+        "secure": false,
+        "loglevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/api": "/rest"
+        }
+    }
 }
