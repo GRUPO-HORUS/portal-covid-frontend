@@ -7,7 +7,6 @@ import { AppConfig } from "app/app.config";
 import { Page404Component } from "./pages/errors/page-404";
 import { FooterComponent } from "./pages/footer/footer.component";
 import { HeaderComponent } from "./pages/header/header.component";
-import { IETerminosTemplateComponent } from "./pages/identidad-electronica/ie-terminos-template/ie-terminos-template.component";
 import { HomeOperadorComponent } from "./pages/covid19/home-operador.component";
 import { RegistroPacienteComponent } from "./pages/covid19/registro-paciente.component";
 import { MostrarDatosPacienteComponent } from "./pages/covid19/mostrar-datos-paciente.component";
@@ -89,7 +88,6 @@ export const routesComponents = [
   Page404Component,
   HeaderComponent,
   FooterComponent,
-  IETerminosTemplateComponent
 ];
 
 // Listado de providers para la aplicación

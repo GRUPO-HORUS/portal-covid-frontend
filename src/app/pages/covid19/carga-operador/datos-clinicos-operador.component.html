@@ -1,7 +1,7 @@
 <div id="page-header" class="bg-gradient bg-shadow" style="padding: 0px 0;">
     <div class="container clearfix">
         <nav class="breadcrumb">
-            
+
         </nav>
     </div>
 </div>
@@ -16,7 +16,7 @@
                 </h3>
 
                 <form #miForm="ngForm" class="mt-4">
-                    
+
                     <table>
                         <tr><td colspan="2"><h3>Evaluación de riesgo</h3></td></tr>
                         <tr>
@@ -70,9 +70,9 @@
                             <td><div class="ui-g-12"><p-radioButton name="group9" value="false" label="No" [(ngModel)]="formDatosClinicos.evaluacionRiesgoUsomedicamento" inputId="opt2"></p-radioButton></div></td>
                         </tr>
                         <tr>
-                            
+
                             <div class="form-group" *ngIf="formDatosClinicos.evaluacionRiesgoUsomedicamento=='true'">
-                        
+
                                 <label for="medicamento"><strong>Especificar</strong></label>
                                 <input type="text" [(ngModel)]="formDatosClinicos.evaluacionRiesgoMedicamento" name="medicamento" class="form-control" style="max-width: 300px;" id="medicamento">
                             </div>
@@ -131,7 +131,7 @@
                             <td><div class="ui-g-12"><p-radioButton name="group18" value=true label="Si" [(ngModel)]="formDatosClinicos.sintomasDiarrea" inputId="opt1"></p-radioButton></div></td>
                             <td><div class="ui-g-12"><p-radioButton name="group18" value=false label="No" [(ngModel)]="formDatosClinicos.sintomasDiarrea" inputId="opt2"></p-radioButton></div></td>
                         </tr>
-                        
+
                     </table>
                     <div class="form-group">
                         <label for="sintomasOtro"><strong>Otros síntomas</strong></label>
@@ -152,8 +152,8 @@
                     <label><input type="checkbox" style="width:20px;height:20px;" id="obesidad" name="obesidad" [(ngModel)]="formDatosClinicos.obesidad"/>&nbsp;Obesidad?</label><br>
                     <label><input type="checkbox" style="width:20px;height:20px;" id="enfermedadHepatica" name="enfermedadHepatica" [(ngModel)]="formDatosClinicos.enfermedadHepatica"/>&nbsp;Tiene enfermedad hepática grave?</label><br>
                     <label><input type="checkbox" style="width:20px;height:20px;" id="medicamentoHabitual" name="medicamentoHabitual" [(ngModel)]="formDatosClinicos.medicamentoHabitual"/>&nbsp;Toma algún medicamento de forma habitual?</label><br>-->
-                    
-                   
+
+
 
                     <!--<div class="form-group">
                         <label for="medioTransporte"><strong>Medio de Transporte</strong></label>
@@ -190,22 +190,16 @@
                         <label for="circulacion"><strong>Países circulación</strong></label>
                         <textarea name="circulacion" class="form-control" [(ngModel)]="formDatosClinicos.paisesCirculacion" style="resize:vertical;" rows="4"></textarea>
                     </div>-->
-                    
+
                     <!--<label><input type="checkbox" style="width:20px;height:20px;" id="dificultadRespirar" name="dificultadRespirar" [(ngModel)]="formDatosClinicos.sintomasDificultadRespirar"/>&nbsp;Tuvo alguna dificultad respiratoria?</label><br>-->
                     <!--<p-checkbox [(ngModel)]="sintomasTos" binary="true" label="Tiene tos?"></p-checkbox>-->
-                    
+
 
                     <div class="text-center" *ngIf="loading">
                         <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> Registrando...
                     </div>
 
                     <div class="clearfix"><br/></div>
-
-                    <!--<div class="form-group">
-                        <input type="checkbox" style="width:20px;height:20px;" id="terminos" name="terminos" [(ngModel)]="formDatosClinicos.declaracionAgreement" />
-                        <b><span class="text-danger">*</span>Acepto los términos y condiciones</b>
-                        <p><a data-toggle="modal" href="#" data-target="#modalTerminosIE">Ver términos y condiciones</a> </p>
-                    </div>-->
 
                     <div class="alert alert-info" *ngIf="!formDatosClinicos.declaracionAgreement">
                         <i class="fa fa-info-circle"></i> Debe completar todos los campos en el formato correcto para iniciar.<br>
@@ -216,7 +210,7 @@
                     <button (click)="enviar(formDatosClinicos)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
                         <!--  || !telefValido || telefono.indexOf('+')!=0  [disabled]="!miForm.form.valid || loading || !terminos"-->
                             Guardar
-                            <span class="fa fa-check"></span>            
+                            <span class="fa fa-check"></span>
                         </button>
                 </form>
 
@@ -243,26 +237,6 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="modalTerminosIE" tabindex="-1" role="dialog" aria-labelledby="modalTerminosIELabel" aria-hidden="true">
-                <div style="max-width:1100px;" class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content p-4">
-                        <div class="modal-header">
-                            <h2 class="modal-title" id="modalTerminosIELabel">
-                                Términos y Condiciones
-                            </h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body row">
-                            <ie-terminos-template></ie-terminos-template>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

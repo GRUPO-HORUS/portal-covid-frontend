@@ -1,7 +1,7 @@
 <div id="page-header" class="bg-gradient bg-shadow" style="padding: 0px 0;">
     <div class="container clearfix">
         <nav class="breadcrumb">
-            
+
         </nav>
     </div>
 </div>
@@ -17,7 +17,7 @@
                 </h3>
 
                 <form #miForm="ngForm" class="mt-4">
-                    
+
                     <div class="form-group">
                         <label for="cedula"><strong>Cédula</strong></label>
                         <input [(ngModel)]="cedula" class="form-control" id="cedula" style="max-width: 300px;" name="cedula" required>
@@ -29,17 +29,17 @@
                     <div>
                         <button (click)="obtenerPersona(cedula,codigoVerificacion)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
                             Obtener
-                            <span class="fa fa-check"></span>            
+                            <span class="fa fa-check"></span>
                         </button>&nbsp;
                         <button class="btn btn-secondary btn-success-next" routerLink="/covid19/home-operador">
                             Volver al Menú
                             <span class="fa fa-times"></span>
                         </button>
                     </div>
-                </form>      
+                </form>
                 <div *ngIf="formDatosBasicos">
-               
-                    <p style="text-align:justify">Tenemos registrados los siguientes datos:</p> 
+
+                    <p style="text-align:justify">Tenemos registrados los siguientes datos:</p>
                         <ul>
                             <li>
                                 Nombre y Apellido: {{this.formDatosBasicos?.nombre}}&nbsp;{{this.formDatosBasicos?.apellido}}
@@ -54,22 +54,22 @@
 
                     <button (click)="confirmarPaciente()" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
                         Confirmar Paciente
-                        <span class="fa fa-check"></span>            
+                        <span class="fa fa-check"></span>
                     </button>
-                    
+
                 </div>
-                
+
                 <!--<button class="btn btn-secondary" routerLink="/covid19/home-operador">
                     Volver al Menú
                 </button>-->
-            
+
                     <!--<div class="form-group">
                         <label for="tipoDocumento"><strong>Tipo de Documento</strong></label>
                         <br>
                         <p-dropdown id="tipoDocumento" [options]="tipoDocumentoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.tipoDocumento" name="tipoDocumento" id="tipoDocumento" required disabled></p-dropdown>
                     </div>-->
                 <!--<form #miForm="ngForm" class="mt-4">
-                    
+
                     <div class="form-group">
                         <label for="tipoDocumento"><strong>Tipo de Documento </strong></label>
                         <input type="text" [(ngModel)]="tipoDocumento" class="form-control" style="max-width: 200px;" id="tipoDocumento" name="tipoDocumento" required readonly>
@@ -129,7 +129,7 @@
                     <div class="clearfix"><br/></div>
                     <button (click)="validarTelefono(formDatosBasicos.contrasenha)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || contrasenha !== contrasenhaConfirm">
                             Guardar
-                            <span class="fa fa-check"></span>            
+                            <span class="fa fa-check"></span>
                         </button>
                 </form>-->
 
@@ -151,26 +151,7 @@
                 </div>
             </div>
 
-            <div class="modal fade" id="modalTerminosIE" tabindex="-1" role="dialog" aria-labelledby="modalTerminosIELabel" aria-hidden="true">
-                <div style="max-width:1100px;" class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content p-4">
-                        <div class="modal-header">
-                            <h2 class="modal-title" id="modalTerminosIELabel">
-                                Términos y Condiciones
-                            </h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body row">
-                            <ie-terminos-template></ie-terminos-template>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 </div>
