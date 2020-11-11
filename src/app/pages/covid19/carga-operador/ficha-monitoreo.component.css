@@ -1,0 +1,42 @@
+/*@import "@angular/material/prebuilt-themes/deeppurple-amber.css";*/
+.mat-stepper-horizontal {
+    margin-top: 8px;
+  }
+  
+  .mat-form-field {
+    margin-top: 16px;
+  }
+
+  .th-sintomas{
+    width: 69px;
+    background-color: rgb(190, 186, 186);
+    text-align: center;
+  }
+
+  .text-fechas{
+    width: 69px;
+    font-size: 12px;
+    border: 0px;
+    text-align: center;
+    background-color: rgb(207, 203, 203);
+  }
+
+  .td-fechas{
+    background-color: rgb(207, 203, 203);
+  }
+
+  .table{
+    border:solid black 1px;
+    border-radius:8px;
+    -moz-border-radius:8px;
+  }
+
+  .country-item-value {
+    padding: .25rem .5rem;
+    border-radius: 3px;
+    display: inline-flex;
+    margin-right: .5rem;
+    /*background-color: var(--primary-color);*/
+    background-color:  rgb(207, 203, 203);
+    color: var(--primary-color-text);
+  }

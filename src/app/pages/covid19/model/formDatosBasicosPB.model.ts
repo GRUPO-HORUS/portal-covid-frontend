@@ -1,4 +1,4 @@
-export class FormDatosBasicos {
+export class FormDatosBasicosPB {
     id: number;
     nombre: string;
     apellido: string;
@@ -17,16 +17,12 @@ export class FormDatosBasicos {
     tipoRegistro: string;
 
     contrasenha: string;
-    contrasenhaConfirm: string;
-
     inicioAislamiento:string;
     fechaPrevistaTomaMuestraLaboratorial:string;
     localTomaMuestra:string;
-    //rcToken: string;
     fechaNacimiento:string;
-
+    
     sexo:string;
     fechaInicioSintomas: string;
     fechaExposicion: string;
-
 }

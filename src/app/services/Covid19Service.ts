@@ -12,6 +12,10 @@ export class Covid19Service {
 
   private loading = new BehaviorSubject<boolean>(false);
 
+    getLugaresServicio(): Observable<any[]>{
+      return this.httpClient.get<any[]>(this.config.API +"/covid19api/aislamiento/lugaresServicio");
+    }
+
     sendMessage(phone: string): Observable<any[]>{
       return this.httpClient.get<any[]>(this.config.API +"/covid19/sendMessage?phone="+phone);
     }
@@ -49,12 +53,32 @@ export class Covid19Service {
       return this.httpClient.post<any>(this.config.API + '/covid19api/ingresoPais/confirmarPersona/'+numeroDocumento+"/"+codigoVerif,null);
     }
 
+    guardarDatosBasicosFichaPB(formDatosBasicos): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/datosBasicos/', formDatosBasicos);
+    }
+
     guardarDatosBasicosOperador(formDatosBasicos): Observable<string> {
-      return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/datosBasicos/', formDatosBasicos);
+      return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/datosBasicos', formDatosBasicos);
     }
 
     guardarDatosClinicosOperador(formDatosClinicos): Observable<string> {
       return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/datosClinicos', formDatosClinicos);
+    }
+
+    guardarFormPersonalBlanco(formPersonalBlanco):Observable<string>{
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/datosPersonalBlanco', formPersonalBlanco);
+    }
+
+    guardarContactoContagio(contacto):Observable<string>{
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/contactoContagio', contacto);
+    }
+
+    guardarFormSintomas(formSintomas):Observable<string>{
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/datosSintomas', formSintomas);
+    }
+
+    guardarClasifRiesgo(clasifRiesgo):Observable<string>{
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/clasifRiesgo', clasifRiesgo);
     }
 
     setearClave(idRegistro, clave): Observable<string> {

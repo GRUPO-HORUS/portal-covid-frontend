@@ -15,40 +15,62 @@
                     <span>Menú Principal del Operador Sanitario</span>
                 </h3>
 
-                <div class="clearfix" *ngIf="hasRol('Operador')"><br/></div>
-                <div *ngIf="hasRol('Operador')">
-                    <h4>Registrar Persona para Seguimiento de Caso</h4>
+                <div *ngIf="hasRol('Operador')">                   
+                    <h4>Seguimiento de Casos</h4>
                     <p>Utilice esta opción para registrar una persona en la aplicación de seguimiento de aislamiento. Deberá tener información de los datos básicos de la persona y su número de celular. El paciente recibirá un mensaje de texto con información e instrucciones para utilizar la aplicación.</p>
-                    <!--<br>-->
-                    <button class="btn btn-success btn-success-next" routerLink="/covid19/aislamiento/registro-paciente">
-                            Registrar Persona Aislamiento
-                            <span class="fa fa-check"></span>
-                        </button>
+                    <button class="btn btn-success btn-success-next mb-4" routerLink="/covid19/aislamiento/registro-paciente">
+                            Registrar Persona Aislamiento <span class="fa fa-check"></span>
+                    </button>
                 </div>
-                        <br *ngIf="hasRol('Operador')">
-                        <br *ngIf="hasRol('Operador')">
-                        <div *ngIf="hasRol('Operador')||hasRol('Tecnico Salud')">
-                            <h4>Verificar Registro de Persona</h4>
-                            <p>Utilice esta opción para verificar el registro de una persona. Deberá tener su número de documento. También podrá actualizar su diagnóstico.</p>
-                            <!--<br>-->
-                            <button class="btn btn-success btn-success-next" routerLink="/covid19/operador/toma-muestra-laboratorial">
-                                    Verificar Registro de Persona
-                                    <span class="fa fa-check"></span>
-                                </button>
-                        </div>
-                        <br *ngIf="hasRol('Operador')">
-                        <div class="clearfix" *ngIf="hasRol('Consulta')"><br/></div>
-              <div *ngIf="hasRol('Consulta')"><!--style="margin-top: 24px"-->
+
+                <div *ngIf="hasRol('Operador') || hasRol('Operador Contact Center')"><!--|| hasRol('Operador DGVS')-->
+                    <h4>Seguimiento de Contactos</h4>
+                    <p>Utilice esta opción para registrar el seguimiento de Contactos de Casos Confirmados. Opción disponible para utilización del Contact Center.</p>
+    
+                    <button class="btn btn-success btn-success-next mb-4 mr-3" routerLink="/covid19/operador/nuevo-contacto" *ngIf="!hasRol('Operador Contact Center')">
+                        Registrar Nuevo Contacto <span class="fa fa-save"></span>
+                    </button>
+    
+                    <button class="btn btn-success btn-success-next mb-4 mr-3" routerLink="/covid19/operador/contactos">
+                        Realizar Seguimiento <span class="fa fa-list"></span>
+                    </button>
+                </div>
+
+                <div *ngIf="hasRol('Gestion Personal de Blanco') || hasRol('Operador') || hasRol('Operador DGVS')">
+                    <h4>Seguimiento de Personal de Blanco</h4>
+                    <p>Utilice esta opción para el registro del personal de blanco y para actualizar su seguimiento.</p>
+                    <button class="btn btn-success btn-success-next mb-4 mr-3" routerLink="/covid19/operador/ficha-monitoreo">
+                        Registrar Nuevo Personal de Blanco <span class="fa fa-check"></span>
+                    </button>
+                    <button class="btn btn-success btn-success-next mb-4" routerLink="/covid19/operador/actualizar-seguimiento">
+                        Actualizar Seguimiento <span class="fa fa-check"></span><br>
+                    </button>
+                </div>
+                <!--<div class="clearfix" *ngIf="hasRol('Operador')"><br/></div>
+                <br *ngIf="hasRol('Operador')">
+                <br *ngIf="hasRol('Operador')">-->
+                <div *ngIf="hasRol('Operador') || hasRol('Tecnico Salud') || hasRol('Gestion Personal de Blanco') || hasRol('Operador DGVS')">
+                    <h4>Verificar Registro de Persona</h4>
+                    <p>Utilice esta opción para verificar el registro de una persona. Deberá tener su número de documento. También podrá actualizar su diagnóstico.</p>
+                    <!--<br>-->
+                    <button class="btn btn-success btn-success-next" routerLink="/covid19/operador/toma-muestra-laboratorial">
+                        Verificar Registro de Persona <span class="fa fa-check"></span>
+                    </button>
+                </div>
+                <br *ngIf="hasRol('Operador')">
+                <div class="clearfix" *ngIf="hasRol('Consulta')"><br/></div>
+              <div *ngIf="hasRol('Consulta') || hasRol('Operador')"><!--style="margin-top: 24px"-->
                 <h4>Visualizar Reportes</h4>
                 <p>Visualizar reportes de personas. Se podrá verificar en un reporte las personas que no reportaron su ubicación, 
                     verificar su estado de salud y exportar la información.</p>
                 <!--<p>Lista de personas que no reportaron su ubicación o estado de salud en las últimas 24 horas</p>
                 <br>-->
-                <button class="btn btn-success btn-success-next" routerLink="/covid19/reportes/sin-ubicacion">
+                <button class="btn btn-success btn-success-next mb-4" routerLink="/covid19/reportes/sin-ubicacion">
                   Ver reporte
                   <span class="fa fa-list"></span>
                 </button>
               </div>
+              
               <!--h4>Verificar Ingreso Persona al País</h4>
               <p>Utilice esta opción para verificar si la persona registró su declaración de estado de salud al ingresar al país. Deberá conocer el número de documento y código de verificación de la persona que
                   quiere verificar. Una vez verificado, el paciente recibirá un mensaje de texto con información e instrucciones para activar la aplicación de seguimiento.

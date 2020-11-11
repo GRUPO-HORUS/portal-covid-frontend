@@ -82,6 +82,22 @@ import { HeaderBaseComponent } from './pages/covid19/header-base/header-base.com
 import { FormBaseComponent } from './pages/covid19/estado-salud/form-base/form-base.component';
 import { VisualizarEstadoSaludComponent } from './pages/covid19/estado-salud/visualizar-estado-salud/visualizar-estado-salud.component';
 import { ContactosPaciente } from "./pages/covid19/contactos-paciente.component";
+import { FichaMonitoreoComponent } from "./pages/covid19/carga-operador/ficha-monitoreo.component";
+
+import { ContactoFormComponent } from "./pages/covid19/contacto/contacto-form.component";
+
+import {CdkStepperModule} from '@angular/cdk/stepper';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+
+import {TriStateCheckboxModule} from 'primeng/tristatecheckbox';
+import {AutoCompleteModule} from 'primeng/autocomplete';
+
+import {StepsModule} from 'primeng/steps';
+import { Contactos } from "./pages/covid19/contacto/contactos.component";
+import { ActualizarSeguimientoComponent } from "./pages/covid19/carga-operador/actualizar-seguimiento.component";
+import { PrimerContactoComponent } from "./pages/covid19/carga-operador/primer-contacto.component";
 
 @NgModule({
   // Declaración de componentes
@@ -128,6 +144,11 @@ import { ContactosPaciente } from "./pages/covid19/contactos-paciente.component"
     FormBaseComponent,
     VisualizarEstadoSaludComponent,
     ContactosPaciente,
+    FichaMonitoreoComponent,
+    ActualizarSeguimientoComponent,
+    ContactoFormComponent,
+    Contactos,
+    PrimerContactoComponent
   ],
   // dependencias de módulos
   imports: [
@@ -174,7 +195,14 @@ import { ContactosPaciente } from "./pages/covid19/contactos-paciente.component"
     FieldsetModule,
     OverlayPanelModule,
     SpinnerModule,
-    TooltipModule
+    TooltipModule,
+    CdkStepperModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatIconModule,
+    StepsModule,
+    TriStateCheckboxModule,
+    AutoCompleteModule
   ],
   providers: [
     appRoutingProviders,

@@ -35,6 +35,11 @@ import {HeaderBaseComponent} from './pages/covid19/header-base/header-base.compo
 import {ActualizarEstadoSaludComponent} from './pages/covid19/estado-salud/actualizar-estado-salud/actualizar-estado-salud.component';
 import {VisualizarEstadoSaludComponent} from './pages/covid19/estado-salud/visualizar-estado-salud/visualizar-estado-salud.component';
 import { ContactosPaciente } from "./pages/covid19/contactos-paciente.component";
+import { FichaMonitoreoComponent } from "./pages/covid19/carga-operador/ficha-monitoreo.component";
+import { ContactoFormComponent } from "./pages/covid19/contacto/contacto-form.component";
+import { Contactos } from "./pages/covid19/contacto/contactos.component";   //prueba
+import { ActualizarSeguimientoComponent } from "./pages/covid19/carga-operador/actualizar-seguimiento.component";
+import { PrimerContactoComponent } from "./pages/covid19/carga-operador/primer-contacto.component";
 
 //Listado de rutas para la aplicación
 export const appRoutes: Routes = [
@@ -56,6 +61,17 @@ export const appRoutes: Routes = [
   { path: "covid19/operador/toma-muestra-laboratorial", component: OperadorTomaMuestraLaboratorial},
   { path: "covid19/operador/toma-muestra-laboratorial/:cedula", component: OperadorTomaMuestraLaboratorial},
   { path: "covid19/operador/contactos-paciente/:id/:cedula", component: ContactosPaciente},
+
+  { path: "covid19/operador/ficha-monitoreo", component: FichaMonitoreoComponent},
+
+  { path: "covid19/operador/nuevo-contacto", component: ContactoFormComponent},
+
+  { path: "covid19/operador/contactos", component: Contactos},
+
+  { path: "covid19/operador/actualizar-seguimiento", component: ActualizarSeguimientoComponent},
+
+  { path: "covid19/operador/primer-contacto/1695901", component: PrimerContactoComponent},
+
   { path: "covid19",
     component: HeaderBaseComponent,
     children: [
@@ -81,6 +97,7 @@ export const appRoutes: Routes = [
   { path: "", component: LoginComponent },
 
   { path: "**", component: Page404Component }
+
 ];
 
 //Listado de components para la aplicación

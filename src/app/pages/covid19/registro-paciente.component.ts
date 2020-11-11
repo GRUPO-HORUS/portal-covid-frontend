@@ -90,6 +90,7 @@ export class RegistroPacienteComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("Registro aislamiento");
     this.formDatosBasicos = new FormDatosBasicos();
 
     this.formDatosBasicos.tipoDocumento = 0;

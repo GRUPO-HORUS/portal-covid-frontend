@@ -1,0 +1,1133 @@
+<div id="page-header" class="bg-gradient bg-shadow" style="padding: 0px 0;">
+    <div class="container clearfix">
+        <nav class="breadcrumb">
+            
+        </nav>
+    </div>
+</div>
+<div id="content" class="pb-0">
+<div id="content" class="pb-0 pt-2">
+    <div class="container pb-6">
+        <div class="row">
+            <div class="col-md-12 mb-4">
+                <h3 class="title-divider text-primary">
+                    <i class="fa fa-edit mr-2" style="margin-top: -4px;"></i>
+                    <span>Actualizar Seguimiento</span>
+                </h3>
+                <h4>Exposición de personal sanitario al SARS-COV-2</h4>
+                
+                <mat-horizontal-stepper labelPosition="bottom" #stepper><!--linear-->
+                    <!--<mat-step [stepControl]="registroFg">
+                        <form [formGroup]="registroFg" class="mt-4">
+                            <ng-template matStepLabel>Datos del personal sanitario</ng-template>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="alert alert-info">
+                                        <i class="fa fa-info-circle"></i> Debe completar todos los campos requeridos para avanzar al siguiente paso.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="fechaMonitoreo"><strong>Fecha de inicio del monitoreo:</strong></label>
+                                        <br>
+                                        <input type="date" id="fechaMonitoreo" formControlName="fechaMonitoreo" style="width: 515px;" value="{{fechaHoy}}">
+                                    </div>
+                                </div>
+                                <div class="col-md">
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="cedula"><strong>Número de Cédula</strong><span style="color: red;"> *</span></label>
+                                        <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="consultarIdentificaciones($event, 'registro')">
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md">
+
+                                </div>
+                            </div>
+        
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="nombre"><strong>Nombres</strong><span style="color: red;"> *</span></label>
+                                        <input type="text" formControlName="nombre" class="form-control" id="nombre" name="nombre" required disabled>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="apellido"><strong>Apellidos</strong><span style="color: red;"> *</span></label>
+                                        <input type="text" formControlName="apellido" class="form-control" id="apellido" name="apellido" required disabled>
+                                        
+                                    </div>
+                                </div>  
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="fechaNacimiento"><strong>Fecha de nacimiento:</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        <input type="date" id="fechaNacimiento" style="width: 515px;" formControlName="fechaNacimiento" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="direccion"><strong>Dirección</strong><span style="color: red;"> *</span></label>
+                                        <input type="text" formControlName="direccion" name="direccion" class="form-control" id="direccion" required>
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="sexo"><strong>Sexo</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        <p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" [(ngModel)]="sexo" name="sexo" [style]="{'width':'515px'}" required></p-dropdown>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="numeroCelular"><strong>Número de teléfono</strong><span style="color: red;"> *</span></label>
+                                        <input type="text" formControlName="telefono" class="form-control" id="telefono" name="telefono" placeholder="Ej. 0961123456" required>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="servicioSalud"><strong>Servicio de salud</strong><span style="color: red;"> *</span></label>
+                                        <input type="text" formControlName="servicioSalud" name="servicioSalud" class="form-control"  id="servicioSalud" required>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="regionSanitaria"><strong>Región Sanitaria</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        <p-dropdown id="regionSanitaria" [options]="regionSanitariaOptions" label="label" placeholder="Seleccionar" formControlName="regionSanitaria" name="regionSanitaria" [style]="{'width':'515px'}" required></p-dropdown>
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="profesion"><strong>Profesión</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        
+                                        <p-dropdown id="profesion" [options]="profesionOptions" label="label" placeholder="Seleccionar" formControlName="profesion" name="profesion" [style]="{'width':'515px'}" required></p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="funcion"><strong>Función</strong><span style="color: red;"> *</span></label>
+                                        <input type="text" formControlName="funcion" name="funcion" class="form-control"  id="funcion" required>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="direccionDomicilio"><strong>Otros lugares donde presta servicio</strong><span style="color: red;"> *</span></label>
+                                        <input type="text" formControlName="lugaresServicio" name="lugaresServicio" class="form-control"  id="lugaresServicio" required>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="text-center" *ngIf="loading">
+                                <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> Guardando...
+                            </div>
+        
+                            <div class="clearfix"><br/></div>
+        
+                            <div class="clearfix">
+                           
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <button class="btn btn-success btn-success-next text-white mr-3" mat-button routerLink="/covid19/home-operador">
+                                        Menú Principal  <span class="fa fa-arrow-left"></span>            
+                                    </button>
+
+                                    <button class="btn btn-success btn-success-next text-white mr-3" mat-button matStepperNext>Siguiente</button>
+                                </div>
+                            </div>     
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="casoConfirmadoFg">
+                        <form [formGroup]="casoConfirmadoFg" class="mt-4">
+                            <ng-template matStepLabel>Datos del caso confirmado</ng-template>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="alert alert-info">
+                                        <i class="fa fa-info-circle"></i> Debe completar todos los campos requeridos para avanzar al siguiente paso.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="cedula"><strong>Número de Cédula del Caso Confirmado</strong><span style="color: red;"> *</span></label>
+                                        <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="consultarIdentificaciones($event,'confirmado')">
+                                    </div>
+                                </div>
+                                <div class="col-md">
+
+                                </div>
+                            </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="nombre"><strong>Nombres</strong><span style="color: red;"> *</span></label>
+                                    <input type="text" formControlName="nombre" name="nombre" class="form-control" id="nombre" required>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="nombre"><strong>Apellidos</strong><span style="color: red;"> *</span></label>
+                                    <input type="text" formControlName="apellido" name="apellido" class="form-control" id="apellido" required>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="sexo"><strong>Sexo</strong><span style="color: red;"> *</span></label>
+                                    <br>
+                                    <p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'325px'}" required></p-dropdown>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md">
+
+                            </div>
+                        </div>
+                        <div class="clearfix"><br/></div>
+                        <div class="row">
+                            <div class="col-md">
+                                <button class="btn btn-success btn-success-next text-white mr-3" mat-button routerLink="/covid19/home-operador">
+                                    Menú Principal  <span class="fa fa-arrow-left"></span>            
+                                </button>
+
+                                <button class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button matStepperNext>Siguiente</button>
+                                <button class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button matStepperPrevious>Anterior</button>
+                            </div>
+                        </div>  
+                    </form>
+                    </mat-step>-->
+                    <mat-step [stepControl]="monitoreoFg">
+                        <ng-template matStepLabel>Monitoreo de Signos y Síntomas</ng-template>
+                        <form [formGroup]="monitoreoFg" class="mt-4">
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="cedula"><strong>Número de Cédula</strong><span style="color: red;"> *</span></label>
+                                        <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="consultarIdentificaciones($event, 'monitoreo')">
+                                    </div>
+                                </div>
+                                <div class="col-md">
+
+                                </div>
+                            </div>
+    
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="nombre"><strong>Nombres</strong><span style="color: red;"> *</span></label>
+                                        <input type="text" formControlName="nombre" class="form-control" id="nombre" name="nombre" required disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="apellido"><strong>Apellidos</strong><span style="color: red;"> *</span></label>
+                                        <input type="text" formControlName="apellido" class="form-control" id="apellido" name="apellido" required disabled>
+                                    </div>
+                                </div>  
+                            </div>
+                        </form>
+                        <img src="/assets/img/signos.png" width="98%">
+                        <div class="clearfix"><br/></div>
+                        <div class="row">
+                            <div class="col-md">
+                                <button class="btn btn-success btn-success-next text-white mr-3" mat-button routerLink="/covid19/home-operador">
+                                    Menú Principal  <span class="fa fa-arrow-left"></span>            
+                                </button>
+
+                                <button class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button matStepperNext>Siguiente</button>
+                                <button class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button matStepperPrevious>Anterior</button>
+                            </div>
+                        </div>  
+                    </mat-step>
+                    <mat-step [stepControl]="clasificacionRiesgoFg">
+                        <form [formGroup]="clasificacionRiesgoFg" class="mt-4">
+                            <ng-template matStepLabel>Clasificación de riesgo</ng-template>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="alert alert-info">
+                                        <i class="fa fa-info-circle"></i> Debe completar todos los campos requeridos para guardar.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="clasRiesgo"><strong>Clasificación de riesgo</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        <p-dropdown id="clasRiesgo" [options]="clasRiesgoOptions" label="label" placeholder="Seleccionar" formControlName="clasRiesgo" name="clasRiesgo" [style]="{'width':'325px'}" required></p-dropdown>
+                                        <!--<p-dropdown id="clasRiesgo" [options]="clasRiesgoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.departamentoDomicilio" name="clasRiesgo" [style]="{'width':'350px'}" required></p-dropdown>-->
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="catContagio"><strong>Categoría del contagio</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        <p-dropdown id="catContagio" [options]="catContagioOptions" label="label" placeholder="Seleccionar" formControlName="catContagio" name="catContagio" [style]="{'width':'325px'}" required></p-dropdown>
+                                        <!--<p-dropdown id="catContagio" [options]="catContagioOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.departamentoDomicilio" name="catContagio" [style]="{'width':'350px'}" required></p-dropdown>-->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="fechaSintomas"><strong>Fecha de Inicio de Síntomas:</strong></label>
+                                        <br>
+                                        <input type="date" id="fechaSintomas" formControlName="fechaSintomas" style="width: 325px;" value="{{fechaHoy}}">
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="fechaExposicion"><strong>Fecha de exposición:</strong></label>
+                                        <br>
+                                        <input type="date" id="fechaExposicion" formControlName="fechaExposicion" style="width: 325px;" value="{{fechaHoy}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                
+                                <!--<table border="1">
+                                    <caption style="caption-side:top;">Completar con S: sí, N: no, D: desconoce</caption>
+                                    <tr>
+                                        <th style="background-color: rgb(190, 186, 186);">Día-></th>
+                                        <th class="th-sintomas">1</th>
+                                        <th class="th-sintomas">2</th>
+                                        <th class="th-sintomas">3</th>
+                                        <th class="th-sintomas">4</th>
+                                        <th class="th-sintomas">5</th>
+                                        <th class="th-sintomas">6</th>
+                                        <th class="th-sintomas">7</th>
+                                        <th class="th-sintomas">8</th>
+                                        <th class="th-sintomas">9</th>
+                                        <th class="th-sintomas">10</th>
+                                        <th class="th-sintomas">11</th>
+                                        <th class="th-sintomas">12</th>
+                                        <th class="th-sintomas">13</th>
+                                        <th class="th-sintomas">14</th>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color: rgb(190, 186, 186);">Tos</td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color: rgb(190, 186, 186);">Fiebre</td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color: rgb(190, 186, 186);">Dolor de garganta</td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color: rgb(190, 186, 186);">Disnea</td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color: rgb(190, 186, 186);">Cefalea</td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color: rgb(190, 186, 186);">Anosmia</td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color: rgb(190, 186, 186);">Rinitis</td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="background-color: rgb(190, 186, 186);">Otros cansancios</td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                        <td><input type="text" class="text-sintomas"></td>
+                                    </tr>
+                                </table>-->
+                                <!--<table border="1">
+                                    <tr>
+                                        <th>Tos</th>
+                                        <th>Fiebre</th>
+                                        <th style="width: 150px;">Dolor de garganta</th>
+                                        <th>Disnea</th>
+                                        <th>Cefalea</th>
+                                        <th>Anosmia</th>
+                                        <th>Rinitis</th>
+                                        <th>Otros cansancios</th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia1">
+                                                <label class="custom-control-label" for="tosDia1">Día 1</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia2">
+                                                <label class="custom-control-label" for="tosDia2">Día 2</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia3">
+                                                <label class="custom-control-label" for="tosDia3">Día 3</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia4">
+                                                <label class="custom-control-label" for="tosDia4">Día 4</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia5">
+                                                <label class="custom-control-label" for="tosDia5">Día 5</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia6">
+                                                <label class="custom-control-label" for="tosDia6">Día 6</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia7">
+                                                <label class="custom-control-label" for="tosDia7">Día 7</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia8">
+                                                <label class="custom-control-label" for="tosDia8">Día 8</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia9">
+                                                <label class="custom-control-label" for="tosDia9">Día 9</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia10">
+                                                <label class="custom-control-label" for="tosDia10">Día 10</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia11">
+                                                <label class="custom-control-label" for="tosDia11">Día 11</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia12">
+                                                <label class="custom-control-label" for="tosDia12">Día 12</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia13">
+                                                <label class="custom-control-label" for="tosDia13">Día 13</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia14">
+                                                <label class="custom-control-label" for="tosDia14">Día 14</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia15">
+                                                <label class="custom-control-label" for="tosDia15">Día 15</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 1</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 2</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 3</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 4</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 5</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 6</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 7</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 8</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 9</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 10</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 11</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 12</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 13</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 14</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 15</label>
+                                            </div>  
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="dolorDia1">
+                                                <label class="custom-control-label" for="dolorDia1">Día 1</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="dolorDia2">
+                                                <label class="custom-control-label" for="dolorDia2">Día 2</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="dolorDia3">
+                                                <label class="custom-control-label" for="dolorDia3">Día 3</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="dolorDia4">
+                                                <label class="custom-control-label" for="dolorDia4">Día 4</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="dolorDia5">
+                                                <label class="custom-control-label" for="dolorDia5">Día 5</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="dolorDia6">
+                                                <label class="custom-control-label" for="dolorDia6">Día 6</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="dolorDia7">
+                                                <label class="custom-control-label" for="dolorDia7">Día 7</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="dolorDia8">
+                                                <label class="custom-control-label" for="dolorDia8">Día 8</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="dolorDia9">
+                                                <label class="custom-control-label" for="dolorDia9">Día 9</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="dolorDia10">
+                                                <label class="custom-control-label" for="dolorDia10">Día 10</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="dolorDia11">
+                                                <label class="custom-control-label" for="dolorDia11">Día 11</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="dolorDia12">
+                                                <label class="custom-control-label" for="dolorDia12">Día 12</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="dolorDia13">
+                                                <label class="custom-control-label" for="dolorDia13">Día 13</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="dolorDia14">
+                                                <label class="custom-control-label" for="dolorDia14">Día 14</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="dolorDia15">
+                                                <label class="custom-control-label" for="dolorDia15">Día 15</label>
+                                            </div>  
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 1</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 2</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 3</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 4</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 5</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 6</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 7</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 8</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 9</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 10</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 11</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 12</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 13</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 14</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 15</label>
+                                            </div> 
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 1</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 2</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 3</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 4</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 5</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 6</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 7</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 8</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 9</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 10</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 11</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 12</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 13</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 14</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 15</label>
+                                            </div>  
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 1</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 2</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 3</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 4</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 5</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 6</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 7</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 8</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 9</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 10</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 11</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 12</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 13</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 14</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 15</label>
+                                            </div>  
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 1</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 2</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 3</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 4</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 5</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 6</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 7</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 8</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 9</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 10</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 11</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 12</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 13</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 14</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 15</label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 1</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 2</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 3</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 4</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 5</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 6</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 7</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 8</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 9</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 10</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 11</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 12</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 13</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 14</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="secundario">
+                                                <label class="custom-control-label" for="secundario">Día 15</label>
+                                            </div> 
+                                        </td>
+                                    </tr>
+                                </table>-->
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                <b>Indicaciones para el trabajo (marcar lo que corresponda)<span style="color: red;"> *</span></b>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="exclusion">
+                                        <label class="custom-control-label" for="exclusion">Exclusión</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="autocontrol">
+                                        <label class="custom-control-label" for="autocontrol">Autocontrol</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="nada">
+                                        <label class="custom-control-label" for="nada">Nada</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="otroIndic" (change)="otroIndic = !otroIndic">
+                                        <label class="custom-control-label" for="otroIndic">Otro</label>
+                                    </div>
+        
+                                    <div class="form-group" *ngIf="otroIndic">
+                                        <label for="otroIndicEspecificar"><strong>Otro</strong></label>
+                                        <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control"  id="direccionDomicilio" required>-->
+                                        <input type="text" formControlName="otroIndicEspecificar" name="otroIndicEspecificar" class="form-control"  id="otroIndicEspecificar" required>
+                                    </div>
+                                </div>
+        
+                                <div class="col-md">
+                                    <b>Laboratorio (marcar lo que corresponda)<span style="color: red;"> *</span></b>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="pcr">
+                                        <label class="custom-control-label" for="pcr">PCR</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="resultado">
+                                        <label class="custom-control-label" for="resultado">Resultado</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="otroLab" (change)="otroLab = !otroLab">
+                                        <label class="custom-control-label" for="otroLab">Otro</label>
+                                    </div>
+        
+                                    <div class="form-group" *ngIf="otroLab">
+                                        <label for="otroLabEspecificar"><strong>Otro</strong></label>
+                                        <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control"  id="direccionDomicilio" required>-->
+                                        <input type="text" formControlName="otroLabEspecificar" name="otroLabEspecificar" class="form-control"  id="otroLabEspecificar" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md">
+                                    <b>Clasificación final (marcar lo que corresponda)<span style="color: red;"> *</span></b>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="secundario">
+                                        <label class="custom-control-label" for="secundario">Caso secundario</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="contacto">
+                                        <label class="custom-control-label" for="contacto">Contacto</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="sinClasificar">
+                                        <label class="custom-control-label" for="sinClasificar">Sin clasificar</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="otroClasif" (change)="otroClasif = !otroClasif">
+                                        <label class="custom-control-label" for="otroClasif">Otro</label>
+                                    </div>
+                                    <div class="form-group" *ngIf="otroClasif">
+                                        <label for="otroClasifEspecificar"><strong>Otro</strong></label>
+                                        <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control"  id="direccionDomicilio" required>-->
+                                        <input type="text" formControlName="otroClasifEspecificar" name="otroClasifEspecificar" class="form-control"  id="otroClasifEspecificar" required>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+
+                                </div>
+                            </div>
+                            <div class="clearfix"><br/></div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <button class="btn btn-success btn-success-next text-white mr-3" mat-button routerLink="/covid19/home-operador">
+                                        Menú Principal  <span class="fa fa-arrow-left"></span>            
+                                    </button>
+                                    <button (click)="registrar()" type="submit" class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button routerLink="/covid19/home-operador"><!--[disabled]="clasificacionRiesgoFg.invalid || loading"-->  
+                                        Guardar <span class="fa fa-check"></span>            
+                                    </button>
+    
+                                    <button class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button matStepperPrevious>Anterior</button>
+                                </div>
+                            </div>
+                        </form>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </div>
+
+            <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Aviso</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">{{mensaje}}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-remove"></i>  Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--<div class="modal fade" id="modalTerminosIE" tabindex="-1" role="dialog" aria-labelledby="modalTerminosIELabel" aria-hidden="true">
+                <div style="max-width:1100px;" class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content p-4">
+                        <div class="modal-header">
+                            <h2 class="modal-title" id="modalTerminosIELabel">
+                                Términos y Condiciones
+                            </h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body row">
+                            <ie-terminos-template></ie-terminos-template>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+</div>
+</div>
