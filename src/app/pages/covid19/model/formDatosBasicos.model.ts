@@ -26,7 +26,5 @@ export class FormDatosBasicos {
     fechaNacimiento:string;
 
     sexo:string;
-    fechaInicioSintomas: string;
-    fechaExposicion: string;
 
 }

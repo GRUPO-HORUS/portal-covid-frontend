@@ -1,4 +1,4 @@
-export class ClasifRiesgoPaciente {
+export class FormSeccionClasifRiesgo {
     id: number;
     idRegistro: number;
     nroDocumento: string;
@@ -13,4 +13,7 @@ export class ClasifRiesgoPaciente {
     trabajoOtroDescripcion: string;
     laboratorioAntigeno: boolean;
     laboratorioPcr: boolean;
+
+    fechaInicioSintomas: string;
+    fechaExposicion: string;
 }

@@ -53,8 +53,8 @@ export class Covid19Service {
       return this.httpClient.post<any>(this.config.API + '/covid19api/ingresoPais/confirmarPersona/'+numeroDocumento+"/"+codigoVerif,null);
     }
 
-    guardarDatosBasicosFichaPB(formDatosBasicos): Observable<string> {
-      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/datosBasicos/', formDatosBasicos);
+    guardarFichaPB(fichaPersonalBlanco): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/fichaPersonalBlanco/', fichaPersonalBlanco);
     }
 
     guardarDatosBasicosOperador(formDatosBasicos): Observable<string> {
@@ -80,6 +80,22 @@ export class Covid19Service {
     guardarClasifRiesgo(clasifRiesgo):Observable<string>{
       return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/clasifRiesgo', clasifRiesgo);
     }
+
+    listarPacientes(start: number, pageSize: number, filter: string, sortAsc: boolean,
+      sortField: string): Observable<ContactoTable> {
+     this.loading.next(true);
+
+     let params = new HttpParams();
+
+     if (filter)
+       params = params.set('filter', filter);
+
+     if (sortField)
+       params = params.set('sortField', sortField);
+
+     params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
+     return this.httpClient.get<ContactoTable>(this.config.API + '/covid19api/aislamiento/listarPacientes', {params});
+   }
 
     setearClave(idRegistro, clave): Observable<string> {
       return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/claveSeguridad/'+idRegistro, clave);

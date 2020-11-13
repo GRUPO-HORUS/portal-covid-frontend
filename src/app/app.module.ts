@@ -99,6 +99,8 @@ import { Contactos } from "./pages/covid19/contacto/contactos.component";
 import { ActualizarSeguimientoComponent } from "./pages/covid19/carga-operador/actualizar-seguimiento.component";
 import { PrimerContactoComponent } from "./pages/covid19/carga-operador/primer-contacto.component";
 
+import {ListaPacientesComponent} from "./pages/covid19/carga-operador/lista-pacientes.component";
+
 @NgModule({
   // Declaración de componentes
   declarations: [
@@ -148,7 +150,8 @@ import { PrimerContactoComponent } from "./pages/covid19/carga-operador/primer-c
     ActualizarSeguimientoComponent,
     ContactoFormComponent,
     Contactos,
-    PrimerContactoComponent
+    PrimerContactoComponent,
+    ListaPacientesComponent
   ],
   // dependencias de módulos
   imports: [

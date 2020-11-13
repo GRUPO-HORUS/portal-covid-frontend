@@ -9,12 +9,13 @@ import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 
 import { MatHorizontalStepper } from "@angular/material";
-import { ContactoContagio } from "../model/contactoContagio.model";
-import { ClasifRiesgoPaciente } from "../model/clasifRiesgoPaciente.model";
-import { FormPersonalBlanco } from "../model/formPersonalBlanco.model";
+import { FormSeccionContactoContagio } from "../model/formSeccionContactoContagio.model";
+import { FormSeccionClasifRiesgo } from "../model/formSeccionClasifRiesgo.model";
+import { FormSeccionPersonalBlanco } from "../model/formSeccionPersonalBlanco.model";
 
 import {calendarEsLocale} from '../../../util/calendar-es-locale';
 import { LugarServicio } from "../model/lugarServicio.model";
+import { FichaPersonalBlanco } from "../model/fichaPersonalBlanco.model";
 
 declare var $: any;
 @Component({
@@ -32,10 +33,13 @@ export class FichaMonitoreoComponent implements OnInit {
   //Formulario
   public formDatosBasicos: FormDatosBasicos;
 
-  public contactoContagio: ContactoContagio;
+  public contactoContagio: FormSeccionContactoContagio;
 
-  public clasifRiesgoPaciente: ClasifRiesgoPaciente;
-  public formPersonalBlanco: FormPersonalBlanco;
+  public clasifRiesgoPaciente: FormSeccionClasifRiesgo;
+  public formPersonalBlanco: FormSeccionPersonalBlanco;
+
+  //Formulario global
+  public fichaPersonalBlanco: FichaPersonalBlanco;
 
   //Datos del formulario 
   //public cedula: string;
@@ -82,7 +86,7 @@ export class FichaMonitoreoComponent implements OnInit {
                               {value:'Presidente Hayes',label:'Presidente Hayes'},{value:'Alto Paraguay',label:'Alto Paraguay'},
                               {value:'Boquerón',label:'Boquerón'}];*/
 
-                              public regionSanitariaOptions=[{id:0, nombre:'Capital'},
+                              public regionSanitariaOptions=[
                               {id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro'},
                               {id:3, nombre:'Cordillera'},{id:4, nombre:'Guairá'},
                               {id:5, nombre:'Caaguazú'},{id:6,nombre:'Caazapá'},
@@ -91,7 +95,7 @@ export class FichaMonitoreoComponent implements OnInit {
                               {id:11, nombre:'Central'},{id:12, nombre:'Ñeembucú'},
                               {id:13, nombre:'Amambay'},{id:14, nombre:'Canindeyú'},
                               {id:15, nombre:'Presidente Hayes'},{id:16, nombre:'Alto Paraguay'},
-                              {id:17, nombre:'Boquerón'}];
+                              {id:17, nombre:'Boquerón'}, {id:18, nombre:'Capital'}];
 
                               public clasifFinalOptions=[{value:'descartado',label:'Descartado'},{value:'confirmado',label:'Confirmado'}];
   public ciudadOptions: any[];
@@ -138,10 +142,6 @@ export class FichaMonitoreoComponent implements OnInit {
 
   ngOnInit() {
     this.fechaHoy = new Date().toLocaleDateString('fr-CA');
-
-    this.formDatosBasicos = new FormDatosBasicos();
-
-    this.formDatosBasicos.tipoDocumento = 0;
 
     this.options="{types: ['(cities)'], componentRestrictions: { country: 'PY' }}";
 
@@ -291,32 +291,77 @@ export class FichaMonitoreoComponent implements OnInit {
 
   guardarFicha(): void {
     /*localStorage.setItem('tipoDocumento', formDatosBasicos.tipoDocumento);*/
-    this.formDatosBasicos.tipoRegistro = "personal_blanco";
-    this.formDatosBasicos.numeroDocumento = this.registroFg.controls.cedula.value;
-    this.formDatosBasicos.nombre = this.registroFg.controls.nombre.value;
-    this.formDatosBasicos.apellido = this.registroFg.controls.apellido.value;
-    this.formDatosBasicos.sexo = this.registroFg.controls.sexo.value;
-    this.formDatosBasicos.direccionDomicilio = this.registroFg.controls.direccion.value;
-    this.formDatosBasicos.fechaNacimiento = this.registroFg.controls.fechaNacimiento.value;
-    this.formDatosBasicos.numeroCelular = this.registroFg.controls.telefono.value;
+    //this.formDatosBasicos = new FormDatosBasicos();
+    this.fichaPersonalBlanco = new FichaPersonalBlanco();
 
-    this.formDatosBasicos.fechaInicioSintomas = this.monitoreoFg.controls.fechaSintomas.value;
-    this.formDatosBasicos.fechaExposicion = this.monitoreoFg.controls.fechaExposicion.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos = new FormDatosBasicos();
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.tipoDocumento = 0;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.tipoRegistro = "personal_blanco";
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.numeroDocumento = this.registroFg.controls.cedula.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.nombre = this.registroFg.controls.nombre.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.apellido = this.registroFg.controls.apellido.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.sexo = this.registroFg.controls.sexo.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.direccionDomicilio = this.registroFg.controls.direccion.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.fechaNacimiento = this.registroFg.controls.fechaNacimiento.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.numeroCelular = this.registroFg.controls.telefono.value;
+
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco = new FormSeccionPersonalBlanco();
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.profesion = this.registroFg.controls.profesion.value;
+    let lugarServicio = new LugarServicio();
+    lugarServicio = this.registroFg.controls.servicioSalud.value;
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.servicioSalud = lugarServicio.nombre;
+    let regionSanitaria = new LugarServicio();
+    regionSanitaria = this.registroFg.controls.regionSanitaria.value;
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.regionSanitaria = regionSanitaria.nombre;
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.funcion = this.registroFg.controls.funcion.value;
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.otrosLugares = this.registroFg.controls.otrosLugares.value;
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.reingreso = this.registroFg.controls.reingreso.value;
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.fallecido = this.registroFg.controls.fallecido.value;
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.internado = this.registroFg.controls.internado.value;
+    if(this.registroFg.controls.establecimiento.value !== null){
+      this.fichaPersonalBlanco.formSeccionPersonalBlanco.establecimientoInternacion = this.registroFg.controls.establecimiento.value;
+    }
+    if(this.registroFg.controls.especialidad.value !== null){
+      this.fichaPersonalBlanco.formSeccionPersonalBlanco.especialidadInternacion = this.registroFg.controls.especialidad.value;
+    }
+
+    this.fichaPersonalBlanco.formSeccionContactoContagio = new FormSeccionContactoContagio();
+    this.fichaPersonalBlanco.formSeccionContactoContagio.nroDocumento = this.casoConfirmadoFg.controls.cedula.value;
+    this.fichaPersonalBlanco.formSeccionContactoContagio.nombre = this.casoConfirmadoFg.controls.nombre.value;
+    this.fichaPersonalBlanco.formSeccionContactoContagio.apellido = this.casoConfirmadoFg.controls.apellido.value;
+    this.fichaPersonalBlanco.formSeccionContactoContagio.sexo = this.casoConfirmadoFg.controls.sexo.value;
+
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo = new FormSeccionClasifRiesgo();
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.clasificacionRiesgo = this.clasificacionRiesgoFg.controls.clasRiesgo.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.categoriaContagio = this.clasificacionRiesgoFg.controls.catContagio.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.clasificacionFinal = this.clasificacionRiesgoFg.controls.clasifFinal.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.trabajoExclusion = this.clasificacionRiesgoFg.controls.exclusion.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.trabajoAutocontrol = this.clasificacionRiesgoFg.controls.autocontrol.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.trabajoNada = this.clasificacionRiesgoFg.controls.nada.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.trabajoOtro = this.clasificacionRiesgoFg.controls.otroIndic.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.trabajoOtroDescripcion = this.clasificacionRiesgoFg.controls.otroIndicEspecificar.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.laboratorioAntigeno = this.clasificacionRiesgoFg.controls.antigeno.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.laboratorioPcr = this.clasificacionRiesgoFg.controls.pcr.value;
     
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaInicioSintomas = this.monitoreoFg.controls.fechaSintomas.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaExposicion = this.monitoreoFg.controls.fechaExposicion.value;
+
     this.loading = true;
-    this.service.guardarDatosBasicosFichaPB(this.formDatosBasicos).subscribe(response => {
+    this.service.guardarFichaPB(this.fichaPersonalBlanco).subscribe(response => {
           this.idRegistro = +response;
           //this._router.navigate(["covid19/carga-operador/datos-clinicos/",this.idRegistro]);
-          //this._router.navigate(["covid19/home-operador"]);
-          
-          this.guardarFormPersonalBlanco(this.idRegistro);
+          /*this.guardarFormPersonalBlanco(this.idRegistro);
           this.guardarFormContactoContagio(this.idRegistro);
           this.guardarFormClasifRiesgo(this.idRegistro);
-          //this.guardarFormSintomas(this.idRegistro);
+          this.guardarFormSintomas(this.idRegistro);*/
 
           this.loading = false;
-          this.mensaje = "Datos guardados con Éxito";
-          this.openMessageDialog();
+          this.mensaje = "Personal de salud registrado exitosamente!";
+          this.openMessageDialogExito();
+
+          /*setTimeout(function(){
+              this._router.navigate(["covid19/home-operador"]);
+          }, 3000);*/
             
         }, error => {
           console.log(error);
@@ -327,29 +372,26 @@ export class FichaMonitoreoComponent implements OnInit {
     );
   }
 
-  guardarFormPersonalBlanco(idRegistro){
-    this.formPersonalBlanco = new FormPersonalBlanco();
+  /*guardarFormPersonalBlanco(idRegistro){
+    this.formPersonalBlanco = new FormSeccionPersonalBlanco();
     this.formPersonalBlanco.idRegistro = idRegistro;
     this.formPersonalBlanco.profesion = this.registroFg.controls.profesion.value;
     let lugarServicio = new LugarServicio();
     lugarServicio = this.registroFg.controls.servicioSalud.value;
     this.formPersonalBlanco.servicioSalud = lugarServicio.nombre;
     //this.formPersonalBlanco.servicioSalud = this.registroFg.controls.servicioSalud.value;
-
     let regionSanitaria = new LugarServicio();
     regionSanitaria = this.registroFg.controls.regionSanitaria.value;
     this.formPersonalBlanco.regionSanitaria = regionSanitaria.nombre;
     //this.formPersonalBlanco.regionSanitaria = this.registroFg.controls.regionSanitaria.value;
     this.formPersonalBlanco.funcion = this.registroFg.controls.funcion.value;
     this.formPersonalBlanco.otrosLugares = this.registroFg.controls.otrosLugares.value;
-
     this.formPersonalBlanco.reingreso = this.registroFg.controls.reingreso.value;
     this.formPersonalBlanco.fallecido = this.registroFg.controls.fallecido.value;
     this.formPersonalBlanco.internado = this.registroFg.controls.internado.value;
     if(this.registroFg.controls.establecimiento.value !== null){
       this.formPersonalBlanco.establecimientoInternacion = this.registroFg.controls.establecimiento.value;
     }
-
     if(this.registroFg.controls.especialidad.value !== null){
       this.formPersonalBlanco.especialidadInternacion = this.registroFg.controls.especialidad.value;
     }
@@ -362,7 +404,7 @@ export class FichaMonitoreoComponent implements OnInit {
   }
 
   guardarFormContactoContagio(idRegistro){
-    this.contactoContagio = new ContactoContagio();
+    this.contactoContagio = new FormSeccionContactoContagio();
     this.contactoContagio.nroDocumento = this.casoConfirmadoFg.controls.cedula.value;
     this.contactoContagio.nombre = this.casoConfirmadoFg.controls.nombre.value;
     this.contactoContagio.apellido = this.casoConfirmadoFg.controls.apellido.value;
@@ -377,7 +419,6 @@ export class FichaMonitoreoComponent implements OnInit {
 
   guardarFormSintomas(idRegistro){
     this.service.guardarFormSintomas(this.formDatosBasicos).subscribe(response => {
-      console.log(response);
       this.loading = false;
       this.mensaje = "Se ha registrado con Éxito";
       localStorage.setItem('token',response);
@@ -389,12 +430,11 @@ export class FichaMonitoreoComponent implements OnInit {
       this.loading = false;
       this.mensaje = error.error;
       this.openMessageDialog(); 
-    }
-);
+    });
   }
 
   guardarFormClasifRiesgo(idRegistro){
-    this.clasifRiesgoPaciente = new ClasifRiesgoPaciente();
+    this.clasifRiesgoPaciente = new FormSeccionClasifRiesgo();
     this.clasifRiesgoPaciente.idRegistro = idRegistro;
     this.clasifRiesgoPaciente.clasificacionRiesgo = this.clasificacionRiesgoFg.controls.clasRiesgo.value;
     this.clasifRiesgoPaciente.categoriaContagio = this.clasificacionRiesgoFg.controls.catContagio.value;
@@ -413,7 +453,7 @@ export class FichaMonitoreoComponent implements OnInit {
     },error => {
       console.log(error);
     });
-  }
+  }*/
 
   filtrarRegion(event) {
     //this.serviciosSalud = [{'id':1,'nombre':'Servicio uno'},{'id':2,'nombre':'Servicio dos'},{'id':3,'nombre':'Servicio tres'}];
@@ -542,6 +582,10 @@ export class FichaMonitoreoComponent implements OnInit {
             this.openMessageDialog();
           }
         );
+  }
+
+  openMessageDialogExito() {
+    setTimeout(function() { $("#modalExito").modal("toggle"); }, 1000);
   }
   
   openMessageDialog() {

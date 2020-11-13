@@ -1,4 +1,4 @@
-export class FormPersonalBlanco {
+export class FormSeccionPersonalBlanco {
     id: number;
     idRegistro: number;
     profesion: string;

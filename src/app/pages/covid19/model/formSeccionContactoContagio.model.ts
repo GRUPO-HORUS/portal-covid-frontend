@@ -1,4 +1,4 @@
-export class ContactoContagio {
+export class FormSeccionContactoContagio {
     id: number;
     idRegistro: number;
     nroDocumento: string;

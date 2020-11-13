@@ -40,6 +40,7 @@ import { ContactoFormComponent } from "./pages/covid19/contacto/contacto-form.co
 import { Contactos } from "./pages/covid19/contacto/contactos.component";   //prueba
 import { ActualizarSeguimientoComponent } from "./pages/covid19/carga-operador/actualizar-seguimiento.component";
 import { PrimerContactoComponent } from "./pages/covid19/carga-operador/primer-contacto.component";
+import { ListaPacientesComponent } from "./pages/covid19/carga-operador/lista-pacientes.component";
 
 //Listado de rutas para la aplicación
 export const appRoutes: Routes = [
@@ -71,6 +72,8 @@ export const appRoutes: Routes = [
   { path: "covid19/operador/actualizar-seguimiento", component: ActualizarSeguimientoComponent},
 
   { path: "covid19/operador/primer-contacto/1695901", component: PrimerContactoComponent},
+
+  { path: "covid19/operador/lista-pacientes", component: ListaPacientesComponent},
 
   { path: "covid19",
     component: HeaderBaseComponent,
