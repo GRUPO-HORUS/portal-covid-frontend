@@ -84,7 +84,7 @@
                                     <div class="form-group">
                                         <label for="sexo"><strong>Sexo</strong><span style="color: red;"> *</span></label>
                                         <br>
-                                        <p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" [(ngModel)]="sexo" name="sexo" [style]="{'width':'515px'}" required></p-dropdown>
+                                        <p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'515px'}" required></p-dropdown>
                                         <!--<p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.tipoDocumento" name="sexo" [style]="{'width':'350px'}" required></p-dropdown>-->
                                     </div>
                                 </div>
@@ -646,11 +646,11 @@
                                         <label class="custom-control-label" for="nada">Nada</label>
                                     </div>
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" formControlName = "otroIndic" class="custom-control-input" id="otroIndic" (change)="otroIndic = !otroIndic">
+                                        <input type="checkbox" formControlName = "otroIndic" class="custom-control-input" id="otroIndic" (change)="clasificacionRiesgoFg.controls.otroIndic.setValue(!clasificacionRiesgoFg.controls.otroIndic.value)">
                                         <label class="custom-control-label" for="otroIndic">Otro</label>
                                     </div>
         
-                                    <div class="form-group" *ngIf="otroIndic">
+                                    <div class="form-group" *ngIf="clasificacionRiesgoFg.controls.otroIndic.value">
                                         <label for="otroIndicEspecificar"><strong>Otro</strong></label>
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control"  id="direccionDomicilio" required>-->
                                         <input type="text" formControlName="otroIndicEspecificar" name="otroIndicEspecificar" class="form-control"  id="otroIndicEspecificar" required>
@@ -714,7 +714,7 @@
                                         <label class="custom-control-label" for="confirmado">Confirmado</label>
                                     </div>-->
                                     <div class="form-group">
-                                        <p-dropdown id="clasifFinal" [options]="clasifFinalOptions" label="label" placeholder="Seleccionar" formControlName="clasifFinal" [(ngModel)]="clasifFinal" name="clasifFinal" [style]="{'width':'515px'}" required></p-dropdown>
+                                        <p-dropdown id="clasifFinal" [options]="clasifFinalOptions" label="label" placeholder="Seleccionar" formControlName="clasifFinal" name="clasifFinal" [style]="{'width':'515px'}" required></p-dropdown>
                                     </div>
                                 </div>
                                 <div class="col-md">

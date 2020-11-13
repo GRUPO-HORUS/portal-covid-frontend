@@ -1009,16 +1009,15 @@
                                         <input type="checkbox" class="custom-control-input" id="nada">
                                         <label class="custom-control-label" for="nada">Nada</label>
                                     </div>
-                                    <div class="custom-control custom-checkbox">
+                                    <!--<div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="otroIndic" (change)="otroIndic = !otroIndic">
                                         <label class="custom-control-label" for="otroIndic">Otro</label>
                                     </div>
         
                                     <div class="form-group" *ngIf="otroIndic">
                                         <label for="otroIndicEspecificar"><strong>Otro</strong></label>
-                                        <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control"  id="direccionDomicilio" required>-->
                                         <input type="text" formControlName="otroIndicEspecificar" name="otroIndicEspecificar" class="form-control"  id="otroIndicEspecificar" required>
-                                    </div>
+                                    </div>-->
                                 </div>
         
                                 <div class="col-md">
@@ -1029,18 +1028,9 @@
                                     </div>
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="resultado">
-                                        <label class="custom-control-label" for="resultado">Resultado</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="otroLab" (change)="otroLab = !otroLab">
-                                        <label class="custom-control-label" for="otroLab">Otro</label>
+                                        <label class="custom-control-label" for="resultado">Antígeno</label>
                                     </div>
         
-                                    <div class="form-group" *ngIf="otroLab">
-                                        <label for="otroLabEspecificar"><strong>Otro</strong></label>
-                                        <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control"  id="direccionDomicilio" required>-->
-                                        <input type="text" formControlName="otroLabEspecificar" name="otroLabEspecificar" class="form-control"  id="otroLabEspecificar" required>
-                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -1049,25 +1039,14 @@
                                     <b>Clasificación final (marcar lo que corresponda)<span style="color: red;"> *</span></b>
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="secundario">
-                                        <label class="custom-control-label" for="secundario">Caso secundario</label>
+                                        <label class="custom-control-label" for="secundario">Confirmado</label>
                                     </div>
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="contacto">
-                                        <label class="custom-control-label" for="contacto">Contacto</label>
+                                        <label class="custom-control-label" for="contacto">Descartado</label>
                                     </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="sinClasificar">
-                                        <label class="custom-control-label" for="sinClasificar">Sin clasificar</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="otroClasif" (change)="otroClasif = !otroClasif">
-                                        <label class="custom-control-label" for="otroClasif">Otro</label>
-                                    </div>
-                                    <div class="form-group" *ngIf="otroClasif">
-                                        <label for="otroClasifEspecificar"><strong>Otro</strong></label>
-                                        <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control"  id="direccionDomicilio" required>-->
-                                        <input type="text" formControlName="otroClasifEspecificar" name="otroClasifEspecificar" class="form-control"  id="otroClasifEspecificar" required>
-                                    </div>
+                                    
+                                    
                                 </div>
                                 <div class="col-md">
 
@@ -1079,7 +1058,7 @@
                                     <button class="btn btn-success btn-success-next text-white mr-3" mat-button routerLink="/covid19/home-operador">
                                         Menú Principal  <span class="fa fa-arrow-left"></span>            
                                     </button>
-                                    <button (click)="registrar()" type="submit" class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button routerLink="/covid19/home-operador"><!--[disabled]="clasificacionRiesgoFg.invalid || loading"-->  
+                                    <button (click)="registrar(formDatosBasicos)" type="submit" class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button routerLink="/covid19/home-operador"><!--[disabled]="clasificacionRiesgoFg.invalid || loading"-->  
                                         Guardar <span class="fa fa-check"></span>            
                                     </button>
     

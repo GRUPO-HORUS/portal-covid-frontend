@@ -126,6 +126,8 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
 
   nroDocumento;
 
+  cargando;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
