@@ -20,13 +20,13 @@ import { FormSeccionReporteSalud } from "../model/formSeccionReporteSalud.model"
 
 declare var $: any;
 @Component({
-  selector: "ficha-monitoreo-selector",
-  templateUrl: "./ficha-monitoreo.component.html",
+  selector: "editar-ficha-monitoreo-selector",
+  templateUrl: "./editar-ficha-monitoreo.component.html",
   styleUrls: ['./ficha-monitoreo.component.css'],
   providers: [Covid19Service]
 })
 
-export class FichaMonitoreoComponent implements OnInit {
+export class EditarFichaMonitoreoComponent implements OnInit {
 
   public loading: boolean;
   public mensaje: string;
@@ -57,7 +57,6 @@ export class FichaMonitoreoComponent implements OnInit {
   public codigo: string;
 
   //private subscription: Subscription;
-  //public recentToken: string = ''
   
   public origen: string;
   public contrasenhaConfirm: string;
@@ -75,20 +74,8 @@ export class FichaMonitoreoComponent implements OnInit {
   {value:'otro',label:'OTRO'}];
 
   public tipoRegistroOptions=[{value:'ingreso_pais',label:'Ingreso al país'},{value:'aislamiento',label:'Caso sospechoso Covid-19'}];
-  
-/*public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
-                              {value:'Concepción',label:'Concepción'},{value:'San Pedro',label:'San Pedro'},
-                              {value:'Cordillera',label:'Cordillera'},{value:'Guairá',label:'Guairá'},
-                              {value:'Caaguazú',label:'Caaguazú'},{value:'Caazapá',label:'Caazapá'},
-                              {value:'Itapúa',label:'Itapúa'},{value:'Misiones',label:'Misiones'},
-                              {value:'Paraguarí',label:'Paraguarí'},{value:'Alto Paraná',label:'Alto Paraná'},
-                              {value:'Central',label:'Central'},{value:'Ñeembucú',label:'Ñeembucú'},
-                              {value:'Amambay',label:'Amambay'},{value:'Canindeyú',label:'Canindeyú'},
-                              {value:'Presidente Hayes',label:'Presidente Hayes'},{value:'Alto Paraguay',label:'Alto Paraguay'},
-                              {value:'Boquerón',label:'Boquerón'}];*/
 
-                              public regionSanitariaOptions=[
-                              {id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro'},
+  public regionSanitariaOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro'},
                               {id:3, nombre:'Cordillera'},{id:4, nombre:'Guairá'},
                               {id:5, nombre:'Caaguazú'},{id:6,nombre:'Caazapá'},
                               {id:7, nombre:'Itapúa'},{id:8,nombre:'Misiones'},
@@ -98,7 +85,7 @@ export class FichaMonitoreoComponent implements OnInit {
                               {id:15, nombre:'Presidente Hayes'},{id:16, nombre:'Alto Paraguay'},
                               {id:17, nombre:'Boquerón'}, {id:18, nombre:'Capital'}];
 
-                              public clasifFinalOptions=[{value:'descartado',label:'Descartado'},{value:'confirmado',label:'Confirmado'}];
+  public clasifFinalOptions=[{value:'descartado',label:'Descartado'},{value:'confirmado',label:'Confirmado'}];
   public ciudadOptions: any[];
 
   // recaptcha
@@ -128,6 +115,8 @@ export class FichaMonitoreoComponent implements OnInit {
 
   establecimientosFiltrados: any[];
 
+  cedulaPaciente;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -145,6 +134,12 @@ export class FichaMonitoreoComponent implements OnInit {
 
   ngOnInit() {
     this.fechaHoy = new Date().toLocaleDateString('fr-CA');
+    
+    this._route.params.subscribe(params => {
+      this.cedulaPaciente = params["cedula"];
+
+      this.obtenerPaciente(this.cedulaPaciente);
+    });
 
     this.options="{types: ['(cities)'], componentRestrictions: { country: 'PY' }}";
 
@@ -160,11 +155,9 @@ export class FichaMonitoreoComponent implements OnInit {
       console.log(error);
       this.mensaje = error.error;
       this.openMessageDialog();
-        
     }
     );
     //this.lugares = [{id:1,nombre:'INERAM'},{id:2,nombre:'Hospital de Barrio Obrero'}, {id:3,nombre:'IPS'}];
-
     window.scrollTo(0, 0);
 
     this.registroFg = this._formBuilder.group({
@@ -197,8 +190,7 @@ export class FichaMonitoreoComponent implements OnInit {
 
     this.monitoreoFg = this._formBuilder.group({
       /*cedula: ['', Validators.required],
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],*/
+      nombre: ['', Validators.required]*/
       fechaSintomas: ['', Validators.required],
       fechaExposicion: ['', Validators.required],
       fecha1: ['', Validators.required],
@@ -262,16 +254,82 @@ export class FichaMonitoreoComponent implements OnInit {
 
     this.setearFechasTabla(this.fechaHoy, 'inicio');
 
-    //this.getRecaptchaToken('register');
     /*this._route.params.subscribe(params => {
         this.formDatosBasicos.tipoInicio = params["tipoInicio"];
     });*/
   }
 
+  obtenerPaciente(cedula): void {
+    this.loading = true;
+    this.formDatosBasicos = null;
+    this.service.getPacienteEditar(cedula).subscribe(response => {
+        this.loading = false;
+        this.registroFg.controls.cedula.setValue(cedula);
+        this.registroFg.controls.nombre.setValue(response.nombre);
+        this.registroFg.controls.apellido.setValue(response.apellido);
+        this.registroFg.controls.sexo.setValue(response.sexo);
+        //this.registroFg.controls.fechaNacimiento.setValue(response.fechaNacimiento);
+        this.registroFg.controls.fechaNacimiento.setValue(response.fechaNacimiento.substring(8, 10)+'/'+
+                response.fechaNacimiento.substring(5, 7)+'/'+
+                response.fechaNacimiento.substring(0, 4));
+
+        console.log(response);
+        //this.consultarIdentificaciones(cedula,'registro');
+        this.registroFg.controls.direccion.setValue(response.direccionDomicilio);
+        this.registroFg.controls.telefono.setValue(response.numeroCelular);
+
+        this.registroFg.controls.servicioSalud.setValue({nombre:response.servicioSalud});
+        this.registroFg.controls.regionSanitaria.setValue({nombre:response.regionSanitaria});
+        this.registroFg.controls.profesion.setValue(response.profesion);
+        this.registroFg.controls.funcion.setValue(response.funcion);
+        this.registroFg.controls.otrosLugares.setValue(response.otrosLugares);
+        this.registroFg.controls.reingreso.setValue(response.reingreso);
+        this.registroFg.controls.fallecido.setValue(response.fallecido);
+        this.registroFg.controls.internado.setValue(response.internado);
+        this.registroFg.controls.establecimiento.setValue({nombre:response.establecimientoInternacion});
+        this.registroFg.controls.especialidad.setValue(response.especialidadInternacion);
+
+        this.casoConfirmadoFg.controls.cedula.setValue(response.numeroDocumentoContacto);
+        this.casoConfirmadoFg.controls.nombre.setValue(response.nombreContacto);
+        this.casoConfirmadoFg.controls.apellido.setValue(response.apellidoContacto);
+        this.casoConfirmadoFg.controls.sexo.setValue(response.sexoContacto);
+        //this.consultarIdentificaciones(response.numeroDocumentoContacto,'contacto');
+
+        this.monitoreoFg.controls.fechaSintomas.setValue(response.fechaInicioSintoma); 
+        this.monitoreoFg.controls.fechaExposicion.setValue(response.fechaExposicion);
+
+        this.clasificacionRiesgoFg.controls.clasRiesgo.setValue(response.clasificacionRiesgo);
+        this.clasificacionRiesgoFg.controls.catContagio.setValue(response.categoriaContagio);
+        this.clasificacionRiesgoFg.controls.exclusion.setValue(response.trabajoExclusion);
+        this.clasificacionRiesgoFg.controls.autocontrol.setValue(response.trabajoAutocontrol);
+        this.clasificacionRiesgoFg.controls.nada.setValue(response.trabajoNada);
+        this.clasificacionRiesgoFg.controls.otroIndic.setValue(response.trabajoOtro);
+        this.clasificacionRiesgoFg.controls.otroIndicEspecificar.setValue(response.trabajoOtroDescripcion);
+        this.clasificacionRiesgoFg.controls.antigeno.setValue(response.laboratorioAntigeno);
+        this.clasificacionRiesgoFg.controls.pcr.setValue(response.laboratorioPcr);
+        this.clasificacionRiesgoFg.controls.clasifFinal.setValue(response.clasificacionFinal);
+        //this.response = response;
+        this.mensaje= null;
+    }, error => {
+      if(error.status == 401)
+      {
+        this._router.navigate(["/"]);
+      }
+      else
+      {
+        this.loading = false;
+        this.mensaje = "No se encontró un paciente con este identificador";
+        //this.response = null;
+      }
+      //this.openMessageDialog();
+
+    }
+  );
+  }
+
   onChange(event){
     this.service.getCiudadesPorDepto(event.value).subscribe(ciudades => {
       this.ciudadOptions = ciudades;
-      
         for (let i = 0; i < ciudades.length; i++) {
           let c = ciudades[i];
           this.ciudadOptions[i] = { label: c.descripcion, value: c.idCiudad };
@@ -294,8 +352,8 @@ export class FichaMonitoreoComponent implements OnInit {
 
   verifEstablecimiento(){
     if(!this.registroFg.controls.internado.value){
-      this.registroFg.controls.establecimiento.setValue('');
-      this.registroFg.controls.especialidad.setValue('');
+      this.registroFg.controls.establecimiento.setValue(null);
+      this.registroFg.controls.especialidad.setValue(null);
     }
   }
 
@@ -305,8 +363,7 @@ export class FichaMonitoreoComponent implements OnInit {
     }
   }
 
-  guardarFicha(): void {
-    //this.formDatosBasicos = new FormDatosBasicos();
+  editarFicha(): void {
     this.loading = true;
     this.fichaPersonalBlanco = new FichaPersonalBlanco();
 
@@ -394,15 +451,10 @@ export class FichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaInicioSintomas = this.monitoreoFg.controls.fechaSintomas.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaExposicion = this.monitoreoFg.controls.fechaExposicion.value;
 
-    this.service.guardarFichaPB(this.fichaPersonalBlanco).subscribe(response => {
-          this.idRegistro = +response;
-          //this._router.navigate(["covid19/carga-operador/datos-clinicos/",this.idRegistro]);
-          /*this.guardarFormPersonalBlanco(this.idRegistro);
-          this.guardarFormContactoContagio(this.idRegistro);
-          this.guardarFormClasifRiesgo(this.idRegistro);
-          this.guardarFormSintomas(this.idRegistro);*/
+    this.service.editarFichaPB(this.fichaPersonalBlanco).subscribe(response => {
+          //this.idRegistro = +response;
           this.loading = false;
-          this.mensaje = "Personal de salud registrado exitosamente!";
+          this.mensaje = "Ficha editada exitosamente!";
           this.openMessageDialogExito();
             
         }, error => {
@@ -437,22 +489,8 @@ export class FichaMonitoreoComponent implements OnInit {
     if(this.registroFg.controls.especialidad.value !== null){
       this.formPersonalBlanco.especialidadInternacion = this.registroFg.controls.especialidad.value;
     }
-
     this.service.guardarFormPersonalBlanco(this.formPersonalBlanco).subscribe(response => {
 
-    },error => {
-      console.log(error);
-    });
-  }
-
-  guardarFormContactoContagio(idRegistro){
-    this.contactoContagio = new FormSeccionContactoContagio();
-    this.contactoContagio.nroDocumento = this.casoConfirmadoFg.controls.cedula.value;
-    this.contactoContagio.nombre = this.casoConfirmadoFg.controls.nombre.value;
-    this.contactoContagio.apellido = this.casoConfirmadoFg.controls.apellido.value;
-    this.contactoContagio.sexo = this.casoConfirmadoFg.controls.sexo.value;
-    this.contactoContagio.idRegistro = idRegistro;
-    this.service.guardarContactoContagio(this.contactoContagio).subscribe(response => {
     },error => {
       console.log(error);
     });
@@ -462,6 +500,7 @@ export class FichaMonitoreoComponent implements OnInit {
     this.service.guardarFormSintomas(this.formDatosBasicos).subscribe(response => {
       this.loading = false;
       this.mensaje = "Se ha registrado con Éxito";
+      localStorage.setItem('token',response);
         
     }, error => {
       console.log(error);
@@ -493,7 +532,6 @@ export class FichaMonitoreoComponent implements OnInit {
   }*/
 
   filtrarRegion(event) {
-    //this.serviciosSalud = [{'id':1,'nombre':'Servicio uno'},{'id':2,'nombre':'Servicio dos'},{'id':3,'nombre':'Servicio tres'}];
     let filtered : any[] = [];
     let query = event.query;
     for(let i = 0; i < this.regionSanitariaOptions.length; i++) {
@@ -539,8 +577,8 @@ export class FichaMonitoreoComponent implements OnInit {
     this.establecimientosFiltrados = filtered;
   }
 
-  consultarIdentificaciones(event, band) {
-    this.nroDocumento = event.target.value;
+  consultarIdentificaciones(value, band) {
+    this.nroDocumento = value;
     //if(formDatosBasicos.tipoDocumento==0 && formDatosBasicos.numeroDocumento){
     if(this.nroDocumento){
       if(this.nroDocumento.includes('.'))

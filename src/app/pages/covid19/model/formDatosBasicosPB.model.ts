@@ -16,13 +16,39 @@ export class FormDatosBasicosPB {
     tipoInicio: string;
     tipoRegistro: string;
 
-    contrasenha: string;
     inicioAislamiento:string;
     fechaPrevistaTomaMuestraLaboratorial:string;
     localTomaMuestra:string;
     fechaNacimiento:string;
-    
     sexo:string;
-    fechaInicioSintomas: string;
+
+    numeroDocumentoContacto: string;
+    nombreContacto: string;
+    apellidoContacto: string;
+    sexoContacto: string;
+    fechaInicioSintoma: string;
     fechaExposicion: string;
+    clasificacionRiesgo: string;
+    categoriaContagio: string;
+    clasificacionFinal: string;
+    trabajoExclusion: boolean;
+    trabajoAutocontrol: boolean;
+    trabajoNada: boolean;
+    trabajoOtro: boolean;
+    trabajoOtroDescripcion: string;
+    laboratorioAntigeno: boolean;
+    laboratorioPcr: boolean;
+
+    servicioSalud: string;
+    regionSanitaria: string;
+    profesion: string;
+    funcion: string;
+    otrosLugares: any[];
+
+    reingreso: boolean;
+    fallecido: boolean;
+    internado: boolean;
+    establecimientoInternacion: string;
+    especialidadInternacion: string;
+
 }

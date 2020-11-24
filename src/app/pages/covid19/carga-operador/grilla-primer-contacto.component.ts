@@ -15,11 +15,28 @@ import { Paciente } from "../model/paciente.model";
 declare var $: any;
 
 @Component({
-  selector: "contactos",
-  templateUrl: "./contactos.component.html",
-  providers: [Covid19Service]
+  selector: "grilla-primer-contacto",
+  templateUrl: "./grilla-primer-contacto.component.html",
+  providers: [Covid19Service],
+  styles: [`
+        .outofstock {
+            font-weight: 700;
+            color: #FF5252;
+            text-decoration: line-through;
+        }
+        
+        .lowstock {
+            font-weight: 700;
+            background-color: #fff4dc !important;
+        }
+        
+        :host ::ng-deep .row-accessories {
+            background-color: rgba(0,0,0,.15) !important;
+        }
+    `
+    ]
 })
-export class Contactos implements OnInit {
+export class GrillaPrimerContactoComponent implements OnInit {
 
   public loading: boolean;
   public mensaje: string;
@@ -107,9 +124,20 @@ export class Contactos implements OnInit {
 
   hoy: Date;
 
-  showDerivarCoordinador: boolean = false;
+  showAgregarComentario: boolean = false;
+  showNoSeContacto: boolean = false;
   showNoAtiende: boolean = false;
   showSuspenderContacto: boolean = false;
+
+  fechaCierre;
+  clonedRows: { [s: string]: any; } = {};
+  departamento;
+  distrito;
+  estado;
+  tipo;
+  fechaSintomas;
+
+  public motivos=[{value:'no_atiende',label:'No Atiende'},{value:'apagado',label:'Apagado/Sin Señal'},{value:'equivocado',label:'Número Equivocado'}];
 
   constructor(
     private _router: Router,
@@ -152,14 +180,17 @@ export class Contactos implements OnInit {
       console.log(this.idPaciente+" "+this.cedulaPaciente);
     });*/
 
-    this.cols = [{ field: 'nroDocumento', header: 'Nro de Documento', width: '9%' },
+    this.cols = [{ field: 'fechaCierre', header: 'Fecha de Cierre', width: '8%' },
+        { field: 'nroDocumento', header: 'Nro de Documento', width: '8%' },
         { field: 'nombres', header: 'Nombres', width: '10%' },
         { field: 'apellidos', header: 'Apellidos', width: '10%' },
-        { field: 'telefono', header: 'Teléfono', width: '11%' },
-        //{ field: 'domicilio', header: 'Domicilio', width: '17%' },
-        { field: 'tipo', header: 'Tipo de Contacto', width: '9%' },
-        //{ field: 'fechaUltimoContacto', header: 'Último Contacto', width: '15%' },
-        { field: '', header: 'Acciones', width: '15%' }];
+        { field: 'telefono', header: 'Teléfono', width: '8%' },
+        { field: 'departamento', header: 'Departamento', width: '9%' },
+        { field: 'distrito', header: 'Distrito', width: '9%' },
+        { field: 'estado', header: 'Estado', width: '7%' },
+        { field: 'tipo', header: 'Tipo de Exposición', width: '9%' },
+        { field: 'fechaUltimoContacto', header: 'Fecha de Inicio de Síntomas', width: '10%' }];
+        //{ field: '', header: 'Acciones', width: '15%' }];
   }
 
   load($event: any) {
@@ -183,7 +214,23 @@ buscarContactos(){
     this.contactosList = contactos.lista;
     this.totalRecords = contactos.totalRecords;
 
-    //console.log(this.contactosList);   
+    console.log(this.contactosList);
+    
+    this.contactosList = [{actualizado: "no",fechaCierre:"2020-10-30T11:14:18.911-0300", estado: "Internado", apellidos: "Ocampos", domicilio: "Dominicana 216", fechaModificacion: null,
+    fechaUltimoContacto: "2020-10-20", id: 0, nombres: "Tito", nroDocumento: "1695901",
+    paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
+    tipo: "Pre Quirúrgico", departamento: "Central",distrito: "San Lorenzo"}, {actualizado: "no", fechaCierre:"2020-10-29T11:14:18.911-0300", estado: "Fallecido", apellidos: "Torres", domicilio: "Manduvirá 218", fechaModificacion: null,
+    fechaUltimoContacto: "2020-10-22", id: 1, nombres: "Jorge", nroDocumento: "1695951",
+    paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
+    tipo: "Contacto", departamento: "Central", distrito: "Asunción"}, {actualizado: "no", fechaCierre:"2020-10-29T11:14:18.911-0300", estado: "Internado", apellidos: "Salinas", domicilio: "Ayolas 214", fechaModificacion: null,
+    fechaUltimoContacto: "2020-10-19", id: 2, nombres: "Juan", nroDocumento: "1695851",
+    paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
+    tipo: "Sin nexo", departamento: "Central", distrito: "Asunción"},{actualizado: "no", fechaCierre:"2020-10-29T11:14:18.911-0300", estado: "Internado", apellidos: "Rivas", domicilio: "México 1534", fechaModificacion: null,
+    fechaUltimoContacto: "2020-10-22", id: 3, nombres: "Luis", nroDocumento: "1695851",
+    paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
+    tipo: "Contacto", departamento: "Central", distrito: "Capiatá"}];
+
+    this.totalRecords = 4;
   });
 }
 
@@ -471,12 +518,33 @@ buscarContactos(){
 
   }
 
-  derivarCoordinador(){
-    this.showDerivarCoordinador = true;
+  agregarComentario(){
+    this.showAgregarComentario = true;
   }
 
-  closePopupDerivar(){
-    this.showDerivarCoordinador = false;
+  closePopupAgregarComentario(){
+    this.showAgregarComentario = false;
+  }
+
+  noSeContacto(){
+    this.showNoSeContacto = true;
+  }
+
+  closePopupNoSeContacto(){
+    this.showNoSeContacto = false;
+  }
+
+  onRowEditInit(row) {
+    this.clonedRows[row.id] = {...row};
+  }
+
+  onRowEditSave(row){
+    console.log(row.id);
+    this.contactosList[row.id].actualizado = 'si';
+  }
+
+  onRowEditCancel(){
+    
   }
 
   noAtiende(){

@@ -100,6 +100,8 @@ import { ActualizarSeguimientoComponent } from "./pages/covid19/carga-operador/a
 import { PrimerContactoComponent } from "./pages/covid19/carga-operador/primer-contacto.component";
 
 import {ListaPacientesComponent} from "./pages/covid19/carga-operador/lista-pacientes.component";
+import { GrillaPrimerContactoComponent } from "./pages/covid19/carga-operador/grilla-primer-contacto.component";
+import { EditarFichaMonitoreoComponent } from "./pages/covid19/carga-operador/editar-ficha-monitoreo.component";
 
 @NgModule({
   // Declaración de componentes
@@ -151,7 +153,10 @@ import {ListaPacientesComponent} from "./pages/covid19/carga-operador/lista-paci
     ContactoFormComponent,
     Contactos,
     PrimerContactoComponent,
-    ListaPacientesComponent
+    ListaPacientesComponent,
+    
+    EditarFichaMonitoreoComponent,
+    GrillaPrimerContactoComponent
   ],
   // dependencias de módulos
   imports: [

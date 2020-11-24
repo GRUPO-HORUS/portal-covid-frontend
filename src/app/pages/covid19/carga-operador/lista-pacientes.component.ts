@@ -3,6 +3,7 @@ import { Covid19Service } from '../../../services/Covid19Service';
 
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { Router } from "@angular/router";
 
 @Component({
     selector: "lista-pacientes-selector",
@@ -24,19 +25,20 @@ export class ListaPacientesComponent implements OnInit{
 
     constructor(
         private service: Covid19Service,
+        private _router: Router,
         //private _location: Location
       ) {
         this.loading = false;
       }
 
     ngOnInit() {
-        this.cols = [{ field: 'numeroDocumento', header: 'Nro de Documento', width: '9%' },
-        { field: 'nombre', header: 'Nombres', width: '10%' },
-        { field: 'apellido', header: 'Apellidos', width: '10%' },
-        { field: 'numeroCelular', header: 'Teléfono', width: '10%' },
-        { field: 'departamentoDomicilio', header: 'Departamento', width: '11%' }];
-        //{ field: 'domicilio', header: 'Domicilio', width: '17%' },
-        //{ field: 'tipo', header: 'Tipo de Contacto', width: '9%' },
+        this.cols = [{ field: 'numeroDocumento', header: 'Nro de Documento', width: '11%' },
+        { field: 'nombre', header: 'Nombres', width: '20%' },
+        { field: 'apellido', header: 'Apellidos', width: '20%' },
+        { field: 'numeroCelular', header: 'Teléfono', width: '12%' },
+        { field: 'departamentoDomicilio', header: 'Departamento', width: '14%' }];
+        //{ field: 'direccionDomicilio', header: 'Domicilio', width: '17%' },
+        //{ field: 'sexo', header: 'Tipo de Contacto', width: '9%' },
         //{ field: 'fechaUltimoContacto', header: 'Último Contacto', width: '15%' },
         //{ field: '', header: 'Acciones', width: '15%' }];
     }
@@ -75,27 +77,94 @@ export class ListaPacientesComponent implements OnInit{
     }
 
     exportExcel(listaUsuarios) {
+
         //import("xlsx").then(xlsx => {
-            const worksheet = XLSX.utils.json_to_sheet(this.getColumnsExportExcel(listaUsuarios));
-            //const worksheet = XLSX.utils.json_to_sheet(this.pacientesListCompleta);
-            var wscols = [
-              { width: 25 },  
-              { width: 35 }, 
-              { width: 35 },
-              { width: 30 }
-            ];
-            worksheet["!cols"] = wscols;
-            const workbook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-            const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-            this.saveAsExcelFile(excelBuffer, "listaPacientes");
+        //const worksheet = XLSX.utils.json_to_sheet(this.getColumnsExportExcel(listaUsuarios));
+        let worksheet;
+            
+        const worksheet2 = XLSX.utils.sheet_add_json(worksheet, this.getColumnsExportExcel(listaUsuarios), {origin:"A3"});
+        worksheet2.A1 ={t: 's', v: 'LISTA DE PERSONAL DE BLANCO'};
+        //worksheet2.A1 = {s:{fill:{bgColor: '#FF0000'}}};
+        //worksheet2.A1.s = worksheet2.A1.s.bold();
+        
+        worksheet2.A2 ={t: 's', v: 'Fecha de Generación:'};
+        worksheet2.B2 ={t: 's', v: new Date().toLocaleString()};
+        var wscols = [
+          { width: 20 },  
+          { width: 15 },
+          { width: 20 },
+          { width: 15 },
+          { width: 15 },
+          { width: 20 },
+          { width: 20 },
+          { width: 8 },
+          { width: 15 },
+          { width: 15 },
+          { width: 15 },
+        ];
+        worksheet2["!cols"] = wscols;
+        const workbook = { Sheets: { 'data': worksheet2 }, SheetNames: ['data'] };
+            
+        const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+        this.saveAsExcelFile(excelBuffer, "listaPacientes");
         //});
-      }
+  }
     
       getColumnsExportExcel(listaUsuarios) {
         let body = [];
+
         for(let u of listaUsuarios) {
+            let reingreso = 'No';
+            if(u.reingreso){
+              reingreso = 'Si';
+            }
+            let fallecido = 'No';
+            if(u.fallecido){
+              fallecido = 'Si';
+            }
+            let internado = 'No';
+            if(u.internado){
+              internado = 'Si';
+            }
+
+            let laboratorioAntigeno = 'No';
+            if(u.laboratorioAntigeno){
+              laboratorioAntigeno = 'Si';
+            }
+            let laboratorioPcr = 'No';
+            if(u.laboratorioPcr){
+              laboratorioPcr = 'Si';
+            }
+
+            let trabajoExclusion = 'No';
+            if(u.trabajoExclusion){
+              trabajoExclusion = 'Si';
+            }
+
+            let trabajoAutocontrol = 'No';
+            if(u.trabajoAutocontrol){
+              trabajoAutocontrol = 'Si';
+            }
+
+            let trabajoNada = 'No';
+            if(u.trabajoNada){
+              trabajoNada = 'Si';
+            }
+
+            let trabajoOtro = 'No';
+            if(u.trabajoOtro){
+              trabajoOtro = 'Si';
+            }
             body.push({'Nro de Documento': u.numeroDocumento, 'Nombre': u.nombre, 'Apellido': u.apellido, 
-            'Teléfono': u.numeroCelular, 'Departamento': u.departamentoDomicilio});
+            'Celular': u.numeroCelular, 'Departamento': u.departamentoDomicilio, 'Domicilio': u.direccionDomicilio, 
+            'Fecha de Nacimiento': u.fechaNacimiento,'Sexo': u.sexo, 'Fecha Exposición':u.fechaExposicion, 'Fecha Inicio de Síntomas':u.fechaInicioSintoma,
+            'Nro de Documento Contacto':u.nroDocumentoContacto, 'Nombre Contacto':u.nombreContacto,
+            'Apellido Contacto':u.apellidoContacto, 'Sexo Contacto':u.sexoContacto, 'Servicio Salud':u.servicioSalud,
+            'Región Sanitaria':u.regionSanitaria, 'Profesión':u.profesion, 'Función':u.funcion, 'Reingreso':reingreso,
+            'Fallecido':fallecido, 'Internado':internado, 'Establecimiento Internación':u.establecimientoInternacion,
+            'Especialidad Internación':u.especialidadInternacion, 'Clasificación Riesgo':u.clasificacionRiesgo, 'Categoría Contagio':u.categoriaContagio, 'Clasificación Final':u.clasificacionFinal,
+            'Antigeno':laboratorioAntigeno, 'PCR':laboratorioPcr, 'Trabajo Exclusión':trabajoExclusion, 'Trabajo Autocontrol':trabajoAutocontrol, 'Trabajo Nada':trabajoNada,
+            'Trabajo Otro':trabajoOtro, 'Trabajo Otro Descripción':u.trabajoOtroDescripcion});
         }
         
         return body;
@@ -110,6 +179,11 @@ export class ListaPacientesComponent implements OnInit{
             });
             FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
         //});
+      }
+
+      editarPaciente(nroDocumento){
+        console.log(nroDocumento);
+        this._router.navigate(["covid19/operador/editar-ficha-monitoreo/", nroDocumento]);
       }
 
 }

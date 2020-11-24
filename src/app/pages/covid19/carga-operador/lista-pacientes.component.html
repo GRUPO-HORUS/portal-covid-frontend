@@ -30,6 +30,9 @@
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
               </th>
+              <th>
+                Acciones
+              </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData>
@@ -55,7 +58,9 @@
               <td>
                 {{rowData.fechaUltimoContacto | date:'dd-MM-yyyy'}}
               </td>-->
-              
+              <td align="center">
+                <button type="button" pButton icon="pi pi-pencil" iconPos="left" (click)="editarPaciente(rowData.numeroDocumento)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:150px" label="Editar"></button>
+              </td>
             </tr>
         </ng-template>
         </p-table>

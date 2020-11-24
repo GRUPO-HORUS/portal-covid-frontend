@@ -2,15 +2,19 @@ import { FormDatosBasicos } from "./formDatosBasicos.model";
 import { FormSeccionClasifRiesgo } from "./formSeccionClasifRiesgo.model";
 import { FormSeccionContactoContagio } from "./formSeccionContactoContagio.model";
 import { FormSeccionPersonalBlanco } from "./formSeccionPersonalBlanco.model";
+import { FormSeccionReporteSalud } from "./formSeccionReporteSalud.model";
 
 export class FichaPersonalBlanco {
     //seccion datos basicos
     formSeccionDatosBasicos: FormDatosBasicos;
     //seccion personal de blanco
     formSeccionPersonalBlanco: FormSeccionPersonalBlanco;
-    //seccion contacto contagio
+    //sección contacto contagio
     formSeccionContactoContagio: FormSeccionContactoContagio;
-    //seccion clasif riesgo
+
+    //sección reporte salud y sintomas
+    formSeccionReporteSalud: FormSeccionReporteSalud;
+    //sección clasif riesgo
     formSeccionClasifRiesgo: FormSeccionClasifRiesgo;
 
     /*id: number;
@@ -36,5 +40,4 @@ export class FichaPersonalBlanco {
     sexo:string;
     fechaInicioSintomas: string;
     fechaExposicion: string;*/
-
 }

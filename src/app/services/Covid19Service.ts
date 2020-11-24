@@ -4,6 +4,7 @@ import { AppConfig } from "../../app/app.config";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { FormDatosBasicos } from "../../app/pages/covid19/model/formDatosBasicos.model";
 import {ContactoTable} from '../pages/covid19/model/contacto-table.model';
+import { FormDatosBasicosPB } from "../pages/covid19/model/formDatosBasicosPB.model";
 
 @Injectable()
 export class Covid19Service {
@@ -57,6 +58,10 @@ export class Covid19Service {
       return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/fichaPersonalBlanco/', fichaPersonalBlanco);
     }
 
+    editarFichaPB(fichaPersonalBlanco): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/editarFichaPersonalBlanco/', fichaPersonalBlanco);
+    }
+
     guardarDatosBasicosOperador(formDatosBasicos): Observable<string> {
       return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/datosBasicos', formDatosBasicos);
     }
@@ -103,6 +108,10 @@ export class Covid19Service {
 
     getCiudadesPorDepto(idDepto): Observable<any[]>{
       return this.httpClient.get<any[]>(this.config.API +"/covid19/ciudades/"+idDepto);
+    }
+
+    getPacienteEditar(numeroDocumento): Observable<FormDatosBasicosPB> {
+      return this.httpClient.get<FormDatosBasicosPB>(this.config.API + '/covid19api/aislamiento/getPacienteEditar/'+numeroDocumento);
     }
 
     getDatosPacienteByNumeroDocumento(numeroDocumento): Observable<FormDatosBasicos> {

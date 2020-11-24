@@ -12,7 +12,7 @@
             <div class="col-md-12 mb-4">
                 <h3 class="title-divider text-primary">
                     <i class="fa fa-edit mr-2" style="margin-top: -4px;"></i>
-                    <span>Ficha de Monitoreo</span>
+                    <span>Editar Ficha de Monitoreo</span>
                 </h3>
                 <h4>Exposición de personal sanitario al SARS-COV-2</h4>
                 
@@ -40,7 +40,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="cedula"><strong>Número de Cédula</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="consultarIdentificaciones($event, 'registro')">
+                                        <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="consultarIdentificaciones($event.target.value, 'registro')">
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.numeroDocumento" class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ej. 123456" required>-->
                                     </div>
                                 </div>
@@ -51,7 +51,6 @@
                                     <div class="form-group">
                                         <label for="nombre"><strong>Nombres</strong><span style="color: red;"> *</span></label>
                                         <input type="text" formControlName="nombre" class="form-control" id="nombre" name="nombre" required disabled>
-                                        <!--<input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" id="nombre" required disabled>-->
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -83,8 +82,8 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="sexo"><strong>Sexo</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="sexo" class="form-control" id="sexo" name="sexo" required disabled>
-                                        <!--<br><p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'515px'}" required></p-dropdown> disabled-->
+                                        <input type="text" formControlName="sexo" name="sexo" class="form-control" id="sexo" disabled>
+                                        <!--<br><p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'515px'}" required></p-dropdown>-->
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -113,7 +112,7 @@
                                         <label for="regionSanitaria"><strong>Región Sanitaria</strong><span style="color: red;"> *</span></label>
                                         <br>
                                         <!--<p-dropdown id="regionSanitaria" [options]="regionSanitariaOptions" label="label" placeholder="Seleccionar" formControlName="regionSanitaria" name="regionSanitaria" [style]="{'width':'515px'}" required></p-dropdown>-->
-                                        <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                        <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'515px'}" required></p-autoComplete>
                                     </div>
                                 </div>
 
@@ -187,7 +186,7 @@
                                     <div class="form-group">
                                         <label for="establecimiento"><strong>Establecimiento</strong><span style="color: red;"> *</span></label><br>
                                         <!--<input type="text" formControlName="establecimiento" name="establecimiento" class="form-control"  id="establecimiento" required>-->
-                                        <p-autoComplete id="establecimiento" formControlName="establecimiento" [suggestions]="establecimientosFiltrados" field="nombre" (completeMethod)="filtrarEstablecimiento($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                        <p-autoComplete id="establecimiento" formControlName="establecimiento" [suggestions]="establecimientosFiltrados" field="nombre" (completeMethod)="filtrarEstablecimiento($event)" [inputStyle]="{'width':'515px'}" required></p-autoComplete>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -197,15 +196,6 @@
                                     </div>
                                 </div>
                             </div>
-        
-                            <!--<div class="form-group">
-                                <label for="contrasenha"><strong>Clave de seguridad </strong></label>
-                                <input type="password" [(ngModel)]="formDatosBasicos.contrasenha" class="form-control" id="contrasenha" style="max-width: 300px;" name="contrasenha" minlength="8" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="contrasenhaConfirm"><strong>Confirmar Clave de seguridad</strong></label>
-                                <input type="password" [(ngModel)]="contrasenhaConfirm" name="contrasenhaConfirm" class="form-control" style="max-width: 300px;" id="contrasenhaConfirm" required>
-                            </div>-->
         
                             <div class="clearfix"><br/></div>
         
@@ -256,7 +246,7 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="nombre"><strong>Nombres</strong></label> <!--<span style="color: red;"> *</span>-->
+                                        <label for="nombre"><strong>Nombres</strong></label>
                                         <input type="text" formControlName="nombre" name="nombre" class="form-control" id="nombre" disabled>
                                     </div>
                                 </div>
@@ -274,8 +264,7 @@
                                 <div class="form-group">
                                     <label for="sexo"><strong>Sexo</strong></label>
                                     <input type="text" formControlName="sexo" name="sexo" class="form-control" id="sexo" disabled>
-                                    <!--<br><p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'325px'}"></p-dropdown>-->
-                                    <!--<p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.tipoDocumento" name="sexo" [style]="{'width':'340px'}" required></p-dropdown>-->
+                                     <!--<br><p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'325px'}" disabled></p-dropdown>-->
                                 </div>
                             </div>
                             <div class="col-md">
@@ -516,7 +505,6 @@
                                     <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
                                 </tr>
                             </table>
-                            <!--<img src="/assets/img/signos.png" width="98%">-->
                         </div>
                         </form>
                         <div class="clearfix"><br/></div>
@@ -561,74 +549,6 @@
                             </div>
                             
                             <hr>
-                            <div class="row">
-                                <!--<table border="1">
-                                    <tr>
-                                        <td>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia1">
-                                                <label class="custom-control-label" for="tosDia1">Día 1</label>
-                                            </div> 
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia2">
-                                                <label class="custom-control-label" for="tosDia2">Día 2</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia3">
-                                                <label class="custom-control-label" for="tosDia3">Día 3</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia4">
-                                                <label class="custom-control-label" for="tosDia4">Día 4</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia5">
-                                                <label class="custom-control-label" for="tosDia5">Día 5</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia6">
-                                                <label class="custom-control-label" for="tosDia6">Día 6</label>
-                                            </div> 
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia7">
-                                                <label class="custom-control-label" for="tosDia7">Día 7</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia8">
-                                                <label class="custom-control-label" for="tosDia8">Día 8</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia9">
-                                                <label class="custom-control-label" for="tosDia9">Día 9</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia10">
-                                                <label class="custom-control-label" for="tosDia10">Día 10</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia11">
-                                                <label class="custom-control-label" for="tosDia11">Día 11</label>
-                                            </div> 
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia12">
-                                                <label class="custom-control-label" for="tosDia12">Día 12</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia13">
-                                                <label class="custom-control-label" for="tosDia13">Día 13</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia14">
-                                                <label class="custom-control-label" for="tosDia14">Día 14</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia15">
-                                                <label class="custom-control-label" for="tosDia15">Día 15</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>-->
-                            </div>
                             <div class="row">
                                 <div class="col-md">
                                 <b>Indicaciones para el trabajo (marcar lo que corresponda)<span style="color: red;"> *</span></b>
@@ -726,7 +646,7 @@
                                     <button class="btn btn-success btn-success-next text-white mr-3" mat-button routerLink="/covid19/home-operador">
                                         Menú Principal  <span class="fa fa-arrow-left"></span>            
                                     </button>
-                                    <button (click)="guardarFicha()" type="submit" class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button [disabled]="loading"><!--routerLink="/covid19/home-operador" [disabled]="clasificacionRiesgoFg.invalid || loading"-->  
+                                    <button (click)="editarFicha()" type="submit" class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button [disabled]="loading"><!--routerLink="/covid19/home-operador"-->  
                                         Guardar <span class="fa fa-check"></span>            
                                     </button>
     
@@ -769,6 +689,27 @@
                     </div>
                 </div>
             </div>
+
+            <!--<div class="modal fade" id="modalTerminosIE" tabindex="-1" role="dialog" aria-labelledby="modalTerminosIELabel" aria-hidden="true">
+                <div style="max-width:1100px;" class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content p-4">
+                        <div class="modal-header">
+                            <h2 class="modal-title" id="modalTerminosIELabel">
+                                Términos y Condiciones
+                            </h2>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body row">
+                            <ie-terminos-template></ie-terminos-template>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
         </div>
     </div>
 </div>
