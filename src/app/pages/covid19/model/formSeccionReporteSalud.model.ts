@@ -1,8 +1,8 @@
 export class FormSeccionReporteSalud {
     id: number;
-    idRegistro: number;
-    fecha1: string;
-    fecha2: string;
+    registroFormulario: number;
+    fecha: string;
+    /*fecha2: string;
     fecha3: string;
     fecha4: string;
     fecha5: string;
@@ -14,41 +14,14 @@ export class FormSeccionReporteSalud {
     fecha11: string;
     fecha12: string;
     fecha13: string;
-    fecha14: string;
-    tos1: string;
-    fiebre1: string;
-    dolorGarganta1: string;
-    dolorCabeza1: string;
-    dificultadRespirar1: string;
-    percibeOlores1: string;
-    congestionNasal1: string;
-    otrosCansancios1: string;
-    /*tos2: string;
-    tos3: string;
-    tos4: string;
-    tos5: string;
-    tos6: string;
-    tos7: string;
-    tos8: string;
-    tos9: string;
-    tos10: string;
-    tos11: string;
-    tos12: string;
-    tos13: string;
-    tos14: string;
-    dolorGarganta1: string;
-    dolorGarganta2: string;
-    dolorGarganta3: string;
-    dolorGarganta4: string;
-    dolorGarganta5: string;
-    dolorGarganta6: string;
-    dolorGarganta7: string;
-    dolorGarganta8: string;
-    dolorGarganta9: string;
-    dolorGarganta10: string;
-    dolorGarganta11: string;
-    dolorGarganta12: string;
-    dolorGarganta13: string;
-    dolorGarganta14: string;*/
+    fecha14: string;*/
+    tos: string;
+    sentisFiebre: string;
+    dolorGarganta: string;
+    dolorCabeza: string;
+    dificultadRespirar: string;
+    percibeOlores: string;
+    congestionNasal: string;
+    otrosCansancios: string;
 
 }

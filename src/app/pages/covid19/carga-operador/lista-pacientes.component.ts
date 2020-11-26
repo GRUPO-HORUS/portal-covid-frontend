@@ -3,6 +3,7 @@ import { Covid19Service } from '../../../services/Covid19Service';
 
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+//import * as XLSXStyle from 'xlsx-style';
 import { Router } from "@angular/router";
 
 @Component({
@@ -84,28 +85,31 @@ export class ListaPacientesComponent implements OnInit{
             
         const worksheet2 = XLSX.utils.sheet_add_json(worksheet, this.getColumnsExportExcel(listaUsuarios), {origin:"A3"});
         worksheet2.A1 ={t: 's', v: 'LISTA DE PERSONAL DE BLANCO'};
-        //worksheet2.A1 = {s:{fill:{bgColor: '#FF0000'}}};
-        //worksheet2.A1.s = worksheet2.A1.s.bold();
+        worksheet2.A1.s = {bold: true};
+        //worksheet2.A1.v = worksheet2.A1.v.bold();
         
         worksheet2.A2 ={t: 's', v: 'Fecha de Generación:'};
         worksheet2.B2 ={t: 's', v: new Date().toLocaleString()};
         var wscols = [
-          { width: 20 },  
+          { width: 18 },  
           { width: 15 },
           { width: 20 },
           { width: 15 },
           { width: 15 },
           { width: 20 },
           { width: 20 },
-          { width: 8 },
+          { width: 7 },
           { width: 15 },
           { width: 15 },
           { width: 15 },
+          { width: 15 },
+          { width: 15 },
+          { width: 12 },
         ];
         worksheet2["!cols"] = wscols;
         const workbook = { Sheets: { 'data': worksheet2 }, SheetNames: ['data'] };
             
-        const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+        const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array', cellStyles:true });
         this.saveAsExcelFile(excelBuffer, "listaPacientes");
         //});
   }

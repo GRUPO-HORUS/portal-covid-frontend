@@ -1,3 +1,5 @@
+import { FormSeccionReporteSalud } from "./formSeccionReporteSalud.model";
+
 export class FormDatosBasicosPB {
     id: number;
     nombre: string;
@@ -50,5 +52,8 @@ export class FormDatosBasicosPB {
     internado: boolean;
     establecimientoInternacion: string;
     especialidadInternacion: string;
+
+    registroFormulario: number;
+    reportes: FormSeccionReporteSalud[];
 
 }

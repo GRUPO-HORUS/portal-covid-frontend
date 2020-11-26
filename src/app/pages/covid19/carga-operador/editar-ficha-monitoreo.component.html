@@ -50,13 +50,13 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="nombre"><strong>Nombres</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="nombre" class="form-control" id="nombre" name="nombre" required disabled>
+                                        <input type="text" formControlName="nombre" class="form-control" id="nombre" name="nombre" required>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="apellido"><strong>Apellidos</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="apellido" class="form-control" id="apellido" name="apellido" required disabled>
+                                        <input type="text" formControlName="apellido" class="form-control" id="apellido" name="apellido" required>
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" id="nombre" required>-->
                                     </div>
                                 </div>  
@@ -66,7 +66,7 @@
                                     <div class="form-group">
                                         <label for="fechaNacimiento"><strong>Fecha de nacimiento:</strong><span style="color: red;"> *</span></label><!--value="1980-01-01"-->
                                         <!--<input type="date" id="fechaNacimiento" style="width: 515px;" formControlName="fechaNacimiento" disabled>-->
-                                        <input type="text" formControlName="fechaNacimiento" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required disabled>
+                                        <input type="text" formControlName="fechaNacimiento" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required placeholder="En caso necesario complete con formato dd/mm/yyyy">
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -82,7 +82,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="sexo"><strong>Sexo</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="sexo" name="sexo" class="form-control" id="sexo" disabled>
+                                        <input type="text" formControlName="sexo" name="sexo" class="form-control" id="sexo" maxlength="1" placeholder="En caso necesario complete con M o F">
                                         <!--<br><p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'515px'}" required></p-dropdown>-->
                                     </div>
                                 </div>
@@ -224,7 +224,7 @@
                     </mat-step>
                     <mat-step [stepControl]="casoConfirmadoFg">
                         <form [formGroup]="casoConfirmadoFg" class="mt-4">
-                            <ng-template matStepLabel>Datos del caso confirmado</ng-template>
+                            <ng-template matStepLabel>Fuente de Contagio</ng-template>
                             <!--<div class="row">
                                 <div class="col-md">
                                     <div class="alert alert-info">
@@ -247,13 +247,13 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="nombre"><strong>Nombres</strong></label>
-                                        <input type="text" formControlName="nombre" name="nombre" class="form-control" id="nombre" disabled>
+                                        <input type="text" formControlName="nombre" name="nombre" class="form-control" id="nombre">
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="nombre"><strong>Apellidos</strong></label>
-                                        <input type="text" formControlName="apellido" name="apellido" class="form-control" id="apellido" disabled>
+                                        <input type="text" formControlName="apellido" name="apellido" class="form-control" id="apellido">
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" id="nombre" required>-->
                                     </div>
                                 </div>
@@ -263,7 +263,7 @@
                             <div class="col-md">
                                 <div class="form-group">
                                     <label for="sexo"><strong>Sexo</strong></label>
-                                    <input type="text" formControlName="sexo" name="sexo" class="form-control" id="sexo" disabled>
+                                    <input type="text" formControlName="sexo" name="sexo" class="form-control" id="sexo" maxlength="1" placeholder="En caso necesario complete con M o F">
                                      <!--<br><p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'325px'}" disabled></p-dropdown>-->
                                 </div>
                             </div>
@@ -388,19 +388,19 @@
                                 <tr>
                                     <td style="background-color: rgb(190, 186, 186); text-align: center;">Fiebre</td>
                                     <td align="center"><p-triStateCheckbox formControlName="fiebre1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="fiebre1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="fiebre1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="fiebre1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="fiebre1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="fiebre1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="fiebre1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="fiebre1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="fiebre1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="fiebre1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="fiebre1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="fiebre1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="fiebre1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="fiebre1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="fiebre2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="fiebre3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="fiebre4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="fiebre5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="fiebre6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="fiebre7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="fiebre8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="fiebre9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="fiebre10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="fiebre11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="fiebre12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="fiebre13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="fiebre14"></p-triStateCheckbox></td>
                                 </tr>
                                 <tr>
                                     <td style="background-color: rgb(190, 186, 186); text-align: center;">Dolor de garganta</td>
@@ -421,88 +421,88 @@
                                 </tr>
                                 <tr>
                                     <td style="background-color: rgb(190, 186, 186); text-align: center;">Disnea</td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar14"></p-triStateCheckbox></td>
                                 </tr>
                                 <tr>
                                     <td style="background-color: rgb(190, 186, 186); text-align: center;">Cefalea</td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorCabeza1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorCabeza2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorCabeza3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorCabeza4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorCabeza5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorCabeza6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorCabeza7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorCabeza8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorCabeza9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorCabeza10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorCabeza11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorCabeza12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorCabeza13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorCabeza14"></p-triStateCheckbox></td>
                                 </tr>
                                 <tr>
                                     <td style="background-color: rgb(190, 186, 186); text-align: center;">Anosmia</td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores14"></p-triStateCheckbox></td>
                                 </tr>
                                 <tr>
                                     <td style="background-color: rgb(190, 186, 186); text-align: center;">Rinitis</td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="congestionNasal1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="congestionNasal2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="congestionNasal3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="congestionNasal4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="congestionNasal5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="congestionNasal6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="congestionNasal7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="congestionNasal8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="congestionNasal9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="congestionNasal10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="congestionNasal11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="congestionNasal12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="congestionNasal13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="congestionNasal14"></p-triStateCheckbox></td>
                                 </tr>
                                 <tr>
                                     <td style="background-color: rgb(190, 186, 186); text-align: center;">Otros cansancios</td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="otrosCansancios1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="otrosCansancios2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="otrosCansancios3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="otrosCansancios4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="otrosCansancios5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="otrosCansancios6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="otrosCansancios7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="otrosCansancios8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="otrosCansancios9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="otrosCansancios10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="otrosCansancios11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="otrosCansancios12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="otrosCansancios13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="otrosCansancios14"></p-triStateCheckbox></td>
                                 </tr>
                             </table>
                         </div>

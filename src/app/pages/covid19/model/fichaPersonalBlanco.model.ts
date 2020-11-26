@@ -13,7 +13,7 @@ export class FichaPersonalBlanco {
     formSeccionContactoContagio: FormSeccionContactoContagio;
 
     //sección reporte salud y sintomas
-    formSeccionReporteSalud: FormSeccionReporteSalud;
+    reportesSalud: FormSeccionReporteSalud[];
     //sección clasif riesgo
     formSeccionClasifRiesgo: FormSeccionClasifRiesgo;
 

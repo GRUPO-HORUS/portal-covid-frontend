@@ -128,6 +128,21 @@ export class FichaMonitoreoComponent implements OnInit {
 
   establecimientosFiltrados: any[];
 
+  fechaSelec1;
+  fechaSelec2;
+  fechaSelec3;
+  fechaSelec4;
+  fechaSelec5;
+  fechaSelec6;
+  fechaSelec7;
+  fechaSelec8;
+  fechaSelec9;
+  fechaSelec10;
+  fechaSelec11;
+  fechaSelec12;
+  fechaSelec13;
+  fechaSelec14;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -230,6 +245,19 @@ export class FichaMonitoreoComponent implements OnInit {
       tos13: [null, Validators.required],
       tos14: [null, Validators.required],
       fiebre1: [null, Validators.required],
+      fiebre2: [null, Validators.required],
+      fiebre3: [null, Validators.required],
+      fiebre4: [null, Validators.required],
+      fiebre5: [null, Validators.required],
+      fiebre6: [null, Validators.required],
+      fiebre7: [null, Validators.required],
+      fiebre8: [null, Validators.required],
+      fiebre9: [null, Validators.required],
+      fiebre10: [null, Validators.required],
+      fiebre11: [null, Validators.required],
+      fiebre12: [null, Validators.required],
+      fiebre13: [null, Validators.required],
+      fiebre14: [null, Validators.required],
       dolorGarganta1: [null, Validators.required],
       dolorGarganta2: [null, Validators.required],
       dolorGarganta3: [null, Validators.required],
@@ -243,8 +271,77 @@ export class FichaMonitoreoComponent implements OnInit {
       dolorGarganta11: [null, Validators.required],
       dolorGarganta12: [null, Validators.required],
       dolorGarganta13: [null, Validators.required],
-      dolorGarganta14: [null, Validators.required]
-
+      dolorGarganta14: [null, Validators.required],
+      dolorCabeza1: [null, Validators.required],
+      dolorCabeza2: [null, Validators.required],
+      dolorCabeza3: [null, Validators.required],
+      dolorCabeza4: [null, Validators.required],
+      dolorCabeza5: [null, Validators.required],
+      dolorCabeza6: [null, Validators.required],
+      dolorCabeza7: [null, Validators.required],
+      dolorCabeza8: [null, Validators.required],
+      dolorCabeza9: [null, Validators.required],
+      dolorCabeza10: [null, Validators.required],
+      dolorCabeza11: [null, Validators.required],
+      dolorCabeza12: [null, Validators.required],
+      dolorCabeza13: [null, Validators.required],
+      dolorCabeza14: [null, Validators.required],
+      dificultadRespirar1: [null, Validators.required],
+      dificultadRespirar2: [null, Validators.required],
+      dificultadRespirar3: [null, Validators.required],
+      dificultadRespirar4: [null, Validators.required],
+      dificultadRespirar5: [null, Validators.required],
+      dificultadRespirar6: [null, Validators.required],
+      dificultadRespirar7: [null, Validators.required],
+      dificultadRespirar8: [null, Validators.required],
+      dificultadRespirar9: [null, Validators.required],
+      dificultadRespirar10: [null, Validators.required],
+      dificultadRespirar11: [null, Validators.required],
+      dificultadRespirar12: [null, Validators.required],
+      dificultadRespirar13: [null, Validators.required],
+      dificultadRespirar14: [null, Validators.required],
+      percibeOlores1: [null, Validators.required],
+      percibeOlores2: [null, Validators.required],
+      percibeOlores3: [null, Validators.required],
+      percibeOlores4: [null, Validators.required],
+      percibeOlores5: [null, Validators.required],
+      percibeOlores6: [null, Validators.required],
+      percibeOlores7: [null, Validators.required],
+      percibeOlores8: [null, Validators.required],
+      percibeOlores9: [null, Validators.required],
+      percibeOlores10: [null, Validators.required],
+      percibeOlores11: [null, Validators.required],
+      percibeOlores12: [null, Validators.required],
+      percibeOlores13: [null, Validators.required],
+      percibeOlores14: [null, Validators.required],
+      congestionNasal1: [null, Validators.required],
+      congestionNasal2: [null, Validators.required],
+      congestionNasal3: [null, Validators.required],
+      congestionNasal4: [null, Validators.required],
+      congestionNasal5: [null, Validators.required],
+      congestionNasal6: [null, Validators.required],
+      congestionNasal7: [null, Validators.required],
+      congestionNasal8: [null, Validators.required],
+      congestionNasal9: [null, Validators.required],
+      congestionNasal10: [null, Validators.required],
+      congestionNasal11: [null, Validators.required],
+      congestionNasal12: [null, Validators.required],
+      congestionNasal13: [null, Validators.required],
+      congestionNasal14: [null, Validators.required],
+      otrosCansancios1: [null, Validators.required],
+      otrosCansancios2: [null, Validators.required],
+      otrosCansancios3: [null, Validators.required],
+      otrosCansancios4: [null, Validators.required],
+      otrosCansancios5: [null, Validators.required],
+      otrosCansancios6: [null, Validators.required],
+      otrosCansancios7: [null, Validators.required],
+      otrosCansancios8: [null, Validators.required],
+      otrosCansancios9: [null, Validators.required],
+      otrosCansancios10: [null, Validators.required],
+      otrosCansancios11: [null, Validators.required],
+      otrosCansancios12: [null, Validators.required],
+      otrosCansancios13: [null, Validators.required],
+      otrosCansancios14: [null, Validators.required]
     });
 
     this.clasificacionRiesgoFg = this._formBuilder.group({
@@ -347,24 +444,193 @@ export class FichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionContactoContagio.apellido = this.casoConfirmadoFg.controls.apellido.value;
     this.fichaPersonalBlanco.formSeccionContactoContagio.sexo = this.casoConfirmadoFg.controls.sexo.value;
 
-    this.fichaPersonalBlanco.formSeccionReporteSalud = new FormSeccionReporteSalud();
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha1 = this.monitoreoFg.controls.fecha1.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha2 = this.monitoreoFg.controls.fecha2.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha3 = this.monitoreoFg.controls.fecha3.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha4 = this.monitoreoFg.controls.fecha4.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha5 = this.monitoreoFg.controls.fecha5.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha6 = this.monitoreoFg.controls.fecha6.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha7 = this.monitoreoFg.controls.fecha7.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha8 = this.monitoreoFg.controls.fecha8.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha9 = this.monitoreoFg.controls.fecha9.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha10 = this.monitoreoFg.controls.fecha10.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha11 = this.monitoreoFg.controls.fecha11.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha12 = this.monitoreoFg.controls.fecha12.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha13 = this.monitoreoFg.controls.fecha13.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha14 = this.monitoreoFg.controls.fecha14.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.tos1 = this.monitoreoFg.controls.tos1.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fiebre1 = this.monitoreoFg.controls.fiebre1.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.dolorGarganta1 = this.monitoreoFg.controls.dolorGarganta1.value;
+    this.fichaPersonalBlanco.reportesSalud = [];
+    let reporteSalud1 = new FormSeccionReporteSalud();
+    //reporteSalud1.fecha = this.monitoreoFg.controls.fecha1.value;
+    reporteSalud1.fecha = this.fechaSelec1;
+    reporteSalud1.tos = this.monitoreoFg.controls.tos1.value;
+    reporteSalud1.dolorGarganta = this.monitoreoFg.controls.dolorGarganta1.value;
+    reporteSalud1.dolorCabeza = this.monitoreoFg.controls.dolorCabeza1.value;
+    reporteSalud1.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar1.value;
+    reporteSalud1.percibeOlores = this.monitoreoFg.controls.percibeOlores1.value;
+    reporteSalud1.sentisFiebre = this.monitoreoFg.controls.fiebre1.value;
+    reporteSalud1.congestionNasal = this.monitoreoFg.controls.congestionNasal1.value;
+    reporteSalud1.otrosCansancios = this.monitoreoFg.controls.otrosCansancios1.value;
+    this.fichaPersonalBlanco.reportesSalud.push(reporteSalud1);
+
+    let reporteSalud2 = new FormSeccionReporteSalud();
+    //reporteSalud2.fecha = this.monitoreoFg.controls.fecha2.value;
+    reporteSalud2.fecha = this.fechaSelec2;
+    reporteSalud2.tos = this.monitoreoFg.controls.tos2.value;
+    reporteSalud2.dolorGarganta = this.monitoreoFg.controls.dolorGarganta2.value;
+    reporteSalud2.dolorCabeza = this.monitoreoFg.controls.dolorCabeza2.value;
+    reporteSalud2.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar2.value;
+    reporteSalud2.percibeOlores = this.monitoreoFg.controls.percibeOlores2.value;
+    reporteSalud2.sentisFiebre = this.monitoreoFg.controls.fiebre2.value;
+    reporteSalud2.congestionNasal = this.monitoreoFg.controls.congestionNasal2.value;
+    reporteSalud2.otrosCansancios = this.monitoreoFg.controls.otrosCansancios2.value;
+    this.fichaPersonalBlanco.reportesSalud.push(reporteSalud2);
+
+    let reporteSalud3 = new FormSeccionReporteSalud();
+    reporteSalud3.fecha = this.fechaSelec3;
+    //reporteSalud3.fecha = this.monitoreoFg.controls.fecha3.value;
+    reporteSalud3.tos = this.monitoreoFg.controls.tos3.value;
+    reporteSalud3.dolorGarganta = this.monitoreoFg.controls.dolorGarganta3.value;
+    reporteSalud3.dolorCabeza = this.monitoreoFg.controls.dolorCabeza3.value;
+    reporteSalud3.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar3.value;
+    reporteSalud3.percibeOlores = this.monitoreoFg.controls.percibeOlores3.value;
+    reporteSalud3.sentisFiebre = this.monitoreoFg.controls.fiebre3.value;
+    reporteSalud3.congestionNasal = this.monitoreoFg.controls.congestionNasal3.value;
+    reporteSalud3.otrosCansancios = this.monitoreoFg.controls.otrosCansancios3.value;
+    this.fichaPersonalBlanco.reportesSalud.push(reporteSalud3);
+
+    let reporteSalud4 = new FormSeccionReporteSalud();
+    reporteSalud4.fecha = this.fechaSelec4;
+    //reporteSalud4.fecha = this.monitoreoFg.controls.fecha4.value;
+    reporteSalud4.tos = this.monitoreoFg.controls.tos4.value;
+    reporteSalud4.dolorGarganta = this.monitoreoFg.controls.dolorGarganta4.value;
+    reporteSalud4.dolorCabeza = this.monitoreoFg.controls.dolorCabeza4.value;
+    reporteSalud4.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar4.value;
+    reporteSalud4.percibeOlores = this.monitoreoFg.controls.percibeOlores4.value;
+    reporteSalud4.sentisFiebre = this.monitoreoFg.controls.fiebre4.value;
+    reporteSalud4.congestionNasal = this.monitoreoFg.controls.congestionNasal4.value;
+    reporteSalud4.otrosCansancios = this.monitoreoFg.controls.otrosCansancios4.value;
+    this.fichaPersonalBlanco.reportesSalud.push(reporteSalud4);
+
+    let reporteSalud5 = new FormSeccionReporteSalud();
+    reporteSalud5.fecha = this.fechaSelec5;
+    //reporteSalud5.fecha = this.monitoreoFg.controls.fecha5.value;
+    reporteSalud5.tos = this.monitoreoFg.controls.tos5.value;
+    reporteSalud5.dolorGarganta = this.monitoreoFg.controls.dolorGarganta4.value;
+    reporteSalud5.dolorCabeza = this.monitoreoFg.controls.dolorCabeza4.value;
+    reporteSalud5.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar4.value;
+    reporteSalud5.percibeOlores = this.monitoreoFg.controls.percibeOlores4.value;
+    reporteSalud5.sentisFiebre = this.monitoreoFg.controls.fiebre4.value;
+    reporteSalud5.congestionNasal = this.monitoreoFg.controls.congestionNasal4.value;
+    reporteSalud5.otrosCansancios = this.monitoreoFg.controls.otrosCansancios4.value;
+    this.fichaPersonalBlanco.reportesSalud.push(reporteSalud5);
+
+    let reporteSalud6 = new FormSeccionReporteSalud();
+    reporteSalud6.fecha = this.fechaSelec6;
+    //reporteSalud6.fecha = this.monitoreoFg.controls.fecha6.value;
+    reporteSalud6.tos = this.monitoreoFg.controls.tos6.value;
+    reporteSalud6.dolorGarganta = this.monitoreoFg.controls.dolorGarganta6.value;
+    reporteSalud6.dolorCabeza = this.monitoreoFg.controls.dolorCabeza6.value;
+    reporteSalud6.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar6.value;
+    reporteSalud6.percibeOlores = this.monitoreoFg.controls.percibeOlores6.value;
+    reporteSalud6.sentisFiebre = this.monitoreoFg.controls.fiebre6.value;
+    reporteSalud6.congestionNasal = this.monitoreoFg.controls.congestionNasal6.value;
+    reporteSalud6.otrosCansancios = this.monitoreoFg.controls.otrosCansancios6.value;
+    this.fichaPersonalBlanco.reportesSalud.push(reporteSalud6);
+
+    let reporteSalud7 = new FormSeccionReporteSalud();
+    reporteSalud7.fecha = this.fechaSelec7;
+    //reporteSalud7.fecha = this.monitoreoFg.controls.fecha7.value;
+    reporteSalud7.tos = this.monitoreoFg.controls.tos7.value;
+    reporteSalud7.dolorGarganta = this.monitoreoFg.controls.dolorGarganta7.value;
+    reporteSalud7.dolorCabeza = this.monitoreoFg.controls.dolorCabeza7.value;
+    reporteSalud7.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar7.value;
+    reporteSalud7.percibeOlores = this.monitoreoFg.controls.percibeOlores7.value;
+    reporteSalud7.sentisFiebre = this.monitoreoFg.controls.fiebre7.value;
+    reporteSalud7.congestionNasal = this.monitoreoFg.controls.congestionNasal7.value;
+    reporteSalud7.otrosCansancios = this.monitoreoFg.controls.otrosCansancios7.value;
+    this.fichaPersonalBlanco.reportesSalud.push(reporteSalud7);
+
+    let reporteSalud8 = new FormSeccionReporteSalud();
+    reporteSalud8.fecha = this.fechaSelec8;
+    //reporteSalud8.fecha = this.monitoreoFg.controls.fecha8.value;
+    reporteSalud8.tos = this.monitoreoFg.controls.tos8.value;
+    reporteSalud8.dolorGarganta = this.monitoreoFg.controls.dolorGarganta8.value;
+    reporteSalud8.dolorCabeza = this.monitoreoFg.controls.dolorCabeza8.value;
+    reporteSalud8.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar8.value;
+    reporteSalud8.percibeOlores = this.monitoreoFg.controls.percibeOlores8.value;
+    reporteSalud8.sentisFiebre = this.monitoreoFg.controls.fiebre8.value;
+    reporteSalud8.congestionNasal = this.monitoreoFg.controls.congestionNasal8.value;
+    reporteSalud8.otrosCansancios = this.monitoreoFg.controls.otrosCansancios8.value;
+    this.fichaPersonalBlanco.reportesSalud.push(reporteSalud8);
+
+    let reporteSalud9 = new FormSeccionReporteSalud();
+    reporteSalud9.fecha = this.fechaSelec9;
+    //reporteSalud9.fecha = this.monitoreoFg.controls.fecha9.value;
+    reporteSalud9.tos = this.monitoreoFg.controls.tos9.value;
+    reporteSalud9.dolorGarganta = this.monitoreoFg.controls.dolorGarganta9.value;
+    reporteSalud9.dolorCabeza = this.monitoreoFg.controls.dolorCabeza9.value;
+    reporteSalud9.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar9.value;
+    reporteSalud9.percibeOlores = this.monitoreoFg.controls.percibeOlores9.value;
+    reporteSalud9.sentisFiebre = this.monitoreoFg.controls.fiebre9.value;
+    reporteSalud9.congestionNasal = this.monitoreoFg.controls.congestionNasal9.value;
+    reporteSalud9.otrosCansancios = this.monitoreoFg.controls.otrosCansancios9.value;
+    this.fichaPersonalBlanco.reportesSalud.push(reporteSalud9);
+
+    let reporteSalud10 = new FormSeccionReporteSalud();
+    reporteSalud10.fecha = this.fechaSelec10;
+    //reporteSalud10.fecha = this.monitoreoFg.controls.fecha10.value;
+    reporteSalud10.tos = this.monitoreoFg.controls.tos10.value;
+    reporteSalud10.dolorGarganta = this.monitoreoFg.controls.dolorGarganta10.value;
+    reporteSalud10.dolorCabeza = this.monitoreoFg.controls.dolorCabeza10.value;
+    reporteSalud10.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar10.value;
+    reporteSalud10.percibeOlores = this.monitoreoFg.controls.percibeOlores10.value;
+    reporteSalud10.sentisFiebre = this.monitoreoFg.controls.fiebre10.value;
+    reporteSalud10.congestionNasal = this.monitoreoFg.controls.congestionNasal10.value;
+    reporteSalud10.otrosCansancios = this.monitoreoFg.controls.otrosCansancios10.value;
+    this.fichaPersonalBlanco.reportesSalud.push(reporteSalud10);
+
+    let reporteSalud11 = new FormSeccionReporteSalud();
+    reporteSalud11.fecha = this.fechaSelec11;
+    //reporteSalud11.fecha = this.monitoreoFg.controls.fecha11.value;
+    reporteSalud11.tos = this.monitoreoFg.controls.tos11.value;
+    reporteSalud11.dolorGarganta = this.monitoreoFg.controls.dolorGarganta11.value;
+    reporteSalud11.dolorCabeza = this.monitoreoFg.controls.dolorCabeza11.value;
+    reporteSalud11.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar11.value;
+    reporteSalud11.percibeOlores = this.monitoreoFg.controls.percibeOlores11.value;
+    reporteSalud11.sentisFiebre = this.monitoreoFg.controls.fiebre11.value;
+    reporteSalud11.congestionNasal = this.monitoreoFg.controls.congestionNasal11.value;
+    reporteSalud11.otrosCansancios = this.monitoreoFg.controls.otrosCansancios11.value;
+    this.fichaPersonalBlanco.reportesSalud.push(reporteSalud11);
+
+    let reporteSalud12 = new FormSeccionReporteSalud();
+    reporteSalud12.fecha = this.fechaSelec12;
+    //reporteSalud12.fecha = this.monitoreoFg.controls.fecha12.value;
+    reporteSalud12.tos = this.monitoreoFg.controls.tos12.value;
+    reporteSalud12.dolorGarganta = this.monitoreoFg.controls.dolorGarganta12.value;
+    reporteSalud12.dolorCabeza = this.monitoreoFg.controls.dolorCabeza12.value;
+    reporteSalud12.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar12.value;
+    reporteSalud12.percibeOlores = this.monitoreoFg.controls.percibeOlores12.value;
+    reporteSalud12.sentisFiebre = this.monitoreoFg.controls.fiebre12.value;
+    reporteSalud12.congestionNasal = this.monitoreoFg.controls.congestionNasal12.value;
+    reporteSalud12.otrosCansancios = this.monitoreoFg.controls.otrosCansancios12.value;
+    this.fichaPersonalBlanco.reportesSalud.push(reporteSalud12);
+
+    let reporteSalud13 = new FormSeccionReporteSalud();
+    reporteSalud13.fecha = this.fechaSelec13;
+    //reporteSalud13.fecha = this.monitoreoFg.controls.fecha13.value;
+    reporteSalud13.tos = this.monitoreoFg.controls.tos13.value;
+    reporteSalud13.dolorGarganta = this.monitoreoFg.controls.dolorGarganta13.value;
+    reporteSalud13.dolorCabeza = this.monitoreoFg.controls.dolorCabeza13.value;
+    reporteSalud13.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar13.value;
+    reporteSalud13.percibeOlores = this.monitoreoFg.controls.percibeOlores13.value;
+    reporteSalud13.sentisFiebre = this.monitoreoFg.controls.fiebre13.value;
+    reporteSalud13.congestionNasal = this.monitoreoFg.controls.congestionNasal13.value;
+    reporteSalud13.otrosCansancios = this.monitoreoFg.controls.otrosCansancios13.value;
+    this.fichaPersonalBlanco.reportesSalud.push(reporteSalud13);
+
+    let reporteSalud14 = new FormSeccionReporteSalud();
+    reporteSalud14.fecha = this.fechaSelec14;
+    //reporteSalud14.fecha = this.monitoreoFg.controls.fecha14.value;
+    reporteSalud14.tos = this.monitoreoFg.controls.tos14.value;
+    reporteSalud14.dolorGarganta = this.monitoreoFg.controls.dolorGarganta14.value;
+    reporteSalud14.dolorCabeza = this.monitoreoFg.controls.dolorCabeza14.value;
+    reporteSalud14.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar14.value;
+    reporteSalud14.percibeOlores = this.monitoreoFg.controls.percibeOlores14.value;
+    reporteSalud14.sentisFiebre = this.monitoreoFg.controls.fiebre14.value;
+    reporteSalud14.congestionNasal = this.monitoreoFg.controls.congestionNasal14.value;
+    reporteSalud14.otrosCansancios = this.monitoreoFg.controls.otrosCansancios14.value;
+    this.fichaPersonalBlanco.reportesSalud.push(reporteSalud14);
+
+    /*this.fichaPersonalBlanco.formSeccionReporteSalud.fecha1 = this.monitoreoFg.controls.fecha1.value;
+    this.fichaPersonalBlanco.formSeccionReporteSalud.tos = this.monitoreoFg.controls.tos1.value;
+    this.fichaPersonalBlanco.formSeccionReporteSalud.fiebre = this.monitoreoFg.controls.fiebre1.value;
+    this.fichaPersonalBlanco.formSeccionReporteSalud.dolorGarganta = this.monitoreoFg.controls.dolorGarganta1.value;*/
     /*this.fichaPersonalBlanco.formSeccionReporteSalud.tos2 = this.monitoreoFg.controls.tos2.value;
     this.fichaPersonalBlanco.formSeccionReporteSalud.tos3 = this.monitoreoFg.controls.tos3.value;
     this.fichaPersonalBlanco.formSeccionReporteSalud.tos4 = this.monitoreoFg.controls.tos4.value;
@@ -373,11 +639,7 @@ export class FichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionReporteSalud.tos7 = this.monitoreoFg.controls.tos7.value;
     this.fichaPersonalBlanco.formSeccionReporteSalud.tos8 = this.monitoreoFg.controls.tos8.value;
     this.fichaPersonalBlanco.formSeccionReporteSalud.tos9 = this.monitoreoFg.controls.tos9.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.tos10 = this.monitoreoFg.controls.tos10.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.tos11 = this.monitoreoFg.controls.tos11.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.tos12 = this.monitoreoFg.controls.tos12.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.tos13 = this.monitoreoFg.controls.tos13.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.tos14 = this.monitoreoFg.controls.tos14.value;*/
+    this.fichaPersonalBlanco.formSeccionReporteSalud.tos10 = this.monitoreoFg.controls.tos10.value;*/
 
     this.fichaPersonalBlanco.formSeccionClasifRiesgo = new FormSeccionClasifRiesgo();
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.clasificacionRiesgo = this.clasificacionRiesgoFg.controls.clasRiesgo.value;
@@ -461,7 +723,6 @@ export class FichaMonitoreoComponent implements OnInit {
   guardarFormSintomas(idRegistro){
     this.service.guardarFormSintomas(this.formDatosBasicos).subscribe(response => {
       this.loading = false;
-      this.mensaje = "Se ha registrado con Éxito";
         
     }, error => {
       console.log(error);
@@ -499,7 +760,7 @@ export class FichaMonitoreoComponent implements OnInit {
     for(let i = 0; i < this.regionSanitariaOptions.length; i++) {
         let region = this.regionSanitariaOptions[i];
 
-        if (region.nombre.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        if (region.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
           filtered.push(region);
         }
     }
@@ -515,7 +776,7 @@ export class FichaMonitoreoComponent implements OnInit {
     for(let i = 0; i < this.serviciosSalud.length; i++) {
         let servicio = this.serviciosSalud[i];
 
-        if (servicio.nombre.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        if (servicio.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
           filtered.push(servicio);
         }
     }
@@ -531,7 +792,7 @@ export class FichaMonitoreoComponent implements OnInit {
     for(let i = 0; i < establecimientos.length; i++) {
         let servicio = establecimientos[i];
 
-        if (servicio.nombre.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        if (servicio.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
           filtered.push(servicio);
         }
     }
@@ -667,23 +928,29 @@ export class FichaMonitoreoComponent implements OnInit {
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
 
+    this.fechaSelec1 = y + '-'+ mm+'-'+dd;  //fechaSelec
     if(dd < 10){
-      //this.monitoreoFg.controls.fecha1.setValue('0'+dd + '/' + mm + '/' + y);
       this.monitoreoFg.controls.fecha1.setValue('0'+dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha1.setValue('0'+dd + '/' + mm + '/' + y);
     }else{
       this.monitoreoFg.controls.fecha1.setValue(dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha1.setValue(dd + '/' + mm + '/' + y);
     }
     
     
     fechaSelec.setDate(fechaSelec.getDate()+2);
+    console.log(this.fechaSelec2);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
+    this.fechaSelec2 = y + '-'+ mm+'-'+dd;
     //var formattedDate = dd + '-' + mm + '-' + y;
     if(dd < 10){
       this.monitoreoFg.controls.fecha2.setValue('0'+dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha2.setValue('0'+dd + '/' + mm + '/' + y);
     }else{
       this.monitoreoFg.controls.fecha2.setValue(dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha2.setValue(dd + '/' + mm + '/' + y);
     }
     
 
@@ -691,120 +958,164 @@ export class FichaMonitoreoComponent implements OnInit {
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
+    this.fechaSelec3 = y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha3.setValue('0'+dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha3.setValue('0'+dd + '/' + mm + '/' + y);
     }else{
       this.monitoreoFg.controls.fecha3.setValue(dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha3.setValue(dd + '/' + mm + '/' + y);
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
+
+    this.fechaSelec4 = y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha4.setValue('0'+dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha4.setValue('0'+dd + '/' + mm + '/' + y);
     }else{
       this.monitoreoFg.controls.fecha4.setValue(dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha4.setValue(dd + '/' + mm + '/' + y);
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
+    this.fechaSelec5 = y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha5.setValue('0'+dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha5.setValue('0'+dd + '/' + mm + '/' + y);
     }else{
       this.monitoreoFg.controls.fecha5.setValue(dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha5.setValue(dd + '/' + mm + '/' + y);
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
+    this.fechaSelec6 = y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha6.setValue('0'+dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha6.setValue('0'+dd + '/' + mm + '/' + y);
     }else{
       this.monitoreoFg.controls.fecha6.setValue(dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha6.setValue(dd + '/' + mm + '/' + y);
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
+    this.fechaSelec7 = y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha7.setValue('0'+dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha7.setValue('0'+dd + '/' + mm + '/' + y);
     }else{
       this.monitoreoFg.controls.fecha7.setValue(dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha7.setValue(dd + '/' + mm + '/' + y);
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
+
+    this.fechaSelec8 = y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha8.setValue('0'+dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha8.setValue('0'+dd + '/' + mm + '/' + y);
     }else{
       this.monitoreoFg.controls.fecha8.setValue(dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha8.setValue(dd + '/' + mm + '/' + y);
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
+
+    this.fechaSelec9 = y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha9.setValue('0'+dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha9.setValue('0'+dd + '/' + mm + '/' + y);
     }else{
       this.monitoreoFg.controls.fecha9.setValue(dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha9.setValue(dd + '/' + mm + '/' + y);
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
+
+    this.fechaSelec10 = y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha10.setValue('0'+dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha10.setValue('0'+dd + '/' + mm + '/' + y);
     }else{
       this.monitoreoFg.controls.fecha10.setValue(dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha10.setValue(dd + '/' + mm + '/' + y);
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
+
+    this.fechaSelec11 = y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha11.setValue('0'+dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha11.setValue('0'+dd + '/' + mm + '/' + y);
     }else{
       this.monitoreoFg.controls.fecha11.setValue(dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha11.setValue(dd + '/' + mm + '/' + y);
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
+
+    this.fechaSelec12 = y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha12.setValue('0'+dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha12.setValue('0'+dd + '/' + mm + '/' + y);
     }else{
       this.monitoreoFg.controls.fecha12.setValue(dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha12.setValue(dd + '/' + mm + '/' + y);
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
+
+    this.fechaSelec13 = y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha13.setValue('0'+dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha13.setValue('0'+dd + '/' + mm + '/' + y);
     }else{
       this.monitoreoFg.controls.fecha13.setValue(dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha13.setValue(dd + '/' + mm + '/' + y);
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
+
+    this.fechaSelec14 = y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha14.setValue('0'+dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha14.setValue('0'+dd + '/' + mm + '/' + y);
     }else{
       this.monitoreoFg.controls.fecha14.setValue(dd + '/' + mm);
+      //this.monitoreoFg.controls.fecha14.setValue('0'+dd + '/' + mm + '/' + y);
     }
   }
 
