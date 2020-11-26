@@ -50,13 +50,15 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="nombre"><strong>Nombres</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="nombre" class="form-control" id="nombre" name="nombre" required>
+                                        <input type="text" *ngIf="!falla" formControlName="nombre" class="form-control" id="nombre" name="nombre" required disabled>
+                                        <input type="text" *ngIf="falla" formControlName="nombre" class="form-control" id="nombre" name="nombre" required>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="apellido"><strong>Apellidos</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="apellido" class="form-control" id="apellido" name="apellido" required>
+                                        <input type="text" *ngIf="!falla" formControlName="apellido" class="form-control" id="apellido" name="apellido" required disabled>
+                                        <input type="text" *ngIf="falla" formControlName="apellido" class="form-control" id="apellido" name="apellido" required>
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" id="nombre" required>-->
                                     </div>
                                 </div>  
@@ -65,8 +67,8 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="fechaNacimiento"><strong>Fecha de nacimiento:</strong><span style="color: red;"> *</span></label><!--value="1980-01-01"-->
-                                        <!--<input type="date" id="fechaNacimiento" style="width: 515px;" formControlName="fechaNacimiento" disabled>-->
-                                        <input type="text" formControlName="fechaNacimiento" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required placeholder="En caso necesario complete con formato dd/mm/yyyy">
+                                        <input type="date" id="fechaNacimiento" *ngIf="falla" style="width: 515px;" formControlName="fechaNacimiento">
+                                        <input type="text" *ngIf="!falla" formControlName="fechaNacimiento" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required disabled>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -82,8 +84,8 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="sexo"><strong>Sexo</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="sexo" name="sexo" class="form-control" id="sexo" maxlength="1" placeholder="En caso necesario complete con M o F">
-                                        <!--<br><p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'515px'}" required></p-dropdown>-->
+                                        <input type="text" *ngIf="!falla" formControlName="sexo" name="sexo" class="form-control" id="sexo" maxlength="1" disabled>
+                                        <br><p-dropdown id="sexo" *ngIf="falla" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'515px'}" required></p-dropdown>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -247,13 +249,15 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="nombre"><strong>Nombres</strong></label>
-                                        <input type="text" formControlName="nombre" name="nombre" class="form-control" id="nombre">
+                                        <input type="text" *ngIf="!fallaSII" formControlName="nombre" name="nombre" class="form-control" id="nombre" disabled>
+                                        <input type="text" *ngIf="!fallaSII" formControlName="nombre" name="nombre" class="form-control" id="nombre">
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="nombre"><strong>Apellidos</strong></label>
-                                        <input type="text" formControlName="apellido" name="apellido" class="form-control" id="apellido">
+                                        <input type="text" *ngIf="!fallaSII" formControlName="apellido" name="apellido" class="form-control" id="apellido" disabled>
+                                        <input type="text" *ngIf="fallaSII" formControlName="apellido" name="apellido" class="form-control" id="apellido">
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" id="nombre" required>-->
                                     </div>
                                 </div>
@@ -263,8 +267,8 @@
                             <div class="col-md">
                                 <div class="form-group">
                                     <label for="sexo"><strong>Sexo</strong></label>
-                                    <input type="text" formControlName="sexo" name="sexo" class="form-control" id="sexo" maxlength="1" placeholder="En caso necesario complete con M o F">
-                                     <!--<br><p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'325px'}" disabled></p-dropdown>-->
+                                    <input type="text" *ngIf="!fallaSII" formControlName="sexo" name="sexo" class="form-control" id="sexo" maxlength="1" disabled>
+                                     <br><p-dropdown id="sexo" *ngIf="fallaSII" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'325px'}"></p-dropdown>
                                 </div>
                             </div>
                             <div class="col-md">

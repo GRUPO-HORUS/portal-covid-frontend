@@ -142,6 +142,7 @@ export class FichaMonitoreoComponent implements OnInit {
   fechaSelec12;
   fechaSelec13;
   fechaSelec14;
+  fallaSII: boolean;
 
   constructor(
     private _router: Router,
@@ -159,6 +160,7 @@ export class FichaMonitoreoComponent implements OnInit {
   @ViewChild('stepper') stepper: MatHorizontalStepper;
 
   ngOnInit() {
+    this.fallaSII = false;
     this.fechaHoy = new Date().toLocaleDateString('fr-CA');
 
     this.options="{types: ['(cities)'], componentRestrictions: { country: 'PY' }}";
@@ -707,31 +709,6 @@ export class FichaMonitoreoComponent implements OnInit {
     });
   }
 
-  guardarFormContactoContagio(idRegistro){
-    this.contactoContagio = new FormSeccionContactoContagio();
-    this.contactoContagio.nroDocumento = this.casoConfirmadoFg.controls.cedula.value;
-    this.contactoContagio.nombre = this.casoConfirmadoFg.controls.nombre.value;
-    this.contactoContagio.apellido = this.casoConfirmadoFg.controls.apellido.value;
-    this.contactoContagio.sexo = this.casoConfirmadoFg.controls.sexo.value;
-    this.contactoContagio.idRegistro = idRegistro;
-    this.service.guardarContactoContagio(this.contactoContagio).subscribe(response => {
-    },error => {
-      console.log(error);
-    });
-  }
-
-  guardarFormSintomas(idRegistro){
-    this.service.guardarFormSintomas(this.formDatosBasicos).subscribe(response => {
-      this.loading = false;
-        
-    }, error => {
-      console.log(error);
-      this.loading = false;
-      this.mensaje = error.error;
-      this.openMessageDialog(); 
-    });
-  }
-
   guardarFormClasifRiesgo(idRegistro){
     this.clasifRiesgoPaciente = new FormSeccionClasifRiesgo();
     this.clasifRiesgoPaciente.idRegistro = idRegistro;
@@ -785,7 +762,7 @@ export class FichaMonitoreoComponent implements OnInit {
   }
 
   filtrarEstablecimiento(event) {
-    let establecimientos = [{'id':4,'nombre':'Hospital Materno Infantil San Pablo'},{'id':5,'nombre':'Instituto Medicina Tropical'},{'id':6,'nombre':'Hospital de Trauma'}];
+    let establecimientos = [{'id':4,'nombre':'Hospital Materno Infantil San Pablo'},{'id':5,'nombre':'Instituto Medicina Tropical'},{'id':6,'nombre':'Hospital de Trauma'}, {'id':7,'nombre':'Hospital de Luque'}];
     let filtered : any[] = [];
     let query = event.query;
 
@@ -815,8 +792,9 @@ export class FichaMonitoreoComponent implements OnInit {
         //formDatosBasicos.numeroDocumento=formDatosBasicos.numeroDocumento.trim();
         this.service.getIdentificacionesByNumeroDocumento(this.nroDocumento.trim()).subscribe(response => {
             this.loading = false;
-            if(response.obtenerPersonaPorNroCedulaResponse.return.error)
-            {
+            if(response.obtenerPersonaPorNroCedulaResponse.return.error){
+
+              this.fallaSII = true;
               this.mensaje = response.obtenerPersonaPorNroCedulaResponse.return.error;
               this.openMessageDialog();
             }
@@ -856,6 +834,7 @@ export class FichaMonitoreoComponent implements OnInit {
           {
             this.loading = false;
             //this.mensaje = error.error;
+            this.fallaSII = true;
             this.mensaje = "No se pudieron obtener los datos del paciente.";
             this.openMessageDialog();
           }
@@ -937,8 +916,12 @@ export class FichaMonitoreoComponent implements OnInit {
       //this.monitoreoFg.controls.fecha1.setValue(dd + '/' + mm + '/' + y);
     }
     
+    if(band == 'inicio'){
+      fechaSelec.setDate(fechaSelec.getDate()+2);
+    }else{
+      fechaSelec.setDate(fechaSelec.getDate()+1);
+    }
     
-    fechaSelec.setDate(fechaSelec.getDate()+2);
     console.log(this.fechaSelec2);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;

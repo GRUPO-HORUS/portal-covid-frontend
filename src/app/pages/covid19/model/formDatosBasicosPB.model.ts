@@ -53,7 +53,6 @@ export class FormDatosBasicosPB {
     establecimientoInternacion: string;
     especialidadInternacion: string;
 
-    registroFormulario: number;
     reportes: FormSeccionReporteSalud[];
 
 }
