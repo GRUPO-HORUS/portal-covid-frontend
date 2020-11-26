@@ -360,8 +360,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       pcr: [null]
     });
 
-    this.setearFechasTabla(this.fechaHoy, 'inicio');
-
     /*this._route.params.subscribe(params => {
         this.formDatosBasicos.tipoInicio = params["tipoInicio"];
     });*/
@@ -383,6 +381,12 @@ export class EditarFichaMonitoreoComponent implements OnInit {
                 response.fechaNacimiento.substring(0, 4));
 
         console.log(response);
+        //21/10/2018
+        this.setearFechasTabla(response.fechaInicioSintoma.substring(3, 5)+'/'+
+                response.fechaInicioSintoma.substring(0, 2)+'/'+
+                response.fechaInicioSintoma.substring(6, 10), 'inicio');
+       
+
         //this.consultarIdentificaciones(cedula,'registro');
         this.registroFg.controls.direccion.setValue(response.direccionDomicilio);
         this.registroFg.controls.telefono.setValue(response.numeroCelular);
@@ -1113,8 +1117,9 @@ export class EditarFichaMonitoreoComponent implements OnInit {
   }
 
   setearFechasTabla(event, band){
-    //console.log(event);
+    console.log(event);
     var fechaSelec = new Date(event);
+    console.log(fechaSelec);
     if(band == 'inicio'){
       var dd = fechaSelec.getDate() + 1;
     }else{
