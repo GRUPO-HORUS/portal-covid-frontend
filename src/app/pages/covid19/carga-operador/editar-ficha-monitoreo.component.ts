@@ -1128,12 +1128,13 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
-    this.fechaSelec1 = y + '-'+ mm+'-'+dd; //fechaSelec
     if(dd < 10){
       //this.monitoreoFg.controls.fecha1.setValue('0'+dd + '/' + mm + '/' + y);
       this.monitoreoFg.controls.fecha1.setValue('0'+dd + '/' + mm);
+      this.fechaSelec1 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
     }else{
       this.monitoreoFg.controls.fecha1.setValue(dd + '/' + mm);
+      this.fechaSelec1 = y + '-'+ mm+'-'+dd;
     }
     
     
@@ -1141,12 +1142,13 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
-    this.fechaSelec2 = y + '-'+ mm+'-'+dd;  //y + '-'+ mm+'-'+dd
     //var formattedDate = dd + '-' + mm + '-' + y;
     if(dd < 10){
       this.monitoreoFg.controls.fecha2.setValue('0'+dd + '/' + mm);
+      this.fechaSelec2 = y + '-'+ mm+'-'+'0'+dd;  //y + '-'+ mm+'-'+dd
     }else{
       this.monitoreoFg.controls.fecha2.setValue(dd + '/' + mm);
+      this.fechaSelec2 = y + '-'+ mm+'-'+dd;
     }
     
 
@@ -1154,11 +1156,13 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
-    this.fechaSelec3 =  y + '-'+ mm+'-'+dd;
+    
     if(dd < 10){
       this.monitoreoFg.controls.fecha3.setValue('0'+dd + '/' + mm);
+      this.fechaSelec3 =  y + '-'+ mm+'-'+'0'+dd;
     }else{
       this.monitoreoFg.controls.fecha3.setValue(dd + '/' + mm);
+      this.fechaSelec3 =  y + '-'+ mm+'-'+dd;
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1166,23 +1170,25 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
 
-    this.fechaSelec4 =  y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha4.setValue('0'+dd + '/' + mm);
+      this.fechaSelec4 =  y + '-'+ mm+'-'+'0'+dd;
     }else{
       this.monitoreoFg.controls.fecha4.setValue(dd + '/' + mm);
+      this.fechaSelec4 =  y + '-'+ mm+'-'+dd;
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
-
-    this.fechaSelec5 =  y + '-'+ mm+'-'+dd;
+    
     if(dd < 10){
       this.monitoreoFg.controls.fecha5.setValue('0'+dd + '/' + mm);
+      this.fechaSelec5 =  y + '-'+ mm+'-'+'0'+dd;
     }else{
       this.monitoreoFg.controls.fecha5.setValue(dd + '/' + mm);
+      this.fechaSelec5 =  y + '-'+ mm+'-'+dd;
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1190,11 +1196,12 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
 
-    this.fechaSelec6 = y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha6.setValue('0'+dd + '/' + mm);
+      this.fechaSelec6 = y + '-'+ mm+'-'+'0'+dd;
     }else{
       this.monitoreoFg.controls.fecha6.setValue(dd + '/' + mm);
+      this.fechaSelec6 = y + '-'+ mm+'-'+dd;
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1202,11 +1209,12 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
 
-    this.fechaSelec7 =  y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha7.setValue('0'+dd + '/' + mm);
+      this.fechaSelec7 =  y + '-'+ mm+'-'+'0'+dd;
     }else{
       this.monitoreoFg.controls.fecha7.setValue(dd + '/' + mm);
+      this.fechaSelec7 =  y + '-'+ mm+'-'+dd;
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1214,11 +1222,12 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
 
-    this.fechaSelec8 = y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha8.setValue('0'+dd + '/' + mm);
+      this.fechaSelec8 = y + '-'+ mm+'-'+'0'+dd;
     }else{
       this.monitoreoFg.controls.fecha8.setValue(dd + '/' + mm);
+      this.fechaSelec8 = y + '-'+ mm+'-'+dd;
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1226,11 +1235,13 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
 
-    this.fechaSelec9 =  y + '-'+ mm+'-'+dd;
+    
     if(dd < 10){
       this.monitoreoFg.controls.fecha9.setValue('0'+dd + '/' + mm);
+      this.fechaSelec9 =  y + '-'+ mm+'-'+'0'+dd;
     }else{
       this.monitoreoFg.controls.fecha9.setValue(dd + '/' + mm);
+      this.fechaSelec9 =  y + '-'+ mm+'-'+dd;
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1238,11 +1249,12 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
 
-    this.fechaSelec10 = y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha10.setValue('0'+dd + '/' + mm);
+      this.fechaSelec10 = y + '-'+ mm+'-'+'0'+dd;
     }else{
       this.monitoreoFg.controls.fecha10.setValue(dd + '/' + mm);
+      this.fechaSelec10 = y + '-'+ mm+'-'+dd;
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1250,44 +1262,51 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
 
-    this.fechaSelec11 =  y + '-'+ mm+'-'+dd;
     if(dd < 10){
       this.monitoreoFg.controls.fecha11.setValue('0'+dd + '/' + mm);
+      this.fechaSelec11 =  y + '-'+ mm+'-'+'0'+dd;
     }else{
       this.monitoreoFg.controls.fecha11.setValue(dd + '/' + mm);
+      this.fechaSelec11 =  y + '-'+ mm+'-'+dd;
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
-    this.fechaSelec12 =  y + '-'+ mm+'-'+dd;
+    
     if(dd < 10){
       this.monitoreoFg.controls.fecha12.setValue('0'+dd + '/' + mm);
+      this.fechaSelec12 =  y + '-'+ mm+'-'+'0'+dd;
     }else{
       this.monitoreoFg.controls.fecha12.setValue(dd + '/' + mm);
+      this.fechaSelec12 =  y + '-'+ mm+'-'+dd;
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
-    this.fechaSelec13 =  y + '-'+ mm+'-'+dd;
+    
     if(dd < 10){
       this.monitoreoFg.controls.fecha13.setValue('0'+dd + '/' + mm);
+      this.fechaSelec13 =  y + '-'+ mm+'-'+'0'+dd;
     }else{
       this.monitoreoFg.controls.fecha13.setValue(dd + '/' + mm);
+      this.fechaSelec13 =  y + '-'+ mm+'-'+dd;
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
-    this.fechaSelec14 = y + '-'+ mm+'-'+dd;
+    
     if(dd < 10){
       this.monitoreoFg.controls.fecha14.setValue('0'+dd + '/' + mm);
+      this.fechaSelec14 = y + '-'+ mm+'-'+'0'+dd;
     }else{
       this.monitoreoFg.controls.fecha14.setValue(dd + '/' + mm);
+      this.fechaSelec14 = y + '-'+ mm+'-'+dd;
     }
   }
 
