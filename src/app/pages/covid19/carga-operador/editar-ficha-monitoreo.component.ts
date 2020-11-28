@@ -386,7 +386,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
                 response.fechaInicioSintoma.substring(0, 2)+'/'+
                 response.fechaInicioSintoma.substring(6, 10), 'inicio');
        
-
         //this.consultarIdentificaciones(cedula,'registro');
         this.registroFg.controls.direccion.setValue(response.direccionDomicilio);
         this.registroFg.controls.telefono.setValue(response.numeroCelular);
@@ -411,6 +410,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.fechaSintomas.setValue(response.fechaInicioSintoma); 
         this.monitoreoFg.controls.fechaExposicion.setValue(response.fechaExposicion);
 
+        //response.reportes.sort((a,b)=>(a.fecha < b.fecha ? -1:1));
         this.idRegistroForm = response.reportes[0].registroFormulario;
 
         this.idReporteSalud1 = response.reportes[0].id;
@@ -870,10 +870,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionReporteSalud.fecha11 = this.monitoreoFg.controls.fecha11.value;
     this.fichaPersonalBlanco.formSeccionReporteSalud.fecha12 = this.monitoreoFg.controls.fecha12.value;
     this.fichaPersonalBlanco.formSeccionReporteSalud.fecha13 = this.monitoreoFg.controls.fecha13.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha14 = this.monitoreoFg.controls.fecha14.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.tos1 = this.monitoreoFg.controls.tos1.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fiebre1 = this.monitoreoFg.controls.fiebre1.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.dolorGarganta1 = this.monitoreoFg.controls.dolorGarganta1.value;*/
+    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha14 = this.monitoreoFg.controls.fecha14.value;*/
 
     this.fichaPersonalBlanco.formSeccionClasifRiesgo = new FormSeccionClasifRiesgo();
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.clasificacionRiesgo = this.clasificacionRiesgoFg.controls.clasRiesgo.value;
@@ -934,7 +931,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       console.log(error);
     });
   }
-
   guardarFormClasifRiesgo(idRegistro){
     this.clasifRiesgoPaciente = new FormSeccionClasifRiesgo();
     this.clasifRiesgoPaciente.idRegistro = idRegistro;

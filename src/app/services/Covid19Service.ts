@@ -62,6 +62,10 @@ export class Covid19Service {
       return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/editarFichaPersonalBlanco/'+idRegistroForm, fichaPersonalBlanco);
     }
 
+    actualizarSeguimientoPB(fichaPersonalBlanco, idRegistroForm): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/actualizarSeguimientoPB/'+idRegistroForm, fichaPersonalBlanco);
+    }
+
     guardarDatosBasicosOperador(formDatosBasicos): Observable<string> {
       return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/datosBasicos', formDatosBasicos);
     }
@@ -112,6 +116,10 @@ export class Covid19Service {
 
     getPacienteEditar(cedula): Observable<FormDatosBasicosPB> {
       return this.httpClient.get<FormDatosBasicosPB>(this.config.API + '/covid19api/aislamiento/getPacienteEditar/'+cedula);
+    }
+
+    getPacienteActualizarSeguimiento(cedula): Observable<FormDatosBasicosPB> {
+      return this.httpClient.get<FormDatosBasicosPB>(this.config.API + '/covid19api/aislamiento/getPacienteActualizarSeguimiento/'+cedula);
     }
 
     getDatosPacienteByNumeroDocumento(numeroDocumento): Observable<FormDatosBasicos> {
