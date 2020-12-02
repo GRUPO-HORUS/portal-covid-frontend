@@ -565,7 +565,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     let reporteSalud2 = new FormSeccionReporteSalud();
     reporteSalud2.id = this.idReporteSalud2;
     reporteSalud2.fecha = this.fechaSelec2;
-    console.log(reporteSalud2.fecha);
     reporteSalud2.tos = this.monitoreoFg.controls.tos2.value;
     reporteSalud2.dolorGarganta = this.monitoreoFg.controls.dolorGarganta2.value;
     reporteSalud2.dolorCabeza = this.monitoreoFg.controls.dolorCabeza2.value;

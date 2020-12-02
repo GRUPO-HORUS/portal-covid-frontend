@@ -69,7 +69,7 @@
                                     <div class="form-group">
                                         <label for="fechaNacimiento"><strong>Fecha de nacimiento:</strong><span style="color: red;"> *</span></label><!--value="1980-01-01"-->
                                         <input type="text" *ngIf="!fallaSII" formControlName="fechaNacimiento" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required disabled>
-                                        <input type="date" *ngIf="fallaSII" id="fechaNacimiento" style="width: 515px;" formControlName="fechaNacimiento">
+                                        <input type="date" *ngIf="fallaSII" id="fechaNacimiento" style="width: 515px;" formControlName="fechaNacimiento" (change)="cambiaFecha($event.target.value)">
                                     </div>
                                 </div>
                                 <div class="col-md">

@@ -6,6 +6,8 @@ import * as FileSaver from 'file-saver';
 //import * as XLSXStyle from 'xlsx-style';
 import { Router } from "@angular/router";
 
+import * as Excel from "exceljs";
+
 @Component({
     selector: "lista-pacientes-selector",
     templateUrl: "./lista-pacientes.component.html",
@@ -72,8 +74,9 @@ export class ListaPacientesComponent implements OnInit{
     getAllPacientes(){
       this.service.listarPacientes(0, 0, this.filter, this.sortAsc, this.sortField).subscribe(pacientes => {
         this.pacientesListCompleta = pacientes.lista;
-  
         this.exportExcel(this.pacientesListCompleta);
+
+        //this.exportXlsFormateado(this.pacientesListCompleta);
       });
     }
 

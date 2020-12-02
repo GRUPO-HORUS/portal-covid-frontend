@@ -404,6 +404,10 @@ export class FichaMonitoreoComponent implements OnInit {
     }
   }
 
+  cambiaFecha(fecha){
+    console.log(fecha);
+  }
+
   guardarFicha(): void {
     //this.formDatosBasicos = new FormDatosBasicos();
     this.loading = true;
@@ -417,7 +421,13 @@ export class FichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionDatosBasicos.apellido = this.registroFg.controls.apellido.value;
     this.fichaPersonalBlanco.formSeccionDatosBasicos.sexo = this.registroFg.controls.sexo.value;
     this.fichaPersonalBlanco.formSeccionDatosBasicos.direccionDomicilio = this.registroFg.controls.direccion.value;
-    this.fichaPersonalBlanco.formSeccionDatosBasicos.fechaNacimiento = this.registroFg.controls.fechaNacimiento.value;
+    //2020-12-14
+    if(this.fallaSII){
+      this.fichaPersonalBlanco.formSeccionDatosBasicos.fechaNacimiento = this.registroFg.controls.fechaNacimiento.value.substring(8,10)+'/'+this.registroFg.controls.fechaNacimiento.value.substring(5,7)+'/'+this.registroFg.controls.fechaNacimiento.value.substring(0,4);
+    }else{
+       this.fichaPersonalBlanco.formSeccionDatosBasicos.fechaNacimiento = this.registroFg.controls.fechaNacimiento.value;
+    }
+    
     this.fichaPersonalBlanco.formSeccionDatosBasicos.numeroCelular = this.registroFg.controls.telefono.value;
 
     this.fichaPersonalBlanco.formSeccionPersonalBlanco = new FormSeccionPersonalBlanco();
