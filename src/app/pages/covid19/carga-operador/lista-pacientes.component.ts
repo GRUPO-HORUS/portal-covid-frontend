@@ -74,11 +74,99 @@ export class ListaPacientesComponent implements OnInit{
     getAllPacientes(){
       this.service.listarPacientes(0, 0, this.filter, this.sortAsc, this.sortField).subscribe(pacientes => {
         this.pacientesListCompleta = pacientes.lista;
-        this.exportExcel(this.pacientesListCompleta);
+        //this.exportExcel(this.pacientesListCompleta);
 
-        //this.exportXlsFormateado(this.pacientesListCompleta);
+        this.exportXlsFormateado(this.pacientesListCompleta);
       });
     }
+
+    /*******/
+  exportXlsFormateado(pacientes){
+    let workbook = new Excel.Workbook();
+    let worksheet = workbook.addWorksheet('Pacientes');
+
+    worksheet.addRow(['LISTA DE PERSONAL DE BLANCO']);
+    worksheet.addRow(['Fecha de Generación:', new Date().toLocaleString()]);
+    worksheet.getRow(1).font = { name: 'Arial Black', family: 4, size: 14, bold: true };
+
+    worksheet.properties.defaultColWidth = 24;
+    //worksheet.getColumn(1).width = 25;
+
+    let header=["Nro de Documento", "Nombre", "Apellido", "Celular", "Departamento", "Domicilio","Fecha de Nacimiento", "Sexo",
+    "Fecha Exposición", "Fecha Inicio de Síntomas", "Nro de Documento Contacto", "Nombre Contacto", "Apellido Contacto", "Sexo Contacto",
+    "Servicio de Salud", "Región Sanitaria", "Profesión", "Función", "Reingreso", "Fallecido", "Internado", "Lugar Internación",
+    "Especialidad Internación", "Clasificación de Riesgo", "Categoría Contagio", "Clasificación Final", "Antígeno", "PCR", "Exclusión Trabajo",
+    "Autocontrol Trabajo", "Trabajo Nada", "Trabajo Otro", "Trabajo Otro Descripción"]
+    worksheet.addRow(header);
+    worksheet.getRow(3).fill = {type:'pattern', pattern: 'solid', fgColor: {argb:'00000000'}}
+    worksheet.getRow(3).font = { color:{argb:'FFFFFFFF'}, name: 'Arial Black', family: 4, size: 11, bold: true };
+
+    let filaNro = 4;
+    for(let p of pacientes) {
+      let reingreso = 'No';
+        if(p.reingreso){
+          reingreso = 'Si';
+        }
+        let fallecido = 'No';
+        if(p.fallecido){
+          fallecido = 'Si';
+        }
+        let internado = 'No';
+        if(p.internado){
+          internado = 'Si';
+        }
+
+        let laboratorioAntigeno = 'No';
+        if(p.laboratorioAntigeno){
+          laboratorioAntigeno = 'Si';
+        }
+        let laboratorioPcr = 'No';
+        if(p.laboratorioPcr){
+          laboratorioPcr = 'Si';
+        }
+        let trabajoExclusion = 'No';
+        if(p.trabajoExclusion){
+          trabajoExclusion = 'Si';
+        }
+
+        let trabajoAutocontrol = 'No';
+        if(p.trabajoAutocontrol){
+          trabajoAutocontrol = 'Si';
+        }
+
+        let trabajoNada = 'No';
+        if(p.trabajoNada){
+          trabajoNada = 'Si';
+        }
+
+        let trabajoOtro = 'No';
+        if(p.trabajoOtro){
+          trabajoOtro = 'Si';
+        }
+      worksheet.addRow([p.numeroDocumento, p.nombre, p.apellido, p.numeroCelular, p.departamentoDomicilio, 
+      p.direccionDomicilio, p.fechaNacimiento, p.sexo, p.fechaExposicion, p.fechaInicioSintoma, p.nroDocumentoContacto, 
+      p.nombreContacto, p.apellidoContacto, p.sexoContacto, p.servicioSalud,
+      p.regionSanitaria, p.profesion, p.funcion, reingreso,
+      fallecido, internado, p.establecimientoInternacion, p.especialidadInternacion, p.clasificacionRiesgo, 
+      p.categoriaContagio, p.clasificacionFinal, laboratorioAntigeno, laboratorioPcr,
+      trabajoExclusion, trabajoAutocontrol, trabajoNada, trabajoOtro, p.trabajoOtroDescripcion]);
+
+      worksheet.getRow(filaNro).border = {
+        top: { style:'double', color: {argb:'00000000'}},
+        left: { style:'double', color: {argb:'00000000'}},
+        bottom: { style:'double', color: {argb:'00000000'}},
+        right: { style:'double', color: {argb:'00000000'}}
+      }
+
+      filaNro++;
+    }
+
+  workbook.xlsx.writeBuffer().then((data) => {
+    let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    FileSaver.saveAs(blob, "lista_pacientes"+'-'+new Date().valueOf()+'.xlsx');
+  });
+}
+/*******/
 
     exportExcel(listaUsuarios) {
 
