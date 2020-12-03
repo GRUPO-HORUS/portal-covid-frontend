@@ -540,6 +540,12 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
   );
   }
 
+  verifOtroIndicEspecificar(){
+    if(!this.clasificacionRiesgoFg.controls.otroIndic.value){
+      this.clasificacionRiesgoFg.controls.otroIndicEspecificar.setValue('');
+    }
+  }
+
   actualizarSeguimiento(): void {
     this.loading = true;
     this.fichaPersonalBlanco = new FichaPersonalBlanco();

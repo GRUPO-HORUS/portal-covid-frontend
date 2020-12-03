@@ -148,6 +148,8 @@ export class EditarFichaMonitoreoComponent implements OnInit {
   idReporteSalud13;
   idReporteSalud14;
 
+  fallaSII: boolean;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,

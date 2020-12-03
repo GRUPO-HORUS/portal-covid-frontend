@@ -50,15 +50,15 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="nombre"><strong>Nombres</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" *ngIf="!falla" formControlName="nombre" class="form-control" id="nombre" name="nombre" required disabled>
-                                        <input type="text" *ngIf="falla" formControlName="nombre" class="form-control" id="nombre" name="nombre" required>
+                                        <input type="text" *ngIf="!fallaSII" formControlName="nombre" class="form-control" id="nombre" name="nombre" required disabled>
+                                        <input type="text" *ngIf="fallaSII" formControlName="nombre" class="form-control" id="nombre" name="nombre" required>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="apellido"><strong>Apellidos</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" *ngIf="!falla" formControlName="apellido" class="form-control" id="apellido" name="apellido" required disabled>
-                                        <input type="text" *ngIf="falla" formControlName="apellido" class="form-control" id="apellido" name="apellido" required>
+                                        <input type="text" *ngIf="!fallaSII" formControlName="apellido" class="form-control" id="apellido" name="apellido" required disabled>
+                                        <input type="text" *ngIf="fallaSII" formControlName="apellido" class="form-control" id="apellido" name="apellido" required>
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" id="nombre" required>-->
                                     </div>
                                 </div>  
@@ -67,8 +67,8 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="fechaNacimiento"><strong>Fecha de nacimiento:</strong><span style="color: red;"> *</span></label><!--value="1980-01-01"-->
-                                        <input type="date" id="fechaNacimiento" *ngIf="falla" style="width: 515px;" formControlName="fechaNacimiento">
-                                        <input type="text" *ngIf="!falla" formControlName="fechaNacimiento" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required disabled>
+                                        <input type="date" id="fechaNacimiento" *ngIf="fallaSII" style="width: 515px;" formControlName="fechaNacimiento">
+                                        <input type="text" *ngIf="!fallaSII" formControlName="fechaNacimiento" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required disabled>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -84,8 +84,8 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="sexo"><strong>Sexo</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" *ngIf="!falla" formControlName="sexo" name="sexo" class="form-control" id="sexo" maxlength="1" disabled>
-                                        <br><p-dropdown id="sexo" *ngIf="falla" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'515px'}" required></p-dropdown>
+                                        <input type="text" *ngIf="!fallaSII" formControlName="sexo" name="sexo" class="form-control" id="sexo" maxlength="1" disabled>
+                                        <br><p-dropdown id="sexo" *ngIf="fallaSII" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'515px'}" required></p-dropdown>
                                     </div>
                                 </div>
                                 <div class="col-md">

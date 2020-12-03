@@ -563,4 +563,8 @@ buscarContactos(){
     this.showSuspenderContacto = false;
   }
 
+  closePopupNoSePudoContactar(){
+    
+  }
+
 }
