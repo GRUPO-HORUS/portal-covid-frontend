@@ -44,6 +44,7 @@ export class FormDatosBasicosPB {
     servicioSalud: string;
     regionSanitaria: string;
     profesion: string;
+    especialidadProfesion: string;
     funcion: string;
     otrosLugares: any[];
 

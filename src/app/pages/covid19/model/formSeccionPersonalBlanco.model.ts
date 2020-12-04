@@ -2,6 +2,7 @@ export class FormSeccionPersonalBlanco {
     id: number;
     idRegistro: number;
     profesion: string;
+    especialidadProfesion: string;
     servicioSalud: string;
     regionSanitaria: string;
     funcion: string;

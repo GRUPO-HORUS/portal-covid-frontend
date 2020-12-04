@@ -111,8 +111,9 @@ export class EditarFichaMonitoreoComponent implements OnInit {
 
   lugares: any[];
   regionesFiltradas: any[];
-
   establecimientosFiltrados: any[];
+
+  profesionesFiltradas: any[];
 
   idPaciente;
   cedulaPaciente;
@@ -394,7 +395,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
 
         this.registroFg.controls.servicioSalud.setValue({nombre:response.servicioSalud});
         this.registroFg.controls.regionSanitaria.setValue({nombre:response.regionSanitaria});
-        this.registroFg.controls.profesion.setValue(response.profesion);
+        this.registroFg.controls.profesion.setValue({nombre:response.profesion+"-"+response.especialidadProfesion});
         this.registroFg.controls.funcion.setValue(response.funcion);
         this.registroFg.controls.otrosLugares.setValue(response.otrosLugares);
         this.registroFg.controls.reingreso.setValue(response.reingreso);
@@ -636,7 +637,11 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionDatosBasicos.numeroCelular = this.registroFg.controls.telefono.value;
 
     this.fichaPersonalBlanco.formSeccionPersonalBlanco = new FormSeccionPersonalBlanco();
-    this.fichaPersonalBlanco.formSeccionPersonalBlanco.profesion = this.registroFg.controls.profesion.value;
+    //this.fichaPersonalBlanco.formSeccionPersonalBlanco.profesion = this.registroFg.controls.profesion.value;
+    let especialidadProfesion = this.registroFg.controls.profesion.value.nombre.split("-");
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.profesion = especialidadProfesion[0];
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.especialidadProfesion = especialidadProfesion[1];
+
     let lugarServicio = new LugarServicio();
     lugarServicio = this.registroFg.controls.servicioSalud.value;
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.servicioSalud = lugarServicio.nombre;
@@ -996,6 +1001,64 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     }
 
     this.establecimientosFiltrados = filtered;
+  }
+
+  filtrarProfesion(event) {
+    let profesiones = [{'id':1,'nombre':'FONOAUDIOLOGO-DOCTOR/A EN AUDIOLOGIA'},{'id':2,'nombre':'FONOAUDIOLOGO-LICENCIADO/A EN FONOAUDIOLOGIA'},
+    {'id':3,'nombre':'FONOAUDIOLOGO-TECNICO EN FONOAUDIOLOGIA'}, {'id':4,'nombre':'ANESTESIA-AUXILIAR EN ANESTESIA'},
+    {'id':5,'nombre':'ANESTESIA-TECNICO EN ANESTESIA'}, {'id':6,'nombre':'ANESTESIA-LICENCIADO/A EN ANESTESIA'},
+    {'id':7,'nombre':'EMERGENCISTA-AUXILIAR DE EMERGENCIAS MEDICAS'}, {'id':8,'nombre':'EMERGENCISTA-TECNICO EN EMERGENCIAS MEDICAS'},
+    {'id':9,'nombre':'EMERGENCISTA-LICENCIADO/A EN EMERGENCIAS MEDICAS'}, {'id':10,'nombre':'EMERGENCISTA-LICENCIADO/A EN TECNOLOGIA DE LA SALUD EN TRAUMATOLOGIA'},
+    {'id':11,'nombre':'ENFERMERO/A-AUXILIAR DE ENFERMERIA'}, {'id':11,'nombre':'ENFERMERO/A-TECNICO SUPERIOR EN ENFERMERIA'},
+    {'id':12,'nombre':'ENFERMERO/A-TECNICO EN ELECTROCARDIOGRAMA'}, {'id':13,'nombre':'ENFERMERO/A-TECNICO EN HEMODIALISIS'},
+    {'id':14,'nombre':'ENFERMERO/A-TECNICO BASICO EN HEMOTERAPIA'}, {'id':14,'nombre':'ENFERMERO/A-TECNICO SUPERIOR EN VIGILANCIA DE LA SALUD'},
+    {'id':15,'nombre':'ENFERMERO/A-LICENCIADO/A EN ENFERMERIA'}, {'id':16,'nombre':'FARMACIA-IDONEO DE FARMACIA'},
+    {'id':17,'nombre':'FARMACIA-AUXILIAR DE FARMACIA'},{'id':18,'nombre':'FARMACIA-TECNICO SUPERIOR EN FARMACIA'}, {'id':19,'nombre':'FARMACIA-LICENCIADO/A EN FARMACIAS'},
+    {'id':20,'nombre':'FARMACIA-QUIMICO/A FARMACEUTICO/A'}, {'id':21,'nombre':'LABORATORIO/BIOQUIMICOS/QUIMICOS-AUXILIAR EN LABORATORIO'},
+    {'id':22,'nombre':'LABORATORIO/BIOQUIMICOS/QUIMICOS-TECNICO EN LABORATORIO'}, {'id':23,'nombre':'LABORATORIO/BIOQUIMICOS/QUIMICOS-LICENCIADO/A EN LABORATORIO CLINICO'},
+    {'id':24,'nombre':'LABORATORIO/BIOQUIMICOS/QUIMICOS-CITOTECNOLOGO/A'}, {'id':25,'nombre':'LABORATORIO/BIOQUIMICOS/QUIMICOS-BIOQUIMICO/A'}, {'id':26,'nombre':'LABORATORIO/BIOQUIMICOS/QUIMICOS-LICENCIADO/A EN CIENCIAS MENCION: QUIMICA'},
+    {'id':27,'nombre':'LABORATORIO/BIOQUIMICOS/QUIMICOS-QUIMICO/A ANALITICO/A'}, {'id':28,'nombre':'LABORATORIO/BIOQUIMICOS/QUIMICOS-LICENCIADO/A EN QUIMICA INDUSTRIAL'},
+    {'id':29,'nombre':'LABORATORIO/BIOQUIMICOS/QUIMICOS-INGENIERO/A QUIMICO/A'}, {'id':30,'nombre':'LABORATORIO/BIOQUIMICOS/QUIMICOS-ANALISTA INDUSTRIAL'}, 
+    {'id':31,'nombre':'OBSTETRA-AUXILIAR DE OBSTETRICIA'}, {'id':32,'nombre':'OBSTETRA-TECNICO EN OBSTETRICIA'}, {'id':33,'nombre':'OBSTETRA-LICENCIADO/A EN OBSTETRICIA'},
+    {'id':34,'nombre':'ODONTOLOGO/A-AUXILIAR DE ODONTOLOGIA'}, {'id':34,'nombre':'ODONTOLOGO/A-MECANICO/A DENTAL'}, {'id':35,'nombre':'ODONTOLOGO/A-TECNICO SUPERIOR EN PROTESIS DENTAL'},
+    {'id':36,'nombre':'ODONTOLOGO/A-LICENCIADO/A EN PROTESIS DENTAL'}, {'id':37,'nombre':'ODONTOLOGO/A-DOCTOR/A EN ODONTOLOGIA'}, {'id':38,'nombre':'RADIOLOGO/A-AUXILIAR DE RADIOLOGIA'},
+    {'id':39,'nombre':'RADIOLOGO/A-TECNICO EN RADIOLOGIA'}, {'id':40,'nombre':'RADIOLOGO/A-LICENCIADO/A EN RADIOLOGIA'}, {'id':41,'nombre':'BIOTECNOLOGO-LICENCIADO/A EN BIOTECNOLOGIA'},
+    {'id':42,'nombre':'BIOLOGO-LICENCIADO/A EN CIENCIAS MENCION : BIOLOGIA'}, {'id':43,'nombre':'ELECTROMEDICINA Y AFINES-INGENIERO/A EN ELECTRONICA.ENFASIS EN ELECTRONICA MEDICA'}, {'id':44,'nombre':'ELECTROMEDICINA Y AFINES-TECNICO EN ELECTROMEDICINA'},
+    {'id':45,'nombre':'ELECTROMEDICINA Y AFINES-TECNICO SUPERIOR EN MANTENIMIENTO DE EQUIPOS BIOMEDICOS'}, {'id':46,'nombre':'INSTRUMENTADOR QUIRURGICO-LICENCIADO/A EN INSTRUMENTACION Y AREA QUIRURGICA'},
+    {'id':47,'nombre':'INSTRUMENTADOR QUIRURGICO-TECNICO EN INSTRUMENTACION QUIRURGICA'}, {'id':48,'nombre':'TRABAJADOR SOCIAL-LICENCIADO/A EN TRABAJO SOCIAL'}, {'id':49,'nombre':'TRABAJADOR SOCIAL-TECNICO EN TRABAJO SOCIAL'},
+    {'id':50,'nombre':'EDUCACION SANITARIA-LICENCIADO/A  EN CIENCIAS DE LA SALUD CON ENFASIS EN EDUC. SANITARIA'}, {'id':51,'nombre':'EDUCACION SANITARIA-TECNICO EN EDUCACION PARA LA SALUD'},
+    {'id':52,'nombre':'EDUCACION SANITARIA-TECNICO BASICO EN EDUCACION PARA LA SALUD'}, {'id':53,'nombre':'EDUCACION SANITARIA-TECNICO SUPERIOR EN EDUCACION PARA LA SALUD'},
+    {'id':54,'nombre':'KINESIOLOGIA Y AFINES-MASAJISTA TERAPEUTICO'}, {'id':55,'nombre':'KINESIOLOGIA Y AFINES-TECNICO SUPERIOR EN TERAPIA FISICA Y REHABILITACION'}, {'id':56,'nombre':'KINESIOLOGIA Y AFINES-LICENCIADO/A EN KINESIOLOGIA Y FISIOTERAPIA'},
+    {'id':57,'nombre':'KINESIOLOGIA Y AFINES-LICENCIADO/A EN FISIOTERAPIA'}, {'id':58,'nombre':'KINESIOLOGIA Y AFINES-MASAJE ESTETICO'}, {'id':59,'nombre':'KINESIOLOGIA Y AFINES-MASAJISTA DEPORTIVO'},{'id':60,'nombre':'KINESIOLOGIA Y AFINES-AUXILIAR REFLEJOTERAPEUTA'},
+    {'id':61,'nombre':'KINESIOLOGIA Y AFINES-TECNICO EN FISIOTERAPIA'}, {'id':62,'nombre':'KINESIOLOGIA Y AFINES-INSTRUCTOR DE GIMNASIA'}, {'id':63,'nombre':'KINESIOLOGIA Y AFINES-TERAPISTA OCUPACIONAL'}, {'id':64,'nombre':'KINESIOLOGIA Y AFINES-LICENCIADO/A EN EDUCACION FISICA'},
+    {'id':65,'nombre':'KINESIOLOGIA Y AFINES-PROFESOR/A DE EDUCACION FISICA'}, {'id':66,'nombre':'KINESIOLOGIA Y AFINES-LICENCIADO/A EN CIENCIAS DEL DEPORTE'}, {'id':67,'nombre':'KINESIOLOGIA Y AFINES-LICENCIADO/A EN CIENCIAS. MENCION FISICA'},
+    {'id':68,'nombre':'CIENCIAS DE ALIMENTOS Y AFINES-NUTRICIONISTA'}, {'id':69,'nombre':'CIENCIAS DE ALIMENTOS Y AFINES-LICENCIADO/A EN TECNOLOGIA DE PRODUCCION'}, {'id':70,'nombre':'CIENCIAS DE ALIMENTOS Y AFINES-LICENCIADO/A EN TECNOLOGIA DE LA SALUD EN HIGIENE Y EPIDEMIOLOGIA'},
+    {'id':71,'nombre':'CIENCIAS DE ALIMENTOS Y AFINES-LICENCIADO/A EN CIENCIA Y TECNOLOGIA DE LA PRODUCCION APLICADA A LOS ALIMENTOS'}, {'id':72,'nombre':'PSICOLOGIA-LICENCIADO/A EN PSICOLOGIA'},
+    {'id':73,'nombre':'OPTICA Y AFINES-LICENCIADO/A EN OPTICA Y CONTACTOLOGIA'}, {'id':74,'nombre':'OPTICA Y AFINES-TECNICO SUPERIOR EN OPTICA Y CONTACTOLOGIA'},
+    {'id':75,'nombre':'PEDAGOGIA Y PSICOMOTRICIDAD-LICENCIADO/A EN PSICOMOTRICIDAD'},{'id':76,'nombre':'PEDAGOGIA Y PSICOMOTRICIDAD-LICENCIADO/A EN PSICOPEDAGOGIA'},
+    {'id':77,'nombre':'BIOESTADISTICA-AUXILIAR DE BIOESTADISTICA'}, {'id':78,'nombre':'MEDICO/A-ALERGOLOGIA'}, {'id':79,'nombre':'MEDICO/A-ANESTESIOLOGIA'}, {'id':80,'nombre':'MEDICO/A-CARDIOLOGIA'},
+    {'id':81,'nombre':'MEDICO/A-ENDOCRINOLOGIA'}, {'id':82,'nombre':'MEDICO/A-EPIDEMIOLOGIA'}, {'id':83,'nombre':'MEDICO/A-GASTROENTEROLOGIA'}, {'id':84,'nombre':'MEDICO/A-GERIATRIA'},
+    {'id':85,'nombre':'MEDICO/A-HEMATOLOGIA'}, {'id':86,'nombre':'MEDICO/A-INFECTOLOGIA'}, {'id':86,'nombre':'MEDICO/A-MEDICINA DEL DEPORTE'},
+    {'id':87,'nombre':'MEDICO/A-MEDICINA DE EMERGENCIA'}, {'id':88,'nombre':'MEDICO/A-MEDICINA FAMILIAR Y COMUNITARIA'}, {'id':89,'nombre':'MEDICO/A-MEDICINA FISICA Y REHABILITACION'},
+    {'id':90,'nombre':'MEDICO/A-MEDICINA FORENSE'},  {'id':91,'nombre':'MEDICO/A-MEDICINA INTENSIVA'},  {'id':92,'nombre':'MEDICO/A-MEDICINA INTERNA'},
+    {'id':93,'nombre':'MEDICO/A-MEDICINA PREVENTIVA Y SALUD PUBLICA'},  {'id':94,'nombre':'MEDICO/A-MEDICINA DEL TRABAJO'},  {'id':95,'nombre':'MEDICO/A-NEFROLOGIA'},
+    {'id':96,'nombre':'MEDICO/A-NEUMOLOGIA'}, {'id':97,'nombre':'MEDICO/A-NEUROLOGIA'}, {'id':98,'nombre':'MEDICO/A-NUTRIOLOGIA'},
+    {'id':99,'nombre':'MEDICO/A-ONCOLOGIA'}, {'id':100,'nombre':'MEDICO/A-PEDIATRIA'}, {'id':101,'nombre':'MEDICO/A-PSIQUIATRIA'}, {'id':102,'nombre':'MEDICO/A-REUMATOLOGIA'},
+    {'id':103,'nombre':'MEDICO/A-TOXICOLOGIA'}, {'id':104,'nombre':'MEDICO/A-CIRUGIA VASCULAR'}, {'id':105,'nombre':'MEDICO/A-NEUROCIRUGIA'}, {'id':106,'nombre':'MEDICO/A-DERMATOLOGIA'},
+    {'id':107,'nombre':'MEDICO/A-GINECOLOGIA Y OBSTETRICIA O TOCOLOGIA'}, {'id':108,'nombre':'MEDICO/A-OFTALMOLOGIA'}, {'id':109,'nombre':'MEDICO/A-OTORRINOLARINGOLOGIA'},
+    {'id':110,'nombre':'MEDICO/A-TRAUMATOLOGIA'}, {'id':111,'nombre':'MEDICO/A-UROLOGIA'}];
+    let filtered : any[] = [];
+    let query = event.query;
+
+    for(let i = 0; i < profesiones.length; i++) {
+        let servicio = profesiones[i];
+
+        if (servicio.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          filtered.push(servicio);
+        }
+    }
+
+    this.profesionesFiltradas = filtered;
   }
 
   consultarIdentificaciones(value, band) {

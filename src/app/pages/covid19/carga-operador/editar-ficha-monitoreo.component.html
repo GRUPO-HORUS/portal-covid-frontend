@@ -100,6 +100,14 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
+                                        <label for="regionSanitaria"><strong>Región Sanitaria</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        <!--<p-dropdown id="regionSanitaria" [options]="regionSanitariaOptions" label="label" placeholder="Seleccionar" formControlName="regionSanitaria" name="regionSanitaria" [style]="{'width':'515px'}" required></p-dropdown>-->
+                                        <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'515px'}" required></p-autoComplete>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
                                         <label for="servicioSalud"><strong>Servicio de salud</strong><span style="color: red;"> *</span></label>
                                         <br>
                                         <!--<input type="text" formControlName="servicioSalud" name="servicioSalud" class="form-control"  id="servicioSalud" required>-->
@@ -111,19 +119,10 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="regionSanitaria"><strong>Región Sanitaria</strong><span style="color: red;"> *</span></label>
+                                        <label for="profesion"><strong>Profesión-Especialidad</strong><span style="color: red;"> *</span></label>
                                         <br>
-                                        <!--<p-dropdown id="regionSanitaria" [options]="regionSanitariaOptions" label="label" placeholder="Seleccionar" formControlName="regionSanitaria" name="regionSanitaria" [style]="{'width':'515px'}" required></p-dropdown>-->
-                                        <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'515px'}" required></p-autoComplete>
-                                    </div>
-                                </div>
-
-                                <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="profesion"><strong>Profesión</strong><span style="color: red;"> *</span></label>
-                                        <br>
-                                        <!--<input type="text" formControlName="profesion" name="profesion" class="form-control"  id="profesion" required>-->
-                                        <p-dropdown id="profesion" [options]="profesionOptions" label="label" placeholder="Seleccionar" formControlName="profesion" name="profesion" [style]="{'width':'515px'}" required></p-dropdown>
+                                        <p-autoComplete id="profesion" formControlName="profesion" [suggestions]="profesionesFiltradas" field="nombre" (completeMethod)="filtrarProfesion($event)" [inputStyle]="{'width':'1060px'}" [forceSelection]="true" required></p-autoComplete>
+                                        <!--<p-dropdown id="profesion" [options]="profesionOptions" label="label" placeholder="Seleccionar" formControlName="profesion" name="profesion" [style]="{'width':'515px'}" required></p-dropdown>-->
                                     </div>
                                 </div>
                             </div>
@@ -135,6 +134,9 @@
                                         <input type="text" formControlName="funcion" name="funcion" class="form-control"  id="funcion" required>
                                         <!--<p-autoComplete id="funcion" formControlName="funcion" [suggestions]="funcionesFiltradas" field="nombre" (completeMethod)="filtrarFuncion($event)" [inputStyle]="{'width':'515px'}" required></p-autoComplete>-->
                                     </div>
+                                </div>
+                                <div class="col-md">
+                                    
                                 </div>
                             </div>
         
