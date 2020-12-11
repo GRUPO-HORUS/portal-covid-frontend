@@ -274,10 +274,19 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
+                                        <label for="fechaExposicion"><strong>Fecha de exposición:</strong><span style="color: red;"> *</span></label>
+                                        <!--<input type="date" id="fechaExposicion" formControlName="fechaExposicion" style="width: 325px;" value="{{fechaHoy}}">-->
+                                        <br><p-calendar formControlName="fechaExposicion" id="fechaExposicion" name="fechaExposicion" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
                                         <label for="cedula"><strong>Número de Cédula del Caso Confirmado</strong></label>
                                         <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" (change)="consultarIdentificaciones($event,'confirmado')">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="nombre"><strong>Nombres</strong></label> <!--<span style="color: red;"> *</span>-->
@@ -285,8 +294,6 @@
                                         <input type="text" *ngIf="fallaSII" formControlName="nombre" name="nombre" class="form-control" id="nombre">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="nombre"><strong>Apellidos</strong></label>
@@ -295,6 +302,8 @@
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" id="nombre" required>-->
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="sexo"><strong>Sexo</strong></label>
@@ -303,30 +312,20 @@
                                         <!--<p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.tipoDocumento" name="sexo" [style]="{'width':'340px'}" required></p-dropdown>-->
                                     </div>
                                 </div>
-                            </div>
-                        
-                        <div class="row">
-                            <div class="col-md">
-                                <div class="form-group">
-                                    <label for="fechaExposicion"><strong>Fecha de exposición:</strong><span style="color: red;"> *</span></label>
-                                    <!--<input type="date" id="fechaExposicion" formControlName="fechaExposicion" style="width: 325px;" value="{{fechaHoy}}">-->
-                                    <br><p-calendar formControlName="fechaExposicion" id="fechaExposicion" name="fechaExposicion" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                <div class="col-md">
+                                    <b>Indicar ambiente donde se produjo el contagio<span style="color: red;"> *</span></b><br>
+                                    <p-radioButton name="contagioAmbiente" value="familiar_social" label="Familiar/Social" formControlName="contagioAmbiente" class="ml-2 mr-3"></p-radioButton>
+                                    <p-radioButton name="contagioAmbiente" value="establecimiento_salud" label="Establecimiento de salud" formControlName="contagioAmbiente"></p-radioButton>
+                                    <!--<div class="custom-control custom-checkbox">
+                                        <input type="checkbox" formControlName = "contagioSalud" class="custom-control-input" id="contagioSalud" (change)="verifContagioEstablecimiento()">
+                                        <label class="custom-control-label" for="contagioSalud">Establecimiento de salud</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" formControlName = "contagioSocial" class="custom-control-input" id="contagioSocial">
+                                        <label class="custom-control-label" for="contagioSocial">Familiar/Social</label>
+                                    </div>-->
                                 </div>
                             </div>
-                            <div class="col-md">
-                                <b>Indicar ambiente donde se produjo el contagio<span style="color: red;"> *</span></b><br>
-                                <p-radioButton name="contagioAmbiente" value="familiar_social" label="Familiar/Social" formControlName="contagioAmbiente" class="ml-2 mr-3"></p-radioButton>
-                                <p-radioButton name="contagioAmbiente" value="establecimiento_salud" label="Establecimiento de salud" formControlName="contagioAmbiente"></p-radioButton>
-                                <!--<div class="custom-control custom-checkbox">
-                                    <input type="checkbox" formControlName = "contagioSalud" class="custom-control-input" id="contagioSalud" (change)="verifContagioEstablecimiento()">
-                                    <label class="custom-control-label" for="contagioSalud">Establecimiento de salud</label>
-                                </div>
-                                <div class="custom-control custom-checkbox">
-                                    <input type="checkbox" formControlName = "contagioSocial" class="custom-control-input" id="contagioSocial">
-                                    <label class="custom-control-label" for="contagioSocial">Familiar/Social</label>
-                                </div>-->
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md">
                                 <div class="form-group">
