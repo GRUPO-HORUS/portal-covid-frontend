@@ -92,11 +92,13 @@ export class ListaPacientesComponent implements OnInit{
     worksheet.properties.defaultColWidth = 24;
     //worksheet.getColumn(1).width = 25;
 
-    let header=["Nro de Documento", "Nombre", "Apellido", "Celular", "Departamento", "Domicilio","Fecha de Nacimiento", "Sexo",
-    "Fecha Exposición", "Fecha Inicio de Síntomas", "Nro de Documento Contacto", "Nombre Contacto", "Apellido Contacto", "Sexo Contacto",
+    let header=["Nro de Documento", "Nombre", "Apellido", "Celular", "Departamento", "Domicilio","Fecha de Nacimiento", "Sexo", "Edad",
+    "Rango de edad", "Ciudad", "Barrio", "Fecha Exposición",
+    "Fecha Inicio de Síntomas", "Nro de Documento Contacto", "Nombre Contacto", "Apellido Contacto", "Sexo Contacto",
     "Servicio de Salud", "Región Sanitaria", "Profesión", "Función", "Reingreso", "Fallecido", "Internado", "Lugar Internación",
     "Especialidad Internación", "Clasificación de Riesgo", "Categoría Contagio", "Clasificación Final", "Antígeno", "PCR", "Exclusión Trabajo",
-    "Autocontrol Trabajo", "Trabajo Nada", "Trabajo Otro", "Trabajo Otro Descripción"]
+    "Constancia de Aislamiento", "Ficha Epidemiológica", "SE de Fis", "SE de Primera Muestra","Fecha de Primera Muestra",
+    "Resultado de Primera Muestra", "Evolución Final"];
     worksheet.addRow(header);
     worksheet.getRow(3).fill = {type:'pattern', pattern: 'solid', fgColor: {argb:'00000000'}}
     worksheet.getRow(3).font = { color:{argb:'FFFFFFFF'}, name: 'Arial Black', family: 4, size: 11, bold: true };
@@ -129,6 +131,16 @@ export class ListaPacientesComponent implements OnInit{
           trabajoExclusion = 'Si';
         }
 
+        let constanciaAislamiento = 'No';
+        if(p.constanciaAislamiento){
+          constanciaAislamiento = 'Si';
+        }
+
+        let fichaEpidemiologica = 'No';
+        if(p.fichaEpidemiologica){
+          fichaEpidemiologica = 'Si';
+        }
+
         let trabajoAutocontrol = 'No';
         if(p.trabajoAutocontrol){
           trabajoAutocontrol = 'Si';
@@ -144,12 +156,13 @@ export class ListaPacientesComponent implements OnInit{
           trabajoOtro = 'Si';
         }
       worksheet.addRow([p.numeroDocumento, p.nombre, p.apellido, p.numeroCelular, p.departamentoDomicilio, 
-      p.direccionDomicilio, p.fechaNacimiento, p.sexo, p.fechaExposicion, p.fechaInicioSintoma, p.nroDocumentoContacto, 
+      p.direccionDomicilio, p.fechaNacimiento, p.sexo, p.edad, p.rangoEdad, p.ciudadDomicilio, p.barrio, p.fechaExposicion, p.fechaInicioSintoma, p.nroDocumentoContacto, 
       p.nombreContacto, p.apellidoContacto, p.sexoContacto, p.servicioSalud,
-      p.regionSanitaria, p.profesion, p.funcion, reingreso,
-      fallecido, internado, p.establecimientoInternacion, p.especialidadInternacion, p.clasificacionRiesgo, 
+      p.regionSanitaria, p.profesion, p.funcion, reingreso, fallecido,
+      internado, p.establecimientoInternacion, p.especialidadInternacion, p.clasificacionRiesgo, 
       p.categoriaContagio, p.clasificacionFinal, laboratorioAntigeno, laboratorioPcr,
-      trabajoExclusion, trabajoAutocontrol, trabajoNada, trabajoOtro, p.trabajoOtroDescripcion]);
+      trabajoExclusion, constanciaAislamiento, fichaEpidemiologica, p.seFis, p.sePrimeraMuestra,
+      p.fechaPrimeraMuestra, p.resultadoPrimeraMuestra, p.evolucionFinal]);
 
       worksheet.getRow(filaNro).border = {
         top: { style:'double', color: {argb:'00000000'}},

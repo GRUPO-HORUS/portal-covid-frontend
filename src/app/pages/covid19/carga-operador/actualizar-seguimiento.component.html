@@ -27,7 +27,6 @@
                                     </div>
                                 </div>
                             </div>
-                            
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
@@ -248,16 +247,19 @@
                                         <label for="fechaSintomas"><strong>Fecha de Inicio de Síntomas:</strong><span style="color: red;"> *</span></label>
                                         <br>
                                         <!--<input type="date" id="fechaSintomas" formControlName="fechaSintomas" style="width: 325px;" (change)="setearFechasTabla($event.target.value)" value="{{fechaHoy}}">-->
-                                        <p-calendar formControlName="fechaSintomas" id="fechaSintomas" name="fechaSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" (onSelect)="setearFechasTabla($event, 'cambio')"></p-calendar>
+                                        <p-calendar formControlName="fechaSintomas" id="fechaSintomas" name="fechaSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" (onSelect)="setearFechasTabla($event, 'cambio')" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="fechaExposicion"><strong>Fecha de exposición:</strong><span style="color: red;"> *</span></label>
-                                        <br>
-                                        <!--<input type="date" id="fechaExposicion" formControlName="fechaExposicion" style="width: 325px;" value="{{fechaHoy}}">-->
-                                        <p-calendar formControlName="fechaExposicion" id="fechaExposicion" name="fechaExposicion" dateFormat="dd/mm/yy" [locale]="es" dataType="string"></p-calendar>
+                                        <label for="seFis"><strong>SE de Fecha de Inicio de síntomas</strong><span style="color: red;"> *</span></label>
+                                        <input type="number" formControlName="seFis" class="form-control" id="seFis" name="seFis" min="1" required>
                                     </div>
+                                    
+                                    <!--<div class="form-group">
+                                        <label for="fechaExposicion"><strong>Fecha de exposición:</strong><span style="color: red;"> *</span></label>
+                                        <br><p-calendar formControlName="fechaExposicion" id="fechaExposicion" name="fechaExposicion" dateFormat="dd/mm/yy" [locale]="es" dataType="string"></p-calendar>
+                                    </div>-->
                                 </div>
                             </div>
                         <!--<img src="/assets/img/signos.png" width="98%">-->
@@ -469,18 +471,26 @@
                                     </div>
                                 </div>
                                 <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="catContagio"><strong>Categoría del contagio</strong><span style="color: red;"> *</span></label>
-                                        <br>
-                                        <p-dropdown id="catContagio" [options]="catContagioOptions" label="label" placeholder="Seleccionar" formControlName="catContagio" name="catContagio" [style]="{'width':'325px'}" required></p-dropdown>
-                                        <!--<p-dropdown id="catContagio" [options]="catContagioOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.departamentoDomicilio" name="catContagio" [style]="{'width':'350px'}" required></p-dropdown>-->
+                                    <b>Laboratorio (marcar lo que corresponda)<span style="color: red;"> *</span></b>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" formControlName = "antigeno" class="custom-control-input" id="antigeno">
+                                        <label class="custom-control-label" for="antigeno">Antígeno</label>
                                     </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" formControlName = "pcr" class="custom-control-input" id="pcr">
+                                        <label class="custom-control-label" for="pcr">PCR</label>
+                                    </div>
+                                    
                                 </div>
                             </div>
                             <hr>
                             <div class="row">
-                                <div class="col-md">
-                                    <b>Indicaciones para el trabajo (marcar lo que corresponda)<span style="color: red;"> *</span></b>
+                                <div class="col-md mb-3">
+                                    <b>Exclusión laboral<span style="color: red;"> *</span></b>
+                                    <p-radioButton name="exclusion" [value]="true" label="Si" formControlName="exclusion" class="ml-2 mr-3"></p-radioButton>
+                                    <p-radioButton name="exclusion" [value]="false" label="No" formControlName="exclusion"></p-radioButton>
+
+                                    <!--<b>Indicaciones para el trabajo (marcar lo que corresponda)<span style="color: red;"> *</span></b>
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" formControlName = "exclusion" class="custom-control-input" id="exclusion">
                                         <label class="custom-control-label" for="exclusion">Exclusión</label>
@@ -500,21 +510,22 @@
         
                                     <div class="form-group" *ngIf="clasificacionRiesgoFg.controls.otroIndic.value">
                                         <label for="otroIndicEspecificar"><strong>Otro</strong></label>
-                                        <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control"  id="direccionDomicilio" required>-->
                                         <input type="text" formControlName="otroIndicEspecificar" name="otroIndicEspecificar" class="form-control"  id="otroIndicEspecificar" required>
-                                    </div>
+                                    </div>-->
                                 </div>
-        
                                 <div class="col-md">
-                                    <b>Laboratorio (marcar lo que corresponda)<span style="color: red;"> *</span></b>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" formControlName = "antigeno" class="custom-control-input" id="antigeno">
-                                        <label class="custom-control-label" for="antigeno">Antígeno</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" formControlName = "pcr" class="custom-control-input" id="pcr">
-                                        <label class="custom-control-label" for="pcr">PCR</label>
-                                    </div>
+                                    <b>Constancia de Aislamiento<span style="color: red;"> *</span></b>
+                                    <p-radioButton name="constAislamiento" [value]=true label="Si" formControlName="constAislamiento" class="ml-2 mr-3"></p-radioButton>
+                                    <p-radioButton name="constAislamiento" [value]="false" label="No" formControlName="constAislamiento"></p-radioButton>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <b>Ficha Epidemiológica<span style="color: red;"> *</span></b>
+                                    <p-radioButton name="fichaEpidemiologica" [value]="true" label="Si" formControlName="fichaEpidemiologica" class="ml-2 mr-3"></p-radioButton>
+                                    <p-radioButton name="fichaEpidemiologica" [value]="false" label="No" formControlName="fichaEpidemiologica"></p-radioButton>
+                                </div>
+                                <div class="col-md">
                                 </div>
                             </div>
                             <hr>
@@ -535,7 +546,42 @@
                                     
                                 </div>
                                 <div class="col-md">
-
+                                    <div class="form-group">
+                                        <label for="evolucionFinal"><strong>Evolución Final</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        <p-dropdown id="evolucionFinal" [options]="evoFinalOptions" label="label" placeholder="Seleccionar" formControlName="evolucionFinal" name="evolucionFinal" [style]="{'width':'515px'}" required></p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="sePrimeraMuestra"><strong>SE de Toma de Primera Muestra</strong><span style="color: red;"> *</span></label>
+                                        <input type="number" formControlName="sePrimeraMuestra" class="form-control" id="sePrimeraMuestra" name="sePrimeraMuestra" min="1" required>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="fechaPrimeraMuestra"><strong>Fecha de Toma de Primera Muestra:</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        <p-calendar formControlName="fechaPrimeraMuestra" id="fechaPrimeraMuestra" name="fechaPrimeraMuestra" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="resultadoPrimeraMuestra"><strong>Resultado de Primera Muestra:</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        <p-dropdown id="resultadoPrimeraMuestra" [options]="resulPriMuestraOptions" label="label" placeholder="Seleccionar" formControlName="resultadoPrimeraMuestra" name="resultadoPrimeraMuestra" [style]="{'width':'515px'}" required></p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="fechaCierreCaso"><strong>Fecha de Cierre de Caso:</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        <p-calendar formControlName="fechaCierreCaso" id="fechaCierreCaso" name="fechaCierreCaso" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                    </div>
                                 </div>
                             </div>
                             <div class="clearfix"><br/></div>

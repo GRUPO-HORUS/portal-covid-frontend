@@ -64,7 +64,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
 
   public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
 
-  public clasRiesgoOptions=[{value:'alto',label:'Alto'},{value:'moderado',label:'Moderado'},{value:'bajo',label:'Bajo'}];
+  public clasRiesgoOptions=[{value:'alto',label:'Alto'},{value:'bajo',label:'Bajo'}]; //{value:'moderado',label:'Moderado'}
 
   public profesionOptions =[{value:'medico',label:'Médico/a'}, {value:'enfermero',label:'Enfermero/a'}];
 
@@ -85,7 +85,12 @@ export class EditarFichaMonitoreoComponent implements OnInit {
                               {id:17, nombre:'Boquerón'}, {id:18, nombre:'Capital'}];
 
   public clasifFinalOptions=[{value:'descartado',label:'Descartado'},{value:'confirmado',label:'Confirmado'}];
+
+  public evoFinalOptions=[{value:'alta',label:'Alta'},{value:'obito',label:'Obito'}];
+
   public ciudadOptions: any[];
+
+  public resulPriMuestraOptions=[{value:'negativo',label:'Negativo'},{value:'positivo',label:'Positivo'}];
 
   // recaptcha
   public recentToken: string = ''
@@ -114,6 +119,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
   establecimientosFiltrados: any[];
 
   profesionesFiltradas: any[];
+  funcionesFiltradas: any[];
 
   idPaciente;
   cedulaPaciente;
@@ -189,7 +195,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     window.scrollTo(0, 0);
 
     this.registroFg = this._formBuilder.group({
-      fechaMonitoreo: [''],
+      fechaInicioMonitoreo: [''],
       cedula: ['', Validators.required],
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
@@ -206,21 +212,30 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       fallecido: [null],
       internado: [null],
       establecimiento: [],
-      especialidad: []
+      especialidad: [],
+      edad:[0, Validators.required],
+      rangoEdad:['', Validators.required],
+      ciudadDomicilio:['', Validators.required],
+      barrio:['', Validators.required],
+      codPaciente:['', Validators.required]
     });
 
     this.casoConfirmadoFg = this._formBuilder.group({
       cedula: ['', Validators.required],
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      sexo: ['', Validators.required]
+      sexo: ['', Validators.required],
+      contagioAmbiente: [null, Validators.required],
+      contagioEstablecimiento: [],
+      fechaExposicion: ['', Validators.required],
+      catContagio: ['']
     });
 
     this.monitoreoFg = this._formBuilder.group({
       /*cedula: ['', Validators.required],
       nombre: ['', Validators.required]*/
       fechaSintomas: ['', Validators.required],
-      fechaExposicion: ['', Validators.required],
+      seFis: [1, Validators.required],
       fecha1: ['', Validators.required],
       fecha2: ['', Validators.required],
       fecha3: ['', Validators.required],
@@ -352,7 +367,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
 
     this.clasificacionRiesgoFg = this._formBuilder.group({
       clasRiesgo: ['', Validators.required],
-      catContagio: [''],
       clasifFinal:[''],
       otroIndicEspecificar: [''],
       exclusion: [null],
@@ -360,7 +374,15 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       nada: [null],
       otroIndic: [null],
       antigeno: [null],
-      pcr: [null]
+      pcr: [null],
+
+      sePrimeraMuestra: [1, Validators.required],
+      fechaPrimeraMuestra: ['', Validators.required],
+      resultadoPrimeraMuestra: ['', Validators.required],
+      constAislamiento: [null, Validators.required],
+      fichaEpidemiologica: [null, Validators.required],
+      evolucionFinal: ['', Validators.required],
+      fechaCierreCaso: ['', Validators.required]
     });
 
     /*this._route.params.subscribe(params => {
@@ -368,7 +390,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     });*/
   }
 
-  //obtenerPaciente(cedula): void {
   obtenerPaciente(cedula): void {
     this.loading = true;
     this.formDatosBasicos = null;
@@ -380,23 +401,26 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.registroFg.controls.sexo.setValue(response.sexo);
         //this.registroFg.controls.fechaNacimiento.setValue(response.fechaNacimiento);
         this.registroFg.controls.fechaNacimiento.setValue(response.fechaNacimiento.substring(8, 10)+'/'+
-                response.fechaNacimiento.substring(5, 7)+'/'+
-                response.fechaNacimiento.substring(0, 4));
+        response.fechaNacimiento.substring(5, 7)+'/'+response.fechaNacimiento.substring(0, 4));
+
+        this.registroFg.controls.fechaInicioMonitoreo.setValue(response.fechaInicioMonitoreo.substring(8, 10)+'/'+
+        response.fechaInicioMonitoreo.substring(5, 7)+'/'+response.fechaInicioMonitoreo.substring(0, 4));
 
         console.log(response);
         //21/10/2018
         this.setearFechasTabla(response.fechaInicioSintoma.substring(3, 5)+'/'+
-                response.fechaInicioSintoma.substring(0, 2)+'/'+
-                response.fechaInicioSintoma.substring(6, 10), 'inicio');
+                response.fechaInicioSintoma.substring(0, 2)+'/'+response.fechaInicioSintoma.substring(6, 10), 'inicio');
        
         //this.consultarIdentificaciones(cedula,'registro');
         this.registroFg.controls.direccion.setValue(response.direccionDomicilio);
         this.registroFg.controls.telefono.setValue(response.numeroCelular);
+        this.registroFg.controls.ciudadDomicilio.setValue(response.ciudadDomicilio);
+        this.registroFg.controls.barrio.setValue(response.barrio);
 
         this.registroFg.controls.servicioSalud.setValue({nombre:response.servicioSalud});
         this.registroFg.controls.regionSanitaria.setValue({nombre:response.regionSanitaria});
         this.registroFg.controls.profesion.setValue({nombre:response.profesion+"-"+response.especialidadProfesion});
-        this.registroFg.controls.funcion.setValue(response.funcion);
+        this.registroFg.controls.funcion.setValue({nombre:response.funcion});
         this.registroFg.controls.otrosLugares.setValue(response.otrosLugares);
         this.registroFg.controls.reingreso.setValue(response.reingreso);
         this.registroFg.controls.fallecido.setValue(response.fallecido);
@@ -404,14 +428,21 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.registroFg.controls.establecimiento.setValue({nombre:response.establecimientoInternacion});
         this.registroFg.controls.especialidad.setValue(response.especialidadInternacion);
 
+        this.registroFg.controls.codPaciente.setValue(response.codigoPaciente);
+
         this.casoConfirmadoFg.controls.cedula.setValue(response.numeroDocumentoContacto);
         this.casoConfirmadoFg.controls.nombre.setValue(response.nombreContacto);
         this.casoConfirmadoFg.controls.apellido.setValue(response.apellidoContacto);
         this.casoConfirmadoFg.controls.sexo.setValue(response.sexoContacto);
+        //this.casoConfirmadoFg.controls.fechaExposicion.setValue(response.fechaExposicion.substring(8, 10)+'/'+response.fechaExposicion.substring(5, 7)+'/'+response.fechaExposicion.substring(0, 4));
+        this.casoConfirmadoFg.controls.fechaExposicion.setValue(response.fechaExposicion);
+        this.casoConfirmadoFg.controls.catContagio.setValue(response.categoriaContagio);
+        this.casoConfirmadoFg.controls.contagioAmbiente.setValue(response.contagioAmbiente);
+        this.casoConfirmadoFg.controls.contagioEstablecimiento.setValue({nombre:response.contagioEstablecimiento});
         //this.consultarIdentificaciones(response.numeroDocumentoContacto,'contacto');
 
-        this.monitoreoFg.controls.fechaSintomas.setValue(response.fechaInicioSintoma); 
-        this.monitoreoFg.controls.fechaExposicion.setValue(response.fechaExposicion);
+        this.monitoreoFg.controls.fechaSintomas.setValue(response.fechaInicioSintoma);
+        this.monitoreoFg.controls.seFis.setValue(response.seFis);
 
         //response.reportes.sort((a,b)=>(a.fecha < b.fecha ? -1:1));
         this.idRegistroForm = response.reportes[0].registroFormulario;
@@ -556,8 +587,9 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.congestionNasal14.setValue(response.reportes[13].congestionNasal ==null ? null : response.reportes[13].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios14.setValue(response.reportes[13].otrosCansancios ==null ? null : response.reportes[13].otrosCansancios == 'true');
 
+        this.registroFg.controls.fechaInicioMonitoreo.setValue(response.fechaInicioMonitoreo.substring(8, 10)+'/'+
+        response.fechaInicioMonitoreo.substring(5, 7)+'/'+response.fechaInicioMonitoreo.substring(0, 4));
         this.clasificacionRiesgoFg.controls.clasRiesgo.setValue(response.clasificacionRiesgo);
-        this.clasificacionRiesgoFg.controls.catContagio.setValue(response.categoriaContagio);
         this.clasificacionRiesgoFg.controls.exclusion.setValue(response.trabajoExclusion);
         this.clasificacionRiesgoFg.controls.autocontrol.setValue(response.trabajoAutocontrol);
         this.clasificacionRiesgoFg.controls.nada.setValue(response.trabajoNada);
@@ -566,6 +598,16 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.clasificacionRiesgoFg.controls.antigeno.setValue(response.laboratorioAntigeno);
         this.clasificacionRiesgoFg.controls.pcr.setValue(response.laboratorioPcr);
         this.clasificacionRiesgoFg.controls.clasifFinal.setValue(response.clasificacionFinal);
+
+        this.clasificacionRiesgoFg.controls.constAislamiento.setValue(response.constanciaAislamiento);
+        this.clasificacionRiesgoFg.controls.fichaEpidemiologica.setValue(response.fichaEpidemiologica);
+        this.clasificacionRiesgoFg.controls.evolucionFinal.setValue(response.evolucionFinal);
+        this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(response.sePrimeraMuestra);
+        this.clasificacionRiesgoFg.controls.resultadoPrimeraMuestra.setValue(response.resultadoPrimeraMuestra);
+        this.clasificacionRiesgoFg.controls.fechaPrimeraMuestra.setValue(response.fechaPrimeraMuestra.substring(8, 10)+'/'+
+        response.fechaPrimeraMuestra.substring(5, 7)+'/'+response.fechaPrimeraMuestra.substring(0, 4));
+        this.clasificacionRiesgoFg.controls.fechaCierreCaso.setValue(response.fechaCierreCaso.substring(8, 10)+'/'+
+        response.fechaCierreCaso.substring(5, 7)+'/'+response.fechaCierreCaso.substring(0, 4));
         //this.response = response;
         this.mensaje= null;
     }, error => {
@@ -580,7 +622,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         //this.response = null;
       }
       //this.openMessageDialog();
-
     }
   );
   }
@@ -635,6 +676,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionDatosBasicos.direccionDomicilio = this.registroFg.controls.direccion.value;
     this.fichaPersonalBlanco.formSeccionDatosBasicos.fechaNacimiento = this.registroFg.controls.fechaNacimiento.value;
     this.fichaPersonalBlanco.formSeccionDatosBasicos.numeroCelular = this.registroFg.controls.telefono.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.edad = this.registroFg.controls.edad.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.rangoEdad = this.registroFg.controls.rangoEdad.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.ciudadDomicilio = this.registroFg.controls.ciudadDomicilio.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.barrio = this.registroFg.controls.barrio.value;
 
     this.fichaPersonalBlanco.formSeccionPersonalBlanco = new FormSeccionPersonalBlanco();
     //this.fichaPersonalBlanco.formSeccionPersonalBlanco.profesion = this.registroFg.controls.profesion.value;
@@ -648,7 +693,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     let regionSanitaria = new LugarServicio();
     regionSanitaria = this.registroFg.controls.regionSanitaria.value;
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.regionSanitaria = regionSanitaria.nombre;
-    this.fichaPersonalBlanco.formSeccionPersonalBlanco.funcion = this.registroFg.controls.funcion.value;
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.funcion = this.registroFg.controls.funcion.value.nombre;
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.otrosLugares = this.registroFg.controls.otrosLugares.value;
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.reingreso = this.registroFg.controls.reingreso.value;
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.fallecido = this.registroFg.controls.fallecido.value;
@@ -659,13 +704,20 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     if(this.registroFg.controls.especialidad.value !== null){
       this.fichaPersonalBlanco.formSeccionPersonalBlanco.especialidadInternacion = this.registroFg.controls.especialidad.value;
     }
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.codigoPaciente = this.registroFg.controls.codPaciente.value;
 
     this.fichaPersonalBlanco.formSeccionContactoContagio = new FormSeccionContactoContagio();
     this.fichaPersonalBlanco.formSeccionContactoContagio.nroDocumento = this.casoConfirmadoFg.controls.cedula.value;
     this.fichaPersonalBlanco.formSeccionContactoContagio.nombre = this.casoConfirmadoFg.controls.nombre.value;
     this.fichaPersonalBlanco.formSeccionContactoContagio.apellido = this.casoConfirmadoFg.controls.apellido.value;
     this.fichaPersonalBlanco.formSeccionContactoContagio.sexo = this.casoConfirmadoFg.controls.sexo.value;
+    this.fichaPersonalBlanco.formSeccionContactoContagio.categoriaContagio = this.casoConfirmadoFg.controls.catContagio.value;
+    this.fichaPersonalBlanco.formSeccionContactoContagio.fechaExposicion = this.casoConfirmadoFg.controls.fechaExposicion.value;
 
+    this.fichaPersonalBlanco.formSeccionContactoContagio.contagioAmbiente = this.casoConfirmadoFg.controls.contagioAmbiente.value;
+    if(this.casoConfirmadoFg.controls.contagioEstablecimiento.value !== null){
+      this.fichaPersonalBlanco.formSeccionContactoContagio.contagioEstablecimiento = this.casoConfirmadoFg.controls.contagioEstablecimiento.value.nombre;
+    }
     this.fichaPersonalBlanco.reportesSalud = [];
     let reporteSalud1 = new FormSeccionReporteSalud();
     //reporteSalud1.fecha = this.monitoreoFg.controls.fecha1.value;
@@ -712,7 +764,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     let reporteSalud4 = new FormSeccionReporteSalud();
     reporteSalud4.id = this.idReporteSalud4;
     reporteSalud4.fecha = this.fechaSelec4;
-    //reporteSalud4.fecha = this.monitoreoFg.controls.fecha4.value;
     reporteSalud4.tos = this.monitoreoFg.controls.tos4.value;
     reporteSalud4.dolorGarganta = this.monitoreoFg.controls.dolorGarganta4.value;
     reporteSalud4.dolorCabeza = this.monitoreoFg.controls.dolorCabeza4.value;
@@ -875,13 +926,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionReporteSalud.fecha9 = this.monitoreoFg.controls.fecha9.value;
     this.fichaPersonalBlanco.formSeccionReporteSalud.fecha10 = this.monitoreoFg.controls.fecha10.value;
     this.fichaPersonalBlanco.formSeccionReporteSalud.fecha11 = this.monitoreoFg.controls.fecha11.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha12 = this.monitoreoFg.controls.fecha12.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha13 = this.monitoreoFg.controls.fecha13.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha14 = this.monitoreoFg.controls.fecha14.value;*/
+    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha12 = this.monitoreoFg.controls.fecha12.value;*/
 
     this.fichaPersonalBlanco.formSeccionClasifRiesgo = new FormSeccionClasifRiesgo();
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.clasificacionRiesgo = this.clasificacionRiesgoFg.controls.clasRiesgo.value;
-    this.fichaPersonalBlanco.formSeccionClasifRiesgo.categoriaContagio = this.clasificacionRiesgoFg.controls.catContagio.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.clasificacionFinal = this.clasificacionRiesgoFg.controls.clasifFinal.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.trabajoExclusion = this.clasificacionRiesgoFg.controls.exclusion.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.trabajoAutocontrol = this.clasificacionRiesgoFg.controls.autocontrol.value;
@@ -892,7 +940,14 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.laboratorioPcr = this.clasificacionRiesgoFg.controls.pcr.value;
     
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaInicioSintomas = this.monitoreoFg.controls.fechaSintomas.value;
-    this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaExposicion = this.monitoreoFg.controls.fechaExposicion.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.seFis = this.monitoreoFg.controls.seFis.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.sePrimeraMuestra = this.clasificacionRiesgoFg.controls.sePrimeraMuestra.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaPrimeraMuestra = this.clasificacionRiesgoFg.controls.fechaPrimeraMuestra.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.resultadoPrimeraMuestra = this.clasificacionRiesgoFg.controls.resultadoPrimeraMuestra.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.constanciaAislamiento = this.clasificacionRiesgoFg.controls.constAislamiento.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.fichaEpidemiologica = this.clasificacionRiesgoFg.controls.fichaEpidemiologica.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.evolucionFinal = this.clasificacionRiesgoFg.controls.evolucionFinal.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaCierreCaso = this.clasificacionRiesgoFg.controls.fechaCierreCaso.value;
 
     this.service.editarFichaPB(this.fichaPersonalBlanco, this.idRegistroForm).subscribe(response => {
           //this.idRegistro = +response;
@@ -933,7 +988,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       this.formPersonalBlanco.especialidadInternacion = this.registroFg.controls.especialidad.value;
     }
     this.service.guardarFormPersonalBlanco(this.formPersonalBlanco).subscribe(response => {
-
     },error => {
       console.log(error);
     });
@@ -1059,6 +1113,28 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     }
 
     this.profesionesFiltradas = filtered;
+  }
+
+  filtrarFuncion(event) {
+    let funciones = [{'id':1,'nombre':'GERENCIAL'},{'id':2,'nombre':'DIRECTOR'},
+    {'id':3,'nombre':'JEFE DE SALA'}, {'id':4,'nombre':'MEDICO DE GUARDIA'},
+    {'id':5,'nombre':'MEDICO DE CONSULTORIO'}, {'id':6,'nombre':'JEFATURA DE ENFERMERIA'},
+    {'id':7,'nombre':'COORDINACION'}, {'id':8,'nombre':'ASISTENCIAL'},
+    {'id':9,'nombre':'LIMPIEZA'}, {'id':10,'nombre':'COCINA'},
+    {'id':11,'nombre':'LAVANDERIA'}, {'id':11,'nombre':'PROFESIONAL ADMINISTRATIVO'},
+    {'id':12,'nombre':'AUXILIAR ADMINISTRATIVO'}, {'id':13,'nombre':'CHOFER/CHOFER DE AMBULANCIA'},
+    {'id':14,'nombre':'MANTENIMIENTO'}, {'id':15,'nombre':'SERENO'}];
+    let filtered : any[] = [];
+    let query = event.query;
+
+    for(let i = 0; i < funciones.length; i++) {
+        let funcion = funciones[i];
+
+        if (funcion.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          filtered.push(funcion);
+        }
+    }
+    this.funcionesFiltradas = filtered;
   }
 
   consultarIdentificaciones(value, band) {

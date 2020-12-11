@@ -25,6 +25,9 @@ export class FormDatosBasicos {
     //rcToken: string;
     fechaNacimiento:string;
 
-    sexo:string;
+    sexo: string;
+    barrio: string;
+    edad: number;
+    rangoEdad: string;
 
 }

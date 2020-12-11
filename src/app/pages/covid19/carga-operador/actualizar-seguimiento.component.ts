@@ -55,7 +55,7 @@ export class ActualizarSeguimientoComponent implements OnInit {
 
   public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
 
-  public clasRiesgoOptions=[{value:'alto',label:'Alto'},{value:'moderado',label:'Moderado'},{value:'bajo',label:'Bajo'}];
+  public clasRiesgoOptions=[{value:'alto',label:'Alto'},{value:'bajo',label:'Bajo'}];
 
   public profesionOptions =[{value:'medico',label:'Médico/a'}, {value:'enfermero',label:'Enfermero/a'}];
 
@@ -99,6 +99,10 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
                               {value:'Boquerón',label:'Boquerón'}];
 
   public ciudadOptions: any[];
+
+  public evoFinalOptions=[{value:'alta',label:'Alta'},{value:'obito',label:'Obito'}];
+  public resulPriMuestraOptions=[{value:'negativo',label:'Negativo'},{value:'positivo',label:'Positivo'}];
+  public clasifFinalOptions=[{value:'descartado',label:'Descartado'},{value:'confirmado',label:'Confirmado'}];
 
   // recaptcha
   public recentToken: string = ''
@@ -149,8 +153,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
   fechaSelec13;
   fechaSelec14;
 
-  public clasifFinalOptions=[{value:'descartado',label:'Descartado'},{value:'confirmado',label:'Confirmado'}];
-
   fichaPersonalBlanco: FichaPersonalBlanco;
 
   constructor(
@@ -198,7 +200,9 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
       cedula: ['', Validators.required],
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
-      sexo: ['', Validators.required]
+      sexo: ['', Validators.required],
+      fechaExposicion: ['', Validators.required],
+      catContagio: ['']
     });
 
     this.monitoreoFg = this._formBuilder.group({
@@ -206,7 +210,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
       nombre: ['', Validators.required],
       apellido: ['', Validators.required],
       fechaSintomas: ['', Validators.required],
-      fechaExposicion: ['', Validators.required],
+      seFis:[1, Validators.required],
       fecha1: ['', Validators.required],
       fecha2: ['', Validators.required],
       fecha3: ['', Validators.required],
@@ -337,7 +341,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
 
     this.clasificacionRiesgoFg = this._formBuilder.group({
       clasRiesgo: ['', Validators.required],
-      catContagio: [''],
       clasifFinal:[''],
       otroIndicEspecificar: [''],
       exclusion: [null],
@@ -345,7 +348,14 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
       nada: [null],
       otroIndic: [null],
       antigeno: [null],
-      pcr: [null]
+      pcr: [null],
+      fechaCierreCaso: ['', Validators.required],
+      fechaPrimeraMuestra: ['', Validators.required],
+      sePrimeraMuestra:[1, Validators.required],
+      resultadoPrimeraMuestra: ['', Validators.required],
+      constAislamiento: [null, Validators.required],
+      fichaEpidemiologica: [null, Validators.required],
+      evolucionFinal: ['', Validators.required]
     });
   }
 
@@ -362,8 +372,8 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         //this.monitoreoFg.controls.fechaSintomas.setValue(response.fechaInicioSintoma);
         this.monitoreoFg.controls.fechaSintomas.setValue(response.fechaInicioSintoma.substring(8, 10)+'/'+
         response.fechaInicioSintoma.substring(5, 7)+'/'+response.fechaInicioSintoma.substring(0, 4)); 
-        this.monitoreoFg.controls.fechaExposicion.setValue(response.fechaExposicion.substring(8, 10)+'/'+
-        response.fechaExposicion.substring(5, 7)+'/'+response.fechaExposicion.substring(0, 4));
+        //this.monitoreoFg.controls.fechaExposicion.setValue(response.fechaExposicion.substring(8, 10)+'/'+response.fechaExposicion.substring(5, 7)+'/'+response.fechaExposicion.substring(0, 4));
+        this.monitoreoFg.controls.seFis.setValue(response.seFis);
 
         this.setearFechasTabla(response.fechaInicioSintoma.substring(5, 7)+'/'+
                 response.fechaInicioSintoma.substring(8, 10)+'/'+response.fechaInicioSintoma.substring(0, 4), 'inicio');
@@ -512,7 +522,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.monitoreoFg.controls.otrosCansancios14.setValue(response.reportes[13].otrosCansancios ==null ? null : response.reportes[13].otrosCansancios == 'true');
 
         this.clasificacionRiesgoFg.controls.clasRiesgo.setValue(response.clasificacionRiesgo);
-        this.clasificacionRiesgoFg.controls.catContagio.setValue(response.categoriaContagio);
         this.clasificacionRiesgoFg.controls.exclusion.setValue(response.trabajoExclusion);
         this.clasificacionRiesgoFg.controls.autocontrol.setValue(response.trabajoAutocontrol);
         this.clasificacionRiesgoFg.controls.nada.setValue(response.trabajoNada);
@@ -521,6 +530,16 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.clasificacionRiesgoFg.controls.antigeno.setValue(response.laboratorioAntigeno);
         this.clasificacionRiesgoFg.controls.pcr.setValue(response.laboratorioPcr);
         this.clasificacionRiesgoFg.controls.clasifFinal.setValue(response.clasificacionFinal);
+
+        this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(response.sePrimeraMuestra);
+        this.clasificacionRiesgoFg.controls.fechaPrimeraMuestra.setValue(response.fechaPrimeraMuestra.substring(8, 10)+'/'+
+        response.fechaPrimeraMuestra.substring(5, 7)+'/'+response.fechaPrimeraMuestra.substring(0, 4));
+        this.clasificacionRiesgoFg.controls.resultadoPrimeraMuestra.setValue(response.resultadoPrimeraMuestra);
+        this.clasificacionRiesgoFg.controls.evolucionFinal.setValue(response.evolucionFinal);
+        this.clasificacionRiesgoFg.controls.fechaCierreCaso.setValue(response.fechaCierreCaso.substring(8, 10)+'/'+
+        response.fechaCierreCaso.substring(5, 7)+'/'+response.fechaCierreCaso.substring(0, 4));
+        this.clasificacionRiesgoFg.controls.constAislamiento.setValue(response.constanciaAislamiento);
+        this.clasificacionRiesgoFg.controls.fichaEpidemiologica.setValue(response.fichaEpidemiologica);
         //this.response = response;
         this.mensaje= null;
     }, error => {
@@ -740,7 +759,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
 
     this.fichaPersonalBlanco.formSeccionClasifRiesgo = new FormSeccionClasifRiesgo();
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.clasificacionRiesgo = this.clasificacionRiesgoFg.controls.clasRiesgo.value;
-    this.fichaPersonalBlanco.formSeccionClasifRiesgo.categoriaContagio = this.clasificacionRiesgoFg.controls.catContagio.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.clasificacionFinal = this.clasificacionRiesgoFg.controls.clasifFinal.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.trabajoExclusion = this.clasificacionRiesgoFg.controls.exclusion.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.trabajoAutocontrol = this.clasificacionRiesgoFg.controls.autocontrol.value;
@@ -751,7 +769,14 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.laboratorioPcr = this.clasificacionRiesgoFg.controls.pcr.value;
     
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaInicioSintomas = this.monitoreoFg.controls.fechaSintomas.value;
-    this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaExposicion = this.monitoreoFg.controls.fechaExposicion.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.seFis = this.monitoreoFg.controls.seFis.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.sePrimeraMuestra = this.clasificacionRiesgoFg.controls.sePrimeraMuestra.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.resultadoPrimeraMuestra = this.clasificacionRiesgoFg.controls.resultadoPrimeraMuestra.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaPrimeraMuestra = this.clasificacionRiesgoFg.controls.fechaPrimeraMuestra.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.evolucionFinal = this.clasificacionRiesgoFg.controls.evolucionFinal.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.constanciaAislamiento = this.clasificacionRiesgoFg.controls.constAislamiento.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.fichaEpidemiologica = this.clasificacionRiesgoFg.controls.fichaEpidemiologica.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaCierreCaso = this.clasificacionRiesgoFg.controls.fechaCierreCaso.value;
 
     this.service.actualizarSeguimientoPB(this.fichaPersonalBlanco, this.idRegistroForm).subscribe(response => {
       //this.idRegistro = +response;

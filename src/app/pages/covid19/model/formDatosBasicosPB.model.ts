@@ -17,6 +17,7 @@ export class FormDatosBasicosPB {
     paisEmisorDocumento: string;
     tipoInicio: string;
     tipoRegistro: string;
+    barrio: string;
 
     inicioAislamiento:string;
     fechaPrevistaTomaMuestraLaboratorial:string;
@@ -55,5 +56,18 @@ export class FormDatosBasicosPB {
     especialidadInternacion: string;
 
     reportes: FormSeccionReporteSalud[];
+
+    contagioAmbiente:string;
+    contagioEstablecimiento:string;
+    codigoPaciente: string;
+    seFis: number;
+    sePrimeraMuestra: number;
+    fechaPrimeraMuestra: string;
+    resultadoPrimeraMuestra: string;
+    evolucionFinal: string;
+    fechaCierreCaso: string;
+    constanciaAislamiento: boolean;
+    fichaEpidemiologica: boolean;
+    fechaInicioMonitoreo: string;
 
 }

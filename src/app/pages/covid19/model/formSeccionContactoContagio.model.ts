@@ -6,4 +6,8 @@ export class FormSeccionContactoContagio {
     apellido: string;
     sexo:string;
 
+    contagioAmbiente: string;
+    contagioEstablecimiento: string;
+    categoriaContagio: string;
+    fechaExposicion: string;
 }

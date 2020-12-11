@@ -13,4 +13,6 @@ export class FormSeccionPersonalBlanco {
     internado: boolean;
     establecimientoInternacion: string;
     especialidadInternacion: string;
+
+    codigoPaciente: string;
 }

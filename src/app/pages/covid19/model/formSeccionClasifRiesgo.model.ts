@@ -3,7 +3,6 @@ export class FormSeccionClasifRiesgo {
     idRegistro: number;
     nroDocumento: string;
     clasificacionRiesgo: string;
-    categoriaContagio: string;
     clasificacionFinal: string;
 
     trabajoExclusion: boolean;
@@ -15,5 +14,15 @@ export class FormSeccionClasifRiesgo {
     laboratorioPcr: boolean;
 
     fechaInicioSintomas: string;
-    fechaExposicion: string;
+
+    seFis: number;
+    fechaInicioMonitoreo: string;
+    fechaCierreCaso: string;
+    fechaPrimeraMuestra: string;
+    sePrimeraMuestra: number;
+    resultadoPrimeraMuestra: string;
+
+    constanciaAislamiento: string;
+    fichaEpidemiologica: string;
+    evolucionFinal: string;
 }
