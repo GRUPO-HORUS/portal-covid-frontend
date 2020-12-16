@@ -91,16 +91,16 @@ export class FichaMonitoreoComponent implements OnInit {
                               {value:'Presidente Hayes',label:'Presidente Hayes'},{value:'Alto Paraguay',label:'Alto Paraguay'},
                               {value:'Boquerón',label:'Boquerón'}];*/
 
-                              public regionSanitariaOptions=[
-                              {id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro'},
-                              {id:3, nombre:'Cordillera'},{id:4, nombre:'Guairá'},
-                              {id:5, nombre:'Caaguazú'},{id:6,nombre:'Caazapá'},
-                              {id:7, nombre:'Itapúa'},{id:8,nombre:'Misiones'},
-                              {id:9, nombre:'Paraguarí'},{id:10, nombre:'Alto Paraná'},
-                              {id:11, nombre:'Central'},{id:12, nombre:'Ñeembucú'},
-                              {id:13, nombre:'Amambay'},{id:14, nombre:'Canindeyú'},
-                              {id:15, nombre:'Presidente Hayes'},{id:16, nombre:'Alto Paraguay'},
-                              {id:17, nombre:'Boquerón'}, {id:18, nombre:'Capital'}];
+                              public regionSanitariaOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro Norte'},
+                              {id:3, nombre:'San Pedro Norte'}, {id:4, nombre:'Cordillera'},
+                              {id:5, nombre:'Guairá'}, {id:6, nombre:'Caaguazú'},
+                              {id:7,nombre:'Caazapá'}, {id:8, nombre:'Itapúa'},
+                              {id:9,nombre:'Misiones'},
+                              {id:10, nombre:'Paraguarí'},{id:11, nombre:'Alto Paraná'},
+                              {id:12, nombre:'Central'},{id:13, nombre:'Ñeembucú'},
+                              {id:14, nombre:'Amambay'},{id:15, nombre:'Canindeyú'},
+                              {id:16, nombre:'Presidente Hayes'}, {id:17, nombre:'Boquerón'},
+                              {id:18, nombre:'Alto Paraguay'}, {id:19, nombre:'Capital'}];
 
   public clasifFinalOptions=[{value:'descartado',label:'Descartado'},{value:'confirmado',label:'Confirmado'}];
   public ciudadOptions: any[];
