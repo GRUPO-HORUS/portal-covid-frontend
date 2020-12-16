@@ -12,9 +12,7 @@ export class FormSeccionReporteSalud {
     fecha9: string;
     fecha10: string;
     fecha11: string;
-    fecha12: string;
-    fecha13: string;
-    fecha14: string;*/
+    fecha12: string;*/
     tos: string;
     sentisFiebre: string;
     dolorGarganta: string;
@@ -24,4 +22,15 @@ export class FormSeccionReporteSalud {
     congestionNasal: string;
     otrosCansancios: string;
 
+    dolorAbdominal: string;
+    convulsiones: string;
+    auscultacion: string;
+    nauseas: string;
+    postracion: string;
+    artralgias: string;
+    mialgias: string;
+    dolorOido: string;
+    diarrea: string;
+    irritabilidad: string;
+    conjuntival: string;
 }

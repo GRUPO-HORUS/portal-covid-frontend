@@ -74,9 +74,9 @@ export class FichaMonitoreoComponent implements OnInit {
 
   public profesionOptions =[{value:'medico',label:'Médico/a'}, {value:'enfermero',label:'Enfermero/a'}];
 
-  public catContagioOptions=[{value:'asistencia_paciente',label:'ASISTENCIA a paciente con COVID-19'},{value:'asistencia_paciente_preqco',label:'ASISTENCIA a paciente con COVID-19 Pre-QCO'}, {value:'asistencia_albergue',label:'ASISTENCIA en albergues/hotel salud'},
-  {value:'asistencia_penitenciaria',label:'ASISTENCIA en penitenciaría'},{value:'contacto_personal_salud',label:'CONTACTO con Personal de Salud con COVID-19'},{value:'contacto_persona',label:'CONTACTO con Persona con COVID-19'}, {value:'viajero',label:'VIAJERO'},
-  {value:'otro',label:'OTRO'}];
+  public catContagioOptions=[{value:'asistencia_paciente',label:'Asistencia a paciente con COVID-19'}, {value:'contacto_personal_salud',label:'Contacto con Personal de Salud con COVID-19'},
+  {value:'asistencia_penitenciaria',label:'Asistencia en penitenciaría'},{value:'asistencia_albergue',label:'Asistencia en albergues/hotel salud'},
+  {value:'familiar_social',label:'Familiar Social'}, {value:'viajero',label:'Viajero'},{value:'sin_nexo',label:'Sin Nexo'}];
 
   public tipoRegistroOptions=[{value:'ingreso_pais',label:'Ingreso al país'},{value:'aislamiento',label:'Caso sospechoso Covid-19'}];
   
@@ -106,6 +106,8 @@ export class FichaMonitoreoComponent implements OnInit {
   public ciudadOptions: any[];
 
   public resulPriMuestraOptions=[{value:'negativo',label:'Negativo'},{value:'positivo',label:'Positivo'}];
+
+  public especialidadOptions=[{value:'sala',label:'Sala'},{value:'uti',label:'UTI'}];
 
   // recaptcha
   public recentToken: string = ''
@@ -207,9 +209,6 @@ export class FichaMonitoreoComponent implements OnInit {
       otrosLugares: [[], Validators.required],
       reingreso: [null],
       fallecido: [null],
-      internado: [null],
-      establecimiento: [],
-      especialidad: [],
       edad:[0, Validators.required],
       rangoEdad:['', Validators.required],
       ciudadDomicilio:['', Validators.required],
@@ -225,7 +224,8 @@ export class FichaMonitoreoComponent implements OnInit {
       contagioAmbiente: [null, Validators.required],
       contagioEstablecimiento: [],
       fechaExposicion: ['', Validators.required],
-      catContagio: ['']
+      catContagio: [''],
+      clasRiesgo: ['', Validators.required]
     });
 
     this.monitoreoFg = this._formBuilder.group({
@@ -345,6 +345,174 @@ export class FichaMonitoreoComponent implements OnInit {
       congestionNasal12: [null, Validators.required],
       congestionNasal13: [null, Validators.required],
       congestionNasal14: [null, Validators.required],
+      diarrea1: [null, Validators.required],
+      diarrea2: [null, Validators.required],
+      diarrea3: [null, Validators.required],
+      diarrea4: [null, Validators.required],
+      diarrea5: [null, Validators.required],
+      diarrea6: [null, Validators.required],
+      diarrea7: [null, Validators.required],
+      diarrea8: [null, Validators.required],
+      diarrea9: [null, Validators.required],
+      diarrea10: [null, Validators.required],
+      diarrea11: [null, Validators.required],
+      diarrea12: [null, Validators.required],
+      diarrea13: [null, Validators.required],
+      diarrea14: [null, Validators.required],
+      dolorOido1: [null, Validators.required],
+      dolorOido2: [null, Validators.required],
+      dolorOido3: [null, Validators.required],
+      dolorOido4: [null, Validators.required],
+      dolorOido5: [null, Validators.required],
+      dolorOido6: [null, Validators.required],
+      dolorOido7: [null, Validators.required],
+      dolorOido8: [null, Validators.required],
+      dolorOido9: [null, Validators.required],
+      dolorOido10: [null, Validators.required],
+      dolorOido11: [null, Validators.required],
+      dolorOido12: [null, Validators.required],
+      dolorOido13: [null, Validators.required],
+      dolorOido14: [null, Validators.required],
+      convulsiones1: [null, Validators.required],
+      convulsiones2: [null, Validators.required],
+      convulsiones3: [null, Validators.required],
+      convulsiones4: [null, Validators.required],
+      convulsiones5: [null, Validators.required],
+      convulsiones6: [null, Validators.required],
+      convulsiones7: [null, Validators.required],
+      convulsiones8: [null, Validators.required],
+      convulsiones9: [null, Validators.required],
+      convulsiones10: [null, Validators.required],
+      convulsiones11: [null, Validators.required],
+      convulsiones12: [null, Validators.required],
+      convulsiones13: [null, Validators.required],
+      convulsiones14: [null, Validators.required],
+      mialgias1: [null, Validators.required],
+      mialgias2: [null, Validators.required],
+      mialgias3: [null, Validators.required],
+      mialgias4: [null, Validators.required],
+      mialgias5: [null, Validators.required],
+      mialgias6: [null, Validators.required],
+      mialgias7: [null, Validators.required],
+      mialgias8: [null, Validators.required],
+      mialgias9: [null, Validators.required],
+      mialgias10: [null, Validators.required],
+      mialgias11: [null, Validators.required],
+      mialgias12: [null, Validators.required],
+      mialgias13: [null, Validators.required],
+      mialgias14: [null, Validators.required],
+      artralgias1: [null, Validators.required],
+      artralgias2: [null, Validators.required],
+      artralgias3: [null, Validators.required],
+      artralgias4: [null, Validators.required],
+      artralgias5: [null, Validators.required],
+      artralgias6: [null, Validators.required],
+      artralgias7: [null, Validators.required],
+      artralgias8: [null, Validators.required],
+      artralgias9: [null, Validators.required],
+      artralgias10: [null, Validators.required],
+      artralgias11: [null, Validators.required],
+      artralgias12: [null, Validators.required],
+      artralgias13: [null, Validators.required],
+      artralgias14: [null, Validators.required],
+      postracion1: [null, Validators.required],
+      postracion2: [null, Validators.required],
+      postracion3: [null, Validators.required],
+      postracion4: [null, Validators.required],
+      postracion5: [null, Validators.required],
+      postracion6: [null, Validators.required],
+      postracion7: [null, Validators.required],
+      postracion8: [null, Validators.required],
+      postracion9: [null, Validators.required],
+      postracion10: [null, Validators.required],
+      postracion11: [null, Validators.required],
+      postracion12: [null, Validators.required],
+      postracion13: [null, Validators.required],
+      postracion14: [null, Validators.required],
+      nauseas1: [null, Validators.required],
+      nauseas2: [null, Validators.required],
+      nauseas3: [null, Validators.required],
+      nauseas4: [null, Validators.required],
+      nauseas5: [null, Validators.required],
+      nauseas6: [null, Validators.required],
+      nauseas7: [null, Validators.required],
+      nauseas8: [null, Validators.required],
+      nauseas9: [null, Validators.required],
+      nauseas10: [null, Validators.required],
+      nauseas11: [null, Validators.required],
+      nauseas12: [null, Validators.required],
+      nauseas13: [null, Validators.required],
+      nauseas14: [null, Validators.required],
+      irritabilidad1: [null, Validators.required],
+      irritabilidad2: [null, Validators.required],
+      irritabilidad3: [null, Validators.required],
+      irritabilidad4: [null, Validators.required],
+      irritabilidad5: [null, Validators.required],
+      irritabilidad6: [null, Validators.required],
+      irritabilidad7: [null, Validators.required],
+      irritabilidad8: [null, Validators.required],
+      irritabilidad9: [null, Validators.required],
+      irritabilidad10: [null, Validators.required],
+      irritabilidad11: [null, Validators.required],
+      irritabilidad12: [null, Validators.required],
+      irritabilidad13: [null, Validators.required],
+      irritabilidad14: [null, Validators.required],
+      dolorAbdominal1: [null, Validators.required],
+      dolorAbdominal2: [null, Validators.required],
+      dolorAbdominal3: [null, Validators.required],
+      dolorAbdominal4: [null, Validators.required],
+      dolorAbdominal5: [null, Validators.required],
+      dolorAbdominal6: [null, Validators.required],
+      dolorAbdominal7: [null, Validators.required],
+      dolorAbdominal8: [null, Validators.required],
+      dolorAbdominal9: [null, Validators.required],
+      dolorAbdominal10: [null, Validators.required],
+      dolorAbdominal11: [null, Validators.required],
+      dolorAbdominal12: [null, Validators.required],
+      dolorAbdominal13: [null, Validators.required],
+      dolorAbdominal14: [null, Validators.required],
+      rinorrea1: [null, Validators.required],
+      rinorrea2: [null, Validators.required],
+      rinorrea3: [null, Validators.required],
+      rinorrea4: [null, Validators.required],
+      rinorrea5: [null, Validators.required],
+      rinorrea6: [null, Validators.required],
+      rinorrea7: [null, Validators.required],
+      rinorrea8: [null, Validators.required],
+      rinorrea9: [null, Validators.required],
+      rinorrea10: [null, Validators.required],
+      rinorrea11: [null, Validators.required],
+      rinorrea12: [null, Validators.required],
+      rinorrea13: [null, Validators.required],
+      rinorrea14: [null, Validators.required],
+      conjuntival1: [null, Validators.required],
+      conjuntival2: [null, Validators.required],
+      conjuntival3: [null, Validators.required],
+      conjuntival4: [null, Validators.required],
+      conjuntival5: [null, Validators.required],
+      conjuntival6: [null, Validators.required],
+      conjuntival7: [null, Validators.required],
+      conjuntival8: [null, Validators.required],
+      conjuntival9: [null, Validators.required],
+      conjuntival10: [null, Validators.required],
+      conjuntival11: [null, Validators.required],
+      conjuntival12: [null, Validators.required],
+      conjuntival13: [null, Validators.required],
+      conjuntival14: [null, Validators.required],
+      auscultacion1: [null, Validators.required],
+      auscultacion2: [null, Validators.required],
+      auscultacion3: [null, Validators.required],
+      auscultacion4: [null, Validators.required],
+      auscultacion5: [null, Validators.required],
+      auscultacion6: [null, Validators.required],
+      auscultacion7: [null, Validators.required],
+      auscultacion8: [null, Validators.required],
+      auscultacion9: [null, Validators.required],
+      auscultacion10: [null, Validators.required],
+      auscultacion11: [null, Validators.required],
+      auscultacion12: [null, Validators.required],
+      auscultacion13: [null, Validators.required],
+      auscultacion14: [null, Validators.required],
       otrosCansancios1: [null, Validators.required],
       otrosCansancios2: [null, Validators.required],
       otrosCansancios3: [null, Validators.required],
@@ -362,7 +530,6 @@ export class FichaMonitoreoComponent implements OnInit {
     });
 
     this.clasificacionRiesgoFg = this._formBuilder.group({
-      clasRiesgo: ['', Validators.required],
       clasifFinal:[''],
       otroIndicEspecificar: [''],
       exclusion: [null],
@@ -379,6 +546,9 @@ export class FichaMonitoreoComponent implements OnInit {
       constAislamiento: [null, Validators.required],
       fichaEpidemiologica: [null, Validators.required],
       evolucionFinal: ['', Validators.required],
+      internado: [null],
+      establecimiento: [],
+      especialidad: []
     });
 
     this.setearFechasTabla(this.fechaHoy, 'inicio');
@@ -387,6 +557,16 @@ export class FichaMonitoreoComponent implements OnInit {
     /*this._route.params.subscribe(params => {
         this.formDatosBasicos.tipoInicio = params["tipoInicio"];
     });*/
+  }
+
+  selecAmbiente(band){
+    if(band ==='salud'){
+      this.catContagioOptions = [{value:'asistencia_paciente',label:'Asistencia a paciente con COVID-19'}, {value:'contacto_personal_salud',label:'Contacto con Personal de Salud con COVID-19'},
+      {value:'asistencia_penitenciaria',label:'Asistencia en penitenciaría'},{value:'asistencia_albergue',label:'Asistencia en albergues/hotel salud'}];
+    }else{
+      this.catContagioOptions = [{value:'familiar_social',label:'Familiar Social'}, {value:'viajero',label:'Viajero'},{value:'sin_nexo',label:'Sin Nexo'}];
+    }
+    
   }
   
   onChange(event){
@@ -412,9 +592,9 @@ export class FichaMonitoreoComponent implements OnInit {
   }
 
   verifEstablecimiento(){
-    if(!this.registroFg.controls.internado.value){
-      this.registroFg.controls.establecimiento.setValue('');
-      this.registroFg.controls.especialidad.setValue('');
+    if(!this.clasificacionRiesgoFg.controls.internado.value){
+      this.clasificacionRiesgoFg.controls.establecimiento.setValue('');
+      this.clasificacionRiesgoFg.controls.especialidad.setValue('');
     }
   }
 
@@ -486,13 +666,6 @@ export class FichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.otrosLugares = this.registroFg.controls.otrosLugares.value;
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.reingreso = this.registroFg.controls.reingreso.value;
     //this.fichaPersonalBlanco.formSeccionPersonalBlanco.fallecido = this.registroFg.controls.fallecido.value;
-    this.fichaPersonalBlanco.formSeccionPersonalBlanco.internado = this.registroFg.controls.internado.value;
-    if(this.registroFg.controls.establecimiento.value !== null){
-      this.fichaPersonalBlanco.formSeccionPersonalBlanco.establecimientoInternacion = this.registroFg.controls.establecimiento.value.nombre;
-    }
-    if(this.registroFg.controls.especialidad.value !== null){
-      this.fichaPersonalBlanco.formSeccionPersonalBlanco.especialidadInternacion = this.registroFg.controls.especialidad.value;
-    }
 
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.codigoPaciente = this.registroFg.controls.codPaciente.value;
 
@@ -509,6 +682,8 @@ export class FichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionContactoContagio.categoriaContagio = this.casoConfirmadoFg.controls.catContagio.value;
     this.fichaPersonalBlanco.formSeccionContactoContagio.fechaExposicion = this.casoConfirmadoFg.controls.fechaExposicion.value;
 
+    this.fichaPersonalBlanco.formSeccionContactoContagio.clasificacionRiesgo = this.casoConfirmadoFg.controls.clasRiesgo.value;
+
     this.fichaPersonalBlanco.reportesSalud = [];
     let reporteSalud1 = new FormSeccionReporteSalud();
     //reporteSalud1.fecha = this.monitoreoFg.controls.fecha1.value;
@@ -521,6 +696,18 @@ export class FichaMonitoreoComponent implements OnInit {
     reporteSalud1.sentisFiebre = this.monitoreoFg.controls.fiebre1.value;
     reporteSalud1.congestionNasal = this.monitoreoFg.controls.congestionNasal1.value;
     reporteSalud1.otrosCansancios = this.monitoreoFg.controls.otrosCansancios1.value;
+
+    reporteSalud1.diarrea = this.monitoreoFg.controls.diarrea1.value;
+    reporteSalud1.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal1.value;
+    reporteSalud1.convulsiones = this.monitoreoFg.controls.convulsiones1.value;
+    reporteSalud1.conjuntival = this.monitoreoFg.controls.conjuntival1.value;
+    reporteSalud1.dolorOido = this.monitoreoFg.controls.dolorOido1.value;
+    reporteSalud1.postracion = this.monitoreoFg.controls.postracion1.value;
+    reporteSalud1.artralgias = this.monitoreoFg.controls.artralgias1.value;
+    reporteSalud1.mialgias = this.monitoreoFg.controls.mialgias1.value;
+    reporteSalud1.irritabilidad = this.monitoreoFg.controls.irritabilidad1.value;
+    reporteSalud1.nauseas = this.monitoreoFg.controls.nauseas1.value;
+    reporteSalud1.auscultacion = this.monitoreoFg.controls.auscultacion1.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud1);
 
     let reporteSalud2 = new FormSeccionReporteSalud();
@@ -534,6 +721,19 @@ export class FichaMonitoreoComponent implements OnInit {
     reporteSalud2.sentisFiebre = this.monitoreoFg.controls.fiebre2.value;
     reporteSalud2.congestionNasal = this.monitoreoFg.controls.congestionNasal2.value;
     reporteSalud2.otrosCansancios = this.monitoreoFg.controls.otrosCansancios2.value;
+
+    reporteSalud2.diarrea = this.monitoreoFg.controls.diarrea2.value;
+    reporteSalud2.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal2.value;
+    reporteSalud2.convulsiones = this.monitoreoFg.controls.convulsiones2.value;
+    reporteSalud2.conjuntival = this.monitoreoFg.controls.conjuntival2.value;
+    reporteSalud2.dolorOido = this.monitoreoFg.controls.dolorOido2.value;
+    reporteSalud2.postracion = this.monitoreoFg.controls.postracion2.value;
+    reporteSalud2.artralgias = this.monitoreoFg.controls.artralgias2.value;
+    reporteSalud2.mialgias = this.monitoreoFg.controls.mialgias2.value;
+    reporteSalud2.irritabilidad = this.monitoreoFg.controls.irritabilidad2.value;
+    reporteSalud2.nauseas = this.monitoreoFg.controls.nauseas2.value;
+    reporteSalud2.auscultacion = this.monitoreoFg.controls.auscultacion2.value;
+    
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud2);
 
     let reporteSalud3 = new FormSeccionReporteSalud();
@@ -547,6 +747,18 @@ export class FichaMonitoreoComponent implements OnInit {
     reporteSalud3.sentisFiebre = this.monitoreoFg.controls.fiebre3.value;
     reporteSalud3.congestionNasal = this.monitoreoFg.controls.congestionNasal3.value;
     reporteSalud3.otrosCansancios = this.monitoreoFg.controls.otrosCansancios3.value;
+
+    reporteSalud3.diarrea = this.monitoreoFg.controls.diarrea3.value;
+    reporteSalud3.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal3.value;
+    reporteSalud3.convulsiones = this.monitoreoFg.controls.convulsiones3.value;
+    reporteSalud3.conjuntival = this.monitoreoFg.controls.conjuntival3.value;
+    reporteSalud3.dolorOido = this.monitoreoFg.controls.dolorOido3.value;
+    reporteSalud3.postracion = this.monitoreoFg.controls.postracion3.value;
+    reporteSalud3.artralgias = this.monitoreoFg.controls.artralgias3.value;
+    reporteSalud3.mialgias = this.monitoreoFg.controls.mialgias3.value;
+    reporteSalud3.irritabilidad = this.monitoreoFg.controls.irritabilidad3.value;
+    reporteSalud3.nauseas = this.monitoreoFg.controls.nauseas3.value;
+    reporteSalud3.auscultacion = this.monitoreoFg.controls.auscultacion3.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud3);
 
     let reporteSalud4 = new FormSeccionReporteSalud();
@@ -560,18 +772,42 @@ export class FichaMonitoreoComponent implements OnInit {
     reporteSalud4.sentisFiebre = this.monitoreoFg.controls.fiebre4.value;
     reporteSalud4.congestionNasal = this.monitoreoFg.controls.congestionNasal4.value;
     reporteSalud4.otrosCansancios = this.monitoreoFg.controls.otrosCansancios4.value;
+
+    reporteSalud4.diarrea = this.monitoreoFg.controls.diarrea4.value;
+    reporteSalud4.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal4.value;
+    reporteSalud4.convulsiones = this.monitoreoFg.controls.convulsiones4.value;
+    reporteSalud4.conjuntival = this.monitoreoFg.controls.conjuntival4.value;
+    reporteSalud4.dolorOido = this.monitoreoFg.controls.dolorOido4.value;
+    reporteSalud4.postracion = this.monitoreoFg.controls.postracion4.value;
+    reporteSalud4.artralgias = this.monitoreoFg.controls.artralgias4.value;
+    reporteSalud4.mialgias = this.monitoreoFg.controls.mialgias4.value;
+    reporteSalud4.irritabilidad = this.monitoreoFg.controls.irritabilidad4.value;
+    reporteSalud4.nauseas = this.monitoreoFg.controls.nauseas4.value;
+    reporteSalud4.auscultacion = this.monitoreoFg.controls.auscultacion4.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud4);
 
     let reporteSalud5 = new FormSeccionReporteSalud();
     reporteSalud5.fecha = this.fechaSelec5;
     reporteSalud5.tos = this.monitoreoFg.controls.tos5.value;
-    reporteSalud5.dolorGarganta = this.monitoreoFg.controls.dolorGarganta4.value;
-    reporteSalud5.dolorCabeza = this.monitoreoFg.controls.dolorCabeza4.value;
-    reporteSalud5.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar4.value;
-    reporteSalud5.percibeOlores = this.monitoreoFg.controls.percibeOlores4.value;
-    reporteSalud5.sentisFiebre = this.monitoreoFg.controls.fiebre4.value;
-    reporteSalud5.congestionNasal = this.monitoreoFg.controls.congestionNasal4.value;
-    reporteSalud5.otrosCansancios = this.monitoreoFg.controls.otrosCansancios4.value;
+    reporteSalud5.dolorGarganta = this.monitoreoFg.controls.dolorGarganta5.value;
+    reporteSalud5.dolorCabeza = this.monitoreoFg.controls.dolorCabeza5.value;
+    reporteSalud5.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar5.value;
+    reporteSalud5.percibeOlores = this.monitoreoFg.controls.percibeOlores5.value;
+    reporteSalud5.sentisFiebre = this.monitoreoFg.controls.fiebre5.value;
+    reporteSalud5.congestionNasal = this.monitoreoFg.controls.congestionNasal5.value;
+    reporteSalud5.otrosCansancios = this.monitoreoFg.controls.otrosCansancios5.value;
+
+    reporteSalud5.diarrea = this.monitoreoFg.controls.diarrea5.value;
+    reporteSalud5.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal5.value;
+    reporteSalud5.convulsiones = this.monitoreoFg.controls.convulsiones5.value;
+    reporteSalud5.conjuntival = this.monitoreoFg.controls.conjuntival5.value;
+    reporteSalud5.dolorOido = this.monitoreoFg.controls.dolorOido5.value;
+    reporteSalud5.postracion = this.monitoreoFg.controls.postracion5.value;
+    reporteSalud5.artralgias = this.monitoreoFg.controls.artralgias5.value;
+    reporteSalud5.mialgias = this.monitoreoFg.controls.mialgias5.value;
+    reporteSalud5.irritabilidad = this.monitoreoFg.controls.irritabilidad5.value;
+    reporteSalud5.nauseas = this.monitoreoFg.controls.nauseas5.value;
+    reporteSalud5.auscultacion = this.monitoreoFg.controls.auscultacion5.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud5);
 
     let reporteSalud6 = new FormSeccionReporteSalud();
@@ -585,6 +821,18 @@ export class FichaMonitoreoComponent implements OnInit {
     reporteSalud6.sentisFiebre = this.monitoreoFg.controls.fiebre6.value;
     reporteSalud6.congestionNasal = this.monitoreoFg.controls.congestionNasal6.value;
     reporteSalud6.otrosCansancios = this.monitoreoFg.controls.otrosCansancios6.value;
+
+    reporteSalud6.diarrea = this.monitoreoFg.controls.diarrea6.value;
+    reporteSalud6.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal6.value;
+    reporteSalud6.convulsiones = this.monitoreoFg.controls.convulsiones6.value;
+    reporteSalud6.conjuntival = this.monitoreoFg.controls.conjuntival6.value;
+    reporteSalud6.dolorOido = this.monitoreoFg.controls.dolorOido6.value;
+    reporteSalud6.postracion = this.monitoreoFg.controls.postracion6.value;
+    reporteSalud6.artralgias = this.monitoreoFg.controls.artralgias6.value;
+    reporteSalud6.mialgias = this.monitoreoFg.controls.mialgias6.value;
+    reporteSalud6.irritabilidad = this.monitoreoFg.controls.irritabilidad6.value;
+    reporteSalud6.nauseas = this.monitoreoFg.controls.nauseas6.value;
+    reporteSalud6.auscultacion = this.monitoreoFg.controls.auscultacion6.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud6);
 
     let reporteSalud7 = new FormSeccionReporteSalud();
@@ -598,6 +846,18 @@ export class FichaMonitoreoComponent implements OnInit {
     reporteSalud7.sentisFiebre = this.monitoreoFg.controls.fiebre7.value;
     reporteSalud7.congestionNasal = this.monitoreoFg.controls.congestionNasal7.value;
     reporteSalud7.otrosCansancios = this.monitoreoFg.controls.otrosCansancios7.value;
+
+    reporteSalud7.diarrea = this.monitoreoFg.controls.diarrea7.value;
+    reporteSalud7.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal7.value;
+    reporteSalud7.convulsiones = this.monitoreoFg.controls.convulsiones7.value;
+    reporteSalud7.conjuntival = this.monitoreoFg.controls.conjuntival7.value;
+    reporteSalud7.dolorOido = this.monitoreoFg.controls.dolorOido7.value;
+    reporteSalud7.postracion = this.monitoreoFg.controls.postracion7.value;
+    reporteSalud7.artralgias = this.monitoreoFg.controls.artralgias7.value;
+    reporteSalud7.mialgias = this.monitoreoFg.controls.mialgias7.value;
+    reporteSalud7.irritabilidad = this.monitoreoFg.controls.irritabilidad7.value;
+    reporteSalud7.nauseas = this.monitoreoFg.controls.nauseas7.value;
+    reporteSalud7.auscultacion = this.monitoreoFg.controls.auscultacion7.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud7);
 
     let reporteSalud8 = new FormSeccionReporteSalud();
@@ -611,6 +871,18 @@ export class FichaMonitoreoComponent implements OnInit {
     reporteSalud8.sentisFiebre = this.monitoreoFg.controls.fiebre8.value;
     reporteSalud8.congestionNasal = this.monitoreoFg.controls.congestionNasal8.value;
     reporteSalud8.otrosCansancios = this.monitoreoFg.controls.otrosCansancios8.value;
+
+    reporteSalud8.diarrea = this.monitoreoFg.controls.diarrea8.value;
+    reporteSalud8.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal8.value;
+    reporteSalud8.convulsiones = this.monitoreoFg.controls.convulsiones8.value;
+    reporteSalud8.conjuntival = this.monitoreoFg.controls.conjuntival8.value;
+    reporteSalud8.dolorOido = this.monitoreoFg.controls.dolorOido8.value;
+    reporteSalud8.postracion = this.monitoreoFg.controls.postracion8.value;
+    reporteSalud8.artralgias = this.monitoreoFg.controls.artralgias8.value;
+    reporteSalud8.mialgias = this.monitoreoFg.controls.mialgias8.value;
+    reporteSalud8.irritabilidad = this.monitoreoFg.controls.irritabilidad8.value;
+    reporteSalud8.nauseas = this.monitoreoFg.controls.nauseas8.value;
+    reporteSalud8.auscultacion = this.monitoreoFg.controls.auscultacion8.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud8);
 
     let reporteSalud9 = new FormSeccionReporteSalud();
@@ -624,6 +896,18 @@ export class FichaMonitoreoComponent implements OnInit {
     reporteSalud9.sentisFiebre = this.monitoreoFg.controls.fiebre9.value;
     reporteSalud9.congestionNasal = this.monitoreoFg.controls.congestionNasal9.value;
     reporteSalud9.otrosCansancios = this.monitoreoFg.controls.otrosCansancios9.value;
+
+    reporteSalud9.diarrea = this.monitoreoFg.controls.diarrea9.value;
+    reporteSalud9.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal9.value;
+    reporteSalud9.convulsiones = this.monitoreoFg.controls.convulsiones9.value;
+    reporteSalud9.conjuntival = this.monitoreoFg.controls.conjuntival9.value;
+    reporteSalud9.dolorOido = this.monitoreoFg.controls.dolorOido9.value;
+    reporteSalud9.postracion = this.monitoreoFg.controls.postracion9.value;
+    reporteSalud9.artralgias = this.monitoreoFg.controls.artralgias9.value;
+    reporteSalud9.mialgias = this.monitoreoFg.controls.mialgias9.value;
+    reporteSalud9.irritabilidad = this.monitoreoFg.controls.irritabilidad9.value;
+    reporteSalud9.nauseas = this.monitoreoFg.controls.nauseas9.value;
+    reporteSalud9.auscultacion = this.monitoreoFg.controls.auscultacion9.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud9);
 
     let reporteSalud10 = new FormSeccionReporteSalud();
@@ -637,6 +921,18 @@ export class FichaMonitoreoComponent implements OnInit {
     reporteSalud10.sentisFiebre = this.monitoreoFg.controls.fiebre10.value;
     reporteSalud10.congestionNasal = this.monitoreoFg.controls.congestionNasal10.value;
     reporteSalud10.otrosCansancios = this.monitoreoFg.controls.otrosCansancios10.value;
+
+    reporteSalud10.diarrea = this.monitoreoFg.controls.diarrea10.value;
+    reporteSalud10.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal10.value;
+    reporteSalud10.convulsiones = this.monitoreoFg.controls.convulsiones10.value;
+    reporteSalud10.conjuntival = this.monitoreoFg.controls.conjuntival10.value;
+    reporteSalud10.dolorOido = this.monitoreoFg.controls.dolorOido10.value;
+    reporteSalud10.postracion = this.monitoreoFg.controls.postracion10.value;
+    reporteSalud10.artralgias = this.monitoreoFg.controls.artralgias10.value;
+    reporteSalud10.mialgias = this.monitoreoFg.controls.mialgias10.value;
+    reporteSalud10.irritabilidad = this.monitoreoFg.controls.irritabilidad10.value;
+    reporteSalud10.nauseas = this.monitoreoFg.controls.nauseas10.value;
+    reporteSalud10.auscultacion = this.monitoreoFg.controls.auscultacion10.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud10);
 
     let reporteSalud11 = new FormSeccionReporteSalud();
@@ -650,6 +946,18 @@ export class FichaMonitoreoComponent implements OnInit {
     reporteSalud11.sentisFiebre = this.monitoreoFg.controls.fiebre11.value;
     reporteSalud11.congestionNasal = this.monitoreoFg.controls.congestionNasal11.value;
     reporteSalud11.otrosCansancios = this.monitoreoFg.controls.otrosCansancios11.value;
+
+    reporteSalud11.diarrea = this.monitoreoFg.controls.diarrea11.value;
+    reporteSalud11.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal11.value;
+    reporteSalud11.convulsiones = this.monitoreoFg.controls.convulsiones11.value;
+    reporteSalud11.conjuntival = this.monitoreoFg.controls.conjuntival11.value;
+    reporteSalud11.dolorOido = this.monitoreoFg.controls.dolorOido11.value;
+    reporteSalud11.postracion = this.monitoreoFg.controls.postracion11.value;
+    reporteSalud11.artralgias = this.monitoreoFg.controls.artralgias11.value;
+    reporteSalud11.mialgias = this.monitoreoFg.controls.mialgias11.value;
+    reporteSalud11.irritabilidad = this.monitoreoFg.controls.irritabilidad11.value;
+    reporteSalud11.nauseas = this.monitoreoFg.controls.nauseas11.value;
+    reporteSalud11.auscultacion = this.monitoreoFg.controls.auscultacion11.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud11);
 
     let reporteSalud12 = new FormSeccionReporteSalud();
@@ -663,6 +971,18 @@ export class FichaMonitoreoComponent implements OnInit {
     reporteSalud12.sentisFiebre = this.monitoreoFg.controls.fiebre12.value;
     reporteSalud12.congestionNasal = this.monitoreoFg.controls.congestionNasal12.value;
     reporteSalud12.otrosCansancios = this.monitoreoFg.controls.otrosCansancios12.value;
+
+    reporteSalud12.diarrea = this.monitoreoFg.controls.diarrea12.value;
+    reporteSalud12.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal12.value;
+    reporteSalud12.convulsiones = this.monitoreoFg.controls.convulsiones12.value;
+    reporteSalud12.conjuntival = this.monitoreoFg.controls.conjuntival12.value;
+    reporteSalud12.dolorOido = this.monitoreoFg.controls.dolorOido12.value;
+    reporteSalud12.postracion = this.monitoreoFg.controls.postracion12.value;
+    reporteSalud12.artralgias = this.monitoreoFg.controls.artralgias12.value;
+    reporteSalud12.mialgias = this.monitoreoFg.controls.mialgias12.value;
+    reporteSalud12.irritabilidad = this.monitoreoFg.controls.irritabilidad12.value;
+    reporteSalud12.nauseas = this.monitoreoFg.controls.nauseas12.value;
+    reporteSalud12.auscultacion = this.monitoreoFg.controls.auscultacion12.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud12);
 
     let reporteSalud13 = new FormSeccionReporteSalud();
@@ -675,6 +995,18 @@ export class FichaMonitoreoComponent implements OnInit {
     reporteSalud13.sentisFiebre = this.monitoreoFg.controls.fiebre13.value;
     reporteSalud13.congestionNasal = this.monitoreoFg.controls.congestionNasal13.value;
     reporteSalud13.otrosCansancios = this.monitoreoFg.controls.otrosCansancios13.value;
+
+    reporteSalud13.diarrea = this.monitoreoFg.controls.diarrea13.value;
+    reporteSalud13.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal13.value;
+    reporteSalud13.convulsiones = this.monitoreoFg.controls.convulsiones13.value;
+    reporteSalud13.conjuntival = this.monitoreoFg.controls.conjuntival13.value;
+    reporteSalud13.dolorOido = this.monitoreoFg.controls.dolorOido13.value;
+    reporteSalud13.postracion = this.monitoreoFg.controls.postracion13.value;
+    reporteSalud13.artralgias = this.monitoreoFg.controls.artralgias13.value;
+    reporteSalud13.mialgias = this.monitoreoFg.controls.mialgias13.value;
+    reporteSalud13.irritabilidad = this.monitoreoFg.controls.irritabilidad13.value;
+    reporteSalud13.nauseas = this.monitoreoFg.controls.nauseas13.value;
+    reporteSalud13.auscultacion = this.monitoreoFg.controls.auscultacion13.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud13);
 
     let reporteSalud14 = new FormSeccionReporteSalud();
@@ -688,6 +1020,18 @@ export class FichaMonitoreoComponent implements OnInit {
     reporteSalud14.sentisFiebre = this.monitoreoFg.controls.fiebre14.value;
     reporteSalud14.congestionNasal = this.monitoreoFg.controls.congestionNasal14.value;
     reporteSalud14.otrosCansancios = this.monitoreoFg.controls.otrosCansancios14.value;
+
+    reporteSalud14.diarrea = this.monitoreoFg.controls.diarrea14.value;
+    reporteSalud14.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal14.value;
+    reporteSalud14.convulsiones = this.monitoreoFg.controls.convulsiones14.value;
+    reporteSalud14.conjuntival = this.monitoreoFg.controls.conjuntival14.value;
+    reporteSalud14.dolorOido = this.monitoreoFg.controls.dolorOido14.value;
+    reporteSalud14.postracion = this.monitoreoFg.controls.postracion14.value;
+    reporteSalud14.artralgias = this.monitoreoFg.controls.artralgias14.value;
+    reporteSalud14.mialgias = this.monitoreoFg.controls.mialgias14.value;
+    reporteSalud14.irritabilidad = this.monitoreoFg.controls.irritabilidad14.value;
+    reporteSalud14.nauseas = this.monitoreoFg.controls.nauseas14.value;
+    reporteSalud14.auscultacion = this.monitoreoFg.controls.auscultacion14.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud14);
 
     /*this.fichaPersonalBlanco.formSeccionReporteSalud.fecha1 = this.monitoreoFg.controls.fecha1.value;
@@ -698,7 +1042,6 @@ export class FichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionReporteSalud.tos3 = this.monitoreoFg.controls.tos3.value;*/
 
     this.fichaPersonalBlanco.formSeccionClasifRiesgo = new FormSeccionClasifRiesgo();
-    this.fichaPersonalBlanco.formSeccionClasifRiesgo.clasificacionRiesgo = this.clasificacionRiesgoFg.controls.clasRiesgo.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.clasificacionFinal = this.clasificacionRiesgoFg.controls.clasifFinal.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.trabajoExclusion = this.clasificacionRiesgoFg.controls.exclusion.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.trabajoAutocontrol = this.clasificacionRiesgoFg.controls.autocontrol.value;
@@ -720,6 +1063,13 @@ export class FichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.fichaEpidemiologica = this.clasificacionRiesgoFg.controls.fichaEpidemiologica.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.evolucionFinal = this.clasificacionRiesgoFg.controls.evolucionFinal.value;
 
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.internado = this.clasificacionRiesgoFg.controls.internado.value;
+    if(this.clasificacionRiesgoFg.controls.establecimiento.value !== null){
+      this.fichaPersonalBlanco.formSeccionClasifRiesgo.establecimientoInternacion = this.clasificacionRiesgoFg.controls.establecimiento.value.nombre;
+    }
+    if(this.clasificacionRiesgoFg.controls.especialidad.value !== null){
+      this.fichaPersonalBlanco.formSeccionClasifRiesgo.especialidadInternacion = this.clasificacionRiesgoFg.controls.especialidad.value;
+    }
     this.service.guardarFichaPB(this.fichaPersonalBlanco).subscribe(response => {
           this.idRegistro = +response;
           //this._router.navigate(["covid19/carga-operador/datos-clinicos/",this.idRegistro]);

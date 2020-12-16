@@ -65,18 +65,7 @@ export class ActualizarSeguimientoComponent implements OnInit {
 
   public tipoRegistroOptions=[{value:'ingreso_pais',label:'Ingreso al país'},{value:'aislamiento',label:'Caso sospechoso Covid-19'}];
 
-  /*public departamentoOptions=[{value:'Capital',label:'Capital'},
-                              {value:'Concepción',label:'Concepción'},{value:'San Pedro',label:'San Pedro'},
-                              {value:'Cordillera',label:'Cordillera'},{value:'Guairá',label:'Guairá'},
-                              {value:'Caaguazú',label:'Caaguazú'},{value:'Caazapá',label:'Caazapá'},
-                              {value:'Itapúa',label:'Itapúa'},{value:'Misiones',label:'Misiones'},
-                              {value:'Paraguarí',label:'Paraguarí'},{value:'Alto Paraná',label:'Alto Paraná'},
-                              {value:'Central',label:'Central'},{value:'Ñeembucú',label:'Ñeembucú'},
-                              {value:'Amambay',label:'Amambay'},{value:'Canindeyú',label:'Canindeyú'},
-                              {value:'Presidente Hayes',label:'Presidente Hayes'},{value:'Alto Paraguay',label:'Alto Paraguay'},
-                              {value:'Boquerón',label:'Boquerón'}];
-  
-  public departamentoOptions=[{value:0,label:'ASUNCIÓN'}, {value:1,label:'CONCEPCIÓN'},
+  /*public departamentoOptions=[{value:0,label:'ASUNCIÓN'}, {value:1,label:'CONCEPCIÓN'},
                               {value:2,label:'SAN PEDRO'},
                               {value:3,label:'CORDILLERA'},{value:4,label:'GUAIRÁ'},
                               {value:5,label:'CAAGUAZÚ'},{value:6,label:'CAAZAPÁ'},
@@ -153,6 +142,9 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
   fechaSelec13;
   fechaSelec14;
 
+  establecimientosFiltrados: any[];
+  public especialidadOptions=[{value:'sala',label:'Sala'},{value:'uti',label:'UTI'}];
+
   fichaPersonalBlanco: FichaPersonalBlanco;
 
   constructor(
@@ -202,7 +194,8 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
       apellido: ['', Validators.required],
       sexo: ['', Validators.required],
       fechaExposicion: ['', Validators.required],
-      catContagio: ['']
+      catContagio: [''],
+      clasRiesgo: ['', Validators.required]
     });
 
     this.monitoreoFg = this._formBuilder.group({
@@ -323,6 +316,174 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
       congestionNasal12: [null, Validators.required],
       congestionNasal13: [null, Validators.required],
       congestionNasal14: [null, Validators.required],
+      diarrea1: [null, Validators.required],
+      diarrea2: [null, Validators.required],
+      diarrea3: [null, Validators.required],
+      diarrea4: [null, Validators.required],
+      diarrea5: [null, Validators.required],
+      diarrea6: [null, Validators.required],
+      diarrea7: [null, Validators.required],
+      diarrea8: [null, Validators.required],
+      diarrea9: [null, Validators.required],
+      diarrea10: [null, Validators.required],
+      diarrea11: [null, Validators.required],
+      diarrea12: [null, Validators.required],
+      diarrea13: [null, Validators.required],
+      diarrea14: [null, Validators.required],
+      dolorOido1: [null, Validators.required],
+      dolorOido2: [null, Validators.required],
+      dolorOido3: [null, Validators.required],
+      dolorOido4: [null, Validators.required],
+      dolorOido5: [null, Validators.required],
+      dolorOido6: [null, Validators.required],
+      dolorOido7: [null, Validators.required],
+      dolorOido8: [null, Validators.required],
+      dolorOido9: [null, Validators.required],
+      dolorOido10: [null, Validators.required],
+      dolorOido11: [null, Validators.required],
+      dolorOido12: [null, Validators.required],
+      dolorOido13: [null, Validators.required],
+      dolorOido14: [null, Validators.required],
+      convulsiones1: [null, Validators.required],
+      convulsiones2: [null, Validators.required],
+      convulsiones3: [null, Validators.required],
+      convulsiones4: [null, Validators.required],
+      convulsiones5: [null, Validators.required],
+      convulsiones6: [null, Validators.required],
+      convulsiones7: [null, Validators.required],
+      convulsiones8: [null, Validators.required],
+      convulsiones9: [null, Validators.required],
+      convulsiones10: [null, Validators.required],
+      convulsiones11: [null, Validators.required],
+      convulsiones12: [null, Validators.required],
+      convulsiones13: [null, Validators.required],
+      convulsiones14: [null, Validators.required],
+      mialgias1: [null, Validators.required],
+      mialgias2: [null, Validators.required],
+      mialgias3: [null, Validators.required],
+      mialgias4: [null, Validators.required],
+      mialgias5: [null, Validators.required],
+      mialgias6: [null, Validators.required],
+      mialgias7: [null, Validators.required],
+      mialgias8: [null, Validators.required],
+      mialgias9: [null, Validators.required],
+      mialgias10: [null, Validators.required],
+      mialgias11: [null, Validators.required],
+      mialgias12: [null, Validators.required],
+      mialgias13: [null, Validators.required],
+      mialgias14: [null, Validators.required],
+      artralgias1: [null, Validators.required],
+      artralgias2: [null, Validators.required],
+      artralgias3: [null, Validators.required],
+      artralgias4: [null, Validators.required],
+      artralgias5: [null, Validators.required],
+      artralgias6: [null, Validators.required],
+      artralgias7: [null, Validators.required],
+      artralgias8: [null, Validators.required],
+      artralgias9: [null, Validators.required],
+      artralgias10: [null, Validators.required],
+      artralgias11: [null, Validators.required],
+      artralgias12: [null, Validators.required],
+      artralgias13: [null, Validators.required],
+      artralgias14: [null, Validators.required],
+      postracion1: [null, Validators.required],
+      postracion2: [null, Validators.required],
+      postracion3: [null, Validators.required],
+      postracion4: [null, Validators.required],
+      postracion5: [null, Validators.required],
+      postracion6: [null, Validators.required],
+      postracion7: [null, Validators.required],
+      postracion8: [null, Validators.required],
+      postracion9: [null, Validators.required],
+      postracion10: [null, Validators.required],
+      postracion11: [null, Validators.required],
+      postracion12: [null, Validators.required],
+      postracion13: [null, Validators.required],
+      postracion14: [null, Validators.required],
+      nauseas1: [null, Validators.required],
+      nauseas2: [null, Validators.required],
+      nauseas3: [null, Validators.required],
+      nauseas4: [null, Validators.required],
+      nauseas5: [null, Validators.required],
+      nauseas6: [null, Validators.required],
+      nauseas7: [null, Validators.required],
+      nauseas8: [null, Validators.required],
+      nauseas9: [null, Validators.required],
+      nauseas10: [null, Validators.required],
+      nauseas11: [null, Validators.required],
+      nauseas12: [null, Validators.required],
+      nauseas13: [null, Validators.required],
+      nauseas14: [null, Validators.required],
+      irritabilidad1: [null, Validators.required],
+      irritabilidad2: [null, Validators.required],
+      irritabilidad3: [null, Validators.required],
+      irritabilidad4: [null, Validators.required],
+      irritabilidad5: [null, Validators.required],
+      irritabilidad6: [null, Validators.required],
+      irritabilidad7: [null, Validators.required],
+      irritabilidad8: [null, Validators.required],
+      irritabilidad9: [null, Validators.required],
+      irritabilidad10: [null, Validators.required],
+      irritabilidad11: [null, Validators.required],
+      irritabilidad12: [null, Validators.required],
+      irritabilidad13: [null, Validators.required],
+      irritabilidad14: [null, Validators.required],
+      dolorAbdominal1: [null, Validators.required],
+      dolorAbdominal2: [null, Validators.required],
+      dolorAbdominal3: [null, Validators.required],
+      dolorAbdominal4: [null, Validators.required],
+      dolorAbdominal5: [null, Validators.required],
+      dolorAbdominal6: [null, Validators.required],
+      dolorAbdominal7: [null, Validators.required],
+      dolorAbdominal8: [null, Validators.required],
+      dolorAbdominal9: [null, Validators.required],
+      dolorAbdominal10: [null, Validators.required],
+      dolorAbdominal11: [null, Validators.required],
+      dolorAbdominal12: [null, Validators.required],
+      dolorAbdominal13: [null, Validators.required],
+      dolorAbdominal14: [null, Validators.required],
+      rinorrea1: [null, Validators.required],
+      rinorrea2: [null, Validators.required],
+      rinorrea3: [null, Validators.required],
+      rinorrea4: [null, Validators.required],
+      rinorrea5: [null, Validators.required],
+      rinorrea6: [null, Validators.required],
+      rinorrea7: [null, Validators.required],
+      rinorrea8: [null, Validators.required],
+      rinorrea9: [null, Validators.required],
+      rinorrea10: [null, Validators.required],
+      rinorrea11: [null, Validators.required],
+      rinorrea12: [null, Validators.required],
+      rinorrea13: [null, Validators.required],
+      rinorrea14: [null, Validators.required],
+      conjuntival1: [null, Validators.required],
+      conjuntival2: [null, Validators.required],
+      conjuntival3: [null, Validators.required],
+      conjuntival4: [null, Validators.required],
+      conjuntival5: [null, Validators.required],
+      conjuntival6: [null, Validators.required],
+      conjuntival7: [null, Validators.required],
+      conjuntival8: [null, Validators.required],
+      conjuntival9: [null, Validators.required],
+      conjuntival10: [null, Validators.required],
+      conjuntival11: [null, Validators.required],
+      conjuntival12: [null, Validators.required],
+      conjuntival13: [null, Validators.required],
+      conjuntival14: [null, Validators.required],
+      auscultacion1: [null, Validators.required],
+      auscultacion2: [null, Validators.required],
+      auscultacion3: [null, Validators.required],
+      auscultacion4: [null, Validators.required],
+      auscultacion5: [null, Validators.required],
+      auscultacion6: [null, Validators.required],
+      auscultacion7: [null, Validators.required],
+      auscultacion8: [null, Validators.required],
+      auscultacion9: [null, Validators.required],
+      auscultacion10: [null, Validators.required],
+      auscultacion11: [null, Validators.required],
+      auscultacion12: [null, Validators.required],
+      auscultacion13: [null, Validators.required],
+      auscultacion14: [null, Validators.required],
       otrosCansancios1: [null, Validators.required],
       otrosCansancios2: [null, Validators.required],
       otrosCansancios3: [null, Validators.required],
@@ -340,7 +501,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     });
 
     this.clasificacionRiesgoFg = this._formBuilder.group({
-      clasRiesgo: ['', Validators.required],
       clasifFinal:[''],
       otroIndicEspecificar: [''],
       exclusion: [null],
@@ -355,7 +515,10 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
       resultadoPrimeraMuestra: ['', Validators.required],
       constAislamiento: [null, Validators.required],
       fichaEpidemiologica: [null, Validators.required],
-      evolucionFinal: ['', Validators.required]
+      evolucionFinal: ['', Validators.required],
+      internado: [null],
+      establecimiento: [],
+      especialidad: []
     });
   }
 
@@ -380,7 +543,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
 
         this.idRegistroForm = response.reportes[0].registroFormulario;
 
-        //let reportesOrd = response.reportes.sort((a,b)=>(a.fecha < b.fecha ? -1:1));
         this.idReporteSalud1 = response.reportes[0].id;
         this.monitoreoFg.controls.tos1.setValue(response.reportes[0].tos ==null ? null : response.reportes[0].tos == 'true');
         this.monitoreoFg.controls.fiebre1.setValue(response.reportes[0].sentisFiebre ==null ? null : response.reportes[0].sentisFiebre == 'true');
@@ -390,6 +552,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.monitoreoFg.controls.percibeOlores1.setValue(response.reportes[0].percibeOlores ==null ? null : response.reportes[0].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal1.setValue(response.reportes[0].congestionNasal ==null ? null : response.reportes[0].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios1.setValue(response.reportes[0].otrosCansancios ==null ? null : response.reportes[0].otrosCansancios == 'true');
+        
+        this.monitoreoFg.controls.diarrea1.setValue(response.reportes[0].diarrea ==null ? null : response.reportes[0].diarrea == 'true');
+        this.monitoreoFg.controls.dolorOido1.setValue(response.reportes[0].dolorOido ==null ? null : response.reportes[0].dolorOido == 'true');
+        this.monitoreoFg.controls.dolorAbdominal1.setValue(response.reportes[0].dolorAbdominal ==null ? null : response.reportes[0].dolorAbdominal == 'true');
+        this.monitoreoFg.controls.mialgias1.setValue(response.reportes[0].mialgias ==null ? null : response.reportes[0].mialgias == 'true');
+        this.monitoreoFg.controls.artralgias1.setValue(response.reportes[0].artralgias ==null ? null : response.reportes[0].artralgias == 'true');
+        this.monitoreoFg.controls.nauseas1.setValue(response.reportes[0].nauseas ==null ? null : response.reportes[0].nauseas == 'true');
+        this.monitoreoFg.controls.irritabilidad1.setValue(response.reportes[0].irritabilidad ==null ? null : response.reportes[0].irritabilidad == 'true');
+        this.monitoreoFg.controls.auscultacion1.setValue(response.reportes[0].auscultacion ==null ? null : response.reportes[0].auscultacion == 'true');
+        this.monitoreoFg.controls.conjuntival1.setValue(response.reportes[0].conjuntival ==null ? null : response.reportes[0].conjuntival == 'true');
+        this.monitoreoFg.controls.postracion1.setValue(response.reportes[0].postracion ==null ? null : response.reportes[0].postracion == 'true');
+        this.monitoreoFg.controls.convulsiones1.setValue(response.reportes[0].convulsiones ==null ? null : response.reportes[0].convulsiones == 'true');
 
         this.idReporteSalud2 = response.reportes[1].id;
         this.monitoreoFg.controls.tos2.setValue(response.reportes[1].tos ==null ? null : response.reportes[1].tos == 'true');
@@ -401,6 +575,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.monitoreoFg.controls.congestionNasal2.setValue(response.reportes[1].congestionNasal ==null ? null : response.reportes[1].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios2.setValue(response.reportes[1].otrosCansancios ==null ? null : response.reportes[1].otrosCansancios == 'true');
 
+        this.monitoreoFg.controls.diarrea2.setValue(response.reportes[1].diarrea ==null ? null : response.reportes[1].diarrea == 'true');
+        this.monitoreoFg.controls.dolorOido2.setValue(response.reportes[1].dolorOido ==null ? null : response.reportes[1].dolorOido == 'true');
+        this.monitoreoFg.controls.dolorAbdominal2.setValue(response.reportes[1].dolorAbdominal ==null ? null : response.reportes[1].dolorAbdominal == 'true');
+        this.monitoreoFg.controls.mialgias2.setValue(response.reportes[1].mialgias ==null ? null : response.reportes[1].mialgias == 'true');
+        this.monitoreoFg.controls.artralgias2.setValue(response.reportes[1].artralgias ==null ? null : response.reportes[1].artralgias == 'true');
+        this.monitoreoFg.controls.nauseas2.setValue(response.reportes[1].nauseas ==null ? null : response.reportes[1].nauseas == 'true');
+        this.monitoreoFg.controls.irritabilidad2.setValue(response.reportes[1].irritabilidad ==null ? null : response.reportes[1].irritabilidad == 'true');
+        this.monitoreoFg.controls.auscultacion2.setValue(response.reportes[1].auscultacion ==null ? null : response.reportes[1].auscultacion == 'true');
+        this.monitoreoFg.controls.conjuntival2.setValue(response.reportes[1].conjuntival ==null ? null : response.reportes[1].conjuntival == 'true');
+        this.monitoreoFg.controls.postracion2.setValue(response.reportes[1].postracion ==null ? null : response.reportes[1].postracion == 'true');
+        this.monitoreoFg.controls.convulsiones2.setValue(response.reportes[1].convulsiones ==null ? null : response.reportes[1].convulsiones == 'true');
+
         this.idReporteSalud3 = response.reportes[2].id;
         this.monitoreoFg.controls.tos3.setValue(response.reportes[2].tos ==null ? null : response.reportes[2].tos == 'true');
         this.monitoreoFg.controls.fiebre3.setValue(response.reportes[2].sentisFiebre ==null ? null : response.reportes[2].sentisFiebre == 'true');
@@ -410,6 +596,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.monitoreoFg.controls.percibeOlores13.setValue(response.reportes[2].percibeOlores ==null ? null : response.reportes[2].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal3.setValue(response.reportes[2].congestionNasal ==null ? null : response.reportes[2].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios3.setValue(response.reportes[2].otrosCansancios ==null ? null : response.reportes[2].otrosCansancios == 'true');
+
+        this.monitoreoFg.controls.diarrea3.setValue(response.reportes[2].diarrea ==null ? null : response.reportes[2].diarrea == 'true');
+        this.monitoreoFg.controls.dolorOido3.setValue(response.reportes[2].dolorOido ==null ? null : response.reportes[2].dolorOido == 'true');
+        this.monitoreoFg.controls.dolorAbdominal3.setValue(response.reportes[2].dolorAbdominal ==null ? null : response.reportes[2].dolorAbdominal == 'true');
+        this.monitoreoFg.controls.mialgias3.setValue(response.reportes[2].mialgias ==null ? null : response.reportes[2].mialgias == 'true');
+        this.monitoreoFg.controls.artralgias3.setValue(response.reportes[2].artralgias ==null ? null : response.reportes[2].artralgias == 'true');
+        this.monitoreoFg.controls.nauseas3.setValue(response.reportes[2].nauseas ==null ? null : response.reportes[2].nauseas == 'true');
+        this.monitoreoFg.controls.irritabilidad3.setValue(response.reportes[2].irritabilidad ==null ? null : response.reportes[2].irritabilidad == 'true');
+        this.monitoreoFg.controls.auscultacion3.setValue(response.reportes[2].auscultacion ==null ? null : response.reportes[2].auscultacion == 'true');
+        this.monitoreoFg.controls.conjuntival3.setValue(response.reportes[2].conjuntival ==null ? null : response.reportes[2].conjuntival == 'true');
+        this.monitoreoFg.controls.postracion3.setValue(response.reportes[2].postracion ==null ? null : response.reportes[2].postracion == 'true');
+        this.monitoreoFg.controls.convulsiones3.setValue(response.reportes[2].convulsiones ==null ? null : response.reportes[2].convulsiones == 'true');
 
         this.idReporteSalud4 = response.reportes[3].id;
         this.monitoreoFg.controls.tos4.setValue(response.reportes[3].tos ==null ? null : response.reportes[3].tos == 'true');
@@ -421,6 +619,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.monitoreoFg.controls.congestionNasal4.setValue(response.reportes[3].congestionNasal ==null ? null : response.reportes[3].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios4.setValue(response.reportes[3].otrosCansancios ==null ? null : response.reportes[3].otrosCansancios == 'true');
 
+        this.monitoreoFg.controls.diarrea4.setValue(response.reportes[3].diarrea ==null ? null : response.reportes[3].diarrea == 'true');
+        this.monitoreoFg.controls.dolorOido4.setValue(response.reportes[3].dolorOido ==null ? null : response.reportes[3].dolorOido == 'true');
+        this.monitoreoFg.controls.dolorAbdominal4.setValue(response.reportes[3].dolorAbdominal ==null ? null : response.reportes[3].dolorAbdominal == 'true');
+        this.monitoreoFg.controls.mialgias4.setValue(response.reportes[3].mialgias ==null ? null : response.reportes[3].mialgias == 'true');
+        this.monitoreoFg.controls.artralgias4.setValue(response.reportes[3].artralgias ==null ? null : response.reportes[3].artralgias == 'true');
+        this.monitoreoFg.controls.nauseas4.setValue(response.reportes[3].nauseas ==null ? null : response.reportes[3].nauseas == 'true');
+        this.monitoreoFg.controls.irritabilidad4.setValue(response.reportes[3].irritabilidad ==null ? null : response.reportes[3].irritabilidad == 'true');
+        this.monitoreoFg.controls.auscultacion4.setValue(response.reportes[3].auscultacion ==null ? null : response.reportes[3].auscultacion == 'true');
+        this.monitoreoFg.controls.conjuntival4.setValue(response.reportes[3].conjuntival ==null ? null : response.reportes[3].conjuntival == 'true');
+        this.monitoreoFg.controls.postracion4.setValue(response.reportes[3].postracion ==null ? null : response.reportes[3].postracion == 'true');
+        this.monitoreoFg.controls.convulsiones4.setValue(response.reportes[3].convulsiones ==null ? null : response.reportes[3].convulsiones == 'true');
+
         this.idReporteSalud5 = response.reportes[4].id;
         this.monitoreoFg.controls.tos5.setValue(response.reportes[4].tos ==null ? null : response.reportes[4].tos == 'true');
         this.monitoreoFg.controls.fiebre5.setValue(response.reportes[4].sentisFiebre ==null ? null : response.reportes[4].sentisFiebre == 'true');
@@ -430,6 +640,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.monitoreoFg.controls.percibeOlores5.setValue(response.reportes[4].percibeOlores ==null ? null : response.reportes[4].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal5.setValue(response.reportes[4].congestionNasal ==null ? null : response.reportes[4].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios5.setValue(response.reportes[4].otrosCansancios ==null ? null : response.reportes[4].otrosCansancios == 'true');
+
+        this.monitoreoFg.controls.diarrea5.setValue(response.reportes[4].diarrea ==null ? null : response.reportes[4].diarrea == 'true');
+        this.monitoreoFg.controls.dolorOido5.setValue(response.reportes[4].dolorOido ==null ? null : response.reportes[4].dolorOido == 'true');
+        this.monitoreoFg.controls.dolorAbdominal5.setValue(response.reportes[4].dolorAbdominal ==null ? null : response.reportes[4].dolorAbdominal == 'true');
+        this.monitoreoFg.controls.mialgias5.setValue(response.reportes[4].mialgias ==null ? null : response.reportes[4].mialgias == 'true');
+        this.monitoreoFg.controls.artralgias5.setValue(response.reportes[4].artralgias ==null ? null : response.reportes[4].artralgias == 'true');
+        this.monitoreoFg.controls.nauseas5.setValue(response.reportes[4].nauseas ==null ? null : response.reportes[4].nauseas == 'true');
+        this.monitoreoFg.controls.irritabilidad5.setValue(response.reportes[4].irritabilidad ==null ? null : response.reportes[4].irritabilidad == 'true');
+        this.monitoreoFg.controls.auscultacion5.setValue(response.reportes[4].auscultacion ==null ? null : response.reportes[4].auscultacion == 'true');
+        this.monitoreoFg.controls.conjuntival5.setValue(response.reportes[4].conjuntival ==null ? null : response.reportes[4].conjuntival == 'true');
+        this.monitoreoFg.controls.postracion5.setValue(response.reportes[4].postracion ==null ? null : response.reportes[4].postracion == 'true');
+        this.monitoreoFg.controls.convulsiones5.setValue(response.reportes[4].convulsiones ==null ? null : response.reportes[4].convulsiones == 'true');
 
         this.idReporteSalud6 = response.reportes[5].id;
         this.monitoreoFg.controls.tos6.setValue(response.reportes[5].tos ==null ? null : response.reportes[5].tos == 'true');
@@ -441,6 +663,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.monitoreoFg.controls.congestionNasal6.setValue(response.reportes[5].congestionNasal ==null ? null : response.reportes[5].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios6.setValue(response.reportes[5].otrosCansancios ==null ? null : response.reportes[5].otrosCansancios == 'true');
 
+        this.monitoreoFg.controls.diarrea6.setValue(response.reportes[5].diarrea ==null ? null : response.reportes[5].diarrea == 'true');
+        this.monitoreoFg.controls.dolorOido6.setValue(response.reportes[5].dolorOido ==null ? null : response.reportes[5].dolorOido == 'true');
+        this.monitoreoFg.controls.dolorAbdominal6.setValue(response.reportes[5].dolorAbdominal ==null ? null : response.reportes[5].dolorAbdominal == 'true');
+        this.monitoreoFg.controls.mialgias6.setValue(response.reportes[5].mialgias ==null ? null : response.reportes[5].mialgias == 'true');
+        this.monitoreoFg.controls.artralgias6.setValue(response.reportes[5].artralgias ==null ? null : response.reportes[5].artralgias == 'true');
+        this.monitoreoFg.controls.nauseas6.setValue(response.reportes[5].nauseas ==null ? null : response.reportes[5].nauseas == 'true');
+        this.monitoreoFg.controls.irritabilidad6.setValue(response.reportes[5].irritabilidad ==null ? null : response.reportes[5].irritabilidad == 'true');
+        this.monitoreoFg.controls.auscultacion6.setValue(response.reportes[5].auscultacion ==null ? null : response.reportes[5].auscultacion == 'true');
+        this.monitoreoFg.controls.conjuntival6.setValue(response.reportes[5].conjuntival ==null ? null : response.reportes[5].conjuntival == 'true');
+        this.monitoreoFg.controls.postracion6.setValue(response.reportes[5].postracion ==null ? null : response.reportes[5].postracion == 'true');
+        this.monitoreoFg.controls.convulsiones6.setValue(response.reportes[5].convulsiones ==null ? null : response.reportes[5].convulsiones == 'true');
+
         this.idReporteSalud7 = response.reportes[6].id;
         this.monitoreoFg.controls.tos7.setValue(response.reportes[6].tos ==null ? null : response.reportes[6].tos == 'true');
         this.monitoreoFg.controls.fiebre7.setValue(response.reportes[6].sentisFiebre ==null ? null : response.reportes[6].sentisFiebre == 'true');
@@ -450,6 +684,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.monitoreoFg.controls.percibeOlores7.setValue(response.reportes[6].percibeOlores ==null ? null : response.reportes[6].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal7.setValue(response.reportes[6].congestionNasal ==null ? null : response.reportes[6].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios7.setValue(response.reportes[6].otrosCansancios ==null ? null : response.reportes[6].otrosCansancios == 'true');
+
+        this.monitoreoFg.controls.diarrea7.setValue(response.reportes[6].diarrea ==null ? null : response.reportes[6].diarrea == 'true');
+        this.monitoreoFg.controls.dolorOido7.setValue(response.reportes[6].dolorOido ==null ? null : response.reportes[6].dolorOido == 'true');
+        this.monitoreoFg.controls.dolorAbdominal7.setValue(response.reportes[6].dolorAbdominal ==null ? null : response.reportes[6].dolorAbdominal == 'true');
+        this.monitoreoFg.controls.mialgias7.setValue(response.reportes[6].mialgias ==null ? null : response.reportes[6].mialgias == 'true');
+        this.monitoreoFg.controls.artralgias7.setValue(response.reportes[6].artralgias ==null ? null : response.reportes[6].artralgias == 'true');
+        this.monitoreoFg.controls.nauseas7.setValue(response.reportes[6].nauseas ==null ? null : response.reportes[6].nauseas == 'true');
+        this.monitoreoFg.controls.irritabilidad7.setValue(response.reportes[6].irritabilidad ==null ? null : response.reportes[6].irritabilidad == 'true');
+        this.monitoreoFg.controls.auscultacion7.setValue(response.reportes[6].auscultacion ==null ? null : response.reportes[6].auscultacion == 'true');
+        this.monitoreoFg.controls.conjuntival7.setValue(response.reportes[6].conjuntival ==null ? null : response.reportes[6].conjuntival == 'true');
+        this.monitoreoFg.controls.postracion7.setValue(response.reportes[6].postracion ==null ? null : response.reportes[6].postracion == 'true');
+        this.monitoreoFg.controls.convulsiones7.setValue(response.reportes[6].convulsiones ==null ? null : response.reportes[6].convulsiones == 'true');
 
         this.idReporteSalud8 = response.reportes[7].id;
         this.monitoreoFg.controls.tos8.setValue(response.reportes[7].tos ==null ? null : response.reportes[7].tos == 'true');
@@ -461,6 +707,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.monitoreoFg.controls.congestionNasal8.setValue(response.reportes[7].congestionNasal ==null ? null : response.reportes[7].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios8.setValue(response.reportes[7].otrosCansancios ==null ? null : response.reportes[7].otrosCansancios == 'true');
 
+        this.monitoreoFg.controls.diarrea8.setValue(response.reportes[7].diarrea ==null ? null : response.reportes[7].diarrea == 'true');
+        this.monitoreoFg.controls.dolorOido8.setValue(response.reportes[7].dolorOido ==null ? null : response.reportes[7].dolorOido == 'true');
+        this.monitoreoFg.controls.dolorAbdominal8.setValue(response.reportes[7].dolorAbdominal ==null ? null : response.reportes[7].dolorAbdominal == 'true');
+        this.monitoreoFg.controls.mialgias8.setValue(response.reportes[7].mialgias ==null ? null : response.reportes[7].mialgias == 'true');
+        this.monitoreoFg.controls.artralgias8.setValue(response.reportes[7].artralgias ==null ? null : response.reportes[7].artralgias == 'true');
+        this.monitoreoFg.controls.nauseas8.setValue(response.reportes[7].nauseas ==null ? null : response.reportes[7].nauseas == 'true');
+        this.monitoreoFg.controls.irritabilidad8.setValue(response.reportes[7].irritabilidad ==null ? null : response.reportes[7].irritabilidad == 'true');
+        this.monitoreoFg.controls.auscultacion8.setValue(response.reportes[7].auscultacion ==null ? null : response.reportes[7].auscultacion == 'true');
+        this.monitoreoFg.controls.conjuntival8.setValue(response.reportes[7].conjuntival ==null ? null : response.reportes[7].conjuntival == 'true');
+        this.monitoreoFg.controls.postracion8.setValue(response.reportes[7].postracion ==null ? null : response.reportes[7].postracion == 'true');
+        this.monitoreoFg.controls.convulsiones8.setValue(response.reportes[7].convulsiones ==null ? null : response.reportes[7].convulsiones == 'true');
+
         this.idReporteSalud9 = response.reportes[8].id;
         this.monitoreoFg.controls.tos9.setValue(response.reportes[8].tos ==null ? null : response.reportes[8].tos == 'true');
         this.monitoreoFg.controls.fiebre9.setValue(response.reportes[8].sentisFiebre ==null ? null : response.reportes[8].sentisFiebre == 'true');
@@ -470,6 +728,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.monitoreoFg.controls.percibeOlores9.setValue(response.reportes[8].percibeOlores ==null ? null : response.reportes[8].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal9.setValue(response.reportes[8].congestionNasal ==null ? null : response.reportes[8].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios9.setValue(response.reportes[8].otrosCansancios ==null ? null : response.reportes[8].otrosCansancios == 'true');
+
+        this.monitoreoFg.controls.diarrea9.setValue(response.reportes[8].diarrea ==null ? null : response.reportes[8].diarrea == 'true');
+        this.monitoreoFg.controls.dolorOido9.setValue(response.reportes[8].dolorOido ==null ? null : response.reportes[8].dolorOido == 'true');
+        this.monitoreoFg.controls.dolorAbdominal9.setValue(response.reportes[8].dolorAbdominal ==null ? null : response.reportes[8].dolorAbdominal == 'true');
+        this.monitoreoFg.controls.mialgias9.setValue(response.reportes[8].mialgias ==null ? null : response.reportes[8].mialgias == 'true');
+        this.monitoreoFg.controls.artralgias9.setValue(response.reportes[8].artralgias ==null ? null : response.reportes[8].artralgias == 'true');
+        this.monitoreoFg.controls.nauseas9.setValue(response.reportes[8].nauseas ==null ? null : response.reportes[8].nauseas == 'true');
+        this.monitoreoFg.controls.irritabilidad9.setValue(response.reportes[8].irritabilidad ==null ? null : response.reportes[8].irritabilidad == 'true');
+        this.monitoreoFg.controls.auscultacion9.setValue(response.reportes[8].auscultacion ==null ? null : response.reportes[8].auscultacion == 'true');
+        this.monitoreoFg.controls.conjuntival9.setValue(response.reportes[8].conjuntival ==null ? null : response.reportes[8].conjuntival == 'true');
+        this.monitoreoFg.controls.postracion9.setValue(response.reportes[8].postracion ==null ? null : response.reportes[8].postracion == 'true');
+        this.monitoreoFg.controls.convulsiones9.setValue(response.reportes[8].convulsiones ==null ? null : response.reportes[8].convulsiones == 'true');
 
         this.idReporteSalud10 = response.reportes[9].id;
         this.monitoreoFg.controls.tos10.setValue(response.reportes[9].tos ==null ? null : response.reportes[9].tos == 'true');
@@ -481,6 +751,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.monitoreoFg.controls.congestionNasal10.setValue(response.reportes[9].congestionNasal ==null ? null : response.reportes[9].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios10.setValue(response.reportes[9].otrosCansancios ==null ? null : response.reportes[9].otrosCansancios == 'true');
 
+        this.monitoreoFg.controls.diarrea10.setValue(response.reportes[9].diarrea ==null ? null : response.reportes[9].diarrea == 'true');
+        this.monitoreoFg.controls.dolorOido10.setValue(response.reportes[9].dolorOido ==null ? null : response.reportes[9].dolorOido == 'true');
+        this.monitoreoFg.controls.dolorAbdominal10.setValue(response.reportes[9].dolorAbdominal ==null ? null : response.reportes[9].dolorAbdominal == 'true');
+        this.monitoreoFg.controls.mialgias10.setValue(response.reportes[9].mialgias ==null ? null : response.reportes[9].mialgias == 'true');
+        this.monitoreoFg.controls.artralgias10.setValue(response.reportes[9].artralgias ==null ? null : response.reportes[9].artralgias == 'true');
+        this.monitoreoFg.controls.nauseas10.setValue(response.reportes[9].nauseas ==null ? null : response.reportes[9].nauseas == 'true');
+        this.monitoreoFg.controls.irritabilidad10.setValue(response.reportes[9].irritabilidad ==null ? null : response.reportes[9].irritabilidad == 'true');
+        this.monitoreoFg.controls.auscultacion10.setValue(response.reportes[9].auscultacion ==null ? null : response.reportes[9].auscultacion == 'true');
+        this.monitoreoFg.controls.conjuntival10.setValue(response.reportes[9].conjuntival ==null ? null : response.reportes[9].conjuntival == 'true');
+        this.monitoreoFg.controls.postracion10.setValue(response.reportes[9].postracion ==null ? null : response.reportes[9].postracion == 'true');
+        this.monitoreoFg.controls.convulsiones10.setValue(response.reportes[9].convulsiones ==null ? null : response.reportes[9].convulsiones == 'true');
+
         this.idReporteSalud11 = response.reportes[10].id;
         this.monitoreoFg.controls.tos11.setValue(response.reportes[10].tos ==null ? null : response.reportes[10].tos == 'true');
         this.monitoreoFg.controls.fiebre11.setValue(response.reportes[10].sentisFiebre ==null ? null : response.reportes[10].sentisFiebre == 'true');
@@ -490,6 +772,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.monitoreoFg.controls.percibeOlores11.setValue(response.reportes[10].percibeOlores ==null ? null : response.reportes[10].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal11.setValue(response.reportes[10].congestionNasal ==null ? null : response.reportes[10].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios11.setValue(response.reportes[10].otrosCansancios ==null ? null : response.reportes[10].otrosCansancios == 'true');
+
+        this.monitoreoFg.controls.diarrea11.setValue(response.reportes[10].diarrea ==null ? null : response.reportes[10].diarrea == 'true');
+        this.monitoreoFg.controls.dolorOido11.setValue(response.reportes[10].dolorOido ==null ? null : response.reportes[10].dolorOido == 'true');
+        this.monitoreoFg.controls.dolorAbdominal11.setValue(response.reportes[10].dolorAbdominal ==null ? null : response.reportes[10].dolorAbdominal == 'true');
+        this.monitoreoFg.controls.mialgias11.setValue(response.reportes[10].mialgias ==null ? null : response.reportes[10].mialgias == 'true');
+        this.monitoreoFg.controls.artralgias11.setValue(response.reportes[10].artralgias ==null ? null : response.reportes[10].artralgias == 'true');
+        this.monitoreoFg.controls.nauseas11.setValue(response.reportes[10].nauseas ==null ? null : response.reportes[10].nauseas == 'true');
+        this.monitoreoFg.controls.irritabilidad11.setValue(response.reportes[10].irritabilidad ==null ? null : response.reportes[10].irritabilidad == 'true');
+        this.monitoreoFg.controls.auscultacion11.setValue(response.reportes[10].auscultacion ==null ? null : response.reportes[10].auscultacion == 'true');
+        this.monitoreoFg.controls.conjuntival11.setValue(response.reportes[10].conjuntival ==null ? null : response.reportes[10].conjuntival == 'true');
+        this.monitoreoFg.controls.postracion11.setValue(response.reportes[10].postracion ==null ? null : response.reportes[10].postracion == 'true');
+        this.monitoreoFg.controls.convulsiones11.setValue(response.reportes[10].convulsiones ==null ? null : response.reportes[10].convulsiones == 'true');
 
         this.idReporteSalud12 = response.reportes[11].id;
         this.monitoreoFg.controls.tos12.setValue(response.reportes[11].tos ==null ? null : response.reportes[11].tos == 'true');
@@ -501,6 +795,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.monitoreoFg.controls.congestionNasal12.setValue(response.reportes[11].congestionNasal ==null ? null : response.reportes[11].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios12.setValue(response.reportes[11].otrosCansancios ==null ? null : response.reportes[11].otrosCansancios == 'true');
 
+        this.monitoreoFg.controls.diarrea12.setValue(response.reportes[11].diarrea ==null ? null : response.reportes[11].diarrea == 'true');
+        this.monitoreoFg.controls.dolorOido12.setValue(response.reportes[11].dolorOido ==null ? null : response.reportes[11].dolorOido == 'true');
+        this.monitoreoFg.controls.dolorAbdominal12.setValue(response.reportes[11].dolorAbdominal ==null ? null : response.reportes[11].dolorAbdominal == 'true');
+        this.monitoreoFg.controls.mialgias12.setValue(response.reportes[11].mialgias ==null ? null : response.reportes[11].mialgias == 'true');
+        this.monitoreoFg.controls.artralgias12.setValue(response.reportes[11].artralgias ==null ? null : response.reportes[11].artralgias == 'true');
+        this.monitoreoFg.controls.nauseas12.setValue(response.reportes[11].nauseas ==null ? null : response.reportes[11].nauseas == 'true');
+        this.monitoreoFg.controls.irritabilidad12.setValue(response.reportes[11].irritabilidad ==null ? null : response.reportes[11].irritabilidad == 'true');
+        this.monitoreoFg.controls.auscultacion12.setValue(response.reportes[11].auscultacion ==null ? null : response.reportes[11].auscultacion == 'true');
+        this.monitoreoFg.controls.conjuntival12.setValue(response.reportes[11].conjuntival ==null ? null : response.reportes[11].conjuntival == 'true');
+        this.monitoreoFg.controls.postracion12.setValue(response.reportes[11].postracion ==null ? null : response.reportes[11].postracion == 'true');
+        this.monitoreoFg.controls.convulsiones12.setValue(response.reportes[11].convulsiones ==null ? null : response.reportes[11].convulsiones == 'true');
+
         this.idReporteSalud13 = response.reportes[12].id;
         this.monitoreoFg.controls.tos13.setValue(response.reportes[12].tos ==null ? null : response.reportes[12].tos == 'true');
         this.monitoreoFg.controls.fiebre13.setValue(response.reportes[12].sentisFiebre ==null ? null : response.reportes[12].sentisFiebre == 'true');
@@ -510,6 +816,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.monitoreoFg.controls.percibeOlores13.setValue(response.reportes[12].percibeOlores ==null ? null : response.reportes[12].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal13.setValue(response.reportes[12].congestionNasal ==null ? null : response.reportes[12].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios13.setValue(response.reportes[12].otrosCansancios ==null ? null : response.reportes[12].otrosCansancios == 'true');
+
+        this.monitoreoFg.controls.diarrea13.setValue(response.reportes[12].diarrea ==null ? null : response.reportes[12].diarrea == 'true');
+        this.monitoreoFg.controls.dolorOido13.setValue(response.reportes[12].dolorOido ==null ? null : response.reportes[12].dolorOido == 'true');
+        this.monitoreoFg.controls.dolorAbdominal13.setValue(response.reportes[12].dolorAbdominal ==null ? null : response.reportes[12].dolorAbdominal == 'true');
+        this.monitoreoFg.controls.mialgias13.setValue(response.reportes[12].mialgias ==null ? null : response.reportes[12].mialgias == 'true');
+        this.monitoreoFg.controls.artralgias13.setValue(response.reportes[12].artralgias ==null ? null : response.reportes[12].artralgias == 'true');
+        this.monitoreoFg.controls.nauseas13.setValue(response.reportes[12].nauseas ==null ? null : response.reportes[12].nauseas == 'true');
+        this.monitoreoFg.controls.irritabilidad13.setValue(response.reportes[12].irritabilidad ==null ? null : response.reportes[12].irritabilidad == 'true');
+        this.monitoreoFg.controls.auscultacion13.setValue(response.reportes[12].auscultacion ==null ? null : response.reportes[12].auscultacion == 'true');
+        this.monitoreoFg.controls.conjuntival13.setValue(response.reportes[12].conjuntival ==null ? null : response.reportes[12].conjuntival == 'true');
+        this.monitoreoFg.controls.postracion13.setValue(response.reportes[12].postracion ==null ? null : response.reportes[12].postracion == 'true');
+        this.monitoreoFg.controls.convulsiones13.setValue(response.reportes[12].convulsiones ==null ? null : response.reportes[12].convulsiones == 'true');
 
         this.idReporteSalud14 = response.reportes[13].id;
         this.monitoreoFg.controls.tos14.setValue(response.reportes[13].tos ==null ? null : response.reportes[13].tos == 'true');
@@ -521,7 +839,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.monitoreoFg.controls.congestionNasal14.setValue(response.reportes[13].congestionNasal ==null ? null : response.reportes[13].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios14.setValue(response.reportes[13].otrosCansancios ==null ? null : response.reportes[13].otrosCansancios == 'true');
 
-        this.clasificacionRiesgoFg.controls.clasRiesgo.setValue(response.clasificacionRiesgo);
+        this.monitoreoFg.controls.diarrea14.setValue(response.reportes[13].diarrea ==null ? null : response.reportes[13].diarrea == 'true');
+        this.monitoreoFg.controls.dolorOido14.setValue(response.reportes[13].dolorOido ==null ? null : response.reportes[13].dolorOido == 'true');
+        this.monitoreoFg.controls.dolorAbdominal14.setValue(response.reportes[13].dolorAbdominal ==null ? null : response.reportes[13].dolorAbdominal == 'true');
+        this.monitoreoFg.controls.mialgias14.setValue(response.reportes[13].mialgias ==null ? null : response.reportes[13].mialgias == 'true');
+        this.monitoreoFg.controls.artralgias14.setValue(response.reportes[13].artralgias ==null ? null : response.reportes[13].artralgias == 'true');
+        this.monitoreoFg.controls.nauseas14.setValue(response.reportes[13].nauseas ==null ? null : response.reportes[13].nauseas == 'true');
+        this.monitoreoFg.controls.irritabilidad14.setValue(response.reportes[13].irritabilidad ==null ? null : response.reportes[13].irritabilidad == 'true');
+        this.monitoreoFg.controls.auscultacion14.setValue(response.reportes[13].auscultacion ==null ? null : response.reportes[13].auscultacion == 'true');
+        this.monitoreoFg.controls.conjuntival14.setValue(response.reportes[13].conjuntival ==null ? null : response.reportes[13].conjuntival == 'true');
+        this.monitoreoFg.controls.postracion14.setValue(response.reportes[13].postracion ==null ? null : response.reportes[13].postracion == 'true');
+        this.monitoreoFg.controls.convulsiones14.setValue(response.reportes[13].convulsiones ==null ? null : response.reportes[13].convulsiones == 'true');
+
         this.clasificacionRiesgoFg.controls.exclusion.setValue(response.trabajoExclusion);
         this.clasificacionRiesgoFg.controls.autocontrol.setValue(response.trabajoAutocontrol);
         this.clasificacionRiesgoFg.controls.nada.setValue(response.trabajoNada);
@@ -540,6 +869,10 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         response.fechaCierreCaso.substring(5, 7)+'/'+response.fechaCierreCaso.substring(0, 4));
         this.clasificacionRiesgoFg.controls.constAislamiento.setValue(response.constanciaAislamiento);
         this.clasificacionRiesgoFg.controls.fichaEpidemiologica.setValue(response.fichaEpidemiologica);
+
+        this.clasificacionRiesgoFg.controls.internado.setValue(response.internado);
+        this.clasificacionRiesgoFg.controls.establecimiento.setValue({nombre:response.establecimientoInternacion});
+        this.clasificacionRiesgoFg.controls.especialidad.setValue(response.especialidadInternacion);
         //this.response = response;
         this.mensaje= null;
     }, error => {
@@ -576,7 +909,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     let reporteSalud1 = new FormSeccionReporteSalud();
     reporteSalud1.id = this.idReporteSalud1;
     reporteSalud1.fecha = this.fechaSelec1;
-    console.log(reporteSalud1.fecha);
     reporteSalud1.tos = this.monitoreoFg.controls.tos1.value;
     reporteSalud1.dolorGarganta = this.monitoreoFg.controls.dolorGarganta1.value;
     reporteSalud1.dolorCabeza = this.monitoreoFg.controls.dolorCabeza1.value;
@@ -585,6 +917,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     reporteSalud1.sentisFiebre = this.monitoreoFg.controls.fiebre1.value;
     reporteSalud1.congestionNasal = this.monitoreoFg.controls.congestionNasal1.value;
     reporteSalud1.otrosCansancios = this.monitoreoFg.controls.otrosCansancios1.value;
+
+    reporteSalud1.diarrea = this.monitoreoFg.controls.diarrea1.value;
+    reporteSalud1.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal1.value;
+    reporteSalud1.convulsiones = this.monitoreoFg.controls.convulsiones1.value;
+    reporteSalud1.conjuntival = this.monitoreoFg.controls.conjuntival1.value;
+    reporteSalud1.dolorOido = this.monitoreoFg.controls.dolorOido1.value;
+    reporteSalud1.postracion = this.monitoreoFg.controls.postracion1.value;
+    reporteSalud1.artralgias = this.monitoreoFg.controls.artralgias1.value;
+    reporteSalud1.mialgias = this.monitoreoFg.controls.mialgias1.value;
+    reporteSalud1.irritabilidad = this.monitoreoFg.controls.irritabilidad1.value;
+    reporteSalud1.nauseas = this.monitoreoFg.controls.nauseas1.value;
+    reporteSalud1.auscultacion = this.monitoreoFg.controls.auscultacion1.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud1);
 
     let reporteSalud2 = new FormSeccionReporteSalud();
@@ -598,6 +942,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     reporteSalud2.sentisFiebre = this.monitoreoFg.controls.fiebre2.value;
     reporteSalud2.congestionNasal = this.monitoreoFg.controls.congestionNasal2.value;
     reporteSalud2.otrosCansancios = this.monitoreoFg.controls.otrosCansancios2.value;
+
+    reporteSalud2.diarrea = this.monitoreoFg.controls.diarrea2.value;
+    reporteSalud2.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal2.value;
+    reporteSalud2.convulsiones = this.monitoreoFg.controls.convulsiones2.value;
+    reporteSalud2.conjuntival = this.monitoreoFg.controls.conjuntival2.value;
+    reporteSalud2.dolorOido = this.monitoreoFg.controls.dolorOido2.value;
+    reporteSalud2.postracion = this.monitoreoFg.controls.postracion2.value;
+    reporteSalud2.artralgias = this.monitoreoFg.controls.artralgias2.value;
+    reporteSalud2.mialgias = this.monitoreoFg.controls.mialgias2.value;
+    reporteSalud2.irritabilidad = this.monitoreoFg.controls.irritabilidad2.value;
+    reporteSalud2.nauseas = this.monitoreoFg.controls.nauseas2.value;
+    reporteSalud2.auscultacion = this.monitoreoFg.controls.auscultacion2.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud2);
 
     let reporteSalud3 = new FormSeccionReporteSalud();
@@ -612,6 +968,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     reporteSalud3.sentisFiebre = this.monitoreoFg.controls.fiebre3.value;
     reporteSalud3.congestionNasal = this.monitoreoFg.controls.congestionNasal3.value;
     reporteSalud3.otrosCansancios = this.monitoreoFg.controls.otrosCansancios3.value;
+
+    reporteSalud3.diarrea = this.monitoreoFg.controls.diarrea3.value;
+    reporteSalud3.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal3.value;
+    reporteSalud3.convulsiones = this.monitoreoFg.controls.convulsiones3.value;
+    reporteSalud3.conjuntival = this.monitoreoFg.controls.conjuntival3.value;
+    reporteSalud3.dolorOido = this.monitoreoFg.controls.dolorOido3.value;
+    reporteSalud3.postracion = this.monitoreoFg.controls.postracion3.value;
+    reporteSalud3.artralgias = this.monitoreoFg.controls.artralgias3.value;
+    reporteSalud3.mialgias = this.monitoreoFg.controls.mialgias3.value;
+    reporteSalud3.irritabilidad = this.monitoreoFg.controls.irritabilidad3.value;
+    reporteSalud3.nauseas = this.monitoreoFg.controls.nauseas3.value;
+    reporteSalud3.auscultacion = this.monitoreoFg.controls.auscultacion3.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud3);
 
     let reporteSalud4 = new FormSeccionReporteSalud();
@@ -625,19 +993,43 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     reporteSalud4.sentisFiebre = this.monitoreoFg.controls.fiebre4.value;
     reporteSalud4.congestionNasal = this.monitoreoFg.controls.congestionNasal4.value;
     reporteSalud4.otrosCansancios = this.monitoreoFg.controls.otrosCansancios4.value;
+
+    reporteSalud4.diarrea = this.monitoreoFg.controls.diarrea4.value;
+    reporteSalud4.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal4.value;
+    reporteSalud4.convulsiones = this.monitoreoFg.controls.convulsiones4.value;
+    reporteSalud4.conjuntival = this.monitoreoFg.controls.conjuntival4.value;
+    reporteSalud4.dolorOido = this.monitoreoFg.controls.dolorOido4.value;
+    reporteSalud4.postracion = this.monitoreoFg.controls.postracion4.value;
+    reporteSalud4.artralgias = this.monitoreoFg.controls.artralgias4.value;
+    reporteSalud4.mialgias = this.monitoreoFg.controls.mialgias4.value;
+    reporteSalud4.irritabilidad = this.monitoreoFg.controls.irritabilidad4.value;
+    reporteSalud4.nauseas = this.monitoreoFg.controls.nauseas4.value;
+    reporteSalud4.auscultacion = this.monitoreoFg.controls.auscultacion4.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud4);
 
     let reporteSalud5 = new FormSeccionReporteSalud();
     reporteSalud5.id = this.idReporteSalud5;
     reporteSalud5.fecha = this.fechaSelec5;
     reporteSalud5.tos = this.monitoreoFg.controls.tos5.value;
-    reporteSalud5.dolorGarganta = this.monitoreoFg.controls.dolorGarganta4.value;
-    reporteSalud5.dolorCabeza = this.monitoreoFg.controls.dolorCabeza4.value;
-    reporteSalud5.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar4.value;
-    reporteSalud5.percibeOlores = this.monitoreoFg.controls.percibeOlores4.value;
-    reporteSalud5.sentisFiebre = this.monitoreoFg.controls.fiebre4.value;
-    reporteSalud5.congestionNasal = this.monitoreoFg.controls.congestionNasal4.value;
-    reporteSalud5.otrosCansancios = this.monitoreoFg.controls.otrosCansancios4.value;
+    reporteSalud5.dolorGarganta = this.monitoreoFg.controls.dolorGarganta5.value;
+    reporteSalud5.dolorCabeza = this.monitoreoFg.controls.dolorCabeza5.value;
+    reporteSalud5.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar5.value;
+    reporteSalud5.percibeOlores = this.monitoreoFg.controls.percibeOlores5.value;
+    reporteSalud5.sentisFiebre = this.monitoreoFg.controls.fiebre5.value;
+    reporteSalud5.congestionNasal = this.monitoreoFg.controls.congestionNasal5.value;
+    reporteSalud5.otrosCansancios = this.monitoreoFg.controls.otrosCansancios5.value;
+
+    reporteSalud5.diarrea = this.monitoreoFg.controls.diarrea5.value;
+    reporteSalud5.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal5.value;
+    reporteSalud5.convulsiones = this.monitoreoFg.controls.convulsiones5.value;
+    reporteSalud5.conjuntival = this.monitoreoFg.controls.conjuntival5.value;
+    reporteSalud5.dolorOido = this.monitoreoFg.controls.dolorOido5.value;
+    reporteSalud5.postracion = this.monitoreoFg.controls.postracion5.value;
+    reporteSalud5.artralgias = this.monitoreoFg.controls.artralgias5.value;
+    reporteSalud5.mialgias = this.monitoreoFg.controls.mialgias5.value;
+    reporteSalud5.irritabilidad = this.monitoreoFg.controls.irritabilidad5.value;
+    reporteSalud5.nauseas = this.monitoreoFg.controls.nauseas5.value;
+    reporteSalud5.auscultacion = this.monitoreoFg.controls.auscultacion5.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud5);
 
     let reporteSalud6 = new FormSeccionReporteSalud();
@@ -651,6 +1043,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     reporteSalud6.sentisFiebre = this.monitoreoFg.controls.fiebre6.value;
     reporteSalud6.congestionNasal = this.monitoreoFg.controls.congestionNasal6.value;
     reporteSalud6.otrosCansancios = this.monitoreoFg.controls.otrosCansancios6.value;
+
+    reporteSalud6.diarrea = this.monitoreoFg.controls.diarrea6.value;
+    reporteSalud6.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal6.value;
+    reporteSalud6.convulsiones = this.monitoreoFg.controls.convulsiones6.value;
+    reporteSalud6.conjuntival = this.monitoreoFg.controls.conjuntival6.value;
+    reporteSalud6.dolorOido = this.monitoreoFg.controls.dolorOido6.value;
+    reporteSalud6.postracion = this.monitoreoFg.controls.postracion6.value;
+    reporteSalud6.artralgias = this.monitoreoFg.controls.artralgias6.value;
+    reporteSalud6.mialgias = this.monitoreoFg.controls.mialgias6.value;
+    reporteSalud6.irritabilidad = this.monitoreoFg.controls.irritabilidad6.value;
+    reporteSalud6.nauseas = this.monitoreoFg.controls.nauseas6.value;
+    reporteSalud6.auscultacion = this.monitoreoFg.controls.auscultacion6.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud6);
 
     let reporteSalud7 = new FormSeccionReporteSalud();
@@ -664,6 +1068,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     reporteSalud7.sentisFiebre = this.monitoreoFg.controls.fiebre7.value;
     reporteSalud7.congestionNasal = this.monitoreoFg.controls.congestionNasal7.value;
     reporteSalud7.otrosCansancios = this.monitoreoFg.controls.otrosCansancios7.value;
+
+    reporteSalud7.diarrea = this.monitoreoFg.controls.diarrea7.value;
+    reporteSalud7.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal7.value;
+    reporteSalud7.convulsiones = this.monitoreoFg.controls.convulsiones7.value;
+    reporteSalud7.conjuntival = this.monitoreoFg.controls.conjuntival7.value;
+    reporteSalud7.dolorOido = this.monitoreoFg.controls.dolorOido7.value;
+    reporteSalud7.postracion = this.monitoreoFg.controls.postracion7.value;
+    reporteSalud7.artralgias = this.monitoreoFg.controls.artralgias7.value;
+    reporteSalud7.mialgias = this.monitoreoFg.controls.mialgias7.value;
+    reporteSalud7.irritabilidad = this.monitoreoFg.controls.irritabilidad7.value;
+    reporteSalud7.nauseas = this.monitoreoFg.controls.nauseas7.value;
+    reporteSalud7.auscultacion = this.monitoreoFg.controls.auscultacion7.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud7);
 
     let reporteSalud8 = new FormSeccionReporteSalud();
@@ -677,6 +1093,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     reporteSalud8.sentisFiebre = this.monitoreoFg.controls.fiebre8.value;
     reporteSalud8.congestionNasal = this.monitoreoFg.controls.congestionNasal8.value;
     reporteSalud8.otrosCansancios = this.monitoreoFg.controls.otrosCansancios8.value;
+
+    reporteSalud8.diarrea = this.monitoreoFg.controls.diarrea8.value;
+    reporteSalud8.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal8.value;
+    reporteSalud8.convulsiones = this.monitoreoFg.controls.convulsiones8.value;
+    reporteSalud8.conjuntival = this.monitoreoFg.controls.conjuntival8.value;
+    reporteSalud8.dolorOido = this.monitoreoFg.controls.dolorOido8.value;
+    reporteSalud8.postracion = this.monitoreoFg.controls.postracion8.value;
+    reporteSalud8.artralgias = this.monitoreoFg.controls.artralgias8.value;
+    reporteSalud8.mialgias = this.monitoreoFg.controls.mialgias8.value;
+    reporteSalud8.irritabilidad = this.monitoreoFg.controls.irritabilidad8.value;
+    reporteSalud8.nauseas = this.monitoreoFg.controls.nauseas8.value;
+    reporteSalud8.auscultacion = this.monitoreoFg.controls.auscultacion8.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud8);
 
     let reporteSalud9 = new FormSeccionReporteSalud();
@@ -690,6 +1118,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     reporteSalud9.sentisFiebre = this.monitoreoFg.controls.fiebre9.value;
     reporteSalud9.congestionNasal = this.monitoreoFg.controls.congestionNasal9.value;
     reporteSalud9.otrosCansancios = this.monitoreoFg.controls.otrosCansancios9.value;
+
+    reporteSalud9.diarrea = this.monitoreoFg.controls.diarrea9.value;
+    reporteSalud9.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal9.value;
+    reporteSalud9.convulsiones = this.monitoreoFg.controls.convulsiones9.value;
+    reporteSalud9.conjuntival = this.monitoreoFg.controls.conjuntival9.value;
+    reporteSalud9.dolorOido = this.monitoreoFg.controls.dolorOido9.value;
+    reporteSalud9.postracion = this.monitoreoFg.controls.postracion9.value;
+    reporteSalud9.artralgias = this.monitoreoFg.controls.artralgias9.value;
+    reporteSalud9.mialgias = this.monitoreoFg.controls.mialgias9.value;
+    reporteSalud9.irritabilidad = this.monitoreoFg.controls.irritabilidad9.value;
+    reporteSalud9.nauseas = this.monitoreoFg.controls.nauseas9.value;
+    reporteSalud9.auscultacion = this.monitoreoFg.controls.auscultacion9.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud9);
 
     let reporteSalud10 = new FormSeccionReporteSalud();
@@ -703,6 +1143,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     reporteSalud10.sentisFiebre = this.monitoreoFg.controls.fiebre10.value;
     reporteSalud10.congestionNasal = this.monitoreoFg.controls.congestionNasal10.value;
     reporteSalud10.otrosCansancios = this.monitoreoFg.controls.otrosCansancios10.value;
+
+    reporteSalud10.diarrea = this.monitoreoFg.controls.diarrea10.value;
+    reporteSalud10.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal10.value;
+    reporteSalud10.convulsiones = this.monitoreoFg.controls.convulsiones10.value;
+    reporteSalud10.conjuntival = this.monitoreoFg.controls.conjuntival10.value;
+    reporteSalud10.dolorOido = this.monitoreoFg.controls.dolorOido10.value;
+    reporteSalud10.postracion = this.monitoreoFg.controls.postracion10.value;
+    reporteSalud10.artralgias = this.monitoreoFg.controls.artralgias10.value;
+    reporteSalud10.mialgias = this.monitoreoFg.controls.mialgias10.value;
+    reporteSalud10.irritabilidad = this.monitoreoFg.controls.irritabilidad10.value;
+    reporteSalud10.nauseas = this.monitoreoFg.controls.nauseas10.value;
+    reporteSalud10.auscultacion = this.monitoreoFg.controls.auscultacion10.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud10);
 
     let reporteSalud11 = new FormSeccionReporteSalud();
@@ -716,6 +1168,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     reporteSalud11.sentisFiebre = this.monitoreoFg.controls.fiebre11.value;
     reporteSalud11.congestionNasal = this.monitoreoFg.controls.congestionNasal11.value;
     reporteSalud11.otrosCansancios = this.monitoreoFg.controls.otrosCansancios11.value;
+
+    reporteSalud11.diarrea = this.monitoreoFg.controls.diarrea11.value;
+    reporteSalud11.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal11.value;
+    reporteSalud11.convulsiones = this.monitoreoFg.controls.convulsiones11.value;
+    reporteSalud11.conjuntival = this.monitoreoFg.controls.conjuntival11.value;
+    reporteSalud11.dolorOido = this.monitoreoFg.controls.dolorOido11.value;
+    reporteSalud11.postracion = this.monitoreoFg.controls.postracion11.value;
+    reporteSalud11.artralgias = this.monitoreoFg.controls.artralgias11.value;
+    reporteSalud11.mialgias = this.monitoreoFg.controls.mialgias11.value;
+    reporteSalud11.irritabilidad = this.monitoreoFg.controls.irritabilidad11.value;
+    reporteSalud11.nauseas = this.monitoreoFg.controls.nauseas11.value;
+    reporteSalud11.auscultacion = this.monitoreoFg.controls.auscultacion11.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud11);
 
     let reporteSalud12 = new FormSeccionReporteSalud();
@@ -729,6 +1193,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     reporteSalud12.sentisFiebre = this.monitoreoFg.controls.fiebre12.value;
     reporteSalud12.congestionNasal = this.monitoreoFg.controls.congestionNasal12.value;
     reporteSalud12.otrosCansancios = this.monitoreoFg.controls.otrosCansancios12.value;
+
+    reporteSalud12.diarrea = this.monitoreoFg.controls.diarrea12.value;
+    reporteSalud12.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal12.value;
+    reporteSalud12.convulsiones = this.monitoreoFg.controls.convulsiones12.value;
+    reporteSalud12.conjuntival = this.monitoreoFg.controls.conjuntival12.value;
+    reporteSalud12.dolorOido = this.monitoreoFg.controls.dolorOido12.value;
+    reporteSalud12.postracion = this.monitoreoFg.controls.postracion12.value;
+    reporteSalud12.artralgias = this.monitoreoFg.controls.artralgias12.value;
+    reporteSalud12.mialgias = this.monitoreoFg.controls.mialgias12.value;
+    reporteSalud12.irritabilidad = this.monitoreoFg.controls.irritabilidad12.value;
+    reporteSalud12.nauseas = this.monitoreoFg.controls.nauseas12.value;
+    reporteSalud12.auscultacion = this.monitoreoFg.controls.auscultacion12.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud12);
 
     let reporteSalud13 = new FormSeccionReporteSalud();
@@ -742,6 +1218,18 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     reporteSalud13.sentisFiebre = this.monitoreoFg.controls.fiebre13.value;
     reporteSalud13.congestionNasal = this.monitoreoFg.controls.congestionNasal13.value;
     reporteSalud13.otrosCansancios = this.monitoreoFg.controls.otrosCansancios13.value;
+
+    reporteSalud13.diarrea = this.monitoreoFg.controls.diarrea13.value;
+    reporteSalud13.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal13.value;
+    reporteSalud13.convulsiones = this.monitoreoFg.controls.convulsiones13.value;
+    reporteSalud13.conjuntival = this.monitoreoFg.controls.conjuntival13.value;
+    reporteSalud13.dolorOido = this.monitoreoFg.controls.dolorOido13.value;
+    reporteSalud13.postracion = this.monitoreoFg.controls.postracion13.value;
+    reporteSalud13.artralgias = this.monitoreoFg.controls.artralgias13.value;
+    reporteSalud13.mialgias = this.monitoreoFg.controls.mialgias13.value;
+    reporteSalud13.irritabilidad = this.monitoreoFg.controls.irritabilidad13.value;
+    reporteSalud13.nauseas = this.monitoreoFg.controls.nauseas13.value;
+    reporteSalud13.auscultacion = this.monitoreoFg.controls.auscultacion13.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud13);
 
     let reporteSalud14 = new FormSeccionReporteSalud();
@@ -755,10 +1243,21 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     reporteSalud14.sentisFiebre = this.monitoreoFg.controls.fiebre14.value;
     reporteSalud14.congestionNasal = this.monitoreoFg.controls.congestionNasal14.value;
     reporteSalud14.otrosCansancios = this.monitoreoFg.controls.otrosCansancios14.value;
+
+    reporteSalud14.diarrea = this.monitoreoFg.controls.diarrea14.value;
+    reporteSalud14.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal14.value;
+    reporteSalud14.convulsiones = this.monitoreoFg.controls.convulsiones14.value;
+    reporteSalud14.conjuntival = this.monitoreoFg.controls.conjuntival14.value;
+    reporteSalud14.dolorOido = this.monitoreoFg.controls.dolorOido14.value;
+    reporteSalud14.postracion = this.monitoreoFg.controls.postracion14.value;
+    reporteSalud14.artralgias = this.monitoreoFg.controls.artralgias14.value;
+    reporteSalud14.mialgias = this.monitoreoFg.controls.mialgias14.value;
+    reporteSalud14.irritabilidad = this.monitoreoFg.controls.irritabilidad14.value;
+    reporteSalud14.nauseas = this.monitoreoFg.controls.nauseas14.value;
+    reporteSalud14.auscultacion = this.monitoreoFg.controls.auscultacion14.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud14);
 
     this.fichaPersonalBlanco.formSeccionClasifRiesgo = new FormSeccionClasifRiesgo();
-    this.fichaPersonalBlanco.formSeccionClasifRiesgo.clasificacionRiesgo = this.clasificacionRiesgoFg.controls.clasRiesgo.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.clasificacionFinal = this.clasificacionRiesgoFg.controls.clasifFinal.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.trabajoExclusion = this.clasificacionRiesgoFg.controls.exclusion.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.trabajoAutocontrol = this.clasificacionRiesgoFg.controls.autocontrol.value;
@@ -778,6 +1277,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.fichaEpidemiologica = this.clasificacionRiesgoFg.controls.fichaEpidemiologica.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaCierreCaso = this.clasificacionRiesgoFg.controls.fechaCierreCaso.value;
 
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.internado = this.clasificacionRiesgoFg.controls.internado.value;
+    if(this.clasificacionRiesgoFg.controls.establecimiento.value !== null){
+      this.fichaPersonalBlanco.formSeccionClasifRiesgo.establecimientoInternacion = this.clasificacionRiesgoFg.controls.establecimiento.value.nombre;
+    }
+    if(this.clasificacionRiesgoFg.controls.especialidad.value !== null){
+      this.fichaPersonalBlanco.formSeccionClasifRiesgo.especialidadInternacion = this.clasificacionRiesgoFg.controls.especialidad.value;
+    }
     this.service.actualizarSeguimientoPB(this.fichaPersonalBlanco, this.idRegistroForm).subscribe(response => {
       //this.idRegistro = +response;
       this.loading = false;
@@ -795,6 +1301,29 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
 
   openMessageDialogExito() {
     setTimeout(function() { $("#modalExito").modal("toggle"); }, 1000);
+  }
+
+  verifEstablecimiento(){
+    if(!this.clasificacionRiesgoFg.controls.internado.value){
+      this.clasificacionRiesgoFg.controls.establecimiento.setValue('');
+      this.clasificacionRiesgoFg.controls.especialidad.setValue('');
+    }
+  }
+
+  filtrarEstablecimiento(event) {
+    let establecimientos = [{'id':4,'nombre':'Hospital Materno Infantil San Pablo'},{'id':5,'nombre':'Instituto Medicina Tropical'},{'id':6,'nombre':'Hospital de Trauma'}, {'id':7,'nombre':'Hospital de Luque'}];
+    let filtered : any[] = [];
+    let query = event.query;
+
+    for(let i = 0; i < establecimientos.length; i++) {
+        let servicio = establecimientos[i];
+
+        if (servicio.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          filtered.push(servicio);
+        }
+    }
+
+    this.establecimientosFiltrados = filtered;
   }
 
   setearFechasTabla(event, band){

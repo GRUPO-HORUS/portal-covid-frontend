@@ -17,6 +17,8 @@ export class FormDatosBasicosPB {
     paisEmisorDocumento: string;
     tipoInicio: string;
     tipoRegistro: string;
+    edad: number;
+    rangoEdad: string;
     barrio: string;
 
     inicioAislamiento:string;

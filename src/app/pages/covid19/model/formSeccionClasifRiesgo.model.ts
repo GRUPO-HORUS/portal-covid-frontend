@@ -2,7 +2,7 @@ export class FormSeccionClasifRiesgo {
     id: number;
     idRegistro: number;
     nroDocumento: string;
-    clasificacionRiesgo: string;
+    //clasificacionRiesgo: string;
     clasificacionFinal: string;
 
     trabajoExclusion: boolean;
@@ -25,4 +25,8 @@ export class FormSeccionClasifRiesgo {
     constanciaAislamiento: string;
     fichaEpidemiologica: string;
     evolucionFinal: string;
+
+    internado: boolean;
+    establecimientoInternacion: string;
+    especialidadInternacion: string;
 }

@@ -10,4 +10,6 @@ export class FormSeccionContactoContagio {
     contagioEstablecimiento: string;
     categoriaContagio: string;
     fechaExposicion: string;
+
+    clasificacionRiesgo:string;
 }

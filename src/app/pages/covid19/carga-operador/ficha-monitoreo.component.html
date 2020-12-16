@@ -28,6 +28,16 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md"></div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="reingreso" [binary]="true" label="Reingreso?" id="reingreso" class="ml-5"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="col-md"></div>
+                            </div>
                             
                             <div class="row">
                                 <div class="col-md">
@@ -152,27 +162,27 @@
                                         <input type="text" formControlName="codPaciente" name="codPaciente" class="form-control"  id="codPaciente">
                                     </div>
                                 </div>
-                                <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="funcion"><strong>Función</strong><span style="color: red;"> *</span></label>
-                                        <!--<input type="text" formControlName="funcion" name="funcion" class="form-control"  id="funcion" required>-->
-                                        <p-autoComplete id="funcion" formControlName="funcion" [suggestions]="funcionesFiltradas" field="nombre" (completeMethod)="filtrarFuncion($event)" [inputStyle]="{'width':'515px'}" required></p-autoComplete>
-                                    </div>
-                                </div>
+                                <div class="col-md"></div>
                             </div>
-        
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="profesion"><strong>Profesión-Especialidad</strong><span style="color: red;"> *</span></label>
                                         <br>
-                                        <!--<p-dropdown id="profesion" [options]="profesionOptions" label="label" placeholder="Seleccionar" formControlName="profesion" name="profesion" [style]="{'width':'515px'}" required></p-dropdown>-->
+                                        <!--<p-dropdown id="profesion" [options]="profesionOptions" label="label" placeholder="Seleccionar" formControlName="profesion" name="profesion" [style]="{'width':'515px'}" required></p-dropdown> [inputStyle]="{'width':'515px'}"-->
                                         <p-autoComplete id="profesion" formControlName="profesion" [suggestions]="profesionesFiltradas" field="nombre" (completeMethod)="filtrarProfesion($event)" [inputStyle]="{'width':'1060px'}" [forceSelection]="true" required></p-autoComplete>
                                     </div>
                                 </div>
                             </div>
-        
                             <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="funcion"><strong>Función</strong><span style="color: red;"> *</span></label><br>
+                                        <!--<input type="text" formControlName="funcion" name="funcion" class="form-control"  id="funcion" required>-->
+                                        <p-autoComplete id="funcion" formControlName="funcion" [suggestions]="funcionesFiltradas" field="nombre" (completeMethod)="filtrarFuncion($event)" [inputStyle]="{'width':'515px'}" required></p-autoComplete>
+                                    </div>
+                                </div>
+
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="otrosLugares"><strong>Otros lugares donde presta servicio</strong><span style="color: red;"> *</span></label><br>
@@ -192,22 +202,21 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row">
+                            <!--<div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <p-checkbox formControlName="reingreso" [binary]="true" label="Reingreso?" id="reingreso"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="col-md">
-                                    <!--<div class="form-group">
+                                    <div class="form-group">
                                         <p-checkbox formControlName="fallecido" [binary]="true" label="Fallecido/a?" id="fallecido"></p-checkbox>
-                                    </div>-->
+                                    </div>
                                     <div class="form-group">
                                         <p-checkbox formControlName="internado" [binary]="true" label="Internado/a?" id="internado" (onChange)="verifEstablecimiento()"></p-checkbox>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
                             <!--<div class="row">
                                 <div class="col-md">
@@ -216,13 +225,11 @@
                                     </div>
                                 </div>
                                 <div class="col-md"></div>
-                            </div>-->
-
+                            </div>
                             <div class="row" *ngIf="registroFg.controls.internado.value">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="establecimiento"><strong>Establecimiento</strong><span style="color: red;"> *</span></label><br>
-                                        <!--<input type="text" formControlName="establecimiento" name="establecimiento" class="form-control"  id="establecimiento" required>-->
                                         <p-autoComplete id="establecimiento" formControlName="establecimiento" [suggestions]="establecimientosFiltrados" field="nombre" (completeMethod)="filtrarEstablecimiento($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
                                     </div>
                                 </div>
@@ -232,7 +239,7 @@
                                         <input type="text" formControlName="especialidad" name="especialidad" class="form-control"  id="especialidad" required>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
         
                             <!--<div class="form-group">
                                 <label for="contrasenha"><strong>Clave de seguridad </strong></label>
@@ -274,19 +281,23 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="fechaExposicion"><strong>Fecha de exposición:</strong><span style="color: red;"> *</span></label>
+                                        <label for="fechaExposicion"><strong>Fecha de exposición:</strong></label>
                                         <!--<input type="date" id="fechaExposicion" formControlName="fechaExposicion" style="width: 325px;" value="{{fechaHoy}}">-->
                                         <br><p-calendar formControlName="fechaExposicion" id="fechaExposicion" name="fechaExposicion" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
                                     </div>
                                 </div>
+                                <div class="col-md">
+                                    
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="cedula"><strong>Número de Cédula del Caso Confirmado</strong></label>
                                         <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" (change)="consultarIdentificaciones($event,'confirmado')">
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="nombre"><strong>Nombres</strong></label> <!--<span style="color: red;"> *</span>-->
@@ -294,16 +305,16 @@
                                         <input type="text" *ngIf="fallaSII" formControlName="nombre" name="nombre" class="form-control" id="nombre">
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="nombre"><strong>Apellidos</strong></label>
                                         <input type="text" *ngIf="!fallaSII" formControlName="apellido" name="apellido" class="form-control" id="apellido" disabled>
                                         <input type="text" *ngIf="fallaSII" formControlName="apellido" name="apellido" class="form-control" id="apellido">
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" id="nombre" required>-->
-                                    </div>
+                                    </div> 
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="sexo"><strong>Sexo</strong></label>
@@ -312,10 +323,13 @@
                                         <!--<p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.tipoDocumento" name="sexo" [style]="{'width':'340px'}" required></p-dropdown>-->
                                     </div>
                                 </div>
-                                <div class="col-md">
-                                    <b>Indicar ambiente donde se produjo el contagio<span style="color: red;"> *</span></b><br>
-                                    <p-radioButton name="contagioAmbiente" value="familiar_social" label="Familiar/Social" formControlName="contagioAmbiente" class="ml-2 mr-3"></p-radioButton>
-                                    <p-radioButton name="contagioAmbiente" value="establecimiento_salud" label="Establecimiento de salud" formControlName="contagioAmbiente"></p-radioButton>
+                            </div>
+                            <hr>
+                        <div class="row mb-3">
+                            <div class="col-md">
+                                <b>Indicar ambiente donde se produjo el contagio</b><br>
+                                    <p-radioButton name="contagioAmbiente" value="familiar_social" label="Familiar/Social" formControlName="contagioAmbiente" class="ml-2 mr-3" (onClick)="selecAmbiente('social')"></p-radioButton>
+                                    <p-radioButton name="contagioAmbiente" value="establecimiento_salud" label="Establecimiento de salud" formControlName="contagioAmbiente" (onClick)="selecAmbiente('salud')"></p-radioButton>
                                     <!--<div class="custom-control custom-checkbox">
                                         <input type="checkbox" formControlName = "contagioSalud" class="custom-control-input" id="contagioSalud" (change)="verifContagioEstablecimiento()">
                                         <label class="custom-control-label" for="contagioSalud">Establecimiento de salud</label>
@@ -324,21 +338,38 @@
                                         <input type="checkbox" formControlName = "contagioSocial" class="custom-control-input" id="contagioSocial">
                                         <label class="custom-control-label" for="contagioSocial">Familiar/Social</label>
                                     </div>-->
-                                </div>
-                            </div>
-                        <div class="row">
-                            <div class="col-md">
-                                <div class="form-group">
-                                    <label for="catContagio"><strong>Categoría del contagio</strong><span style="color: red;"> *</span></label>
-                                    <br>
-                                    <p-dropdown id="catContagio" [options]="catContagioOptions" label="label" placeholder="Seleccionar" formControlName="catContagio" name="catContagio" [style]="{'width':'515px'}" required></p-dropdown>
-                                </div>
                             </div>
                             <div class="col-md">
                                 <div class="form-group" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud'">
                                     <label for="contagioEstablecimiento"><strong>Indique el establecimiento</strong><span style="color: red;"> *</span></label><br>
                                     <p-autoComplete id="contagioEstablecimiento" formControlName="contagioEstablecimiento" [suggestions]="establecimientosFiltrados" field="nombre" (completeMethod)="filtrarEstablecimiento($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="catContagio"><strong>Categoría del contagio</strong></label>
+                                    <br>
+                                    <p-dropdown id="catContagio" [options]="catContagioOptions" label="label" placeholder="Seleccionar" formControlName="catContagio" name="catContagio" [style]="{'width':'515px'}" required></p-dropdown>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label for="clasRiesgo"><strong>Clasificación de riesgo</strong><span style="color: red;"> *</span></label>
+                                    <br>
+                                    <p-dropdown id="clasRiesgo" [options]="clasRiesgoOptions" label="label" placeholder="Seleccionar" formControlName="clasRiesgo" name="clasRiesgo" [style]="{'width':'515px'}" required></p-dropdown>
+                                    <!--<p-dropdown id="clasRiesgo" [options]="clasRiesgoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.departamentoDomicilio" name="clasRiesgo" [style]="{'width':'350px'}" required></p-dropdown>-->
+                                </div>
+                            </div>
+                            <div class="col-md">
+
                             </div>
                         </div>
                         <div class="clearfix"><br/></div>
@@ -480,7 +511,7 @@
                                     <td align="center"><p-triStateCheckbox formControlName="dolorGarganta14"></p-triStateCheckbox></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Disnea</td>
+                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Disnea/Taquipnea</td>
                                     <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar1"></p-triStateCheckbox></td>
                                     <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar2"></p-triStateCheckbox></td>
                                     <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar3"></p-triStateCheckbox></td>
@@ -497,7 +528,7 @@
                                     <td align="center"><p-triStateCheckbox formControlName="dificultadRespirar14"></p-triStateCheckbox></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Cefalea</td>
+                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Dolor de cabeza</td>
                                     <td align="center"><p-triStateCheckbox formControlName="dolorCabeza1"></p-triStateCheckbox></td>
                                     <td align="center"><p-triStateCheckbox formControlName="dolorCabeza2"></p-triStateCheckbox></td>
                                     <td align="center"><p-triStateCheckbox formControlName="dolorCabeza3"></p-triStateCheckbox></td>
@@ -514,24 +545,41 @@
                                     <td align="center"><p-triStateCheckbox formControlName="dolorCabeza14"></p-triStateCheckbox></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Anosmia</td>
-                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores2"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores3"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores4"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores5"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores6"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores7"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores8"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores9"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores10"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores11"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores12"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores13"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="percibeOlores14"></p-triStateCheckbox></td>
+                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Inyección Conjuntival</td>
+                                    <td align="center"><p-triStateCheckbox formControlName="conjuntival1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="conjuntival2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="conjuntival3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="conjuntival4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="conjuntival5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="conjuntival6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="conjuntival7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="conjuntival8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="conjuntival9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="conjuntival10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="conjuntival11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="conjuntival12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="conjuntival13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="conjuntival14"></p-triStateCheckbox></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Rinitis</td>
+                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Coriza/Rinorrea</td>
+                                    <td align="center"><p-triStateCheckbox formControlName="rinorrea1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="rinorrea2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="rinorrea3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="rinorrea4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="rinorrea5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="rinorrea6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="rinorrea7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="rinorrea8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="rinorrea9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="rinorrea10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="rinorrea11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="rinorrea12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="rinorrea13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="rinorrea14"></p-triStateCheckbox></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Congestión Nasal</td>
                                     <td align="center"><p-triStateCheckbox formControlName="congestionNasal1"></p-triStateCheckbox></td>
                                     <td align="center"><p-triStateCheckbox formControlName="congestionNasal2"></p-triStateCheckbox></td>
                                     <td align="center"><p-triStateCheckbox formControlName="congestionNasal3"></p-triStateCheckbox></td>
@@ -548,7 +596,177 @@
                                     <td align="center"><p-triStateCheckbox formControlName="congestionNasal14"></p-triStateCheckbox></td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Otros cansancios</td>
+                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Irritabilidad/Confusión</td>
+                                    <td align="center"><p-triStateCheckbox formControlName="irritabilidad1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="irritabilidad2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="irritabilidad3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="irritabilidad4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="irritabilidad5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="irritabilidad6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="irritabilidad7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="irritabilidad8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="irritabilidad9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="irritabilidad10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="irritabilidad11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="irritabilidad12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="irritabilidad13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="irritabilidad14"></p-triStateCheckbox></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Diarrea</td>
+                                    <td align="center"><p-triStateCheckbox formControlName="diarrea1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="diarrea2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="diarrea3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="diarrea4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="diarrea5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="diarrea6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="diarrea7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="diarrea8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="diarrea9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="diarrea10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="diarrea11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="diarrea12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="diarrea13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="diarrea14"></p-triStateCheckbox></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Dolor de oído</td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorOido1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorOido2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorOido3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorOido4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorOido5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorOido6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorOido7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorOido8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorOido9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorOido10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorOido11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorOido12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorOido13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorOido14"></p-triStateCheckbox></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Mialgias</td>
+                                    <td align="center"><p-triStateCheckbox formControlName="mialgias1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="mialgias2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="mialgias3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="mialgias4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="mialgias5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="mialgias6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="mialgias7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="mialgias8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="mialgias9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="mialgias10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="mialgias11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="mialgias12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="mialgias13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="mialgias14"></p-triStateCheckbox></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Artralgias</td>
+                                    <td align="center"><p-triStateCheckbox formControlName="artralgias1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="artralgias2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="artralgias3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="artralgias4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="artralgias5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="artralgias6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="artralgias7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="artralgias8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="artralgias9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="artralgias10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="artralgias11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="artralgias12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="artralgias13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="artralgias14"></p-triStateCheckbox></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Postración</td>
+                                    <td align="center"><p-triStateCheckbox formControlName="postracion1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="postracion2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="postracion3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="postracion4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="postracion5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="postracion6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="postracion7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="postracion8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="postracion9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="postracion10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="postracion11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="postracion12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="postracion13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="postracion14"></p-triStateCheckbox></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Nauseas o vómitos</td>
+                                    <td align="center"><p-triStateCheckbox formControlName="nauseas1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="nauseas2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="nauseas3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="nauseas4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="nauseas5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="nauseas6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="nauseas7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="nauseas8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="nauseas9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="nauseas10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="nauseas11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="nauseas12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="nauseas13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="nauseas14"></p-triStateCheckbox></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Dolor abdominal</td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorAbdominal1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorAbdominal2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorAbdominal3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorAbdominal4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorAbdominal5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorAbdominal6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorAbdominal7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorAbdominal8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorAbdominal9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorAbdominal10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorAbdominal11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorAbdominal12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorAbdominal13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="dolorAbdominal14"></p-triStateCheckbox></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Convulsiones</td>
+                                    <td align="center"><p-triStateCheckbox formControlName="convulsiones1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="convulsiones2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="convulsiones3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="convulsiones4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="convulsiones5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="convulsiones6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="convulsiones7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="convulsiones8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="convulsiones9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="convulsiones10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="convulsiones11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="convulsiones12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="convulsiones13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="convulsiones14"></p-triStateCheckbox></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Auscultación pulmonar anormal</td>
+                                    <td align="center"><p-triStateCheckbox formControlName="auscultacion1"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="auscultacion2"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="auscultacion3"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="auscultacion4"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="auscultacion5"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="auscultacion6"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="auscultacion7"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="auscultacion8"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="auscultacion9"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="auscultacion10"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="auscultacion11"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="auscultacion12"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="auscultacion13"></p-triStateCheckbox></td>
+                                    <td align="center"><p-triStateCheckbox formControlName="auscultacion14"></p-triStateCheckbox></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: rgb(190, 186, 186); text-align: center;">Otros</td>
                                     <td align="center"><p-triStateCheckbox formControlName="otrosCansancios1"></p-triStateCheckbox></td>
                                     <td align="center"><p-triStateCheckbox formControlName="otrosCansancios2"></p-triStateCheckbox></td>
                                     <td align="center"><p-triStateCheckbox formControlName="otrosCansancios3"></p-triStateCheckbox></td>
@@ -565,7 +783,6 @@
                                     <td align="center"><p-triStateCheckbox formControlName="otrosCansancios14"></p-triStateCheckbox></td>
                                 </tr>
                             </table>
-                            <!--<img src="/assets/img/signos.png" width="98%">-->
                         </div>
                         </form>
                         <div class="clearfix"><br/></div>
@@ -582,7 +799,7 @@
                     </mat-step>
                     <mat-step [stepControl]="clasificacionRiesgoFg">
                         <form [formGroup]="clasificacionRiesgoFg" class="mt-4">
-                            <ng-template matStepLabel>Clasificación de riesgo</ng-template>
+                            <ng-template matStepLabel>Evolución del paciente</ng-template>
                             <div class="row">
                                 <div class="col-md">
                                     <div class="alert alert-info">
@@ -591,14 +808,6 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="clasRiesgo"><strong>Clasificación de riesgo</strong><span style="color: red;"> *</span></label>
-                                        <br>
-                                        <p-dropdown id="clasRiesgo" [options]="clasRiesgoOptions" label="label" placeholder="Seleccionar" formControlName="clasRiesgo" name="clasRiesgo" [style]="{'width':'515px'}" required></p-dropdown>
-                                        <!--<p-dropdown id="clasRiesgo" [options]="clasRiesgoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.departamentoDomicilio" name="clasRiesgo" [style]="{'width':'350px'}" required></p-dropdown>-->
-                                    </div>
-                                </div>
                                 <div class="col-md">
                                     <b>Laboratorio (marcar lo que corresponda)<span style="color: red;"> *</span></b>
                                     <div class="custom-control custom-checkbox">
@@ -622,103 +831,39 @@
                                         <input type="text" formControlName="otroLabEspecificar" name="otroLabEspecificar" class="form-control"  id="otroLabEspecificar" required>
                                     </div>-->
                                 </div>
+                                <div class="col-md">
+                                </div>
                             </div>
-                            
                             <hr>
                             <div class="row">
-                                <!--<table border="1">
-                                    <tr>
-                                        <td>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia1">
-                                                <label class="custom-control-label" for="tosDia1">Día 1</label>
-                                            </div> 
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia2">
-                                                <label class="custom-control-label" for="tosDia2">Día 2</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia3">
-                                                <label class="custom-control-label" for="tosDia3">Día 3</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia4">
-                                                <label class="custom-control-label" for="tosDia4">Día 4</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia5">
-                                                <label class="custom-control-label" for="tosDia5">Día 5</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia6">
-                                                <label class="custom-control-label" for="tosDia6">Día 6</label>
-                                            </div> 
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia7">
-                                                <label class="custom-control-label" for="tosDia7">Día 7</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia8">
-                                                <label class="custom-control-label" for="tosDia8">Día 8</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia9">
-                                                <label class="custom-control-label" for="tosDia9">Día 9</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia10">
-                                                <label class="custom-control-label" for="tosDia10">Día 10</label>
-                                            </div>
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tosDia11">
-                                                <label class="custom-control-label" for="tosDia11">Día 11</label>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>-->
-                            </div>
-                            <div class="row">
-                                <div class="col-md mb-3">
-                                    <b>Exclusión laboral<span style="color: red;"> *</span></b>
-                                    <p-radioButton name="exclusion" [value]="true" label="Si" formControlName="exclusion" class="ml-2 mr-3"></p-radioButton>
-                                    <p-radioButton name="exclusion" [value]="false" label="No" formControlName="exclusion"></p-radioButton>
-                                    <!--<b>Indicaciones para el trabajo (marcar lo que corresponda)<span style="color: red;"> *</span></b>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" formControlName = "exclusion" class="custom-control-input" id="exclusion">
-                                        <label class="custom-control-label" for="exclusion">Exclusión</label>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="sePrimeraMuestra"><strong>SE de Toma de Muestra</strong><span style="color: red;"> *</span></label>
+                                        <input type="number" formControlName="sePrimeraMuestra" class="form-control" id="sePrimeraMuestra" name="sePrimeraMuestra" min="1" required>
                                     </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" formControlName = "autocontrol" class="custom-control-input" id="autocontrol">
-                                        <label class="custom-control-label" for="autocontrol">Autocontrol</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" formControlName = "nada" class="custom-control-input" id="nada">
-                                        <label class="custom-control-label" for="nada">Nada</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" formControlName = "otroIndic" class="custom-control-input" id="otroIndic" (change)="verifOtroIndicEspecificar()">
-                                        <label class="custom-control-label" for="otroIndic">Otro</label>
-                                    </div>
-                                    <div class="form-group" *ngIf="clasificacionRiesgoFg.controls.otroIndic.value">
-                                        <label for="otroIndicEspecificar"><strong>Otro</strong></label>
-                                        <input type="text" formControlName="otroIndicEspecificar" name="otroIndicEspecificar" class="form-control"  id="otroIndicEspecificar" required>
-                                    </div>-->
                                 </div>
                                 <div class="col-md">
-                                    <b>Constancia de Aislamiento<span style="color: red;"> *</span></b>
-                                    <p-radioButton name="constAislamiento" [value]="true" label="Si" formControlName="constAislamiento" class="ml-2 mr-3"></p-radioButton>
-                                    <p-radioButton name="constAislamiento" [value]="false" label="No" formControlName="constAislamiento"></p-radioButton>
+                                    <div class="form-group">
+                                        <label for="fechaPrimeraMuestra"><strong>Fecha de Toma de Muestra:</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        <p-calendar formControlName="fechaPrimeraMuestra" id="fechaPrimeraMuestra" name="fechaPrimeraMuestra" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                    </div>
                                 </div>
-                                
                             </div>
                             <div class="row">
                                 <div class="col-md">
-                                    <b>Ficha Epidemiológica<span style="color: red;"> *</span></b>
-                                    <p-radioButton name="fichaEpidemiologica" [value]="true" label="Si" formControlName="fichaEpidemiologica" class="ml-2 mr-3"></p-radioButton>
-                                    <p-radioButton name="fichaEpidemiologica" [value]="false" label="No" formControlName="fichaEpidemiologica"></p-radioButton>
+                                    <div class="form-group">
+                                        <label for="resultadoPrimeraMuestra"><strong>Resultado de Muestra:</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        <p-dropdown id="resultadoPrimeraMuestra" [options]="resulPriMuestraOptions" label="label" placeholder="Seleccionar" formControlName="resultadoPrimeraMuestra" name="resultadoPrimeraMuestra" [style]="{'width':'515px'}" required></p-dropdown>
+                                    </div>
                                 </div>
                                 <div class="col-md">
-                                    <a href="https://www.google.com.py" target="_blank" *ngIf="clasificacionRiesgoFg.controls.constAislamiento.value">Ver Constancia</a>
+                                    <div class="form-group">
+                                        <label for="fechaCierreCaso"><strong>Fecha de Cierre de Caso:</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        <p-calendar formControlName="fechaCierreCaso" id="fechaCierreCaso" name="fechaCierreCaso" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -761,34 +906,109 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--<div class="row">
+                                <table border="1">
+                                    <tr>
+                                        <td>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia1">
+                                                <label class="custom-control-label" for="tosDia1">Día 1</label>
+                                            </div> 
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia2">
+                                                <label class="custom-control-label" for="tosDia2">Día 2</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia3">
+                                                <label class="custom-control-label" for="tosDia3">Día 3</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia4">
+                                                <label class="custom-control-label" for="tosDia4">Día 4</label>
+                                            </div>
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tosDia5">
+                                                <label class="custom-control-label" for="tosDia5">Día 5</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>-->
+                            <hr>
                             <div class="row">
                                 <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="sePrimeraMuestra"><strong>SE de Toma de Primera Muestra</strong><span style="color: red;"> *</span></label>
-                                        <input type="number" formControlName="sePrimeraMuestra" class="form-control" id="sePrimeraMuestra" name="sePrimeraMuestra" min="1" required>
+                                    <b>Exclusión laboral<span style="color: red;"> *</span></b>
+                                    <p-radioButton name="exclusion" [value]="true" label="Si" formControlName="exclusion" class="ml-2 mr-3"></p-radioButton>
+                                    <p-radioButton name="exclusion" [value]="false" label="No" formControlName="exclusion"></p-radioButton>
+                                    <!--<b>Indicaciones para el trabajo (marcar lo que corresponda)<span style="color: red;"> *</span></b>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" formControlName = "exclusion" class="custom-control-input" id="exclusion">
+                                        <label class="custom-control-label" for="exclusion">Exclusión</label>
                                     </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" formControlName = "autocontrol" class="custom-control-input" id="autocontrol">
+                                        <label class="custom-control-label" for="autocontrol">Autocontrol</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" formControlName = "nada" class="custom-control-input" id="nada">
+                                        <label class="custom-control-label" for="nada">Nada</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" formControlName = "otroIndic" class="custom-control-input" id="otroIndic" (change)="verifOtroIndicEspecificar()">
+                                        <label class="custom-control-label" for="otroIndic">Otro</label>
+                                    </div>
+                                    <div class="form-group" *ngIf="clasificacionRiesgoFg.controls.otroIndic.value">
+                                        <label for="otroIndicEspecificar"><strong>Otro</strong></label>
+                                        <input type="text" formControlName="otroIndicEspecificar" name="otroIndicEspecificar" class="form-control"  id="otroIndicEspecificar" required>
+                                    </div>-->
                                 </div>
                                 <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="fechaPrimeraMuestra"><strong>Fecha de Toma de Primera Muestra:</strong><span style="color: red;"> *</span></label>
-                                        <br>
-                                        <p-calendar formControlName="fechaPrimeraMuestra" id="fechaPrimeraMuestra" name="fechaPrimeraMuestra" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
-                                    </div>
+                                   
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <b>Ficha Epidemiológica<span style="color: red;"> *</span></b>
+                                    <p-radioButton name="fichaEpidemiologica" [value]="true" label="Si" formControlName="fichaEpidemiologica" class="ml-2 mr-3"></p-radioButton>
+                                    <p-radioButton name="fichaEpidemiologica" [value]="false" label="No" formControlName="fichaEpidemiologica"></p-radioButton>
+                                </div>
+                                <div class="col-md">
+                                   
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="resultadoPrimeraMuestra"><strong>Resultado de Primera Muestra:</strong><span style="color: red;"> *</span></label>
-                                        <br>
-                                        <p-dropdown id="resultadoPrimeraMuestra" [options]="resulPriMuestraOptions" label="label" placeholder="Seleccionar" formControlName="resultadoPrimeraMuestra" name="resultadoPrimeraMuestra" [style]="{'width':'515px'}" required></p-dropdown>
-                                    </div>
+                                    <b>Constancia de Aislamiento<span style="color: red;"> *</span></b>
+                                    <p-radioButton name="constAislamiento" [value]="true" label="Si" formControlName="constAislamiento" class="ml-2 mr-3"></p-radioButton>
+                                    <p-radioButton name="constAislamiento" [value]="false" label="No" formControlName="constAislamiento"></p-radioButton>
                                 </div>
                                 <div class="col-md">
+                                   
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md">
                                     <div class="form-group">
-                                        <label for="fechaCierreCaso"><strong>Fecha de Cierre de Caso:</strong><span style="color: red;"> *</span></label>
-                                        <br>
-                                        <p-calendar formControlName="fechaCierreCaso" id="fechaCierreCaso" name="fechaCierreCaso" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                        <p-checkbox formControlName="internado" [binary]="true" label="Internado/a?" id="internado" (onChange)="verifEstablecimiento()"></p-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md" *ngIf="clasificacionRiesgoFg.controls.internado.value">
+                                    <!--<a href="https://www.google.com.py" target="_blank" *ngIf="clasificacionRiesgoFg.controls.constAislamiento.value">Ver Constancia</a>-->
+                                    <div class="form-group">
+                                        <label for="establecimiento"><strong>Establecimiento</strong><span style="color: red;"> *</span></label><br>
+                                        <!--<input type="text" formControlName="establecimiento" name="establecimiento" class="form-control"  id="establecimiento" required>-->
+                                        <p-autoComplete id="establecimiento" formControlName="establecimiento" [suggestions]="establecimientosFiltrados" field="nombre" (completeMethod)="filtrarEstablecimiento($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                    </div>
+                                </div>
+                                <div class="col-md" *ngIf="clasificacionRiesgoFg.controls.internado.value">
+                                    <div class="form-group">
+                                        <label for="especialidad"><strong>Especialidad</strong><span style="color: red;"> *</span></label>
+                                        <!--<input type="text" formControlName="especialidad" name="especialidad" class="form-control"  id="especialidad" required>-->
+                                        <p-dropdown id="especialidad" [options]="especialidadOptions" label="label" placeholder="Seleccionar" formControlName="especialidad" name="especialidad" [style]="{'width':'515px'}" required></p-dropdown>
                                     </div>
                                 </div>
                             </div>

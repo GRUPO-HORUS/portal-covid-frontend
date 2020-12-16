@@ -10,9 +10,6 @@ export class FormSeccionPersonalBlanco {
 
     reingreso: boolean;
     fallecido: boolean;
-    internado: boolean;
-    establecimientoInternacion: string;
-    especialidadInternacion: string;
 
     codigoPaciente: string;
 }
