@@ -6,11 +6,12 @@ import { Covid19Service } from '../../../services/Covid19Service';
 
 import {FormDatosBasicos} from '../model/formDatosBasicos.model';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 
 import { StorageManagerService } from '../../login/shared/storage-manager.service';
 import { CensoContacto } from "../model/censoContacto.model";
 import { Paciente } from "../model/paciente.model";
+import { PrimerContacto } from "../model/primerContacto.model";
 
 declare var $: any;
 
@@ -68,7 +69,6 @@ export class GrillaPrimerContactoComponent implements OnInit {
   public codigoVerif: string;
 
   public contrasenha: string;
-  public contrasenhaConfirm: string;
 
   public codigoVerificacion: string;
 
@@ -129,15 +129,26 @@ export class GrillaPrimerContactoComponent implements OnInit {
   showNoAtiende: boolean = false;
   showSuspenderContacto: boolean = false;
 
-  fechaCierre;
   clonedRows: { [s: string]: any; } = {};
   departamento;
-  distrito;
   estado;
-  tipo;
-  fechaSintomas;
+  tipoExposicion: string;
+  fechaInicioSintomas: string;
 
   public motivos=[{value:'no_atiende',label:'No Atiende'},{value:'apagado',label:'Apagado/Sin Señal'},{value:'equivocado',label:'Número Equivocado'}];
+  public binarioOptions=[{value:'SI',label:'SI'},{value:'NO',label:'NO'}];
+
+  public exposicionOptions=[{value:'CONTACTO',label:'CONTACTO'},{value:'SD',label:'SD'}, {value:'SIN NEXO',label:'SIN NEXO'}];
+
+  pacientesList: any[];
+  formGroup: FormGroup;
+  comentariosFormGroup: FormGroup;
+  motivosFormGroup: FormGroup;
+  llamadaFormGroup: FormGroup;
+  showLlamadaRealizada: boolean = false;
+  primerContacto: PrimerContacto;
+
+  edito: boolean = false;
 
   constructor(
     private _router: Router,
@@ -148,9 +159,6 @@ export class GrillaPrimerContactoComponent implements OnInit {
     private _location: Location
   ) {
     this.loading = false;
-    /*if (typeof localStorage !== "undefined") {
-        localStorage.clear();
-    }*/
   }
 
   ngOnInit() {
@@ -174,22 +182,32 @@ export class GrillaPrimerContactoComponent implements OnInit {
       tipo: [null,Validators.required],
     });
 
+    this.comentariosFormGroup = this.formBuilder.group({
+      nexo: [null],
+      comentarios: [null,Validators.required]
+    });
+
+    this.motivosFormGroup = this.formBuilder.group({
+      motivoNoContacto: [null,Validators.required]
+    });
+
     /*this._route.params.subscribe(params => {
       this.idPaciente = params["id"];
       this.cedulaPaciente = params["cedula"];
       console.log(this.idPaciente+" "+this.cedulaPaciente);
     });*/
 
-    this.cols = [{ field: 'fechaCierre', header: 'Fecha de Cierre', width: '8%' },
-        { field: 'nroDocumento', header: 'Nro de Documento', width: '8%' },
-        { field: 'nombres', header: 'Nombres', width: '10%' },
+    this.cols = [{ field: 'fechaCierreCaso', header: 'Fecha de Cierre', width: '7%' },
+        { field: 'nroDocumento', header: 'Nro de Documento', width: '7%'},
+        { field: 'nombres', header: 'Nombres', width: '9%' },
         { field: 'apellidos', header: 'Apellidos', width: '10%' },
         { field: 'telefono', header: 'Teléfono', width: '8%' },
-        { field: 'departamento', header: 'Departamento', width: '9%' },
-        { field: 'distrito', header: 'Distrito', width: '9%' },
-        { field: 'estado', header: 'Estado', width: '7%' },
-        { field: 'tipo', header: 'Tipo de Exposición', width: '9%' },
-        { field: 'fechaUltimoContacto', header: 'Fecha de Inicio de Síntomas', width: '10%' }];
+        { field: 'departamento', header: 'Departamento', width: '8%' },
+        { field: 'distrito', header: 'Distrito', width: '8%' },
+        { field: 'hospitalizado', header: 'Hospitalizado', width: '8%' },
+        { field: 'fallecido', header: 'Fallecido', width: '6%' },
+        { field: 'tipoExposicion', header: 'Tipo de Exposición', width: '9%' },
+        { field: 'fechaInicioSintomas', header: 'Fecha de Inicio de Síntomas', width: '8%' }];
         //{ field: '', header: 'Acciones', width: '15%' }];
   }
 
@@ -210,13 +228,12 @@ export class GrillaPrimerContactoComponent implements OnInit {
 }
 
 buscarContactos(){
-  this.service.getContactosPaciente(/*this.idPaciente*/1, this.start, this.pageSize, this.filter, this.sortAsc, this.sortField).subscribe(contactos => {
-    this.contactosList = contactos.lista;
-    this.totalRecords = contactos.totalRecords;
-
-    console.log(this.contactosList);
+  this.service.getPacientesPrimerContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField).subscribe(pacientes => {
+    this.pacientesList = pacientes.lista;
+    this.totalRecords = pacientes.totalRecords;
+    console.log(this.pacientesList);
     
-    this.contactosList = [{actualizado: "no",fechaCierre:"2020-10-30T11:14:18.911-0300", estado: "Internado", apellidos: "Ocampos", domicilio: "Dominicana 216", fechaModificacion: null,
+    /*this.contactosList = [{actualizado: "no",fechaCierre:"2020-10-30T11:14:18.911-0300", estado: "Internado", apellidos: "Ocampos", domicilio: "Dominicana 216", fechaModificacion: null,
     fechaUltimoContacto: "2020-10-20", id: 0, nombres: "Tito", nroDocumento: "1695901",
     paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
     tipo: "Pre Quirúrgico", departamento: "Central",distrito: "San Lorenzo"}, {actualizado: "no", fechaCierre:"2020-10-29T11:14:18.911-0300", estado: "Fallecido", apellidos: "Torres", domicilio: "Manduvirá 218", fechaModificacion: null,
@@ -227,10 +244,8 @@ buscarContactos(){
     paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
     tipo: "Sin nexo", departamento: "Central", distrito: "Asunción"},{actualizado: "no", fechaCierre:"2020-10-29T11:14:18.911-0300", estado: "Internado", apellidos: "Rivas", domicilio: "México 1534", fechaModificacion: null,
     fechaUltimoContacto: "2020-10-22", id: 3, nombres: "Luis", nroDocumento: "1695851",
-    paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
-    tipo: "Contacto", departamento: "Central", distrito: "Capiatá"}];
-
-    this.totalRecords = 4;
+    paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300", tipo: "Contacto", departamento: "Central", distrito: "Capiatá"}];
+    this.totalRecords = 4;*/
   });
 }
 
@@ -256,14 +271,11 @@ buscarContactos(){
       {
         this._router.navigate(["/"]);
       }
-      else
-      {
+      else{
         this.loading = false;
         this.mensaje = "No se encontró una persona con este identificador";
         this.response = null;
       }
-      //this.openMessageDialog();
-
     }
   );
   }
@@ -350,11 +362,6 @@ buscarContactos(){
       this._router.navigate(["/"]);
       return false;
     }
-  }
-
-  volver() {
-    this._location.back();
-    //this._router.navigate(["covid19/operador/toma-muestra-laboratorial/", this.cedulaPaciente]);
   }
 
   mostrarEditarContacto(contacto){
@@ -489,7 +496,6 @@ buscarContactos(){
   }
 
   closePopupBorrarContacto(){
-    //this.nroCelularCambiar = '';
     this.showBorrarContacto = false;
   }
 
@@ -518,29 +524,175 @@ buscarContactos(){
 
   }
 
-  agregarComentario(){
+  mostrarAgregarComentario(rowData){
+    this.primerContacto = rowData;
     this.showAgregarComentario = true;
   }
 
+  agregarComentario(){
+    this.primerContacto.comentarios = this.comentariosFormGroup.controls.comentarios.value;
+    this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
+      this.loading = false;
+      this.mensaje= "Comentarios agregados exitosamente.";
+      this.showAgregarComentario = false;
+      this.openMessageDialog();
+  }, error => {
+      if(error.status == 401)
+      {
+        this._router.navigate(["/"]);
+      }
+      else
+      {
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
+  }
+  );
+  }
+
   closePopupAgregarComentario(){
+    this.comentariosFormGroup.controls.comentarios.setValue(null);
     this.showAgregarComentario = false;
   }
 
-  noSeContacto(){
+  mostrarNoSeContacto(rowData){
+    this.primerContacto = rowData;
     this.showNoSeContacto = true;
+  }
+
+  guardarNoSeContacto(){
+    this.primerContacto.estadoPrimeraLlamada = this.motivosFormGroup.controls.motivoNoContacto.value;
+    this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
+      this.loading = false;
+      this.mensaje= "Motivo guardado exitosamente.";
+      this.showNoSeContacto = false;
+      this.openMessageDialog();
+    }, error => {
+      if(error.status == 401)
+      {
+        this._router.navigate(["/"]);
+      }
+      else
+      {
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
+    }
+    );
   }
 
   closePopupNoSeContacto(){
     this.showNoSeContacto = false;
   }
 
-  onRowEditInit(row) {
-    this.clonedRows[row.id] = {...row};
+  mostrarLlamada(rowData){
+    this.primerContacto = rowData;
+    this.showLlamadaRealizada = true;
   }
 
-  onRowEditSave(row){
-    console.log(row.id);
-    this.contactosList[row.id].actualizado = 'si';
+  guardarLlamada(){
+    this.primerContacto.estadoPrimeraLlamada ="llamada_realizada";
+    this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
+      this.loading = false;
+      this.mensaje= "Estado de la llamada guardado exitosamente.";
+      this.buscarContactos();
+      this.showLlamadaRealizada = false;
+      this.openMessageDialog();
+    }, error => {
+      if(error.status == 401)
+      {
+        this._router.navigate(["/"]);
+      }
+      else
+      {
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
+    }
+    );
+  }
+
+  closePopupLlamadaRealizada(){
+    this.showLlamadaRealizada = false;
+  }
+
+  onRowEditInit(rowData) {
+    this.edito = true;
+    this.primerContacto = rowData;
+
+    this.formGroup = new FormGroup({
+      fechaCierreCaso: new FormControl(rowData.fechaCierreCaso, [
+        Validators.required
+      ]),
+      nroDocumento: new FormControl(rowData.nroDocumento, [
+        Validators.required
+      ]),
+      nombre: new FormControl(rowData.nombre, [
+        Validators.required
+      ]),
+      apellido: new FormControl(rowData.apellido, [
+        Validators.required
+      ]),
+      telefono: new FormControl(rowData.telefono, [
+        Validators.required
+      ]),
+      departamento: new FormControl(rowData.departamento, [
+        Validators.required
+      ]),
+      distrito: new FormControl(rowData.distrito, [
+        Validators.required
+      ]),
+      hospitalizado: new FormControl(rowData.hospitalizado, [
+        Validators.required
+      ]),
+      fallecido: new FormControl(rowData.fallecido, [
+        Validators.required
+      ]),
+      tipoExposicion: new FormControl(rowData.tipoExposicion, [
+        Validators.required
+      ]),
+      fechaInicioSintomas: new FormControl(rowData.fechaInicioSintomas, [
+        Validators.required
+      ])
+    });
+  }
+
+  onRowEditSave(rowData){
+    //console.log(row.id);
+    this.primerContacto.nroDocumento = this.formGroup.controls.nroDocumento.value;
+    this.primerContacto.nombre = this.formGroup.controls.nombre.value;
+    this.primerContacto.apellido = this.formGroup.controls.apellido.value;
+    this.primerContacto.distrito = this.formGroup.controls.distrito.value;
+    this.primerContacto.departamento = this.formGroup.controls.departamento.value;
+    this.primerContacto.telefono = this.formGroup.controls.telefono.value;
+    this.primerContacto.hospitalizado = this.formGroup.controls.hospitalizado.value;
+    this.primerContacto.fallecido = this.formGroup.controls.fallecido.value;
+    this.primerContacto.tipoExposicion = this.formGroup.controls.tipoExposicion.value;
+    this.primerContacto.fechaInicioSintomas = this.formGroup.controls.fechaInicioSintomas.value;
+    this.primerContacto.fechaCierreCaso = this.formGroup.controls.fechaCierreCaso.value;
+    //this.contactosList[row.id].actualizado = 'si';
+
+    this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
+        this.loading = false;
+        this.mensaje= "Registro editado exitosamente.";
+        this.edito = false;
+        this.openMessageDialog();
+    }, error => {
+        if(error.status == 401)
+        {
+          this._router.navigate(["/"]);
+        }
+        else
+        {
+          this.loading = false;
+          this.mensaje = error.error;
+          this.openMessageDialog();
+        }
+    }
+  );
   }
 
   onRowEditCancel(){

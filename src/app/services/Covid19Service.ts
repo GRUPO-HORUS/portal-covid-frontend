@@ -5,6 +5,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { FormDatosBasicos } from "../../app/pages/covid19/model/formDatosBasicos.model";
 import {ContactoTable} from '../pages/covid19/model/contacto-table.model';
 import { FormDatosBasicosPB } from "../pages/covid19/model/formDatosBasicosPB.model";
+import { PrimerContactoTable } from "../pages/covid19/model/primer-contacto-table.model";
 
 @Injectable()
 export class Covid19Service {
@@ -89,6 +90,26 @@ export class Covid19Service {
     guardarClasifRiesgo(clasifRiesgo):Observable<string>{
       return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/clasifRiesgo', clasifRiesgo);
     }
+
+    getPacientesPrimerContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
+      sortField: string): Observable<PrimerContactoTable> {
+     this.loading.next(true);
+
+     let params = new HttpParams();
+
+     if (filter)
+       params = params.set('filter', filter);
+
+     if (sortField)
+       params = params.set('sortField', sortField);
+
+     params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
+     return this.httpClient.get<PrimerContactoTable>(this.config.API + '/covid19api/aislamiento/listarPrimerContacto', {params});
+   }
+
+   editarPrimerContacto(primerContacto): Observable<string> {
+    return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/editarPrimerContacto', primerContacto);
+  }
 
     listarPacientes(start: number, pageSize: number, filter: string, sortAsc: boolean,
       sortField: string): Observable<ContactoTable> {

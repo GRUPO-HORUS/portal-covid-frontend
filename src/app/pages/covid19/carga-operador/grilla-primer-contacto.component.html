@@ -14,9 +14,7 @@
                     <i class="fa fa-edit mr-2" style="margin-top: -4px;"></i>
                     <span>Primer Contacto</span>
                 </h3>
-
                 <!--<form #miForm="ngForm" class="mt-4">
-
                     <div class="form-group">
                         <label for="cedula"><strong>Cédula</strong></label>
                         <input [(ngModel)]="cedula" class="form-control" id="cedula" style="max-width: 300px;" name="cedula" required>
@@ -34,8 +32,7 @@
                 </form>
                 <div class="col-md-8 mb-4">
                     <button class="btn btn-secondary btn-success-next">
-                        Generar Lista
-                        <span class="fa fa-plus"></span>
+                        Generar Lista<span class="fa fa-plus"></span>
                     </button>&nbsp;
                     <button class="btn btn-secondary btn-success-next" (click)="volver()">
                         Volver
@@ -44,7 +41,7 @@
                 </div>-->
                 <div>
 
-    <p-table #dt [columns]="cols" [value]="contactosList" selectionMode="single" dataKey="id" [paginator]="true"
+    <p-table #dt [columns]="cols" [value]="pacientesList" selectionMode="single" dataKey="id" [paginator]="true"
     [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="load($event)"
     paginatorPosition="bottom" [resizableColumns]="true" columnResizeMode="expand" editMode="row">
 
@@ -70,51 +67,107 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
-                <tr [pEditableRow]="rowData" [ngClass]="{'lowstock': rowData.actualizado==='si'}">
-                    <td pEditableColumn>
-                        <p-cellEditor>
+                <tr [pEditableRow]="rowData"><!--[ngClass]="{'lowstock': rowData.actualizado==='si'}"-->
+                    <td pEditableColumn style="vertical-align: top;">
+                        <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
-                                <input pInputText style="width:95px" type="text" [(ngModel)]="fechaCierre">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:85px" type="text" formControlName="fechaCierreCaso">
+                                </div>
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{rowData.fechaCierre | date:'dd-MM-yyyy'}}
+                                {{rowData.fechaCierreCaso | date:'dd-MM-yyyy'}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito">
+                            <ng-template pTemplate="input">
+                                {{rowData.fechaCierreCaso | date:'dd-MM-yyyy'}}
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.fechaCierreCaso | date:'dd-MM-yyyy'}}
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn>
-                        <p-cellEditor>
+                    <td pEditableColumn style="vertical-align: top;">
+                        <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
-                                <input pInputText style="width:95px" type="text" [(ngModel)]="cedula">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:85px" type="text" formControlName="nroDocumento">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.nroDocumento}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito">
+                            <ng-template pTemplate="input">
+                                {{rowData.nroDocumento}}
                             </ng-template>
                             <ng-template pTemplate="output">
                                 {{rowData.nroDocumento}}
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn>
-                        <p-cellEditor>
+                    <td pEditableColumn style="vertical-align: top;">
+                        <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
-                                <input pInputText style="width:95px" type="text" [(ngModel)]="nombre">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:100px" type="text" formControlName="nombre">
+                                </div>
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{rowData.nombres}}
+                                {{rowData.nombre}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito">
+                            <ng-template pTemplate="input">
+                                {{rowData.nombre}}
+                            </ng-template>
+
+                            <ng-template pTemplate="output">
+                                {{rowData.nombre}}
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn>
-                        <p-cellEditor>
+                    <td pEditableColumn style="vertical-align: top;">
+                        <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
-                                <input pInputText style="width:95px" type="text" [(ngModel)]="apellido">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:105px" type="text" formControlName="apellido">
+                                </div>
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{rowData.apellidos}}
+                                {{rowData.apellido}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito">
+                            <ng-template pTemplate="input">
+                                {{rowData.apellido}}
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.apellido}}
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn>
-                        <p-cellEditor>
+                    <td pEditableColumn style="vertical-align: top;">
+                        <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
-                                <input pInputText style="width:95px" type="text" [(ngModel)]="telefono">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:90px" type="text" formControlName="telefono">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.telefono}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito">
+                            <ng-template pTemplate="input">
+                                {{rowData.telefono}}
                             </ng-template>
                             <ng-template pTemplate="output">
                                 {{rowData.telefono}}
@@ -122,20 +175,44 @@
                         </p-cellEditor>
                         
                     </td>
-                    <td pEditableColumn>
-                        <p-cellEditor>
+                    <td pEditableColumn style="vertical-align: top;">
+                        <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
-                                <input pInputText style="width:95px" type="text" [(ngModel)]="departamento">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:95px" type="text" formControlName="departamento">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.departamento}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito">
+                            <ng-template pTemplate="input">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:95px" type="text" formControlName="departamento">
+                                </div>
                             </ng-template>
                             <ng-template pTemplate="output">
                                 {{rowData.departamento}}
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn>
-                        <p-cellEditor>
+                    <td pEditableColumn style="vertical-align: top;">
+                        <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
-                                <input pInputText style="width:95px" type="text" [(ngModel)]="distrito">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:95px" type="text" formControlName="distrito">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.distrito}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito">
+                            <ng-template pTemplate="input">
+                                {{rowData.distrito}}
                             </ng-template>
                             <ng-template pTemplate="output">
                                 {{rowData.distrito}}
@@ -143,113 +220,132 @@
                         </p-cellEditor>
                         
                     </td>
-                    <td pEditableColumn>
-                        <p-cellEditor>
+                    <td pEditableColumn style="vertical-align: top;">
+                        <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
-                                <input pInputText style="width:85px" type="text" [(ngModel)]="estado">
+                                <div [formGroup]="formGroup">
+                                    <!--<input pInputText style="width:65px" type="text" formControlName="hospitalizado">-->
+                                    <p-dropdown id="hospitalizado" [options]="binarioOptions" label="label" placeholder="Seleccionar" formControlName="hospitalizado" name="hospitalizado" [style]="{'minWidth':'70px', 'width': '70px'}" required></p-dropdown>
+                                </div>
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{rowData.estado}}
+                                {{rowData.hospitalizado}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito">
+                            <ng-template pTemplate="input">
+                                {{rowData.hospitalizado}}
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.hospitalizado}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td pEditableColumn style="vertical-align: top;">
+                        <p-cellEditor *ngIf="edito">
+                            <ng-template pTemplate="input">
+                                <div [formGroup]="formGroup">
+                                    <!--<input pInputText style="width:65px" type="text" formControlName="fallecido"> [style]="{'width':'515px'}"-->
+                                    <p-dropdown id="fallecido" [options]="binarioOptions" label="label" placeholder="Seleccionar" formControlName="fallecido" name="fallecido" [style]="{'minWidth':'70px', 'width': '70px'}" required></p-dropdown>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.fallecido}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito">
+                            <ng-template pTemplate="input">
+                                {{rowData.fallecido}}
+                            </ng-template>
+
+                            <ng-template pTemplate="output">
+                                {{rowData.fallecido}}
                             </ng-template>
                         </p-cellEditor>
                         
                     </td>
-                    <td pEditableColumn>
-                        <p-cellEditor>
+                    <td pEditableColumn style="vertical-align: top;">
+                        <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
-                                <input pInputText style="width:95px" type="text" [(ngModel)]="tipo">
+                                <div [formGroup]="formGroup">
+                                    <!--<input pInputText style="width:95px" type="text" formControlName="tipoExposicion">-->
+                                    <p-dropdown id="tipoExposicion" [options]="exposicionOptions" label="label" placeholder="Seleccionar" formControlName="tipoExposicion" name="tipoExposicion" [style]="{'minWidth':'109px', 'width': '109px'}" required></p-dropdown>
+                                </div>
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{rowData.tipo}}
+                                {{rowData.tipoExposicion}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito">
+                            <ng-template pTemplate="input">
+                                {{rowData.tipoExposicion}}
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.tipoExposicion}}
                             </ng-template>
                         </p-cellEditor>
                         
                     </td>
                     
-                    <td pEditableColumn>
-                        <p-cellEditor>
+                    <td pEditableColumn style="vertical-align: top;">
+                        <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
-                                <input pInputText style="width:95px" type="text" [(ngModel)]="fechaSintomas">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:95px" type="text" formControlName="fechaInicioSintomas">
+                                </div>
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{rowData.fechaUltimoContacto | date:'dd-MM-yyyy'}}
+                                {{rowData.fechaInicioSintomas | date:'dd-MM-yyyy'}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito">
+                            <ng-template pTemplate="input">
+                                {{rowData.fechaInicioSintomas | date:'dd-MM-yyyy'}}
+                            </ng-template>
+
+                            <ng-template pTemplate="output">
+                                {{rowData.fechaInicioSintomas | date:'dd-MM-yyyy'}}
                             </ng-template>
                         </p-cellEditor>
                         
                     </td>
-                  <td>
-                    <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="noSeContacto()" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:160px" label="No se pudo contactar" title="No se Pudo Contactar: en caso de que no atiende, apagado, etc."></button><br>
-                    <button *ngIf="!editing" type="button" pButton pInitEditableRow icon="pi pi-pencil" iconPos="left" (click)="onRowEditInit(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:160px" label="Editar" title="Editar algunas de las informaciones de las columnas exhibidas."></button>
-                    <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text ui-button-warning- p-mr-2 mr-2 ml-5"></button>
-                    <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(rowData, ri)" class="p-button-rounded p-button-text p-button-danger"></button><br>
-                    <button type="button" pButton icon="pi pi-comments" iconPos="left" (click)="agregarComentario()" class="ui-button-info mr-2 mb-1" style="font-size:10px;width:160px" label="Agregar Comentario" title="Agregar Comentario al momento de realizar llamada."></button><br>
-                    <button type="button" pButton icon="pi pi-volume-up" iconPos="left" routerLink="/covid19/operador/primer-contacto/1695901" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:160px" label="Llamada Realizada" title="Al Finalizar la llamada, se marca que la llamada fue realizada y el registro sale de la lista."></button><br>
-                </td>
+                    <td>
+                        <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="mostrarNoSeContacto(rowData)" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:160px" label="No se pudo contactar" title="No se Pudo Contactar: en caso de que no atiende, apagado, etc."></button><br>
+                        <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" iconPos="left" (click)="onRowEditInit(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:160px" label="Editar" title="Editar algunas de las informaciones de las columnas exhibidas."></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text ui-button-warning- p-mr-2 mr-2 ml-5" style="background-color: green !important;"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(rowData, ri)" class="p-button-rounded p-button-text p-button-danger" style="background-color: red !important;"></button><br>
+                        <button type="button" pButton icon="pi pi-comments" iconPos="left" (click)="mostrarAgregarComentario(rowData)" class="ui-button-info mr-2 mb-1" style="font-size:10px;width:160px" label="Agregar Comentario" title="Agregar Comentario al momento de realizar llamada."></button><br>
+                        <button type="button" pButton icon="pi pi-volume-up" iconPos="left" (click)="mostrarLlamada(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:160px" label="Llamada Realizada" title="Al Finalizar la llamada, se marca que la llamada fue realizada y el registro sale de la lista."></button><br><!--routerLink="/covid19/operador/primer-contacto/1695901"-->
+                    </td>
                 </tr>
             </ng-template>
     </p-table>
 
                 </div>
-
                 <!--<button class="btn btn-secondary" routerLink="/covid19/home-operador">
                     Volver al Menú
                 </button>-->
-
                 <!--<form #miForm="ngForm" class="mt-4">
-
                     <div class="form-group">
                         <label for="tipoDocumento"><strong>Tipo de Documento </strong></label>
                         <input type="text" [(ngModel)]="tipoDocumento" class="form-control" style="max-width: 200px;" id="tipoDocumento" name="tipoDocumento" required readonly>
                     </div>
-
                     <div class="form-group">
                         <label for="numeroDocumento"><strong>Cédula </strong></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.numeroDocumento" class="form-control" style="max-width: 200px;" id="numeroDocumento" name="numeroDocumento" placeholder="Ej. 123456" required readonly>
                     </div>
-
-                    <div class="form-group">
-                        <label for="nombre"><strong>Nombre</strong></label>
-                        <input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" style="max-width: 300px;" id="nombre" required readonly>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="apellido"><strong>Apellido</strong></label>
-                        <input type="text" [(ngModel)]="formDatosBasicos.apellido" name="apellido" class="form-control" style="max-width: 300px;" id="apellido" required readonly>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="numeroCelular"><strong>Nro teléfono</strong></label>
-                        <input type="text" [(ngModel)]="formDatosBasicos.numeroCelular" class="form-control" id="numeroCelular" style="max-width: 300px;" name="numeroCelular" placeholder="Ej. +595961123456" minlength="6" required readonly>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="codigoVerif"><strong>Código de verificación</strong></label>
-                        <input type="text" [(ngModel)]="codigoVerif" name="codigoVerif" class="form-control" style="max-width: 300px;" id="codigoVerif" required readonly>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="contrasenha"><strong>Contraseña </strong></label>
-                        <input type="password" [(ngModel)]="contrasenha" class="form-control" id="contrasenha" style="max-width: 300px;" name="contrasenha" minlength="8" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="contrasenhaConfirm"><strong>Confirmar contraseña</strong></label>
-                        <input type="password" [(ngModel)]="contrasenhaConfirm" name="contrasenhaConfirm" class="form-control" style="max-width: 300px;" id="contrasenhaConfirm" required>
-                    </div>
-
                     <div class="text-center" *ngIf="loading">
                         <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> A partir de ahora vamos a validar que sos vos...
                     </div>
-
-                    <div class="clearfix"><br/></div>
-
                     <div class="clearfix"><br/></div>
                     <button (click)="validarTelefono(formDatosBasicos.contrasenha)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || contrasenha !== contrasenhaConfirm">
-                            Guardar
-                            <span class="fa fa-check"></span>
+                            Guardar<span class="fa fa-check"></span>
                         </button>
                 </form>-->
-
             <!--</div>-->
 
             <div class="row">
@@ -276,16 +372,18 @@
                 </div>
             </div>
 
-            <p-dialog [(visible)]="showAgregarComentario" modal="true" header="Agregar Comentario"><!--[formGroup]="agregarContactoFormGroup"-->
-                <div class="form-group">
-                    <label for="nombres"><strong>Nexo</strong><span class="text-danger">*</span></label>
-                    <input type="text" formControlName="nombres" name="nombres" class="form-control" style="max-width: 400px;" id="nombres" required>
-                </div>
-                <div class="form-group">
-                    <label for="motivo"><strong>Comentario</strong><span class="text-danger">*</span></label><br>
-                    <textarea id="motivo" cols="50" rows="5"></textarea>
-                </div>
-                <button class="btn btn-success btn-success-next mr-2" (click)="closePopupAgregarComentario()">
+            <p-dialog [(visible)]="showAgregarComentario" modal="true" header="Agregar Comentario">
+                <form [formGroup]="comentariosFormGroup" class="mt-4">
+                    <div class="form-group">
+                        <label for="nexo"><strong>Nexo</strong><span class="text-danger">*</span></label>
+                        <input type="text" formControlName="nexo" name="nexo" class="form-control" style="max-width: 400px;" id="nexo">
+                    </div>
+                    <div class="form-group">
+                        <label for="comentarios"><strong>Comentario</strong><span class="text-danger">*</span></label><br>
+                        <textarea id="comentarios"  formControlName="comentarios" cols="50" rows="5"></textarea>
+                    </div>
+                </form>
+                <button class="btn btn-success btn-success-next mr-2" (click)="agregarComentario()">
                     Aceptar <span class="fa fa-check"></span>
                 </button>
                 <button class="btn btn-secondary btn-success-next" (click)="closePopupAgregarComentario()">
@@ -294,15 +392,30 @@
             </p-dialog>
 
             <p-dialog [(visible)]="showNoSeContacto" modal="true" header="Indique el motivo por el que no se pudo contactar"><!--[formGroup]="agregarContactoFormGroup"-->
-                <div class="form-group">
-                    <label for="motivo"><strong>Motivo</strong><span style="color: red;"> *</span></label>
-                    <br>
-                    <p-dropdown id="motivo" [options]="motivos" label="label" placeholder="Seleccionar" formControlName="sexo" name="motivo" [style]="{'width':'515px'}" required></p-dropdown>
-                </div>
-                <button class="btn btn-success btn-success-next mr-2 mt-6" (click)="closePopupNoSePudoContactar()">
+                <form [formGroup]="motivosFormGroup" class="mt-4">
+                    <div class="form-group">
+                        <label for="motivo"><strong>Motivo</strong><span style="color: red;"> *</span></label>
+                        <br>
+                        <p-dropdown id="motivo" [options]="motivos" label="label" placeholder="Seleccionar" formControlName="motivoNoContacto" name="motivo" [style]="{'width':'515px'}" required></p-dropdown>
+                    </div>
+                </form>
+                <button class="btn btn-success btn-success-next mr-2 mt-6" (click)="guardarNoSeContacto()" [disabled]="!motivosFormGroup.valid">
                     Aceptar <span class="fa fa-check"></span>
                 </button>
-                <button class="btn btn-secondary btn-success-next mt-6" (click)="closePopupNoSePudoContactar()">
+                <button class="btn btn-secondary btn-success-next mt-6" (click)="closePopupNoSeContacto()">
+                    Cancelar <span class="fa fa-times"></span>
+                </button>
+            </p-dialog>
+
+            <p-dialog [(visible)]="showLlamadaRealizada" modal="true" header="Confirmar Llamada Realizada">
+                    <div class="form-group">
+                        <label for="nexo"><strong>Está seguro?</strong></label>
+                    </div>
+                
+                <button class="btn btn-success btn-success-next mr-2" (click)="guardarLlamada()">
+                    Aceptar <span class="fa fa-check"></span>
+                </button>
+                <button class="btn btn-secondary btn-success-next" (click)="closePopupLlamadaRealizada()">
                     Cancelar <span class="fa fa-times"></span>
                 </button>
             </p-dialog>
