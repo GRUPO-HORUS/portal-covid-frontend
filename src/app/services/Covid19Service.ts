@@ -92,7 +92,7 @@ export class Covid19Service {
     }
 
     getPacientesPrimerContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string): Observable<PrimerContactoTable> {
+      sortField: string, region, opcionFiltro): Observable<PrimerContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -104,8 +104,12 @@ export class Covid19Service {
        params = params.set('sortField', sortField);
 
      params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
-     return this.httpClient.get<PrimerContactoTable>(this.config.API + '/covid19api/aislamiento/listarPrimerContacto', {params});
+     return this.httpClient.get<PrimerContactoTable>(this.config.API + '/covid19api/aislamiento/listarPrimerContacto/'+region+'/'+opcionFiltro, {params});
    }
+
+   guardarPrimerContacto(primerContacto): Observable<string> {
+    return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/guardarPrimerContacto/', primerContacto);
+  }
 
    editarPrimerContacto(primerContacto): Observable<string> {
     return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/editarPrimerContacto', primerContacto);

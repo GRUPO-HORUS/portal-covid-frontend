@@ -5,8 +5,10 @@ import { Covid19Service } from '../../../services/Covid19Service';
 
 import {FormDatosBasicos} from '../model/formDatosBasicos.model';
 
-import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { FormGroup, Validators, FormBuilder } from "@angular/forms";
+
+import {calendarEsLocale} from '../../../util/calendar-es-locale';
+import { PrimerContacto } from "../model/primerContacto.model";
 
 declare var $: any;
 @Component({
@@ -55,7 +57,6 @@ export class ContactoFormComponent implements OnInit {
   {value:'8',label:'OTRO'}];
 
   public tipoRegistroOptions=[{value:'ingreso_pais',label:'Ingreso al país'},{value:'aislamiento',label:'Caso sospechoso Covid-19'}];
-
   /*public departamentoOptions=[{value:'Capital',label:'Capital'},
                               {value:'Concepción',label:'Concepción'},{value:'San Pedro',label:'San Pedro'},
                               {value:'Cordillera',label:'Cordillera'},{value:'Guairá',label:'Guairá'},
@@ -86,7 +87,6 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
 
   public ciudadOptions: any[];
 
-  // recaptcha
   public recentToken: string = ''
   private subscription: Subscription;
   public recaptchaAvailable = false;
@@ -100,11 +100,14 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
 
   nroDocumento;
 
+  public exposicionOptions=[{value:'CONTACTO',label:'CONTACTO'},{value:'SD',label:'SD'}, {value:'SIN NEXO',label:'SIN NEXO'}];
+  public binarioOptions=[{value:'SI',label:'SI'},{value:'NO',label:'NO'}];
+
+  es = calendarEsLocale;
   constructor(
     private _router: Router,
     private service: Covid19Service,
     private _route: ActivatedRoute,
-    private recaptchaV3Service: ReCaptchaV3Service,
     private _formBuilder: FormBuilder
   ) {
     this.loading = false;
@@ -133,10 +136,11 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
       telefono: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       direccion: ['', Validators.required],
       sexo: ['', Validators.required],
-      idioma: ['', Validators.required],
-      tipoContacto: ['', Validators.required],
-      ocupacion: ['', Validators.required],
-      lugaresServicio: ['', Validators.required]
+      tipoExposicion: ['', Validators.required],
+      hospitalizado: ['', Validators.required],
+      fallecido: ['', Validators.required],
+      fechaInicioSintomas: ['', Validators.required],
+      fechaCierreCaso: ['', Validators.required],
     });
 
     //this.getRecaptchaToken('register');
@@ -148,7 +152,6 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
   onChange(event){
     this.service.getCiudadesPorDepto(event.value).subscribe(ciudades => {
       this.ciudadOptions = ciudades;
-      
         for (let i = 0; i < ciudades.length; i++) {
           let c = ciudades[i];
           this.ciudadOptions[i] = { label: c.descripcion, value: c.idCiudad };
@@ -158,7 +161,6 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
       console.log(error);
       this.mensaje = error.error;
       this.openMessageDialog();
-        
     }
     );
   }
@@ -167,6 +169,39 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  guardarPrimerContacto(){
+    const primerContacto = new PrimerContacto();
+    primerContacto.nroDocumento = this.contactoFg.controls.cedula.value;
+    primerContacto.nombre = this.contactoFg.controls.nombre.value;
+    primerContacto.apellido = this.contactoFg.controls.apellido.value;
+    primerContacto.telefono = this.contactoFg.controls.telefono.value;
+    primerContacto.direccion = this.contactoFg.controls.direccion.value;
+    primerContacto.hospitalizado = this.contactoFg.controls.hospitalizado.value;
+    primerContacto.fallecido = this.contactoFg.controls.fallecido.value;
+    primerContacto.tipoExposicion = this.contactoFg.controls.tipoExposicion.value;
+    primerContacto.fechaInicioSintomas = this.contactoFg.controls.fechaInicioSintomas.value;
+    primerContacto.fechaCierreCaso = this.contactoFg.controls.fechaCierreCaso.value;
+
+    this.service.guardarPrimerContacto(primerContacto).subscribe(response => {
+        this.idRegistro = +response;
+        //this._router.navigate(["covid19/carga-operador/datos-clinicos/",this.idRegistro]);
+        this.loading = false;
+        this.mensaje = "Contacto registrado exitosamente!";
+        this.openMessageDialogExito();
+          
+      }, error => {
+        console.log(error);
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog(); 
+      }
+    );
+  }
+
+  openMessageDialogExito() {
+    setTimeout(function() { $("#modalExito").modal("toggle"); }, 1000);
   }
 
   registrar(formDatosBasicos): void {
@@ -229,8 +264,9 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
               if(band==='registro'){
                 this.contactoFg.controls.nombre.setValue(response.obtenerPersonaPorNroCedulaResponse.return.nombres);
                 this.contactoFg.controls.apellido.setValue(response.obtenerPersonaPorNroCedulaResponse.return.apellido);
-                this.contactoFg.controls.fechaNacimiento.setValue(response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(0, 4)+'-'+
-                response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(5, 7)+'-'+response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(8, 10));
+                this.contactoFg.controls.fechaNacimiento.setValue(response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(8, 10)+'/'+
+                response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(5, 7)+'/'+
+                response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(0, 4));
                 this.contactoFg.controls.sexo.setValue(response.obtenerPersonaPorNroCedulaResponse.return.sexo);
               }/*else{
                 this.casoConfirmadoFg.controls.nombre.setValue(response.obtenerPersonaPorNroCedulaResponse.return.nombres);

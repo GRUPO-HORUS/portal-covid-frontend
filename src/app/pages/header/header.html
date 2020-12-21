@@ -18,7 +18,13 @@
                                     <i *ngIf="!isLogin()&&currentUser" (click)="logout()" pToolTip="Salir" class="pi pi-sign-out" style="font-size: 2em;vertical-align: middle;"></i>
                                 </td>
                             </tr>
-
+                            <tr>
+                                <td></td>
+                                <td style="text-align: right;" *ngIf="currentUser">
+                                Usuario: {{currentUser?.usuario.nombre}}&nbsp; &nbsp;
+                                Región: {{currentUser?.usuario.regionSanitaria}}
+                                </td>
+                            </tr>
 
                         </table>
                         

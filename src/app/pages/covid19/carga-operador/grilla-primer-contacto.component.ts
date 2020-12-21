@@ -30,7 +30,6 @@ declare var $: any;
             font-weight: 700;
             background-color: #fff4dc !important;
         }
-        
         :host ::ng-deep .row-accessories {
             background-color: rgba(0,0,0,.15) !important;
         }
@@ -150,6 +149,13 @@ export class GrillaPrimerContactoComponent implements OnInit {
 
   edito: boolean = false;
 
+  region: string;
+
+  fallaSII: boolean = false;
+
+  public contactoOptions=[{value:'todos',label:'Todos'},{value:'pendientes',label:'Pendientes'}];
+  public contactoOption;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -162,6 +168,9 @@ export class GrillaPrimerContactoComponent implements OnInit {
   }
 
   ngOnInit() {
+    const {usuario} = this.storageManager.getLoginData();
+    this.region = usuario.regionSanitaria;
+
     this.actualizarDiagnosticoFormGroup = this.formBuilder.group({
       resultadoUltimoDiagnostico: [null,Validators.required],
       fechaUltimoDiagnostico: [null,Validators.required],
@@ -200,7 +209,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
     this.cols = [{ field: 'fechaCierreCaso', header: 'Fecha de Cierre', width: '7%' },
         { field: 'nroDocumento', header: 'Nro de Documento', width: '7%'},
         { field: 'nombres', header: 'Nombres', width: '9%' },
-        { field: 'apellidos', header: 'Apellidos', width: '10%' },
+        { field: 'apellidos', header: 'Apellidos', width: '11%' },
         { field: 'telefono', header: 'Teléfono', width: '8%' },
         { field: 'departamento', header: 'Departamento', width: '8%' },
         { field: 'distrito', header: 'Distrito', width: '8%' },
@@ -223,30 +232,76 @@ export class GrillaPrimerContactoComponent implements OnInit {
       else
         this.sortAsc = false;
     }
-    this.buscarContactos();
+    this.buscarContactos('pendientes');
     
 }
 
-buscarContactos(){
-  this.service.getPacientesPrimerContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField).subscribe(pacientes => {
-    this.pacientesList = pacientes.lista;
-    this.totalRecords = pacientes.totalRecords;
-    console.log(this.pacientesList);
-    
-    /*this.contactosList = [{actualizado: "no",fechaCierre:"2020-10-30T11:14:18.911-0300", estado: "Internado", apellidos: "Ocampos", domicilio: "Dominicana 216", fechaModificacion: null,
-    fechaUltimoContacto: "2020-10-20", id: 0, nombres: "Tito", nroDocumento: "1695901",
-    paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
-    tipo: "Pre Quirúrgico", departamento: "Central",distrito: "San Lorenzo"}, {actualizado: "no", fechaCierre:"2020-10-29T11:14:18.911-0300", estado: "Fallecido", apellidos: "Torres", domicilio: "Manduvirá 218", fechaModificacion: null,
-    fechaUltimoContacto: "2020-10-22", id: 1, nombres: "Jorge", nroDocumento: "1695951",
-    paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
-    tipo: "Contacto", departamento: "Central", distrito: "Asunción"}, {actualizado: "no", fechaCierre:"2020-10-29T11:14:18.911-0300", estado: "Internado", apellidos: "Salinas", domicilio: "Ayolas 214", fechaModificacion: null,
-    fechaUltimoContacto: "2020-10-19", id: 2, nombres: "Juan", nroDocumento: "1695851",
-    paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
-    tipo: "Sin nexo", departamento: "Central", distrito: "Asunción"},{actualizado: "no", fechaCierre:"2020-10-29T11:14:18.911-0300", estado: "Internado", apellidos: "Rivas", domicilio: "México 1534", fechaModificacion: null,
-    fechaUltimoContacto: "2020-10-22", id: 3, nombres: "Luis", nroDocumento: "1695851",
-    paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300", tipo: "Contacto", departamento: "Central", distrito: "Capiatá"}];
-    this.totalRecords = 4;*/
-  });
+buscarContactos(opcionFiltro){
+  console.log(opcionFiltro);
+  
+    this.service.getPacientesPrimerContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, opcionFiltro).subscribe(pacientes => {
+      this.pacientesList = pacientes.lista;
+      this.totalRecords = pacientes.totalRecords;
+      console.log(this.pacientesList);
+      
+      /*this.contactosList = [{actualizado: "no",fechaCierre:"2020-10-30T11:14:18.911-0300", estado: "Internado", apellidos: "Ocampos", domicilio: "Dominicana 216", fechaModificacion: null,
+      fechaUltimoContacto: "2020-10-20", id: 0, nombres: "Tito", nroDocumento: "1695901",
+      paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
+      tipo: "Pre Quirúrgico", departamento: "Central",distrito: "San Lorenzo"}, {actualizado: "no", fechaCierre:"2020-10-29T11:14:18.911-0300", estado: "Fallecido", apellidos: "Torres", domicilio: "Manduvirá 218", fechaModificacion: null,
+      fechaUltimoContacto: "2020-10-22", id: 1, nombres: "Jorge", nroDocumento: "1695951",
+      paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
+      tipo: "Contacto", departamento: "Central", distrito: "Asunción"}, {actualizado: "no", fechaCierre:"2020-10-29T11:14:18.911-0300", estado: "Internado", apellidos: "Salinas", domicilio: "Ayolas 214", fechaModificacion: null,
+      fechaUltimoContacto: "2020-10-19", id: 2, nombres: "Juan", nroDocumento: "1695851",
+      paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
+      tipo: "Sin nexo", departamento: "Central", distrito: "Asunción"}];
+      this.totalRecords = 4;*/
+    });
+  
+  
+}
+
+consultarIdentificaciones(event) {
+  const nroDocumento = event.target.value;
+  //if(formDatosBasicos.tipoDocumento==0 && formDatosBasicos.numeroDocumento){
+  if(nroDocumento){
+    if(nroDocumento.includes('.'))
+    {
+      this.mensaje = 'La cédula no debe poseer puntos.';
+      this.openMessageDialog();
+    }
+    else
+    {
+      this.loading = true;
+      //formDatosBasicos.numeroDocumento=formDatosBasicos.numeroDocumento.trim();
+      this.service.getIdentificacionesByNumeroDocumento(nroDocumento.trim()).subscribe(response => {
+          this.loading = false;
+          if(response.obtenerPersonaPorNroCedulaResponse.return.error){
+            this.fallaSII = true;
+            this.mensaje = response.obtenerPersonaPorNroCedulaResponse.return.error;
+            this.openMessageDialog();
+          }
+          else
+          {
+            this.formGroup.controls.nombre.setValue(response.obtenerPersonaPorNroCedulaResponse.return.nombres);
+            this.formGroup.controls.apellido.setValue(response.obtenerPersonaPorNroCedulaResponse.return.apellido);
+          }
+      }, error => {
+        if(error.status == 401)
+        {
+          this._router.navigate(["/"]);
+        }
+        else
+        {
+          this.loading = false;
+          //this.mensaje = error.error;
+          this.fallaSII = true;
+          this.mensaje = "No se pudieron obtener los datos del paciente.";
+          this.openMessageDialog();
+        }
+      }
+  );
+    }
+  }
 }
 
   ngOnDestroy() {
@@ -500,7 +555,6 @@ buscarContactos(){
   }
 
   borrarContacto(){
-
     this.service.borrarContacto(this.idContacto).subscribe(response => {
       this.loading = false;
       this.mensaje = "Se ha borrado correctamente el contacto.";
@@ -535,6 +589,7 @@ buscarContactos(){
       this.loading = false;
       this.mensaje= "Comentarios agregados exitosamente.";
       this.showAgregarComentario = false;
+      this.comentariosFormGroup.controls.comentarios.setValue(null);
       this.openMessageDialog();
   }, error => {
       if(error.status == 401)

@@ -80,8 +80,7 @@ export class FichaMonitoreoComponent implements OnInit {
 
   public tipoRegistroOptions=[{value:'ingreso_pais',label:'Ingreso al país'},{value:'aislamiento',label:'Caso sospechoso Covid-19'}];
   
-/*public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
-                              {value:'Concepción',label:'Concepción'},{value:'San Pedro',label:'San Pedro'},
+/*public regionSanitariaOptions=[{value:'Capital',label:'Capital'}, {value:'Concepción',label:'Concepción'},{value:'San Pedro',label:'San Pedro'},
                               {value:'Cordillera',label:'Cordillera'},{value:'Guairá',label:'Guairá'},
                               {value:'Caaguazú',label:'Caaguazú'},{value:'Caazapá',label:'Caazapá'},
                               {value:'Itapúa',label:'Itapúa'},{value:'Misiones',label:'Misiones'},
@@ -92,7 +91,7 @@ export class FichaMonitoreoComponent implements OnInit {
                               {value:'Boquerón',label:'Boquerón'}];*/
 
                               public regionSanitariaOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro Norte'},
-                              {id:3, nombre:'San Pedro Norte'}, {id:4, nombre:'Cordillera'},
+                              {id:3, nombre:'San Pedro Sur'}, {id:4, nombre:'Cordillera'},
                               {id:5, nombre:'Guairá'}, {id:6, nombre:'Caaguazú'},
                               {id:7,nombre:'Caazapá'}, {id:8, nombre:'Itapúa'},
                               {id:9,nombre:'Misiones'},

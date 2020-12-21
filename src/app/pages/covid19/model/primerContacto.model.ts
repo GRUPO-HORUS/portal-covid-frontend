@@ -5,8 +5,8 @@ export class PrimerContacto {
     apellido: string;
     telefono: string;
     direccion: string;
-    fechaCierreCaso: Date;
-    fechaInicioSintomas: Date;
+    fechaCierreCaso: string;
+    fechaInicioSintomas: string;    //Date
     tipoExposicion: string;
     fallecido: string;
     hospitalizado: string;

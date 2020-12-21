@@ -13,4 +13,6 @@ export class Usuario {
     telefono: string;
     username: string;
     rols: Rol[];
+
+    regionSanitaria: string;
 }
