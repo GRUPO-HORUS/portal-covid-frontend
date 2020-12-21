@@ -154,7 +154,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
   fallaSII: boolean = false;
 
   public contactoOptions=[{value:'todos',label:'Todos'},{value:'pendientes',label:'Pendientes'}];
-  public contactoOption;
+  public contactoOption="pendientes";
 
   constructor(
     private _router: Router,
@@ -465,7 +465,7 @@ consultarIdentificaciones(event) {
       this.openMessageDialog();
       this.showEditarContacto = false;
 
-      this.buscarContactos();
+      this.buscarContactos(this.contactoOption);
     }, error => {
       if(error.status == 401)
       {
@@ -528,7 +528,7 @@ consultarIdentificaciones(event) {
       this.agregarContactoFormGroup.controls.fechaUltimoContacto.setValue(null);
       this.agregarContactoFormGroup.controls.tipo.setValue(null);
 
-      this.buscarContactos();
+      this.buscarContactos(this.contactoOption);
     }, error => {
       if(error.status == 401)
       {
@@ -561,7 +561,7 @@ consultarIdentificaciones(event) {
       this.openMessageDialog();
       this.showBorrarContacto = false;
 
-      this.buscarContactos();
+      this.buscarContactos(this.contactoOption);
     }, error => {
       if(error.status == 401)
       {
@@ -652,7 +652,7 @@ consultarIdentificaciones(event) {
     this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
       this.loading = false;
       this.mensaje= "Estado de la llamada guardado exitosamente.";
-      this.buscarContactos();
+      this.buscarContactos(this.contactoOption);
       this.showLlamadaRealizada = false;
       this.openMessageDialog();
     }, error => {

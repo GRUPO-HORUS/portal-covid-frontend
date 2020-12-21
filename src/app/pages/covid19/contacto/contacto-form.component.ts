@@ -298,18 +298,6 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
     }
   }
 
-  getRecaptchaToken(action){
-    this.subscription = this.recaptchaV3Service.execute(action)
-        .subscribe(response => {
-            this.recentToken = response;
-            this.recaptchaAvailable = true;
-        },error=>{
-          console.log("error getting recaptcha");
-          this.ngOnDestroy()
-
-        });
-  }
-
   avanzar(telefono: string): void {
     this.loading = true;
         this.service.sendMessage(telefono).subscribe(response => {
