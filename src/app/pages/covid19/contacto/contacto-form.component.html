@@ -130,6 +130,21 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
+                                        <label for="departamento"><strong>Departamento</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        <p-autoComplete id="departamento" formControlName="departamento" [suggestions]="departamentosFiltrados" field="nombre" (completeMethod)="filtrarDepartamento($event)" [inputStyle]="{'width':'525px'}" [forceSelection]="true" required></p-autoComplete>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="distrito"><strong>Distrito</strong><span style="color: red;"> *</span></label>
+                                        <input type="text" formControlName="distrito" class="form-control" id="distrito" name="distrito" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
                                         <label for="regionSanitaria"><strong>Región Sanitaria</strong><span style="color: red;"> *</span></label>
                                         <br>
                                         <!--<p-dropdown id="regionSanitaria" [options]="regionSanitariaOptions" label="label" placeholder="Seleccionar" formControlName="regionSanitaria" name="regionSanitaria" [style]="{'width':'515px'}" required></p-dropdown>-->

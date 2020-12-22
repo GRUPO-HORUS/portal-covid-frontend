@@ -104,8 +104,20 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
 
   public exposicionOptions=[{value:'CONTACTO',label:'CONTACTO'},{value:'SD',label:'SD'}, {value:'SIN NEXO',label:'SIN NEXO'}];
   public binarioOptions=[{value:'SI',label:'SI'},{value:'NO',label:'NO'}];
-
   es = calendarEsLocale;
+
+  public departamentoOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro'},
+                              {id:3, nombre:'Cordillera'},
+                              {id:4, nombre:'Guairá'}, {id:5, nombre:'Caaguazú'},
+                              {id:6,nombre:'Caazapá'}, {id:7, nombre:'Itapúa'},
+                              {id:8,nombre:'Misiones'}, {id:9, nombre:'Paraguarí'},
+                              {id:10, nombre:'Alto Paraná'}, {id:11, nombre:'Central'},
+                              {id:12, nombre:'Ñeembucú'},
+                              {id:13, nombre:'Amambay'},{id:14, nombre:'Canindeyú'},
+                              {id:15, nombre:'Presidente Hayes'}, {id:16, nombre:'Boquerón'},
+                              {id:17, nombre:'Alto Paraguay'}, {id:18, nombre:'Capital'}];
+
+departamentosFiltrados: any[];
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -145,6 +157,8 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
       fechaCierreCaso: ['', Validators.required],
       regionSanitaria: ['', Validators.required],
       codPaciente: ['', Validators.required],
+      departamento: ['', Validators.required],
+      distrito: ['', Validators.required],
     });
 
     //this.getRecaptchaToken('register');
@@ -189,6 +203,8 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
     primerContacto.fechaCierreCaso = this.contactoFg.controls.fechaCierreCaso.value;
     primerContacto.codigoPaciente = this.contactoFg.controls.codPaciente.value;
     primerContacto.regionSanitaria = this.contactoFg.controls.regionSanitaria.value.nombre;
+    primerContacto.departamento = this.contactoFg.controls.departamento.value.nombre;
+    primerContacto.distrito = this.contactoFg.controls.distrito.value;
 
     this.service.guardarPrimerContacto(primerContacto).subscribe(response => {
         this.idRegistro = +response;
@@ -208,6 +224,20 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
 
   openMessageDialogExito() {
     setTimeout(function() { $("#modalExito").modal("toggle"); }, 1000);
+  }
+
+  filtrarDepartamento(event) {
+    let filtered : any[] = [];
+    let query = event.query;
+    for(let i = 0; i < this.departamentoOptions.length; i++) {
+        let departamento = this.departamentoOptions[i];
+
+        if (departamento.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          filtered.push(departamento);
+        }
+    }
+    
+    this.departamentosFiltrados = filtered;
   }
 
   filtrarRegion(event) {
