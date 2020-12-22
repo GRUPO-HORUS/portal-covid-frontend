@@ -57,18 +57,7 @@ export class ContactoFormComponent implements OnInit {
   {value:'8',label:'OTRO'}];
 
   public tipoRegistroOptions=[{value:'ingreso_pais',label:'Ingreso al país'},{value:'aislamiento',label:'Caso sospechoso Covid-19'}];
-  /*public departamentoOptions=[{value:'Capital',label:'Capital'},
-                              {value:'Concepción',label:'Concepción'},{value:'San Pedro',label:'San Pedro'},
-                              {value:'Cordillera',label:'Cordillera'},{value:'Guairá',label:'Guairá'},
-                              {value:'Caaguazú',label:'Caaguazú'},{value:'Caazapá',label:'Caazapá'},
-                              {value:'Itapúa',label:'Itapúa'},{value:'Misiones',label:'Misiones'},
-                              {value:'Paraguarí',label:'Paraguarí'},{value:'Alto Paraná',label:'Alto Paraná'},
-                              {value:'Central',label:'Central'},{value:'Ñeembucú',label:'Ñeembucú'},
-                              {value:'Amambay',label:'Amambay'},{value:'Canindeyú',label:'Canindeyú'},
-                              {value:'Presidente Hayes',label:'Presidente Hayes'},{value:'Alto Paraguay',label:'Alto Paraguay'},
-                              {value:'Boquerón',label:'Boquerón'}];
-  
-  public departamentoOptions=[{value:0,label:'ASUNCIÓN'}, {value:1,label:'CONCEPCIÓN'},
+  /*public departamentoOptions=[{value:0,label:'ASUNCIÓN'}, {value:1,label:'CONCEPCIÓN'},
                               {value:2,label:'SAN PEDRO'},
                               {value:3,label:'CORDILLERA'},{value:4,label:'GUAIRÁ'},
                               {value:5,label:'CAAGUAZÚ'},{value:6,label:'CAAZAPÁ'},
@@ -78,7 +67,20 @@ export class ContactoFormComponent implements OnInit {
                               {value:13,label:'AMAMBAY'},{value:14,label:'CANINDEYÚ'},
                               {value:15,label:'PRESIDENTE HAYES'},{value:16,label:'ALTO PARAGUAY'},
                               {value:17,label:'BOQUERÓN'}];*/
-  
+
+public regionSanitariaOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro Norte'},
+                              {id:3, nombre:'San Pedro Sur'}, {id:4, nombre:'Cordillera'},
+                              {id:5, nombre:'Guairá'}, {id:6, nombre:'Caaguazú'},
+                              {id:7,nombre:'Caazapá'}, {id:8, nombre:'Itapúa'},
+                              {id:9,nombre:'Misiones'},
+                              {id:10, nombre:'Paraguarí'},{id:11, nombre:'Alto Paraná'},
+                              {id:12, nombre:'Central'},{id:13, nombre:'Ñeembucú'},
+                              {id:14, nombre:'Amambay'},{id:15, nombre:'Canindeyú'},
+                              {id:16, nombre:'Presidente Hayes'}, {id:17, nombre:'Boquerón'},
+                              {id:18, nombre:'Alto Paraguay'}, {id:19, nombre:'Capital'}];
+
+regionesFiltradas: any[];
+
 public tipoContactoOptions=[{value:'hogar',label:'Hogar'},
                               {value:'trabajo',label:'Lugar de trabajo'},{value:'comunidad',label:'Comunidad'},
                               {value:'centro_salud',label:'Centro de Salud'},{value:'otro',label:'Otro'}];
@@ -141,6 +143,8 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
       fallecido: ['', Validators.required],
       fechaInicioSintomas: ['', Validators.required],
       fechaCierreCaso: ['', Validators.required],
+      regionSanitaria: ['', Validators.required],
+      codPaciente: ['', Validators.required],
     });
 
     //this.getRecaptchaToken('register');
@@ -183,6 +187,8 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
     primerContacto.tipoExposicion = this.contactoFg.controls.tipoExposicion.value;
     primerContacto.fechaInicioSintomas = this.contactoFg.controls.fechaInicioSintomas.value;
     primerContacto.fechaCierreCaso = this.contactoFg.controls.fechaCierreCaso.value;
+    primerContacto.codigoPaciente = this.contactoFg.controls.codPaciente.value;
+    primerContacto.regionSanitaria = this.contactoFg.controls.regionSanitaria.value.nombre;
 
     this.service.guardarPrimerContacto(primerContacto).subscribe(response => {
         this.idRegistro = +response;
@@ -202,6 +208,20 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
 
   openMessageDialogExito() {
     setTimeout(function() { $("#modalExito").modal("toggle"); }, 1000);
+  }
+
+  filtrarRegion(event) {
+    let filtered : any[] = [];
+    let query = event.query;
+    for(let i = 0; i < this.regionSanitariaOptions.length; i++) {
+        let region = this.regionSanitariaOptions[i];
+
+        if (region.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          filtered.push(region);
+        }
+    }
+    
+    this.regionesFiltradas = filtered;
   }
 
   registrar(formDatosBasicos): void {

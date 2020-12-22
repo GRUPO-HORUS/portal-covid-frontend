@@ -127,7 +127,22 @@
                                     </div>
                                 </div>
                             </div>
-        
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="regionSanitaria"><strong>Región Sanitaria</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        <!--<p-dropdown id="regionSanitaria" [options]="regionSanitariaOptions" label="label" placeholder="Seleccionar" formControlName="regionSanitaria" name="regionSanitaria" [style]="{'width':'515px'}" required></p-dropdown>-->
+                                        <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'525px'}" [forceSelection]="true" required></p-autoComplete>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="funcion"><strong>Código de Paciente</strong></label>
+                                        <input type="text" formControlName="codPaciente" name="codPaciente" class="form-control"  id="codPaciente">
+                                    </div>
+                                </div>
+                            </div>
                             <!--<div class="form-group">
                                 <input ngx-google-places-autocomplete [options]="options" #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
                             </div>

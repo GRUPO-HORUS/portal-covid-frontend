@@ -16,4 +16,6 @@ export class PrimerContacto {
     estadoPrimeraLlamada: string;
     comentarios: string;
     cantidadReintentos: number;
+    codigoPaciente: string;
+    regionSanitaria: string;
 }
