@@ -12,4 +12,5 @@ export class FormSeccionPersonalBlanco {
     fallecido: boolean;
 
     codigoPaciente: string;
+    otroServicio: boolean;
 }

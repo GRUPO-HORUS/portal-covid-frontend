@@ -51,6 +51,8 @@ export class FormDatosBasicosPB {
     funcion: string;
     otrosLugares: any[];
 
+    otroServicio: boolean;
+
     reingreso: boolean;
     fallecido: boolean;
     internado: boolean;
