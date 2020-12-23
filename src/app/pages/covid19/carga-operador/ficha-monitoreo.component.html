@@ -21,13 +21,13 @@
                     <mat-step [stepControl]="registroFg">
                         <form [formGroup]="registroFg" class="mt-4">
                             <ng-template matStepLabel>Datos del personal sanitario</ng-template>
-                            <div class="row">
+                            <!--<div class="row">
                                 <div class="col-md">
                                     <div class="alert alert-info">
                                         <i class="fa fa-info-circle"></i> Debe completar todos los campos requeridos para avanzar al siguiente paso.
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
 
                             <div class="row">
                                 <div class="col-md"></div>
@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="cedula"><strong>Número de Cédula</strong><span style="color: red;"> *</span></label>
+                                        <label for="cedula"><strong>Número de Cédula</strong></label><!--<span style="color: red;"> *</span>-->
                                         <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="consultarIdentificaciones($event, 'registro')">
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.numeroDocumento" class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ej. 123456" required>-->
                                     </div>
@@ -60,7 +60,7 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="nombre"><strong>Nombres</strong><span style="color: red;"> *</span></label>
+                                        <label for="nombre"><strong>Nombres</strong></label>
                                         <input type="text" *ngIf="!fallaSII" formControlName="nombre" class="form-control" id="nombre" name="nombre" required disabled>
                                         <input type="text" *ngIf="fallaSII" formControlName="nombre" class="form-control" id="nombre" name="nombre" required>
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" id="nombre" required disabled>-->
@@ -68,7 +68,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="apellido"><strong>Apellidos</strong><span style="color: red;"> *</span></label>
+                                        <label for="apellido"><strong>Apellidos</strong></label>
                                         <input type="text" *ngIf="!fallaSII" formControlName="apellido" class="form-control" id="apellido" name="apellido" required disabled>
                                         <input type="text" *ngIf="fallaSII" formControlName="apellido" class="form-control" id="apellido" name="apellido" required>
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" id="nombre" required>-->
@@ -78,14 +78,14 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="fechaNacimiento"><strong>Fecha de nacimiento:</strong><span style="color: red;"> *</span></label><!--value="1980-01-01"-->
+                                        <label for="fechaNacimiento"><strong>Fecha de nacimiento:</strong></label><!--value="1980-01-01"-->
                                         <input type="text" *ngIf="!fallaSII" formControlName="fechaNacimiento" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required disabled>
                                         <input type="date" *ngIf="fallaSII" id="fechaNacimiento" style="width: 515px;" formControlName="fechaNacimiento" (change)="cambiaFecha($event.target.value)">
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="sexo"><strong>Sexo</strong><span style="color: red;"> *</span></label>
+                                        <label for="sexo"><strong>Sexo</strong></label>
                                         <input type="text" *ngIf="!fallaSII" formControlName="sexo" class="form-control" id="sexo" name="sexo" required maxlength="1" disabled>
                                         <br><p-dropdown id="sexo" *ngIf="fallaSII" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'515px'}" required></p-dropdown>
                                     </div>
@@ -94,67 +94,59 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="numeroCelular"><strong>Número de teléfono</strong><span style="color: red;"> *</span></label>
+                                        <label for="numeroCelular"><strong>Número de teléfono</strong></label>
                                         <input type="text" formControlName="telefono" class="form-control" id="telefono" name="telefono" placeholder="Ej. 0961123456" required>
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.numeroCelular" class="form-control" id="numeroCelular" name="numeroCelular" placeholder="Ej. 0961123456" minlength="6" required>-->
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="direccion"><strong>Dirección</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="direccion" name="direccion" class="form-control" id="direccion" required>
-                                        <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control" id="direccionDomicilio" required>-->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="ciudadDomicilio"><strong>Ciudad</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="ciudadDomicilio" class="form-control" id="ciudadDomicilio" name="ciudadDomicilio" required>
-                                    </div>
-                                </div>
-                                <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="barrio"><strong>Barrio</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="barrio" class="form-control" id="barrio" name="barrio" required>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="edad"><strong>Edad</strong><span style="color: red;"> *</span></label>
-                                        <input type="number" formControlName="edad" class="form-control" id="edad" name="edad" required (change)="elegirRangoEdad($event.target.value)">
-                                    </div>
-                                </div>
-                                <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="rangoEdad"><strong>Rango de edad</strong><span style="color: red;"> *</span></label>
-                                        <br><p-dropdown id="rangoEdad" [options]="rangoEdadOptions" label="label" placeholder="Seleccionar" formControlName="rangoEdad" name="rangoEdad" [style]="{'width':'515px'}" required [disabled]=true></p-dropdown>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="regionSanitaria"><strong>Región Sanitaria</strong><span style="color: red;"> *</span></label>
+                                        <label for="regionSanitaria"><strong>Departamento</strong></label>
                                         <br>
                                         <!--<p-dropdown id="regionSanitaria" [options]="regionSanitariaOptions" label="label" placeholder="Seleccionar" formControlName="regionSanitaria" name="regionSanitaria" [style]="{'width':'515px'}" required></p-dropdown>-->
                                         <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
                                     </div>
                                 </div>
-
+                            </div>
+                            <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="servicioSalud"><strong>Servicio de salud</strong><span style="color: red;"> *</span></label>
-                                        <br>
-                                        <!--<input type="text" formControlName="servicioSalud" name="servicioSalud" class="form-control"  id="servicioSalud" required>-->
-                                        <p-autoComplete id="servicioSalud" formControlName="servicioSalud" [suggestions]="serviSaludFiltrados" field="nombre" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                        <label for="barrio"><strong>Barrio</strong></label>
+                                        <input type="text" formControlName="barrio" class="form-control" id="barrio" name="barrio" required>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="ciudadDomicilio"><strong>Ciudad</strong></label>
+                                        <input type="text" formControlName="ciudadDomicilio" class="form-control" id="ciudadDomicilio" name="ciudadDomicilio" required>
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="direccion"><strong>Dirección</strong></label>
+                                        <input type="text" formControlName="direccion" name="direccion" class="form-control" id="direccion" required>
+                                        <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control" id="direccionDomicilio" required>-->
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="edad"><strong>Edad</strong></label>
+                                        <input type="number" formControlName="edad" class="form-control" id="edad" name="edad" required (change)="elegirRangoEdad($event.target.value)">
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="rangoEdad"><strong>Rango de edad</strong></label>
+                                        <br><p-dropdown id="rangoEdad" [options]="rangoEdadOptions" label="label" placeholder="Seleccionar" formControlName="rangoEdad" name="rangoEdad" [style]="{'width':'515px'}" required [disabled]=true></p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
@@ -166,8 +158,32 @@
                             </div>
                             <div class="row">
                                 <div class="col-md">
+                                    <div class="form-group" *ngIf="!registroFg.controls.otroServicio.value">
+                                        <label for="servicioSalud"><strong>Servicio de Salud Notificante</strong></label>
+                                        <br>
+                                        <!--<input type="text" formControlName="servicioSalud" name="servicioSalud" class="form-control"  id="servicioSalud" required>-->
+                                        <p-autoComplete id="servicioSalud" formControlName="servicioSalud" [suggestions]="serviSaludFiltrados" field="nombre" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
                                     <div class="form-group">
-                                        <label for="profesion"><strong>Profesión-Especialidad</strong><span style="color: red;"> *</span></label>
+                                        <p-checkbox formControlName="otroServicio" [binary]="true" label="Otro Servicio de Salud que no esté en la lista" id="otroServicio" (click)="setearServicioSalud()"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group" *ngIf="registroFg.controls.otroServicio.value">
+                                        <label for="servicioSalud"><strong>Especificar Otro Servicio de Salud Notificante</strong></label>
+                                        <input type="text" formControlName="servicioSalud" name="servicioSalud" class="form-control" id="servicioSalud" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="profesion"><strong>Profesión-Especialidad</strong></label>
                                         <br>
                                         <!--<p-dropdown id="profesion" [options]="profesionOptions" label="label" placeholder="Seleccionar" formControlName="profesion" name="profesion" [style]="{'width':'515px'}" required></p-dropdown> [inputStyle]="{'width':'515px'}"-->
                                         <p-autoComplete id="profesion" formControlName="profesion" [suggestions]="profesionesFiltradas" field="nombre" (completeMethod)="filtrarProfesion($event)" [inputStyle]="{'width':'1060px'}" [forceSelection]="true" required></p-autoComplete>
@@ -177,7 +193,7 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="funcion"><strong>Función</strong><span style="color: red;"> *</span></label><br>
+                                        <label for="funcion"><strong>Función</strong></label><br>
                                         <!--<input type="text" formControlName="funcion" name="funcion" class="form-control"  id="funcion" required>-->
                                         <p-autoComplete id="funcion" formControlName="funcion" [suggestions]="funcionesFiltradas" field="nombre" (completeMethod)="filtrarFuncion($event)" [inputStyle]="{'width':'515px'}" required></p-autoComplete>
                                     </div>
@@ -185,7 +201,7 @@
 
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="otrosLugares"><strong>Otros lugares donde presta servicio</strong><span style="color: red;"> *</span></label><br>
+                                        <label for="otrosLugares"><strong>Otros lugares donde presta servicio</strong></label><br>
                                         <!--<input type="text" formControlName="otrosLugares" name="otrosLugares" class="form-control"  id="otrosLugares" required>-->
                                         <p-multiSelect [options]="lugares" formControlName="otrosLugares" defaultLabel="Seleccione" optionLabel="nombre" class="multiselect-custom" [style]="{'width':'515px'}">
                                             
@@ -217,7 +233,6 @@
                                     </div>
                                 </div>
                             </div>-->
-
                             <!--<div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
@@ -278,7 +293,55 @@
                                     </div>
                                 </div>
                             </div>-->
+                            <div class="row mb-3">
+                                <div class="col-md">
+                                    <b>Indicar ambiente donde se produjo el contagio</b><br>
+                                        <p-radioButton name="contagioAmbiente" value="familiar_social" label="Familiar/Social" formControlName="contagioAmbiente" class="ml-2 mr-3" (onClick)="selecAmbiente('social')"></p-radioButton>
+                                        <p-radioButton name="contagioAmbiente" value="establecimiento_salud" label="Establecimiento de salud" formControlName="contagioAmbiente" (onClick)="selecAmbiente('salud')"></p-radioButton>
+                                        <!--<div class="custom-control custom-checkbox">
+                                            <input type="checkbox" formControlName = "contagioSalud" class="custom-control-input" id="contagioSalud" (change)="verifContagioEstablecimiento()">
+                                            <label class="custom-control-label" for="contagioSalud">Establecimiento de salud</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" formControlName = "contagioSocial" class="custom-control-input" id="contagioSocial">
+                                            <label class="custom-control-label" for="contagioSocial">Familiar/Social</label>
+                                        </div>-->
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud'">
+                                        <label for="contagioEstablecimiento"><strong>Indique el establecimiento</strong><span style="color: red;"> *</span></label><br>
+                                        <p-autoComplete id="contagioEstablecimiento" formControlName="contagioEstablecimiento" [suggestions]="establecimientosFiltrados" field="nombre" (completeMethod)="filtrarEstablecimiento($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="catContagio"><strong>Categoría del contagio</strong></label>
+                                        <br>
+                                        <p-dropdown id="catContagio" [options]="catContagioOptions" label="label" placeholder="Seleccionar" formControlName="catContagio" name="catContagio" [style]="{'width':'515px'}" required></p-dropdown>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="clasRiesgo"><strong>Clasificación de riesgo</strong></label>
+                                        <br>
+                                        <p-dropdown id="clasRiesgo" [options]="clasRiesgoOptions" label="label" placeholder="Seleccionar" formControlName="clasRiesgo" name="clasRiesgo" [style]="{'width':'515px'}" required></p-dropdown>
+                                        <!--<p-dropdown id="clasRiesgo" [options]="clasRiesgoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.departamentoDomicilio" name="clasRiesgo" [style]="{'width':'350px'}" required></p-dropdown>-->
+                                    </div>
+                                </div>
+                                <div class="col-md">
+    
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row" *ngIf="casoConfirmadoFg.controls.catContagio.value !== 'viajero' && casoConfirmadoFg.controls.catContagio.value !== 'sin_nexo'">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="fechaExposicion"><strong>Fecha de exposición:</strong></label>
@@ -290,8 +353,8 @@
                                     
                                 </div>
                             </div>
-                            <hr>
-                            <div class="row">
+                            <hr *ngIf="casoConfirmadoFg.controls.catContagio.value !== 'viajero' && casoConfirmadoFg.controls.catContagio.value !== 'sin_nexo'">
+                            <div class="row" *ngIf="casoConfirmadoFg.controls.catContagio.value !== 'viajero' && casoConfirmadoFg.controls.catContagio.value !== 'sin_nexo'">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="cedula"><strong>Número de Cédula del Caso Confirmado</strong></label>
@@ -301,77 +364,28 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="nombre"><strong>Nombres</strong></label> <!--<span style="color: red;"> *</span>-->
-                                        <input type="text" *ngIf="!fallaSII" formControlName="nombre" name="nombre" class="form-control" id="nombre" disabled>
+                                        <input type="text" *ngIf="!fallaSII" formControlName="nombre" name="nombre" class="form-control" id="nombre">
                                         <input type="text" *ngIf="fallaSII" formControlName="nombre" name="nombre" class="form-control" id="nombre">
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="casoConfirmadoFg.controls.catContagio.value!=='viajero' && casoConfirmadoFg.controls.catContagio.value!=='sin_nexo'">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="nombre"><strong>Apellidos</strong></label>
-                                        <input type="text" *ngIf="!fallaSII" formControlName="apellido" name="apellido" class="form-control" id="apellido" disabled>
+                                        <input type="text" *ngIf="!fallaSII" formControlName="apellido" name="apellido" class="form-control" id="apellido">
                                         <input type="text" *ngIf="fallaSII" formControlName="apellido" name="apellido" class="form-control" id="apellido">
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" id="nombre" required>-->
                                     </div> 
                                 </div>
                                 <div class="col-md">
-                                    <div class="form-group">
+                                    <!--<div class="form-group">
                                         <label for="sexo"><strong>Sexo</strong></label>
                                         <input type="text" *ngIf="!fallaSII" formControlName="sexo" name="sexo" class="form-control" id="sexo" maxlength="1" disabled>
                                         <br><p-dropdown id="sexo" *ngIf="fallaSII" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'325px'}"></p-dropdown>
-                                        <!--<p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.tipoDocumento" name="sexo" [style]="{'width':'340px'}" required></p-dropdown>-->
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                        <div class="row mb-3">
-                            <div class="col-md">
-                                <b>Indicar ambiente donde se produjo el contagio</b><br>
-                                    <p-radioButton name="contagioAmbiente" value="familiar_social" label="Familiar/Social" formControlName="contagioAmbiente" class="ml-2 mr-3" (onClick)="selecAmbiente('social')"></p-radioButton>
-                                    <p-radioButton name="contagioAmbiente" value="establecimiento_salud" label="Establecimiento de salud" formControlName="contagioAmbiente" (onClick)="selecAmbiente('salud')"></p-radioButton>
-                                    <!--<div class="custom-control custom-checkbox">
-                                        <input type="checkbox" formControlName = "contagioSalud" class="custom-control-input" id="contagioSalud" (change)="verifContagioEstablecimiento()">
-                                        <label class="custom-control-label" for="contagioSalud">Establecimiento de salud</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" formControlName = "contagioSocial" class="custom-control-input" id="contagioSocial">
-                                        <label class="custom-control-label" for="contagioSocial">Familiar/Social</label>
                                     </div>-->
-                            </div>
-                            <div class="col-md">
-                                <div class="form-group" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud'">
-                                    <label for="contagioEstablecimiento"><strong>Indique el establecimiento</strong><span style="color: red;"> *</span></label><br>
-                                    <p-autoComplete id="contagioEstablecimiento" formControlName="contagioEstablecimiento" [suggestions]="establecimientosFiltrados" field="nombre" (completeMethod)="filtrarEstablecimiento($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md">
-                                <div class="form-group">
-                                    <label for="catContagio"><strong>Categoría del contagio</strong></label>
-                                    <br>
-                                    <p-dropdown id="catContagio" [options]="catContagioOptions" label="label" placeholder="Seleccionar" formControlName="catContagio" name="catContagio" [style]="{'width':'515px'}" required></p-dropdown>
-                                </div>
-                            </div>
-                            <div class="col-md">
-                                
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md">
-                                <div class="form-group">
-                                    <label for="clasRiesgo"><strong>Clasificación de riesgo</strong><span style="color: red;"> *</span></label>
-                                    <br>
-                                    <p-dropdown id="clasRiesgo" [options]="clasRiesgoOptions" label="label" placeholder="Seleccionar" formControlName="clasRiesgo" name="clasRiesgo" [style]="{'width':'515px'}" required></p-dropdown>
-                                    <!--<p-dropdown id="clasRiesgo" [options]="clasRiesgoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.departamentoDomicilio" name="clasRiesgo" [style]="{'width':'350px'}" required></p-dropdown>-->
-                                </div>
-                            </div>
-                            <div class="col-md">
-
-                            </div>
-                        </div>
                         <div class="clearfix"><br/></div>
                         <div class="row">
                             <div class="col-md">
@@ -409,7 +423,7 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="fechaSintomas"><strong>Fecha de Inicio de Síntomas:</strong><span style="color: red;"> *</span></label>
+                                        <label for="fechaSintomas"><strong>Fecha de Inicio de Síntomas:</strong></label>
                                         <br>
                                         <!--<input type="date" id="fechaSintomas" formControlName="fechaSintomas" style="width: 325px;" (change)="setearFechasTabla($event.target.value)" value="{{fechaHoy}}">-->
                                         <p-calendar formControlName="fechaSintomas" id="fechaSintomas" name="fechaSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" (onSelect)="setearFechasTabla($event, 'cambio')" [inputStyle]="{'width':'482px'}"></p-calendar>
@@ -417,14 +431,14 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="seFis"><strong>SE de Fecha de Inicio de síntomas</strong><span style="color: red;"> *</span></label>
+                                        <label for="seFis"><strong>SE de Fecha de Inicio de síntomas</strong></label>
                                         <input type="number" formControlName="seFis" class="form-control" id="seFis" name="seFis" min="1" required>
                                     </div>
                                 </div>
                             </div>
                         <div class="row">
                             <table border="1" style="border-radius: 50px !important">
-                                <caption style="caption-side:top; text-align: center;">Marcar con:  <span class="fa fa-check-square" style="color: blue;"></span> Si presenta síntomas, <span class="fa fa-window-close" style="color: blue;"></span> No presenta síntomas. Sin marcar si desconoce.</caption>
+                                <caption style="caption-side:top; text-align: center;">Marcar con:  <span class="fa fa-check-square" style="color: blue;"></span> Si presenta síntomas.</caption>
                                 <tr>
                                     <th class="th-sintomas">Día</th>
                                     <th class="th-sintomas">1</th>
@@ -461,20 +475,20 @@
                                 </tr>
                                 <tr>
                                     <td style="background-color: rgb(190, 186, 186); text-align: center;">Tos</td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos1"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos2"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos3"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos4"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos5"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos6"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos7"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos8"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos9"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos10"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos11"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos12"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos13"></p-triStateCheckbox></td>
-                                    <td align="center"><p-triStateCheckbox formControlName="tos14"></p-triStateCheckbox></td>
+                                    <td align="center"><p-checkbox [binary]="true" formControlName="tos1"></p-checkbox></td>
+                                    <td align="center"><p-checkbox [binary]="true" formControlName="tos2"></p-checkbox></td>
+                                    <td align="center"><p-checkbox [binary]="true" formControlName="tos3"></p-checkbox></td>
+                                    <td align="center"><p-checkbox [binary]="true" formControlName="tos4"></p-checkbox></td>
+                                    <td align="center"><p-checkbox [binary]="true" formControlName="tos5"></p-checkbox></td>
+                                    <td align="center"><p-checkbox [binary]="true" formControlName="tos6"></p-checkbox></td>
+                                    <td align="center"><p-checkbox [binary]="true" formControlName="tos7"></p-checkbox></td>
+                                    <td align="center"><p-checkbox [binary]="true" formControlName="tos8"></p-checkbox></td>
+                                    <td align="center"><p-checkbox [binary]="true" formControlName="tos9"></p-checkbox></td>
+                                    <td align="center"><p-checkbox [binary]="true" formControlName="tos10"></p-checkbox></td>
+                                    <td align="center"><p-checkbox [binary]="true" formControlName="tos11"></p-checkbox></td>
+                                    <td align="center"><p-checkbox [binary]="true" formControlName="tos12"></p-checkbox></td>
+                                    <td align="center"><p-checkbox [binary]="true" formControlName="tos13"></p-checkbox></td>
+                                    <td align="center"><p-checkbox [binary]="true" formControlName="tos14"></p-checkbox></td>
                                 </tr>
                                 <tr>
                                     <td style="background-color: rgb(190, 186, 186); text-align: center;">Fiebre</td>
@@ -800,16 +814,16 @@
                     <mat-step [stepControl]="clasificacionRiesgoFg">
                         <form [formGroup]="clasificacionRiesgoFg" class="mt-4">
                             <ng-template matStepLabel>Evolución del paciente</ng-template>
-                            <div class="row">
+                            <!--<div class="row">
                                 <div class="col-md">
                                     <div class="alert alert-info">
                                         <i class="fa fa-info-circle"></i> Debe completar todos los campos requeridos para guardar.
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="row">
                                 <div class="col-md">
-                                    <b>Laboratorio (marcar lo que corresponda)<span style="color: red;"> *</span></b>
+                                    <b>Laboratorio (marcar lo que corresponda)</b>
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" formControlName = "antigeno" class="custom-control-input" id="antigeno">
                                         <label class="custom-control-label" for="antigeno">Antígeno</label>
@@ -838,38 +852,115 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="sePrimeraMuestra"><strong>SE de Toma de Muestra</strong><span style="color: red;"> *</span></label>
-                                        <input type="number" formControlName="sePrimeraMuestra" class="form-control" id="sePrimeraMuestra" name="sePrimeraMuestra" min="1" required>
+                                        <label for="fechaPrimeraMuestra"><strong>Fecha de Toma de Muestra:</strong></label>
+                                        <br>
+                                        <p-calendar formControlName="fechaPrimeraMuestra" id="fechaPrimeraMuestra" name="fechaPrimeraMuestra" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="fechaPrimeraMuestra"><strong>Fecha de Toma de Muestra:</strong><span style="color: red;"> *</span></label>
-                                        <br>
-                                        <p-calendar formControlName="fechaPrimeraMuestra" id="fechaPrimeraMuestra" name="fechaPrimeraMuestra" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                        <label for="sePrimeraMuestra"><strong>SE de Toma de Muestra</strong></label>
+                                        <input type="number" formControlName="sePrimeraMuestra" class="form-control" id="sePrimeraMuestra" name="sePrimeraMuestra" min="1" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="resultadoPrimeraMuestra"><strong>Resultado de Muestra:</strong><span style="color: red;"> *</span></label>
+                                        <label for="resultadoPrimeraMuestra"><strong>Resultado de Muestra:</strong></label>
                                         <br>
                                         <p-dropdown id="resultadoPrimeraMuestra" [options]="resulPriMuestraOptions" label="label" placeholder="Seleccionar" formControlName="resultadoPrimeraMuestra" name="resultadoPrimeraMuestra" [style]="{'width':'515px'}" required></p-dropdown>
                                     </div>
                                 </div>
                                 <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="fechaCierreCaso"><strong>Fecha de Cierre de Caso:</strong><span style="color: red;"> *</span></label>
+                                    <!--<div class="form-group">
+                                        <label for="fechaCierreCaso"><strong>Fecha de Cierre de Caso:</strong></label>
                                         <br>
                                         <p-calendar formControlName="fechaCierreCaso" id="fechaCierreCaso" name="fechaCierreCaso" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                    </div>-->
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="internado" [binary]="true" label="Internado/a?" id="internado" (onChange)="verifEstablecimiento()"></p-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md" *ngIf="clasificacionRiesgoFg.controls.internado.value">
+                                    <!--<a href="https://www.google.com.py" target="_blank" *ngIf="clasificacionRiesgoFg.controls.constAislamiento.value">Ver Constancia</a>-->
+                                    <div class="form-group">
+                                        <label for="establecimiento"><strong>Establecimiento</strong></label><br>
+                                        <!--<input type="text" formControlName="establecimiento" name="establecimiento" class="form-control"  id="establecimiento" required>-->
+                                        <p-autoComplete id="establecimiento" formControlName="establecimiento" [suggestions]="establecimientosFiltrados" field="nombre" (completeMethod)="filtrarEstablecimiento($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                    </div>
+                                </div>
+                                <div class="col-md" *ngIf="clasificacionRiesgoFg.controls.internado.value">
+                                    <div class="form-group">
+                                        <label for="especialidad"><strong>Especialidad</strong></label>
+                                        <!--<input type="text" formControlName="especialidad" name="especialidad" class="form-control"  id="especialidad" required>-->
+                                        <p-dropdown id="especialidad" [options]="especialidadOptions" label="label" placeholder="Seleccionar" formControlName="especialidad" name="especialidad" [style]="{'width':'515px'}" required></p-dropdown>
                                     </div>
                                 </div>
                             </div>
                             <hr>
                             <div class="row">
                                 <div class="col-md">
-                                    <b>Clasificación final (seleccionar lo que corresponda)<span style="color: red;"> *</span></b>
+                                    <b>Exclusión laboral</b>
+                                    <p-radioButton name="exclusion" [value]="true" label="Si" formControlName="exclusion" class="ml-2 mr-3"></p-radioButton>
+                                    <p-radioButton name="exclusion" [value]="false" label="No" formControlName="exclusion"></p-radioButton>
+                                    <!--<b>Indicaciones para el trabajo (marcar lo que corresponda)<span style="color: red;"> *</span></b>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" formControlName = "exclusion" class="custom-control-input" id="exclusion">
+                                        <label class="custom-control-label" for="exclusion">Exclusión</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" formControlName = "autocontrol" class="custom-control-input" id="autocontrol">
+                                        <label class="custom-control-label" for="autocontrol">Autocontrol</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" formControlName = "nada" class="custom-control-input" id="nada">
+                                        <label class="custom-control-label" for="nada">Nada</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" formControlName = "otroIndic" class="custom-control-input" id="otroIndic" (change)="verifOtroIndicEspecificar()">
+                                        <label class="custom-control-label" for="otroIndic">Otro</label>
+                                    </div>
+                                    <div class="form-group" *ngIf="clasificacionRiesgoFg.controls.otroIndic.value">
+                                        <label for="otroIndicEspecificar"><strong>Otro</strong></label>
+                                        <input type="text" formControlName="otroIndicEspecificar" name="otroIndicEspecificar" class="form-control"  id="otroIndicEspecificar" required>
+                                    </div>-->
+                                </div>
+                                <div class="col-md">
+                                   
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <b>Ficha Epidemiológica</b>
+                                    <p-radioButton name="fichaEpidemiologica" [value]="true" label="Si" formControlName="fichaEpidemiologica" class="ml-2 mr-3"></p-radioButton>
+                                    <p-radioButton name="fichaEpidemiologica" [value]="false" label="No" formControlName="fichaEpidemiologica"></p-radioButton>
+                                </div>
+                                <div class="col-md">
+                                   
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <b>Constancia de Aislamiento</b>
+                                    <p-radioButton name="constAislamiento" [value]="true" label="Si" formControlName="constAislamiento" class="ml-2 mr-3"></p-radioButton>
+                                    <p-radioButton name="constAislamiento" [value]="false" label="No" formControlName="constAislamiento"></p-radioButton>
+                                </div>
+                                <div class="col-md">
+                                   
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md">
+                                    <b>Clasificación final (seleccionar lo que corresponda)</b>
                                     <!--<div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="secundario">
                                         <label class="custom-control-label" for="secundario">Caso secundario</label>
@@ -900,9 +991,19 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="evolucionFinal"><strong>Evolución Final</strong><span style="color: red;"> *</span></label>
+                                        <label for="evolucionFinal"><strong>Evolución Final</strong></label>
                                         <br>
                                         <p-dropdown id="evolucionFinal" [options]="evoFinalOptions" label="label" placeholder="Seleccionar" formControlName="evolucionFinal" name="evolucionFinal" [style]="{'width':'515px'}" required></p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="fechaCierreCaso"><strong>Fecha de Cierre de Caso:</strong></label>
+                                        <br>
+                                        <p-calendar formControlName="fechaCierreCaso" id="fechaCierreCaso" name="fechaCierreCaso" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
                                     </div>
                                 </div>
                             </div>
@@ -934,84 +1035,6 @@
                                     </tr>
                                 </table>
                             </div>-->
-                            <hr>
-                            <div class="row">
-                                <div class="col-md">
-                                    <b>Exclusión laboral<span style="color: red;"> *</span></b>
-                                    <p-radioButton name="exclusion" [value]="true" label="Si" formControlName="exclusion" class="ml-2 mr-3"></p-radioButton>
-                                    <p-radioButton name="exclusion" [value]="false" label="No" formControlName="exclusion"></p-radioButton>
-                                    <!--<b>Indicaciones para el trabajo (marcar lo que corresponda)<span style="color: red;"> *</span></b>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" formControlName = "exclusion" class="custom-control-input" id="exclusion">
-                                        <label class="custom-control-label" for="exclusion">Exclusión</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" formControlName = "autocontrol" class="custom-control-input" id="autocontrol">
-                                        <label class="custom-control-label" for="autocontrol">Autocontrol</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" formControlName = "nada" class="custom-control-input" id="nada">
-                                        <label class="custom-control-label" for="nada">Nada</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" formControlName = "otroIndic" class="custom-control-input" id="otroIndic" (change)="verifOtroIndicEspecificar()">
-                                        <label class="custom-control-label" for="otroIndic">Otro</label>
-                                    </div>
-                                    <div class="form-group" *ngIf="clasificacionRiesgoFg.controls.otroIndic.value">
-                                        <label for="otroIndicEspecificar"><strong>Otro</strong></label>
-                                        <input type="text" formControlName="otroIndicEspecificar" name="otroIndicEspecificar" class="form-control"  id="otroIndicEspecificar" required>
-                                    </div>-->
-                                </div>
-                                <div class="col-md">
-                                   
-                                </div>
-                                
-                            </div>
-                            <div class="row">
-                                <div class="col-md">
-                                    <b>Ficha Epidemiológica<span style="color: red;"> *</span></b>
-                                    <p-radioButton name="fichaEpidemiologica" [value]="true" label="Si" formControlName="fichaEpidemiologica" class="ml-2 mr-3"></p-radioButton>
-                                    <p-radioButton name="fichaEpidemiologica" [value]="false" label="No" formControlName="fichaEpidemiologica"></p-radioButton>
-                                </div>
-                                <div class="col-md">
-                                   
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md">
-                                    <b>Constancia de Aislamiento<span style="color: red;"> *</span></b>
-                                    <p-radioButton name="constAislamiento" [value]="true" label="Si" formControlName="constAislamiento" class="ml-2 mr-3"></p-radioButton>
-                                    <p-radioButton name="constAislamiento" [value]="false" label="No" formControlName="constAislamiento"></p-radioButton>
-                                </div>
-                                <div class="col-md">
-                                   
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md">
-                                    <div class="form-group">
-                                        <p-checkbox formControlName="internado" [binary]="true" label="Internado/a?" id="internado" (onChange)="verifEstablecimiento()"></p-checkbox>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md" *ngIf="clasificacionRiesgoFg.controls.internado.value">
-                                    <!--<a href="https://www.google.com.py" target="_blank" *ngIf="clasificacionRiesgoFg.controls.constAislamiento.value">Ver Constancia</a>-->
-                                    <div class="form-group">
-                                        <label for="establecimiento"><strong>Establecimiento</strong><span style="color: red;"> *</span></label><br>
-                                        <!--<input type="text" formControlName="establecimiento" name="establecimiento" class="form-control"  id="establecimiento" required>-->
-                                        <p-autoComplete id="establecimiento" formControlName="establecimiento" [suggestions]="establecimientosFiltrados" field="nombre" (completeMethod)="filtrarEstablecimiento($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
-                                    </div>
-                                </div>
-                                <div class="col-md" *ngIf="clasificacionRiesgoFg.controls.internado.value">
-                                    <div class="form-group">
-                                        <label for="especialidad"><strong>Especialidad</strong><span style="color: red;"> *</span></label>
-                                        <!--<input type="text" formControlName="especialidad" name="especialidad" class="form-control"  id="especialidad" required>-->
-                                        <p-dropdown id="especialidad" [options]="especialidadOptions" label="label" placeholder="Seleccionar" formControlName="especialidad" name="especialidad" [style]="{'width':'515px'}" required></p-dropdown>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="clearfix"><br/></div>
                             <div class="row">
                                 <div class="col-md">

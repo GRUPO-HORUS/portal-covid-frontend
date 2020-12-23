@@ -64,7 +64,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
 
   public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
 
-  public clasRiesgoOptions=[{value:'alto',label:'Alto'},{value:'bajo',label:'Bajo'}]; //{value:'moderado',label:'Moderado'}
+  public clasRiesgoOptions=[{value:'alto',label:'Alto'},{value:'moderado',label:'Moderado'},{value:'bajo',label:'Bajo'}];
 
   public profesionOptions =[{value:'medico',label:'Médico/a'}, {value:'enfermero',label:'Enfermero/a'}];
 
@@ -73,6 +73,16 @@ export class EditarFichaMonitoreoComponent implements OnInit {
   {value:'familiar_social',label:'Familiar Social'}, {value:'viajero',label:'Viajero'},{value:'sin_nexo',label:'Sin Nexo'}];
 
   public tipoRegistroOptions=[{value:'ingreso_pais',label:'Ingreso al país'},{value:'aislamiento',label:'Caso sospechoso Covid-19'}];
+
+  public departamentoOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro'},
+                              {id:3, nombre:'Cordillera'}, {id:4, nombre:'Guairá'},
+                              {id:5, nombre:'Caaguazú'}, {id:6,nombre:'Caazapá'},
+                              {id:7, nombre:'Itapúa'}, {id:8,nombre:'Misiones'},
+                              {id:9, nombre:'Paraguarí'},{id:10, nombre:'Alto Paraná'},
+                              {id:11, nombre:'Central'},{id:12, nombre:'Ñeembucú'},
+                              {id:13, nombre:'Amambay'},{id:14, nombre:'Canindeyú'},
+                              {id:15, nombre:'Presidente Hayes'}, {id:16, nombre:'Boquerón'},
+                              {id:17, nombre:'Alto Paraguay'}, {id:18, nombre:'Capital'}];
 
   public regionSanitariaOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro Norte'},
                               {id:3, nombre:'San Pedro Norte'}, {id:4, nombre:'Cordillera'},
@@ -93,7 +103,8 @@ export class EditarFichaMonitoreoComponent implements OnInit {
 
   public resulPriMuestraOptions=[{value:'negativo',label:'Negativo'},{value:'positivo',label:'Positivo'}];
 
-  public rangoEdadOptions=[{value:'menosde20',label:'Menor a 20 años'}, {value:'20a39',label:'20 a 39 años'},{value:'40a59',label:'40 a 59 años'},{value:'60ymas',label:'60 años y más'}];
+  public rangoEdadOptions=[{value:'18-28',label:'18 a 28 años'}, {value:'29-39',label:'29 a 39 años'},{value:'40-50',label:'40 a 50 años'},{value:'51-61',label:'51 a 61 años'},
+  {value:'>=62',label:'62 años y más'}];
 
   public especialidadOptions=[{value:'sala',label:'Sala'},{value:'uti',label:'UTI'}];
   // recaptcha
@@ -218,7 +229,8 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       rangoEdad:['', Validators.required],
       ciudadDomicilio:['', Validators.required],
       barrio:['', Validators.required],
-      codPaciente:['', Validators.required]
+      codPaciente:['', Validators.required],
+      otroServicio:['']
     });
 
     this.casoConfirmadoFg = this._formBuilder.group({
@@ -589,7 +601,12 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.registroFg.controls.ciudadDomicilio.setValue(response.ciudadDomicilio);
         this.registroFg.controls.barrio.setValue(response.barrio);
 
-        this.registroFg.controls.servicioSalud.setValue({nombre:response.servicioSalud});
+        if(this.registroFg.controls.otroServicio.value){
+          this.registroFg.controls.servicioSalud.setValue(response.servicioSalud);
+        }else{
+          this.registroFg.controls.servicioSalud.setValue({nombre:response.servicioSalud});
+        }
+       
         this.registroFg.controls.regionSanitaria.setValue({nombre:response.regionSanitaria});
         this.registroFg.controls.profesion.setValue({nombre:response.profesion+"-"+response.especialidadProfesion});
         this.registroFg.controls.funcion.setValue({nombre:response.funcion});
@@ -989,6 +1006,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  setearServicioSalud(){
+    this.registroFg.controls.servicioSalud.setValue(null);
   }
 
   verifEstablecimiento(){
@@ -1511,32 +1532,33 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     this.clasifRiesgoPaciente.trabajoOtroDescripcion = this.clasificacionRiesgoFg.controls.otroIndicEspecificar.value;
     this.clasifRiesgoPaciente.laboratorioAntigeno = this.clasificacionRiesgoFg.controls.antigeno.value;
     this.service.guardarClasifRiesgo(this.clasifRiesgoPaciente).subscribe(response => {
-
     },error => {
       console.log(error);
     });
   }*/
 
   elegirRangoEdad(edad){
-    if(edad <= 20){
-      this.registroFg.controls.rangoEdad.setValue('menosde20');
-    }else if(edad >=20 && edad <= 39){
-      this.registroFg.controls.rangoEdad.setValue('20a39');
-    }else if(edad >= 40 && edad <= 59){
-      this.registroFg.controls.rangoEdad.setValue('40a59');
-    }else{
-      this.registroFg.controls.rangoEdad.setValue('60ymas');
+    if(edad >= 18 && edad <= 28){
+      this.registroFg.controls.rangoEdad.setValue('18-28');
+    }else if(edad >=29 && edad <= 39){
+      this.registroFg.controls.rangoEdad.setValue('29-39');
+    }else if(edad >= 40 && edad <= 50){
+      this.registroFg.controls.rangoEdad.setValue('40-50');
+    }else if(edad >= 51 && edad <= 61){
+      this.registroFg.controls.rangoEdad.setValue('51-61');
+    }else if(edad >= 62){
+      this.registroFg.controls.rangoEdad.setValue('>=62');
     }
   }
 
   filtrarRegion(event) {
     let filtered : any[] = [];
     let query = event.query;
-    for(let i = 0; i < this.regionSanitariaOptions.length; i++) {
-        let region = this.regionSanitariaOptions[i];
+    for(let i = 0; i < this.departamentoOptions.length; i++) {
+        let departamento = this.departamentoOptions[i];
 
-        if (region.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
-          filtered.push(region);
+        if (departamento.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          filtered.push(departamento);
         }
     }
     
