@@ -18,4 +18,5 @@ export class PrimerContacto {
     cantidadReintentos: number;
     codigoPaciente: string;
     regionSanitaria: string;
+    fechaUltimaLlamada: string;
 }

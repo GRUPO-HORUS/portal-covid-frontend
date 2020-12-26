@@ -91,17 +91,39 @@ export class Covid19Service {
       return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/clasifRiesgo', clasifRiesgo);
     }
 
-    getPacientesPrimerContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string, region, opcionFiltro): Observable<PrimerContactoTable> {
+    getPacientesCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
+      sortField: string, region, opcionFiltro, username): Observable<PrimerContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
 
-     if (filter)
-       params = params.set('filter', filter);
+      if (filter)
+        params = params.set('filter', filter);
 
-     if (sortField)
-       params = params.set('sortField', sortField);
+      if (sortField)
+        params = params.set('sortField', sortField);
+
+      if (username)
+        params = params.set('username', username);
+
+     params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
+     return this.httpClient.get<PrimerContactoTable>(this.config.API + '/covid19api/aislamiento/listarCensoContacto/'+region+'/'+opcionFiltro, {params});
+   }
+
+    getPacientesPrimerContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
+      sortField: string, region, opcionFiltro, username): Observable<PrimerContactoTable> {
+     this.loading.next(true);
+
+     let params = new HttpParams();
+
+      if (filter)
+        params = params.set('filter', filter);
+
+      if (sortField)
+        params = params.set('sortField', sortField);
+
+      if (username)
+        params = params.set('username', username);
 
      params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
      return this.httpClient.get<PrimerContactoTable>(this.config.API + '/covid19api/aislamiento/listarPrimerContacto/'+region+'/'+opcionFiltro, {params});
