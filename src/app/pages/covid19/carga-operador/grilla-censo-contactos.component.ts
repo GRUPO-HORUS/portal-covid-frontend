@@ -154,6 +154,7 @@ export class GrillaCensoContactosComponent implements OnInit {
   public contactoOptions=[{value:'todos',label:'Todos'},{value:'llamada_realizada',label:'Llamada Realizada'}];
   public contactoOption="todos";
 
+  public historicoComentarios=[];
   public username;
 
   constructor(
@@ -581,10 +582,21 @@ consultarIdentificaciones(event) {
   mostrarAgregarComentario(rowData){
     this.primerContacto = rowData;
     this.showAgregarComentario = true;
+
+    if(rowData.comentarios !== null){
+      this.historicoComentarios = rowData.comentarios.split('|');
+    }
   }
 
   agregarComentario(){
-    this.primerContacto.comentarios = this.comentariosFormGroup.controls.comentarios.value;
+    let fecha = new Date();
+    let mes = fecha.getMonth()+1;
+    if(this.primerContacto.comentarios !== null){
+      this.primerContacto.comentarios = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+this.comentariosFormGroup.controls.comentarios.value+' | '+this.primerContacto.comentarios;
+    }else{
+      this.primerContacto.comentarios = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+this.comentariosFormGroup.controls.comentarios.value;
+    }
+
     this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
       this.loading = false;
       this.mensaje= "Comentarios agregados exitosamente.";
