@@ -383,7 +383,9 @@
                 </button>
                 <button class="btn btn-secondary btn-success-next" (click)="closePopupAgregarComentario()">
                     Cancelar <span class="fa fa-times"></span>
-                </button>
+                </button><br>
+                <h4 *ngIf="historicoComentarios?.length >= 1">Histórico de Comentarios:</h4>
+                <p *ngFor="let comentario of historicoComentarios">{{comentario}}</p>
             </p-dialog>
 
             <p-dialog [(visible)]="showNoSeContacto" modal="true" header="Indique el motivo por el que no se pudo contactar"><!--[formGroup]="agregarContactoFormGroup"-->
