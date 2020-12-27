@@ -218,11 +218,10 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn style="vertical-align: top;">
+                    <!--<td pEditableColumn style="vertical-align: top;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <!--<input pInputText style="width:65px" type="text" formControlName="fallecido"> [style]="{'width':'515px'}"-->
                                     <p-dropdown id="fallecido" [options]="binarioOptions" label="label" placeholder="Seleccionar" formControlName="fallecido" name="fallecido" [style]="{'minWidth':'70px', 'width': '70px'}" required></p-dropdown>
                                 </div>
                             </ng-template>
@@ -240,8 +239,7 @@
                                 {{rowData.fallecido}}
                             </ng-template>
                         </p-cellEditor>
-                        
-                    </td>
+                    </td>-->
                     <td pEditableColumn style="vertical-align: top;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">

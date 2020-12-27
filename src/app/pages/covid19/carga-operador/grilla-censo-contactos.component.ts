@@ -212,10 +212,10 @@ export class GrillaCensoContactosComponent implements OnInit {
         { field: 'nombres', header: 'Nombres', width: '9%' },
         { field: 'apellidos', header: 'Apellidos', width: '11%' },
         { field: 'telefono', header: 'Teléfono', width: '8%' },
-        { field: 'departamento', header: 'Departamento', width: '8%' },
+        { field: 'departamento', header: 'Departamento', width: '9%' },
         //{ field: 'distrito', header: 'Distrito', width: '8%' },
         { field: 'hospitalizado', header: 'Internado', width: '8%' },
-        { field: 'fallecido', header: 'Fallecido', width: '6%' },
+        //{ field: 'fallecido', header: 'Fallecido', width: '6%' },
         { field: 'tipoExposicion', header: 'Tipo de Exposición', width: '9%' },
         { field: 'fechaInicioSintomas', header: 'Fecha de Inicio de Síntomas', width: '8%' },
         { field: 'fechaUltimaLlamada', header: 'Fecha de Última Llamada', width: '8%' }];

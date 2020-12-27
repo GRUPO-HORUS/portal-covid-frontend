@@ -82,11 +82,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md">
-                                    <div class="form-group">
+                                    <!--<div class="form-group">
                                         <label for="idioma"><strong>Tipo de Exposición</strong><span style="color: red;"> *</span></label><br>
                                         <p-dropdown id="tipoExposicion" [options]="exposicionOptions" label="label" placeholder="Seleccionar" formControlName="tipoExposicion" name="tipoExposicion" [style]="{'width': '540px'}" required></p-dropdown>
-                                        <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control"  id="direccionDomicilio" required>-->
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
         
@@ -100,31 +99,29 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="tipoContacto"><strong>Fallecido</strong><span style="color: red;"> *</span></label>
-                                        <br>
-                                        <p-dropdown id="fallecido" [options]="binarioOptions" label="label" placeholder="Seleccionar" formControlName="fallecido" name="fallecido" [style]="{'width': '540px'}" required></p-dropdown>
-                                        <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control"  id="direccionDomicilio" required>-->
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md">
-                                    <div class="form-group">
                                         <label for="fechaSintomas"><strong>Fecha de Inicio de Síntomas:</strong><span style="color: red;"> *</span></label>
                                         <br>
                                         <!--<input type="date" id="fechaSintomas" formControlName="fechaSintomas" style="width: 325px;" (change)="setearFechasTabla($event.target.value)" value="{{fechaHoy}}">-->
                                         <p-calendar formControlName="fechaInicioSintomas" id="fechaSintomas" name="fechaSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'500px'}"></p-calendar>
                                     </div>
+                                    <!--<div class="form-group">
+                                        <label for="tipoContacto"><strong>Fallecido</strong><span style="color: red;"> *</span></label>
+                                        <br>
+                                        <p-dropdown id="fallecido" [options]="binarioOptions" label="label" placeholder="Seleccionar" formControlName="fallecido" name="fallecido" [style]="{'width': '540px'}" required></p-dropdown>
+                                    </div>-->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    
                                 </div>
 
                                 <div class="col-md">
-                                    <div class="form-group">
+                                    <!--<div class="form-group">
                                         <label for="fechaCierreCaso"><strong>Fecha de Cierre de Caso:</strong><span style="color: red;"> *</span></label>
                                         <br>
-                                        <!--<input type="date" id="fechaSintomas" formControlName="fechaSintomas" style="width: 325px;" (change)="setearFechasTabla($event.target.value)" value="{{fechaHoy}}">-->
                                         <p-calendar formControlName="fechaCierreCaso" id="fechaCierreCaso" name="fechaCierreCaso" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'500px'}"></p-calendar>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                             <div class="row">
@@ -152,10 +149,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md">
-                                    <div class="form-group">
+                                    <!--<div class="form-group">
                                         <label for="funcion"><strong>Código de Paciente</strong></label>
                                         <input type="text" formControlName="codPaciente" name="codPaciente" class="form-control"  id="codPaciente">
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                             <!--<div class="form-group">
