@@ -171,7 +171,7 @@
                             <div class="clearfix">
                             <div class="row">
                                 <div class="col-md">
-                                    <button (click)="guardarPrimerContacto()" type="submit" class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button [disabled]="loading"><!--routerLink="/covid19/home-operador" [disabled]="clasificacionRiesgoFg.invalid || loading"-->  
+                                    <button (click)="guardarFichaContacto()" type="submit" class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button [disabled]="contactoFg.invalid || loading"><!--routerLink="/covid19/home-operador"-->  
                                         Guardar <span class="fa fa-check"></span>            
                                     </button>
 
@@ -209,7 +209,7 @@
                         <div class="modal-body">{{mensaje}}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" routerLink="/covid19/grilla-censo-contactos"><i class="fa fa-remove"></i>  Cerrar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" routerLink="/covid19/operador/grilla-censo-contactos"><i class="fa fa-remove"></i>  Cerrar</button>
                         </div>
                     </div>
                 </div>

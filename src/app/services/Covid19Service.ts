@@ -91,6 +91,10 @@ export class Covid19Service {
       return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/clasifRiesgo', clasifRiesgo);
     }
 
+    guardarFichaContacto(fichaPersonalBlanco): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/guardarFichaContacto/', fichaPersonalBlanco);
+    }
+
     getPacientesCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
       sortField: string, region, opcionFiltro, username): Observable<PrimerContactoTable> {
      this.loading.next(true);

@@ -69,7 +69,7 @@ export const appRoutes: Routes = [
 
   { path: "covid19/operador/ficha-monitoreo", component: FichaMonitoreoComponent},
 
-  { path: "covid19/operador/nuevo-contacto", component: ContactoFormComponent},
+  { path: "covid19/operador/nuevo-contacto/:cedula/:nombre/:apellido", component: ContactoFormComponent},
 
   { path: "covid19/operador/contactos", component: Contactos},
 

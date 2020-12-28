@@ -9,6 +9,10 @@ import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 
 import {calendarEsLocale} from '../../../util/calendar-es-locale';
 import { PrimerContacto } from "../model/primerContacto.model";
+import { FichaPersonalBlanco } from "../model/fichaPersonalBlanco.model";
+import { FormSeccionClasifRiesgo } from "../model/formSeccionClasifRiesgo.model";
+import { FormSeccionPersonalBlanco } from "../model/formSeccionPersonalBlanco.model";
+import { FormSeccionContactoContagio } from "../model/formSeccionContactoContagio.model";
 
 declare var $: any;
 @Component({
@@ -34,8 +38,6 @@ export class ContactoFormComponent implements OnInit {
   public terminos: boolean;
   public tipoDocumentoOptions=[{value:0,label:'Cédula de Identidad'},{value:1,label:'Pasaporte'}];
   public tipoDocumento: any;
-  //public nombre: string;
-  public apellido: string;
   public direccion: string;
   public codigo: string;
 
@@ -118,6 +120,14 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
                               {id:17, nombre:'Alto Paraguay'}, {id:18, nombre:'Capital'}];
 
 departamentosFiltrados: any[];
+
+//Formulario global
+public fichaPersonalBlanco: FichaPersonalBlanco;
+
+public cedula: string;
+public nombre: string;
+public apellido: string;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -131,6 +141,14 @@ departamentosFiltrados: any[];
   }
 
   ngOnInit() {
+
+    this._route.params.forEach((urlParams) => {
+      this.cedula = urlParams['cedula'];
+      this.nombre = urlParams['nombre'];
+      this.apellido = urlParams['apellido'];
+
+    });
+
     this.fechaHoy = new Date().toLocaleDateString('fr-CA');
     //console.log(this.fechaHoy);
     this.formDatosBasicos = new FormDatosBasicos();
@@ -150,18 +168,17 @@ departamentosFiltrados: any[];
       telefono: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       direccion: ['', Validators.required],
       sexo: ['', Validators.required],
-      tipoExposicion: ['', Validators.required],
       hospitalizado: ['', Validators.required],
-      fallecido: ['', Validators.required],
       fechaInicioSintomas: ['', Validators.required],
-      fechaCierreCaso: ['', Validators.required],
       regionSanitaria: ['', Validators.required],
-      codPaciente: ['', Validators.required],
       departamento: ['', Validators.required],
-      distrito: ['', Validators.required],
+      distrito: ['', Validators.required]
+      /*tipoExposicion: ['', Validators.required],
+      fallecido: ['', Validators.required],
+      codPaciente: ['', Validators.required],
+      fechaCierreCaso: ['', Validators.required],*/
     });
 
-    //this.getRecaptchaToken('register');
     /*this._route.params.subscribe(params => {
         this.formDatosBasicos.tipoInicio = params["tipoInicio"];
     });*/
@@ -189,28 +206,41 @@ departamentosFiltrados: any[];
     }
   }
 
-  guardarPrimerContacto(){
-    const primerContacto = new PrimerContacto();
-    primerContacto.nroDocumento = this.contactoFg.controls.cedula.value;
-    primerContacto.nombre = this.contactoFg.controls.nombre.value;
-    primerContacto.apellido = this.contactoFg.controls.apellido.value;
-    primerContacto.telefono = this.contactoFg.controls.telefono.value;
-    primerContacto.direccion = this.contactoFg.controls.direccion.value;
-    primerContacto.hospitalizado = this.contactoFg.controls.hospitalizado.value;
-    primerContacto.fallecido = this.contactoFg.controls.fallecido.value;
-    primerContacto.tipoExposicion = this.contactoFg.controls.tipoExposicion.value;
-    primerContacto.fechaInicioSintomas = this.contactoFg.controls.fechaInicioSintomas.value;
-    primerContacto.fechaCierreCaso = this.contactoFg.controls.fechaCierreCaso.value;
-    primerContacto.codigoPaciente = this.contactoFg.controls.codPaciente.value;
-    primerContacto.regionSanitaria = this.contactoFg.controls.regionSanitaria.value.nombre;
-    primerContacto.departamento = this.contactoFg.controls.departamento.value.nombre;
-    primerContacto.distrito = this.contactoFg.controls.distrito.value;
+  guardarFichaContacto(){
+    this.loading = true;
+    this.fichaPersonalBlanco = new FichaPersonalBlanco();
 
-    this.service.guardarPrimerContacto(primerContacto).subscribe(response => {
+    this.fichaPersonalBlanco.formSeccionDatosBasicos = new FormDatosBasicos();
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.tipoDocumento = 'Cédula de Identidad';
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.numeroDocumento = this.contactoFg.controls.cedula.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.nombre = this.contactoFg.controls.nombre.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.apellido = this.contactoFg.controls.apellido.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.numeroCelular = this.contactoFg.controls.telefono.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.direccionDomicilio = this.contactoFg.controls.direccion.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.departamentoDomicilio = this.contactoFg.controls.departamento.value.nombre;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.barrio = this.contactoFg.controls.distrito.value;
+
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo = new FormSeccionClasifRiesgo();
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaInicioSintomas = this.contactoFg.controls.fechaInicioSintomas.value;
+    if(this.contactoFg.controls.hospitalizado.value === 'SI'){
+      this.fichaPersonalBlanco.formSeccionClasifRiesgo.internado = true;
+    }else{
+      this.fichaPersonalBlanco.formSeccionClasifRiesgo.internado = false;
+    }
+
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco = new FormSeccionPersonalBlanco();
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.regionSanitaria = this.contactoFg.controls.regionSanitaria.value.nombre;
+
+    this.fichaPersonalBlanco.formSeccionContactoContagio = new FormSeccionContactoContagio();
+    this.fichaPersonalBlanco.formSeccionContactoContagio.nroDocumento = this.cedula;
+    this.fichaPersonalBlanco.formSeccionContactoContagio.nombre = this.nombre;
+    this.fichaPersonalBlanco.formSeccionContactoContagio.apellido = this.apellido;
+
+    this.service.guardarFichaContacto(this.fichaPersonalBlanco).subscribe(response => {
         this.idRegistro = +response;
         //this._router.navigate(["covid19/carga-operador/datos-clinicos/",this.idRegistro]);
         this.loading = false;
-        this.mensaje = "Contacto registrado exitosamente!";
+        this.mensaje = "Ficha registrada exitosamente!";
         this.openMessageDialogExito();
           
       }, error => {

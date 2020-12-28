@@ -152,7 +152,7 @@ export class GrillaCensoContactosComponent implements OnInit {
   fallaSII: boolean = false;
 
   public contactoOptions=[{value:'todos',label:'Todos'},{value:'llamada_realizada',label:'Llamada Realizada'}];
-  public contactoOption="todos";
+  public contactoOption="llamada_realizada";
 
   public historicoComentarios=[];
   public username;
@@ -235,7 +235,7 @@ export class GrillaCensoContactosComponent implements OnInit {
       else
         this.sortAsc = false;
     }
-    this.buscarContactos('pendientes');
+    this.buscarContactos('llamada_realizada');
     
 }
 
@@ -303,6 +303,11 @@ consultarIdentificaciones(event) {
   );
     }
   }
+}
+
+nuevoContacto(rowData){
+  //const dialogRef = this.dialog.open(DetalleBienComponent, { data: {id: id, detalle: detalle} ,height: '350px', width: '450px'});
+  this._router.navigate(['covid19/operador/nuevo-contacto',rowData.nroDocumento, rowData.nombre, rowData.apellido]);
 }
 
   ngOnDestroy() {

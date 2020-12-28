@@ -310,7 +310,7 @@
                     </td>
                     <td>
                         <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="mostrarNoSeContacto(rowData)" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:146px" label="No se pudo contactar" title="No se Pudo Contactar: en caso de que no atiende, apagado, etc."></button><br>
-                        <button pButton type="button" icon="pi pi-plus" iconPos="left" routerLink="/covid19/operador/nuevo-contacto" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:146px" label="Agregar Contacto" title="Agregar nuevos contactos."></button>
+                        <button pButton type="button" icon="pi pi-plus" iconPos="left" (click)="nuevoContacto(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:146px" label="Agregar Contacto" title="Agregar nuevos contactos."></button>
                         <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text ui-button-warning- p-mr-2 mr-2 ml-5 mb-2 mt-2" style="background-color: green !important;"></button>
                         <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel(rowData, ri)" class="p-button-rounded p-button-text p-button-danger mb-2 mt-2" style="background-color: red !important;"></button><br>
                         <button type="button" pButton icon="pi pi-comments" iconPos="left" (click)="mostrarAgregarComentario(rowData)" class="ui-button-info mr-2 mb-1" style="font-size:10px;width:146px" label="Agregar Comentario" title="Agregar Comentario al momento de realizar llamada."></button><br>
@@ -378,10 +378,10 @@
                         <textarea id="comentarios"  formControlName="comentarios" cols="50" rows="5"></textarea>
                     </div>
                 </form>
-                <button class="btn btn-success btn-success-next mr-2" (click)="agregarComentario()">
+                <button class="btn btn-success btn-success-next mr-2 mb-2" (click)="agregarComentario()">
                     Agregar <span class="fa fa-check"></span>
                 </button>
-                <button class="btn btn-secondary btn-success-next" (click)="closePopupAgregarComentario()">
+                <button class="btn btn-secondary btn-success-next mb-2" (click)="closePopupAgregarComentario()">
                     Cancelar <span class="fa fa-times"></span>
                 </button><br>
                 <h4 *ngIf="historicoComentarios?.length >= 1">Histórico de Comentarios:</h4>
