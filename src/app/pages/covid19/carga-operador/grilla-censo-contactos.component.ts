@@ -181,6 +181,9 @@ export class GrillaCensoContactosComponent implements OnInit {
 regionesFiltradas: any[];
 primerContactoId: number;
 public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
+public formCensoContactoList: any[];
+public colsFormCensoContacto: any[];
+showListFormCensoContacto: boolean = false;
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -264,6 +267,17 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
         { field: 'fechaUltimaLlamada', header: 'Fecha de Última Llamada', width: '9%' },
         { field: 'cantidadContactos', header: 'Cantidad de Contactos', width: '9%' }];
         //{ field: '', header: 'Acciones', width: '15%' }];
+
+    
+    this.colsFormCensoContacto = [{ field: 'nroDocumento', header: 'Nro de Documento', width: '8%'},
+        { field: 'nombres', header: 'Nombres', width: '9%' },
+        { field: 'apellidos', header: 'Apellidos', width: '11%' },
+        { field: 'telefono', header: 'Teléfono', width: '8%' },
+        { field: 'direccion', header: 'Dirección', width: '9%' },
+        { field: 'regionSanitaria', header: 'Región Sanitaria', width: '9%' },
+        { field: 'sexo', header: 'Sexo', width: '8%' },
+        { field: 'fechaExposicion', header: 'Fecha de Exposición', width: '9%' },
+        { field: 'categoriacontagio', header: 'Categoría de Contagio', width: '8%' }];
   }
 
   load($event: any) {
@@ -387,6 +401,24 @@ guardarNuevoContacto(){
 
 openMessageDialogExito() {
   setTimeout(function() { $("#modalExito").modal("toggle"); }, 1000);
+}
+
+mostrarListFormCensoContacto(rowData){
+  this.showListFormCensoContacto = true;
+  this.buscarFormCensoContacto(rowData.id);
+}
+
+closeListFormCensoContacto(){
+  this.showListFormCensoContacto = false;
+}
+
+buscarFormCensoContacto(primerContactoId){
+    this.service.getPacientesFormCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, this.username, primerContactoId).subscribe(pacientes => {
+      this.formCensoContactoList = pacientes.lista;
+      this.totalRecords = pacientes.totalRecords;
+      console.log(this.formCensoContactoList);
+    });
+  
 }
 
 filtrarRegion(event) {

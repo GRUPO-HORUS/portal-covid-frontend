@@ -95,9 +95,31 @@ export class Covid19Service {
       return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/guardarNuevoContacto/', formCensoContacto);
     }
 
-    /*guardarFichaContacto(fichaPersonalBlanco): Observable<string> {
+    guardarFichaContacto(fichaPersonalBlanco): Observable<string> {
       return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/guardarFichaContacto/', fichaPersonalBlanco);
-    }*/
+    }
+
+    getPacientesFormCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
+      sortField: string, region, username, primerContactoId): Observable<PrimerContactoTable> {
+     this.loading.next(true);
+
+     let params = new HttpParams();
+
+      if (filter)
+        params = params.set('filter', filter);
+
+      if (sortField)
+        params = params.set('sortField', sortField);
+
+      if (username)
+        params = params.set('username', username);
+
+      if (primerContactoId)
+        params = params.set('primerContactoId', primerContactoId);
+
+     params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
+     return this.httpClient.get<PrimerContactoTable>(this.config.API + '/covid19api/aislamiento/listarFormCensoContacto/'+region, {params});
+   }
 
     getPacientesCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
       sortField: string, region, opcionFiltro, username): Observable<PrimerContactoTable> {
