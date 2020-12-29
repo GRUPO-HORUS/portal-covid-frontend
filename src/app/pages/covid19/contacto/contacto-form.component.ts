@@ -168,12 +168,12 @@ public apellido: string;
       telefono: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       direccion: ['', Validators.required],
       sexo: ['', Validators.required],
-      hospitalizado: ['', Validators.required],
-      fechaInicioSintomas: ['', Validators.required],
       regionSanitaria: ['', Validators.required],
+      /*hospitalizado: ['', Validators.required],
+      fechaInicioSintomas: ['', Validators.required],
       departamento: ['', Validators.required],
       distrito: ['', Validators.required]
-      /*tipoExposicion: ['', Validators.required],
+      tipoExposicion: ['', Validators.required],
       fallecido: ['', Validators.required],
       codPaciente: ['', Validators.required],
       fechaCierreCaso: ['', Validators.required],*/

@@ -27,14 +27,14 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="cedula"><strong>Número de Cédula</strong><span style="color: red;"> *</span></label>
+                                        <label for="cedula"><strong>Número de Cédula</strong></label>
                                         <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="consultarIdentificaciones($event, 'registro')">
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.numeroDocumento" class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ej. 123456" required>-->
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="nombre"><strong>Nombres</strong><span style="color: red;"> *</span></label>
+                                        <label for="nombre"><strong>Nombres</strong></label>
                                         <input type="text" formControlName="nombre" class="form-control" id="nombre" name="nombre" required disabled>
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" id="nombre" required>-->
                                     </div>
@@ -44,14 +44,14 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="apellido"><strong>Apellidos</strong><span style="color: red;"> *</span></label>
+                                        <label for="apellido"><strong>Apellidos</strong></label>
                                         <input type="text" formControlName="apellido" class="form-control" id="apellido" name="apellido" required disabled>
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" id="nombre" required>-->
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="fechaNacimiento"><strong>Fecha de nacimiento:</strong><span style="color: red;"> *</span></label><!--value="1980-01-01"-->
+                                        <label for="fechaNacimiento"><strong>Fecha de nacimiento:</strong></label><!--value="1980-01-01"-->
                                         <input type="text" formControlName="fechaNacimiento" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required disabled>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="sexo"><strong>Sexo</strong><span style="color: red;"> *</span></label>
+                                        <label for="sexo"><strong>Sexo</strong></label>
                                         <br>
                                         <p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'540px'}" required></p-dropdown>
                                         <!--<p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.tipoDocumento" name="sexo" [style]="{'width':'350px'}" required></p-dropdown>-->
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="direccion"><strong>Dirección</strong><span style="color: red;"> *</span></label>
+                                        <label for="direccion"><strong>Dirección</strong></label>
                                         <input type="text" formControlName="direccion" name="direccion" class="form-control" id="direccion" required>
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control" id="direccionDomicilio" required>-->
                                     </div>
@@ -89,7 +89,7 @@
                                 </div>
                             </div>
         
-                            <div class="row">
+                            <!--<div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="tipoContacto"><strong>Hospitalizado</strong><span style="color: red;"> *</span></label>
@@ -101,16 +101,15 @@
                                     <div class="form-group">
                                         <label for="fechaSintomas"><strong>Fecha de Inicio de Síntomas:</strong><span style="color: red;"> *</span></label>
                                         <br>
-                                        <!--<input type="date" id="fechaSintomas" formControlName="fechaSintomas" style="width: 325px;" (change)="setearFechasTabla($event.target.value)" value="{{fechaHoy}}">-->
                                         <p-calendar formControlName="fechaInicioSintomas" id="fechaSintomas" name="fechaSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'500px'}"></p-calendar>
                                     </div>
-                                    <!--<div class="form-group">
+                                    <div class="form-group">
                                         <label for="tipoContacto"><strong>Fallecido</strong><span style="color: red;"> *</span></label>
                                         <br>
                                         <p-dropdown id="fallecido" [options]="binarioOptions" label="label" placeholder="Seleccionar" formControlName="fallecido" name="fallecido" [style]="{'width': '540px'}" required></p-dropdown>
-                                    </div>-->
+                                    </div>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="row">
                                 <div class="col-md">
                                     
@@ -124,7 +123,7 @@
                                     </div>-->
                                 </div>
                             </div>
-                            <div class="row">
+                            <!--<div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="departamento"><strong>Departamento</strong><span style="color: red;"> *</span></label>
@@ -138,11 +137,11 @@
                                         <input type="text" formControlName="distrito" class="form-control" id="distrito" name="distrito" required>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="regionSanitaria"><strong>Región Sanitaria</strong><span style="color: red;"> *</span></label>
+                                        <label for="regionSanitaria"><strong>Región Sanitaria</strong></label>
                                         <br>
                                         <!--<p-dropdown id="regionSanitaria" [options]="regionSanitariaOptions" label="label" placeholder="Seleccionar" formControlName="regionSanitaria" name="regionSanitaria" [style]="{'width':'515px'}" required></p-dropdown>-->
                                         <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'525px'}" [forceSelection]="true" required></p-autoComplete>

@@ -12,6 +12,7 @@ import { StorageManagerService } from '../../login/shared/storage-manager.servic
 import { CensoContacto } from "../model/censoContacto.model";
 import { Paciente } from "../model/paciente.model";
 import { PrimerContacto } from "../model/primerContacto.model";
+import { FormCensoContacto } from "../model/formCensoContacto.model";
 
 declare var $: any;
 
@@ -154,9 +155,32 @@ export class GrillaCensoContactosComponent implements OnInit {
   public contactoOptions=[{value:'todos',label:'Todos'},{value:'llamada_realizada',label:'Llamada Realizada'}];
   public contactoOption="llamada_realizada";
 
+  public catContagioOptions=[{value:'asistencia_paciente',label:'Asistencia a paciente con COVID-19'}, {value:'contacto_personal_salud',label:'Contacto con Personal de Salud con COVID-19'},
+  {value:'asistencia_penitenciaria',label:'Asistencia en penitenciaría'},{value:'asistencia_albergue',label:'Asistencia en albergues/hotel salud'},
+  {value:'familiar_social',label:'Familiar Social'}, {value:'viajero',label:'Viajero'},{value:'sin_nexo',label:'Sin Nexo'}];
+
   public historicoComentarios=[];
   public username;
 
+  showRegistroFinalizado: boolean = false;
+
+  showPopupNuevoContacto: boolean = false;
+  contactoFg: FormGroup;
+
+  public regionSanitariaOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro Norte'},
+                              {id:3, nombre:'San Pedro Sur'}, {id:4, nombre:'Cordillera'},
+                              {id:5, nombre:'Guairá'}, {id:6, nombre:'Caaguazú'},
+                              {id:7,nombre:'Caazapá'}, {id:8, nombre:'Itapúa'},
+                              {id:9,nombre:'Misiones'},
+                              {id:10, nombre:'Paraguarí'},{id:11, nombre:'Alto Paraná'},
+                              {id:12, nombre:'Central'},{id:13, nombre:'Ñeembucú'},
+                              {id:14, nombre:'Amambay'},{id:15, nombre:'Canindeyú'},
+                              {id:16, nombre:'Presidente Hayes'}, {id:17, nombre:'Boquerón'},
+                              {id:18, nombre:'Alto Paraguay'}, {id:19, nombre:'Capital'}];
+
+regionesFiltradas: any[];
+primerContactoId: number;
+public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -193,6 +217,24 @@ export class GrillaCensoContactosComponent implements OnInit {
       tipo: [null,Validators.required],
     });
 
+    this.contactoFg = this.formBuilder.group({
+      fechaContacto: [''],
+      cedula: [''],
+      nombre: [''],
+      apellido: [''],
+      fechaNacimiento: [''],
+      telefono: ['', Validators.compose([Validators.required, Validators.minLength(9)])],
+      direccion: [''],
+      sexo: [''],
+      regionSanitaria: [''],
+      fechaExposicion: [''],
+      catContagio:['']
+      /*hospitalizado: ['', Validators.required],
+      fechaInicioSintomas: ['', Validators.required],
+      departamento: ['', Validators.required],
+      fechaCierreCaso: ['', Validators.required],*/
+    });
+
     this.comentariosFormGroup = this.formBuilder.group({
       nexo: [null],
       comentarios: [null,Validators.required]
@@ -208,18 +250,19 @@ export class GrillaCensoContactosComponent implements OnInit {
       console.log(this.idPaciente+" "+this.cedulaPaciente);
     });*/
 
-    this.cols = [{ field: 'fechaCierreCaso', header: 'Fecha de Cierre', width: '7%' },
-        { field: 'nroDocumento', header: 'Nro de Documento', width: '7%'},
+    this.cols = [{ field: 'fechaCierreCaso', header: 'Fecha de Cierre', width: '9%' },
+        { field: 'nroDocumento', header: 'Nro de Documento', width: '8%'},
         { field: 'nombres', header: 'Nombres', width: '9%' },
         { field: 'apellidos', header: 'Apellidos', width: '11%' },
         { field: 'telefono', header: 'Teléfono', width: '8%' },
         { field: 'departamento', header: 'Departamento', width: '9%' },
         //{ field: 'distrito', header: 'Distrito', width: '8%' },
-        { field: 'hospitalizado', header: 'Internado', width: '8%' },
+        //{ field: 'hospitalizado', header: 'Internado', width: '8%' },
         //{ field: 'fallecido', header: 'Fallecido', width: '6%' },
-        { field: 'tipoExposicion', header: 'Tipo de Exposición', width: '9%' },
-        { field: 'fechaInicioSintomas', header: 'Fecha de Inicio de Síntomas', width: '8%' },
-        { field: 'fechaUltimaLlamada', header: 'Fecha de Última Llamada', width: '8%' }];
+        //{ field: 'tipoExposicion', header: 'Tipo de Exposición', width: '9%' },
+        { field: 'fechaInicioSintomas', header: 'Fecha de Inicio de Síntomas', width: '9%' },
+        { field: 'fechaUltimaLlamada', header: 'Fecha de Última Llamada', width: '9%' },
+        { field: 'cantidadContactos', header: 'Cantidad de Contactos', width: '9%' }];
         //{ field: '', header: 'Acciones', width: '15%' }];
   }
 
@@ -305,9 +348,59 @@ consultarIdentificaciones(event) {
   }
 }
 
-nuevoContacto(rowData){
-  //const dialogRef = this.dialog.open(DetalleBienComponent, { data: {id: id, detalle: detalle} ,height: '350px', width: '450px'});
-  this._router.navigate(['covid19/operador/nuevo-contacto',rowData.nroDocumento, rowData.nombre, rowData.apellido]);
+mostrarNuevoContacto(rowData){
+  //this._router.navigate(['covid19/operador/nuevo-contacto',rowData.nroDocumento, rowData.nombre, rowData.apellido]);
+  this.primerContactoId = rowData.id;
+  this.showPopupNuevoContacto = true;
+}
+
+guardarNuevoContacto(){
+  let formCensoContacto = new FormCensoContacto();
+
+  formCensoContacto.nroDocumento = this.contactoFg.controls.cedula.value;
+  formCensoContacto.nombre = this.contactoFg.controls.nombre.value;
+  formCensoContacto.apellido = this.contactoFg.controls.apellido.value;
+  formCensoContacto.direccion = this.contactoFg.controls.direccion.value;
+  formCensoContacto.telefono = this.contactoFg.controls.telefono.value;
+  formCensoContacto.sexo = this.contactoFg.controls.sexo.value;
+  formCensoContacto.regionSanitaria = this.contactoFg.controls.regionSanitaria.value.nombre;
+  formCensoContacto.fechaExposicion = this.contactoFg.controls.fechaExposicion.value;
+  formCensoContacto.categoriaContagio = this.contactoFg.controls.catContagio.value;
+  formCensoContacto.primerContactoId = this.primerContactoId;
+
+
+  this.service.guardarNuevoContacto(formCensoContacto).subscribe(response => {
+    this.idRegistro = +response;
+    //this._router.navigate(["covid19/carga-operador/datos-clinicos/",this.idRegistro]);
+    this.loading = false;
+    this.mensaje = "Contacto registrado exitosamente!";
+    this.openMessageDialogExito();
+      
+  }, error => {
+    console.log(error);
+    this.loading = false;
+    this.mensaje = error.error;
+    this.openMessageDialog(); 
+  }
+  );
+}
+
+openMessageDialogExito() {
+  setTimeout(function() { $("#modalExito").modal("toggle"); }, 1000);
+}
+
+filtrarRegion(event) {
+  let filtered : any[] = [];
+  let query = event.query;
+  for(let i = 0; i < this.regionSanitariaOptions.length; i++) {
+      let region = this.regionSanitariaOptions[i];
+
+      if (region.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+        filtered.push(region);
+      }
+  }
+  
+  this.regionesFiltradas = filtered;
 }
 
   ngOnDestroy() {
@@ -768,7 +861,38 @@ nuevoContacto(rowData){
   }
 
   onRowEditCancel(){
-    
+  }
+
+  mostrarRegistroFinalizado(rowData){
+    this.primerContacto = rowData;
+    this.showRegistroFinalizado = true;
+  }
+
+  guardarRegistroFinalizado(){
+    this.primerContacto.estadoPrimeraLlamada ="registro_finalizado";
+    this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
+      this.loading = false;
+      this.mensaje= "Registro finalizado exitosamente.";
+      this.buscarContactos(this.contactoOption);
+      this.showRegistroFinalizado = false;
+      this.openMessageDialog();
+    }, error => {
+      if(error.status == 401)
+      {
+        this._router.navigate(["/"]);
+      }
+      else
+      {
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
+    }
+    );
+  }
+
+  closePopupRegistroFinalizado(){
+    this.showLlamadaRealizada = false;
   }
 
   noAtiende(){

@@ -224,7 +224,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
         { field: 'nombres', header: 'Nombres', width: '9%' },
         { field: 'apellidos', header: 'Apellidos', width: '11%' },
         { field: 'telefono', header: 'Teléfono', width: '8%' },
-        { field: 'departamento', header: 'Departamento', width: '8%' },
+        { field: 'departamento', header: 'Departamento', width: '9%' },
         //{ field: 'distrito', header: 'Distrito', width: '8%' },
         { field: 'hospitalizado', header: 'Internado', width: '8%' },
         { field: 'fallecido', header: 'Fallecido', width: '6%' },
@@ -702,9 +702,12 @@ consultarIdentificaciones(event) {
     this.primerContacto = rowData;
 
     this.formGroup = new FormGroup({
-      fechaCierreCaso: new FormControl(rowData.fechaCierreCaso, [
+      /*fechaCierreCaso: new FormControl(rowData.fechaCierreCaso, [
         Validators.required
       ]),
+      fechaUltimaLlamada: new FormControl(rowData.fechaUltimaLlamada, [
+        Validators.required
+      ])*/
       nroDocumento: new FormControl(rowData.nroDocumento, [
         Validators.required
       ]),
@@ -731,9 +734,6 @@ consultarIdentificaciones(event) {
       ]),
       fechaInicioSintomas: new FormControl(rowData.fechaInicioSintomas, [
         Validators.required
-      ]),
-      fechaUltimaLlamada: new FormControl(rowData.fechaUltimaLlamada, [
-        Validators.required
       ])
     });
   }
@@ -748,14 +748,14 @@ consultarIdentificaciones(event) {
     this.primerContacto.fallecido = this.formGroup.controls.fallecido.value;
     this.primerContacto.tipoExposicion = this.formGroup.controls.tipoExposicion.value;
     this.primerContacto.fechaInicioSintomas = this.formGroup.controls.fechaInicioSintomas.value;
-    this.primerContacto.fechaCierreCaso = this.formGroup.controls.fechaCierreCaso.value;
-    this.primerContacto.fechaUltimaLlamada = this.formGroup.controls.fechaUltimaLlamada.value;
+    /*this.primerContacto.fechaCierreCaso = this.formGroup.controls.fechaCierreCaso.value;
+    this.primerContacto.fechaUltimaLlamada = this.formGroup.controls.fechaUltimaLlamada.value;*/
     //this.contactosList[row.id].actualizado = 'si';
 
     this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
+        this.edito = false;
         this.loading = false;
         this.mensaje= "Registro editado exitosamente.";
-        this.edito = false;
         this.openMessageDialog();
     }, error => {
         if(error.status == 401)
