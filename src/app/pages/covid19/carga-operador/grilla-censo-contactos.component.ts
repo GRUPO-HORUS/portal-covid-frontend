@@ -184,6 +184,10 @@ public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
 public formCensoContactoList: any[];
 public colsFormCensoContacto: any[];
 showListFormCensoContacto: boolean = false;
+
+showPopupBorrarFormCensoContacto: boolean = false;
+
+formCensoContacto;
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -241,15 +245,13 @@ showListFormCensoContacto: boolean = false;
       regionSanitaria: [''],
       fechaExposicion: [''],
       catContagio:['']
-      /*hospitalizado: ['', Validators.required],
-      fechaInicioSintomas: ['', Validators.required],
+      /*fechaInicioSintomas: ['', Validators.required],
       fechaCierreCaso: ['', Validators.required],*/
     });
 
     /*this._route.params.subscribe(params => {
       this.idPaciente = params["id"];
       this.cedulaPaciente = params["cedula"];
-      console.log(this.idPaciente+" "+this.cedulaPaciente);
     });*/
 
     this.cols = [{ field: 'fechaCierreCaso', header: 'Fecha de Cierre', width: '9%' },
@@ -271,12 +273,12 @@ showListFormCensoContacto: boolean = false;
     this.colsFormCensoContacto = [{ field: 'nroDocumento', header: 'Nro de Documento', width: '8%'},
         { field: 'nombres', header: 'Nombres', width: '9%' },
         { field: 'apellidos', header: 'Apellidos', width: '10%' },
-        { field: 'telefono', header: 'Teléfono', width: '6%' },
-        { field: 'direccion', header: 'Dirección', width: '9%' },
+        { field: 'telefono', header: 'Teléfono', width: '8%' },
+        { field: 'direccion', header: 'Dirección', width: '10%' },
         { field: 'regionSanitaria', header: 'Región Sanitaria', width: '9%' },
         { field: 'sexo', header: 'Sexo', width: '6%' },
         { field: 'fechaExposicion', header: 'Fecha de Exposición', width: '9%' },
-        { field: 'categoriacontagio', header: 'Categoría de Contagio', width: '10%' }];
+        { field: 'categoriacontagio', header: 'Categoría de Contagio', width: '14%' }];
   }
 
   load($event: any) {
@@ -383,7 +385,6 @@ guardarNuevoContacto(){
   formCensoContacto.categoriaContagio = this.contactoFg.controls.catContagio.value;
   formCensoContacto.primerContactoId = this.primerContactoId;
 
-
   this.service.guardarNuevoContacto(formCensoContacto).subscribe(response => {
     this.idRegistro = +response;
     //this._router.navigate(["covid19/carga-operador/datos-clinicos/",this.idRegistro]);
@@ -415,17 +416,47 @@ mostrarListFormCensoContacto(rowData){
   this.buscarFormCensoContacto(rowData.id);
 }
 
+buscarFormCensoContacto(primerContactoId){
+  this.service.getPacientesFormCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, this.username, primerContactoId).subscribe(pacientes => {
+    this.formCensoContactoList = pacientes.lista;
+    this.totalRecords = pacientes.totalRecords;
+    console.log(this.formCensoContactoList);
+  });
+}
+
 closeListFormCensoContacto(){
   this.showListFormCensoContacto = false;
 }
 
-buscarFormCensoContacto(primerContactoId){
-    this.service.getPacientesFormCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, this.username, primerContactoId).subscribe(pacientes => {
-      this.formCensoContactoList = pacientes.lista;
-      this.totalRecords = pacientes.totalRecords;
-      console.log(this.formCensoContactoList);
-    });
-  
+showBorrarFormCensoContacto(rowData){
+  this.formCensoContacto = rowData;
+  this.showPopupBorrarFormCensoContacto = true;
+}
+
+borrarFormCensoContacto(){
+  this.service.borrarFormCensoContacto(this.formCensoContacto).subscribe(response => {
+    this.idRegistro = +response;
+    this.loading = false;
+    this.showPopupBorrarFormCensoContacto = false;
+    this.buscarFormCensoContacto(this.formCensoContacto.primerContactoId)
+    this.mensaje = "Contacto borrado exitosamente!";
+    this.openMessageDialogExitoBorrado();
+      
+  }, error => {
+    console.log(error);
+    this.loading = false;
+    this.mensaje = error.error;
+    this.openMessageDialog(); 
+  }
+  );
+}
+
+closeBorrarFormCensoContacto(){
+  this.showPopupBorrarFormCensoContacto = false;
+}
+
+openMessageDialogExitoBorrado() {
+  setTimeout(function() { $("#modalExitoBorrado").modal("toggle"); }, 1000);
 }
 
 loadF($event: any) {
@@ -728,7 +759,6 @@ filtrarRegion(event) {
       }
     }
     );
-
   }
 
   mostrarAgregarComentario(rowData){
@@ -912,9 +942,6 @@ filtrarRegion(event) {
         }
     }
   );
-  }
-
-  onRowEditCancel(){
   }
 
   mostrarRegistroFinalizado(rowData){

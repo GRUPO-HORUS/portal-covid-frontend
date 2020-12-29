@@ -95,6 +95,10 @@ export class Covid19Service {
       return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/guardarNuevoContacto/', formCensoContacto);
     }
 
+    borrarFormCensoContacto(formCensoContacto): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/borrarFormCensoContacto', formCensoContacto);
+    }
+
     guardarFichaContacto(fichaPersonalBlanco): Observable<string> {
       return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/guardarFichaContacto/', fichaPersonalBlanco);
     }
