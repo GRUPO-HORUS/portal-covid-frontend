@@ -220,6 +220,15 @@ showListFormCensoContacto: boolean = false;
       tipo: [null,Validators.required],
     });
 
+    this.comentariosFormGroup = this.formBuilder.group({
+      nexo: [null],
+      comentarios: [null,Validators.required]
+    });
+
+    this.motivosFormGroup = this.formBuilder.group({
+      motivoNoContacto: [null,Validators.required]
+    });
+
     this.contactoFg = this.formBuilder.group({
       fechaContacto: [''],
       cedula: [''],
@@ -234,17 +243,7 @@ showListFormCensoContacto: boolean = false;
       catContagio:['']
       /*hospitalizado: ['', Validators.required],
       fechaInicioSintomas: ['', Validators.required],
-      departamento: ['', Validators.required],
       fechaCierreCaso: ['', Validators.required],*/
-    });
-
-    this.comentariosFormGroup = this.formBuilder.group({
-      nexo: [null],
-      comentarios: [null,Validators.required]
-    });
-
-    this.motivosFormGroup = this.formBuilder.group({
-      motivoNoContacto: [null,Validators.required]
     });
 
     /*this._route.params.subscribe(params => {
@@ -271,13 +270,13 @@ showListFormCensoContacto: boolean = false;
     
     this.colsFormCensoContacto = [{ field: 'nroDocumento', header: 'Nro de Documento', width: '8%'},
         { field: 'nombres', header: 'Nombres', width: '9%' },
-        { field: 'apellidos', header: 'Apellidos', width: '11%' },
-        { field: 'telefono', header: 'Teléfono', width: '8%' },
+        { field: 'apellidos', header: 'Apellidos', width: '10%' },
+        { field: 'telefono', header: 'Teléfono', width: '6%' },
         { field: 'direccion', header: 'Dirección', width: '9%' },
         { field: 'regionSanitaria', header: 'Región Sanitaria', width: '9%' },
-        { field: 'sexo', header: 'Sexo', width: '8%' },
+        { field: 'sexo', header: 'Sexo', width: '6%' },
         { field: 'fechaExposicion', header: 'Fecha de Exposición', width: '9%' },
-        { field: 'categoriacontagio', header: 'Categoría de Contagio', width: '8%' }];
+        { field: 'categoriacontagio', header: 'Categoría de Contagio', width: '10%' }];
   }
 
   load($event: any) {
@@ -366,6 +365,8 @@ mostrarNuevoContacto(rowData){
   //this._router.navigate(['covid19/operador/nuevo-contacto',rowData.nroDocumento, rowData.nombre, rowData.apellido]);
   this.primerContactoId = rowData.id;
   this.showPopupNuevoContacto = true;
+
+  this.contactoFg.controls.regionSanitaria.setValue({nombre: rowData.regionSanitaria})
 }
 
 guardarNuevoContacto(){
@@ -387,6 +388,7 @@ guardarNuevoContacto(){
     this.idRegistro = +response;
     //this._router.navigate(["covid19/carga-operador/datos-clinicos/",this.idRegistro]);
     this.loading = false;
+    this.showPopupNuevoContacto = false;
     this.mensaje = "Contacto registrado exitosamente!";
     this.openMessageDialogExito();
       
@@ -399,11 +401,16 @@ guardarNuevoContacto(){
   );
 }
 
+cerrarNuevoContacto(){
+  this.showPopupNuevoContacto = false;
+}
+
 openMessageDialogExito() {
   setTimeout(function() { $("#modalExito").modal("toggle"); }, 1000);
 }
 
 mostrarListFormCensoContacto(rowData){
+  //console.log(rowData.id);
   this.showListFormCensoContacto = true;
   this.buscarFormCensoContacto(rowData.id);
 }
@@ -419,6 +426,21 @@ buscarFormCensoContacto(primerContactoId){
       console.log(this.formCensoContactoList);
     });
   
+}
+
+loadF($event: any) {
+  if ($event) {
+    this.filter = $event.globalFilter;
+    this.start = $event.first;
+    this.pageSize = $event.rows;
+    this.sortField = $event.sortField;
+
+    if ($event.sortOrder == 1)
+      this.sortAsc = true;
+    else
+      this.sortAsc = false;
+  }
+  this.buscarFormCensoContacto(1);
 }
 
 filtrarRegion(event) {
