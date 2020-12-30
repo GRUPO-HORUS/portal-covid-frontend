@@ -230,7 +230,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
         { field: 'fallecido', header: 'Fallecido', width: '6%' },
         { field: 'tipoExposicion', header: 'Tipo de Exposición', width: '9%' },
         { field: 'fechaInicioSintomas', header: 'Fecha de Inicio de Síntomas', width: '8%' },
-        { field: 'estadoPrimeraLlamada', header: 'Estado Llamada', width: '9%' }];
+        { field: 'estadoPrimeraLlamada', header: 'Estado de Llamada', width: '9%' }];
         //{ field: 'fechaUltimaLlamada', header: 'Fecha de Última Llamada', width: '8%' }];
         //{ field: '', header: 'Acciones', width: '15%' }];
   }

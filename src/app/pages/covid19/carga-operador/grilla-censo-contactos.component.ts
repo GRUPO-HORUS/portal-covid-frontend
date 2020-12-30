@@ -276,7 +276,7 @@ formCensoContacto;
         //{ field: 'fallecido', header: 'Fallecido', width: '6%' },
         //{ field: 'tipoExposicion', header: 'Tipo de Exposición', width: '9%' },
         { field: 'fechaInicioSintomas', header: 'Fecha de Inicio de Síntomas', width: '9%' },
-        { field: 'fechaUltimaLlamada', header: 'Fecha de Última Llamada', width: '9%' },
+        { field: 'estadoPrimeraLlamada', header: 'Estado de Llamada', width: '9%' },
         { field: 'cantidadContactos', header: 'Cantidad de Contactos', width: '9%' }];
         //{ field: '', header: 'Acciones', width: '15%' }];
 
@@ -392,7 +392,7 @@ guardarNuevoContacto(){
   formCensoContacto.direccion = this.contactoFg.controls.direccion.value;
   formCensoContacto.telefono = this.contactoFg.controls.telefono.value;
   formCensoContacto.sexo = this.contactoFg.controls.sexo.value;
-  formCensoContacto.regionSanitaria = this.contactoFg.controls.regionSanitaria.value.id;
+  formCensoContacto.regionSanitaria = this.contactoFg.controls.regionSanitaria.value.nombre;
   formCensoContacto.fechaExposicion = this.contactoFg.controls.fechaExposicion.value;
   formCensoContacto.categoriaContagio = this.contactoFg.controls.catContagio.value;
   formCensoContacto.primerContactoId = this.primerContactoId;
