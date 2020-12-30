@@ -24,6 +24,8 @@ export class HeaderComponent  implements DoCheck {
   public uuid: string;
   public fotoPerfil: any;
 
+  region: string;
+
   constructor(
     private route: ActivatedRoute,
     private scrollService: ScrollToService,
@@ -37,6 +39,15 @@ export class HeaderComponent  implements DoCheck {
 
   ngDoCheck() {
     this.currentUser = this.storageManagerService.getLoginData();
+
+    if(this.currentUser!==null){
+      if(this.currentUser.usuario.regionSanitaria ==11){
+        this.region = 'Central';
+      }else{
+        this.region = 'Canindeyú';
+      }
+    }
+    
   }
 
   scrollToTop(event) {

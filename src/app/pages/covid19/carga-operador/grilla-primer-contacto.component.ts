@@ -226,11 +226,12 @@ export class GrillaPrimerContactoComponent implements OnInit {
         { field: 'telefono', header: 'Teléfono', width: '8%' },
         { field: 'departamento', header: 'Departamento', width: '9%' },
         //{ field: 'distrito', header: 'Distrito', width: '8%' },
-        { field: 'hospitalizado', header: 'Internado', width: '8%' },
+        { field: 'hospitalizado', header: 'Internado', width: '6%' },
         { field: 'fallecido', header: 'Fallecido', width: '6%' },
         { field: 'tipoExposicion', header: 'Tipo de Exposición', width: '9%' },
         { field: 'fechaInicioSintomas', header: 'Fecha de Inicio de Síntomas', width: '8%' },
-        { field: 'fechaUltimaLlamada', header: 'Fecha de Última Llamada', width: '8%' }];
+        { field: 'estadoPrimeraLlamada', header: 'Estado Llamada', width: '9%' }];
+        //{ field: 'fechaUltimaLlamada', header: 'Fecha de Última Llamada', width: '8%' }];
         //{ field: '', header: 'Acciones', width: '15%' }];
   }
 

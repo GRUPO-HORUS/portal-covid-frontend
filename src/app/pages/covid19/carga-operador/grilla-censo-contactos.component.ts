@@ -167,7 +167,7 @@ export class GrillaCensoContactosComponent implements OnInit {
   showPopupNuevoContacto: boolean = false;
   contactoFg: FormGroup;
 
-  public regionSanitariaOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro Norte'},
+  /*public regionSanitariaOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro Norte'},
                               {id:3, nombre:'San Pedro Sur'}, {id:4, nombre:'Cordillera'},
                               {id:5, nombre:'Guairá'}, {id:6, nombre:'Caaguazú'},
                               {id:7,nombre:'Caazapá'}, {id:8, nombre:'Itapúa'},
@@ -176,7 +176,18 @@ export class GrillaCensoContactosComponent implements OnInit {
                               {id:12, nombre:'Central'},{id:13, nombre:'Ñeembucú'},
                               {id:14, nombre:'Amambay'},{id:15, nombre:'Canindeyú'},
                               {id:16, nombre:'Presidente Hayes'}, {id:17, nombre:'Boquerón'},
-                              {id:18, nombre:'Alto Paraguay'}, {id:19, nombre:'Capital'}];
+                              {id:18, nombre:'Alto Paraguay'}, {id:19, nombre:'Capital'}];*/
+
+public regionSanitariaOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro'},
+                              {id:3, nombre:'Cordillera'},
+                              {id:4, nombre:'Guairá'}, {id:5, nombre:'Caaguazú'},
+                              {id:6,nombre:'Caazapá'}, {id:7, nombre:'Itapúa'},
+                              {id:8,nombre:'Misiones'},
+                              {id:9, nombre:'Paraguarí'},{id:10, nombre:'Alto Paraná'},
+                              {id:11, nombre:'Central'},{id:12, nombre:'Ñeembucú'},
+                              {id:13, nombre:'Amambay'},{id:14, nombre:'Canindeyú'},
+                              {id:15, nombre:'Presidente Hayes'}, {id:16, nombre:'Boquerón'},
+                              {id:17, nombre:'Alto Paraguay'}, {id:18, nombre:'Capital'}];
 
 regionesFiltradas: any[];
 primerContactoId: number;
@@ -364,11 +375,12 @@ consultarIdentificaciones(event) {
 }
 
 mostrarNuevoContacto(rowData){
+  console.log(rowData);
   //this._router.navigate(['covid19/operador/nuevo-contacto',rowData.nroDocumento, rowData.nombre, rowData.apellido]);
   this.primerContactoId = rowData.id;
   this.showPopupNuevoContacto = true;
 
-  this.contactoFg.controls.regionSanitaria.setValue({nombre: rowData.regionSanitaria})
+  this.contactoFg.controls.regionSanitaria.setValue({nombre:rowData.departamento});
 }
 
 guardarNuevoContacto(){
@@ -380,7 +392,7 @@ guardarNuevoContacto(){
   formCensoContacto.direccion = this.contactoFg.controls.direccion.value;
   formCensoContacto.telefono = this.contactoFg.controls.telefono.value;
   formCensoContacto.sexo = this.contactoFg.controls.sexo.value;
-  formCensoContacto.regionSanitaria = this.contactoFg.controls.regionSanitaria.value.nombre;
+  formCensoContacto.regionSanitaria = this.contactoFg.controls.regionSanitaria.value.id;
   formCensoContacto.fechaExposicion = this.contactoFg.controls.fechaExposicion.value;
   formCensoContacto.categoriaContagio = this.contactoFg.controls.catContagio.value;
   formCensoContacto.primerContactoId = this.primerContactoId;
