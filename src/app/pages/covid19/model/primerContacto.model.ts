@@ -19,4 +19,6 @@ export class PrimerContacto {
     codigoPaciente: string;
     regionSanitaria: string;
     fechaUltimaLlamada: string;
+
+    editado: boolean;
 }

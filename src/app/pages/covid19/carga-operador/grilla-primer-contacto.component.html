@@ -38,65 +38,111 @@
                 </div>-->
                 <div>
 
-        <p-table #dt [columns]="cols" [value]="pacientesList" selectionMode="single" dataKey="id" [paginator]="true"
+        <p-table #dt [columns]="scrollableCols" [value]="pacientesList" selectionMode="single" dataKey="id" [paginator]="true"
         [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="load($event)"
-        paginatorPosition="bottom" [resizableColumns]="true" columnResizeMode="expand" editMode="row">
+        paginatorPosition="bottom" editMode="row" 
+        [frozenColumns]="frozenCols" [scrollable]="true" frozenWidth="200px"><!--scrollHeight="200px"[resizableColumns]="true" columnResizeMode="expand"-->
 
           <ng-template pTemplate="caption">
-              <table>
+                <table>
                     <tr>
                         <td align="left"><p-dropdown id="contactoOption" style="text-align: left;width:auto;" [options]="contactoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="contactoOption" name="contactoOption" [style]="{'minWidth':'150px', 'width': '150px'}" required (onChange)="buscarContactos($event.value)"></p-dropdown> </td>
                         <td align="right"><input type="text" pInputText style="width:500px;margin-right: 5px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')"></td>
                     </tr>
-              </table>
+                </table>
                 <div style="text-align: right;width:auto;">
-                        
-                    
                 </div>
-                <!--<div style="text-align: left;width:auto;">
-                    <p-dropdown id="contactoOption" style="text-align: left;width:auto;" [options]="contactoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="contactoOption" name="contactoOption" [style]="{'minWidth':'150px', 'width': '150px'}" required (onChange)="buscarContactos($event.value)"></p-dropdown>            
-                </div>-->
-              <!--<div class="ui-helper-clearfix" style="text-align: right">
-                  <button type="button" pButton icon="pi pi-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;" [disabled]="totalRecords===0"></button>
-                  <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="XLS" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success" [disabled]="totalRecords===0"></button>
-                  <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning" [disabled]="totalRecords===0"></button>
-              </div>-->
            </ng-template>
+
+           <ng-template pTemplate="colgroup" let-columns>
+            <colgroup>
+                <!--<col *ngFor="let col of columns" style="width:200px">-->
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:200px">
+                <col style="width:200px">
+            </colgroup>
+            </ng-template>
+
            <ng-template pTemplate="header" let-columns>
                 <tr>
-                  <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn [style.width]="col.width">
-                    {{col.header}}
-                    <p-sortIcon [field]="col.field"></p-sortIcon>
-                  </th>
-                  <th>
-                      Acciones
-                  </th>
+                    <!--<th *ngFor="let col of columns" [pSortableColumn]="col.field">pResizableColumn [style.width]="col.width"
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>-->
+                    <th *ngIf="columns[0].field==='acc'">Acciones</th>
+                    <th>Fecha de Cierre</th>
+                    <th>Código de Paciente</th>
+                    <th>Nro de Documento</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Teléfono</th>
+                    <th>Departamento</th>
+                    <th>Distrito</th>
+                    <th>Hospitalizado</th>
+                    <th>Fallecido</th>
+                    <th>Tipo de Exposición</th>
+                    <th>Fecha de Inicio de Síntomas</th>
+                    <th>Estado de Llamada</th>
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
-                <tr [pEditableRow]="rowData"><!--[ngClass]="{'lowstock': rowData.actualizado==='si'}"-->
-                    <td pEditableColumn style="vertical-align: top;">
-                        <!--<p-cellEditor *ngIf="edito">
-                            <ng-template pTemplate="input">
-                                <div [formGroup]="formGroup">
-                                    <input pInputText style="width:85px" type="text" formControlName="fechaCierreCaso">
-                                </div>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{rowData.fechaCierreCaso}}
-                            </ng-template>
-                        </p-cellEditor> *ngIf="!edito"-->
 
+            <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex" let-columns="columns">
+                <tr [pEditableRow]="rowData" [ngClass]="{'rojoOscuro': rowData.editado}">
+                    <td *ngIf="columns[0].field==='acc'">
+                        <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="mostrarNoSeContacto(columns,rowData)" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:133px" label="No se pudo contactar" title="No se Pudo Contactar: en caso de que no atiende, apagado, etc."></button><br>
+                        <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" iconPos="left" (click)="onRowEditInit(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:133px" label="Editar" title="Editar algunas de las informaciones de las columnas exhibidas."></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text ui-button-warning p-mr-2 mr-2 ml-3 mb-2 mt-2" style="background-color: green !important;"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel()" class="p-button-rounded p-button-text p-button-danger mb-2 mt-2" style="background-color: red !important;"></button><br>
+                        <button type="button" pButton icon="pi pi-comments" iconPos="left" (click)="mostrarAgregarComentario(rowData)" class="ui-button-info mr-2 mb-1" style="font-size:10px;width:133px" label="Agregar Comentario" title="Agregar Comentario al momento de realizar llamada."></button><br>
+                        <button type="button" pButton icon="pi pi-volume-up" *ngIf="rowData.estadoPrimeraLlamada !=='llamada_realizada'" iconPos="left" (click)="mostrarLlamada(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:133px" label="Llamada Realizada" title="Al Finalizar la llamada, se marca que la llamada fue realizada y el registro sale de la lista."></button><br>
+                    </td>
+                    <!--<td *ngFor="let col of columns" style="height: 180px;">
+                        {{rowData[col.field]}}
+                    </td>-->
+                   
+                    <td pEditableColumn style="vertical-align: top; height: 130px;" *ngIf="columns[0].field==='fechaCierreCaso'">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
-                                {{rowData.fechaCierreCaso }}
+                                {{rowData.fechaCierreCaso}}
                             </ng-template>
                             <ng-template pTemplate="output">
                                 {{rowData.fechaCierreCaso}}
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn style="vertical-align: top;">
+                    <td pEditableColumn style="vertical-align: top; height: 130px;">
+                        <p-cellEditor *ngIf="edito">
+                            <ng-template pTemplate="input">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:85px; height:35px" type="text" formControlName="codigoPaciente">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.codigoPaciente}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito">
+                            <ng-template pTemplate="input">
+                                {{rowData.codigoPaciente}}
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.codigoPaciente}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td pEditableColumn style="vertical-align: top; height: 130px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
@@ -117,7 +163,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn style="vertical-align: top;">
+                    <td pEditableColumn style="vertical-align: top; height: 130px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
@@ -139,7 +185,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn style="vertical-align: top;">
+                    <td pEditableColumn style="vertical-align: top; height: 130px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
@@ -160,7 +206,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn style="vertical-align: top;">
+                    <td pEditableColumn style="vertical-align: top; height: 130px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
@@ -182,11 +228,10 @@
                         </p-cellEditor>
                         
                     </td>
-                    <td pEditableColumn style="vertical-align: top;">
+                    <td pEditableColumn style="vertical-align: top; height: 130px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <!--<input pInputText style="width:95px" type="text" formControlName="departamento">-->
                                     <p-autoComplete id="departamento" formControlName="departamento" [suggestions]="departamentosFiltrados" field="nombre" (completeMethod)="filtrarDepto($event)" [inputStyle]="{'width':'95px'}" [forceSelection]="true" required></p-autoComplete>
                                 </div>
                             </ng-template>
@@ -204,11 +249,31 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn style="vertical-align: top;">
+                    <td pEditableColumn style="vertical-align: top; height: 130px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <!--<input pInputText style="width:65px" type="text" formControlName="hospitalizado">-->
+                                    <p-autoComplete id="distrito" formControlName="distrito" [suggestions]="departamentosFiltrados" field="nombre" (completeMethod)="filtrarDepto($event)" [inputStyle]="{'width':'95px'}" [forceSelection]="true" required></p-autoComplete>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.distrito}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito">
+                            <ng-template pTemplate="input">
+                                {{rowData.distrito}}
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.distrito}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+                    <td pEditableColumn style="vertical-align: top; height: 130px;">
+                        <p-cellEditor *ngIf="edito">
+                            <ng-template pTemplate="input">
+                                <div [formGroup]="formGroup">
                                     <p-dropdown id="hospitalizado" [options]="binarioOptions" label="label" placeholder="Seleccionar" formControlName="hospitalizado" name="hospitalizado" [style]="{'minWidth':'70px', 'width': '70px'}" required></p-dropdown>
                                 </div>
                             </ng-template>
@@ -226,11 +291,10 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn style="vertical-align: top;">
+                    <td pEditableColumn style="vertical-align: top; height: 130px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <!--<input pInputText style="width:65px" type="text" formControlName="fallecido"> [style]="{'width':'515px'}"-->
                                     <p-dropdown id="fallecido" [options]="binarioOptions" label="label" placeholder="Seleccionar" formControlName="fallecido" name="fallecido" [style]="{'minWidth':'70px', 'width': '70px'}" required></p-dropdown>
                                 </div>
                             </ng-template>
@@ -250,11 +314,10 @@
                         </p-cellEditor>
                         
                     </td>
-                    <td pEditableColumn style="vertical-align: top;">
+                    <td pEditableColumn style="vertical-align: top; height: 130px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <!--<input pInputText style="width:95px" type="text" formControlName="tipoExposicion">-->
                                     <p-dropdown id="tipoExposicion" [options]="exposicionOptions" label="label" placeholder="Seleccionar" formControlName="tipoExposicion" name="tipoExposicion" [style]="{'minWidth':'110px', 'width': '110px'}" required></p-dropdown>
                                 </div>
                             </ng-template>
@@ -271,18 +334,16 @@
                                 {{rowData.tipoExposicion}}
                             </ng-template>
                         </p-cellEditor>
-                        
                     </td>
                     
-                    <td pEditableColumn style="vertical-align: top;">
+                    <td pEditableColumn style="vertical-align: top; height: 130px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <!--<input pInputText style="width:90px; height:35px" type="text" formControlName="fechaInicioSintomas">-->
                                     <p-calendar formControlName="fechaInicioSintomas" id="fechaInicioSintomas" name="fechaInicioSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [touchUI]="true" [inputStyle]="{'width':'90px'}"></p-calendar>
                                 </div>
                             </ng-template>
-                            <ng-template pTemplate="output"><!--| date:'dd-MM-yyyy'-->
+                            <ng-template pTemplate="output">
                                 {{rowData.fechaInicioSintomas}}
                             </ng-template>
                         </p-cellEditor>
@@ -296,19 +357,8 @@
                                 {{rowData.fechaInicioSintomas}}
                             </ng-template>
                         </p-cellEditor>
-                        
                     </td>
-                    <td pEditableColumn style="vertical-align: top;">
-                        <!--<p-cellEditor *ngIf="edito">
-                            <ng-template pTemplate="input">
-                                <div [formGroup]="formGroup">
-                                    <input pInputText style="width:95px" type="text" formControlName="fechaUltimaLlamada">
-                                </div>
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                                {{rowData.fechaUltimaLlamada}}
-                            </ng-template>
-                        </p-cellEditor>-->
+                    <td pEditableColumn style="vertical-align: top; height: 130px;">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 {{rowData.estadoPrimeraLlamada }}
@@ -318,14 +368,25 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td>
+                    <!--<td>
                         <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="mostrarNoSeContacto(rowData)" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:133px" label="No se pudo contactar" title="No se Pudo Contactar: en caso de que no atiende, apagado, etc."></button><br>
                         <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" iconPos="left" (click)="onRowEditInit(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:133px" label="Editar" title="Editar algunas de las informaciones de las columnas exhibidas."></button>
                         <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text ui-button-warning p-mr-2 mr-2 ml-3 mb-2 mt-2" style="background-color: green !important;"></button>
                         <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel()" class="p-button-rounded p-button-text p-button-danger mb-2 mt-2" style="background-color: red !important;"></button><br>
                         <button type="button" pButton icon="pi pi-comments" iconPos="left" (click)="mostrarAgregarComentario(rowData)" class="ui-button-info mr-2 mb-1" style="font-size:10px;width:133px" label="Agregar Comentario" title="Agregar Comentario al momento de realizar llamada."></button><br>
-                        <button type="button" pButton icon="pi pi-volume-up" *ngIf="rowData.estadoPrimeraLlamada !=='llamada_realizada'" iconPos="left" (click)="mostrarLlamada(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:133px" label="Llamada Realizada" title="Al Finalizar la llamada, se marca que la llamada fue realizada y el registro sale de la lista."></button><br><!--routerLink="/covid19/operador/primer-contacto/1695901"-->
-                    </td>
+                        <button type="button" pButton icon="pi pi-volume-up" *ngIf="rowData.estadoPrimeraLlamada !=='llamada_realizada'" iconPos="left" (click)="mostrarLlamada(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:133px" label="Llamada Realizada" title="Al Finalizar la llamada, se marca que la llamada fue realizada y el registro sale de la lista."></button><br>
+                    </td>-->
+
+                    <!--<p-cellEditor *ngIf="edito">
+                            <ng-template pTemplate="input">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:95px" type="text" formControlName="fechaUltimaLlamada">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.fechaUltimaLlamada}}
+                            </ng-template>
+                        </p-cellEditor>-->
                 </tr>
             </ng-template>
     </p-table>
@@ -342,9 +403,6 @@
                     <div class="form-group">
                         <label for="numeroDocumento"><strong>Cédula </strong></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.numeroDocumento" class="form-control" style="max-width: 200px;" id="numeroDocumento" name="numeroDocumento" placeholder="Ej. 123456" required readonly>
-                    </div>
-                    <div class="text-center" *ngIf="loading">
-                        <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> A partir de ahora vamos a validar que sos vos...
                     </div>
                     <div class="clearfix"><br/></div>
                     <button (click)="validarTelefono(formDatosBasicos.contrasenha)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || contrasenha !== contrasenhaConfirm">

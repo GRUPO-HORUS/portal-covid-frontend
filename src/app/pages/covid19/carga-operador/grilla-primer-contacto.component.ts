@@ -15,6 +15,9 @@ import { PrimerContacto } from "../model/primerContacto.model";
 
 declare var $: any;
 
+//color: #ffffff !important;
+//background-color: #800606 !important;
+
 @Component({
   selector: "grilla-primer-contacto",
   templateUrl: "./grilla-primer-contacto.component.html",
@@ -29,6 +32,10 @@ declare var $: any;
             font-weight: 700;
             background-color: #fff4dc !important;
         }
+        .rojoOscuro {
+          color: #ffffff !important;
+          background-color: #8a4343 !important;
+        }
         :host ::ng-deep .row-accessories {
             background-color: rgba(0,0,0,.15) !important;
         }`
@@ -42,7 +49,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
   //Formulario
   public formDatosBasicos: FormDatosBasicos;
 
-  // datos del formulario
+  //Datos del formulario
   public cedula: string;
   public email: string;
   public domicilio: string;
@@ -101,7 +108,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
   msjCambiarNroCelular = '';
   nroCelularCambiar: string='';
 
-  cols: any[];
+  scrollableCols: any[];
   contactosList: any[];
   pageSize: number = 10;
   start: number = 0;
@@ -168,6 +175,8 @@ export class GrillaPrimerContactoComponent implements OnInit {
   public historicoComentarios=[];
   public username;
 
+  frozenCols: any[];
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -214,12 +223,10 @@ export class GrillaPrimerContactoComponent implements OnInit {
     });
 
     /*this._route.params.subscribe(params => {
-      this.idPaciente = params["id"];
       this.cedulaPaciente = params["cedula"];
-      console.log(this.idPaciente+" "+this.cedulaPaciente);
     });*/
 
-    this.cols = [{ field: 'fechaCierreCaso', header: 'Fecha de Cierre', width: '7%' },
+    /*this.cols = [{ field: 'fechaCierreCaso', header: 'Fecha de Cierre', width: '7%' },
         { field: 'nroDocumento', header: 'Nro de Documento', width: '7%'},
         { field: 'nombres', header: 'Nombres', width: '9%' },
         { field: 'apellidos', header: 'Apellidos', width: '11%' },
@@ -232,7 +239,26 @@ export class GrillaPrimerContactoComponent implements OnInit {
         { field: 'fechaInicioSintomas', header: 'Fecha de Inicio de Síntomas', width: '8%' },
         { field: 'estadoPrimeraLlamada', header: 'Estado de Llamada', width: '9%' }];
         //{ field: 'fechaUltimaLlamada', header: 'Fecha de Última Llamada', width: '8%' }];
-        //{ field: '', header: 'Acciones', width: '15%' }];
+        //{ field: '', header: 'Acciones', width: '15%' }];*/
+
+        this.scrollableCols = [{ field: 'fechaCierreCaso', header: 'Fecha de Cierre'},
+        { field: 'nroDocumento', header: 'Nro de Documento'},
+        { field: 'codigoPaciente', header: 'Código de Paciente'},
+        { field: 'nombre', header: 'Nombres'},
+        { field: 'apellido', header: 'Apellidos'},
+        { field: 'telefono', header: 'Teléfono'},
+        { field: 'departamento', header: 'Departamento'},
+        { field: 'distrito', header: 'Distrito'},
+        { field: 'hospitalizado', header: 'Internado'},
+        { field: 'fallecido', header: 'Fallecido'},
+        { field: 'tipoExposicion', header: 'Tipo de Exposición'},
+        { field: 'fechaInicioSintomas', header: 'Fecha de Inicio de Síntomas'},
+        { field: 'estadoPrimeraLlamada', header: 'Estado de Llamada'}];
+
+        this.frozenCols = [
+          { field: 'acc', header: 'Acciones'}
+        ];
+   
   }
 
   load($event: any) {
@@ -248,8 +274,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
         this.sortAsc = false;
     }
     this.buscarContactos('pendientes');
-    
-}
+  }
 
 buscarContactos(opcionFiltro){
   
@@ -442,7 +467,6 @@ consultarIdentificaciones(event) {
     this.agregarContactoFormGroup.controls.apellidos.setValue(contacto.apellidos);
     this.agregarContactoFormGroup.controls.telefono.setValue(contacto.telefono);
     this.agregarContactoFormGroup.controls.domicilio.setValue(contacto.domicilio);
-    console.log(contacto.fechaUltimoContacto);
     let dateParts = contacto.fechaUltimoContacto.split("-");
     let fechaContactoString = dateParts[2]+"/"+dateParts[1]+"/"+dateParts[0]
     console.log(fechaContactoString);
@@ -635,16 +659,19 @@ consultarIdentificaciones(event) {
     this.showAgregarComentario = false;
   }
 
-  mostrarNoSeContacto(rowData){
+  mostrarNoSeContacto(columns, rowData){
+    console.log(columns);
     this.primerContacto = rowData;
     this.showNoSeContacto = true;
   }
 
   guardarNoSeContacto(){
     this.primerContacto.estadoPrimeraLlamada = this.motivosFormGroup.controls.motivoNoContacto.value;
+    this.primerContacto.cantidadReintentos++;
     this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
       this.loading = false;
       this.mensaje= "Motivo guardado exitosamente.";
+      this.buscarContactos(this.contactoOption);
       this.showNoSeContacto = false;
       this.openMessageDialog();
     }, error => {
@@ -712,6 +739,9 @@ consultarIdentificaciones(event) {
       nroDocumento: new FormControl(rowData.nroDocumento, [
         Validators.required
       ]),
+      codigoPaciente: new FormControl(rowData.codigoPaciente, [
+        Validators.required
+      ]),
       nombre: new FormControl(rowData.nombre, [
         Validators.required
       ]),
@@ -722,6 +752,9 @@ consultarIdentificaciones(event) {
         Validators.required
       ]),
       departamento: new FormControl({nombre:rowData.departamento}, [
+        Validators.required
+      ]),
+      distrito: new FormControl({nombre:rowData.distrito}, [
         Validators.required
       ]),
       hospitalizado: new FormControl(rowData.hospitalizado, [
@@ -740,15 +773,19 @@ consultarIdentificaciones(event) {
   }
 
   onRowEditSave(rowData){
+
     this.primerContacto.nroDocumento = this.formGroup.controls.nroDocumento.value;
+    this.primerContacto.codigoPaciente = this.formGroup.controls.codigoPaciente.value;
     this.primerContacto.nombre = this.formGroup.controls.nombre.value;
     this.primerContacto.apellido = this.formGroup.controls.apellido.value;
     this.primerContacto.departamento = this.formGroup.controls.departamento.value.nombre;
+    this.primerContacto.distrito = this.formGroup.controls.distrito.value.nombre;
     this.primerContacto.telefono = this.formGroup.controls.telefono.value;
     this.primerContacto.hospitalizado = this.formGroup.controls.hospitalizado.value;
     this.primerContacto.fallecido = this.formGroup.controls.fallecido.value;
     this.primerContacto.tipoExposicion = this.formGroup.controls.tipoExposicion.value;
     this.primerContacto.fechaInicioSintomas = this.formGroup.controls.fechaInicioSintomas.value;
+
     /*this.primerContacto.fechaCierreCaso = this.formGroup.controls.fechaCierreCaso.value;
     this.primerContacto.fechaUltimaLlamada = this.formGroup.controls.fechaUltimaLlamada.value;*/
     //this.contactosList[row.id].actualizado = 'si';
@@ -758,6 +795,8 @@ consultarIdentificaciones(event) {
         this.loading = false;
         this.mensaje= "Registro editado exitosamente.";
         this.openMessageDialog();
+
+        this.primerContacto.editado = true;
     }, error => {
         if(error.status == 401)
         {
