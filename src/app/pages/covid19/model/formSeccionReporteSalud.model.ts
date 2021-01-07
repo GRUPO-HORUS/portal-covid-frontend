@@ -33,4 +33,7 @@ export class FormSeccionReporteSalud {
     diarrea: string;
     irritabilidad: string;
     conjuntival: string;
+
+    secrecionNasal: string;
+    percibeSabores: string;
 }

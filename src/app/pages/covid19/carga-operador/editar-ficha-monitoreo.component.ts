@@ -231,7 +231,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       this.openMessageDialog();
     }
     );
-    //this.lugares = [{id:1,nombre:'INERAM'},{id:2,nombre:'Hospital de Barrio Obrero'}, {id:3,nombre:'IPS'}];
+    
     window.scrollTo(0, 0);
 
     this.registroFg = this._formBuilder.group({
@@ -555,6 +555,34 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       auscultacion12: [null, Validators.required],
       auscultacion13: [null, Validators.required],
       auscultacion14: [null, Validators.required],
+      anosmia1: [null, Validators.required],
+      anosmia2: [null, Validators.required],
+      anosmia3: [null, Validators.required],
+      anosmia4: [null, Validators.required],
+      anosmia5: [null, Validators.required],
+      anosmia6: [null, Validators.required],
+      anosmia7: [null, Validators.required],
+      anosmia8: [null, Validators.required],
+      anosmia9: [null, Validators.required],
+      anosmia10: [null, Validators.required],
+      anosmia11: [null, Validators.required],
+      anosmia12: [null, Validators.required],
+      anosmia13: [null, Validators.required],
+      anosmia14: [null, Validators.required],
+      disgeusia1: [null, Validators.required],
+      disgeusia2: [null, Validators.required],
+      disgeusia3: [null, Validators.required],
+      disgeusia4: [null, Validators.required],
+      disgeusia5: [null, Validators.required],
+      disgeusia6: [null, Validators.required],
+      disgeusia7: [null, Validators.required],
+      disgeusia8: [null, Validators.required],
+      disgeusia9: [null, Validators.required],
+      disgeusia10: [null, Validators.required],
+      disgeusia11: [null, Validators.required],
+      disgeusia12: [null, Validators.required],
+      disgeusia13: [null, Validators.required],
+      disgeusia14: [null, Validators.required],
       otrosCansancios1: [null, Validators.required],
       otrosCansancios2: [null, Validators.required],
       otrosCansancios3: [null, Validators.required],
@@ -597,6 +625,16 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     /*this._route.params.subscribe(params => {
         this.formDatosBasicos.tipoInicio = params["tipoInicio"];
     });*/
+  }
+
+  selecAmbiente(band){
+    if(band ==='salud'){
+      this.catContagioOptions = [{value:'asistencia_paciente',label:'Asistencia a paciente con COVID-19'}, {value:'contacto_personal_salud',label:'Contacto con Personal de Salud con COVID-19'},
+      {value:'asistencia_penitenciaria',label:'Asistencia en penitenciaría'},{value:'asistencia_albergue',label:'Asistencia en albergues/hotel salud'}];
+    }else{
+      this.catContagioOptions = [{value:'familiar_social',label:'Familiar Social'}, {value:'viajero',label:'Viajero'},{value:'sin_nexo',label:'Sin Nexo'}];
+    }
+    
   }
 
   obtenerPaciente(cedula): void {
@@ -667,10 +705,8 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.dolorCabeza1.setValue(response.reportes[0].dolorCabeza ==null ? null : response.reportes[0].dolorCabeza == 'true');
         this.monitoreoFg.controls.dolorGarganta1.setValue(response.reportes[0].dolorGarganta ==null ? null : response.reportes[0].dolorGarganta == 'true');
         this.monitoreoFg.controls.dificultadRespirar1.setValue(response.reportes[0].dificultadRespirar ==null ? null : response.reportes[0].dificultadRespirar == 'true');
-        this.monitoreoFg.controls.percibeOlores1.setValue(response.reportes[0].percibeOlores ==null ? null : response.reportes[0].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal1.setValue(response.reportes[0].congestionNasal ==null ? null : response.reportes[0].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios1.setValue(response.reportes[0].otrosCansancios ==null ? null : response.reportes[0].otrosCansancios == 'true');
-
         this.monitoreoFg.controls.diarrea1.setValue(response.reportes[0].diarrea ==null ? null : response.reportes[0].diarrea == 'true');
         this.monitoreoFg.controls.dolorOido1.setValue(response.reportes[0].dolorOido ==null ? null : response.reportes[0].dolorOido == 'true');
         this.monitoreoFg.controls.dolorAbdominal1.setValue(response.reportes[0].dolorAbdominal ==null ? null : response.reportes[0].dolorAbdominal == 'true');
@@ -682,6 +718,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.conjuntival1.setValue(response.reportes[0].conjuntival ==null ? null : response.reportes[0].conjuntival == 'true');
         this.monitoreoFg.controls.postracion1.setValue(response.reportes[0].postracion ==null ? null : response.reportes[0].postracion == 'true');
         this.monitoreoFg.controls.convulsiones1.setValue(response.reportes[0].convulsiones ==null ? null : response.reportes[0].convulsiones == 'true');
+        
+        this.monitoreoFg.controls.disgeusia1.setValue(response.reportes[0].percibeSabores ==null ? null : response.reportes[0].percibeSabores == 'true');
+        this.monitoreoFg.controls.anosmia1.setValue(response.reportes[0].percibeOlores ==null ? null : response.reportes[0].percibeOlores == 'true');
+        this.monitoreoFg.controls.rinorrea1.setValue(response.reportes[0].secrecionNasal ==null ? null : response.reportes[0].secrecionNasal == 'true');
 
         this.idReporteSalud2 = response.reportes[1].id;
         this.monitoreoFg.controls.tos2.setValue(response.reportes[1].tos ==null ? null : response.reportes[1].tos == 'true');
@@ -705,6 +745,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.postracion2.setValue(response.reportes[1].postracion ==null ? null : response.reportes[1].postracion == 'true');
         this.monitoreoFg.controls.convulsiones2.setValue(response.reportes[1].convulsiones ==null ? null : response.reportes[1].convulsiones == 'true');
 
+        this.monitoreoFg.controls.disgeusia2.setValue(response.reportes[1].percibeSabores ==null ? null : response.reportes[1].percibeSabores == 'true');
+        this.monitoreoFg.controls.anosmia2.setValue(response.reportes[1].percibeOlores ==null ? null : response.reportes[1].percibeOlores == 'true');
+        this.monitoreoFg.controls.rinorrea2.setValue(response.reportes[1].secrecionNasal ==null ? null : response.reportes[1].secrecionNasal == 'true');
+
         this.idReporteSalud3 = response.reportes[2].id;
         this.monitoreoFg.controls.tos3.setValue(response.reportes[2].tos ==null ? null : response.reportes[2].tos == 'true');
         this.monitoreoFg.controls.fiebre3.setValue(response.reportes[2].sentisFiebre ==null ? null : response.reportes[2].sentisFiebre == 'true');
@@ -727,16 +771,18 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.postracion3.setValue(response.reportes[2].postracion ==null ? null : response.reportes[2].postracion == 'true');
         this.monitoreoFg.controls.convulsiones3.setValue(response.reportes[2].convulsiones ==null ? null : response.reportes[2].convulsiones == 'true');
 
+        this.monitoreoFg.controls.disgeusia3.setValue(response.reportes[2].percibeSabores ==null ? null : response.reportes[2].percibeSabores == 'true');
+        this.monitoreoFg.controls.anosmia3.setValue(response.reportes[2].percibeOlores ==null ? null : response.reportes[2].percibeOlores == 'true');
+        this.monitoreoFg.controls.rinorrea3.setValue(response.reportes[2].secrecionNasal ==null ? null : response.reportes[2].secrecionNasal == 'true');
+
         this.idReporteSalud4 = response.reportes[3].id;
         this.monitoreoFg.controls.tos4.setValue(response.reportes[3].tos ==null ? null : response.reportes[3].tos == 'true');
         this.monitoreoFg.controls.fiebre4.setValue(response.reportes[3].sentisFiebre ==null ? null : response.reportes[3].sentisFiebre == 'true');
         this.monitoreoFg.controls.dolorCabeza4.setValue(response.reportes[3].dolorCabeza ==null ? null : response.reportes[3].dolorCabeza == 'true');
         this.monitoreoFg.controls.dolorGarganta4.setValue(response.reportes[3].dolorGarganta ==null ? null : response.reportes[3].dolorGarganta == 'true');
         this.monitoreoFg.controls.dificultadRespirar4.setValue(response.reportes[3].dificultadRespirar ==null ? null : response.reportes[3].dificultadRespirar == 'true');
-        this.monitoreoFg.controls.percibeOlores4.setValue(response.reportes[3].percibeOlores ==null ? null : response.reportes[3].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal4.setValue(response.reportes[3].congestionNasal ==null ? null : response.reportes[3].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios4.setValue(response.reportes[3].otrosCansancios ==null ? null : response.reportes[3].otrosCansancios == 'true');
-
         this.monitoreoFg.controls.diarrea4.setValue(response.reportes[3].diarrea ==null ? null : response.reportes[3].diarrea == 'true');
         this.monitoreoFg.controls.dolorOido4.setValue(response.reportes[3].dolorOido ==null ? null : response.reportes[3].dolorOido == 'true');
         this.monitoreoFg.controls.dolorAbdominal4.setValue(response.reportes[3].dolorAbdominal ==null ? null : response.reportes[3].dolorAbdominal == 'true');
@@ -749,13 +795,16 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.postracion4.setValue(response.reportes[3].postracion ==null ? null : response.reportes[3].postracion == 'true');
         this.monitoreoFg.controls.convulsiones4.setValue(response.reportes[3].convulsiones ==null ? null : response.reportes[3].convulsiones == 'true');
 
+        this.monitoreoFg.controls.disgeusia4.setValue(response.reportes[3].percibeSabores ==null ? null : response.reportes[3].percibeSabores == 'true');
+        this.monitoreoFg.controls.anosmia4.setValue(response.reportes[3].percibeOlores ==null ? null : response.reportes[3].percibeOlores == 'true');
+        this.monitoreoFg.controls.rinorrea4.setValue(response.reportes[3].secrecionNasal ==null ? null : response.reportes[3].secrecionNasal == 'true');
+
         this.idReporteSalud5 = response.reportes[4].id;
         this.monitoreoFg.controls.tos5.setValue(response.reportes[4].tos ==null ? null : response.reportes[4].tos == 'true');
         this.monitoreoFg.controls.fiebre5.setValue(response.reportes[4].sentisFiebre ==null ? null : response.reportes[4].sentisFiebre == 'true');
         this.monitoreoFg.controls.dolorCabeza5.setValue(response.reportes[4].dolorCabeza ==null ? null : response.reportes[4].dolorCabeza == 'true');
         this.monitoreoFg.controls.dolorGarganta5.setValue(response.reportes[4].dolorGarganta ==null ? null : response.reportes[4].dolorGarganta == 'true');
         this.monitoreoFg.controls.dificultadRespirar5.setValue(response.reportes[4].dificultadRespirar ==null ? null : response.reportes[4].dificultadRespirar == 'true');
-        this.monitoreoFg.controls.percibeOlores5.setValue(response.reportes[4].percibeOlores ==null ? null : response.reportes[4].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal5.setValue(response.reportes[4].congestionNasal ==null ? null : response.reportes[4].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios5.setValue(response.reportes[4].otrosCansancios ==null ? null : response.reportes[4].otrosCansancios == 'true');
 
@@ -771,13 +820,16 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.postracion5.setValue(response.reportes[4].postracion ==null ? null : response.reportes[4].postracion == 'true');
         this.monitoreoFg.controls.convulsiones5.setValue(response.reportes[4].convulsiones ==null ? null : response.reportes[4].convulsiones == 'true');
 
+        this.monitoreoFg.controls.disgeusia5.setValue(response.reportes[4].percibeSabores ==null ? null : response.reportes[4].percibeSabores == 'true');
+        this.monitoreoFg.controls.anosmia5.setValue(response.reportes[4].percibeOlores ==null ? null : response.reportes[4].percibeOlores == 'true');
+        this.monitoreoFg.controls.rinorrea5.setValue(response.reportes[4].secrecionNasal ==null ? null : response.reportes[4].secrecionNasal == 'true');
+
         this.idReporteSalud6 = response.reportes[5].id;
         this.monitoreoFg.controls.tos6.setValue(response.reportes[5].tos ==null ? null : response.reportes[5].tos == 'true');
         this.monitoreoFg.controls.fiebre6.setValue(response.reportes[5].sentisFiebre ==null ? null : response.reportes[5].sentisFiebre == 'true');
         this.monitoreoFg.controls.dolorCabeza6.setValue(response.reportes[5].dolorCabeza ==null ? null : response.reportes[5].dolorCabeza == 'true');
         this.monitoreoFg.controls.dolorGarganta6.setValue(response.reportes[5].dolorGarganta ==null ? null : response.reportes[5].dolorGarganta == 'true');
         this.monitoreoFg.controls.dificultadRespirar6.setValue(response.reportes[5].dificultadRespirar ==null ? null : response.reportes[5].dificultadRespirar == 'true');
-        this.monitoreoFg.controls.percibeOlores6.setValue(response.reportes[5].percibeOlores ==null ? null : response.reportes[5].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal6.setValue(response.reportes[5].congestionNasal ==null ? null : response.reportes[5].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios6.setValue(response.reportes[5].otrosCansancios ==null ? null : response.reportes[5].otrosCansancios == 'true');
 
@@ -793,16 +845,18 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.postracion6.setValue(response.reportes[5].postracion ==null ? null : response.reportes[5].postracion == 'true');
         this.monitoreoFg.controls.convulsiones6.setValue(response.reportes[5].convulsiones ==null ? null : response.reportes[5].convulsiones == 'true');
 
+        this.monitoreoFg.controls.disgeusia6.setValue(response.reportes[5].percibeSabores ==null ? null : response.reportes[5].percibeSabores == 'true');
+        this.monitoreoFg.controls.anosmia6.setValue(response.reportes[5].percibeOlores ==null ? null : response.reportes[5].percibeOlores == 'true');
+        this.monitoreoFg.controls.rinorrea6.setValue(response.reportes[5].secrecionNasal ==null ? null : response.reportes[5].secrecionNasal == 'true');
+
         this.idReporteSalud7 = response.reportes[6].id;
         this.monitoreoFg.controls.tos7.setValue(response.reportes[6].tos ==null ? null : response.reportes[6].tos == 'true');
         this.monitoreoFg.controls.fiebre7.setValue(response.reportes[6].sentisFiebre ==null ? null : response.reportes[6].sentisFiebre == 'true');
         this.monitoreoFg.controls.dolorCabeza7.setValue(response.reportes[6].dolorCabeza ==null ? null : response.reportes[6].dolorCabeza == 'true');
         this.monitoreoFg.controls.dolorGarganta7.setValue(response.reportes[6].dolorGarganta ==null ? null : response.reportes[6].dolorGarganta == 'true');
         this.monitoreoFg.controls.dificultadRespirar7.setValue(response.reportes[6].dificultadRespirar ==null ? null : response.reportes[6].dificultadRespirar == 'true');
-        this.monitoreoFg.controls.percibeOlores7.setValue(response.reportes[6].percibeOlores ==null ? null : response.reportes[6].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal7.setValue(response.reportes[6].congestionNasal ==null ? null : response.reportes[6].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios7.setValue(response.reportes[6].otrosCansancios ==null ? null : response.reportes[6].otrosCansancios == 'true');
-
         this.monitoreoFg.controls.diarrea7.setValue(response.reportes[6].diarrea ==null ? null : response.reportes[6].diarrea == 'true');
         this.monitoreoFg.controls.dolorOido7.setValue(response.reportes[6].dolorOido ==null ? null : response.reportes[6].dolorOido == 'true');
         this.monitoreoFg.controls.dolorAbdominal7.setValue(response.reportes[6].dolorAbdominal ==null ? null : response.reportes[6].dolorAbdominal == 'true');
@@ -815,16 +869,18 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.postracion7.setValue(response.reportes[6].postracion ==null ? null : response.reportes[6].postracion == 'true');
         this.monitoreoFg.controls.convulsiones7.setValue(response.reportes[6].convulsiones ==null ? null : response.reportes[6].convulsiones == 'true');
 
+        this.monitoreoFg.controls.disgeusia7.setValue(response.reportes[6].percibeSabores ==null ? null : response.reportes[6].percibeSabores == 'true');
+        this.monitoreoFg.controls.anosmia7.setValue(response.reportes[6].percibeOlores ==null ? null : response.reportes[6].percibeOlores == 'true');
+        this.monitoreoFg.controls.rinorrea7.setValue(response.reportes[6].secrecionNasal ==null ? null : response.reportes[6].secrecionNasal == 'true');
+
         this.idReporteSalud8 = response.reportes[7].id;
         this.monitoreoFg.controls.tos8.setValue(response.reportes[7].tos ==null ? null : response.reportes[7].tos == 'true');
         this.monitoreoFg.controls.fiebre8.setValue(response.reportes[7].sentisFiebre ==null ? null : response.reportes[7].sentisFiebre == 'true');
         this.monitoreoFg.controls.dolorCabeza8.setValue(response.reportes[7].dolorCabeza ==null ? null : response.reportes[7].dolorCabeza == 'true');
         this.monitoreoFg.controls.dolorGarganta8.setValue(response.reportes[7].dolorGarganta ==null ? null : response.reportes[7].dolorGarganta == 'true');
         this.monitoreoFg.controls.dificultadRespirar8.setValue(response.reportes[7].dificultadRespirar ==null ? null : response.reportes[7].dificultadRespirar == 'true');
-        this.monitoreoFg.controls.percibeOlores8.setValue(response.reportes[7].percibeOlores ==null ? null : response.reportes[7].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal8.setValue(response.reportes[7].congestionNasal ==null ? null : response.reportes[7].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios8.setValue(response.reportes[7].otrosCansancios ==null ? null : response.reportes[7].otrosCansancios == 'true');
-
         this.monitoreoFg.controls.diarrea8.setValue(response.reportes[7].diarrea ==null ? null : response.reportes[7].diarrea == 'true');
         this.monitoreoFg.controls.dolorOido8.setValue(response.reportes[7].dolorOido ==null ? null : response.reportes[7].dolorOido == 'true');
         this.monitoreoFg.controls.dolorAbdominal8.setValue(response.reportes[7].dolorAbdominal ==null ? null : response.reportes[7].dolorAbdominal == 'true');
@@ -837,13 +893,16 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.postracion8.setValue(response.reportes[7].postracion ==null ? null : response.reportes[7].postracion == 'true');
         this.monitoreoFg.controls.convulsiones8.setValue(response.reportes[7].convulsiones ==null ? null : response.reportes[7].convulsiones == 'true');
 
+        this.monitoreoFg.controls.disgeusia8.setValue(response.reportes[7].percibeSabores ==null ? null : response.reportes[7].percibeSabores == 'true');
+        this.monitoreoFg.controls.anosmia8.setValue(response.reportes[7].percibeOlores ==null ? null : response.reportes[7].percibeOlores == 'true');
+        this.monitoreoFg.controls.rinorrea8.setValue(response.reportes[7].secrecionNasal ==null ? null : response.reportes[7].secrecionNasal == 'true');
+
         this.idReporteSalud9 = response.reportes[8].id;
         this.monitoreoFg.controls.tos9.setValue(response.reportes[8].tos ==null ? null : response.reportes[8].tos == 'true');
         this.monitoreoFg.controls.fiebre9.setValue(response.reportes[8].sentisFiebre ==null ? null : response.reportes[8].sentisFiebre == 'true');
         this.monitoreoFg.controls.dolorCabeza9.setValue(response.reportes[8].dolorCabeza ==null ? null : response.reportes[8].dolorCabeza == 'true');
         this.monitoreoFg.controls.dolorGarganta9.setValue(response.reportes[8].dolorGarganta ==null ? null : response.reportes[8].dolorGarganta == 'true');
         this.monitoreoFg.controls.dificultadRespirar9.setValue(response.reportes[8].dificultadRespirar ==null ? null : response.reportes[8].dificultadRespirar == 'true');
-        this.monitoreoFg.controls.percibeOlores9.setValue(response.reportes[8].percibeOlores ==null ? null : response.reportes[8].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal9.setValue(response.reportes[8].congestionNasal ==null ? null : response.reportes[8].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios9.setValue(response.reportes[8].otrosCansancios ==null ? null : response.reportes[8].otrosCansancios == 'true');
 
@@ -859,13 +918,16 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.postracion9.setValue(response.reportes[8].postracion ==null ? null : response.reportes[8].postracion == 'true');
         this.monitoreoFg.controls.convulsiones9.setValue(response.reportes[8].convulsiones ==null ? null : response.reportes[8].convulsiones == 'true');
 
+        this.monitoreoFg.controls.disgeusia9.setValue(response.reportes[8].percibeSabores ==null ? null : response.reportes[8].percibeSabores == 'true');
+        this.monitoreoFg.controls.anosmia9.setValue(response.reportes[8].percibeOlores ==null ? null : response.reportes[8].percibeOlores == 'true');
+        this.monitoreoFg.controls.rinorrea9.setValue(response.reportes[8].secrecionNasal ==null ? null : response.reportes[8].secrecionNasal == 'true');
+
         this.idReporteSalud10 = response.reportes[9].id;
         this.monitoreoFg.controls.tos10.setValue(response.reportes[9].tos ==null ? null : response.reportes[9].tos == 'true');
         this.monitoreoFg.controls.fiebre10.setValue(response.reportes[9].sentisFiebre ==null ? null : response.reportes[9].sentisFiebre == 'true');
         this.monitoreoFg.controls.dolorCabeza10.setValue(response.reportes[9].dolorCabeza ==null ? null : response.reportes[9].dolorCabeza == 'true');
         this.monitoreoFg.controls.dolorGarganta10.setValue(response.reportes[9].dolorGarganta ==null ? null : response.reportes[9].dolorGarganta == 'true');
         this.monitoreoFg.controls.dificultadRespirar10.setValue(response.reportes[9].dificultadRespirar ==null ? null : response.reportes[9].dificultadRespirar == 'true');
-        this.monitoreoFg.controls.percibeOlores10.setValue(response.reportes[9].percibeOlores ==null ? null : response.reportes[9].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal10.setValue(response.reportes[9].congestionNasal ==null ? null : response.reportes[9].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios10.setValue(response.reportes[9].otrosCansancios ==null ? null : response.reportes[9].otrosCansancios == 'true');
 
@@ -881,13 +943,16 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.postracion10.setValue(response.reportes[9].postracion ==null ? null : response.reportes[9].postracion == 'true');
         this.monitoreoFg.controls.convulsiones10.setValue(response.reportes[9].convulsiones ==null ? null : response.reportes[9].convulsiones == 'true');
 
+        this.monitoreoFg.controls.disgeusia10.setValue(response.reportes[9].percibeSabores ==null ? null : response.reportes[9].percibeSabores == 'true');
+        this.monitoreoFg.controls.anosmia10.setValue(response.reportes[9].percibeOlores ==null ? null : response.reportes[9].percibeOlores == 'true');
+        this.monitoreoFg.controls.rinorrea10.setValue(response.reportes[9].secrecionNasal ==null ? null : response.reportes[9].secrecionNasal == 'true');
+
         this.idReporteSalud11 = response.reportes[10].id;
         this.monitoreoFg.controls.tos11.setValue(response.reportes[10].tos ==null ? null : response.reportes[10].tos == 'true');
         this.monitoreoFg.controls.fiebre11.setValue(response.reportes[10].sentisFiebre ==null ? null : response.reportes[10].sentisFiebre == 'true');
         this.monitoreoFg.controls.dolorCabeza11.setValue(response.reportes[10].dolorCabeza ==null ? null : response.reportes[10].dolorCabeza == 'true');
         this.monitoreoFg.controls.dolorGarganta11.setValue(response.reportes[10].dolorGarganta ==null ? null : response.reportes[10].dolorGarganta == 'true');
         this.monitoreoFg.controls.dificultadRespirar11.setValue(response.reportes[10].dificultadRespirar ==null ? null : response.reportes[10].dificultadRespirar == 'true');
-        this.monitoreoFg.controls.percibeOlores11.setValue(response.reportes[10].percibeOlores ==null ? null : response.reportes[10].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal11.setValue(response.reportes[10].congestionNasal ==null ? null : response.reportes[10].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios11.setValue(response.reportes[10].otrosCansancios ==null ? null : response.reportes[10].otrosCansancios == 'true');
 
@@ -903,13 +968,16 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.postracion11.setValue(response.reportes[10].postracion ==null ? null : response.reportes[10].postracion == 'true');
         this.monitoreoFg.controls.convulsiones11.setValue(response.reportes[10].convulsiones ==null ? null : response.reportes[10].convulsiones == 'true');
 
+        this.monitoreoFg.controls.disgeusia11.setValue(response.reportes[10].percibeSabores ==null ? null : response.reportes[10].percibeSabores == 'true');
+        this.monitoreoFg.controls.anosmia11.setValue(response.reportes[10].percibeOlores ==null ? null : response.reportes[10].percibeOlores == 'true');
+        this.monitoreoFg.controls.rinorrea11.setValue(response.reportes[10].secrecionNasal ==null ? null : response.reportes[10].secrecionNasal == 'true');
+
         this.idReporteSalud12 = response.reportes[11].id;
         this.monitoreoFg.controls.tos12.setValue(response.reportes[11].tos ==null ? null : response.reportes[11].tos == 'true');
         this.monitoreoFg.controls.fiebre12.setValue(response.reportes[11].sentisFiebre ==null ? null : response.reportes[11].sentisFiebre == 'true');
         this.monitoreoFg.controls.dolorCabeza12.setValue(response.reportes[11].dolorCabeza ==null ? null : response.reportes[11].dolorCabeza == 'true');
         this.monitoreoFg.controls.dolorGarganta12.setValue(response.reportes[11].dolorGarganta ==null ? null : response.reportes[11].dolorGarganta == 'true');
         this.monitoreoFg.controls.dificultadRespirar12.setValue(response.reportes[11].dificultadRespirar ==null ? null : response.reportes[11].dificultadRespirar == 'true');
-        this.monitoreoFg.controls.percibeOlores12.setValue(response.reportes[11].percibeOlores ==null ? null : response.reportes[11].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal12.setValue(response.reportes[11].congestionNasal ==null ? null : response.reportes[11].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios12.setValue(response.reportes[11].otrosCansancios ==null ? null : response.reportes[11].otrosCansancios == 'true');
 
@@ -925,13 +993,16 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.postracion12.setValue(response.reportes[11].postracion ==null ? null : response.reportes[11].postracion == 'true');
         this.monitoreoFg.controls.convulsiones12.setValue(response.reportes[11].convulsiones ==null ? null : response.reportes[11].convulsiones == 'true');
 
+        this.monitoreoFg.controls.disgeusia12.setValue(response.reportes[11].percibeSabores ==null ? null : response.reportes[11].percibeSabores == 'true');
+        this.monitoreoFg.controls.anosmia12.setValue(response.reportes[11].percibeOlores ==null ? null : response.reportes[11].percibeOlores == 'true');
+        this.monitoreoFg.controls.rinorrea12.setValue(response.reportes[11].secrecionNasal ==null ? null : response.reportes[11].secrecionNasal == 'true');
+
         this.idReporteSalud13 = response.reportes[12].id;
         this.monitoreoFg.controls.tos13.setValue(response.reportes[12].tos ==null ? null : response.reportes[12].tos == 'true');
         this.monitoreoFg.controls.fiebre13.setValue(response.reportes[12].sentisFiebre ==null ? null : response.reportes[12].sentisFiebre == 'true');
         this.monitoreoFg.controls.dolorCabeza13.setValue(response.reportes[12].dolorCabeza ==null ? null : response.reportes[12].dolorCabeza == 'true');
         this.monitoreoFg.controls.dolorGarganta13.setValue(response.reportes[12].dolorGarganta ==null ? null : response.reportes[12].dolorGarganta == 'true');
         this.monitoreoFg.controls.dificultadRespirar13.setValue(response.reportes[12].dificultadRespirar ==null ? null : response.reportes[12].dificultadRespirar == 'true');
-        this.monitoreoFg.controls.percibeOlores13.setValue(response.reportes[12].percibeOlores ==null ? null : response.reportes[12].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal13.setValue(response.reportes[12].congestionNasal ==null ? null : response.reportes[12].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios13.setValue(response.reportes[12].otrosCansancios ==null ? null : response.reportes[12].otrosCansancios == 'true');
 
@@ -947,13 +1018,16 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.postracion13.setValue(response.reportes[12].postracion ==null ? null : response.reportes[12].postracion == 'true');
         this.monitoreoFg.controls.convulsiones13.setValue(response.reportes[12].convulsiones ==null ? null : response.reportes[12].convulsiones == 'true');
 
+        this.monitoreoFg.controls.disgeusia13.setValue(response.reportes[12].percibeSabores ==null ? null : response.reportes[12].percibeSabores == 'true');
+        this.monitoreoFg.controls.anosmia13.setValue(response.reportes[12].percibeOlores ==null ? null : response.reportes[12].percibeOlores == 'true');
+        this.monitoreoFg.controls.rinorrea13.setValue(response.reportes[12].secrecionNasal ==null ? null : response.reportes[12].secrecionNasal == 'true');
+
         this.idReporteSalud14 = response.reportes[13].id;
         this.monitoreoFg.controls.tos14.setValue(response.reportes[13].tos ==null ? null : response.reportes[13].tos == 'true');
         this.monitoreoFg.controls.fiebre14.setValue(response.reportes[13].sentisFiebre ==null ? null : response.reportes[13].sentisFiebre == 'true');
         this.monitoreoFg.controls.dolorCabeza14.setValue(response.reportes[13].dolorCabeza ==null ? null : response.reportes[13].dolorCabeza == 'true');
         this.monitoreoFg.controls.dolorGarganta14.setValue(response.reportes[13].dolorGarganta ==null ? null : response.reportes[13].dolorGarganta == 'true');
         this.monitoreoFg.controls.dificultadRespirar14.setValue(response.reportes[13].dificultadRespirar ==null ? null : response.reportes[13].dificultadRespirar == 'true');
-        this.monitoreoFg.controls.percibeOlores14.setValue(response.reportes[13].percibeOlores ==null ? null : response.reportes[13].percibeOlores == 'true');
         this.monitoreoFg.controls.congestionNasal14.setValue(response.reportes[13].congestionNasal ==null ? null : response.reportes[13].congestionNasal == 'true');
         this.monitoreoFg.controls.otrosCansancios14.setValue(response.reportes[13].otrosCansancios ==null ? null : response.reportes[13].otrosCansancios == 'true');
 
@@ -968,6 +1042,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.conjuntival14.setValue(response.reportes[13].conjuntival ==null ? null : response.reportes[13].conjuntival == 'true');
         this.monitoreoFg.controls.postracion14.setValue(response.reportes[13].postracion ==null ? null : response.reportes[13].postracion == 'true');
         this.monitoreoFg.controls.convulsiones14.setValue(response.reportes[13].convulsiones ==null ? null : response.reportes[13].convulsiones == 'true');
+
+        this.monitoreoFg.controls.disgeusia14.setValue(response.reportes[13].percibeSabores ==null ? null : response.reportes[13].percibeSabores == 'true');
+        this.monitoreoFg.controls.anosmia14.setValue(response.reportes[13].percibeOlores ==null ? null : response.reportes[13].percibeOlores == 'true');
+        this.monitoreoFg.controls.rinorrea14.setValue(response.reportes[13].secrecionNasal ==null ? null : response.reportes[13].secrecionNasal == 'true');
 
         this.registroFg.controls.fechaInicioMonitoreo.setValue(response.fechaInicioMonitoreo.substring(8, 10)+'/'+
         response.fechaInicioMonitoreo.substring(5, 7)+'/'+response.fechaInicioMonitoreo.substring(0, 4));
@@ -1039,9 +1117,9 @@ export class EditarFichaMonitoreoComponent implements OnInit {
   }
 
   verifEstablecimiento(){
-    if(!this.registroFg.controls.internado.value){
-      this.registroFg.controls.establecimiento.setValue(null);
-      this.registroFg.controls.especialidad.setValue(null);
+    if(!this.clasificacionRiesgoFg.controls.internado.value){
+      this.clasificacionRiesgoFg.controls.establecimiento.setValue('');
+      this.clasificacionRiesgoFg.controls.especialidad.setValue('');
     }
   }
 
@@ -1109,7 +1187,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud1.dolorGarganta = this.monitoreoFg.controls.dolorGarganta1.value;
     reporteSalud1.dolorCabeza = this.monitoreoFg.controls.dolorCabeza1.value;
     reporteSalud1.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar1.value;
-    reporteSalud1.percibeOlores = this.monitoreoFg.controls.percibeOlores1.value;
     reporteSalud1.sentisFiebre = this.monitoreoFg.controls.fiebre1.value;
     reporteSalud1.congestionNasal = this.monitoreoFg.controls.congestionNasal1.value;
     reporteSalud1.otrosCansancios = this.monitoreoFg.controls.otrosCansancios1.value;
@@ -1126,6 +1203,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud1.nauseas = this.monitoreoFg.controls.nauseas1.value;
     reporteSalud1.auscultacion = this.monitoreoFg.controls.auscultacion1.value;
 
+    reporteSalud1.secrecionNasal = this.monitoreoFg.controls.rinorrea1.value;
+    reporteSalud1.percibeOlores = this.monitoreoFg.controls.anosmia1.value;
+    reporteSalud1.percibeSabores = this.monitoreoFg.controls.disgeusia1.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud1);
 
     let reporteSalud2 = new FormSeccionReporteSalud();
@@ -1136,7 +1217,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud2.dolorGarganta = this.monitoreoFg.controls.dolorGarganta2.value;
     reporteSalud2.dolorCabeza = this.monitoreoFg.controls.dolorCabeza2.value;
     reporteSalud2.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar2.value;
-    reporteSalud2.percibeOlores = this.monitoreoFg.controls.percibeOlores2.value;
     reporteSalud2.sentisFiebre = this.monitoreoFg.controls.fiebre2.value;
     reporteSalud2.congestionNasal = this.monitoreoFg.controls.congestionNasal2.value;
     reporteSalud2.otrosCansancios = this.monitoreoFg.controls.otrosCansancios2.value;
@@ -1153,6 +1233,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud2.nauseas = this.monitoreoFg.controls.nauseas2.value;
     reporteSalud2.auscultacion = this.monitoreoFg.controls.auscultacion2.value;
 
+    reporteSalud2.secrecionNasal = this.monitoreoFg.controls.rinorrea2.value;
+    reporteSalud2.percibeOlores = this.monitoreoFg.controls.anosmia2.value;
+    reporteSalud2.percibeSabores = this.monitoreoFg.controls.disgeusia2.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud2);
 
     let reporteSalud3 = new FormSeccionReporteSalud();
@@ -1163,7 +1247,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud3.dolorGarganta = this.monitoreoFg.controls.dolorGarganta3.value;
     reporteSalud3.dolorCabeza = this.monitoreoFg.controls.dolorCabeza3.value;
     reporteSalud3.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar3.value;
-    reporteSalud3.percibeOlores = this.monitoreoFg.controls.percibeOlores3.value;
     reporteSalud3.sentisFiebre = this.monitoreoFg.controls.fiebre3.value;
     reporteSalud3.congestionNasal = this.monitoreoFg.controls.congestionNasal3.value;
     reporteSalud3.otrosCansancios = this.monitoreoFg.controls.otrosCansancios3.value;
@@ -1180,6 +1263,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud3.nauseas = this.monitoreoFg.controls.nauseas3.value;
     reporteSalud3.auscultacion = this.monitoreoFg.controls.auscultacion3.value;
 
+    reporteSalud3.secrecionNasal = this.monitoreoFg.controls.rinorrea3.value;
+    reporteSalud3.percibeOlores = this.monitoreoFg.controls.anosmia3.value;
+    reporteSalud3.percibeSabores = this.monitoreoFg.controls.disgeusia3.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud3);
 
     let reporteSalud4 = new FormSeccionReporteSalud();
@@ -1189,7 +1276,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud4.dolorGarganta = this.monitoreoFg.controls.dolorGarganta4.value;
     reporteSalud4.dolorCabeza = this.monitoreoFg.controls.dolorCabeza4.value;
     reporteSalud4.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar4.value;
-    reporteSalud4.percibeOlores = this.monitoreoFg.controls.percibeOlores4.value;
     reporteSalud4.sentisFiebre = this.monitoreoFg.controls.fiebre4.value;
     reporteSalud4.congestionNasal = this.monitoreoFg.controls.congestionNasal4.value;
     reporteSalud4.otrosCansancios = this.monitoreoFg.controls.otrosCansancios4.value;
@@ -1206,6 +1292,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud4.nauseas = this.monitoreoFg.controls.nauseas4.value;
     reporteSalud4.auscultacion = this.monitoreoFg.controls.auscultacion4.value;
 
+    reporteSalud4.secrecionNasal = this.monitoreoFg.controls.rinorrea4.value;
+    reporteSalud4.percibeOlores = this.monitoreoFg.controls.anosmia4.value;
+    reporteSalud4.percibeSabores = this.monitoreoFg.controls.disgeusia4.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud4);
 
     let reporteSalud5 = new FormSeccionReporteSalud();
@@ -1215,7 +1305,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud5.dolorGarganta = this.monitoreoFg.controls.dolorGarganta5.value;
     reporteSalud5.dolorCabeza = this.monitoreoFg.controls.dolorCabeza5.value;
     reporteSalud5.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar5.value;
-    reporteSalud5.percibeOlores = this.monitoreoFg.controls.percibeOlores5.value;
     reporteSalud5.sentisFiebre = this.monitoreoFg.controls.fiebre5.value;
     reporteSalud5.congestionNasal = this.monitoreoFg.controls.congestionNasal5.value;
     reporteSalud5.otrosCansancios = this.monitoreoFg.controls.otrosCansancios5.value;
@@ -1231,6 +1320,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud5.irritabilidad = this.monitoreoFg.controls.irritabilidad5.value;
     reporteSalud5.nauseas = this.monitoreoFg.controls.nauseas5.value;
     reporteSalud5.auscultacion = this.monitoreoFg.controls.auscultacion5.value;
+
+    reporteSalud5.secrecionNasal = this.monitoreoFg.controls.rinorrea5.value;
+    reporteSalud5.percibeOlores = this.monitoreoFg.controls.anosmia5.value;
+    reporteSalud5.percibeSabores = this.monitoreoFg.controls.disgeusia5.value;
 
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud5);
 
@@ -1259,6 +1352,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud6.nauseas = this.monitoreoFg.controls.nauseas6.value;
     reporteSalud6.auscultacion = this.monitoreoFg.controls.auscultacion6.value;
 
+    reporteSalud6.secrecionNasal = this.monitoreoFg.controls.rinorrea6.value;
+    reporteSalud6.percibeOlores = this.monitoreoFg.controls.anosmia6.value;
+    reporteSalud6.percibeSabores = this.monitoreoFg.controls.disgeusia6.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud6);
 
     let reporteSalud7 = new FormSeccionReporteSalud();
@@ -1269,7 +1366,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud7.dolorGarganta = this.monitoreoFg.controls.dolorGarganta7.value;
     reporteSalud7.dolorCabeza = this.monitoreoFg.controls.dolorCabeza7.value;
     reporteSalud7.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar7.value;
-    reporteSalud7.percibeOlores = this.monitoreoFg.controls.percibeOlores7.value;
     reporteSalud7.sentisFiebre = this.monitoreoFg.controls.fiebre7.value;
     reporteSalud7.congestionNasal = this.monitoreoFg.controls.congestionNasal7.value;
     reporteSalud7.otrosCansancios = this.monitoreoFg.controls.otrosCansancios7.value;
@@ -1286,6 +1382,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud7.nauseas = this.monitoreoFg.controls.nauseas7.value;
     reporteSalud7.auscultacion = this.monitoreoFg.controls.auscultacion7.value;
 
+    reporteSalud7.secrecionNasal = this.monitoreoFg.controls.rinorrea7.value;
+    reporteSalud7.percibeOlores = this.monitoreoFg.controls.anosmia7.value;
+    reporteSalud7.percibeSabores = this.monitoreoFg.controls.disgeusia7.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud7);
 
     let reporteSalud8 = new FormSeccionReporteSalud();
@@ -1296,7 +1396,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud8.dolorGarganta = this.monitoreoFg.controls.dolorGarganta8.value;
     reporteSalud8.dolorCabeza = this.monitoreoFg.controls.dolorCabeza8.value;
     reporteSalud8.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar8.value;
-    reporteSalud8.percibeOlores = this.monitoreoFg.controls.percibeOlores8.value;
     reporteSalud8.sentisFiebre = this.monitoreoFg.controls.fiebre8.value;
     reporteSalud8.congestionNasal = this.monitoreoFg.controls.congestionNasal8.value;
     reporteSalud8.otrosCansancios = this.monitoreoFg.controls.otrosCansancios8.value;
@@ -1313,6 +1412,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud8.nauseas = this.monitoreoFg.controls.nauseas8.value;
     reporteSalud8.auscultacion = this.monitoreoFg.controls.auscultacion8.value;
 
+    reporteSalud8.secrecionNasal = this.monitoreoFg.controls.rinorrea8.value;
+    reporteSalud8.percibeOlores = this.monitoreoFg.controls.anosmia8.value;
+    reporteSalud8.percibeSabores = this.monitoreoFg.controls.disgeusia8.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud8);
 
     let reporteSalud9 = new FormSeccionReporteSalud();
@@ -1323,11 +1426,9 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud9.dolorGarganta = this.monitoreoFg.controls.dolorGarganta9.value;
     reporteSalud9.dolorCabeza = this.monitoreoFg.controls.dolorCabeza9.value;
     reporteSalud9.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar9.value;
-    reporteSalud9.percibeOlores = this.monitoreoFg.controls.percibeOlores9.value;
     reporteSalud9.sentisFiebre = this.monitoreoFg.controls.fiebre9.value;
     reporteSalud9.congestionNasal = this.monitoreoFg.controls.congestionNasal9.value;
     reporteSalud9.otrosCansancios = this.monitoreoFg.controls.otrosCansancios9.value;
-
     reporteSalud9.diarrea = this.monitoreoFg.controls.diarrea9.value;
     reporteSalud9.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal9.value;
     reporteSalud9.convulsiones = this.monitoreoFg.controls.convulsiones9.value;
@@ -1339,6 +1440,11 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud9.irritabilidad = this.monitoreoFg.controls.irritabilidad9.value;
     reporteSalud9.nauseas = this.monitoreoFg.controls.nauseas9.value;
     reporteSalud9.auscultacion = this.monitoreoFg.controls.auscultacion9.value;
+
+    reporteSalud9.secrecionNasal = this.monitoreoFg.controls.rinorrea9.value;
+    reporteSalud9.percibeOlores = this.monitoreoFg.controls.anosmia9.value;
+    reporteSalud9.percibeSabores = this.monitoreoFg.controls.disgeusia9.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud9);
 
     let reporteSalud10 = new FormSeccionReporteSalud();
@@ -1348,7 +1454,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud10.dolorGarganta = this.monitoreoFg.controls.dolorGarganta10.value;
     reporteSalud10.dolorCabeza = this.monitoreoFg.controls.dolorCabeza10.value;
     reporteSalud10.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar10.value;
-    reporteSalud10.percibeOlores = this.monitoreoFg.controls.percibeOlores10.value;
     reporteSalud10.sentisFiebre = this.monitoreoFg.controls.fiebre10.value;
     reporteSalud10.congestionNasal = this.monitoreoFg.controls.congestionNasal10.value;
     reporteSalud10.otrosCansancios = this.monitoreoFg.controls.otrosCansancios10.value;
@@ -1364,17 +1469,20 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud10.irritabilidad = this.monitoreoFg.controls.irritabilidad10.value;
     reporteSalud10.nauseas = this.monitoreoFg.controls.nauseas10.value;
     reporteSalud10.auscultacion = this.monitoreoFg.controls.auscultacion10.value;
+
+    reporteSalud10.secrecionNasal = this.monitoreoFg.controls.rinorrea10.value;
+    reporteSalud10.percibeOlores = this.monitoreoFg.controls.anosmia10.value;
+    reporteSalud10.percibeSabores = this.monitoreoFg.controls.disgeusia10.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud10);
 
     let reporteSalud11 = new FormSeccionReporteSalud();
     reporteSalud11.id = this.idReporteSalud11;
     reporteSalud11.fecha = this.fechaSelec11;
-    //reporteSalud11.fecha = this.monitoreoFg.controls.fecha11.value;
     reporteSalud11.tos = this.monitoreoFg.controls.tos11.value;
     reporteSalud11.dolorGarganta = this.monitoreoFg.controls.dolorGarganta11.value;
     reporteSalud11.dolorCabeza = this.monitoreoFg.controls.dolorCabeza11.value;
     reporteSalud11.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar11.value;
-    reporteSalud11.percibeOlores = this.monitoreoFg.controls.percibeOlores11.value;
     reporteSalud11.sentisFiebre = this.monitoreoFg.controls.fiebre11.value;
     reporteSalud11.congestionNasal = this.monitoreoFg.controls.congestionNasal11.value;
     reporteSalud11.otrosCansancios = this.monitoreoFg.controls.otrosCansancios11.value;
@@ -1390,6 +1498,11 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud11.irritabilidad = this.monitoreoFg.controls.irritabilidad11.value;
     reporteSalud11.nauseas = this.monitoreoFg.controls.nauseas11.value;
     reporteSalud11.auscultacion = this.monitoreoFg.controls.auscultacion11.value;
+
+    reporteSalud11.secrecionNasal = this.monitoreoFg.controls.rinorrea11.value;
+    reporteSalud11.percibeOlores = this.monitoreoFg.controls.anosmia11.value;
+    reporteSalud11.percibeSabores = this.monitoreoFg.controls.disgeusia11.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud11);
 
     let reporteSalud12 = new FormSeccionReporteSalud();
@@ -1399,7 +1512,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud12.dolorGarganta = this.monitoreoFg.controls.dolorGarganta12.value;
     reporteSalud12.dolorCabeza = this.monitoreoFg.controls.dolorCabeza12.value;
     reporteSalud12.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar12.value;
-    reporteSalud12.percibeOlores = this.monitoreoFg.controls.percibeOlores12.value;
     reporteSalud12.sentisFiebre = this.monitoreoFg.controls.fiebre12.value;
     reporteSalud12.congestionNasal = this.monitoreoFg.controls.congestionNasal12.value;
     reporteSalud12.otrosCansancios = this.monitoreoFg.controls.otrosCansancios12.value;
@@ -1415,6 +1527,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud12.irritabilidad = this.monitoreoFg.controls.irritabilidad12.value;
     reporteSalud12.nauseas = this.monitoreoFg.controls.nauseas12.value;
     reporteSalud12.auscultacion = this.monitoreoFg.controls.auscultacion12.value;
+
+    reporteSalud12.secrecionNasal = this.monitoreoFg.controls.rinorrea12.value;
+    reporteSalud12.percibeOlores = this.monitoreoFg.controls.anosmia12.value;
+    reporteSalud12.percibeSabores = this.monitoreoFg.controls.disgeusia12.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud12);
 
     let reporteSalud13 = new FormSeccionReporteSalud();
@@ -1424,7 +1540,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud13.dolorGarganta = this.monitoreoFg.controls.dolorGarganta13.value;
     reporteSalud13.dolorCabeza = this.monitoreoFg.controls.dolorCabeza13.value;
     reporteSalud13.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar13.value;
-    reporteSalud13.percibeOlores = this.monitoreoFg.controls.percibeOlores13.value;
     reporteSalud13.sentisFiebre = this.monitoreoFg.controls.fiebre13.value;
     reporteSalud13.congestionNasal = this.monitoreoFg.controls.congestionNasal13.value;
     reporteSalud13.otrosCansancios = this.monitoreoFg.controls.otrosCansancios13.value;
@@ -1440,6 +1555,11 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud13.irritabilidad = this.monitoreoFg.controls.irritabilidad13.value;
     reporteSalud13.nauseas = this.monitoreoFg.controls.nauseas13.value;
     reporteSalud13.auscultacion = this.monitoreoFg.controls.auscultacion13.value;
+
+    reporteSalud13.secrecionNasal = this.monitoreoFg.controls.rinorrea13.value;
+    reporteSalud13.percibeOlores = this.monitoreoFg.controls.anosmia13.value;
+    reporteSalud13.percibeSabores = this.monitoreoFg.controls.disgeusia13.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud13);
 
     let reporteSalud14 = new FormSeccionReporteSalud();
@@ -1450,7 +1570,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud14.dolorGarganta = this.monitoreoFg.controls.dolorGarganta14.value;
     reporteSalud14.dolorCabeza = this.monitoreoFg.controls.dolorCabeza14.value;
     reporteSalud14.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar14.value;
-    reporteSalud14.percibeOlores = this.monitoreoFg.controls.percibeOlores14.value;
     reporteSalud14.sentisFiebre = this.monitoreoFg.controls.fiebre14.value;
     reporteSalud14.congestionNasal = this.monitoreoFg.controls.congestionNasal14.value;
     reporteSalud14.otrosCansancios = this.monitoreoFg.controls.otrosCansancios14.value;
@@ -1466,14 +1585,18 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     reporteSalud14.irritabilidad = this.monitoreoFg.controls.irritabilidad14.value;
     reporteSalud14.nauseas = this.monitoreoFg.controls.nauseas14.value;
     reporteSalud14.auscultacion = this.monitoreoFg.controls.auscultacion14.value;
+
+    reporteSalud14.secrecionNasal = this.monitoreoFg.controls.rinorrea14.value;
+    reporteSalud14.percibeOlores = this.monitoreoFg.controls.anosmia14.value;
+    reporteSalud14.percibeSabores = this.monitoreoFg.controls.disgeusia14.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud14);
 
     /*this.fichaPersonalBlanco.formSeccionReporteSalud = new FormSeccionReporteSalud();
     this.fichaPersonalBlanco.formSeccionReporteSalud.fecha1 = this.monitoreoFg.controls.fecha1.value;
     this.fichaPersonalBlanco.formSeccionReporteSalud.fecha2 = this.monitoreoFg.controls.fecha2.value;
     this.fichaPersonalBlanco.formSeccionReporteSalud.fecha3 = this.monitoreoFg.controls.fecha3.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha4 = this.monitoreoFg.controls.fecha4.value;
-    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha5 = this.monitoreoFg.controls.fecha5.value;*/
+    this.fichaPersonalBlanco.formSeccionReporteSalud.fecha4 = this.monitoreoFg.controls.fecha4.value;*/
 
     this.fichaPersonalBlanco.formSeccionClasifRiesgo = new FormSeccionClasifRiesgo();
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.clasificacionFinal = this.clasificacionRiesgoFg.controls.clasifFinal.value;

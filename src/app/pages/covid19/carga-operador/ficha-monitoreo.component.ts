@@ -549,6 +549,34 @@ export class FichaMonitoreoComponent implements OnInit {
       auscultacion12: [null, Validators.required],
       auscultacion13: [null, Validators.required],
       auscultacion14: [null, Validators.required],
+      anosmia1: [null, Validators.required],
+      anosmia2: [null, Validators.required],
+      anosmia3: [null, Validators.required],
+      anosmia4: [null, Validators.required],
+      anosmia5: [null, Validators.required],
+      anosmia6: [null, Validators.required],
+      anosmia7: [null, Validators.required],
+      anosmia8: [null, Validators.required],
+      anosmia9: [null, Validators.required],
+      anosmia10: [null, Validators.required],
+      anosmia11: [null, Validators.required],
+      anosmia12: [null, Validators.required],
+      anosmia13: [null, Validators.required],
+      anosmia14: [null, Validators.required],
+      disgeusia1: [null, Validators.required],
+      disgeusia2: [null, Validators.required],
+      disgeusia3: [null, Validators.required],
+      disgeusia4: [null, Validators.required],
+      disgeusia5: [null, Validators.required],
+      disgeusia6: [null, Validators.required],
+      disgeusia7: [null, Validators.required],
+      disgeusia8: [null, Validators.required],
+      disgeusia9: [null, Validators.required],
+      disgeusia10: [null, Validators.required],
+      disgeusia11: [null, Validators.required],
+      disgeusia12: [null, Validators.required],
+      disgeusia13: [null, Validators.required],
+      disgeusia14: [null, Validators.required],
       otrosCansancios1: [null, Validators.required],
       otrosCansancios2: [null, Validators.required],
       otrosCansancios3: [null, Validators.required],
@@ -737,51 +765,56 @@ export class FichaMonitoreoComponent implements OnInit {
     let reporteSalud1 = new FormSeccionReporteSalud();
     //reporteSalud1.fecha = this.monitoreoFg.controls.fecha1.value;
     reporteSalud1.fecha = this.fechaSelec1;
-    reporteSalud1.tos = this.monitoreoFg.controls.tos1.value;
-    reporteSalud1.dolorGarganta = this.monitoreoFg.controls.dolorGarganta1.value;
-    reporteSalud1.dolorCabeza = this.monitoreoFg.controls.dolorCabeza1.value;
-    reporteSalud1.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar1.value;
-    reporteSalud1.percibeOlores = this.monitoreoFg.controls.percibeOlores1.value;
-    reporteSalud1.sentisFiebre = this.monitoreoFg.controls.fiebre1.value;
-    reporteSalud1.congestionNasal = this.monitoreoFg.controls.congestionNasal1.value;
-    reporteSalud1.otrosCansancios = this.monitoreoFg.controls.otrosCansancios1.value;
 
+    reporteSalud1.tos = this.monitoreoFg.controls.tos1.value;
+    reporteSalud1.sentisFiebre = this.monitoreoFg.controls.fiebre1.value;
+    reporteSalud1.dolorGarganta = this.monitoreoFg.controls.dolorGarganta1.value;
+    reporteSalud1.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar1.value;
+    reporteSalud1.dolorCabeza = this.monitoreoFg.controls.dolorCabeza1.value;
+    reporteSalud1.conjuntival = this.monitoreoFg.controls.conjuntival1.value;
+    reporteSalud1.secrecionNasal = this.monitoreoFg.controls.rinorrea1.value;
+    reporteSalud1.congestionNasal = this.monitoreoFg.controls.congestionNasal1.value;
+    reporteSalud1.irritabilidad = this.monitoreoFg.controls.irritabilidad1.value;
     reporteSalud1.diarrea = this.monitoreoFg.controls.diarrea1.value;
+    reporteSalud1.dolorOido = this.monitoreoFg.controls.dolorOido1.value;
+    reporteSalud1.mialgias = this.monitoreoFg.controls.mialgias1.value;
+    reporteSalud1.artralgias = this.monitoreoFg.controls.artralgias1.value;
+    reporteSalud1.postracion = this.monitoreoFg.controls.postracion1.value;
+    reporteSalud1.nauseas = this.monitoreoFg.controls.nauseas1.value;
     reporteSalud1.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal1.value;
     reporteSalud1.convulsiones = this.monitoreoFg.controls.convulsiones1.value;
-    reporteSalud1.conjuntival = this.monitoreoFg.controls.conjuntival1.value;
-    reporteSalud1.dolorOido = this.monitoreoFg.controls.dolorOido1.value;
-    reporteSalud1.postracion = this.monitoreoFg.controls.postracion1.value;
-    reporteSalud1.artralgias = this.monitoreoFg.controls.artralgias1.value;
-    reporteSalud1.mialgias = this.monitoreoFg.controls.mialgias1.value;
-    reporteSalud1.irritabilidad = this.monitoreoFg.controls.irritabilidad1.value;
-    reporteSalud1.nauseas = this.monitoreoFg.controls.nauseas1.value;
     reporteSalud1.auscultacion = this.monitoreoFg.controls.auscultacion1.value;
+    reporteSalud1.percibeSabores = this.monitoreoFg.controls.disgeusia1.value;
+    reporteSalud1.percibeOlores = this.monitoreoFg.controls.anosmia1.value;
+    reporteSalud1.otrosCansancios = this.monitoreoFg.controls.otrosCansancios1.value;
+    
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud1);
 
     let reporteSalud2 = new FormSeccionReporteSalud();
     //reporteSalud2.fecha = this.monitoreoFg.controls.fecha2.value;
     reporteSalud2.fecha = this.fechaSelec2;
-    reporteSalud2.tos = this.monitoreoFg.controls.tos2.value;
-    reporteSalud2.dolorGarganta = this.monitoreoFg.controls.dolorGarganta2.value;
-    reporteSalud2.dolorCabeza = this.monitoreoFg.controls.dolorCabeza2.value;
-    reporteSalud2.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar2.value;
-    reporteSalud2.percibeOlores = this.monitoreoFg.controls.percibeOlores2.value;
-    reporteSalud2.sentisFiebre = this.monitoreoFg.controls.fiebre2.value;
-    reporteSalud2.congestionNasal = this.monitoreoFg.controls.congestionNasal2.value;
-    reporteSalud2.otrosCansancios = this.monitoreoFg.controls.otrosCansancios2.value;
 
+    reporteSalud2.tos = this.monitoreoFg.controls.tos2.value;
+    reporteSalud2.sentisFiebre = this.monitoreoFg.controls.fiebre2.value;
+    reporteSalud2.dolorGarganta = this.monitoreoFg.controls.dolorGarganta2.value;
+    reporteSalud2.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar2.value;
+    reporteSalud2.dolorCabeza = this.monitoreoFg.controls.dolorCabeza2.value;
+    reporteSalud2.conjuntival = this.monitoreoFg.controls.conjuntival2.value;
+    reporteSalud2.secrecionNasal = this.monitoreoFg.controls.rinorrea2.value;
+    reporteSalud2.congestionNasal = this.monitoreoFg.controls.congestionNasal2.value;
+    reporteSalud2.irritabilidad = this.monitoreoFg.controls.irritabilidad2.value;
     reporteSalud2.diarrea = this.monitoreoFg.controls.diarrea2.value;
+    reporteSalud2.dolorOido = this.monitoreoFg.controls.dolorOido2.value;
+    reporteSalud2.mialgias = this.monitoreoFg.controls.mialgias2.value;
+    reporteSalud2.artralgias = this.monitoreoFg.controls.artralgias2.value;
+    reporteSalud2.postracion = this.monitoreoFg.controls.postracion2.value;
+    reporteSalud2.nauseas = this.monitoreoFg.controls.nauseas2.value;
     reporteSalud2.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal2.value;
     reporteSalud2.convulsiones = this.monitoreoFg.controls.convulsiones2.value;
-    reporteSalud2.conjuntival = this.monitoreoFg.controls.conjuntival2.value;
-    reporteSalud2.dolorOido = this.monitoreoFg.controls.dolorOido2.value;
-    reporteSalud2.postracion = this.monitoreoFg.controls.postracion2.value;
-    reporteSalud2.artralgias = this.monitoreoFg.controls.artralgias2.value;
-    reporteSalud2.mialgias = this.monitoreoFg.controls.mialgias2.value;
-    reporteSalud2.irritabilidad = this.monitoreoFg.controls.irritabilidad2.value;
-    reporteSalud2.nauseas = this.monitoreoFg.controls.nauseas2.value;
     reporteSalud2.auscultacion = this.monitoreoFg.controls.auscultacion2.value;
+    reporteSalud2.percibeSabores = this.monitoreoFg.controls.disgeusia2.value;
+    reporteSalud2.percibeOlores = this.monitoreoFg.controls.anosmia2.value;
+    reporteSalud2.otrosCansancios = this.monitoreoFg.controls.otrosCansancios2.value;
     
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud2);
 
@@ -789,298 +822,323 @@ export class FichaMonitoreoComponent implements OnInit {
     reporteSalud3.fecha = this.fechaSelec3;
     //reporteSalud3.fecha = this.monitoreoFg.controls.fecha3.value;
     reporteSalud3.tos = this.monitoreoFg.controls.tos3.value;
-    reporteSalud3.dolorGarganta = this.monitoreoFg.controls.dolorGarganta3.value;
-    reporteSalud3.dolorCabeza = this.monitoreoFg.controls.dolorCabeza3.value;
-    reporteSalud3.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar3.value;
-    reporteSalud3.percibeOlores = this.monitoreoFg.controls.percibeOlores3.value;
     reporteSalud3.sentisFiebre = this.monitoreoFg.controls.fiebre3.value;
+    reporteSalud3.dolorGarganta = this.monitoreoFg.controls.dolorGarganta3.value;
+    reporteSalud3.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar3.value;
+    reporteSalud3.dolorCabeza = this.monitoreoFg.controls.dolorCabeza3.value;
+    reporteSalud3.conjuntival = this.monitoreoFg.controls.conjuntival3.value;
+    reporteSalud3.secrecionNasal = this.monitoreoFg.controls.rinorrea3.value;
     reporteSalud3.congestionNasal = this.monitoreoFg.controls.congestionNasal3.value;
-    reporteSalud3.otrosCansancios = this.monitoreoFg.controls.otrosCansancios3.value;
-
+    reporteSalud3.irritabilidad = this.monitoreoFg.controls.irritabilidad3.value;
     reporteSalud3.diarrea = this.monitoreoFg.controls.diarrea3.value;
+    reporteSalud3.dolorOido = this.monitoreoFg.controls.dolorOido3.value;
+    reporteSalud3.mialgias = this.monitoreoFg.controls.mialgias3.value;
+    reporteSalud3.artralgias = this.monitoreoFg.controls.artralgias3.value;
+    reporteSalud3.postracion = this.monitoreoFg.controls.postracion3.value;
+    reporteSalud3.nauseas = this.monitoreoFg.controls.nauseas3.value;
     reporteSalud3.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal3.value;
     reporteSalud3.convulsiones = this.monitoreoFg.controls.convulsiones3.value;
-    reporteSalud3.conjuntival = this.monitoreoFg.controls.conjuntival3.value;
-    reporteSalud3.dolorOido = this.monitoreoFg.controls.dolorOido3.value;
-    reporteSalud3.postracion = this.monitoreoFg.controls.postracion3.value;
-    reporteSalud3.artralgias = this.monitoreoFg.controls.artralgias3.value;
-    reporteSalud3.mialgias = this.monitoreoFg.controls.mialgias3.value;
-    reporteSalud3.irritabilidad = this.monitoreoFg.controls.irritabilidad3.value;
-    reporteSalud3.nauseas = this.monitoreoFg.controls.nauseas3.value;
     reporteSalud3.auscultacion = this.monitoreoFg.controls.auscultacion3.value;
+    reporteSalud3.percibeSabores = this.monitoreoFg.controls.disgeusia3.value;
+    reporteSalud3.percibeOlores = this.monitoreoFg.controls.anosmia3.value;
+    reporteSalud3.otrosCansancios = this.monitoreoFg.controls.otrosCansancios3.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud3);
 
     let reporteSalud4 = new FormSeccionReporteSalud();
     reporteSalud4.fecha = this.fechaSelec4;
     //reporteSalud4.fecha = this.monitoreoFg.controls.fecha4.value;
     reporteSalud4.tos = this.monitoreoFg.controls.tos4.value;
-    reporteSalud4.dolorGarganta = this.monitoreoFg.controls.dolorGarganta4.value;
-    reporteSalud4.dolorCabeza = this.monitoreoFg.controls.dolorCabeza4.value;
-    reporteSalud4.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar4.value;
-    reporteSalud4.percibeOlores = this.monitoreoFg.controls.percibeOlores4.value;
     reporteSalud4.sentisFiebre = this.monitoreoFg.controls.fiebre4.value;
+    reporteSalud4.dolorGarganta = this.monitoreoFg.controls.dolorGarganta4.value;
+    reporteSalud4.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar4.value;
+    reporteSalud4.dolorCabeza = this.monitoreoFg.controls.dolorCabeza4.value;
+    reporteSalud4.conjuntival = this.monitoreoFg.controls.conjuntival4.value;
+    reporteSalud4.secrecionNasal = this.monitoreoFg.controls.rinorrea4.value;
     reporteSalud4.congestionNasal = this.monitoreoFg.controls.congestionNasal4.value;
-    reporteSalud4.otrosCansancios = this.monitoreoFg.controls.otrosCansancios4.value;
-
+    reporteSalud4.irritabilidad = this.monitoreoFg.controls.irritabilidad4.value;
     reporteSalud4.diarrea = this.monitoreoFg.controls.diarrea4.value;
+    reporteSalud4.dolorOido = this.monitoreoFg.controls.dolorOido4.value;
+    reporteSalud4.mialgias = this.monitoreoFg.controls.mialgias4.value;
+    reporteSalud4.artralgias = this.monitoreoFg.controls.artralgias4.value;
+    reporteSalud4.postracion = this.monitoreoFg.controls.postracion4.value;
+    reporteSalud4.nauseas = this.monitoreoFg.controls.nauseas4.value;
     reporteSalud4.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal4.value;
     reporteSalud4.convulsiones = this.monitoreoFg.controls.convulsiones4.value;
-    reporteSalud4.conjuntival = this.monitoreoFg.controls.conjuntival4.value;
-    reporteSalud4.dolorOido = this.monitoreoFg.controls.dolorOido4.value;
-    reporteSalud4.postracion = this.monitoreoFg.controls.postracion4.value;
-    reporteSalud4.artralgias = this.monitoreoFg.controls.artralgias4.value;
-    reporteSalud4.mialgias = this.monitoreoFg.controls.mialgias4.value;
-    reporteSalud4.irritabilidad = this.monitoreoFg.controls.irritabilidad4.value;
-    reporteSalud4.nauseas = this.monitoreoFg.controls.nauseas4.value;
     reporteSalud4.auscultacion = this.monitoreoFg.controls.auscultacion4.value;
+    reporteSalud4.percibeSabores = this.monitoreoFg.controls.disgeusia4.value;
+    reporteSalud4.percibeOlores = this.monitoreoFg.controls.anosmia4.value;
+    reporteSalud4.otrosCansancios = this.monitoreoFg.controls.otrosCansancios4.value;
+    
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud4);
 
     let reporteSalud5 = new FormSeccionReporteSalud();
     reporteSalud5.fecha = this.fechaSelec5;
-    reporteSalud5.tos = this.monitoreoFg.controls.tos5.value;
-    reporteSalud5.dolorGarganta = this.monitoreoFg.controls.dolorGarganta5.value;
-    reporteSalud5.dolorCabeza = this.monitoreoFg.controls.dolorCabeza5.value;
-    reporteSalud5.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar5.value;
-    reporteSalud5.percibeOlores = this.monitoreoFg.controls.percibeOlores5.value;
-    reporteSalud5.sentisFiebre = this.monitoreoFg.controls.fiebre5.value;
-    reporteSalud5.congestionNasal = this.monitoreoFg.controls.congestionNasal5.value;
-    reporteSalud5.otrosCansancios = this.monitoreoFg.controls.otrosCansancios5.value;
 
+    reporteSalud5.tos = this.monitoreoFg.controls.tos5.value;
+    reporteSalud5.sentisFiebre = this.monitoreoFg.controls.fiebre5.value;
+    reporteSalud5.dolorGarganta = this.monitoreoFg.controls.dolorGarganta5.value;
+    reporteSalud5.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar5.value;
+    reporteSalud5.dolorCabeza = this.monitoreoFg.controls.dolorCabeza5.value;
+    reporteSalud5.conjuntival = this.monitoreoFg.controls.conjuntival5.value;
+    reporteSalud5.secrecionNasal = this.monitoreoFg.controls.rinorrea5.value;
+    reporteSalud5.congestionNasal = this.monitoreoFg.controls.congestionNasal5.value;
+    reporteSalud5.irritabilidad = this.monitoreoFg.controls.irritabilidad5.value;
     reporteSalud5.diarrea = this.monitoreoFg.controls.diarrea5.value;
+    reporteSalud5.dolorOido = this.monitoreoFg.controls.dolorOido5.value;
+    reporteSalud5.mialgias = this.monitoreoFg.controls.mialgias5.value;
+    reporteSalud5.artralgias = this.monitoreoFg.controls.artralgias5.value;
+    reporteSalud5.postracion = this.monitoreoFg.controls.postracion5.value;
+    reporteSalud5.nauseas = this.monitoreoFg.controls.nauseas5.value;
     reporteSalud5.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal5.value;
     reporteSalud5.convulsiones = this.monitoreoFg.controls.convulsiones5.value;
-    reporteSalud5.conjuntival = this.monitoreoFg.controls.conjuntival5.value;
-    reporteSalud5.dolorOido = this.monitoreoFg.controls.dolorOido5.value;
-    reporteSalud5.postracion = this.monitoreoFg.controls.postracion5.value;
-    reporteSalud5.artralgias = this.monitoreoFg.controls.artralgias5.value;
-    reporteSalud5.mialgias = this.monitoreoFg.controls.mialgias5.value;
-    reporteSalud5.irritabilidad = this.monitoreoFg.controls.irritabilidad5.value;
-    reporteSalud5.nauseas = this.monitoreoFg.controls.nauseas5.value;
     reporteSalud5.auscultacion = this.monitoreoFg.controls.auscultacion5.value;
+    reporteSalud5.percibeSabores = this.monitoreoFg.controls.disgeusia5.value;
+    reporteSalud5.percibeOlores = this.monitoreoFg.controls.anosmia5.value;
+    reporteSalud5.otrosCansancios = this.monitoreoFg.controls.otrosCansancios5.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud5);
 
     let reporteSalud6 = new FormSeccionReporteSalud();
     reporteSalud6.fecha = this.fechaSelec6;
     //reporteSalud6.fecha = this.monitoreoFg.controls.fecha6.value;
     reporteSalud6.tos = this.monitoreoFg.controls.tos6.value;
-    reporteSalud6.dolorGarganta = this.monitoreoFg.controls.dolorGarganta6.value;
-    reporteSalud6.dolorCabeza = this.monitoreoFg.controls.dolorCabeza6.value;
-    reporteSalud6.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar6.value;
-    reporteSalud6.percibeOlores = this.monitoreoFg.controls.percibeOlores6.value;
     reporteSalud6.sentisFiebre = this.monitoreoFg.controls.fiebre6.value;
+    reporteSalud6.dolorGarganta = this.monitoreoFg.controls.dolorGarganta6.value;
+    reporteSalud6.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar6.value;
+    reporteSalud6.dolorCabeza = this.monitoreoFg.controls.dolorCabeza6.value;
+    reporteSalud6.conjuntival = this.monitoreoFg.controls.conjuntival6.value;
+    reporteSalud6.secrecionNasal = this.monitoreoFg.controls.rinorrea6.value;
     reporteSalud6.congestionNasal = this.monitoreoFg.controls.congestionNasal6.value;
-    reporteSalud6.otrosCansancios = this.monitoreoFg.controls.otrosCansancios6.value;
-
+    reporteSalud6.irritabilidad = this.monitoreoFg.controls.irritabilidad6.value;
     reporteSalud6.diarrea = this.monitoreoFg.controls.diarrea6.value;
+    reporteSalud6.dolorOido = this.monitoreoFg.controls.dolorOido6.value;
+    reporteSalud6.mialgias = this.monitoreoFg.controls.mialgias6.value;
+    reporteSalud6.artralgias = this.monitoreoFg.controls.artralgias6.value;
+    reporteSalud6.postracion = this.monitoreoFg.controls.postracion6.value;
+    reporteSalud6.nauseas = this.monitoreoFg.controls.nauseas6.value;
     reporteSalud6.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal6.value;
     reporteSalud6.convulsiones = this.monitoreoFg.controls.convulsiones6.value;
-    reporteSalud6.conjuntival = this.monitoreoFg.controls.conjuntival6.value;
-    reporteSalud6.dolorOido = this.monitoreoFg.controls.dolorOido6.value;
-    reporteSalud6.postracion = this.monitoreoFg.controls.postracion6.value;
-    reporteSalud6.artralgias = this.monitoreoFg.controls.artralgias6.value;
-    reporteSalud6.mialgias = this.monitoreoFg.controls.mialgias6.value;
-    reporteSalud6.irritabilidad = this.monitoreoFg.controls.irritabilidad6.value;
-    reporteSalud6.nauseas = this.monitoreoFg.controls.nauseas6.value;
     reporteSalud6.auscultacion = this.monitoreoFg.controls.auscultacion6.value;
+    reporteSalud6.percibeSabores = this.monitoreoFg.controls.disgeusia6.value;
+    reporteSalud6.percibeOlores = this.monitoreoFg.controls.anosmia6.value;
+    reporteSalud6.otrosCansancios = this.monitoreoFg.controls.otrosCansancios6.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud6);
 
     let reporteSalud7 = new FormSeccionReporteSalud();
     reporteSalud7.fecha = this.fechaSelec7;
     //reporteSalud7.fecha = this.monitoreoFg.controls.fecha7.value;
     reporteSalud7.tos = this.monitoreoFg.controls.tos7.value;
-    reporteSalud7.dolorGarganta = this.monitoreoFg.controls.dolorGarganta7.value;
-    reporteSalud7.dolorCabeza = this.monitoreoFg.controls.dolorCabeza7.value;
-    reporteSalud7.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar7.value;
-    reporteSalud7.percibeOlores = this.monitoreoFg.controls.percibeOlores7.value;
     reporteSalud7.sentisFiebre = this.monitoreoFg.controls.fiebre7.value;
+    reporteSalud7.dolorGarganta = this.monitoreoFg.controls.dolorGarganta7.value;
+    reporteSalud7.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar7.value;
+    reporteSalud7.dolorCabeza = this.monitoreoFg.controls.dolorCabeza7.value;
+    reporteSalud7.conjuntival = this.monitoreoFg.controls.conjuntival7.value;
+    reporteSalud7.secrecionNasal = this.monitoreoFg.controls.rinorrea7.value;
     reporteSalud7.congestionNasal = this.monitoreoFg.controls.congestionNasal7.value;
-    reporteSalud7.otrosCansancios = this.monitoreoFg.controls.otrosCansancios7.value;
-
+    reporteSalud7.irritabilidad = this.monitoreoFg.controls.irritabilidad7.value;
     reporteSalud7.diarrea = this.monitoreoFg.controls.diarrea7.value;
+    reporteSalud7.dolorOido = this.monitoreoFg.controls.dolorOido7.value;
+    reporteSalud7.mialgias = this.monitoreoFg.controls.mialgias7.value;
+    reporteSalud7.artralgias = this.monitoreoFg.controls.artralgias7.value;
+    reporteSalud7.postracion = this.monitoreoFg.controls.postracion7.value;
+    reporteSalud7.nauseas = this.monitoreoFg.controls.nauseas7.value;
     reporteSalud7.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal7.value;
     reporteSalud7.convulsiones = this.monitoreoFg.controls.convulsiones7.value;
-    reporteSalud7.conjuntival = this.monitoreoFg.controls.conjuntival7.value;
-    reporteSalud7.dolorOido = this.monitoreoFg.controls.dolorOido7.value;
-    reporteSalud7.postracion = this.monitoreoFg.controls.postracion7.value;
-    reporteSalud7.artralgias = this.monitoreoFg.controls.artralgias7.value;
-    reporteSalud7.mialgias = this.monitoreoFg.controls.mialgias7.value;
-    reporteSalud7.irritabilidad = this.monitoreoFg.controls.irritabilidad7.value;
-    reporteSalud7.nauseas = this.monitoreoFg.controls.nauseas7.value;
     reporteSalud7.auscultacion = this.monitoreoFg.controls.auscultacion7.value;
+    reporteSalud7.percibeSabores = this.monitoreoFg.controls.disgeusia7.value;
+    reporteSalud7.percibeOlores = this.monitoreoFg.controls.anosmia7.value;
+    reporteSalud7.otrosCansancios = this.monitoreoFg.controls.otrosCansancios7.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud7);
 
     let reporteSalud8 = new FormSeccionReporteSalud();
     reporteSalud8.fecha = this.fechaSelec8;
     //reporteSalud8.fecha = this.monitoreoFg.controls.fecha8.value;
     reporteSalud8.tos = this.monitoreoFg.controls.tos8.value;
-    reporteSalud8.dolorGarganta = this.monitoreoFg.controls.dolorGarganta8.value;
-    reporteSalud8.dolorCabeza = this.monitoreoFg.controls.dolorCabeza8.value;
-    reporteSalud8.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar8.value;
-    reporteSalud8.percibeOlores = this.monitoreoFg.controls.percibeOlores8.value;
     reporteSalud8.sentisFiebre = this.monitoreoFg.controls.fiebre8.value;
+    reporteSalud8.dolorGarganta = this.monitoreoFg.controls.dolorGarganta8.value;
+    reporteSalud8.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar8.value;
+    reporteSalud8.dolorCabeza = this.monitoreoFg.controls.dolorCabeza8.value;
+    reporteSalud8.conjuntival = this.monitoreoFg.controls.conjuntival8.value;
+    reporteSalud8.secrecionNasal = this.monitoreoFg.controls.rinorrea8.value;
     reporteSalud8.congestionNasal = this.monitoreoFg.controls.congestionNasal8.value;
-    reporteSalud8.otrosCansancios = this.monitoreoFg.controls.otrosCansancios8.value;
-
+    reporteSalud8.irritabilidad = this.monitoreoFg.controls.irritabilidad8.value;
     reporteSalud8.diarrea = this.monitoreoFg.controls.diarrea8.value;
+    reporteSalud8.dolorOido = this.monitoreoFg.controls.dolorOido8.value;
+    reporteSalud8.mialgias = this.monitoreoFg.controls.mialgias8.value;
+    reporteSalud8.artralgias = this.monitoreoFg.controls.artralgias8.value;
+    reporteSalud8.postracion = this.monitoreoFg.controls.postracion8.value;
+    reporteSalud8.nauseas = this.monitoreoFg.controls.nauseas8.value;
     reporteSalud8.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal8.value;
     reporteSalud8.convulsiones = this.monitoreoFg.controls.convulsiones8.value;
-    reporteSalud8.conjuntival = this.monitoreoFg.controls.conjuntival8.value;
-    reporteSalud8.dolorOido = this.monitoreoFg.controls.dolorOido8.value;
-    reporteSalud8.postracion = this.monitoreoFg.controls.postracion8.value;
-    reporteSalud8.artralgias = this.monitoreoFg.controls.artralgias8.value;
-    reporteSalud8.mialgias = this.monitoreoFg.controls.mialgias8.value;
-    reporteSalud8.irritabilidad = this.monitoreoFg.controls.irritabilidad8.value;
-    reporteSalud8.nauseas = this.monitoreoFg.controls.nauseas8.value;
     reporteSalud8.auscultacion = this.monitoreoFg.controls.auscultacion8.value;
+    reporteSalud8.percibeSabores = this.monitoreoFg.controls.disgeusia8.value;
+    reporteSalud8.percibeOlores = this.monitoreoFg.controls.anosmia8.value;
+    reporteSalud8.otrosCansancios = this.monitoreoFg.controls.otrosCansancios8.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud8);
 
     let reporteSalud9 = new FormSeccionReporteSalud();
     reporteSalud9.fecha = this.fechaSelec9;
     //reporteSalud9.fecha = this.monitoreoFg.controls.fecha9.value;
     reporteSalud9.tos = this.monitoreoFg.controls.tos9.value;
-    reporteSalud9.dolorGarganta = this.monitoreoFg.controls.dolorGarganta9.value;
-    reporteSalud9.dolorCabeza = this.monitoreoFg.controls.dolorCabeza9.value;
-    reporteSalud9.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar9.value;
-    reporteSalud9.percibeOlores = this.monitoreoFg.controls.percibeOlores9.value;
     reporteSalud9.sentisFiebre = this.monitoreoFg.controls.fiebre9.value;
+    reporteSalud9.dolorGarganta = this.monitoreoFg.controls.dolorGarganta9.value;
+    reporteSalud9.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar9.value;
+    reporteSalud9.dolorCabeza = this.monitoreoFg.controls.dolorCabeza9.value;
+    reporteSalud9.conjuntival = this.monitoreoFg.controls.conjuntival9.value;
+    reporteSalud9.secrecionNasal = this.monitoreoFg.controls.rinorrea9.value;
     reporteSalud9.congestionNasal = this.monitoreoFg.controls.congestionNasal9.value;
-    reporteSalud9.otrosCansancios = this.monitoreoFg.controls.otrosCansancios9.value;
-
+    reporteSalud9.irritabilidad = this.monitoreoFg.controls.irritabilidad9.value;
     reporteSalud9.diarrea = this.monitoreoFg.controls.diarrea9.value;
+    reporteSalud9.dolorOido = this.monitoreoFg.controls.dolorOido9.value;
+    reporteSalud9.mialgias = this.monitoreoFg.controls.mialgias9.value;
+    reporteSalud9.artralgias = this.monitoreoFg.controls.artralgias9.value;
+    reporteSalud9.postracion = this.monitoreoFg.controls.postracion9.value;
+    reporteSalud9.nauseas = this.monitoreoFg.controls.nauseas9.value;
     reporteSalud9.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal9.value;
     reporteSalud9.convulsiones = this.monitoreoFg.controls.convulsiones9.value;
-    reporteSalud9.conjuntival = this.monitoreoFg.controls.conjuntival9.value;
-    reporteSalud9.dolorOido = this.monitoreoFg.controls.dolorOido9.value;
-    reporteSalud9.postracion = this.monitoreoFg.controls.postracion9.value;
-    reporteSalud9.artralgias = this.monitoreoFg.controls.artralgias9.value;
-    reporteSalud9.mialgias = this.monitoreoFg.controls.mialgias9.value;
-    reporteSalud9.irritabilidad = this.monitoreoFg.controls.irritabilidad9.value;
-    reporteSalud9.nauseas = this.monitoreoFg.controls.nauseas9.value;
     reporteSalud9.auscultacion = this.monitoreoFg.controls.auscultacion9.value;
+    reporteSalud9.percibeSabores = this.monitoreoFg.controls.disgeusia9.value;
+    reporteSalud9.percibeOlores = this.monitoreoFg.controls.anosmia9.value;
+    reporteSalud9.otrosCansancios = this.monitoreoFg.controls.otrosCansancios9.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud9);
 
     let reporteSalud10 = new FormSeccionReporteSalud();
     reporteSalud10.fecha = this.fechaSelec10;
     //reporteSalud10.fecha = this.monitoreoFg.controls.fecha10.value;
     reporteSalud10.tos = this.monitoreoFg.controls.tos10.value;
-    reporteSalud10.dolorGarganta = this.monitoreoFg.controls.dolorGarganta10.value;
-    reporteSalud10.dolorCabeza = this.monitoreoFg.controls.dolorCabeza10.value;
-    reporteSalud10.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar10.value;
-    reporteSalud10.percibeOlores = this.monitoreoFg.controls.percibeOlores10.value;
     reporteSalud10.sentisFiebre = this.monitoreoFg.controls.fiebre10.value;
+    reporteSalud10.dolorGarganta = this.monitoreoFg.controls.dolorGarganta10.value;
+    reporteSalud10.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar10.value;
+    reporteSalud10.dolorCabeza = this.monitoreoFg.controls.dolorCabeza10.value;
+    reporteSalud10.conjuntival = this.monitoreoFg.controls.conjuntival10.value;
+    reporteSalud10.secrecionNasal = this.monitoreoFg.controls.rinorrea10.value;
     reporteSalud10.congestionNasal = this.monitoreoFg.controls.congestionNasal10.value;
-    reporteSalud10.otrosCansancios = this.monitoreoFg.controls.otrosCansancios10.value;
-
+    reporteSalud10.irritabilidad = this.monitoreoFg.controls.irritabilidad10.value;
     reporteSalud10.diarrea = this.monitoreoFg.controls.diarrea10.value;
+    reporteSalud10.dolorOido = this.monitoreoFg.controls.dolorOido10.value;
+    reporteSalud10.mialgias = this.monitoreoFg.controls.mialgias10.value;
+    reporteSalud10.artralgias = this.monitoreoFg.controls.artralgias10.value;
+    reporteSalud10.postracion = this.monitoreoFg.controls.postracion10.value;
+    reporteSalud10.nauseas = this.monitoreoFg.controls.nauseas10.value;
     reporteSalud10.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal10.value;
     reporteSalud10.convulsiones = this.monitoreoFg.controls.convulsiones10.value;
-    reporteSalud10.conjuntival = this.monitoreoFg.controls.conjuntival10.value;
-    reporteSalud10.dolorOido = this.monitoreoFg.controls.dolorOido10.value;
-    reporteSalud10.postracion = this.monitoreoFg.controls.postracion10.value;
-    reporteSalud10.artralgias = this.monitoreoFg.controls.artralgias10.value;
-    reporteSalud10.mialgias = this.monitoreoFg.controls.mialgias10.value;
-    reporteSalud10.irritabilidad = this.monitoreoFg.controls.irritabilidad10.value;
-    reporteSalud10.nauseas = this.monitoreoFg.controls.nauseas10.value;
     reporteSalud10.auscultacion = this.monitoreoFg.controls.auscultacion10.value;
+    reporteSalud10.percibeSabores = this.monitoreoFg.controls.disgeusia10.value;
+    reporteSalud10.percibeOlores = this.monitoreoFg.controls.anosmia10.value;
+    reporteSalud10.otrosCansancios = this.monitoreoFg.controls.otrosCansancios10.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud10);
 
     let reporteSalud11 = new FormSeccionReporteSalud();
     reporteSalud11.fecha = this.fechaSelec11;
     //reporteSalud11.fecha = this.monitoreoFg.controls.fecha11.value;
     reporteSalud11.tos = this.monitoreoFg.controls.tos11.value;
-    reporteSalud11.dolorGarganta = this.monitoreoFg.controls.dolorGarganta11.value;
-    reporteSalud11.dolorCabeza = this.monitoreoFg.controls.dolorCabeza11.value;
-    reporteSalud11.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar11.value;
-    reporteSalud11.percibeOlores = this.monitoreoFg.controls.percibeOlores11.value;
     reporteSalud11.sentisFiebre = this.monitoreoFg.controls.fiebre11.value;
+    reporteSalud11.dolorGarganta = this.monitoreoFg.controls.dolorGarganta11.value;
+    reporteSalud11.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar11.value;
+    reporteSalud11.dolorCabeza = this.monitoreoFg.controls.dolorCabeza11.value;
+    reporteSalud11.conjuntival = this.monitoreoFg.controls.conjuntival11.value;
+    reporteSalud11.secrecionNasal = this.monitoreoFg.controls.rinorrea11.value;
     reporteSalud11.congestionNasal = this.monitoreoFg.controls.congestionNasal11.value;
-    reporteSalud11.otrosCansancios = this.monitoreoFg.controls.otrosCansancios11.value;
-
+    reporteSalud11.irritabilidad = this.monitoreoFg.controls.irritabilidad11.value;
     reporteSalud11.diarrea = this.monitoreoFg.controls.diarrea11.value;
+    reporteSalud11.dolorOido = this.monitoreoFg.controls.dolorOido11.value;
+    reporteSalud11.mialgias = this.monitoreoFg.controls.mialgias11.value;
+    reporteSalud11.artralgias = this.monitoreoFg.controls.artralgias11.value;
+    reporteSalud11.postracion = this.monitoreoFg.controls.postracion11.value;
+    reporteSalud11.nauseas = this.monitoreoFg.controls.nauseas11.value;
     reporteSalud11.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal11.value;
     reporteSalud11.convulsiones = this.monitoreoFg.controls.convulsiones11.value;
-    reporteSalud11.conjuntival = this.monitoreoFg.controls.conjuntival11.value;
-    reporteSalud11.dolorOido = this.monitoreoFg.controls.dolorOido11.value;
-    reporteSalud11.postracion = this.monitoreoFg.controls.postracion11.value;
-    reporteSalud11.artralgias = this.monitoreoFg.controls.artralgias11.value;
-    reporteSalud11.mialgias = this.monitoreoFg.controls.mialgias11.value;
-    reporteSalud11.irritabilidad = this.monitoreoFg.controls.irritabilidad11.value;
-    reporteSalud11.nauseas = this.monitoreoFg.controls.nauseas11.value;
     reporteSalud11.auscultacion = this.monitoreoFg.controls.auscultacion11.value;
+    reporteSalud11.percibeSabores = this.monitoreoFg.controls.disgeusia11.value;
+    reporteSalud11.percibeOlores = this.monitoreoFg.controls.anosmia11.value;
+    reporteSalud11.otrosCansancios = this.monitoreoFg.controls.otrosCansancios11.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud11);
 
     let reporteSalud12 = new FormSeccionReporteSalud();
     reporteSalud12.fecha = this.fechaSelec12;
     //reporteSalud12.fecha = this.monitoreoFg.controls.fecha12.value;
     reporteSalud12.tos = this.monitoreoFg.controls.tos12.value;
-    reporteSalud12.dolorGarganta = this.monitoreoFg.controls.dolorGarganta12.value;
-    reporteSalud12.dolorCabeza = this.monitoreoFg.controls.dolorCabeza12.value;
-    reporteSalud12.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar12.value;
-    reporteSalud12.percibeOlores = this.monitoreoFg.controls.percibeOlores12.value;
     reporteSalud12.sentisFiebre = this.monitoreoFg.controls.fiebre12.value;
+    reporteSalud12.dolorGarganta = this.monitoreoFg.controls.dolorGarganta12.value;
+    reporteSalud12.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar12.value;
+    reporteSalud12.dolorCabeza = this.monitoreoFg.controls.dolorCabeza12.value;
+    reporteSalud12.conjuntival = this.monitoreoFg.controls.conjuntival12.value;
+    reporteSalud12.secrecionNasal = this.monitoreoFg.controls.rinorrea12.value;
     reporteSalud12.congestionNasal = this.monitoreoFg.controls.congestionNasal12.value;
-    reporteSalud12.otrosCansancios = this.monitoreoFg.controls.otrosCansancios12.value;
-
+    reporteSalud12.irritabilidad = this.monitoreoFg.controls.irritabilidad12.value;
     reporteSalud12.diarrea = this.monitoreoFg.controls.diarrea12.value;
+    reporteSalud12.dolorOido = this.monitoreoFg.controls.dolorOido12.value;
+    reporteSalud12.mialgias = this.monitoreoFg.controls.mialgias12.value;
+    reporteSalud12.artralgias = this.monitoreoFg.controls.artralgias12.value;
+    reporteSalud12.postracion = this.monitoreoFg.controls.postracion12.value;
+    reporteSalud12.nauseas = this.monitoreoFg.controls.nauseas12.value;
     reporteSalud12.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal12.value;
     reporteSalud12.convulsiones = this.monitoreoFg.controls.convulsiones12.value;
-    reporteSalud12.conjuntival = this.monitoreoFg.controls.conjuntival12.value;
-    reporteSalud12.dolorOido = this.monitoreoFg.controls.dolorOido12.value;
-    reporteSalud12.postracion = this.monitoreoFg.controls.postracion12.value;
-    reporteSalud12.artralgias = this.monitoreoFg.controls.artralgias12.value;
-    reporteSalud12.mialgias = this.monitoreoFg.controls.mialgias12.value;
-    reporteSalud12.irritabilidad = this.monitoreoFg.controls.irritabilidad12.value;
-    reporteSalud12.nauseas = this.monitoreoFg.controls.nauseas12.value;
     reporteSalud12.auscultacion = this.monitoreoFg.controls.auscultacion12.value;
+    reporteSalud12.percibeSabores = this.monitoreoFg.controls.disgeusia12.value;
+    reporteSalud12.percibeOlores = this.monitoreoFg.controls.anosmia12.value;
+    reporteSalud12.otrosCansancios = this.monitoreoFg.controls.otrosCansancios12.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud12);
 
     let reporteSalud13 = new FormSeccionReporteSalud();
     reporteSalud13.fecha = this.fechaSelec13;
-    reporteSalud13.tos = this.monitoreoFg.controls.tos13.value;
-    reporteSalud13.dolorGarganta = this.monitoreoFg.controls.dolorGarganta13.value;
-    reporteSalud13.dolorCabeza = this.monitoreoFg.controls.dolorCabeza13.value;
-    reporteSalud13.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar13.value;
-    reporteSalud13.percibeOlores = this.monitoreoFg.controls.percibeOlores13.value;
-    reporteSalud13.sentisFiebre = this.monitoreoFg.controls.fiebre13.value;
-    reporteSalud13.congestionNasal = this.monitoreoFg.controls.congestionNasal13.value;
-    reporteSalud13.otrosCansancios = this.monitoreoFg.controls.otrosCansancios13.value;
 
+    reporteSalud13.tos = this.monitoreoFg.controls.tos13.value;
+    reporteSalud13.sentisFiebre = this.monitoreoFg.controls.fiebre13.value;
+    reporteSalud13.dolorGarganta = this.monitoreoFg.controls.dolorGarganta13.value;
+    reporteSalud13.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar13.value;
+    reporteSalud13.dolorCabeza = this.monitoreoFg.controls.dolorCabeza13.value;
+    reporteSalud13.conjuntival = this.monitoreoFg.controls.conjuntival13.value;
+    reporteSalud13.secrecionNasal = this.monitoreoFg.controls.rinorrea13.value;
+    reporteSalud13.congestionNasal = this.monitoreoFg.controls.congestionNasal13.value;
+    reporteSalud13.irritabilidad = this.monitoreoFg.controls.irritabilidad13.value;
     reporteSalud13.diarrea = this.monitoreoFg.controls.diarrea13.value;
+    reporteSalud13.dolorOido = this.monitoreoFg.controls.dolorOido13.value;
+    reporteSalud13.mialgias = this.monitoreoFg.controls.mialgias13.value;
+    reporteSalud13.artralgias = this.monitoreoFg.controls.artralgias13.value;
+    reporteSalud13.postracion = this.monitoreoFg.controls.postracion13.value;
+    reporteSalud13.nauseas = this.monitoreoFg.controls.nauseas13.value;
     reporteSalud13.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal13.value;
     reporteSalud13.convulsiones = this.monitoreoFg.controls.convulsiones13.value;
-    reporteSalud13.conjuntival = this.monitoreoFg.controls.conjuntival13.value;
-    reporteSalud13.dolorOido = this.monitoreoFg.controls.dolorOido13.value;
-    reporteSalud13.postracion = this.monitoreoFg.controls.postracion13.value;
-    reporteSalud13.artralgias = this.monitoreoFg.controls.artralgias13.value;
-    reporteSalud13.mialgias = this.monitoreoFg.controls.mialgias13.value;
-    reporteSalud13.irritabilidad = this.monitoreoFg.controls.irritabilidad13.value;
-    reporteSalud13.nauseas = this.monitoreoFg.controls.nauseas13.value;
     reporteSalud13.auscultacion = this.monitoreoFg.controls.auscultacion13.value;
+    reporteSalud13.percibeSabores = this.monitoreoFg.controls.disgeusia13.value;
+    reporteSalud13.percibeOlores = this.monitoreoFg.controls.anosmia13.value;
+    reporteSalud13.otrosCansancios = this.monitoreoFg.controls.otrosCansancios13.value;
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud13);
 
     let reporteSalud14 = new FormSeccionReporteSalud();
     reporteSalud14.fecha = this.fechaSelec14;
     //reporteSalud14.fecha = this.monitoreoFg.controls.fecha14.value;
     reporteSalud14.tos = this.monitoreoFg.controls.tos14.value;
-    reporteSalud14.dolorGarganta = this.monitoreoFg.controls.dolorGarganta14.value;
-    reporteSalud14.dolorCabeza = this.monitoreoFg.controls.dolorCabeza14.value;
-    reporteSalud14.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar14.value;
-    reporteSalud14.percibeOlores = this.monitoreoFg.controls.percibeOlores14.value;
     reporteSalud14.sentisFiebre = this.monitoreoFg.controls.fiebre14.value;
+    reporteSalud14.dolorGarganta = this.monitoreoFg.controls.dolorGarganta14.value;
+    reporteSalud14.dificultadRespirar = this.monitoreoFg.controls.dificultadRespirar14.value;
+    reporteSalud14.dolorCabeza = this.monitoreoFg.controls.dolorCabeza14.value;
+    reporteSalud14.conjuntival = this.monitoreoFg.controls.conjuntival14.value;
+    reporteSalud14.secrecionNasal = this.monitoreoFg.controls.rinorrea14.value;
     reporteSalud14.congestionNasal = this.monitoreoFg.controls.congestionNasal14.value;
-    reporteSalud14.otrosCansancios = this.monitoreoFg.controls.otrosCansancios14.value;
-
+    reporteSalud14.irritabilidad = this.monitoreoFg.controls.irritabilidad14.value;
     reporteSalud14.diarrea = this.monitoreoFg.controls.diarrea14.value;
+    reporteSalud14.dolorOido = this.monitoreoFg.controls.dolorOido14.value;
+    reporteSalud14.mialgias = this.monitoreoFg.controls.mialgias14.value;
+    reporteSalud14.artralgias = this.monitoreoFg.controls.artralgias14.value;
+    reporteSalud14.postracion = this.monitoreoFg.controls.postracion14.value;
+    reporteSalud14.nauseas = this.monitoreoFg.controls.nauseas14.value;
     reporteSalud14.dolorAbdominal = this.monitoreoFg.controls.dolorAbdominal14.value;
     reporteSalud14.convulsiones = this.monitoreoFg.controls.convulsiones14.value;
-    reporteSalud14.conjuntival = this.monitoreoFg.controls.conjuntival14.value;
-    reporteSalud14.dolorOido = this.monitoreoFg.controls.dolorOido14.value;
-    reporteSalud14.postracion = this.monitoreoFg.controls.postracion14.value;
-    reporteSalud14.artralgias = this.monitoreoFg.controls.artralgias14.value;
-    reporteSalud14.mialgias = this.monitoreoFg.controls.mialgias14.value;
-    reporteSalud14.irritabilidad = this.monitoreoFg.controls.irritabilidad14.value;
-    reporteSalud14.nauseas = this.monitoreoFg.controls.nauseas14.value;
     reporteSalud14.auscultacion = this.monitoreoFg.controls.auscultacion14.value;
+    reporteSalud14.percibeSabores = this.monitoreoFg.controls.disgeusia14.value;
+    reporteSalud14.percibeOlores = this.monitoreoFg.controls.anosmia14.value;
+    reporteSalud14.otrosCansancios = this.monitoreoFg.controls.otrosCansancios14.value;
+
     this.fichaPersonalBlanco.reportesSalud.push(reporteSalud14);
 
     /*this.fichaPersonalBlanco.formSeccionReporteSalud.fecha1 = this.monitoreoFg.controls.fecha1.value;
