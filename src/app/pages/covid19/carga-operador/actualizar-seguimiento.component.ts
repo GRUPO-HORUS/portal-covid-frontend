@@ -1473,8 +1473,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.fechaSelec1 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
       }
     }else{
-      this.monitoreoFg.controls.fecha1.setValue(dd + '/' + mm);
-      this.fechaSelec1 = y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha1.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec1 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha1.setValue(dd + '/' + mm);
+        this.fechaSelec1 = y + '-'+ mm+'-'+dd;
+      }
     }
     
     fechaSelec.setDate(fechaSelec.getDate()+2);
@@ -1491,8 +1496,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.fechaSelec2 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
       }
     }else{
-      this.monitoreoFg.controls.fecha2.setValue(dd + '/' + mm);
-      this.fechaSelec2 = y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha2.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec2 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha2.setValue(dd + '/' + mm);
+        this.fechaSelec2 = y + '-'+ mm+'-'+dd;
+      }
     }
     
 
@@ -1510,8 +1520,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.fechaSelec3 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
       }
     }else{
-      this.monitoreoFg.controls.fecha3.setValue(dd + '/' + mm);
-      this.fechaSelec3 =  y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha3.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec3 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha3.setValue(dd + '/' + mm);
+        this.fechaSelec3 = y + '-'+ mm+'-'+dd;
+      }
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1528,8 +1543,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.fechaSelec4 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
       }
     }else{
-      this.monitoreoFg.controls.fecha4.setValue(dd + '/' + mm);
-      this.fechaSelec4 =  y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha4.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec4 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha4.setValue(dd + '/' + mm);
+        this.fechaSelec4 = y + '-'+ mm+'-'+dd;
+      }
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1546,8 +1566,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.fechaSelec5 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
       }
     }else{
-      this.monitoreoFg.controls.fecha5.setValue(dd + '/' + mm);
-      this.fechaSelec5 =  y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha5.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec5 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha5.setValue(dd + '/' + mm);
+        this.fechaSelec5 = y + '-'+ mm+'-'+dd;
+      }
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1564,8 +1589,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.fechaSelec6 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
       }
     }else{
-      this.monitoreoFg.controls.fecha6.setValue(dd + '/' + mm);
-      this.fechaSelec6 = y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha6.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec6 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha6.setValue(dd + '/' + mm);
+        this.fechaSelec6 = y + '-'+ mm+'-'+dd;
+      }
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1582,8 +1612,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.fechaSelec7 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
       }
     }else{
-      this.monitoreoFg.controls.fecha7.setValue(dd + '/' + mm);
-      this.fechaSelec7 =  y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha7.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec7 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha7.setValue(dd + '/' + mm);
+        this.fechaSelec7 = y + '-'+ mm+'-'+dd;
+      }
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1600,8 +1635,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.fechaSelec8 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
       }
     }else{
-      this.monitoreoFg.controls.fecha8.setValue(dd + '/' + mm);
-      this.fechaSelec8 = y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha8.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec8 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha8.setValue(dd + '/' + mm);
+        this.fechaSelec8 = y + '-'+ mm+'-'+dd;
+      }
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1619,8 +1659,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.fechaSelec9 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
       }
     }else{
-      this.monitoreoFg.controls.fecha9.setValue(dd + '/' + mm);
-      this.fechaSelec9 =  y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha9.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec9 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha9.setValue(dd + '/' + mm);
+        this.fechaSelec9 = y + '-'+ mm+'-'+dd;
+      }
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1637,8 +1682,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.fechaSelec10 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
       }
     }else{
-      this.monitoreoFg.controls.fecha10.setValue(dd + '/' + mm);
-      this.fechaSelec10 = y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha10.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec10 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha10.setValue(dd + '/' + mm);
+        this.fechaSelec10 = y + '-'+ mm+'-'+dd;
+      }
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1655,8 +1705,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.fechaSelec11 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
       }
     }else{
-      this.monitoreoFg.controls.fecha11.setValue(dd + '/' + mm);
-      this.fechaSelec11 =  y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha11.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec11 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha11.setValue(dd + '/' + mm);
+        this.fechaSelec11 = y + '-'+ mm+'-'+dd;
+      }
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1673,8 +1728,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.fechaSelec12 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
       }
     }else{
-      this.monitoreoFg.controls.fecha12.setValue(dd + '/' + mm);
-      this.fechaSelec12 =  y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha12.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec12 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha12.setValue(dd + '/' + mm);
+        this.fechaSelec12 = y + '-'+ mm+'-'+dd;
+      }
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1691,8 +1751,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.fechaSelec13 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
       }
     }else{
-      this.monitoreoFg.controls.fecha13.setValue(dd + '/' + mm);
-      this.fechaSelec13 =  y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha13.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec13 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha13.setValue(dd + '/' + mm);
+        this.fechaSelec13 = y + '-'+ mm+'-'+dd;
+      }
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1709,8 +1774,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.fechaSelec14 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
       }
     }else{
-      this.monitoreoFg.controls.fecha14.setValue(dd + '/' + mm);
-      this.fechaSelec14 = y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha14.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec14 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha14.setValue(dd + '/' + mm);
+        this.fechaSelec14 = y + '-'+ mm+'-'+dd;
+      }
     }
   }
 
