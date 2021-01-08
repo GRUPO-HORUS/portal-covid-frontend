@@ -754,9 +754,9 @@ consultarIdentificaciones(event) {
       departamento: new FormControl({nombre:rowData.departamento}, [
         Validators.required
       ]),
-      distrito: new FormControl({nombre:rowData.distrito}, [
+      distrito: new FormControl(rowData.distrito, [
         Validators.required
-      ]),
+      ]), //{nombre:rowData.distrito}
       hospitalizado: new FormControl(rowData.hospitalizado, [
         Validators.required
       ]),
@@ -779,7 +779,8 @@ consultarIdentificaciones(event) {
     this.primerContacto.nombre = this.formGroup.controls.nombre.value;
     this.primerContacto.apellido = this.formGroup.controls.apellido.value;
     this.primerContacto.departamento = this.formGroup.controls.departamento.value.nombre;
-    this.primerContacto.distrito = this.formGroup.controls.distrito.value.nombre;
+    //this.primerContacto.distrito = this.formGroup.controls.distrito.value.nombre;
+    this.primerContacto.distrito = this.formGroup.controls.distrito.value;
     this.primerContacto.telefono = this.formGroup.controls.telefono.value;
     this.primerContacto.hospitalizado = this.formGroup.controls.hospitalizado.value;
     this.primerContacto.fallecido = this.formGroup.controls.fallecido.value;
