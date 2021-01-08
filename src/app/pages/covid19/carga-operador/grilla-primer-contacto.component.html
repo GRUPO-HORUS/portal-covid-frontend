@@ -41,7 +41,7 @@
         <p-table #dt [columns]="scrollableCols" [value]="pacientesList" selectionMode="single" dataKey="id" [paginator]="true"
         [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="load($event)"
         paginatorPosition="bottom" editMode="row" 
-        [frozenColumns]="frozenCols" [scrollable]="true" frozenWidth="200px"><!-- scrollHeight="500px" [resizableColumns]="true" columnResizeMode="expand"-->
+        [frozenColumns]="frozenCols" [scrollable]="true" frozenWidth="200px" scrollHeight="500px"><!-- [resizableColumns]="true" columnResizeMode="expand"-->
 
           <ng-template pTemplate="caption">
                 <table>
