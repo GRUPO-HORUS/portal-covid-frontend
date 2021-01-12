@@ -1464,7 +1464,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     var y = fechaSelec.getFullYear();
     if(dd < 10){
       //this.monitoreoFg.controls.fecha1.setValue('0'+dd + '/' + mm + '/' + y);
-      
       if(mm < 10){
         this.monitoreoFg.controls.fecha1.setValue('0'+dd + '/' + '0'+mm);
         this.fechaSelec1 = y + '-'+'0'+mm+'-'+'0'+dd;  //fechaSelec
@@ -1504,7 +1503,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.fechaSelec2 = y + '-'+ mm+'-'+dd;
       }
     }
-    
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
@@ -1649,7 +1647,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
 
-    
     if(dd < 10){
       if(mm < 10){
         this.monitoreoFg.controls.fecha9.setValue('0'+dd + '/' + '0'+mm);

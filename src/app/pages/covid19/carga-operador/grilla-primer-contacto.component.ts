@@ -15,6 +15,9 @@ import { PrimerContacto } from "../model/primerContacto.model";
 
 declare var $: any;
 
+import * as FileSaver from 'file-saver';
+import * as Excel from "exceljs";
+
 //color: #ffffff !important;
 //background-color: #800606 !important;
 
@@ -154,28 +157,34 @@ export class GrillaPrimerContactoComponent implements OnInit {
 
   edito: boolean = false;
 
-  region: string;
-
   fallaSII: boolean = false;
 
   public contactoOptions=[{value:'todos',label:'Todos'},{value:'pendientes',label:'Pendientes'}];
   public contactoOption="pendientes";
 
-  public departamentoOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro'},
-                              {id:3, nombre:'Cordillera'}, {id:4, nombre:'Guairá'},
-                              {id:5, nombre:'Caaguazú'}, {id:6,nombre:'Caazapá'},
-                              {id:7, nombre:'Itapúa'}, {id:8,nombre:'Misiones'},
-                              {id:9, nombre:'Paraguarí'},{id:10, nombre:'Alto Paraná'},
-                              {id:11, nombre:'Central'},{id:12, nombre:'Ñeembucú'},
-                              {id:13, nombre:'Amambay'},{id:14, nombre:'Canindeyú'},
-                              {id:15, nombre:'Presidente Hayes'}, {id:16, nombre:'Boquerón'},
-                              {id:17, nombre:'Alto Paraguay'}, {id:18, nombre:'Capital'}];
+  public departamentoOptions=[{id:1, nombre:'CONCEPCIÓN'},{id:2, nombre:'SAN PEDRO'},
+                              {id:3, nombre:'CORDILLERA'}, {id:4, nombre:'GUAIRÁ'},
+                              {id:5, nombre:'CAAGUAZÚ'}, {id:6,nombre:'CAAZAPÁ'},
+                              {id:7, nombre:'ITAPÚA'}, {id:8,nombre:'MISIONES'},
+                              {id:9, nombre:'PARAGUARÍ'},{id:10, nombre:'ALTO PARANÁ'},
+                              {id:11, nombre:'CENTRAL'},{id:12, nombre:'ÑEEMBUCÚ'},
+                              {id:13, nombre:'AMAMBAY'},{id:14, nombre:'CANINDEYÚ'},
+                              {id:15, nombre:'PRESIDENTE HAYES'}, {id:16, nombre:'BOQUERÓN'},
+                              {id:17, nombre:'ALTO PARAGUAY'}, {id:18, nombre:'CAPITAL'}];
   public departamentosFiltrados: any[];
 
   public historicoComentarios=[];
+
+  region: string;
   public username;
+  public usuarioId;
 
   frozenCols: any[];
+
+  public distritosOptions: any[];
+  public distritosFiltrados: any[];
+
+  public distritosUsuario = [];
 
   constructor(
     private _router: Router,
@@ -189,9 +198,11 @@ export class GrillaPrimerContactoComponent implements OnInit {
   }
 
   ngOnInit() {
+
     const {usuario} = this.storageManager.getLoginData();
     this.region = usuario.regionSanitaria;
     this.username = usuario.username;
+    this.usuarioId = usuario.id;
 
     this.actualizarDiagnosticoFormGroup = this.formBuilder.group({
       resultadoUltimoDiagnostico: [null,Validators.required],
@@ -232,7 +243,6 @@ export class GrillaPrimerContactoComponent implements OnInit {
         { field: 'apellidos', header: 'Apellidos', width: '11%' },
         { field: 'telefono', header: 'Teléfono', width: '8%' },
         { field: 'departamento', header: 'Departamento', width: '9%' },
-        //{ field: 'distrito', header: 'Distrito', width: '8%' },
         { field: 'hospitalizado', header: 'Internado', width: '6%' },
         { field: 'fallecido', header: 'Fallecido', width: '6%' },
         { field: 'tipoExposicion', header: 'Tipo de Exposición', width: '9%' },
@@ -247,7 +257,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
         { field: 'nombre', header: 'Nombres'},
         { field: 'apellido', header: 'Apellidos'},
         { field: 'telefono', header: 'Teléfono'},
-        { field: 'departamento', header: 'Departamento'},
+        { field: 'departamento', header: 'Región Sanitaria'},
         { field: 'distrito', header: 'Distrito'},
         { field: 'hospitalizado', header: 'Internado'},
         { field: 'fallecido', header: 'Fallecido'},
@@ -276,28 +286,128 @@ export class GrillaPrimerContactoComponent implements OnInit {
     this.buscarContactos('pendientes');
   }
 
-buscarContactos(opcionFiltro){
-  
-    this.service.getPacientesPrimerContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
-                                            opcionFiltro, this.username).subscribe(pacientes => {
+  buscarContactos(opcionFiltro){
+    this.service.getDistritosUsuario(this.usuarioId).subscribe(distritos => {
+      for (let i = 0; i < distritos.length; i++) {
+        this.distritosUsuario.push(distritos[i].distritoId);
+        //console.log(this.distritosUsuario);
+        //let d = distritos[i];
+        //this.distritosOptions[i] = {nombre: d.nomdist, value: d.coddist};
+      }
+      this.service.getPacientesPrimerContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
+        this.distritosUsuario, opcionFiltro, this.username).subscribe(pacientes => {
+        this.pacientesList = pacientes.lista;
+        this.totalRecords = pacientes.totalRecords;
+        console.log(this.pacientesList);
+      });
+
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    }
+    );
+
+    /*this.service.getPacientesPrimerContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
+                                            this.distritosUsuario, opcionFiltro, this.username).subscribe(pacientes => {
       this.pacientesList = pacientes.lista;
       this.totalRecords = pacientes.totalRecords;
       console.log(this.pacientesList);
-      
-      /*this.contactosList = [{actualizado: "no",fechaCierre:"2020-10-30T11:14:18.911-0300", estado: "Internado", apellidos: "Ocampos", domicilio: "Dominicana 216", fechaModificacion: null,
-      fechaUltimoContacto: "2020-10-20", id: 0, nombres: "Tito", nroDocumento: "1695901",
-      paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
-      tipo: "Pre Quirúrgico", departamento: "Central",distrito: "San Lorenzo"}, {actualizado: "no", fechaCierre:"2020-10-29T11:14:18.911-0300", estado: "Fallecido", apellidos: "Torres", domicilio: "Manduvirá 218", fechaModificacion: null,
-      fechaUltimoContacto: "2020-10-22", id: 1, nombres: "Jorge", nroDocumento: "1695951",
-      paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
-      tipo: "Contacto", departamento: "Central", distrito: "Asunción"}, {actualizado: "no", fechaCierre:"2020-10-29T11:14:18.911-0300", estado: "Internado", apellidos: "Salinas", domicilio: "Ayolas 214", fechaModificacion: null,
-      fechaUltimoContacto: "2020-10-19", id: 2, nombres: "Juan", nroDocumento: "1695851",
-      paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
-      tipo: "Sin nexo", departamento: "Central", distrito: "Asunción"}];
-      this.totalRecords = 4;*/
+    });*/
+  }
+
+  selectDepto(event){
+    this.formGroup.controls.distrito.setValue(null);
+    let coddpto ="";
+    if(event.id < 10){
+      coddpto = '0'+event.id;
+    }else{
+      coddpto = event.id;
+    }
+    
+    this.service.getDistritosDepto(coddpto).subscribe(distritos => {
+      this.distritosOptions = distritos;
+      for (let i = 0; i < distritos.length; i++) {
+        let d = distritos[i];
+        this.distritosOptions[i] = { nombre: d.nomdist, valor: d.coddist };
+      }
+         
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    }
+    );
+  }
+
+  filtrarDistrito(event) {
+    let filtered : any[] = [];
+    let query = event.query;
+    for(let i = 0; i < this.distritosOptions.length; i++) {
+        let distrito = this.distritosOptions[i];
+
+        if (distrito.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          filtered.push(distrito);
+        }
+    }
+    
+    this.distritosFiltrados = filtered;
+  }
+
+  getContactosXls(opcionFiltro){
+    this.service.getPacientesPrimerContacto(0, 0, this.filter, this.sortAsc, this.sortField, this.region, 
+      this.distritosUsuario, opcionFiltro, this.username).subscribe(pacientes => {
+      this.pacientesList = pacientes.lista;
+
+      this.exportXlsFormateado(this.pacientesList);
     });
-  
-  
+  }
+
+  exportXlsFormateado(pacientes){
+    let workbook = new Excel.Workbook();
+    let worksheet = workbook.addWorksheet('Pacientes');
+
+    worksheet.addRow(['LISTA DE PRIMERA LLAMADA']);
+    worksheet.addRow(['Fecha de Generación:', new Date().toLocaleString()]);
+    worksheet.getRow(1).font = { name: 'Arial Black', family: 4, size: 14, bold: true };
+
+    worksheet.properties.defaultColWidth = 24;
+    //worksheet.getColumn(1).width = 25;
+
+    let header=["Fecha Cierre", "Nro de Documento", "Código de Paciente", "Nombre", "Apellido", "Teléfono", "Departamento", "Distrito",
+    "Internado", "Fallecido", "Tipo de Exposición","Fecha de Inicio de Síntomas", "Estado de Primera Llamada"];
+    worksheet.addRow(header);
+    worksheet.getRow(3).fill = {type:'pattern', pattern: 'solid', fgColor: {argb:'00000000'}}
+    worksheet.getRow(3).font = { color:{argb:'FFFFFFFF'}, name: 'Arial Black', family: 4, size: 11, bold: true };
+
+    let filaNro = 4;
+    for(let p of pacientes) {
+        let fallecido = 'No';
+        if(p.fallecido){
+          fallecido = 'Si';
+        }
+        let internado = 'No';
+        if(p.hospitalizado){
+          internado = 'Si';
+        }
+
+      worksheet.addRow([p.fechaCierreCaso, p.nroDocumento, p.codigoPaciente, p.nombre, p.apellido, p.telefono, p.departamento, 
+      p.distrito, internado, fallecido, p.tipoExposicion, p.fechaInicioSintomas, p.estadoPrimeraLlamada]);
+
+      worksheet.getRow(filaNro).border = {
+        top: { style:'double', color: {argb:'00000000'}},
+        left: { style:'double', color: {argb:'00000000'}},
+        bottom: { style:'double', color: {argb:'00000000'}},
+        right: { style:'double', color: {argb:'00000000'}}
+      }
+
+      filaNro++;
+    }
+
+  workbook.xlsx.writeBuffer().then((data) => {
+    let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    FileSaver.saveAs(blob, "lista_primera_llamada"+'-'+new Date().valueOf()+'.xlsx');
+  });
 }
 
 consultarIdentificaciones(event) {
@@ -735,17 +845,17 @@ consultarIdentificaciones(event) {
       ]),
       fechaUltimaLlamada: new FormControl(rowData.fechaUltimaLlamada, [
         Validators.required
-      ])*/
+      ])
       nroDocumento: new FormControl(rowData.nroDocumento, [
         Validators.required
       ]),
-      codigoPaciente: new FormControl(rowData.codigoPaciente, [
-        Validators.required
-      ]),
-      nombre: new FormControl(rowData.nombre, [
+       nombre: new FormControl(rowData.nombre, [
         Validators.required
       ]),
       apellido: new FormControl(rowData.apellido, [
+        Validators.required
+      ]),*/
+      codigoPaciente: new FormControl(rowData.codigoPaciente, [
         Validators.required
       ]),
       telefono: new FormControl(rowData.telefono, [
@@ -754,7 +864,7 @@ consultarIdentificaciones(event) {
       departamento: new FormControl({nombre:rowData.departamento}, [
         Validators.required
       ]),
-      distrito: new FormControl(rowData.distrito, [
+      distrito: new FormControl({nombre:rowData.distrito}, [
         Validators.required
       ]), //{nombre:rowData.distrito}
       hospitalizado: new FormControl(rowData.hospitalizado, [
@@ -770,21 +880,48 @@ consultarIdentificaciones(event) {
         Validators.required
       ])
     });
+
+    let coddpto ="";
+    if(rowData.departamentoId < 10){
+      coddpto = '0'+rowData.departamentoId;
+    }else{
+      coddpto = rowData.departamentoId;
+    }
+
+    this.service.getDistritosDepto(coddpto).subscribe(distritos => {
+      this.distritosOptions = distritos;
+      for (let i = 0; i < distritos.length; i++) {
+        let d = distritos[i];
+        this.distritosOptions[i] = { nombre: d.nomdist, valor: d.coddist };
+      }
+         
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    }
+    );
   }
 
   onRowEditSave(rowData){
-
-    this.primerContacto.nroDocumento = this.formGroup.controls.nroDocumento.value;
-    this.primerContacto.codigoPaciente = this.formGroup.controls.codigoPaciente.value;
+    /*this.primerContacto.nroDocumento = this.formGroup.controls.nroDocumento.value;
     this.primerContacto.nombre = this.formGroup.controls.nombre.value;
-    this.primerContacto.apellido = this.formGroup.controls.apellido.value;
+    this.primerContacto.apellido = this.formGroup.controls.apellido.value;*/
+    this.primerContacto.codigoPaciente = this.formGroup.controls.codigoPaciente.value;
     this.primerContacto.departamento = this.formGroup.controls.departamento.value.nombre;
-    //this.primerContacto.distrito = this.formGroup.controls.distrito.value.nombre;
-    this.primerContacto.distrito = this.formGroup.controls.distrito.value;
+    this.primerContacto.departamentoId = this.formGroup.controls.departamento.value.id;
+    this.primerContacto.distrito = this.formGroup.controls.distrito.value.nombre;
+    this.primerContacto.distritoId = this.formGroup.controls.distrito.value.valor;
     this.primerContacto.telefono = this.formGroup.controls.telefono.value;
     this.primerContacto.hospitalizado = this.formGroup.controls.hospitalizado.value;
     this.primerContacto.fallecido = this.formGroup.controls.fallecido.value;
-    this.primerContacto.tipoExposicion = this.formGroup.controls.tipoExposicion.value;
+    this.primerContacto.regionSanitariaId = this.formGroup.controls.departamento.value.id;
+    if(this.formGroup.controls.tipoExposicion.value){
+      this.primerContacto.tipoExposicion = this.formGroup.controls.tipoExposicion.value;
+    }else{
+      this.primerContacto.tipoExposicion = 'SD';
+    }
+    
     this.primerContacto.fechaInicioSintomas = this.formGroup.controls.fechaInicioSintomas.value;
 
     /*this.primerContacto.fechaCierreCaso = this.formGroup.controls.fechaCierreCaso.value;

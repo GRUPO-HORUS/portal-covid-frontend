@@ -41,13 +41,14 @@
         <p-table #dt [columns]="scrollableCols" [value]="pacientesList" selectionMode="single" dataKey="id" [paginator]="true"
         [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="load($event)"
         paginatorPosition="bottom" editMode="row"
-        [frozenColumns]="frozenCols" [scrollable]="true" frozenWidth="160px" scrollHeight="500px" scrollWidth="90%"><!-- [resizableColumns]="true" columnResizeMode="expand"-->
+        [frozenColumns]="frozenCols" [scrollable]="true" frozenWidth="150px" scrollHeight="500px" scrollWidth="90%"><!-- [resizableColumns]="true" columnResizeMode="expand"-->
 
           <ng-template pTemplate="caption">
                 <table>
                     <tr>
                         <td align="left"><p-dropdown id="contactoOption" style="text-align: left;width:auto;" [options]="contactoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="contactoOption" name="contactoOption" [style]="{'minWidth':'150px', 'width': '150px'}" required (onChange)="buscarContactos($event.value)"></p-dropdown> </td>
-                        <td align="right"><input type="text" pInputText style="width:500px;margin-right: 5px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')"></td>
+                        <td align="right"><button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="XLS" (click)="getContactosXls(contactoOption)" 
+                            style="width: 60px;" class="ui-button-success mr-2"></button><input type="text" pInputText style="width:500px;margin-right: 5px;height: 35px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')"></td>
                     </tr>
                 </table>
                 <div style="text-align: right;width:auto;">
@@ -57,19 +58,19 @@
            <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
                 <!--<col *ngFor="let col of columns" style="width:200px">-->
-                <col style="width:160px">
-                <col style="width:160px">
-                <col style="width:160px">
+                <col style="width:150px">
+                <col style="width:145px">
+                <col style="width:135px">
                 <col style="width:180px">
-                <col style="width:180px">
+                <col style="width:190px">
                 <col style="width:160px">
                 <col style="width:160px">
                 <col style="width:160px">
                 <col style="width:120px">
-                <col style="width:120px">
-                <col style="width:160px">
-                <col style="width:160px">
-                <col style="width:160px">
+                <col style="width:90px">
+                <col style="width:130px">
+                <col style="width:150px">
+                <col style="width:150px">
                 <col style="width:160px" *ngIf="columns[0].field==='acc'">
             </colgroup>
             </ng-template>
@@ -87,7 +88,7 @@
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Teléfono</th>
-                    <th>Departamento</th>
+                    <th>Región Sanitaria</th>
                     <th>Distrito</th>
                     <th>Hospitalizado</th>
                     <th>Fallecido</th>
@@ -143,7 +144,7 @@
                         </p-cellEditor>
                     </td>
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
-                        <p-cellEditor *ngIf="edito">
+                        <!--<p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <input pInputText style="width:120px; height:35px" type="text" formControlName="nroDocumento" (change)="consultarIdentificaciones($event)">
@@ -152,9 +153,8 @@
                             <ng-template pTemplate="output">
                                 {{rowData.nroDocumento}}
                             </ng-template>
-                        </p-cellEditor>
-
-                        <p-cellEditor *ngIf="!edito">
+                        </p-cellEditor> *ngIf="!edito"-->
+                        <p-cellEditor>
                             <ng-template pTemplate="input">
                                 {{rowData.nroDocumento}}
                             </ng-template>
@@ -164,7 +164,7 @@
                         </p-cellEditor>
                     </td>
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
-                        <p-cellEditor *ngIf="edito">
+                        <!--<p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <input pInputText style="width:150px; height:35px" type="text" formControlName="nombre">
@@ -173,9 +173,8 @@
                             <ng-template pTemplate="output">
                                 {{rowData.nombre}}
                             </ng-template>
-                        </p-cellEditor>
-
-                        <p-cellEditor *ngIf="!edito">
+                        </p-cellEditor> *ngIf="!edito"-->
+                        <p-cellEditor>
                             <ng-template pTemplate="input">
                                 {{rowData.nombre}}
                             </ng-template>
@@ -186,7 +185,7 @@
                         </p-cellEditor>
                     </td>
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
-                        <p-cellEditor *ngIf="edito">
+                        <!--<p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <input pInputText style="width:162px; height:35px" type="text" formControlName="apellido">
@@ -195,9 +194,8 @@
                             <ng-template pTemplate="output">
                                 {{rowData.apellido}}
                             </ng-template>
-                        </p-cellEditor>
-
-                        <p-cellEditor *ngIf="!edito">
+                        </p-cellEditor> *ngIf="!edito"-->
+                        <p-cellEditor>
                             <ng-template pTemplate="input">
                                 {{rowData.apellido}}
                             </ng-template>
@@ -232,7 +230,8 @@
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <p-autoComplete id="departamento" formControlName="departamento" [suggestions]="departamentosFiltrados" field="nombre" (completeMethod)="filtrarDepto($event)" [inputStyle]="{'width':'120px'}" [forceSelection]="true" required></p-autoComplete>
+                                    <p-autoComplete id="departamento" formControlName="departamento" [suggestions]="departamentosFiltrados" field="nombre" 
+                                    (completeMethod)="filtrarDepto($event)" [inputStyle]="{'width':'120px'}" [forceSelection]="true" required (onSelect)="selectDepto($event)"></p-autoComplete>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
@@ -253,8 +252,8 @@
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <input pInputText style="width:120px; height:35px" type="text" formControlName="distrito">
-                                    <!--<p-autoComplete id="distrito" formControlName="distrito" [suggestions]="departamentosFiltrados" field="nombre" (completeMethod)="filtrarDepto($event)" [inputStyle]="{'width':'95px'}" [forceSelection]="true" required></p-autoComplete>-->
+                                    <!--<input pInputText style="width:120px; height:35px" type="text" formControlName="distrito">-->
+                                    <p-autoComplete id="distrito" formControlName="distrito" [suggestions]="distritosFiltrados" field="nombre" (completeMethod)="filtrarDistrito($event)" [inputStyle]="{'width':'135px'}" [forceSelection]="true" required></p-autoComplete>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">

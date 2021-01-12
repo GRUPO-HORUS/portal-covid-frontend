@@ -1504,13 +1504,23 @@ export class FichaMonitoreoComponent implements OnInit {
     var y = fechaSelec.getFullYear();
 
     if(dd < 10){
-      this.monitoreoFg.controls.fecha1.setValue('0'+dd + '/' + mm);
       //this.monitoreoFg.controls.fecha1.setValue('0'+dd + '/' + mm + '/' + y);
-      this.fechaSelec1 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
+      
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha1.setValue('0'+dd + '/' + '0'+mm);
+        this.fechaSelec1 = y + '-'+'0'+mm+'-'+'0'+dd;  //fechaSelec
+      }else{
+        this.monitoreoFg.controls.fecha1.setValue('0'+dd + '/' + mm);
+        this.fechaSelec1 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
+      }
     }else{
-      this.monitoreoFg.controls.fecha1.setValue(dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha1.setValue(dd + '/' + mm + '/' + y);
-      this.fechaSelec1 = y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha1.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec1 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha1.setValue(dd + '/' + mm);
+        this.fechaSelec1 = y + '-'+ mm+'-'+dd;
+      }
     }
     
     if(band == 'inicio'){
@@ -1526,44 +1536,21 @@ export class FichaMonitoreoComponent implements OnInit {
     
     //var formattedDate = dd + '-' + mm + '-' + y;
     if(dd < 10){
-      this.monitoreoFg.controls.fecha2.setValue('0'+dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha2.setValue('0'+dd + '/' + mm + '/' + y);
-      this.fechaSelec2 = y + '-'+ mm+'-'+'0'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha2.setValue('0'+dd + '/' + '0'+mm);
+        this.fechaSelec2 = y + '-'+'0'+mm+'-'+'0'+dd;  //fechaSelec
+      }else{
+        this.monitoreoFg.controls.fecha2.setValue('0'+dd + '/' + mm);
+        this.fechaSelec2 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
+      }
     }else{
-      this.monitoreoFg.controls.fecha2.setValue(dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha2.setValue(dd + '/' + mm + '/' + y);
-      this.fechaSelec2 = y + '-'+ mm+'-'+dd;
-    }
-    
-
-    fechaSelec.setDate(fechaSelec.getDate()+1);
-    var dd = fechaSelec.getDate();
-    var mm = fechaSelec.getMonth() + 1;
-    var y = fechaSelec.getFullYear();
-    
-    if(dd < 10){
-      this.monitoreoFg.controls.fecha3.setValue('0'+dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha3.setValue('0'+dd + '/' + mm + '/' + y);
-      this.fechaSelec3 = y + '-'+ mm+'-'+'0'+dd;
-    }else{
-      this.monitoreoFg.controls.fecha3.setValue(dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha3.setValue(dd + '/' + mm + '/' + y);
-      this.fechaSelec3 = y + '-'+ mm+'-'+dd;
-    }
-
-    fechaSelec.setDate(fechaSelec.getDate()+1);
-    var dd = fechaSelec.getDate();
-    var mm = fechaSelec.getMonth() + 1;
-    var y = fechaSelec.getFullYear();
-
-    if(dd < 10){
-      this.monitoreoFg.controls.fecha4.setValue('0'+dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha4.setValue('0'+dd + '/' + mm + '/' + y);
-      this.fechaSelec4 = y + '-'+ mm+'-'+'0'+dd;
-    }else{
-      this.monitoreoFg.controls.fecha4.setValue(dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha4.setValue(dd + '/' + mm + '/' + y);
-      this.fechaSelec4 = y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha2.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec2 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha2.setValue(dd + '/' + mm);
+        this.fechaSelec2 = y + '-'+ mm+'-'+dd;
+      }
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1572,13 +1559,44 @@ export class FichaMonitoreoComponent implements OnInit {
     var y = fechaSelec.getFullYear();
     
     if(dd < 10){
-      this.monitoreoFg.controls.fecha5.setValue('0'+dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha5.setValue('0'+dd + '/' + mm + '/' + y);
-      this.fechaSelec5 = y + '-'+ mm+'-'+'0'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha3.setValue('0'+dd + '/' + '0'+mm);
+        this.fechaSelec3 = y + '-'+'0'+mm+'-'+'0'+dd;  //fechaSelec
+      }else{
+        this.monitoreoFg.controls.fecha3.setValue('0'+dd + '/' + mm);
+        this.fechaSelec3 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
+      }
     }else{
-      this.monitoreoFg.controls.fecha5.setValue(dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha5.setValue(dd + '/' + mm + '/' + y);
-      this.fechaSelec5 = y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha3.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec3 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha3.setValue(dd + '/' + mm);
+        this.fechaSelec3 = y + '-'+ mm+'-'+dd;
+      }
+    }
+
+    fechaSelec.setDate(fechaSelec.getDate()+1);
+    var dd = fechaSelec.getDate();
+    var mm = fechaSelec.getMonth() + 1;
+    var y = fechaSelec.getFullYear();
+
+    if(dd < 10){
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha4.setValue('0'+dd + '/' + '0'+mm);
+        this.fechaSelec4 = y + '-'+'0'+mm+'-'+'0'+dd;  //fechaSelec
+      }else{
+        this.monitoreoFg.controls.fecha4.setValue('0'+dd + '/' + mm);
+        this.fechaSelec4 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
+      }
+    }else{
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha4.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec4 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha4.setValue(dd + '/' + mm);
+        this.fechaSelec4 = y + '-'+ mm+'-'+dd;
+      }
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1587,13 +1605,21 @@ export class FichaMonitoreoComponent implements OnInit {
     var y = fechaSelec.getFullYear();
     
     if(dd < 10){
-      this.monitoreoFg.controls.fecha6.setValue('0'+dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha6.setValue('0'+dd + '/' + mm + '/' + y);
-      this.fechaSelec6 = y + '-'+ mm+'-'+'0'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha5.setValue('0'+dd + '/' + '0'+mm);
+        this.fechaSelec5 = y + '-'+'0'+mm+'-'+'0'+dd;  //fechaSelec
+      }else{
+        this.monitoreoFg.controls.fecha5.setValue('0'+dd + '/' + mm);
+        this.fechaSelec5 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
+      }
     }else{
-      this.monitoreoFg.controls.fecha6.setValue(dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha6.setValue(dd + '/' + mm + '/' + y);
-      this.fechaSelec6 = y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha5.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec5 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha5.setValue(dd + '/' + mm);
+        this.fechaSelec5 = y + '-'+ mm+'-'+dd;
+      }
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1602,105 +1628,44 @@ export class FichaMonitoreoComponent implements OnInit {
     var y = fechaSelec.getFullYear();
     
     if(dd < 10){
-      this.monitoreoFg.controls.fecha7.setValue('0'+dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha7.setValue('0'+dd + '/' + mm + '/' + y);
-      this.fechaSelec7 = y + '-'+ mm+'-'+'0'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha6.setValue('0'+dd + '/' + '0'+mm);
+        this.fechaSelec6 = y + '-'+'0'+mm+'-'+'0'+dd;  //fechaSelec
+      }else{
+        this.monitoreoFg.controls.fecha6.setValue('0'+dd + '/' + mm);
+        this.fechaSelec6 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
+      }
     }else{
-      this.monitoreoFg.controls.fecha7.setValue(dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha7.setValue(dd + '/' + mm + '/' + y);
-      this.fechaSelec7 = y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha6.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec6 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha6.setValue(dd + '/' + mm);
+        this.fechaSelec6 = y + '-'+ mm+'-'+dd;
+      }
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();
-
-    if(dd < 10){
-      this.monitoreoFg.controls.fecha8.setValue('0'+dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha8.setValue('0'+dd + '/' + mm + '/' + y);
-      this.fechaSelec8 = y + '-'+ mm+'-'+'0'+dd;
-    }else{
-      this.monitoreoFg.controls.fecha8.setValue(dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha8.setValue(dd + '/' + mm + '/' + y);
-      this.fechaSelec8 = y + '-'+ mm+'-'+dd;
-    }
-
-    fechaSelec.setDate(fechaSelec.getDate()+1);
-    var dd = fechaSelec.getDate();
-    var mm = fechaSelec.getMonth() + 1;
-    var y = fechaSelec.getFullYear();
-
-    if(dd < 10){
-      this.monitoreoFg.controls.fecha9.setValue('0'+dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha9.setValue('0'+dd + '/' + mm + '/' + y);
-      this.fechaSelec9 = y + '-'+ mm+'-'+'0'+dd;
-    }else{
-      this.monitoreoFg.controls.fecha9.setValue(dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha9.setValue(dd + '/' + mm + '/' + y);
-      this.fechaSelec9 = y + '-'+ mm+'-'+dd;
-    }
-
-    fechaSelec.setDate(fechaSelec.getDate()+1);
-    var dd = fechaSelec.getDate();
-    var mm = fechaSelec.getMonth() + 1;
-    var y = fechaSelec.getFullYear();
-
-    if(dd < 10){
-      this.monitoreoFg.controls.fecha10.setValue('0'+dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha10.setValue('0'+dd + '/' + mm + '/' + y);
-      this.fechaSelec10 = y + '-'+ mm+'-'+'0'+dd;
-    }else{
-      this.monitoreoFg.controls.fecha10.setValue(dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha10.setValue(dd + '/' + mm + '/' + y);
-      this.fechaSelec10 = y + '-'+ mm+'-'+dd;
-    }
-
-    fechaSelec.setDate(fechaSelec.getDate()+1);
-    var dd = fechaSelec.getDate();
-    var mm = fechaSelec.getMonth() + 1;
-    var y = fechaSelec.getFullYear();
-
-    if(dd < 10){
-      this.monitoreoFg.controls.fecha11.setValue('0'+dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha11.setValue('0'+dd + '/' + mm + '/' + y);
-      this.fechaSelec11 = y + '-'+ mm+'-'+'0'+dd;
-    }else{
-      this.monitoreoFg.controls.fecha11.setValue(dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha11.setValue(dd + '/' + mm + '/' + y);
-      this.fechaSelec11 = y + '-'+ mm+'-'+dd;
-    }
-
-    fechaSelec.setDate(fechaSelec.getDate()+1);
-    var dd = fechaSelec.getDate();
-    var mm = fechaSelec.getMonth() + 1;
-    var y = fechaSelec.getFullYear();
-
     
     if(dd < 10){
-      this.monitoreoFg.controls.fecha12.setValue('0'+dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha12.setValue('0'+dd + '/' + mm + '/' + y);
-      this.fechaSelec12 = y + '-'+ mm+'-'+'0'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha7.setValue('0'+dd + '/' + '0'+mm);
+        this.fechaSelec7 = y + '-'+'0'+mm+'-'+'0'+dd;  //fechaSelec
+      }else{
+        this.monitoreoFg.controls.fecha7.setValue('0'+dd + '/' + mm);
+        this.fechaSelec7 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
+      }
     }else{
-      this.monitoreoFg.controls.fecha12.setValue(dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha12.setValue(dd + '/' + mm + '/' + y);
-      this.fechaSelec12 = y + '-'+ mm+'-'+dd;
-    }
-
-    fechaSelec.setDate(fechaSelec.getDate()+1);
-    var dd = fechaSelec.getDate();
-    var mm = fechaSelec.getMonth() + 1;
-    var y = fechaSelec.getFullYear();
-
-    
-    if(dd < 10){
-      this.monitoreoFg.controls.fecha13.setValue('0'+dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha13.setValue('0'+dd + '/' + mm + '/' + y);
-      this.fechaSelec13 = y + '-'+ mm+'-'+'0'+dd;
-    }else{
-      this.monitoreoFg.controls.fecha13.setValue(dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha13.setValue(dd + '/' + mm + '/' + y);
-      this.fechaSelec13 = y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha7.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec7 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha7.setValue(dd + '/' + mm);
+        this.fechaSelec7 = y + '-'+ mm+'-'+dd;
+      }
     }
 
     fechaSelec.setDate(fechaSelec.getDate()+1);
@@ -1709,13 +1674,159 @@ export class FichaMonitoreoComponent implements OnInit {
     var y = fechaSelec.getFullYear();
 
     if(dd < 10){
-      this.monitoreoFg.controls.fecha14.setValue('0'+dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha14.setValue('0'+dd + '/' + mm + '/' + y);
-      this.fechaSelec14 = y + '-'+ mm+'-'+'0'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha8.setValue('0'+dd + '/' + '0'+mm);
+        this.fechaSelec8 = y + '-'+'0'+mm+'-'+'0'+dd;  //fechaSelec
+      }else{
+        this.monitoreoFg.controls.fecha8.setValue('0'+dd + '/' + mm);
+        this.fechaSelec8 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
+      }
     }else{
-      this.monitoreoFg.controls.fecha14.setValue(dd + '/' + mm);
-      //this.monitoreoFg.controls.fecha14.setValue('0'+dd + '/' + mm + '/' + y);
-      this.fechaSelec14 = y + '-'+ mm+'-'+dd;
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha8.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec8 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha8.setValue(dd + '/' + mm);
+        this.fechaSelec8 = y + '-'+ mm+'-'+dd;
+      }
+    }
+
+    fechaSelec.setDate(fechaSelec.getDate()+1);
+    var dd = fechaSelec.getDate();
+    var mm = fechaSelec.getMonth() + 1;
+    var y = fechaSelec.getFullYear();
+
+    if(dd < 10){
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha9.setValue('0'+dd + '/' + '0'+mm);
+        this.fechaSelec9 = y + '-'+'0'+mm+'-'+'0'+dd;  //fechaSelec
+      }else{
+        this.monitoreoFg.controls.fecha9.setValue('0'+dd + '/' + mm);
+        this.fechaSelec9 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
+      }
+    }else{
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha9.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec9 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha9.setValue(dd + '/' + mm);
+        this.fechaSelec9 = y + '-'+ mm+'-'+dd;
+      }
+    }
+
+    fechaSelec.setDate(fechaSelec.getDate()+1);
+    var dd = fechaSelec.getDate();
+    var mm = fechaSelec.getMonth() + 1;
+    var y = fechaSelec.getFullYear();
+
+    if(dd < 10){
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha10.setValue('0'+dd + '/' + '0'+mm);
+        this.fechaSelec10 = y + '-'+'0'+mm+'-'+'0'+dd;  //fechaSelec
+      }else{
+        this.monitoreoFg.controls.fecha10.setValue('0'+dd + '/' + mm);
+        this.fechaSelec10 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
+      }
+    }else{
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha10.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec10 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha10.setValue(dd + '/' + mm);
+        this.fechaSelec10 = y + '-'+ mm+'-'+dd;
+      }
+    }
+
+    fechaSelec.setDate(fechaSelec.getDate()+1);
+    var dd = fechaSelec.getDate();
+    var mm = fechaSelec.getMonth() + 1;
+    var y = fechaSelec.getFullYear();
+
+    if(dd < 10){
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha11.setValue('0'+dd + '/' + '0'+mm);
+        this.fechaSelec11 = y + '-'+'0'+mm+'-'+'0'+dd;  //fechaSelec
+      }else{
+        this.monitoreoFg.controls.fecha11.setValue('0'+dd + '/' + mm);
+        this.fechaSelec11 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
+      }
+    }else{
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha11.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec11 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha11.setValue(dd + '/' + mm);
+        this.fechaSelec11 = y + '-'+ mm+'-'+dd;
+      }
+    }
+
+    fechaSelec.setDate(fechaSelec.getDate()+1);
+    var dd = fechaSelec.getDate();
+    var mm = fechaSelec.getMonth() + 1;
+    var y = fechaSelec.getFullYear();
+
+    if(dd < 10){
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha12.setValue('0'+dd + '/' + '0'+mm);
+        this.fechaSelec12 = y + '-'+'0'+mm+'-'+'0'+dd;  //fechaSelec
+      }else{
+        this.monitoreoFg.controls.fecha12.setValue('0'+dd + '/' + mm);
+        this.fechaSelec12 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
+      }
+    }else{
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha12.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec12 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha12.setValue(dd + '/' + mm);
+        this.fechaSelec12 = y + '-'+ mm+'-'+dd;
+      }
+    }
+
+    fechaSelec.setDate(fechaSelec.getDate()+1);
+    var dd = fechaSelec.getDate();
+    var mm = fechaSelec.getMonth() + 1;
+    var y = fechaSelec.getFullYear();
+
+    if(dd < 10){
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha13.setValue('0'+dd + '/' + '0'+mm);
+        this.fechaSelec13 = y + '-'+'0'+mm+'-'+'0'+dd;  //fechaSelec
+      }else{
+        this.monitoreoFg.controls.fecha13.setValue('0'+dd + '/' + mm);
+        this.fechaSelec13 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
+      }
+    }else{
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha13.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec13 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha13.setValue(dd + '/' + mm);
+        this.fechaSelec13 = y + '-'+ mm+'-'+dd;
+      }
+    }
+
+    fechaSelec.setDate(fechaSelec.getDate()+1);
+    var dd = fechaSelec.getDate();
+    var mm = fechaSelec.getMonth() + 1;
+    var y = fechaSelec.getFullYear();
+
+    if(dd < 10){
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha14.setValue('0'+dd + '/' + '0'+mm);
+        this.fechaSelec14 = y + '-'+'0'+mm+'-'+'0'+dd;  //fechaSelec
+      }else{
+        this.monitoreoFg.controls.fecha14.setValue('0'+dd + '/' + mm);
+        this.fechaSelec14 = y + '-'+ mm+'-'+'0'+dd;  //fechaSelec
+      }
+    }else{
+      if(mm < 10){
+        this.monitoreoFg.controls.fecha14.setValue(dd + '/' + '0'+mm);
+        this.fechaSelec14 = y + '-'+'0'+mm+'-'+dd;
+      }else{
+        this.monitoreoFg.controls.fecha14.setValue(dd + '/' + mm);
+        this.fechaSelec14 = y + '-'+ mm+'-'+dd;
+      }
     }
   }
 

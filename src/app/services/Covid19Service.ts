@@ -126,7 +126,7 @@ export class Covid19Service {
    }
 
     getPacientesCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string, region, opcionFiltro, username): Observable<PrimerContactoTable> {
+      sortField: string, region, distritosUsuario, opcionFiltro, username): Observable<PrimerContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -139,13 +139,25 @@ export class Covid19Service {
 
       if (username)
         params = params.set('username', username);
+
+      if(distritosUsuario.length > 0){
+          let distritosParam="";
+          for(let i=0; i<distritosUsuario.length; i++){
+            if(i+1==distritosUsuario.length){
+              distritosParam+= distritosUsuario[i];
+            }else{
+              distritosParam+= distritosUsuario[i]+",";
+            }
+          }
+          params = params.set('distritosUsuario', distritosParam);
+      }
 
      params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
      return this.httpClient.get<PrimerContactoTable>(this.config.API + '/covid19api/aislamiento/listarCensoContacto/'+region+'/'+opcionFiltro, {params});
    }
 
     getPacientesPrimerContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string, region, opcionFiltro, username): Observable<PrimerContactoTable> {
+      sortField: string, region, distritosUsuario, opcionFiltro, username): Observable<PrimerContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -158,6 +170,18 @@ export class Covid19Service {
 
       if (username)
         params = params.set('username', username);
+
+      if(distritosUsuario.length > 0){
+        let distritosParam="";
+        for(let i=0; i<distritosUsuario.length; i++){
+          if(i+1==distritosUsuario.length){
+            distritosParam+= distritosUsuario[i];
+          }else{
+            distritosParam+= distritosUsuario[i]+",";
+          }
+        }
+        params = params.set('distritosUsuario', distritosParam);
+      }
 
      params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
      return this.httpClient.get<PrimerContactoTable>(this.config.API + '/covid19api/aislamiento/listarPrimerContacto/'+region+'/'+opcionFiltro, {params});
@@ -189,6 +213,14 @@ export class Covid19Service {
 
     setearClave(idRegistro, clave): Observable<string> {
       return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/claveSeguridad/'+idRegistro, clave);
+    }
+
+    getDistritosUsuario(usuarioId): Observable<any[]>{
+      return this.httpClient.get<any[]>(this.config.API +"/covid19api/aislamiento/distritosUsuario/"+usuarioId);
+    }
+
+    getDistritosDepto(coddpto): Observable<any[]>{
+      return this.httpClient.get<any[]>(this.config.API +"/covid19api/aislamiento/distritosDepto/"+coddpto);
     }
 
     getCiudadesPorDepto(idDepto): Observable<any[]>{

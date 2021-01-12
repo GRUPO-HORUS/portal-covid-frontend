@@ -10,7 +10,9 @@ export class PrimerContacto {
     tipoExposicion: string;
     fallecido: string;
     hospitalizado: string;
+    departamentoId: number;
     departamento: string;
+    distritoId: number;
     distrito: string;
 
     estadoPrimeraLlamada: string;
@@ -18,6 +20,7 @@ export class PrimerContacto {
     cantidadReintentos: number;
     codigoPaciente: string;
     regionSanitaria: string;
+    regionSanitariaId: number;
     fechaUltimaLlamada: string;
 
     editado: boolean;

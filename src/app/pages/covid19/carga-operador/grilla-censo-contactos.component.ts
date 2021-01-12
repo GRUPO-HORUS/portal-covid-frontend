@@ -160,7 +160,6 @@ export class GrillaCensoContactosComponent implements OnInit {
   {value:'familiar_social',label:'Familiar Social'}, {value:'viajero',label:'Viajero'},{value:'sin_nexo',label:'Sin Nexo'}];
 
   public historicoComentarios=[];
-  public username;
 
   showRegistroFinalizado: boolean = false;
 
@@ -199,6 +198,10 @@ showListFormCensoContacto: boolean = false;
 showPopupBorrarFormCensoContacto: boolean = false;
 
 formCensoContacto;
+
+public username;
+public usuarioId;
+public distritosUsuario = [];
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -214,6 +217,7 @@ formCensoContacto;
     const {usuario} = this.storageManager.getLoginData();
     this.region = usuario.regionSanitaria;
     this.username = usuario.username;
+    this.usuarioId = usuario.id;
 
     this.actualizarDiagnosticoFormGroup = this.formBuilder.group({
       resultadoUltimoDiagnostico: [null,Validators.required],
@@ -309,24 +313,28 @@ formCensoContacto;
 }
 
 buscarContactos(opcionFiltro){
-  console.log(opcionFiltro);
-    this.service.getPacientesCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, opcionFiltro, this.username).subscribe(pacientes => {
+  this.service.getDistritosUsuario(this.usuarioId).subscribe(distritos => {
+    for (let i = 0; i < distritos.length; i++) {
+      this.distritosUsuario.push(distritos[i].distritoId);
+      //console.log(this.distritosUsuario);
+      //let d = distritos[i];
+      //this.distritosOptions[i] = {nombre: d.nomdist, value: d.coddist};
+    }
+
+    this.service.getPacientesCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
+      this.distritosUsuario, opcionFiltro, this.username).subscribe(pacientes => {
       this.pacientesList = pacientes.lista;
       this.totalRecords = pacientes.totalRecords;
       console.log(this.pacientesList);
       
-      /*this.contactosList = [{actualizado: "no",fechaCierre:"2020-10-30T11:14:18.911-0300", estado: "Internado", apellidos: "Ocampos", domicilio: "Dominicana 216", fechaModificacion: null,
-      fechaUltimoContacto: "2020-10-20", id: 0, nombres: "Tito", nroDocumento: "1695901",
-      paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
-      tipo: "Pre Quirúrgico", departamento: "Central",distrito: "San Lorenzo"}, {actualizado: "no", fechaCierre:"2020-10-29T11:14:18.911-0300", estado: "Fallecido", apellidos: "Torres", domicilio: "Manduvirá 218", fechaModificacion: null,
-      fechaUltimoContacto: "2020-10-22", id: 1, nombres: "Jorge", nroDocumento: "1695951",
-      paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
-      tipo: "Contacto", departamento: "Central", distrito: "Asunción"}, {actualizado: "no", fechaCierre:"2020-10-29T11:14:18.911-0300", estado: "Internado", apellidos: "Salinas", domicilio: "Ayolas 214", fechaModificacion: null,
-      fechaUltimoContacto: "2020-10-19", id: 2, nombres: "Juan", nroDocumento: "1695851",
-      paciente: 1, telefono: "0986108204", timestampCreacion: "2020-10-29T11:14:18.911-0300",
-      tipo: "Sin nexo", departamento: "Central", distrito: "Asunción"}];
-      this.totalRecords = 4;*/
     });
+
+  }, error => {
+    console.log(error);
+    this.mensaje = error.error;
+    this.openMessageDialog();
+  }
+  );
   
 }
 

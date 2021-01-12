@@ -20,9 +20,12 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td style="text-align: right;" *ngIf="currentUser">
-                                Usuario: {{currentUser?.usuario.nombre}}&nbsp; &nbsp;
-                                Región: {{region}}
+                                <td style="text-align: right;" *ngIf="currentUser && currentUser.usuario.regionSanitaria !=='-1'">
+                                    Usuario: {{currentUser?.usuario.nombre}}&nbsp; &nbsp;
+                                    Región: {{region}}
+                                </td>
+                                <td style="text-align: right;" *ngIf="currentUser && currentUser.usuario.regionSanitaria ==='-1'">
+                                    Usuario: {{currentUser?.usuario.nombre}}&nbsp; &nbsp;
                                 </td>
                             </tr>
 

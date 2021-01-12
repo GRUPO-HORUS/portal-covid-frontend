@@ -41,10 +41,59 @@ export class HeaderComponent  implements DoCheck {
     this.currentUser = this.storageManagerService.getLoginData();
 
     if(this.currentUser!==null){
+      console.log(this.currentUser.usuario.regionSanitaria);
+      if(this.currentUser.usuario.regionSanitaria ==1){
+        this.region = 'Concepción';
+      }
+      if(this.currentUser.usuario.regionSanitaria ==2){
+        this.region = 'San Pedro';
+      }
+      if(this.currentUser.usuario.regionSanitaria ==3){
+        this.region = 'Cordillera';
+      }
+      if(this.currentUser.usuario.regionSanitaria ==4){
+        this.region = 'Guairá';
+      } if(this.currentUser.usuario.regionSanitaria ==5){
+        this.region = 'Caaguazú';
+      }
+      if(this.currentUser.usuario.regionSanitaria ==6){
+        this.region = 'Caazapá';
+      }
+      if(this.currentUser.usuario.regionSanitaria ==7){
+        this.region = 'Itapúa';
+      }
+      if(this.currentUser.usuario.regionSanitaria ==8){
+        this.region = 'Misiones';
+      }
+      if(this.currentUser.usuario.regionSanitaria ==9){
+        this.region = 'Paraguarí';
+      }
+      if(this.currentUser.usuario.regionSanitaria ==10){
+        this.region = 'Alto Paraná';
+      }
       if(this.currentUser.usuario.regionSanitaria ==11){
         this.region = 'Central';
-      }else{
+      }
+      if(this.currentUser.usuario.regionSanitaria ==12){
+        this.region = 'Ñeembucú';
+      }
+      if(this.currentUser.usuario.regionSanitaria ==13){
+        this.region = 'Amambay';
+      }
+      if(this.currentUser.usuario.regionSanitaria ==14){
         this.region = 'Canindeyú';
+      }
+      if(this.currentUser.usuario.regionSanitaria ==15){
+        this.region = 'Presidente Hayes';
+      }
+      if(this.currentUser.usuario.regionSanitaria ==16){
+        this.region = 'Boquerón';
+      }
+      if(this.currentUser.usuario.regionSanitaria ==17){
+        this.region = 'Alto Paraguay';
+      }
+      if(this.currentUser.usuario.regionSanitaria ==18){
+        this.region = 'Capital';
       }
     }
     
