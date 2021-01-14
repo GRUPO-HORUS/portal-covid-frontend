@@ -136,6 +136,12 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
   public rangoEdadOptions=[{value:'18-28',label:'18 a 28 años'}, {value:'29-39',label:'29 a 39 años'},{value:'40-50',label:'40 a 50 años'},{value:'51-61',label:'51 a 61 años'},
   {value:'>=62',label:'62 años y más'}];
 
+  fallaSII: boolean = false;
+
+  public regionesFiltradas: any[];
+
+  public departamentoOptions: any[];
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -245,6 +251,34 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     /*this._route.params.subscribe(params => {
         this.formDatosBasicos.tipoInicio = params["tipoInicio"];
     });*/
+  }
+
+  elegirRangoEdad(edad){
+    if(edad >= 18 && edad <= 28){
+      this.registroFg.controls.rangoEdad.setValue('18-28');
+    }else if(edad >=29 && edad <= 39){
+      this.registroFg.controls.rangoEdad.setValue('29-39');
+    }else if(edad >= 40 && edad <= 50){
+      this.registroFg.controls.rangoEdad.setValue('40-50');
+    }else if(edad >= 51 && edad <= 61){
+      this.registroFg.controls.rangoEdad.setValue('51-61');
+    }else if(edad >= 62){
+      this.registroFg.controls.rangoEdad.setValue('>=62');
+    }
+  }
+
+  filtrarRegion(event) {
+    let filtered : any[] = [];
+    let query = event.query;
+    for(let i = 0; i < this.departamentoOptions.length; i++) {
+        let departamento = this.departamentoOptions[i];
+
+        if (departamento.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          filtered.push(departamento);
+        }
+    }
+    
+    this.regionesFiltradas = filtered;
   }
 
   obtenerPaciente(cedula): void {
