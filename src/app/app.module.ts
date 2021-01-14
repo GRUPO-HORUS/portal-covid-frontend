@@ -103,6 +103,7 @@ import {ListaPacientesComponent} from "./pages/covid19/carga-operador/lista-paci
 import { GrillaPrimerContactoComponent } from "./pages/covid19/carga-operador/grilla-primer-contacto.component";
 import { GrillaCensoContactosComponent } from "./pages/covid19/carga-operador/grilla-censo-contactos.component";
 import { EditarFichaMonitoreoComponent } from "./pages/covid19/carga-operador/editar-ficha-monitoreo.component";
+import { GrillaFormCensoContactoComponent } from "./pages/covid19/carga-operador/grilla-form-censo-contacto.component";
 
 @NgModule({
   // Declaración de componentes
@@ -155,10 +156,11 @@ import { EditarFichaMonitoreoComponent } from "./pages/covid19/carga-operador/ed
     Contactos,
     PrimerContactoComponent,
     ListaPacientesComponent,
-    
     EditarFichaMonitoreoComponent,
     GrillaPrimerContactoComponent,
-    GrillaCensoContactosComponent
+    GrillaCensoContactosComponent,
+    
+    GrillaFormCensoContactoComponent
   ],
   // dependencias de módulos
   imports: [

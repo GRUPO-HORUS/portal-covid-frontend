@@ -915,7 +915,7 @@ consultarIdentificaciones(event) {
     this.primerContacto.telefono = this.formGroup.controls.telefono.value;
     this.primerContacto.hospitalizado = this.formGroup.controls.hospitalizado.value;
     this.primerContacto.fallecido = this.formGroup.controls.fallecido.value;
-    this.primerContacto.regionSanitariaId = this.formGroup.controls.departamento.value.id;
+    this.primerContacto.regionSanitaria = this.formGroup.controls.departamento.value.id;
     if(this.formGroup.controls.tipoExposicion.value){
       this.primerContacto.tipoExposicion = this.formGroup.controls.tipoExposicion.value;
     }else{

@@ -17,8 +17,8 @@ import { FormCensoContacto } from "../model/formCensoContacto.model";
 declare var $: any;
 
 @Component({
-  selector: "grilla-censo-contactos",
-  templateUrl: "./grilla-censo-contactos.component.html",
+  selector: "grilla-form-censo-contacto",
+  templateUrl: "./grilla-form-censo-contacto.component.html",
   providers: [Covid19Service],
   styles: [`
         .outofstock {
@@ -35,7 +35,7 @@ declare var $: any;
         }`
     ]
 })
-export class GrillaCensoContactosComponent implements OnInit {
+export class GrillaFormCensoContactoComponent implements OnInit {
 
   public loading: boolean;
   public mensaje: string;
@@ -202,8 +202,7 @@ formCensoContacto;
 public username;
 public usuarioId;
 public distritosUsuario = [];
-public distritosFiltrados: any[];
-public distritosOptions: any[];
+showDerivarCoordinador: boolean = false;
 
   constructor(
     private _router: Router,
@@ -253,17 +252,16 @@ public distritosOptions: any[];
 
     this.contactoFg = this.formBuilder.group({
       fechaContacto: [''],
-      cedula: ['', Validators.required],
-      nombre: ['',Validators.required],
-      apellido: ['',Validators.required],
+      cedula: [''],
+      nombre: [''],
+      apellido: [''],
       fechaNacimiento: [''],
       telefono: ['', Validators.compose([Validators.required, Validators.minLength(9)])],
       direccion: [''],
       sexo: [''],
       regionSanitaria: [''],
       fechaExposicion: [''],
-      catContagio:[''],
-      distrito:[]
+      catContagio:['']
       /*fechaInicioSintomas: ['', Validators.required],
       fechaCierreCaso: ['', Validators.required],*/
     });
@@ -273,31 +271,21 @@ public distritosOptions: any[];
       this.cedulaPaciente = params["cedula"];
     });*/
 
-    this.cols = [{ field: 'fechaCierreCaso', header: 'Fecha de Cierre', width: '9%' },
-        { field: 'nroDocumento', header: 'Nro de Documento', width: '8%'},
-        { field: 'nombres', header: 'Nombres', width: '11%' },
-        { field: 'apellidos', header: 'Apellidos', width: '11%' },
-        { field: 'telefono', header: 'Teléfono', width: '8%' },
-        { field: 'departamento', header: 'Departamento', width: '10%' },
-        //{ field: 'distrito', header: 'Distrito', width: '8%' },
-        //{ field: 'hospitalizado', header: 'Internado', width: '8%' },
-        //{ field: 'fallecido', header: 'Fallecido', width: '6%' },
-        //{ field: 'tipoExposicion', header: 'Tipo de Exposición', width: '9%' },
-        { field: 'fechaInicioSintomas', header: 'Fecha de Inicio de Síntomas', width: '9%' },
-        { field: 'estadoLlamadaCensoContacto', header: 'Estado de Llamada', width: '11%' },
-        { field: 'cantidadContactos', header: 'Cantidad de Contactos', width: '9%' }];
-        //{ field: '', header: 'Acciones', width: '15%' }];
-
-    
-    this.colsFormCensoContacto = [{ field: 'nroDocumento', header: 'Nro de Documento', width: '8%'},
-        { field: 'nombres', header: 'Nombres', width: '9%' },
-        { field: 'apellidos', header: 'Apellidos', width: '10%' },
-        { field: 'telefono', header: 'Teléfono', width: '8%' },
+    this.cols = [{ field: 'nroDocumento', header: 'Nro de Documento', width: '9%'},
+        { field: 'nombre', header: 'Nombres', width: '9%' },
+        { field: 'apellido', header: 'Apellidos', width: '10%' },
+        { field: 'telefono', header: 'Teléfono', width: '9%' },
         { field: 'direccion', header: 'Dirección', width: '10%' },
         { field: 'regionSanitaria', header: 'Región Sanitaria', width: '9%' },
-        { field: 'sexo', header: 'Sexo', width: '6%' },
+        { field: 'sexo', header: 'Sexo', width: '5%' },
         { field: 'fechaExposicion', header: 'Fecha de Exposición', width: '9%' },
-        { field: 'categoriacontagio', header: 'Categoría de Contagio', width: '14%' }];
+        { field: 'categoriacontagio', header: 'Categoría de Contagio', width: '15%' }];
+  }
+
+  realizarLlamada(nroDocumento){
+    //routerLink="/covid19/operador/primer-contacto/rowData.nroDocumento"
+    console.log(nroDocumento);
+    this._router.navigate(["covid19/operador/primer-contacto/", nroDocumento]);
   }
 
   load($event: any) {
@@ -312,10 +300,12 @@ public distritosOptions: any[];
       else
         this.sortAsc = false;
     }
-    this.buscarContactos('llamada_realizada');
+    if($event.globalFilter){
+      this.buscarContactos();
+    }
   }
 
-buscarContactos(opcionFiltro){
+buscarContactos(){
   this.service.getDistritosUsuario(this.usuarioId).subscribe(distritos => {
     for (let i = 0; i < distritos.length; i++) {
       this.distritosUsuario.push(distritos[i].distritoId);
@@ -324,12 +314,11 @@ buscarContactos(opcionFiltro){
       //this.distritosOptions[i] = {nombre: d.nomdist, value: d.coddist};
     }
 
-    this.service.getPacientesCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
-      this.distritosUsuario, opcionFiltro, this.username).subscribe(pacientes => {
-      this.pacientesList = pacientes.lista;
+    this.service.getPacientesFormCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
+      this.username, null, this.distritosUsuario).subscribe(pacientes => {
+      this.formCensoContactoList = pacientes.lista;
       this.totalRecords = pacientes.totalRecords;
-      console.log(this.pacientesList);
-      
+      console.log(this.formCensoContactoList);
     });
 
   }, error => {
@@ -338,7 +327,14 @@ buscarContactos(opcionFiltro){
     this.openMessageDialog();
   }
   );
-  
+}
+
+derivarCoordinador(){
+  this.showDerivarCoordinador = true;
+}
+
+closePopupDerivar(){
+  this.showDerivarCoordinador = false;
 }
 
 consultarIdentificaciones(event) {
@@ -392,30 +388,6 @@ mostrarNuevoContacto(rowData){
   this.showPopupNuevoContacto = true;
 
   this.contactoFg.controls.regionSanitaria.setValue({nombre:rowData.departamento});
-  this.contactoFg.controls.distrito.setValue({nombre:rowData.distrito});
-
-  let coddpto ="";
-  if(rowData.departamentoId < 10){
-    coddpto = '0'+rowData.departamentoId;
-  }else{
-    coddpto = rowData.departamentoId;
-  }
-
-  console.log(coddpto);
-
-  this.service.getDistritosDepto(coddpto).subscribe(distritos => {
-    this.distritosOptions = distritos;
-    for (let i = 0; i < distritos.length; i++) {
-      let d = distritos[i];
-      this.distritosOptions[i] = { nombre: d.nomdist, valor: d.coddist };
-    }
-       
-  }, error => {
-    console.log(error);
-    this.mensaje = error.error;
-    this.openMessageDialog();
-  }
-  );
 }
 
 guardarNuevoContacto(){
@@ -427,15 +399,10 @@ guardarNuevoContacto(){
   formCensoContacto.direccion = this.contactoFg.controls.direccion.value;
   formCensoContacto.telefono = this.contactoFg.controls.telefono.value;
   formCensoContacto.sexo = this.contactoFg.controls.sexo.value;
-  
+  formCensoContacto.regionSanitaria = this.contactoFg.controls.regionSanitaria.value.nombre;
   formCensoContacto.fechaExposicion = this.contactoFg.controls.fechaExposicion.value;
   formCensoContacto.categoriaContagio = this.contactoFg.controls.catContagio.value;
   formCensoContacto.primerContactoId = this.primerContactoId;
-
-  formCensoContacto.regionSanitariaId = this.contactoFg.controls.regionSanitaria.value.valor;
-  formCensoContacto.regionSanitaria = this.contactoFg.controls.regionSanitaria.value.nombre;
-  formCensoContacto.distritoId = this.contactoFg.controls.distrito.value.valor;
-  formCensoContacto.distrito = this.contactoFg.controls.distrito.value.nombre;
 
   this.service.guardarNuevoContacto(formCensoContacto).subscribe(response => {
     this.idRegistro = +response;
@@ -454,20 +421,6 @@ guardarNuevoContacto(){
   );
 }
 
-filtrarDistrito(event) {
-  let filtered : any[] = [];
-  let query = event.query;
-  for(let i = 0; i < this.distritosOptions.length; i++) {
-      let distrito = this.distritosOptions[i];
-
-      if (distrito.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
-        filtered.push(distrito);
-      }
-  }
-  
-  this.distritosFiltrados = filtered;
-}
-
 cerrarNuevoContacto(){
   this.showPopupNuevoContacto = false;
 }
@@ -476,20 +429,18 @@ openMessageDialogExito() {
   setTimeout(function() { $("#modalExito").modal("toggle"); }, 1000);
 }
 
-mostrarListFormCensoContacto(rowData){
-  //console.log(rowData.id);
+/*mostrarListFormCensoContacto(rowData){
   this.showListFormCensoContacto = true;
   this.buscarFormCensoContacto(rowData.id);
 }
 
 buscarFormCensoContacto(primerContactoId){
-  this.service.getPacientesFormCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
-    this.username, primerContactoId, []).subscribe(pacientes => {
+  this.service.getPacientesFormCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, this.username, primerContactoId).subscribe(pacientes => {
     this.formCensoContactoList = pacientes.lista;
     this.totalRecords = pacientes.totalRecords;
     console.log(this.formCensoContactoList);
   });
-}
+}*/
 
 closeListFormCensoContacto(){
   this.showListFormCensoContacto = false;
@@ -505,7 +456,7 @@ borrarFormCensoContacto(){
     this.idRegistro = +response;
     this.loading = false;
     this.showPopupBorrarFormCensoContacto = false;
-    this.buscarFormCensoContacto(this.formCensoContacto.primerContactoId)
+    //this.buscarFormCensoContacto(this.formCensoContacto.primerContactoId)
     this.mensaje = "Contacto borrado exitosamente!";
     this.openMessageDialogExitoBorrado();
       
@@ -538,7 +489,7 @@ loadF($event: any) {
     else
       this.sortAsc = false;
   }
-  this.buscarFormCensoContacto(1);
+  //this.buscarFormCensoContacto(1);
 }
 
 filtrarRegion(event) {
@@ -716,7 +667,7 @@ filtrarRegion(event) {
       this.openMessageDialog();
       this.showEditarContacto = false;
 
-      this.buscarContactos(this.contactoOption);
+      this.buscarContactos();
     }, error => {
       if(error.status == 401)
       {
@@ -779,7 +730,7 @@ filtrarRegion(event) {
       this.agregarContactoFormGroup.controls.fechaUltimoContacto.setValue(null);
       this.agregarContactoFormGroup.controls.tipo.setValue(null);
 
-      this.buscarContactos(this.contactoOption);
+      this.buscarContactos();
     }, error => {
       if(error.status == 401)
       {
@@ -812,7 +763,7 @@ filtrarRegion(event) {
       this.openMessageDialog();
       this.showBorrarContacto = false;
 
-      this.buscarContactos(this.contactoOption);
+      this.buscarContactos();
     }, error => {
       if(error.status == 401)
       {
@@ -878,7 +829,7 @@ filtrarRegion(event) {
   }
 
   guardarNoSeContacto(){
-    this.primerContacto.estadoLlamadaCensoContacto = this.motivosFormGroup.controls.motivoNoContacto.value;
+    this.primerContacto.estadoPrimeraLlamada = this.motivosFormGroup.controls.motivoNoContacto.value;
     this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
       this.loading = false;
       this.mensaje= "Motivo guardado exitosamente.";
@@ -913,7 +864,7 @@ filtrarRegion(event) {
     this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
       this.loading = false;
       this.mensaje= "Estado de la llamada guardado exitosamente.";
-      this.buscarContactos(this.contactoOption);
+      this.buscarContactos();
       this.showLlamadaRealizada = false;
       this.openMessageDialog();
     }, error => {
@@ -1021,7 +972,7 @@ filtrarRegion(event) {
     this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
       this.loading = false;
       this.mensaje= "Registro finalizado exitosamente.";
-      this.buscarContactos(this.contactoOption);
+      this.buscarContactos();
       this.showRegistroFinalizado = false;
       this.openMessageDialog();
     }, error => {

@@ -22,6 +22,7 @@ export class PrimerContacto {
     regionSanitaria: string;
     regionSanitariaId: number;
     fechaUltimaLlamada: string;
+    estadoLlamadaCensoContacto: string;
 
     editado: boolean;
 }

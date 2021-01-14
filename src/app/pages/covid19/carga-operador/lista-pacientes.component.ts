@@ -7,6 +7,9 @@ import * as FileSaver from 'file-saver';
 import { Router } from "@angular/router";
 
 import * as Excel from "exceljs";
+import { StorageManagerService } from "../../login/shared/storage-manager.service";
+
+declare var $: any;
 
 @Component({
     selector: "lista-pacientes-selector",
@@ -26,24 +29,34 @@ export class ListaPacientesComponent implements OnInit{
     sortField: string;
     public loading: boolean;
 
+    public region: string;
+    public usuarioId;
+    public distritosUsuario = [];
+    public mensaje: string;
+
     constructor(
         private service: Covid19Service,
         private _router: Router,
+        private storageManager: StorageManagerService
         //private _location: Location
       ) {
         this.loading = false;
       }
 
     ngOnInit() {
+      const {usuario} = this.storageManager.getLoginData();
+      this.region = usuario.regionSanitaria;
+      this.usuarioId = usuario.id;
+
         this.cols = [{ field: 'numeroDocumento', header: 'Nro de Documento', width: '11%' },
         { field: 'nombre', header: 'Nombres', width: '20%' },
         { field: 'apellido', header: 'Apellidos', width: '20%' },
         { field: 'numeroCelular', header: 'Teléfono', width: '12%' },
         { field: 'departamentoDomicilio', header: 'Departamento', width: '14%' }];
-        //{ field: 'direccionDomicilio', header: 'Domicilio', width: '17%' },
-        //{ field: 'sexo', header: 'Tipo de Contacto', width: '9%' },
-        //{ field: 'fechaUltimoContacto', header: 'Último Contacto', width: '15%' },
-        //{ field: '', header: 'Acciones', width: '15%' }];
+        /*{ field: 'direccionDomicilio', header: 'Domicilio', width: '17%' },
+        { field: 'sexo', header: 'Tipo de Contacto', width: '9%' },
+        { field: 'fechaUltimoContacto', header: 'Último Contacto', width: '15%' },
+        { field: '', header: 'Acciones', width: '15%' }];*/
     }
 
     load($event: any) {
@@ -63,16 +76,30 @@ export class ListaPacientesComponent implements OnInit{
     }
     
     listarPacientes(){
-      this.service.listarPacientes(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField).subscribe(pacientes => {
-        this.pacientesList = pacientes.lista;
-        this.totalRecords = pacientes.totalRecords;
-    
-        console.log(this.pacientesList);   
-      });
+      this.service.getDistritosUsuario(this.usuarioId).subscribe(distritos => {
+        for (let i = 0; i < distritos.length; i++) {
+          this.distritosUsuario.push(distritos[i].distritoId);
+        }
+        this.service.listarPacientes(this.start, this.pageSize, this.filter, this.sortAsc, 
+          this.sortField, this.region, this.distritosUsuario).subscribe(pacientes => {
+          this.pacientesList = pacientes.lista;
+          this.totalRecords = pacientes.totalRecords;
+          console.log(this.pacientesList);
+        });
+      }, error => {
+        console.log(error);
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }  
+      );
+    }
+
+    openMessageDialog() {
+      setTimeout(function() { $("#miModal").modal("toggle"); }, 1000);
     }
 
     getAllPacientes(){
-      this.service.listarPacientes(0, 0, this.filter, this.sortAsc, this.sortField).subscribe(pacientes => {
+      this.service.listarPacientes(0, 0, this.filter, this.sortAsc, this.sortField, this.region, this.distritosUsuario).subscribe(pacientes => {
         this.pacientesListCompleta = pacientes.lista;
         //this.exportExcel(this.pacientesListCompleta);
 

@@ -15,6 +15,8 @@ import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 import { MatHorizontalStepper } from "@angular/material";
 import { FirstTime } from "../estado-salud/model/first-time";
 
+import {calendarEsLocale} from '../../../util/calendar-es-locale';
+
 
 
 declare var $: any;
@@ -110,7 +112,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
 
   public ciudadOptions: any[];
 
-  // recaptcha
   public recentToken: string = ''
   private subscription: Subscription;
   public recaptchaAvailable = false;
@@ -127,6 +128,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
   nroDocumento;
 
   cargando;
+
+  es = calendarEsLocale;
+
+  cedulaPaciente;
+
+  public rangoEdadOptions=[{value:'18-28',label:'18 a 28 años'}, {value:'29-39',label:'29 a 39 años'},{value:'40-50',label:'40 a 50 años'},{value:'51-61',label:'51 a 61 años'},
+  {value:'>=62',label:'62 años y más'}];
 
   constructor(
     private _router: Router,
@@ -150,13 +158,17 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     this.cedula$ = this._route.paramMap.pipe(
       map((paramMap: ParamMap) => paramMap.get('cedula')),
       distinctUntilChanged(),
+
     );
+    this._route.params.subscribe(params => {
+      this.cedulaPaciente = params["cedula"];
+      this.obtenerPaciente( this.cedulaPaciente);
+    });
     this.fields$ = this.getForm();
     
-
     const firstTime$ = this.cedula$.pipe(
       //switchMap(cedula => this.getPrimeraVez(cedula)),
-      switchMap(cedula => this.getPrimeraVez('2344555')),
+      switchMap(cedula => this.getPrimeraVez(cedula)),
     );
     //this.getPrimeraVez('2344555');
 
@@ -184,20 +196,27 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     window.scrollTo(0, 0);
 
     this.registroFg = this._formBuilder.group({
-      fechaMonitoreo: [''],
-      cedula: ['1695901', Validators.required],
-      nombre: ['Tito', Validators.required],
-      apellido: ['Ocampos', Validators.required],
+      fechaInicioMonitoreo: [''],
+      cedula: ['', Validators.required],
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
       telefono: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       direccion: ['', Validators.required],
       sexo: ['', Validators.required],
-      tipoContacto: ['hogar', Validators.required],
       servicioSalud: ['', Validators.required],
       regionSanitaria: ['', Validators.required],
       profesion: ['', Validators.required],
       funcion: ['', Validators.required],
-      lugaresServicio: ['', Validators.required]
+      otrosLugares: [[], Validators.required],
+      reingreso: [null],
+      fallecido: [null],
+      edad:[0, Validators.required],
+      rangoEdad:['', Validators.required],
+      ciudadDomicilio:['', Validators.required],
+      barrio:['', Validators.required],
+      codPaciente:['', Validators.required],
+      otroServicio:['']
     });
 
     this.casoConfirmadoFg = this._formBuilder.group({
@@ -223,12 +242,53 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
       otroClasifEspecificar: ['']
     });
 
-    //this.getRecaptchaToken('register');
     /*this._route.params.subscribe(params => {
         this.formDatosBasicos.tipoInicio = params["tipoInicio"];
     });*/
   }
 
+  obtenerPaciente(cedula): void {
+    this.loading = true;
+    this.formDatosBasicos = null;
+    this.service.getPacienteEditar(cedula).subscribe(response => {
+        console.log(response);
+        this.loading = false;
+        this.registroFg.controls.cedula.setValue(response.numeroDocumento);
+        this.registroFg.controls.nombre.setValue(response.nombre);
+        this.registroFg.controls.apellido.setValue(response.apellido);
+        this.registroFg.controls.sexo.setValue(response.sexo);
+        //this.registroFg.controls.fechaNacimiento.setValue(response.fechaNacimiento);
+        this.registroFg.controls.fechaNacimiento.setValue(response.fechaNacimiento.substring(8, 10)+'/'+
+        response.fechaNacimiento.substring(5, 7)+'/'+response.fechaNacimiento.substring(0, 4));
+
+        this.registroFg.controls.fechaInicioMonitoreo.setValue(response.fechaInicioMonitoreo.substring(8, 10)+'/'+
+        response.fechaInicioMonitoreo.substring(5, 7)+'/'+response.fechaInicioMonitoreo.substring(0, 4));
+
+        //21/10/2018
+        //this.setearFechasTabla(response.fechaInicioSintoma.substring(3, 5)+'/'+response.fechaInicioSintoma.substring(0, 2)+'/'+response.fechaInicioSintoma.substring(6, 10), 'inicio');
+       
+        this.registroFg.controls.direccion.setValue(response.direccionDomicilio);
+        this.registroFg.controls.telefono.setValue(response.numeroCelular);
+        this.registroFg.controls.edad.setValue(response.edad);
+        this.registroFg.controls.rangoEdad.setValue(response.rangoEdad);
+        this.registroFg.controls.ciudadDomicilio.setValue(response.ciudadDomicilio);
+        this.registroFg.controls.barrio.setValue(response.barrio);
+        this.registroFg.controls.regionSanitaria.setValue({nombre:response.regionSanitaria});
+      }, error => {
+        if(error.status == 401)
+        {
+          this._router.navigate(["/"]);
+        }
+        else
+        {
+          this.loading = false;
+          this.mensaje = "No se encontró un paciente con este documento.";
+          //this.response = null;
+        }
+        //this.openMessageDialog();
+      }
+    );
+  }
   onChange(event){
     this.service.getCiudadesPorDepto(event.value).subscribe(ciudades => {
       this.ciudadOptions = ciudades;

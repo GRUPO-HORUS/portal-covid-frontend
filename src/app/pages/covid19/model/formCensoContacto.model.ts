@@ -6,8 +6,13 @@ export class FormCensoContacto {
     telefono: string;
     direccion: string;
     sexo: string;
-    regionSanitaria: string;
+    
     categoriaContagio: string;
     fechaExposicion: Date;
     primerContactoId: number;
+
+    regionSanitariaId: string;
+    regionSanitaria: string;
+    distritoId: number;
+    distrito: string;
 }

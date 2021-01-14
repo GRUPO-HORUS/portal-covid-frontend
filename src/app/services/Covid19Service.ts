@@ -104,7 +104,7 @@ export class Covid19Service {
     }
 
     getPacientesFormCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string, region, username, primerContactoId): Observable<PrimerContactoTable> {
+      sortField: string, region, username, primerContactoId, distritosUsuario): Observable<PrimerContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -120,6 +120,18 @@ export class Covid19Service {
 
       if (primerContactoId)
         params = params.set('primerContactoId', primerContactoId);
+
+      if(distritosUsuario.length > 0){
+          let distritosParam="";
+          for(let i=0; i<distritosUsuario.length; i++){
+            if(i+1==distritosUsuario.length){
+              distritosParam+= distritosUsuario[i];
+            }else{
+              distritosParam+= distritosUsuario[i]+",";
+            }
+          }
+          params = params.set('distritosUsuario', distritosParam);
+      }
 
      params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
      return this.httpClient.get<PrimerContactoTable>(this.config.API + '/covid19api/aislamiento/listarFormCensoContacto/'+region, {params});
@@ -196,7 +208,7 @@ export class Covid19Service {
   }
 
     listarPacientes(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string): Observable<ContactoTable> {
+      sortField: string, region, distritosUsuario): Observable<ContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -207,8 +219,20 @@ export class Covid19Service {
      if (sortField)
        params = params.set('sortField', sortField);
 
+       if(distritosUsuario.length > 0){
+        let distritosParam="";
+        for(let i=0; i<distritosUsuario.length; i++){
+          if(i+1==distritosUsuario.length){
+            distritosParam+= distritosUsuario[i];
+          }else{
+            distritosParam+= distritosUsuario[i]+",";
+          }
+        }
+        params = params.set('distritosUsuario', distritosParam);
+      }
+
      params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
-     return this.httpClient.get<ContactoTable>(this.config.API + '/covid19api/aislamiento/listarPacientes', {params});
+     return this.httpClient.get<ContactoTable>(this.config.API + '/covid19api/aislamiento/listarPacientes/'+region, {params});
    }
 
     setearClave(idRegistro, clave): Observable<string> {

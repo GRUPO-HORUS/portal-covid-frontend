@@ -45,6 +45,7 @@ import { GrillaPrimerContactoComponent } from "./pages/covid19/carga-operador/gr
 import { EditarFichaMonitoreoComponent } from "./pages/covid19/carga-operador/editar-ficha-monitoreo.component";
 
 import { GrillaCensoContactosComponent } from "./pages/covid19/carga-operador/grilla-censo-contactos.component";
+import { GrillaFormCensoContactoComponent } from "./pages/covid19/carga-operador/grilla-form-censo-contacto.component";
 
 //Listado de rutas para la aplicación
 export const appRoutes: Routes = [
@@ -75,7 +76,7 @@ export const appRoutes: Routes = [
 
   { path: "covid19/operador/actualizar-seguimiento", component: ActualizarSeguimientoComponent},
 
-  { path: "covid19/operador/primer-contacto/1695901", component: PrimerContactoComponent},
+  { path: "covid19/operador/primer-contacto/:cedula", component: PrimerContactoComponent},
 
   { path: "covid19/operador/lista-pacientes", component: ListaPacientesComponent},
 
@@ -84,6 +85,8 @@ export const appRoutes: Routes = [
   { path: "covid19/operador/editar-ficha-monitoreo/:cedula", component: EditarFichaMonitoreoComponent},
 
   { path: "covid19/operador/grilla-censo-contactos", component: GrillaCensoContactosComponent},
+
+  { path: "covid19/operador/grilla-form-censo-contacto", component: GrillaFormCensoContactoComponent},
 
   { path: "covid19",
     component: HeaderBaseComponent,

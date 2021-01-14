@@ -20,100 +20,54 @@
                     <mat-step [stepControl]="registroFg">
                         <form [formGroup]="registroFg" class="mt-4">
                             <ng-template matStepLabel>Datos del personal sanitario</ng-template>
-                            <div class="row">
+                            <!--<div class="row">
                                 <div class="col-md">
                                     <div class="alert alert-info">
                                         <i class="fa fa-info-circle"></i> Debe completar todos los campos requeridos para avanzar al siguiente paso.
                                     </div>
                                 </div>
-                                
                             </div>
-                            
-                            <h4>Datos del Caso Confirmado</h4>
-
                             <div class="row">
+                                <div class="col-md"></div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="cedula"><strong>Número de Cédula del Caso Confirmado</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" value="1695901" required (change)="consultarIdentificaciones($event,'confirmado')">
+                                        <p-checkbox formControlName="reingreso" [binary]="true" label="Reingreso?" id="reingreso" class="ml-5"></p-checkbox>
                                     </div>
                                 </div>
-                                <div class="col-md">
-
-                                </div>
-                            </div>
-                        <div class="row">
-                            <div class="col-md">
-                                <div class="form-group">
-                                    <label for="nombre"><strong>Nombres</strong><span style="color: red;"> *</span></label>
-                                    <input type="text" formControlName="nombre" name="nombre" class="form-control" id="nombre" required>
-                                </div>
-                            </div>
-                            <div class="col-md">
-                                <div class="form-group">
-                                    <label for="nombre"><strong>Apellidos</strong><span style="color: red;"> *</span></label>
-                                    <input type="text" formControlName="apellido" name="apellido" class="form-control" id="apellido" required>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md">
-                                <div class="form-group">
-                                    <label for="sexo"><strong>Tipo de Contacto</strong><span style="color: red;"> *</span></label>
-                                    <br>
-                                    <p-dropdown id="sexo" [options]="tipoContactoOptions" label="label" placeholder="Seleccionar" formControlName="tipoContacto" name="sexo" [style]="{'width':'515px'}" required></p-dropdown>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-md">
-                                <div class="form-group">
-                                    <label for="fechaMonitoreo"><strong>Fecha de último Contacto:</strong></label>
-                                    <br>
-                                    <input type="date" id="fechaMonitoreo" formControlName="fechaMonitoreo" style="width: 515px;" value="{{fechaHoy}}">
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <h4>Datos del Contacto</h4>   
+                                <div class="col-md"></div>
+                            </div>-->
+                            
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="fechaMonitoreo"><strong>Fecha de inicio del monitoreo:</strong></label>
                                         <br>
-                                        <input type="date" id="fechaMonitoreo" formControlName="fechaMonitoreo" style="width: 515px;" value="{{fechaHoy}}">
+                                        <!--<input type="date" id="fechaMonitoreo" formControlName="fechaMonitoreo" style="width: 515px;" value="{{fechaHoy}}">-->
+                                        <p-calendar formControlName="fechaInicioMonitoreo" id="fechaInicioMonitoreo" name="fechaInicioMonitoreo" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
                                     </div>
                                 </div>
-                                <div class="col-md">
-
-                                </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="cedula"><strong>Número de Cédula</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="consultarIdentificaciones($event, 'registro')">
+                                        <label for="cedula"><strong>Número de Cédula</strong></label><!--<span style="color: red;"> *</span>-->
+                                        <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="consultarIdentificaciones($event.target.value, 'registro')">
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.numeroDocumento" class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ej. 123456" required>-->
                                     </div>
-                                </div>
-                                <div class="col-md">
-
                                 </div>
                             </div>
         
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="nombre"><strong>Nombres</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="nombre" class="form-control" id="nombre" name="nombre" required disabled>
-                                        <!--<input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" id="nombre" required>-->
+                                        <label for="nombre"><strong>Nombres</strong></label>
+                                        <input type="text" *ngIf="!fallaSII" formControlName="nombre" class="form-control" id="nombre" name="nombre" required disabled>
+                                        <input type="text" *ngIf="fallaSII" formControlName="nombre" class="form-control" id="nombre" name="nombre" required>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="apellido"><strong>Apellidos</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="apellido" class="form-control" id="apellido" name="apellido" required disabled>
+                                        <label for="apellido"><strong>Apellidos</strong></label>
+                                        <input type="text" *ngIf="!fallaSII" formControlName="apellido" class="form-control" id="apellido" name="apellido" required disabled>
+                                        <input type="text" *ngIf="fallaSII" formControlName="apellido" class="form-control" id="apellido" name="apellido" required>
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" id="nombre" required>-->
                                     </div>
                                 </div>  
@@ -121,64 +75,178 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="fechaNacimiento"><strong>Fecha de nacimiento:</strong><span style="color: red;"> *</span></label><!--value="1980-01-01"-->
-                                        <br>
-                                        <input type="date" id="fechaNacimiento" style="width: 515px;" formControlName="fechaNacimiento" disabled>
+                                        <label for="fechaNacimiento"><strong>Fecha de nacimiento:</strong></label><!--value="1980-01-01"-->
+                                        <input type="date" id="fechaNacimiento" *ngIf="fallaSII" style="width: 515px;" formControlName="fechaNacimiento">
+                                        <input type="text" *ngIf="!fallaSII" formControlName="fechaNacimiento" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required disabled>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="direccion"><strong>Dirección</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="direccion" name="direccion" class="form-control" id="direccion" required>
-                                        <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control" id="direccionDomicilio" required>-->
+                                        <label for="sexo"><strong>Sexo</strong></label>
+                                        <input type="text" *ngIf="!fallaSII" formControlName="sexo" name="sexo" class="form-control" id="sexo" maxlength="1" disabled>
+                                        <br><p-dropdown id="sexo" *ngIf="fallaSII" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'515px'}" required></p-dropdown>
                                     </div>
                                 </div>
-                                
                             </div>
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="sexo"><strong>Sexo</strong><span style="color: red;"> *</span></label>
-                                        <br>
-                                        <p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'515px'}" required></p-dropdown>
-                                        <!--<p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.tipoDocumento" name="sexo" [style]="{'width':'350px'}" required></p-dropdown>-->
-                                    </div>
-                                </div>
-                                <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="numeroCelular"><strong>Número de teléfono</strong><span style="color: red;"> *</span></label>
+                                        <label for="numeroCelular"><strong>Número de teléfono</strong></label>
                                         <input type="text" formControlName="telefono" class="form-control" id="telefono" name="telefono" placeholder="Ej. 0961123456" required>
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.numeroCelular" class="form-control" id="numeroCelular" name="numeroCelular" placeholder="Ej. 0961123456" minlength="6" required>-->
                                     </div>
                                 </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="regionSanitaria"><strong>Departamento</strong></label>
+                                        <br>
+                                        <!--<p-dropdown id="regionSanitaria" [options]="regionSanitariaOptions" label="label" placeholder="Seleccionar" formControlName="regionSanitaria" name="regionSanitaria" [style]="{'width':'515px'}" required></p-dropdown>-->
+                                        <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'515px'}" required></p-autoComplete>
+                                    </div>
+                                </div>
                             </div>
-        
-                            <!--<div class="form-group">
-                                <input ngx-google-places-autocomplete [options]="options" #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)"/>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="barrio"><strong>Barrio</strong></label>
+                                        <input type="text" formControlName="barrio" class="form-control" id="barrio" name="barrio" required>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="ciudadDomicilio"><strong>Ciudad</strong></label>
+                                        <input type="text" formControlName="ciudadDomicilio" class="form-control" id="ciudadDomicilio" name="ciudadDomicilio" required>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="contrasenha"><strong>Clave de seguridad </strong></label>
-                                <input type="password" [(ngModel)]="formDatosBasicos.contrasenha" class="form-control" id="contrasenha" style="max-width: 300px;" name="contrasenha" minlength="8" required>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="direccion"><strong>Dirección</strong></label>
+                                        <input type="text" formControlName="direccion" name="direccion" class="form-control" id="direccion" required>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="contrasenhaConfirm"><strong>Confirmar Clave de seguridad</strong></label>
-                                <input type="password" [(ngModel)]="contrasenhaConfirm" name="contrasenhaConfirm" class="form-control" style="max-width: 300px;" id="contrasenhaConfirm" required>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="edad"><strong>Edad</strong></label>
+                                        <input type="number" formControlName="edad" class="form-control" id="edad" name="edad" required (change)="elegirRangoEdad($event.target.value)">
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="rangoEdad"><strong>Rango de edad</strong></label>
+                                        <br><p-dropdown id="rangoEdad" [options]="rangoEdadOptions" label="label" placeholder="Seleccionar" formControlName="rangoEdad" name="rangoEdad" [style]="{'width':'515px'}" required [disabled]=true></p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="funcion"><strong>Código de Paciente</strong></label>
+                                        <input type="text" formControlName="codPaciente" name="codPaciente" class="form-control"  id="codPaciente">
+                                    </div>
+                                </div>
+                                <div class="col-md"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group" *ngIf="!registroFg.controls.otroServicio.value">
+                                        <label for="servicioSalud"><strong>Servicio de salud Notificante</strong><span style="color: red;"> * (Campo obligatorio)</span></label>
+                                        <br>
+                                        <p-autoComplete id="servicioSalud" formControlName="servicioSalud" [suggestions]="serviSaludFiltrados" field="nombre" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="otroServicio" [binary]="true" label="Otro Servicio de Salud que no esté en la lista" id="otroServicio" (click)="setearServicioSalud()"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group" *ngIf="registroFg.controls.otroServicio.value">
+                                        <label for="servicioSalud"><strong>Especificar Otro Servicio de Salud Notificante</strong><span style="color: red;"> * (Al marcar otro servicio, este campo es obligatorio)</span></label>
+                                        <input type="text" formControlName="servicioSalud" name="servicioSalud" class="form-control" id="servicioSalud" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="profesion"><strong>Profesión-Especialidad</strong></label>
+                                        <br>
+                                        <p-autoComplete id="profesion" formControlName="profesion" [suggestions]="profesionesFiltradas" field="nombre" (completeMethod)="filtrarProfesion($event)" [inputStyle]="{'width':'1060px'}" [forceSelection]="true" required></p-autoComplete>
+                                    </div>
+                                </div>
+                            </div>-->
+                            <!--<div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="funcion"><strong>Función</strong></label>
+                                        <p-autoComplete id="funcion" formControlName="funcion" [suggestions]="funcionesFiltradas" field="nombre" (completeMethod)="filtrarFuncion($event)" [inputStyle]="{'width':'515px'}" required></p-autoComplete>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="otrosLugares"><strong>Otros lugares donde presta servicio</strong></label><br>
+                                        <p-multiSelect [options]="lugares" formControlName="otrosLugares" defaultLabel="Seleccione" optionLabel="nombre" class="multiselect-custom" [style]="{'width':'515px'}">
+                                            
+                                            <ng-template let-value pTemplate="selectedItems">
+                                                <div class="country-item country-item-value mb-2" *ngFor="let option of registroFg.controls.otrosLugares.value">
+                                                    <div>{{option.nombre}}</div><span><i class="fa fa-hospital ml-2"></i></span>
+                                                </div>
+                                                <div *ngIf="!registroFg.controls.otrosLugares.value || registroFg.controls.otrosLugares.value.length === 0" class="country-placeholder">
+                                                    Seleccione los lugares
+                                                </div>
+                                            </ng-template>
+                                        </p-multiSelect>
+                                    </div>
+                                </div>
+                            </div>-->
+
+                            <!--<div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="reingreso" [binary]="true" label="Reingreso?" id="reingreso"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="fallecido" [binary]="true" label="Fallecido/a?" id="fallecido"></p-checkbox>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="internado" [binary]="true" label="Internado/a?" id="internado" (onChange)="verifEstablecimiento()"></p-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="registroFg.controls.internado.value">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="establecimiento"><strong>Establecimiento</strong><span style="color: red;"> *</span></label><br>
+                                        <p-autoComplete id="establecimiento" formControlName="establecimiento" [suggestions]="establecimientosFiltrados" field="nombre" (completeMethod)="filtrarEstablecimiento($event)" [inputStyle]="{'width':'515px'}" required></p-autoComplete>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="especialidad"><strong>Especialidad</strong><span style="color: red;"> *</span></label>
+                                        <input type="text" formControlName="especialidad" name="especialidad" class="form-control"  id="especialidad" required>
+                                    </div>
+                                </div>
                             </div>-->
         
-                            <div class="text-center" *ngIf="loading">
-                                <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> Guardando...
-                            </div>
-        
                             <div class="clearfix"><br/></div>
-        
                             <div class="clearfix">
                             <!--<table>
                                 <tr>
                                     <td>
                                         <button (click)="registrar(formDatosBasicos)" type="submit" class="btn btn-success btn-success-next" [disabled]="!registroForm.form.valid || loading">
-                                                Guardar
-                                                <span class="fa fa-check"></span>            
-                                            </button>
+                                                Guardar<span class="fa fa-check"></span>            
+                                        </button>
                                     </td>
                                 </tr>
                             </table>-->
@@ -188,75 +256,11 @@
                                     <button class="btn btn-success btn-success-next text-white mr-3" mat-button routerLink="/covid19/home-operador">
                                         Menú Principal  <span class="fa fa-arrow-left"></span>            
                                     </button>
-
-                                    <button class="btn btn-success btn-success-next text-white mr-3" mat-button matStepperNext>Siguiente</button>
+                                    <button class="btn btn-success btn-success-next text-white mr-3" mat-button matStepperNext [disabled]="registroFg.controls.servicioSalud.value == null">Siguiente</button>
                                 </div>
                             </div>     
                         </form>
                     </mat-step>
-                    <!--<mat-step [stepControl]="casoConfirmadoFg">
-                        <form [formGroup]="casoConfirmadoFg" class="mt-4">
-                            <ng-template matStepLabel>Datos del caso confirmado</ng-template>
-                            <div class="row">
-                                <div class="col-md">
-                                    <div class="alert alert-info">
-                                        <i class="fa fa-info-circle"></i> Debe completar todos los campos requeridos para avanzar al siguiente paso.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="cedula"><strong>Número de Cédula del Caso Confirmado</strong><span style="color: red;"> *</span></label>
-                                        <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="consultarIdentificaciones($event,'confirmado')">
-                                    </div>
-                                </div>
-                                <div class="col-md">
-
-                                </div>
-                            </div>
-                        <div class="row">
-                            <div class="col-md">
-                                <div class="form-group">
-                                    <label for="nombre"><strong>Nombres</strong><span style="color: red;"> *</span></label>
-                                    <input type="text" formControlName="nombre" name="nombre" class="form-control" id="nombre" required>
-                                </div>
-                            </div>
-                            <div class="col-md">
-                                <div class="form-group">
-                                    <label for="nombre"><strong>Apellidos</strong><span style="color: red;"> *</span></label>
-                                    <input type="text" formControlName="apellido" name="apellido" class="form-control" id="apellido" required>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md">
-                                <div class="form-group">
-                                    <label for="sexo"><strong>Sexo</strong><span style="color: red;"> *</span></label>
-                                    <br>
-                                    <p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'325px'}" required></p-dropdown>
-                                    
-                                </div>
-                            </div>
-                            <div class="col-md">
-
-                            </div>
-                        </div>
-                        <div class="clearfix"><br/></div>
-                        <div class="row">
-                            <div class="col-md">
-                                <button class="btn btn-success btn-success-next text-white mr-3" mat-button routerLink="/covid19/home-operador">
-                                    Menú Principal  <span class="fa fa-arrow-left"></span>            
-                                </button>
-
-                                <button class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button matStepperNext>Siguiente</button>
-                                <button class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button matStepperPrevious>Anterior</button>
-                            </div>
-                        </div>  
-                    </form>
-                    </mat-step>-->
                     <mat-step [stepControl]="monitoreoFg">
                         <ng-template matStepLabel>Monitoreo de Signos y Síntomas</ng-template>
                         <!--<form [formGroup]="monitoreoFg" class="mt-4">
@@ -267,9 +271,7 @@
                                         <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="consultarIdentificaciones($event, 'monitoreo')">
                                     </div>
                                 </div>
-                                <div class="col-md">
-
-                                </div>
+                                <div class="col-md"></div>
                             </div>
     
                             <div class="row">
@@ -286,11 +288,10 @@
                                     </div>
                                 </div>  
                             </div>
-                        </form>
-                        <img src="/assets/img/signos.png" width="98%">-->
+                        </form>-->
                         <h3 class="title-divider text-primary">
                             <i class="fa fa-edit mr-2" style="margin-top: -4px;"></i>
-                            <span>Actualizar Estado de Salud - Nro. de Documento: 1695901 {{cedula$|async}}</span>
+                            <span>Actualizar Estado de Salud - Nro. de Documento: {{cedula$|async}}</span>
                           </h3>
                           <form class="mt-4" [formGroup]="form" *ngIf="(form$|async) as form; else cargando">
                             <app-form-base
