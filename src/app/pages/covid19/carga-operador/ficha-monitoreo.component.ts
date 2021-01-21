@@ -213,18 +213,16 @@ export class FichaMonitoreoComponent implements OnInit {
     this.service.getLugaresServicio().subscribe(lugares => {
       this.lugares = [];
       this.lugares = lugares;
-      console.log(this.lugares.length);
+
       /*for (let i = 0; i < ciudades.length; i++) {
         let c = ciudades[i];
         this.ciudadOptions[i] = { label: c.descripcion, value: c.idCiudad };
       }*/
-         
     }, error => {
       console.log(error);
       this.mensaje = error.error;
       this.openMessageDialog();
-    }
-    );
+    });
 
     window.scrollTo(0, 0);
 
@@ -744,7 +742,7 @@ export class FichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseNeurologica = this.registroFg.controls.enfermedadNeurologica.value;
     this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseHepaticaGrave = this.registroFg.controls.enfermedadHepatica.value;
     
-    if(this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseOtros){
+    if(this.registroFg.controls.enfermedadBaseOtros.value){
       this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseOtros = this.registroFg.controls.enfermedadBaseOtros.value;
       this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseOtrosNombre = this.registroFg.controls.enfermedadBaseOtrosNombre.value;
     }
@@ -1314,15 +1312,14 @@ export class FichaMonitoreoComponent implements OnInit {
     let filtered : any[] = [];
     let query = event.query;
 
-    for(let i = 0; i < this.serviciosSalud.length; i++) {
-    //for(let i = 0; i < this.lugares.length; i++) {
+    //for(let i = 0; i < this.serviciosSalud.length; i++) {
+    for(let j = 0; j < this.lugares.length; j++) {
     //for(let lugar of this.lugares){
-      let servicio = this.serviciosSalud[i];
-      if (servicio.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+      let servicio = this.lugares[j];
+      if (servicio.denominacion.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
         filtered.push(servicio);
       }
     }
-    
     this.serviSaludFiltrados = filtered;
   }
 
@@ -1578,7 +1575,6 @@ export class FichaMonitoreoComponent implements OnInit {
       fechaSelec.setDate(fechaSelec.getDate()+1);
     }
     
-    console.log(this.fechaSelec2);
     var dd = fechaSelec.getDate();
     var mm = fechaSelec.getMonth() + 1;
     var y = fechaSelec.getFullYear();

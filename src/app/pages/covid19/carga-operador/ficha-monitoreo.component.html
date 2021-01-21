@@ -168,8 +168,7 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group" *ngIf="!registroFg.controls.otroServicio.value">
-                                        <label for="servicioSalud"><strong>Servicio de Salud Notificante</strong><span style="color: red;"> * (Campo obligatorio)</span></label>
-                                        <br>
+                                        <label for="servicioSalud"><strong>Servicio de Salud Notificante</strong><span style="color: red;"> * (Campo obligatorio)</span></label><br>
                                         <!--<input type="text" formControlName="servicioSalud" name="servicioSalud" class="form-control"  id="servicioSalud" required>-->
                                         <p-autoComplete id="servicioSalud" formControlName="servicioSalud" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
                                     </div>
@@ -211,12 +210,12 @@
                                     <div class="form-group">
                                         <label for="otrosLugares"><strong>Otros lugares donde presta servicio</strong></label><br>
                                         <!--<input type="text" formControlName="otrosLugares" name="otrosLugares" class="form-control"  id="otrosLugares" required>-->
-                                        <p-multiSelect [options]="lugares" formControlName="otrosLugares" defaultLabel="Seleccione" optionLabel="nombre" class="multiselect-custom" [style]="{'width':'515px'}" appendTo="body">
+                                        <p-multiSelect [options]="lugares" formControlName="otrosLugares" defaultLabel="Seleccione" optionLabel="denominacion" class="multiselect-custom" [style]="{'width':'515px'}" appendTo="body">
                                             
                                             <ng-template let-value pTemplate="selectedItems">
                                                 <div class="country-item country-item-value" *ngFor="let option of registroFg.controls.otrosLugares.value">
                                                     <!--<img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" />-->
-                                                    <div>{{option.nombre}}</div><span><i class="fa fa-hospital ml-2"></i></span>
+                                                    <div>{{option.denominacion}}</div><span><i class="fa fa-hospital ml-2"></i></span>
                                                 </div>
                                                 <div *ngIf="!registroFg.controls.otrosLugares.value || registroFg.controls.otrosLugares.value.length === 0" class="country-placeholder">
                                                     Seleccione los lugares
@@ -393,7 +392,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="contagioEstablecimiento"><strong>Indique el entorno asistencial</strong><span style="color: red;"> *</span></label><br>
-                                        <p-autoComplete id="contagioEstablecimiento" formControlName="contagioEstablecimiento" [suggestions]="establecimientosFiltrados" field="nombre" (completeMethod)="filtrarEstablecimiento($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                        <p-autoComplete id="contagioEstablecimiento" formControlName="contagioEstablecimiento" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required apendTo="body"></p-autoComplete>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -1022,7 +1021,7 @@
                                     <div class="form-group">
                                         <label for="establecimiento"><strong>Establecimiento</strong></label><br>
                                         <!--<input type="text" formControlName="establecimiento" name="establecimiento" class="form-control"  id="establecimiento" required>-->
-                                        <p-autoComplete id="establecimiento" formControlName="establecimiento" [suggestions]="establecimientosFiltrados" field="nombre" (completeMethod)="filtrarEstablecimiento($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                        <p-autoComplete id="establecimiento" formControlName="establecimiento" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
                                     </div>
                                 </div>
                                 <div class="col-md" *ngIf="clasificacionRiesgoFg.controls.internado.value">
