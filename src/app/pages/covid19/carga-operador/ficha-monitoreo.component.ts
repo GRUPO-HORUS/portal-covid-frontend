@@ -628,7 +628,9 @@ export class FichaMonitoreoComponent implements OnInit {
       evolucionFinal: ['', Validators.required],
       internado: [null],
       establecimiento: [],
-      especialidad: []
+      especialidad: [],
+      otroServicioInternadoCheck:[null],
+      otroServicioInternado:[]
     });
 
     this.setearFechasTabla(this.fechaHoy, 'inicio');
@@ -742,7 +744,7 @@ export class FichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseNeurologica = this.registroFg.controls.enfermedadNeurologica.value;
     this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseHepaticaGrave = this.registroFg.controls.enfermedadHepatica.value;
     
-    if(this.registroFg.controls.enfermedadBaseOtros.value){
+    if(this.registroFg.controls.enfermedadOtros.value){
       this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseOtros = this.registroFg.controls.enfermedadOtros.value;
       this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseOtrosNombre = this.registroFg.controls.enfermedadOtrosNombre.value;
     }
@@ -1224,6 +1226,11 @@ export class FichaMonitoreoComponent implements OnInit {
     }
 
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.se = this.registroFg.controls.se.value;
+
+    if(this.clasificacionRiesgoFg.controls.otroServicioInternado.value !==null){
+      this.fichaPersonalBlanco.formSeccionClasifRiesgo.otroServicioInternado = this.clasificacionRiesgoFg.controls.otroServicioInternado.value;
+    }
+
     this.service.guardarFichaPB(this.fichaPersonalBlanco).subscribe(response => {
           this.idRegistro = +response;
           //this._router.navigate(["covid19/carga-operador/datos-clinicos/",this.idRegistro]);

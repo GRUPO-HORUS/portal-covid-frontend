@@ -1015,8 +1015,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md" *ngIf="clasificacionRiesgoFg.controls.internado.value">
+                            <div class="row" *ngIf="clasificacionRiesgoFg.controls.internado.value">
+                                <div class="col-md">
                                     <!--<a href="https://www.google.com.py" target="_blank" *ngIf="clasificacionRiesgoFg.controls.constAislamiento.value">Ver Constancia</a>-->
                                     <div class="form-group">
                                         <label for="establecimiento"><strong>Establecimiento</strong></label><br>
@@ -1024,11 +1024,24 @@
                                         <p-autoComplete id="establecimiento" formControlName="establecimiento" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
                                     </div>
                                 </div>
-                                <div class="col-md" *ngIf="clasificacionRiesgoFg.controls.internado.value">
+                                <div class="col-md">
                                     <div class="form-group">
                                         <label for="especialidad"><strong>Especialidad</strong></label>
                                         <!--<input type="text" formControlName="especialidad" name="especialidad" class="form-control"  id="especialidad" required>-->
                                         <p-dropdown id="especialidad" [options]="especialidadOptions" label="label" placeholder="Seleccionar" formControlName="especialidad" name="especialidad" [style]="{'width':'515px'}" required></p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="clasificacionRiesgoFg.controls.internado.value">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="otroServicioInternadoCheck" [binary]="true" label="Otro Servicio de Salud que no esté en la lista" id="otroServicioCheck" (click)="setearServicioSalud()"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="otroServicioInternado"><strong>Especificar Otro Servicio de Salud</strong></label>
+                                        <input type="text" formControlName="otroServicioInternado" name="otroServicioInternado" class="form-control" id="otroServicioInternado">
                                     </div>
                                 </div>
                             </div>
