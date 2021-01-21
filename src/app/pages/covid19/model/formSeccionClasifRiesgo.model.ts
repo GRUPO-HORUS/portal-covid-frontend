@@ -29,4 +29,6 @@ export class FormSeccionClasifRiesgo {
     internado: boolean;
     establecimientoInternacion: string;
     especialidadInternacion: string;
+
+    se: number;
 }

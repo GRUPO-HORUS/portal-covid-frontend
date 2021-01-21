@@ -49,7 +49,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="cedula"><strong>Número de Cédula</strong></label><!--<span style="color: red;"> *</span>-->
-                                        <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="consultarIdentificaciones($event.target.value, 'registro')">
+                                        <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="consultarIdentificaciones($event, 'registro')">
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.numeroDocumento" class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ej. 123456" required>-->
                                     </div>
                                 </div>
@@ -108,14 +108,14 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="barrio"><strong>Barrio</strong></label>
-                                        <input type="text" formControlName="barrio" class="form-control" id="barrio" name="barrio" required>
+                                        <label for="ciudadDomicilio"><strong>Ciudad</strong></label>
+                                        <input type="text" formControlName="ciudadDomicilio" class="form-control" id="ciudadDomicilio" name="ciudadDomicilio" required>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="ciudadDomicilio"><strong>Ciudad</strong></label>
-                                        <input type="text" formControlName="ciudadDomicilio" class="form-control" id="ciudadDomicilio" name="ciudadDomicilio" required>
+                                        <label for="barrio"><strong>Barrio</strong></label>
+                                        <input type="text" formControlName="barrio" class="form-control" id="barrio" name="barrio" required>
                                     </div>
                                 </div>
                             </div>
@@ -273,7 +273,6 @@
                                 </div>
                                 <div class="col-md"></div>
                             </div>
-    
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
@@ -300,21 +299,18 @@
                                 [fields]="fields$|async"></app-form-base>
                             <div class="p-grid">
                               <div class="p-col">
-                  
+                                
+                                 <!--(click)="onSaveClick()">-->
                                 <button type="submit"
                                         class="btn btn-success btn-success-next mr-2"
                                         [disabled]="loading"
-                                        (click)="onSaveClick()"
-                                        >
-                                  Guardar
-                                  <span class="fa fa-check"></span>
+                                        (click)="actualizarDatosRealizarLlamada()">
+                                  Guardar <span class="fa fa-check"></span>
                                 </button>
-                                <button class="btn btn-success btn-success-next" (click)="goBack()"
-                                        [disabled]="loading"
-                                >
-                                  Cancelar
-                                  <span class="fa fa-times"></span>
-                                </button>
+                                <!--<button class="btn btn-success btn-success-next" (click)="goBack()"
+                                        [disabled]="loading">
+                                  Cancelar<span class="fa fa-times"></span>
+                                </button>-->
                               </div>
                             </div>
                           </form>
@@ -1157,26 +1153,21 @@
                 </div>
             </div>
 
-            <!--<div class="modal fade" id="modalTerminosIE" tabindex="-1" role="dialog" aria-labelledby="modalTerminosIELabel" aria-hidden="true">
-                <div style="max-width:1100px;" class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content p-4">
+            <div class="modal fade" id="modalExito" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
                         <div class="modal-header">
-                            <h2 class="modal-title" id="modalTerminosIELabel">
-                                Términos y Condiciones
-                            </h2>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            <h5 class="modal-title" id="exampleModalLabel">Aviso</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         </div>
-                        <div class="modal-body row">
-                            <ie-terminos-template></ie-terminos-template>
+                        <div class="modal-body">{{mensaje}}
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" routerLink="/covid19/operador/grilla-form-censo-contacto"><i class="fa fa-remove"></i>  Cerrar</button>
                         </div>
                     </div>
                 </div>
-            </div>-->
+            </div>
         </div>
     </div>
 </div>

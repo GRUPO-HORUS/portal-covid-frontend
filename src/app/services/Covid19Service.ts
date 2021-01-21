@@ -6,6 +6,7 @@ import { FormDatosBasicos } from "../../app/pages/covid19/model/formDatosBasicos
 import {ContactoTable} from '../pages/covid19/model/contacto-table.model';
 import { FormDatosBasicosPB } from "../pages/covid19/model/formDatosBasicosPB.model";
 import { PrimerContactoTable } from "../pages/covid19/model/primer-contacto-table.model";
+import { FormCensoContactoTable } from "../pages/covid19/model/form-censo-contacto-table.model";
 
 @Injectable()
 export class Covid19Service {
@@ -91,8 +92,21 @@ export class Covid19Service {
       return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/clasifRiesgo', clasifRiesgo);
     }
 
+    //Al crear contacto
+    guardarPaciente(fichaPersonalBlanco): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/guardarPaciente/', fichaPersonalBlanco);
+    }
+
+    actualizarDatosRealizarLlamada(fichaPersonalBlanco): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/actualizarDatosRealizarLlamada', fichaPersonalBlanco);
+    }
+
     guardarNuevoContacto(formCensoContacto): Observable<string> {
       return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/guardarNuevoContacto/', formCensoContacto);
+    }
+
+    editarFormCensoContacto(formCensoContacto): Observable<string> {
+      return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/editarFormCensoContacto', formCensoContacto);
     }
 
     borrarFormCensoContacto(formCensoContacto): Observable<string> {
@@ -104,7 +118,7 @@ export class Covid19Service {
     }
 
     getPacientesFormCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string, region, username, primerContactoId, distritosUsuario): Observable<PrimerContactoTable> {
+      sortField: string, region, username, primerContactoId, distritosUsuario): Observable<FormCensoContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -134,7 +148,7 @@ export class Covid19Service {
       }
 
      params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
-     return this.httpClient.get<PrimerContactoTable>(this.config.API + '/covid19api/aislamiento/listarFormCensoContacto/'+region, {params});
+     return this.httpClient.get<FormCensoContactoTable>(this.config.API + '/covid19api/aislamiento/listarFormCensoContacto/'+region, {params});
    }
 
     getPacientesCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
@@ -199,15 +213,15 @@ export class Covid19Service {
      return this.httpClient.get<PrimerContactoTable>(this.config.API + '/covid19api/aislamiento/listarPrimerContacto/'+region+'/'+opcionFiltro, {params});
    }
 
-   guardarPrimerContacto(primerContacto): Observable<string> {
+  guardarPrimerContacto(primerContacto): Observable<string> {
     return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/guardarPrimerContacto/', primerContacto);
   }
 
-   editarPrimerContacto(primerContacto): Observable<string> {
+  editarPrimerContacto(primerContacto): Observable<string> {
     return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/editarPrimerContacto', primerContacto);
   }
 
-    listarPacientes(start: number, pageSize: number, filter: string, sortAsc: boolean,
+  listarPacientes(start: number, pageSize: number, filter: string, sortAsc: boolean,
       sortField: string, region, distritosUsuario): Observable<ContactoTable> {
      this.loading.next(true);
 
@@ -233,7 +247,7 @@ export class Covid19Service {
 
      params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
      return this.httpClient.get<ContactoTable>(this.config.API + '/covid19api/aislamiento/listarPacientes/'+region, {params});
-   }
+  }
 
     setearClave(idRegistro, clave): Observable<string> {
       return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/claveSeguridad/'+idRegistro, clave);

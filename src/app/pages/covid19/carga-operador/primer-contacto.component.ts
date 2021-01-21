@@ -9,15 +9,17 @@ import { Covid19Service } from '../../../services/Covid19Service';
 
 import {FormDatosBasicos} from '../model/formDatosBasicos.model';
 
-import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { FormGroup, Validators, FormBuilder } from "@angular/forms";
 
 import { MatHorizontalStepper } from "@angular/material";
 import { FirstTime } from "../estado-salud/model/first-time";
 
 import {calendarEsLocale} from '../../../util/calendar-es-locale';
+import { FichaPersonalBlanco } from "../model/fichaPersonalBlanco.model";
+import { FormSeccionClasifRiesgo } from "../model/formSeccionClasifRiesgo.model";
 
-
+import {HttpErrorResponse, HttpResponseBase} from '@angular/common/http';
+import {Location} from '@angular/common';
 
 declare var $: any;
 @Component({
@@ -142,15 +144,25 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
 
   public departamentoOptions: any[];
 
+  public fichaPersonalBlanco;
+
+  private saveClick$ = new Subject<void>();
+  errores: any;
+  private onDestroy$ = new Subject<void>();
+
+  public ultimoReporteSalud;
+
+  private updateClick$ = new Subject<void>();
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
     //private activeRoute: ActivatedRoute,
     private _route: ActivatedRoute,
-    private recaptchaV3Service: ReCaptchaV3Service,
     private _formBuilder: FormBuilder,
     private reporteSaludPacienteService: ReporteSaludPacienteService,
-    private router: Router
+    private router: Router,
+    private location: Location,
   ) {
     this.loading = false;
     if (typeof localStorage !== "undefined") {
@@ -178,7 +190,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     );
     //this.getPrimeraVez('2344555');
 
-    this.form$ = combineLatest(this.fields$, firstTime$).pipe(
+    /*this.form$ = combineLatest(this.fields$, firstTime$).pipe(
       map(([fields, firstTime]) => {
           const form = this._formBuilder.group(fields.reduce((obj, f) => {
             obj[f.fieldName] = [null];
@@ -186,13 +198,46 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
           }, {}));
           form.addControl('esPrimeraVez', this._formBuilder.control(firstTime.esPrimeraVez));
           form.addControl('debeReportarFiebreAyer', this._formBuilder.control(firstTime.debeReportarFiebreAyer));
+
+          return form;
+      }),
+      share(),
+    );*/
+
+    this.form$ = combineLatest(this.fields$, firstTime$).pipe(
+      map(([fields, firstTime]) => {
+          let form = this._formBuilder.group(fields.reduce((obj, f) => {
+            obj[f.fieldName] = [null];
+            return obj;
+          }, {}));
+          form.addControl('esPrimeraVez', this._formBuilder.control(firstTime.esPrimeraVez));
+          form.addControl('debeReportarFiebreAyer', this._formBuilder.control(firstTime.debeReportarFiebreAyer));
+
+          //console.log(this.ultimoReporteSalud);
+          if(this.ultimoReporteSalud){
+            form.controls.comoTeSentis.setValue(this.ultimoReporteSalud.comoTeSentis);
+            form.controls.signosSintomasDescritos.setValue(this.ultimoReporteSalud.signosSintomasDescritos);
+            form.controls.signosSintomasDescritosB.setValue(this.ultimoReporteSalud.signosSintomasDescritosB);
+            form.controls.congestionNasal.setValue(this.ultimoReporteSalud.congestionNasal);
+            form.controls.secrecionNasal.setValue(this.ultimoReporteSalud.secrecionNasal);
+            form.controls.dolorGarganta.setValue(this.ultimoReporteSalud.dolorGarganta);
+            form.controls.dolorCabeza.setValue(this.ultimoReporteSalud.dolorCabeza);
+            form.controls.tos.setValue(this.ultimoReporteSalud.tos);
+            form.controls.percibeOlores.setValue(this.ultimoReporteSalud.percibeOlores);
+            form.controls.percibeSabores.setValue(this.ultimoReporteSalud.percibeSabores);
+            form.controls.dificultadRespirar.setValue(this.ultimoReporteSalud.dificultadRespirar);
+            form.controls.sentisFiebre.setValue(this.ultimoReporteSalud.sentisFiebre);
+            form.controls.temperatura.setValue(this.ultimoReporteSalud.temperatura);
+            form.controls.sentisAngustia.setValue(this.ultimoReporteSalud.sentisAngustia);
+            form.controls.sentisTristeDesanimado.setValue(this.ultimoReporteSalud.sentisTristeDesanimado);
+            form.controls.otrosCansancios.setValue(this.ultimoReporteSalud.otrosCansancios);
+          }
           return form;
       }),
       share(),
     );
 
     this.fechaHoy = new Date().toLocaleDateString('fr-CA');
-    //console.log(this.fechaHoy);
     this.formDatosBasicos = new FormDatosBasicos();
 
     this.formDatosBasicos.tipoDocumento = 0;
@@ -248,9 +293,81 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
       otroClasifEspecificar: ['']
     });
 
-    /*this._route.params.subscribe(params => {
-        this.formDatosBasicos.tipoInicio = params["tipoInicio"];
-    });*/
+    //this._route.params.subscribe(params => {this.formDatosBasicos.tipoInicio = params["tipoInicio"];});
+
+     this.updateClick$
+      .pipe(
+        withLatestFrom(
+          this.cedula$,
+          this.form$,
+        ),
+        tap(([_, __, form]) => {
+          form.markAsDirty();
+          this.errores = null;
+        }),
+        switchMap(([_, cedula, form]) => this.update(cedula, form.value)),
+        takeUntil(this.onDestroy$),
+      ).subscribe(
+      (r) => {
+        if (r.ok) {
+          this.mensaje = "Datos actualizados exitosamente!";
+          this.openMessageDialogExito();
+          //this.location.back();
+        } else if (r.status === 400) {
+          const response = <HttpErrorResponse>r;
+          if (response.error.parameterViolations) {
+            this.errores = response.error.parameterViolations.reduce((validation, currentValidation) =>  {
+              const split = currentValidation.path.split(".");
+              if (!validation[split[split.length - 1]]) {
+                validation[split[split.length - 1]] = [];
+              }
+              validation[split[split.length - 1]].push(
+                currentValidation.message
+              );
+              return validation;
+            }, {});
+          }
+        }
+      }
+    );
+    
+      this.saveClick$
+      .pipe(
+        withLatestFrom(
+          this.cedula$,
+          this.form$,
+        ),
+        tap(([_, __, form]) => {
+          form.markAsDirty();
+          this.errores = null;
+        }),
+        switchMap(([_, cedula, form]) => this.save(cedula, form.value)),
+        takeUntil(this.onDestroy$),
+      ).subscribe(
+      (r) => {
+        if (r.ok) {
+          this.mensaje = "Datos guardados exitosamente!";
+          this.openMessageDialogExito();
+          //this.location.back();
+        } else if (r.status === 400) {
+          const response = <HttpErrorResponse>r;
+          if (response.error.parameterViolations) {
+            this.errores = response.error.parameterViolations.reduce((validation, currentValidation) =>  {
+              const split = currentValidation.path.split(".");
+              if (!validation[split[split.length - 1]]) {
+                validation[split[split.length - 1]] = [];
+              }
+              validation[split[split.length - 1]].push(
+                currentValidation.message
+              );
+              return validation;
+            }, {});
+          }
+        }
+      }
+    );
+    
+ 
   }
 
   elegirRangoEdad(edad){
@@ -292,12 +409,16 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.registroFg.controls.apellido.setValue(response.apellido);
         this.registroFg.controls.sexo.setValue(response.sexo);
         //this.registroFg.controls.fechaNacimiento.setValue(response.fechaNacimiento);
-        this.registroFg.controls.fechaNacimiento.setValue(response.fechaNacimiento.substring(8, 10)+'/'+
-        response.fechaNacimiento.substring(5, 7)+'/'+response.fechaNacimiento.substring(0, 4));
 
-        this.registroFg.controls.fechaInicioMonitoreo.setValue(response.fechaInicioMonitoreo.substring(8, 10)+'/'+
-        response.fechaInicioMonitoreo.substring(5, 7)+'/'+response.fechaInicioMonitoreo.substring(0, 4));
+        if(response.fechaNacimiento){
+          this.registroFg.controls.fechaNacimiento.setValue(response.fechaNacimiento.substring(8, 10)+'/'+
+          response.fechaNacimiento.substring(5, 7)+'/'+response.fechaNacimiento.substring(0, 4));
+        }
 
+        if(response.fechaInicioMonitoreo){
+          this.registroFg.controls.fechaInicioMonitoreo.setValue(response.fechaInicioMonitoreo.substring(8, 10)+'/'+
+          response.fechaInicioMonitoreo.substring(5, 7)+'/'+response.fechaInicioMonitoreo.substring(0, 4));
+        }
         //21/10/2018
         //this.setearFechasTabla(response.fechaInicioSintoma.substring(3, 5)+'/'+response.fechaInicioSintoma.substring(0, 2)+'/'+response.fechaInicioSintoma.substring(6, 10), 'inicio');
        
@@ -308,6 +429,12 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.registroFg.controls.ciudadDomicilio.setValue(response.ciudadDomicilio);
         this.registroFg.controls.barrio.setValue(response.barrio);
         this.registroFg.controls.regionSanitaria.setValue({nombre:response.regionSanitaria});
+
+        if(response.reportes){
+          this.ultimoReporteSalud = response.reportes[response.reportes.length-1];
+        }
+        
+
       }, error => {
         if(error.status == 401)
         {
@@ -319,10 +446,52 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
           this.mensaje = "No se encontró un paciente con este documento.";
           //this.response = null;
         }
-        //this.openMessageDialog();
       }
     );
   }
+
+  actualizarDatosRealizarLlamada(){
+    this.loading = true;
+    this.fichaPersonalBlanco = new FichaPersonalBlanco();
+    this.fichaPersonalBlanco.formSeccionDatosBasicos = new FormDatosBasicos();
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.tipoDocumento = "Cédula de Identidad";
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.numeroDocumento = this.registroFg.controls.cedula.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.nombre = this.registroFg.controls.nombre.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.apellido = this.registroFg.controls.apellido.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.sexo = this.registroFg.controls.sexo.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.direccionDomicilio = this.registroFg.controls.direccion.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.numeroCelular = this.registroFg.controls.telefono.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.departamentoDomicilio = this.registroFg.controls.regionSanitaria.value.nombre;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.ciudadDomicilio = this.registroFg.controls.ciudadDomicilio.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.barrio = this.registroFg.controls.barrio.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.edad = this.registroFg.controls.edad.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.rangoEdad = this.registroFg.controls.rangoEdad.value;
+
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo = new FormSeccionClasifRiesgo();
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaInicioMonitoreo = this.registroFg.controls.fechaInicioMonitoreo.value;
+
+    this.service.actualizarDatosRealizarLlamada(this.fichaPersonalBlanco).subscribe(response => {
+      /*this.loading = false;
+      this.mensaje = "Datos actualizados exitosamente!";
+      this.openMessageDialogExito();*/
+      if(this.ultimoReporteSalud){
+        this.updateClick$.next();
+      }else{
+        this.saveClick$.next();
+      }
+      }, error => {
+        console.log(error);
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog(); 
+      }
+    );
+  }
+
+  openMessageDialogExito() {
+    setTimeout(function() { $("#modalExito").modal("toggle"); }, 1000);
+  }
+
   onChange(event){
     this.service.getCiudadesPorDepto(event.value).subscribe(ciudades => {
       this.ciudadOptions = ciudades;
@@ -355,10 +524,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     localStorage.setItem('numeroCelular', formDatosBasicos.numeroCelular);
     localStorage.setItem('direccion', formDatosBasicos.direccionDomicilio);
     localStorage.setItem('email', formDatosBasicos.correoElectronico);
-
-    /*if(this.recaptchaAvailable){
-      this.formDatosBasicos.rcToken = this.recentToken;
-    }*/
     
       this.loading = true;
       this.service.guardarDatosBasicosOperador(formDatosBasicos).subscribe(response => {
@@ -406,6 +571,42 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     );
   }
 
+  onSaveClick() {
+    this.saveClick$.next();
+  }
+
+  save(cedula, model): Observable<HttpResponseBase> {
+    this.loading = true;
+    return this.reporteSaludPacienteService.enviarReporteSalud(cedula, model)
+      .pipe(
+        catchError<HttpResponseBase, HttpResponseBase>((err) => {
+          console.log('catchError', err);
+          return of(err);
+        }),
+        finalize(() => {
+          this.loading = false;
+        }),
+        share(),
+      );
+  }
+
+  update(cedula, model): Observable<HttpResponseBase> {
+    this.loading = true;
+    model.id = this.ultimoReporteSalud.id;
+    model.timestampCreacion = this.ultimoReporteSalud.timestampCreacion;
+    return this.reporteSaludPacienteService.actualizarReporteSalud(cedula, model, this.ultimoReporteSalud.registroFormulario)
+      .pipe(
+        catchError<HttpResponseBase, HttpResponseBase>((err) => {
+          console.log('catchError', err);
+          return of(err);
+        }),
+        finalize(() => {
+          this.loading = false;
+        }),
+        share(),
+      );
+  }
+
   consultarIdentificaciones(event, band) {
     this.nroDocumento = event.target.value;
     //if(formDatosBasicos.tipoDocumento==0 && formDatosBasicos.numeroDocumento){
@@ -431,8 +632,9 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
               if(band==='registro'){
                 this.registroFg.controls.nombre.setValue(response.obtenerPersonaPorNroCedulaResponse.return.nombres);
                 this.registroFg.controls.apellido.setValue(response.obtenerPersonaPorNroCedulaResponse.return.apellido);
-                this.registroFg.controls.fechaNacimiento.setValue(response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(0, 4)+'-'+
-                response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(5, 7)+'-'+response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(8, 10));
+                this.registroFg.controls.fechaNacimiento.setValue(response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(8, 10)+'/'+
+                response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(5, 7)+'/'+
+                response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(0, 4));
                 this.registroFg.controls.sexo.setValue(response.obtenerPersonaPorNroCedulaResponse.return.sexo);
               }else if(band==='monitoreo'){
 
@@ -466,18 +668,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     );
       }
     }
-  }
-
-  getRecaptchaToken(action){
-    this.subscription = this.recaptchaV3Service.execute(action)
-        .subscribe(response => {
-            this.recentToken = response;
-            this.recaptchaAvailable = true;
-        },error=>{
-          console.log("error getting recaptcha");
-          this.ngOnDestroy()
-
-        });
   }
 
   avanzar(telefono: string): void {

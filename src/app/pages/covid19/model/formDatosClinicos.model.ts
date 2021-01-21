@@ -42,6 +42,13 @@ export class FormDatosClinicos {
     public enfermedadBaseNeoplasias: string;
     public enfermedadBaseEPOC: string;
 
+    public enfermedadBaseObesidad: string;
+    public enfermedadBaseSindromeDown: string;
+    public enfermedadBaseNeurologica: string;
+
+    public enfermedadBaseOtros: string;
+    public enfermedadBaseOtrosNombre: string;
+
     /*public medioTransporte: string;
     public tipoEmpresaTransporte: string;
     public transporteNoAsiento: string;

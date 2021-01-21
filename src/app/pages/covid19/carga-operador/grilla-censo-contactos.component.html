@@ -22,21 +22,18 @@
                     <div>
                         <button (click)="obtenerPersona(cedula)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
                             Verificar<span class="fa fa-check"></span>
-                        </button>&nbsp;
-                        <button class="btn btn-secondary btn-success-next" (click)="goBack()">
-                            Volver al Menú<span class="fa fa-times"></span>
                         </button>
                     </div>
-                </form>
-                <div class="col-md-8 mb-4">
-                    <button class="btn btn-secondary btn-success-next">
-                        Generar Lista<span class="fa fa-plus"></span>
-                    </button>&nbsp;
-                    <button class="btn btn-secondary btn-success-next" (click)="volver()">
-                        Volver<span class="fa fa-arrow-left"></span>
-                    </button>
-                </div>-->
-                <div>
+                    </form>
+                    <div class="col-md-8 mb-4">
+                        <button class="btn btn-secondary btn-success-next">
+                            Generar Lista<span class="fa fa-plus"></span>
+                        </button>&nbsp;
+                        <button class="btn btn-secondary btn-success-next" (click)="volver()">
+                            Volver<span class="fa fa-arrow-left"></span>
+                        </button>
+                    </div>-->
+            <div>
 
         <p-table #dt [columns]="cols" [value]="pacientesList" selectionMode="single" dataKey="id" [paginator]="true"
         [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="load($event)"
@@ -49,8 +46,7 @@
                         <td align="right"><input type="text" pInputText style="width:500px;margin-right: 5px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')"></td>
                     </tr>
                 </table>
-                <div style="text-align: right;width:auto;">
-                        
+                <div style="text-align: right;width:auto;">     
                 </div>
                 <!--<div style="text-align: left;width:auto;">
                     <input type="text" pInputText style="width:500px;margin-right: 5px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')">
@@ -60,7 +56,7 @@
                   <button type="button" pButton icon="pi pi-file-o" iconPos="left" label="CSV" (click)="dt.exportCSV()" style="margin-right: 0.5em;" [disabled]="totalRecords===0"></button>
                   <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="XLS" (click)="exportExcel()" style="margin-right: 0.5em;" class="ui-button-success" [disabled]="totalRecords===0"></button>
                   <button type="button" pButton icon="pi pi-file-pdf" iconPos="left" label="PDF" (click)="exportPdf()" class="ui-button-warning" [disabled]="totalRecords===0"></button>
-              </div>-->
+                </div>-->
            </ng-template>
            <ng-template pTemplate="header" let-columns>
                 <tr>
@@ -224,7 +220,6 @@
                                 {{rowData.hospitalizado}}
                             </ng-template>
                         </p-cellEditor>
-
                         <p-cellEditor *ngIf="!edito">
                             <ng-template pTemplate="input">
                                 {{rowData.hospitalizado}}
@@ -409,7 +404,7 @@
 
             <p-dialog [(visible)]="showListFormCensoContacto" modal="true" header="Contactos">
                 <p-table #dtt [columns]="colsFormCensoContacto" [value]="formCensoContactoList" selectionMode="single" dataKey="id" [paginator]="true"
-                [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="loadF($event)"
+                [rows]="pageSizeF" [totalRecords]="totalRecordsF" [responsive]="true" [lazy]="true" (onLazyLoad)="loadF($event)"
                 paginatorPosition="bottom" [resizableColumns]="true" columnResizeMode="expand" editMode="row">
 
                 <ng-template pTemplate="caption">
@@ -419,46 +414,228 @@
                 </ng-template>
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                    <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn [style.width]="col.width">
-                        {{col.header}}
-                        <p-sortIcon [field]="col.field"></p-sortIcon>
-                    </th>
-                    <th>Acciones</th>
+                        <th>Acciones</th>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn [style.width]="col.width">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-rowData>
-                    <tr>
-                    <td>
-                        {{rowData.nroDocumento}}
-                    </td>
-                    <td>
-                    {{rowData.nombre}}
-                    </td>
-                    <td>
-                        {{rowData.apellido}}
-                    </td>
-                    <td>
-                        {{rowData.telefono}}
-                    </td>
-                    <td>
-                        {{rowData.direccion}}
-                    </td>
-                    <td>
-                        {{rowData.regionSanitaria}}
-                    </td>
-                    <td>
-                        {{rowData.sexo}}
-                    </td>
-                    <td>
-                        {{rowData.fechaExposicion}}
-                    </td>
-                    <td>
-                        {{rowData.categoriaContagio}}
-                    </td>
-                    <td style="width: 250px;">
-                        <button type="button" pButton icon="pi pi-pencil" iconPos="left" class="ui-button-warning mr-1 mb-1" style="font-size:10px;width:110px" label="Editar" title="Editar contacto."></button><!--(click)="showBorrarFormCensoContacto(rowData)"-->
-                        <button type="button" pButton icon="pi pi-trash" iconPos="left" (click)="showBorrarFormCensoContacto(rowData)" class="ui-button-danger mb-1" style="font-size:10px;width:110px" label="Borrar" title="Borrar contacto."></button>
-                    </td>
+                <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex">
+                    <tr [pEditableRow]="rowData">
+                        <td style="width: 164px;">
+                            <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" iconPos="left" (click)="onRowEditInit(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:90px" label="Editar" title="Editar algunas de las informaciones de las columnas exhibidas."></button>
+                            <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text ui-button-warning p-mr-2 mr-2 ml-1 mb-1 mt-1" style="background-color: green !important;"></button>
+                            <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel()" class="p-button-rounded p-button-text p-button-danger mb-1 mt-1" style="background-color: red !important;"></button><br>
+                            <button type="button" pButton icon="pi pi-trash" iconPos="left" (click)="showBorrarFormCensoContacto(rowData)" class="ui-button-danger mb-1" style="font-size:10px;width:90px" label="Borrar" title="Borrar contacto."></button>
+                        </td>
+                        <td pEditableColumn style="vertical-align: top; height: 100px;">
+                            <p-cellEditor *ngIf="edito && rowId===rowData.id">
+                                <ng-template pTemplate="input">
+                                    <div [formGroup]="formGroup">
+                                        <input pInputText style="width:85px; height:35px" type="text" formControlName="nroDocumento" (change)="consultarIdentificaciones($event)">
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.nroDocumento}}
+                                </ng-template>
+                            </p-cellEditor>
+                            <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
+                                <ng-template pTemplate="input">
+                                    {{rowData.nroDocumento}}
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.nroDocumento}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td pEditableColumn style="vertical-align: top; height: 100px;">
+                            <p-cellEditor *ngIf="edito && rowId===rowData.id">
+                                <ng-template pTemplate="input">
+                                    <div [formGroup]="formGroup">
+                                        <input pInputText style="width:120px; height:35px" type="text" formControlName="nombre">
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.nombre}}
+                                </ng-template>
+                            </p-cellEditor>
+                            <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
+                                <ng-template pTemplate="input">
+                                    {{rowData.nombre}}
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.nombre}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td pEditableColumn style="vertical-align: top; height: 100px;">
+                            <p-cellEditor *ngIf="edito && rowId===rowData.id">
+                                <ng-template pTemplate="input">
+                                    <div [formGroup]="formGroup">
+                                        <input pInputText style="width:125px; height:35px" type="text" formControlName="apellido">
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.apellido}}
+                                </ng-template>
+                            </p-cellEditor>
+                            <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
+                                <ng-template pTemplate="input">
+                                    {{rowData.apellido}}
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.apellido}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td pEditableColumn style="vertical-align: top; height: 100px;">
+                            <p-cellEditor *ngIf="edito && rowId===rowData.id">
+                                <ng-template pTemplate="input">
+                                    <div [formGroup]="formGroup">
+                                        <input pInputText style="width:100px; height:35px" type="text" formControlName="telefono">
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.telefono}}
+                                </ng-template>
+                            </p-cellEditor>
+                            <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
+                                <ng-template pTemplate="input">
+                                    {{rowData.telefono}}
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.telefono}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td pEditableColumn style="vertical-align: top; height: 100px;">
+                            <p-cellEditor *ngIf="edito && rowId===rowData.id">
+                                <ng-template pTemplate="input">
+                                    <div [formGroup]="formGroup">
+                                        <input pInputText style="width:140px; height:35px" type="text" formControlName="direccion">
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.direccion}}
+                                </ng-template>
+                            </p-cellEditor>
+                            <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
+                                <ng-template pTemplate="input">
+                                    {{rowData.direccion}}
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.direccion}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td pEditableColumn style="vertical-align: top; height: 100px;">
+                            <p-cellEditor *ngIf="edito && rowId===rowData.id">
+                                <ng-template pTemplate="input">
+                                    <div [formGroup]="formGroup">
+                                        <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="departamentosFiltrados" field="nombre" 
+                                        (completeMethod)="filtrarDepto($event)" [inputStyle]="{'width':'120px'}" [forceSelection]="true" required (onSelect)="selectDepto($event)"></p-autoComplete>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.regionSanitaria}}
+                                </ng-template>
+                            </p-cellEditor>
+    
+                            <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
+                                <ng-template pTemplate="input">
+                                    {{rowData.regionSanitaria}}
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.regionSanitaria}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td pEditableColumn style="vertical-align: top; height: 100px;">
+                            <p-cellEditor *ngIf="edito && rowId===rowData.id">
+                                <ng-template pTemplate="input">
+                                    <div [formGroup]="formGroup">
+                                        <p-autoComplete id="distrito" formControlName="distrito" [suggestions]="distritosFiltrados" field="nombre" 
+                                        (completeMethod)="filtrarDistrito($event)" [inputStyle]="{'width':'120px'}" [forceSelection]="true" required appendTo="body"></p-autoComplete>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.distrito}}
+                                </ng-template>
+                            </p-cellEditor>
+    
+                            <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
+                                <ng-template pTemplate="input">
+                                    {{rowData.distrito}}
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.distrito}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td pEditableColumn style="vertical-align: top; height: 100px;">
+                            <p-cellEditor *ngIf="edito && rowId===rowData.id">
+                                <ng-template pTemplate="input">
+                                    <div [formGroup]="formGroup">
+                                        <p-dropdown id="sexo" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'minWidth':'72px', 'width': '72px'}" required></p-dropdown>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.sexo}}
+                                </ng-template>
+                            </p-cellEditor>
+    
+                            <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
+                                <ng-template pTemplate="input">
+                                    {{rowData.sexo}}
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.sexo}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td pEditableColumn style="vertical-align: top; height: 100px;">
+                            <p-cellEditor *ngIf="edito && rowId===rowData.id">
+                                <ng-template pTemplate="input">
+                                    <div [formGroup]="formGroup">
+                                        <p-calendar formControlName="fechaExposicion" id="fechaExposicion" name="fechaExposicion" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [inputStyle]="{'width':'88px'}" appendTo="body"></p-calendar>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.fechaExposicion}}
+                                </ng-template>
+                            </p-cellEditor>
+    
+                            <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
+                                <ng-template pTemplate="input">
+                                    {{rowData.fechaExposicion}}
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.fechaExposicion}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td pEditableColumn style="vertical-align: top; height: 100px;">
+                            <p-cellEditor *ngIf="edito && rowId===rowData.id">
+                                <ng-template pTemplate="input">
+                                    <div [formGroup]="formGroup">
+                                        <p-dropdown id="categoriaContagio" [options]="catContagioOptions" appendTo="body" label="label" placeholder="Seleccionar" formControlName="categoriaContagio" name="categoriaContagio" [style]="{'minWidth':'140px', 'width': '140px'}" required></p-dropdown>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.categoriaContagio}}
+                                </ng-template>
+                            </p-cellEditor>
+    
+                            <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
+                                <ng-template pTemplate="input">
+                                    {{rowData.categoriaContagio}}
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{rowData.categoriaContagio}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
                     </tr>
                 </ng-template>
             </p-table>
@@ -547,7 +724,7 @@
                         <div class="form-group">
                             <label for="fechaExposicion"><strong>Fecha de exposición:</strong></label>
                             <!--<input type="date" id="fechaExposicion" formControlName="fechaExposicion" style="width: 325px;" value="{{fechaHoy}}">-->
-                            <br><p-calendar formControlName="fechaExposicion" id="fechaExposicion" name="fechaExposicion" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'320px'}"></p-calendar>
+                            <br><p-calendar formControlName="fechaExposicion" id="fechaExposicion" name="fechaExposicion" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'320px'}" appendTo="body"></p-calendar>
                         </div>
                     </div>
                     <div class="col-md">

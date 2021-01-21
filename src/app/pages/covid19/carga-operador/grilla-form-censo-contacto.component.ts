@@ -29,9 +29,6 @@ declare var $: any;
         .lowstock {
             font-weight: 700;
             background-color: #fff4dc !important;
-        }
-        :host ::ng-deep .row-accessories {
-            background-color: rgba(0,0,0,.15) !important;
         }`
     ]
 })
@@ -203,6 +200,7 @@ public username;
 public usuarioId;
 public distritosUsuario = [];
 showDerivarCoordinador: boolean = false;
+suspensionFormGroup: FormGroup;
 
   constructor(
     private _router: Router,
@@ -248,6 +246,10 @@ showDerivarCoordinador: boolean = false;
 
     this.motivosFormGroup = this.formBuilder.group({
       motivoNoContacto: [null,Validators.required]
+    });
+
+    this.suspensionFormGroup = this.formBuilder.group({
+      motivoSuspension: [null,Validators.required]
     });
 
     this.contactoFg = this.formBuilder.group({
@@ -998,8 +1000,33 @@ filtrarRegion(event) {
     this.showNoAtiende = true;
   }
 
-  suspenderContacto(){
+  mostrarSuspenderContacto(rowData){
+    this.formCensoContacto = rowData;
     this.showSuspenderContacto = true;
+  }
+
+  suspenderContacto(){
+    this.formCensoContacto.estadoPrimeraLlamada ="suspendido";
+    this.formCensoContacto.motivoDerivacion = this.suspensionFormGroup.controls.motivoSuspension.value;
+    this.service.editarFormCensoContacto(this.formCensoContacto).subscribe(response => {
+      this.loading = false;
+      this.mensaje= "Contacto Suspendido.";
+      this.buscarContactos();
+      this.showSuspenderContacto = false;
+      this.openMessageDialog();
+    }, error => {
+      if(error.status == 401)
+      {
+        this._router.navigate(["/"]);
+      }
+      else
+      {
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
+    }
+    );
   }
 
   closePopupNoAtiende(){

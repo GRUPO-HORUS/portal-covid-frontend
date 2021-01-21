@@ -13,6 +13,8 @@ import { CensoContacto } from "../model/censoContacto.model";
 import { Paciente } from "../model/paciente.model";
 import { PrimerContacto } from "../model/primerContacto.model";
 import { FormCensoContacto } from "../model/formCensoContacto.model";
+import { FichaPersonalBlanco } from "../model/fichaPersonalBlanco.model";
+import { FormSeccionContactoContagio } from "../model/formSeccionContactoContagio.model";
 
 declare var $: any;
 
@@ -58,15 +60,11 @@ export class GrillaCensoContactosComponent implements OnInit {
   public codigo: string;
 
   private subscription: Subscription;
-  public recentToken: string = ''
-  public recaptchaAvailable = false;
 
   public origen: string;
 
   public idRegistro: number;
   public codigoVerif: string;
-
-  public contrasenha: string;
 
   public codigoVerificacion: string;
 
@@ -81,8 +79,7 @@ export class GrillaCensoContactosComponent implements OnInit {
                               {value:"sospechoso", label: "Caso Sospechoso"},
                               {value:"alta_confirmado", label: "Alta de Caso Confirmado"},
                               {value:"alta_aislamiento", label: "Alta de Aislamiento"},
-                              {value:"fallecido", label: "Fallecido"}
-                             ];
+                              {value:"fallecido", label: "Fallecido"}];
   actualizarDiagnosticoFormGroup: FormGroup;
 
   es = {
@@ -127,7 +124,6 @@ export class GrillaCensoContactosComponent implements OnInit {
   showNoAtiende: boolean = false;
   showSuspenderContacto: boolean = false;
 
-  clonedRows: { [s: string]: any; } = {};
   departamento;
   estado;
   tipoExposicion: string;
@@ -177,6 +173,16 @@ export class GrillaCensoContactosComponent implements OnInit {
                               {id:16, nombre:'Presidente Hayes'}, {id:17, nombre:'Boquerón'},
                               {id:18, nombre:'Alto Paraguay'}, {id:19, nombre:'Capital'}];*/
 
+public departamentoOptions=[{id:1, nombre:'CONCEPCIÓN'},{id:2, nombre:'SAN PEDRO'},
+                              {id:3, nombre:'CORDILLERA'}, {id:4, nombre:'GUAIRÁ'},
+                              {id:5, nombre:'CAAGUAZÚ'}, {id:6,nombre:'CAAZAPÁ'},
+                              {id:7, nombre:'ITAPÚA'}, {id:8,nombre:'MISIONES'},
+                              {id:9, nombre:'PARAGUARÍ'},{id:10, nombre:'ALTO PARANÁ'},
+                              {id:11, nombre:'CENTRAL'},{id:12, nombre:'ÑEEMBUCÚ'},
+                              {id:13, nombre:'AMAMBAY'},{id:14, nombre:'CANINDEYÚ'},
+                              {id:15, nombre:'PRESIDENTE HAYES'}, {id:16, nombre:'BOQUERÓN'},
+                              {id:17, nombre:'ALTO PARAGUAY'}, {id:18, nombre:'CAPITAL'}];
+
 public regionSanitariaOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro'},
                               {id:3, nombre:'Cordillera'},
                               {id:4, nombre:'Guairá'}, {id:5, nombre:'Caaguazú'},
@@ -190,20 +196,31 @@ public regionSanitariaOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San P
 
 regionesFiltradas: any[];
 primerContactoId: number;
-public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
+public sexoOptions=[{value:'M',label:'Masc'},{value:'F',label:'Fem'}];
 public formCensoContactoList: any[];
 public colsFormCensoContacto: any[];
 showListFormCensoContacto: boolean = false;
 
 showPopupBorrarFormCensoContacto: boolean = false;
 
-formCensoContacto;
+formCensoContacto: FormCensoContacto;
 
 public username;
 public usuarioId;
 public distritosUsuario = [];
 public distritosFiltrados: any[];
 public distritosOptions: any[];
+
+public departamentosFiltrados: any[];
+public rowId;
+public fichaPersonalBlanco: FichaPersonalBlanco;
+
+pageSizeF: number = 5;
+startF: number = 0;
+filterF: string;
+totalRecordsF: number = 0;
+sortAscF: boolean = true;
+sortFieldF: string;
 
   constructor(
     private _router: Router,
@@ -267,7 +284,6 @@ public distritosOptions: any[];
       /*fechaInicioSintomas: ['', Validators.required],
       fechaCierreCaso: ['', Validators.required],*/
     });
-
     /*this._route.params.subscribe(params => {
       this.idPaciente = params["id"];
       this.cedulaPaciente = params["cedula"];
@@ -289,15 +305,16 @@ public distritosOptions: any[];
         //{ field: '', header: 'Acciones', width: '15%' }];
 
     
-    this.colsFormCensoContacto = [{ field: 'nroDocumento', header: 'Nro de Documento', width: '8%'},
-        { field: 'nombres', header: 'Nombres', width: '9%' },
+    this.colsFormCensoContacto = [{ field: 'nroDocumento', header: 'Nro de Documento', width: '7%'},
+        { field: 'nombres', header: 'Nombres', width: '10%' },
         { field: 'apellidos', header: 'Apellidos', width: '10%' },
         { field: 'telefono', header: 'Teléfono', width: '8%' },
-        { field: 'direccion', header: 'Dirección', width: '10%' },
-        { field: 'regionSanitaria', header: 'Región Sanitaria', width: '9%' },
+        { field: 'direccion', header: 'Dirección', width: '11%' },
+        { field: 'regionSanitaria', header: 'Región Sanitaria', width: '10%' },
+        { field: 'distrito', header: 'Distrito', width: '10%' },
         { field: 'sexo', header: 'Sexo', width: '6%' },
-        { field: 'fechaExposicion', header: 'Fecha de Exposición', width: '9%' },
-        { field: 'categoriacontagio', header: 'Categoría de Contagio', width: '14%' }];
+        { field: 'fechaExposicion', header: 'Fecha de Exposición', width: '8%' },
+        { field: 'categoriacontagio', header: 'Categoría de Contagio', width: '12%' }];
   }
 
   load($event: any) {
@@ -319,7 +336,6 @@ buscarContactos(opcionFiltro){
   this.service.getDistritosUsuario(this.usuarioId).subscribe(distritos => {
     for (let i = 0; i < distritos.length; i++) {
       this.distritosUsuario.push(distritos[i].distritoId);
-      //console.log(this.distritosUsuario);
       //let d = distritos[i];
       //this.distritosOptions[i] = {nombre: d.nomdist, value: d.coddist};
     }
@@ -353,7 +369,6 @@ consultarIdentificaciones(event) {
     else
     {
       this.loading = true;
-      //formDatosBasicos.numeroDocumento=formDatosBasicos.numeroDocumento.trim();
       this.service.getIdentificacionesByNumeroDocumento(nroDocumento.trim()).subscribe(response => {
           this.loading = false;
           if(response.obtenerPersonaPorNroCedulaResponse.return.error){
@@ -385,6 +400,130 @@ consultarIdentificaciones(event) {
   }
 }
 
+selectDepto(event){
+  this.formGroup.controls.distrito.setValue(null);
+  let coddpto ="";
+  if(event.id < 10){
+    coddpto = '0'+event.id;
+  }else{
+    coddpto = event.id;
+  }
+  
+  this.service.getDistritosDepto(coddpto).subscribe(distritos => {
+    this.distritosOptions = distritos;
+    for (let i = 0; i < distritos.length; i++) {
+      let d = distritos[i];
+      this.distritosOptions[i] = { nombre: d.nomdist, valor: d.coddist };
+    }
+       
+  }, error => {
+    console.log(error);
+    this.mensaje = error.error;
+    this.openMessageDialog();
+  }
+  );
+}
+
+onRowEditInit(rowData) {
+  this.rowId = rowData.id;
+  this.edito = true;
+  this.formCensoContacto = rowData;
+
+  this.formGroup = new FormGroup({
+    nroDocumento: new FormControl(rowData.nroDocumento, [
+      Validators.required
+    ]),
+    nombre: new FormControl(rowData.nombre, [
+      Validators.required
+    ]),
+    apellido: new FormControl(rowData.apellido, [
+      Validators.required
+    ]),
+    telefono: new FormControl(rowData.telefono, [
+      Validators.required
+    ]),
+    direccion: new FormControl(rowData.direccion, [
+      Validators.required
+    ]),
+    regionSanitaria: new FormControl({nombre:rowData.regionSanitaria}, [
+      Validators.required
+    ]),
+    distrito: new FormControl({nombre:rowData.distrito}, [
+      Validators.required
+    ]),
+    sexo: new FormControl(rowData.sexo, [
+      Validators.required
+    ]),
+    fechaExposicion: new FormControl(rowData.fechaExposicion, [
+      Validators.required
+    ]),
+    categoriaContagio: new FormControl(rowData.categoriaContagio, [
+      Validators.required
+    ])
+  });
+
+  let coddpto ="";
+    if(rowData.regionSanitariaId < 10){
+      coddpto = '0'+rowData.regionSanitariaId;
+    }else{
+      coddpto = rowData.regionSanitariaId;
+    }
+
+    this.service.getDistritosDepto(coddpto).subscribe(distritos => {
+      this.distritosOptions = distritos;
+      for (let i = 0; i < distritos.length; i++) {
+        let d = distritos[i];
+        this.distritosOptions[i] = { nombre: d.nomdist, valor: d.coddist };
+      }
+         
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    }
+    );
+}
+
+onRowEditSave(rowData){
+  //console.log(row.id);
+  this.formCensoContacto.nroDocumento = this.formGroup.controls.nroDocumento.value;
+  this.formCensoContacto.nombre = this.formGroup.controls.nombre.value;
+  this.formCensoContacto.apellido = this.formGroup.controls.apellido.value;
+  this.formCensoContacto.telefono = this.formGroup.controls.telefono.value;
+  this.formCensoContacto.direccion = this.formGroup.controls.direccion.value;
+
+  this.formCensoContacto.regionSanitariaId = this.formGroup.controls.regionSanitaria.value.id;
+  this.formCensoContacto.regionSanitaria = this.formGroup.controls.regionSanitaria.value.nombre;
+  this.formCensoContacto.distritoId = this.formGroup.controls.distrito.value.valor;
+  this.formCensoContacto.distrito = this.formGroup.controls.distrito.value.nombre;
+  
+  this.formCensoContacto.sexo = this.formGroup.controls.sexo.value;
+  this.formCensoContacto.categoriaContagio = this.formGroup.controls.categoriaContagio.value;
+  this.formCensoContacto.fechaExposicion = this.formGroup.controls.fechaExposicion.value;
+  //this.contactosList[row.id].actualizado = 'si';
+
+  this.service.editarFormCensoContacto(this.formCensoContacto).subscribe(response => {
+      this.loading = false;
+      this.mensaje= "Registro editado exitosamente.";
+      this.edito = false;
+      this.openMessageDialog();
+  }, error => {
+      if(error.status == 401){
+        this._router.navigate(["/"]);
+      }
+      else{
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
+  }
+);
+}
+
+onRowEditCancel(){
+  this.edito = false;
+}
+
 mostrarNuevoContacto(rowData){
   console.log(rowData);
   //this._router.navigate(['covid19/operador/nuevo-contacto',rowData.nroDocumento, rowData.nombre, rowData.apellido]);
@@ -400,8 +539,6 @@ mostrarNuevoContacto(rowData){
   }else{
     coddpto = rowData.departamentoId;
   }
-
-  console.log(coddpto);
 
   this.service.getDistritosDepto(coddpto).subscribe(distritos => {
     this.distritosOptions = distritos;
@@ -437,11 +574,29 @@ guardarNuevoContacto(){
   formCensoContacto.distritoId = this.contactoFg.controls.distrito.value.valor;
   formCensoContacto.distrito = this.contactoFg.controls.distrito.value.nombre;
 
+  //Crear paciente
+  /*this.fichaPersonalBlanco = new FichaPersonalBlanco();
+  this.fichaPersonalBlanco.formSeccionDatosBasicos = new FormDatosBasicos();
+  this.fichaPersonalBlanco.formSeccionDatosBasicos.tipoDocumento = "Cédula de Identidad";
+  this.fichaPersonalBlanco.formSeccionDatosBasicos.numeroDocumento = this.contactoFg.controls.cedula.value;
+  this.fichaPersonalBlanco.formSeccionDatosBasicos.nombre = this.contactoFg.controls.nombre.value;
+  this.fichaPersonalBlanco.formSeccionDatosBasicos.apellido = this.contactoFg.controls.apellido.value;
+  this.fichaPersonalBlanco.formSeccionDatosBasicos.direccionDomicilio = this.contactoFg.controls.direccion.value;
+  this.fichaPersonalBlanco.formSeccionDatosBasicos.numeroCelular = this.contactoFg.controls.telefono.value;
+  this.fichaPersonalBlanco.formSeccionDatosBasicos.sexo = this.contactoFg.controls.sexo.value;
+  this.fichaPersonalBlanco.formSeccionDatosBasicos.barrio = this.contactoFg.controls.distrito.value.nombre;
+  this.fichaPersonalBlanco.formSeccionContactoContagio = new FormSeccionContactoContagio();
+  this.fichaPersonalBlanco.formSeccionContactoContagio.fechaExposicion = this.contactoFg.controls.fechaExposicion.value;
+  this.fichaPersonalBlanco.formSeccionContactoContagio.categoriaContagio = this.contactoFg.controls.catContagio.value;
+  this.fichaPersonalBlanco.formSeccionPersonalBlanco =new FormSeccionPersonalBlanco();
+  this.fichaPersonalBlanco.formSeccionPersonalBlanco.regionSanitaria = this.contactoFg.controls.regionSanitaria.value.nombre;*/
+
   this.service.guardarNuevoContacto(formCensoContacto).subscribe(response => {
     this.idRegistro = +response;
     //this._router.navigate(["covid19/carga-operador/datos-clinicos/",this.idRegistro]);
     this.loading = false;
     this.showPopupNuevoContacto = false;
+
     this.mensaje = "Contacto registrado exitosamente!";
     this.openMessageDialogExito();
       
@@ -479,16 +634,32 @@ openMessageDialogExito() {
 mostrarListFormCensoContacto(rowData){
   //console.log(rowData.id);
   this.showListFormCensoContacto = true;
-  this.buscarFormCensoContacto(rowData.id);
+  this.primerContactoId = rowData.id;
+  this.buscarFormCensoContacto(this.primerContactoId);
 }
 
 buscarFormCensoContacto(primerContactoId){
-  this.service.getPacientesFormCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
+  this.service.getPacientesFormCensoContacto(this.startF, this.pageSizeF, this.filterF, this.sortAscF, this.sortFieldF, this.region, 
     this.username, primerContactoId, []).subscribe(pacientes => {
     this.formCensoContactoList = pacientes.lista;
-    this.totalRecords = pacientes.totalRecords;
+    this.totalRecordsF = pacientes.totalRecords;
     console.log(this.formCensoContactoList);
   });
+}
+
+loadF($event: any) {
+  if ($event) {
+    this.filterF = $event.globalFilter;
+    this.startF = $event.first;
+    this.pageSizeF = $event.rows;
+    this.sortFieldF = $event.sortField;
+
+    if ($event.sortOrder == 1)
+      this.sortAscF = true;
+    else
+      this.sortAscF = false;
+  }
+  this.buscarFormCensoContacto(this.primerContactoId);
 }
 
 closeListFormCensoContacto(){
@@ -526,19 +697,18 @@ openMessageDialogExitoBorrado() {
   setTimeout(function() { $("#modalExitoBorrado").modal("toggle"); }, 1000);
 }
 
-loadF($event: any) {
-  if ($event) {
-    this.filter = $event.globalFilter;
-    this.start = $event.first;
-    this.pageSize = $event.rows;
-    this.sortField = $event.sortField;
+filtrarDepto(event) {
+  let filtered : any[] = [];
+  let query = event.query;
+  for(let i = 0; i < this.departamentoOptions.length; i++) {
+      let departamento = this.departamentoOptions[i];
 
-    if ($event.sortOrder == 1)
-      this.sortAsc = true;
-    else
-      this.sortAsc = false;
+      if (departamento.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+        filtered.push(departamento);
+      }
   }
-  this.buscarFormCensoContacto(1);
+  
+  this.departamentosFiltrados = filtered;
 }
 
 filtrarRegion(event) {
@@ -933,82 +1103,6 @@ filtrarRegion(event) {
 
   closePopupLlamadaRealizada(){
     this.showLlamadaRealizada = false;
-  }
-
-  onRowEditInit(rowData) {
-    this.edito = true;
-    this.primerContacto = rowData;
-
-    this.formGroup = new FormGroup({
-      fechaCierreCaso: new FormControl(rowData.fechaCierreCaso, [
-        Validators.required
-      ]),
-      nroDocumento: new FormControl(rowData.nroDocumento, [
-        Validators.required
-      ]),
-      nombre: new FormControl(rowData.nombre, [
-        Validators.required
-      ]),
-      apellido: new FormControl(rowData.apellido, [
-        Validators.required
-      ]),
-      telefono: new FormControl(rowData.telefono, [
-        Validators.required
-      ]),
-      departamento: new FormControl(rowData.departamento, [
-        Validators.required
-      ]),
-      distrito: new FormControl(rowData.distrito, [
-        Validators.required
-      ]),
-      hospitalizado: new FormControl(rowData.hospitalizado, [
-        Validators.required
-      ]),
-      fallecido: new FormControl(rowData.fallecido, [
-        Validators.required
-      ]),
-      tipoExposicion: new FormControl(rowData.tipoExposicion, [
-        Validators.required
-      ]),
-      fechaInicioSintomas: new FormControl(rowData.fechaInicioSintomas, [
-        Validators.required
-      ])
-    });
-  }
-
-  onRowEditSave(rowData){
-    //console.log(row.id);
-    this.primerContacto.nroDocumento = this.formGroup.controls.nroDocumento.value;
-    this.primerContacto.nombre = this.formGroup.controls.nombre.value;
-    this.primerContacto.apellido = this.formGroup.controls.apellido.value;
-    this.primerContacto.distrito = this.formGroup.controls.distrito.value;
-    this.primerContacto.departamento = this.formGroup.controls.departamento.value;
-    this.primerContacto.telefono = this.formGroup.controls.telefono.value;
-    this.primerContacto.hospitalizado = this.formGroup.controls.hospitalizado.value;
-    this.primerContacto.fallecido = this.formGroup.controls.fallecido.value;
-    this.primerContacto.tipoExposicion = this.formGroup.controls.tipoExposicion.value;
-    this.primerContacto.fechaInicioSintomas = this.formGroup.controls.fechaInicioSintomas.value;
-    this.primerContacto.fechaCierreCaso = this.formGroup.controls.fechaCierreCaso.value;
-    //this.contactosList[row.id].actualizado = 'si';
-
-    this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
-        this.loading = false;
-        this.mensaje= "Registro editado exitosamente.";
-        this.edito = false;
-        this.openMessageDialog();
-    }, error => {
-        if(error.status == 401)
-        {
-          this._router.navigate(["/"]);
-        }
-        else
-        {
-          this.loading = false;
-          this.mensaje = error.error;
-          this.openMessageDialog();
-        }
-    }
-  );
   }
 
   mostrarRegistroFinalizado(rowData){

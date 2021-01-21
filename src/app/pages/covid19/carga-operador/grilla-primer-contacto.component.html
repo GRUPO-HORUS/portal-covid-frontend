@@ -123,7 +123,7 @@
                         </p-cellEditor>
                     </td>
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
-                        <p-cellEditor *ngIf="edito">
+                        <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <input pInputText style="width:120px; height:35px" type="text" formControlName="codigoPaciente">
@@ -134,7 +134,7 @@
                             </ng-template>
                         </p-cellEditor>
 
-                        <p-cellEditor *ngIf="!edito">
+                        <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
                             <ng-template pTemplate="input">
                                 {{rowData.codigoPaciente}}
                             </ng-template>
@@ -205,7 +205,7 @@
                         </p-cellEditor>
                     </td>
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
-                        <p-cellEditor *ngIf="edito">
+                        <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <input pInputText style="width:140px; height:35px" type="text" formControlName="telefono">
@@ -216,7 +216,7 @@
                             </ng-template>
                         </p-cellEditor>
 
-                        <p-cellEditor *ngIf="!edito">
+                        <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
                             <ng-template pTemplate="input">
                                 {{rowData.telefono}}
                             </ng-template>
@@ -227,7 +227,7 @@
                         
                     </td>
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
-                        <p-cellEditor *ngIf="edito">
+                        <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <p-autoComplete id="departamento" formControlName="departamento" [suggestions]="departamentosFiltrados" field="nombre" 
@@ -239,7 +239,7 @@
                             </ng-template>
                         </p-cellEditor>
 
-                        <p-cellEditor *ngIf="!edito">
+                        <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
                             <ng-template pTemplate="input">
                                 {{rowData.departamento}}
                             </ng-template>
@@ -249,7 +249,7 @@
                         </p-cellEditor>
                     </td>
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
-                        <p-cellEditor *ngIf="edito">
+                        <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <!--<input pInputText style="width:120px; height:35px" type="text" formControlName="distrito">-->
@@ -261,7 +261,7 @@
                             </ng-template>
                         </p-cellEditor>
 
-                        <p-cellEditor *ngIf="!edito">
+                        <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
                             <ng-template pTemplate="input">
                                 {{rowData.distrito}}
                             </ng-template>
@@ -271,7 +271,7 @@
                         </p-cellEditor>
                     </td>
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
-                        <p-cellEditor *ngIf="edito">
+                        <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <p-dropdown id="hospitalizado" [options]="binarioOptions" label="label" placeholder="Seleccionar" formControlName="hospitalizado" name="hospitalizado" [style]="{'minWidth':'70px', 'width': '70px'}" required></p-dropdown>
@@ -282,7 +282,7 @@
                             </ng-template>
                         </p-cellEditor>
 
-                        <p-cellEditor *ngIf="!edito">
+                        <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
                             <ng-template pTemplate="input">
                                 {{rowData.hospitalizado}}
                             </ng-template>
@@ -292,7 +292,7 @@
                         </p-cellEditor>
                     </td>
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
-                        <p-cellEditor *ngIf="edito">
+                        <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <p-dropdown id="fallecido" [options]="binarioOptions" label="label" placeholder="Seleccionar" formControlName="fallecido" name="fallecido" [style]="{'minWidth':'70px', 'width': '70px'}" required></p-dropdown>
@@ -303,7 +303,7 @@
                             </ng-template>
                         </p-cellEditor>
 
-                        <p-cellEditor *ngIf="!edito">
+                        <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
                             <ng-template pTemplate="input">
                                 {{rowData.fallecido}}
                             </ng-template>
@@ -315,7 +315,7 @@
                         
                     </td>
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
-                        <p-cellEditor *ngIf="edito">
+                        <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <p-dropdown id="tipoExposicion" [options]="exposicionOptions" label="label" placeholder="Seleccionar" formControlName="tipoExposicion" name="tipoExposicion" [style]="{'minWidth':'110px', 'width': '110px'}" required></p-dropdown>
@@ -326,7 +326,7 @@
                             </ng-template>
                         </p-cellEditor>
 
-                        <p-cellEditor *ngIf="!edito">
+                        <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
                             <ng-template pTemplate="input">
                                 {{rowData.tipoExposicion}}
                             </ng-template>
@@ -337,10 +337,10 @@
                     </td>
                     
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
-                        <p-cellEditor *ngIf="edito">
+                        <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <p-calendar formControlName="fechaInicioSintomas" id="fechaInicioSintomas" name="fechaInicioSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [touchUI]="true" [inputStyle]="{'width':'90px'}"></p-calendar>
+                                    <p-calendar formControlName="fechaInicioSintomas" id="fechaInicioSintomas" name="fechaInicioSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" [inputStyle]="{'width':'90px'}"></p-calendar>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
@@ -348,7 +348,7 @@
                             </ng-template>
                         </p-cellEditor>
 
-                        <p-cellEditor *ngIf="!edito">
+                        <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
                             <ng-template pTemplate="input">
                                 {{rowData.fechaInicioSintomas}}
                             </ng-template>

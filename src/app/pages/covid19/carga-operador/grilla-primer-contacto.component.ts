@@ -186,6 +186,8 @@ export class GrillaPrimerContactoComponent implements OnInit {
 
   public distritosUsuario = [];
 
+  public rowId;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -836,6 +838,7 @@ consultarIdentificaciones(event) {
   }
 
   onRowEditInit(rowData) {
+    this.rowId = rowData.id;
     this.edito = true;
     this.primerContacto = rowData;
 

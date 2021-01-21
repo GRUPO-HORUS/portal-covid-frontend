@@ -104,4 +104,9 @@ export class ReporteSaludPacienteService {
   getUltimoReporte(cedula: string): Observable<ReporteSaludPaciente> {
     return this.http.get<ReporteSaludPaciente>(this.url + '/ultimo-reporte/' + cedula);
   }
+
+  actualizarReporteSalud(cedula: string, model: any, idRegistroForm): Observable<HttpResponse<any>> {
+    console.log(model);
+    return this.http.post(this.url + '/actualizar/' + cedula+'/'+idRegistroForm, model, {observe: "response"});
+  }
 }

@@ -71,7 +71,7 @@
                         <button type="button" pButton icon="pi pi-volume-up" iconPos="left" (click)="realizarLlamada(rowData.nroDocumento)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:150px" label="Realizar Llamada"></button><br>
                         <button type="button" pButton icon="pi pi-arrow-circle-right" iconPos="left" (click)="derivarCoordinador()" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:150px" label="Derivar a Coordinador"></button><br>
                         <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="noAtiende()" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:150px" label="No Atiende"></button><br>
-                        <button type="button" pButton icon="pi pi-spinner" iconPos="left" (click)="suspenderContacto()" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:150px" label="Suspender Contacto"></button>
+                        <button type="button" pButton icon="pi pi-spinner" iconPos="left" (click)="mostrarSuspenderContacto(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:150px" label="Suspender Contacto"></button>
                     </td>
                     <td>
                         {{rowData.nroDocumento}}
@@ -117,44 +117,33 @@
                 </div>
 
                 <!--<form #miForm="ngForm" class="mt-4">
-
                     <div class="form-group">
                         <label for="tipoDocumento"><strong>Tipo de Documento </strong></label>
                         <input type="text" [(ngModel)]="tipoDocumento" class="form-control" style="max-width: 200px;" id="tipoDocumento" name="tipoDocumento" required readonly>
                     </div>
-
                     <div class="form-group">
                         <label for="numeroDocumento"><strong>Cédula </strong></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.numeroDocumento" class="form-control" style="max-width: 200px;" id="numeroDocumento" name="numeroDocumento" placeholder="Ej. 123456" required readonly>
                     </div>
-
                     <div class="form-group">
                         <label for="nombre"><strong>Nombre</strong></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" style="max-width: 300px;" id="nombre" required readonly>
                     </div>
-
                     <div class="form-group">
                         <label for="apellido"><strong>Apellido</strong></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.apellido" name="apellido" class="form-control" style="max-width: 300px;" id="apellido" required readonly>
                     </div>
-
                     <div class="form-group">
                         <label for="numeroCelular"><strong>Nro teléfono</strong></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.numeroCelular" class="form-control" id="numeroCelular" style="max-width: 300px;" name="numeroCelular" placeholder="Ej. +595961123456" minlength="6" required readonly>
                     </div>
-
                     <div class="form-group">
                         <label for="correoElectronico"><strong>Correo Electrónico</strong></label>
                         <input type="email" [(ngModel)]="formDatosBasicos.correoElectronico" name="correoElectronico" class="form-control" style="max-width: 300px;" id="correoElectronico" email required readonly>
                     </div>
-
                     <div class="form-group">
                         <label for="contrasenha"><strong>Contraseña </strong></label>
                         <input type="password" [(ngModel)]="contrasenha" class="form-control" id="contrasenha" style="max-width: 300px;" name="contrasenha" minlength="8" required>
-                    </div>
-
-                    <div class="text-center" *ngIf="loading">
-                        <img src="assets/img/misc/icon_loading.gif" alt="Procesando.." /> A partir de ahora vamos a validar que sos vos...
                     </div>
 
                     <div class="clearfix"><br/></div>
@@ -298,19 +287,20 @@
             </p-dialog>
 
             <p-dialog [(visible)]="showSuspenderContacto" modal="true" header="Suspender Contacto">
-                <div>
+                <form [formGroup]="suspensionFormGroup" class="mt-4">
                     <div class="form-group">
                         <label for="motivo"><strong>Informe el motivo</strong><span class="text-danger">*</span></label><br>
-                        <textarea id="motivo" cols="50" rows="5"></textarea>
+                        <textarea id="motivo" cols="50" rows="5" formControlName="motivoSuspension" required></textarea>
                     </div>
-                    <button class="btn btn-success btn-success-next mr-2" (click)="closePopupSuspender()">
-                        Aceptar <span class="fa fa-check"></span>
-                    </button>
+                </form>
+                <button class="btn btn-success btn-success-next mr-2" (click)="suspenderContacto()" [disabled]="!suspensionFormGroup.valid">
+                    Aceptar <span class="fa fa-check"></span>
+                </button>
 
-                    <button class="btn btn-secondary btn-success-next" (click)="closePopupSuspender()">
-                        Cancelar <span class="fa fa-times"></span>
-                    </button>
-                </div>
+                <button class="btn btn-secondary btn-success-next" (click)="closePopupSuspender()">
+                    Cancelar <span class="fa fa-times"></span>
+                </button>
+                
             </p-dialog>
         </div>
     </div>

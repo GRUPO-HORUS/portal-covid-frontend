@@ -1,4 +1,5 @@
 import { FormDatosBasicos } from "./formDatosBasicos.model";
+import { FormDatosClinicos } from "./formDatosClinicos.model";
 import { FormSeccionClasifRiesgo } from "./formSeccionClasifRiesgo.model";
 import { FormSeccionContactoContagio } from "./formSeccionContactoContagio.model";
 import { FormSeccionPersonalBlanco } from "./formSeccionPersonalBlanco.model";
@@ -16,6 +17,8 @@ export class FichaPersonalBlanco {
     reportesSalud: FormSeccionReporteSalud[];
     //sección clasif riesgo
     formSeccionClasifRiesgo: FormSeccionClasifRiesgo;
+
+    formSeccionDatosClinicos: FormDatosClinicos;
 
     /*id: number;
     nombre: string;
