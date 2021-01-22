@@ -217,7 +217,68 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group" *ngIf="registroFg.controls.otroLugarNoListaCheck.value">
+                                        <label for="otroLugarNoLista"><strong>Especificar Otro Servicio de Salud</strong></label>
+                                        <input type="text" formControlName="otroLugarNoLista" name="otroLugarNoLista" class="form-control" id="otroLugarNoLista" required>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="otroLugarNoListaCheck" [binary]="true" label="Otro Servicio de Salud que no esté en la lista" id="otroLugarNoListaCheck" (click)="setearOtroLugarNoLista()"></p-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <b>Patologías de Base</b><br>
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="cardiopatia" [binary]="true" label="Cardiopatía crónica" id="cardiopatia" class="mr-3 mb-3"></p-checkbox>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="enfermedadPulmonar" [binary]="true" label="Enfermedad pulmonar crónica" id="enfermedadPulmonar" class="mb-3"></p-checkbox>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="asma" [binary]="true" label="Asma" id="asma" class="mr-3 mb-2"></p-checkbox>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="diabetes" [binary]="true" label="Diabetes" id="diabetes" class="mb-2"></p-checkbox>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="enfermedadRenal" [binary]="true" label="Enfermedad renal crónica" id="enfermedadRenal"></p-checkbox>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="inmunodeficiencia" [binary]="true" label="Inmunodeficiencia por enfermedad o tratamiento" id="inmunodeficiencia"></p-checkbox>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="enfermedadNeurologica" [binary]="true" label="Enfermedad neurológica o neuromuscular crónica" id="enfermedadNeurologica"></p-checkbox>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="sindromeDown" [binary]="true" label="Síndrome de Down" id="sindromeDown"></p-checkbox>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="obesidad" [binary]="true" label="Obesidad" id="obesidad"></p-checkbox>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="enfermedadHepatica" [binary]="true" label="Enfermedad hepática crónica" id="enfermedadHepatica"></p-checkbox>
+                                    </div>
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="enfermedadOtros" [binary]="true" label="Otros" id="enfermedadOtros"></p-checkbox>
+                                    </div>
+                                    <div class="form-group" *ngIf="registroFg.controls.enfermedadOtros.value ===true">
+                                        <label for="enfermedadOtrosNombre"><strong>Especificar Otra Patología de Base</strong></label>
+                                        <input type="text" formControlName="enfermedadOtrosNombre" name="enfermedadOtrosNombre" class="form-control" id="enfermedadOtrosNombre">
+                                    </div>
+                                </div>
+                                <div class="col-md" *ngIf="registroFg.controls.sexo.value==='F'">
+                                    <div class="form-group">
+                                        <b>Embarazada</b>
+                                        <p-radioButton name="embarazada" [value]="true" label="Si" formControlName="embarazada" class="ml-2 mr-3"></p-radioButton>
+                                        <p-radioButton name="embarazada" [value]="false" label="No" formControlName="embarazada"></p-radioButton>
+                                    </div>
+                                </div>
+                            </div>
                             <!--<div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
@@ -926,6 +987,19 @@
                                         <label for="especialidad"><strong>Especialidad</strong></label>
                                         <!--<input type="text" formControlName="especialidad" name="especialidad" class="form-control"  id="especialidad" required>-->
                                         <p-dropdown id="especialidad" [options]="especialidadOptions" label="label" placeholder="Seleccionar" formControlName="especialidad" name="especialidad" [style]="{'width':'515px'}" required></p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md" *ngIf="clasificacionRiesgoFg.controls.internado.value">
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="otroServicioInternadoCheck" [binary]="true" label="Otro Servicio de Salud que no esté en la lista" id="otroServicioCheck" (click)="setearServicioSalud()"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="col-md" *ngIf="clasificacionRiesgoFg.controls.otroServicioInternadoCheck.value">
+                                    <div class="form-group">
+                                        <label for="otroServicioInternado"><strong>Especificar Otro Servicio de Salud</strong></label>
+                                        <input type="text" formControlName="otroServicioInternado" name="otroServicioInternado" class="form-control" id="otroServicioInternado">
                                     </div>
                                 </div>
                             </div>

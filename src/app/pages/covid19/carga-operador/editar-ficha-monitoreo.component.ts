@@ -255,7 +255,22 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       ciudadDomicilio:['', Validators.required],
       barrio:['', Validators.required],
       codPaciente:['', Validators.required],
-      otroServicio:['']
+      otroServicio:[''],
+      otroLugarNoListaCheck:[null],
+      otroLugarNoLista:[],
+      embarazada:[null],
+      cardiopatia:[null],
+      enfermedadPulmonar:[null],
+      asma:[null],
+      diabetes:[null],
+      enfermedadRenal:[null],
+      inmunodeficiencia:[null],
+      enfermedadNeurologica:[null],
+      sindromeDown:[null],
+      obesidad:[null],
+      enfermedadHepatica:[null],
+      enfermedadOtros:[null],
+      enfermedadOtrosNombre:['']
     });
 
     this.casoConfirmadoFg = this._formBuilder.group({
@@ -609,7 +624,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       otroIndic: [null],
       antigeno: [null],
       pcr: [null],
-
       sePrimeraMuestra: [1, Validators.required],
       fechaPrimeraMuestra: ['', Validators.required],
       resultadoPrimeraMuestra: ['', Validators.required],
@@ -619,7 +633,9 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       fechaCierreCaso: ['', Validators.required],
       internado: [null],
       establecimiento: [],
-      especialidad: []
+      especialidad: [],
+      otroServicioInternadoCheck:[null],
+      otroServicioInternado:[]
     });
 
     /*this._route.params.subscribe(params => {
