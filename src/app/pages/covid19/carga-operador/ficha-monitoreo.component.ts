@@ -773,12 +773,12 @@ export class FichaMonitoreoComponent implements OnInit {
     }else{
       let lugarServicio = new LugarServicio();
       lugarServicio = this.registroFg.controls.servicioSalud.value;
-      this.fichaPersonalBlanco.formSeccionPersonalBlanco.servicioSalud = lugarServicio.nombre;
+      this.fichaPersonalBlanco.formSeccionPersonalBlanco.servicioSalud = lugarServicio.denominacion;
     }
 
-    let regionSanitaria = new LugarServicio();
-    regionSanitaria = this.registroFg.controls.regionSanitaria.value;
-    this.fichaPersonalBlanco.formSeccionPersonalBlanco.regionSanitaria = regionSanitaria.nombre;
+    //let regionSanitaria = new LugarServicio();
+    //regionSanitaria = this.registroFg.controls.regionSanitaria.value;
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.regionSanitaria = this.registroFg.controls.regionSanitaria.value.nombre;
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.funcion = this.registroFg.controls.funcion.value.nombre;
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.otrosLugares = this.registroFg.controls.otrosLugares.value;
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.reingreso = this.registroFg.controls.reingreso.value;

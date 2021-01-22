@@ -1,5 +1,5 @@
 export class LugarServicio {
     id: number;
-    nombre: string;
+    denominacion: string;
 
 }
