@@ -650,7 +650,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     }else{
       this.catContagioOptions = [{value:'familiar_social',label:'Familiar Social'}, {value:'viajero',label:'Viajero'},{value:'sin_nexo',label:'Sin Nexo'}];
     }
-    
+  }
+
+  setearOtroLugarNoLista(){
+    this.registroFg.controls.otroLugarNoLista.setValue(null);
   }
 
   obtenerPaciente(cedula): void {
