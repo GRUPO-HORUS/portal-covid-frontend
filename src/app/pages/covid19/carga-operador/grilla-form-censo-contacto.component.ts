@@ -311,17 +311,23 @@ buscarContactos(){
   this.service.getDistritosUsuario(this.usuarioId).subscribe(distritos => {
     for (let i = 0; i < distritos.length; i++) {
       this.distritosUsuario.push(distritos[i].distritoId);
-      //console.log(this.distritosUsuario);
       //let d = distritos[i];
       //this.distritosOptions[i] = {nombre: d.nomdist, value: d.coddist};
     }
 
-    this.service.getPacientesFormCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
-      this.username, null, this.distritosUsuario).subscribe(pacientes => {
-      this.formCensoContactoList = pacientes.lista;
-      this.totalRecords = pacientes.totalRecords;
-      console.log(this.formCensoContactoList);
-    });
+    this.service.reservarRegistros(this.usuarioId).subscribe(distritos => {
+      this.service.getPacientesFormCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
+      this.usuarioId, null, this.distritosUsuario).subscribe(pacientes => {
+        this.formCensoContactoList = pacientes.lista;
+        this.totalRecords = pacientes.totalRecords;
+        console.log(this.formCensoContactoList);
+      });
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    }
+    );
 
   }, error => {
     console.log(error);

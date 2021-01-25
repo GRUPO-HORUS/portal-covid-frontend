@@ -117,8 +117,12 @@ export class Covid19Service {
       return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/guardarFichaContacto/', fichaPersonalBlanco);
     }
 
+    reservarRegistros(idUsuario): Observable<string> {
+      return this.httpClient.get<string>(this.config.API + '/covid19api/aislamiento/reservarRegistros/'+idUsuario);
+    }
+
     getPacientesFormCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string, region, username, primerContactoId, distritosUsuario): Observable<FormCensoContactoTable> {
+      sortField: string, region, idUsuario, primerContactoId, distritosUsuario): Observable<FormCensoContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -129,8 +133,8 @@ export class Covid19Service {
       if (sortField)
         params = params.set('sortField', sortField);
 
-      if (username)
-        params = params.set('username', username);
+      if (idUsuario)
+        params = params.set('idUsuario', idUsuario);
 
       if (primerContactoId)
         params = params.set('primerContactoId', primerContactoId);
