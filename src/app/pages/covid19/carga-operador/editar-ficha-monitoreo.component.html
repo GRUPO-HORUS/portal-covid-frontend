@@ -50,11 +50,20 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
+                                        <label for="seFis"><strong>SE</strong></label>
+                                        <input type="number" formControlName="se" class="form-control" id="se" name="se" min="1" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
                                         <label for="cedula"><strong>Número de Cédula</strong></label><!--<span style="color: red;"> *</span>-->
                                         <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="consultarIdentificaciones($event.target.value, 'registro')">
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.numeroDocumento" class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ej. 123456" required>-->
                                     </div>
                                 </div>
+                                <div class="col-md"></div>
                             </div>
         
                             <div class="row">
@@ -162,7 +171,7 @@
                                         <label for="servicioSalud"><strong>Servicio de salud Notificante</strong><span style="color: red;"> * (Campo obligatorio)</span></label>
                                         <br>
                                         <!--<input type="text" formControlName="servicioSalud" name="servicioSalud" class="form-control"  id="servicioSalud" required>-->
-                                        <p-autoComplete id="servicioSalud" formControlName="servicioSalud" [suggestions]="serviSaludFiltrados" field="nombre" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                        <p-autoComplete id="servicioSalud" formControlName="servicioSalud" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
                                     </div>
                                 </div>
                             </div>
@@ -349,13 +358,12 @@
                                     <p-radioButton name="contagioAmbiente" value="viajero" label="Viajero" formControlName="contagioAmbiente" class="ml-2 mr-3"></p-radioButton>
                                     <p-radioButton name="contagioAmbiente" value="establecimiento_salud" label="Entorno asistencial" formControlName="contagioAmbiente" (onClick)="selecAmbiente('salud')"></p-radioButton>
                                 </div>
-                               
                             </div>
                             <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud'">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="contagioEstablecimiento"><strong>Indique el entorno asistencial</strong></label><br>
-                                        <p-autoComplete id="contagioEstablecimiento" formControlName="contagioEstablecimiento" [suggestions]="establecimientosFiltrados" field="nombre" (completeMethod)="filtrarEstablecimiento($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                        <p-autoComplete id="contagioEstablecimiento" formControlName="contagioEstablecimiento" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -365,12 +373,22 @@
                                         <p-dropdown id="catContagio" [options]="catContagioOptions" label="label" placeholder="Seleccionar" formControlName="catContagio" name="catContagio" [style]="{'width':'515px'}" required></p-dropdown>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud'">
                                 <div class="col-md">
-                                    
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="otroServicioCheck" [binary]="true" label="Otro Servicio de Salud que no esté en la lista" id="otroServicioCheck" (click)="setearServicioSalud()"></p-checkbox>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group" *ngIf="casoConfirmadoFg.controls.otroServicioCheck.value">
+                                        <label for="otroServicioNombre"><strong>Especificar Otro Servicio de Salud</strong></label>
+                                        <input type="text" formControlName="otroServicioNombre" name="otroServicioNombre" class="form-control" id="otroServicioNombre" required>
+                                    </div>
                                 </div>
                             </div>
                             <hr>
-                            <div class="row">
+                            <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud' || casoConfirmadoFg.controls.contagioAmbiente.value===null">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="clasRiesgo"><strong>Clasificación de riesgo</strong></label>
@@ -383,7 +401,7 @@
     
                                 </div>
                             </div>
-                            <hr>
+                            <hr *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud' || casoConfirmadoFg.controls.contagioAmbiente.value===null">
                             <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value !== 'viajero' && casoConfirmadoFg.controls.contagioAmbiente.value !== 'sin_nexo'">
                                 <div class="col-md">
                                     <div class="form-group">
@@ -979,7 +997,7 @@
                                     <div class="form-group">
                                         <label for="establecimiento"><strong>Establecimiento</strong></label><br>
                                         <!--<input type="text" formControlName="establecimiento" name="establecimiento" class="form-control"  id="establecimiento" required>-->
-                                        <p-autoComplete id="establecimiento" formControlName="establecimiento" [suggestions]="establecimientosFiltrados" field="nombre" (completeMethod)="filtrarEstablecimiento($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                        <p-autoComplete id="establecimiento" formControlName="establecimiento" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
                                     </div>
                                 </div>
                                 <div class="col-md" *ngIf="clasificacionRiesgoFg.controls.internado.value">

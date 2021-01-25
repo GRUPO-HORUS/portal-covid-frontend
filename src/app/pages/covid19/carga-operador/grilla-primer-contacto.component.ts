@@ -145,7 +145,8 @@ export class GrillaPrimerContactoComponent implements OnInit {
   public motivos=[{value:'no_atiende',label:'No Atiende'},{value:'apagado',label:'Apagado/Sin Señal'},{value:'equivocado',label:'Número Equivocado'}];
   public binarioOptions=[{value:'SI',label:'SI'},{value:'NO',label:'NO'}];
 
-  public exposicionOptions=[{value:'CONTACTO',label:'CONTACTO'},{value:'SD',label:'SD'}, {value:'SIN NEXO',label:'SIN NEXO'}];
+  public exposicionOptions=[{value:'CONTACTO',label:'CONTACTO'}, {value:'SIN NEXO',label:'SIN NEXO'},
+  {value:'VIAJERO',label:'VIAJERO'},{value:'PRE-QUIRURGICO',label:'PRE-QUIRURGICO'}];
 
   pacientesList: any[];
   formGroup: FormGroup;

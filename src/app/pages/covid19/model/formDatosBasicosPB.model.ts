@@ -52,7 +52,6 @@ export class FormDatosBasicosPB {
     otrosLugares: any[];
 
     otroServicio: boolean;
-
     reingreso: boolean;
     fallecido: boolean;
     internado: boolean;
@@ -63,6 +62,9 @@ export class FormDatosBasicosPB {
 
     contagioAmbiente:string;
     contagioEstablecimiento:string;
+
+    otroServicioCheck: boolean;
+    otroServicioNombre: string;
     codigoPaciente: string;
     seFis: number;
     sePrimeraMuestra: number;
@@ -73,5 +75,21 @@ export class FormDatosBasicosPB {
     constanciaAislamiento: boolean;
     fichaEpidemiologica: boolean;
     fechaInicioMonitoreo: string;
+
+    otroServicioInternadoCheck: boolean;
+    otroServicioInternado: string;
+
+    embarazada: boolean;
+    cardiopatia: boolean;
+    asma: boolean;
+    diabetes: boolean;
+    enfermedadRenal: boolean;
+    obesidad: boolean;
+    sindromeDown: boolean;
+    enfermedadHepatica: boolean;
+    enfermedadNeurologica: boolean;
+    inmunodeprimido: boolean;
+    enfermedadOtros: boolean;
+    enfermedadOtrosNombre: string;
 
 }

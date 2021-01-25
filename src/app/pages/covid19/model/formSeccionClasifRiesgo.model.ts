@@ -31,5 +31,6 @@ export class FormSeccionClasifRiesgo {
     especialidadInternacion: string;
 
     se: number;
+    otroServicioInternadoCheck: boolean;
     otroServicioInternado: string;
 }

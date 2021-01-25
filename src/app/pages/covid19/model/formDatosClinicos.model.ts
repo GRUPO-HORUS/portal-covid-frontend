@@ -49,6 +49,8 @@ export class FormDatosClinicos {
     public enfermedadBaseOtros: string;
     public enfermedadBaseOtrosNombre: string;
 
+    public embarazada: boolean;
+
     /*public medioTransporte: string;
     public tipoEmpresaTransporte: string;
     public transporteNoAsiento: string;

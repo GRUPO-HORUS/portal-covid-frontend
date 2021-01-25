@@ -767,8 +767,8 @@ export class FichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.profesion = especialidadProfesion[0];
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.especialidadProfesion = especialidadProfesion[1];
 
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.otroServicio = this.registroFg.controls.otroServicio.value;
     if(this.registroFg.controls.otroServicio.value){
-      this.fichaPersonalBlanco.formSeccionPersonalBlanco.otroServicio = this.registroFg.controls.otroServicio.value;
       this.fichaPersonalBlanco.formSeccionPersonalBlanco.servicioSalud = this.registroFg.controls.servicioSalud.value;
     }else{
       let lugarServicio = new LugarServicio();
@@ -786,6 +786,7 @@ export class FichaMonitoreoComponent implements OnInit {
 
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.codigoPaciente = this.registroFg.controls.codPaciente.value;
 
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.otroLugarNoListaCheck = this.registroFg.controls.otroLugarNoListaCheck.value;
     if(this.registroFg.controls.otroLugarNoListaCheck.value){
       this.fichaPersonalBlanco.formSeccionPersonalBlanco.otroLugarNoLista = this.registroFg.controls.otroLugarNoLista.value;
     }
@@ -804,6 +805,7 @@ export class FichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionContactoContagio.fechaExposicion = this.casoConfirmadoFg.controls.fechaExposicion.value;
     this.fichaPersonalBlanco.formSeccionContactoContagio.clasificacionRiesgo = this.casoConfirmadoFg.controls.clasRiesgo.value;
 
+    this.fichaPersonalBlanco.formSeccionContactoContagio.otroServicioCheck = this.casoConfirmadoFg.controls.otroServicioCheck.value;
     if(this.casoConfirmadoFg.controls.otroServicioCheck.value){
       this.fichaPersonalBlanco.formSeccionContactoContagio.otroServicioNombre = this.casoConfirmadoFg.controls.otroServicioNombre.value;
     }

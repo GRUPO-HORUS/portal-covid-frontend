@@ -17,6 +17,7 @@ import {calendarEsLocale} from '../../../util/calendar-es-locale';
 import { LugarServicio } from "../model/lugarServicio.model";
 import { FichaPersonalBlanco } from "../model/fichaPersonalBlanco.model";
 import { FormSeccionReporteSalud } from "../model/formSeccionReporteSalud.model";
+import { FormDatosClinicos } from "../model/formDatosClinicos.model";
 
 declare var $: any;
 @Component({
@@ -223,14 +224,13 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     this.options="{types: ['(cities)'], componentRestrictions: { country: 'PY' }}";
 
     this.service.getLugaresServicio().subscribe(lugares => {
+      this.lugares = [];
       this.lugares = lugares;
-      
     }, error => {
       console.log(error);
       this.mensaje = error.error;
       this.openMessageDialog();
-    }
-    );
+    });
     
     window.scrollTo(0, 0);
 
@@ -270,7 +270,8 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       obesidad:[null],
       enfermedadHepatica:[null],
       enfermedadOtros:[null],
-      enfermedadOtrosNombre:['']
+      enfermedadOtrosNombre:[''],
+      se:[1],
     });
 
     this.casoConfirmadoFg = this._formBuilder.group({
@@ -282,7 +283,9 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       contagioEstablecimiento: [],
       fechaExposicion: ['', Validators.required],
       catContagio: [''],
-      clasRiesgo: ['', Validators.required]
+      clasRiesgo: ['', Validators.required],
+      otroServicioCheck:[null],
+      otroServicioNombre:[]
     });
 
     this.monitoreoFg = this._formBuilder.group({
@@ -687,7 +690,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
           this.registroFg.controls.otroServicio.setValue(true);
           this.registroFg.controls.servicioSalud.setValue(response.servicioSalud);
         }else{
-          this.registroFg.controls.servicioSalud.setValue({nombre:response.servicioSalud});
+          this.registroFg.controls.servicioSalud.setValue({denominacion:response.servicioSalud});
         }
        
         this.registroFg.controls.regionSanitaria.setValue({nombre:response.regionSanitaria});
@@ -696,8 +699,20 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.registroFg.controls.otrosLugares.setValue(response.otrosLugares);
         this.registroFg.controls.reingreso.setValue(response.reingreso);
         this.registroFg.controls.fallecido.setValue(response.fallecido);
-
         this.registroFg.controls.codPaciente.setValue(response.codigoPaciente);
+
+        this.registroFg.controls.embarazada.setValue(response.embarazada);
+        this.registroFg.controls.cardiopatia.setValue(response.cardiopatia);
+        this.registroFg.controls.asma.setValue(response.asma);
+        this.registroFg.controls.diabetes.setValue(response.diabetes);
+        this.registroFg.controls.enfermedadRenal.setValue(response.enfermedadRenal);
+        this.registroFg.controls.obesidad.setValue(response.obesidad);
+        this.registroFg.controls.sindromeDown.setValue(response.sindromeDown);
+        this.registroFg.controls.enfermedadHepatica.setValue(response.enfermedadHepatica);
+        this.registroFg.controls.enfermedadNeurologica.setValue(response.enfermedadNeurologica);
+        this.registroFg.controls.inmunodeficiencia.setValue(response.inmunodeprimido);
+        this.registroFg.controls.enfermedadOtros.setValue(response.enfermedadOtros);
+        this.registroFg.controls.enfermedadOtrosNombre.setValue(response.enfermedadOtrosNombre);
 
         this.casoConfirmadoFg.controls.cedula.setValue(response.numeroDocumentoContacto);
         this.casoConfirmadoFg.controls.nombre.setValue(response.nombreContacto);
@@ -707,9 +722,15 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.casoConfirmadoFg.controls.fechaExposicion.setValue(response.fechaExposicion);
         this.casoConfirmadoFg.controls.catContagio.setValue(response.categoriaContagio);
         this.casoConfirmadoFg.controls.contagioAmbiente.setValue(response.contagioAmbiente);
-        this.casoConfirmadoFg.controls.contagioEstablecimiento.setValue({nombre:response.contagioEstablecimiento});
+        this.casoConfirmadoFg.controls.contagioEstablecimiento.setValue({denominacion:response.contagioEstablecimiento});
 
         this.casoConfirmadoFg.controls.clasRiesgo.setValue(response.clasificacionRiesgo);
+
+        if(this.casoConfirmadoFg.controls.otroServicioCheck.value){
+          this.casoConfirmadoFg.controls.otroServicioCheck.setValue(response.otroServicioCheck);
+          this.casoConfirmadoFg.controls.otroServicioNombre.setValue(response.otroServicioNombre);
+        }
+        
         //this.consultarIdentificaciones(response.numeroDocumentoContacto,'contacto');
 
         this.monitoreoFg.controls.fechaSintomas.setValue(response.fechaInicioSintoma);
@@ -1088,8 +1109,14 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         response.fechaCierreCaso.substring(5, 7)+'/'+response.fechaCierreCaso.substring(0, 4));
 
         this.clasificacionRiesgoFg.controls.internado.setValue(response.internado);
-        this.clasificacionRiesgoFg.controls.establecimiento.setValue({nombre:response.establecimientoInternacion});
+        this.clasificacionRiesgoFg.controls.establecimiento.setValue({denominacion:response.establecimientoInternacion});
         this.clasificacionRiesgoFg.controls.especialidad.setValue(response.especialidadInternacion);
+
+        if(this.clasificacionRiesgoFg.controls.otroServicioInternadoCheck.value){
+          this.clasificacionRiesgoFg.controls.otroServicioInternadoCheck.setValue(response.otroServicioInternadoCheck);
+          this.clasificacionRiesgoFg.controls.otroServicioInternado.setValue(response.otroServicioInternado);
+        }
+        
         //this.response = response;
         this.mensaje= null;
     }, error => {
@@ -1186,6 +1213,28 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.fallecido = this.registroFg.controls.fallecido.value;
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.codigoPaciente = this.registroFg.controls.codPaciente.value;
 
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.otroLugarNoListaCheck = this.registroFg.controls.otroLugarNoListaCheck.value;
+    if(this.registroFg.controls.otroLugarNoListaCheck.value){
+      this.fichaPersonalBlanco.formSeccionPersonalBlanco.otroLugarNoLista = this.registroFg.controls.otroLugarNoLista.value;
+    }
+
+    this.fichaPersonalBlanco.formSeccionDatosClinicos = new FormDatosClinicos();
+    this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseCardiopatiaCronica = this.registroFg.controls.cardiopatia.value;
+    this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBasePulmonarCronico = this.registroFg.controls.enfermedadPulmonar.value;
+    this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseAsma = this.registroFg.controls.asma.value;
+    this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseDiabetes = this.registroFg.controls.diabetes.value;
+    this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseRenalCronico = this.registroFg.controls.enfermedadRenal.value;
+    this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseAutoinmune = this.registroFg.controls.inmunodeficiencia.value;
+    this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseObesidad = this.registroFg.controls.obesidad.value;
+    this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseSindromeDown = this.registroFg.controls.sindromeDown.value;
+    this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseNeurologica = this.registroFg.controls.enfermedadNeurologica.value;
+    this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseHepaticaGrave = this.registroFg.controls.enfermedadHepatica.value;
+    if(this.registroFg.controls.enfermedadOtros.value){
+      this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseOtros = this.registroFg.controls.enfermedadOtros.value;
+      this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseOtrosNombre = this.registroFg.controls.enfermedadOtrosNombre.value;
+    }
+    this.fichaPersonalBlanco.formSeccionDatosClinicos.embarazada = this.registroFg.controls.embarazada.value;
+
     this.fichaPersonalBlanco.formSeccionContactoContagio = new FormSeccionContactoContagio();
     this.fichaPersonalBlanco.formSeccionContactoContagio.nroDocumento = this.casoConfirmadoFg.controls.cedula.value;
     this.fichaPersonalBlanco.formSeccionContactoContagio.nombre = this.casoConfirmadoFg.controls.nombre.value;
@@ -1198,6 +1247,12 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     if(this.casoConfirmadoFg.controls.contagioEstablecimiento.value !== null){
       this.fichaPersonalBlanco.formSeccionContactoContagio.contagioEstablecimiento = this.casoConfirmadoFg.controls.contagioEstablecimiento.value.nombre;
     }
+    
+    this.fichaPersonalBlanco.formSeccionContactoContagio.otroServicioCheck = this.casoConfirmadoFg.controls.otroServicioCheck.value;
+    if(this.casoConfirmadoFg.controls.otroServicioCheck.value){
+      this.fichaPersonalBlanco.formSeccionContactoContagio.otroServicioNombre = this.casoConfirmadoFg.controls.otroServicioNombre.value;
+    }
+
     this.fichaPersonalBlanco.reportesSalud = [];
     let reporteSalud1 = new FormSeccionReporteSalud();
     //reporteSalud1.fecha = this.monitoreoFg.controls.fecha1.value;
@@ -1639,11 +1694,16 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaCierreCaso = this.clasificacionRiesgoFg.controls.fechaCierreCaso.value;
 
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.internado = this.clasificacionRiesgoFg.controls.internado.value;
-    if(this.clasificacionRiesgoFg.controls.establecimiento.value !== null){
-      this.fichaPersonalBlanco.formSeccionClasifRiesgo.establecimientoInternacion = this.clasificacionRiesgoFg.controls.establecimiento.value.nombre;
+    if(this.clasificacionRiesgoFg.controls.establecimiento.value){
+      this.fichaPersonalBlanco.formSeccionClasifRiesgo.establecimientoInternacion = this.clasificacionRiesgoFg.controls.establecimiento.value.denominacion;
     }
-    if(this.clasificacionRiesgoFg.controls.especialidad.value !== null){
+    if(this.clasificacionRiesgoFg.controls.especialidad.value){
       this.fichaPersonalBlanco.formSeccionClasifRiesgo.especialidadInternacion = this.clasificacionRiesgoFg.controls.especialidad.value;
+    }
+
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.otroServicioInternadoCheck = this.clasificacionRiesgoFg.controls.otroServicioInternadoCheck.value;
+    if(this.clasificacionRiesgoFg.controls.otroServicioInternado.value !==null){
+      this.fichaPersonalBlanco.formSeccionClasifRiesgo.otroServicioInternado = this.clasificacionRiesgoFg.controls.otroServicioInternado.value;
     }
     this.service.editarFichaPB(this.fichaPersonalBlanco, this.idRegistroForm).subscribe(response => {
           //this.idRegistro = +response;
@@ -1738,10 +1798,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
     let filtered : any[] = [];
     let query = event.query;
-    for(let i = 0; i < this.serviciosSalud.length; i++) {
-        let servicio = this.serviciosSalud[i];
+    for(let i = 0; i < this.lugares.length; i++) {
+        let servicio = this.lugares[i];
 
-        if (servicio.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+        if (servicio.denominacion.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
           filtered.push(servicio);
         }
     }

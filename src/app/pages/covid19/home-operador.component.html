@@ -41,14 +41,17 @@
                     </button>--><!--*ngIf="!hasRol('Operador Contact Center')"-->
                 </div>
 
-                <div *ngIf="hasRol('Copaco')"><!--|| hasRol('Operador DGVS')-->
+                <div *ngIf="hasRol('Copaco')">
                     <h4>Seguimiento de Contactos</h4>
                     <button class="btn btn-success btn-success-next mb-4 mr-3" routerLink="/covid19/operador/grilla-censo-contactos">
                         Censo Contactos <span class="fa fa-list"></span>
                     </button>
-                    <button class="btn btn-success btn-success-next mb-4 mr-3" routerLink="/covid19/operador/actualizar-seguimiento">
-                        Actualizar Seguimiento <span class="fa fa-check"></span><br>
+                    <button class="btn btn-success btn-success-next mb-4 mr-3" routerLink="/covid19/operador/grilla-form-censo-contacto">
+                        Seguimiento Contactos <span class="fa fa-list"></span>
                     </button>
+                    <!--<button class="btn btn-success btn-success-next mb-4 mr-3" routerLink="/covid19/operador/actualizar-seguimiento">
+                        Actualizar Seguimiento <span class="fa fa-check"></span>
+                    </button>-->
                 </div>
 
                 <div *ngIf="hasRol('Gestion Personal de Blanco') || hasRol('Operador') || hasRol('Operador DGVS')">
