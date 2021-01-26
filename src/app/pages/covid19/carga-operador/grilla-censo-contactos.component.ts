@@ -640,7 +640,7 @@ mostrarListFormCensoContacto(rowData){
 
 buscarFormCensoContacto(primerContactoId){
   this.service.getPacientesFormCensoContacto(this.startF, this.pageSizeF, this.filterF, this.sortAscF, this.sortFieldF, this.region, 
-    this.username, primerContactoId, []).subscribe(pacientes => {
+    this.usuarioId, primerContactoId, []).subscribe(pacientes => {
     this.formCensoContactoList = pacientes.lista;
     this.totalRecordsF = pacientes.totalRecords;
     console.log(this.formCensoContactoList);
