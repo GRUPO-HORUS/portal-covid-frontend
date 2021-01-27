@@ -23,7 +23,13 @@
                     </button>
                 </div>
 
-                <div *ngIf="hasRol('Operador') || hasRol('Operador Contact Center') || hasRol('Operador DGVS')"><!--|| hasRol('Operador DGVS')-->
+                <div *ngIf="hasRol('Operador UER')">
+                    <button class="btn btn-success btn-success-next mb-4 mr-3" routerLink="/covid19/operador/grilla-primer-contacto">
+                        Primera Llamada <span class="fa fa-list"></span>
+                    </button>
+                </div>
+
+                <div *ngIf="hasRol('Operador') || hasRol('Operador Contact Center') || hasRol('Operador DGVS') || hasRol('Supervisor Contact Center')"><!--|| hasRol('Operador DGVS')-->
                     <h4>Seguimiento de Contactos</h4>
                     <p>Utilice esta opción para registrar el seguimiento de Contactos de Casos Confirmados. Opción disponible para utilización del Contact Center.</p>
                     

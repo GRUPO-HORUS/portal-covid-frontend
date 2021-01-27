@@ -7,6 +7,7 @@ import {ContactoTable} from '../pages/covid19/model/contacto-table.model';
 import { FormDatosBasicosPB } from "../pages/covid19/model/formDatosBasicosPB.model";
 import { PrimerContactoTable } from "../pages/covid19/model/primer-contacto-table.model";
 import { FormCensoContactoTable } from "../pages/covid19/model/form-censo-contacto-table.model";
+import { UsuarioTable } from "../pages/usuario/shared/usuario-table.model";
 
 @Injectable()
 export class Covid19Service {
@@ -117,8 +118,40 @@ export class Covid19Service {
       return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/guardarFichaContacto/', fichaPersonalBlanco);
     }
 
+    getUsuariosContactCenter(start: number, pageSize: number, filter: string, sortAsc: boolean,
+      sortField: string): Observable<UsuarioTable> {
+     this.loading.next(true);
+
+     let params = new HttpParams();
+
+      if (filter)
+        params = params.set('filter', filter);
+
+      if (sortField)
+        params = params.set('sortField', sortField);
+
+      /*if(distritosUsuario.length > 0){
+          let distritosParam="";
+          for(let i=0; i<distritosUsuario.length; i++){
+            if(i+1==distritosUsuario.length){
+              distritosParam+= distritosUsuario[i];
+            }else{
+              distritosParam+= distritosUsuario[i]+",";
+            }
+          }
+          params = params.set('distritosUsuario', distritosParam);
+      }*/
+
+     params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
+     return this.httpClient.get<UsuarioTable>(this.config.API + '/covid19api/aislamiento/listarUsuariosContactCenter/', {params});
+   }
+
     reservarRegistros(idUsuario): Observable<string> {
       return this.httpClient.get<string>(this.config.API + '/covid19api/aislamiento/reservarRegistros/'+idUsuario);
+    }
+
+    liberarRegistros(idUsuario): Observable<string> {
+      return this.httpClient.get<string>(this.config.API + '/covid19api/aislamiento/liberarRegistros/'+idUsuario);
     }
 
     getPacientesFormCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,

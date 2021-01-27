@@ -14,7 +14,6 @@
                     <i class="fa fa-edit mr-2" style="margin-top: -4px;"></i>
                     <span>Contactos</span>
                 </h3>
-
                 <!--<form #miForm="ngForm" class="mt-4">
                     <div class="form-group">
                         <label for="cedula"><strong>Cédula</strong></label>
@@ -22,23 +21,21 @@
                     </div>
                     <div>
                         <button (click)="obtenerPersona(cedula)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
-                            Verificar
-                            <span class="fa fa-check"></span>
+                            Verificar <span class="fa fa-check"></span>
                         </button>&nbsp;
                         <button class="btn btn-secondary btn-success-next" (click)="goBack()">
-                            Volver al Menú
-                            <span class="fa fa-times"></span>
+                            Volver al Menú <span class="fa fa-times"></span>
                         </button>
                     </div>
                 </form>-->
                 <div class="col-md-8 mb-4">
                     <!--(click)="mostrarAgregarContacto()"-->
-                    <button class="btn btn-secondary btn-success-next" (click)="buscarContactos()"> 
+                    <button class="btn btn-secondary btn-success-next mr-3" (click)="buscarContactos()"> 
                         Generar Lista <span class="fa fa-plus"></span>
                     </button>
-                    <!--<button class="btn btn-secondary btn-success-next" (click)="volver()">
-                        Volver <span class="fa fa-arrow-left"></span>
-                    </button>-->
+                    <button class="btn btn-secondary btn-success-next" (click)="confirmarLiberarLista()">
+                        Liberar Lista <span class="fa fa-minus"></span>
+                    </button>
                 </div>
                 <div>
 
@@ -72,6 +69,7 @@
                         <button type="button" pButton icon="pi pi-arrow-circle-right" iconPos="left" (click)="derivarCoordinador()" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:150px" label="Derivar a Coordinador"></button><br>
                         <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="noAtiende()" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:150px" label="No Atiende"></button><br>
                         <button type="button" pButton icon="pi pi-spinner" iconPos="left" (click)="mostrarSuspenderContacto(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:150px" label="Suspender Contacto"></button>
+                        <button type="button" *ngIf="hasRol('Supervisor Contact Center')" pButton icon="pi pi-arrow-circle-down" iconPos="left" (click)="mostrarReasignar(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:150px" label="Reasignar"></button>
                     </td>
                     <td>
                         {{rowData.nroDocumento}}
@@ -118,10 +116,6 @@
 
                 <!--<form #miForm="ngForm" class="mt-4">
                     <div class="form-group">
-                        <label for="tipoDocumento"><strong>Tipo de Documento </strong></label>
-                        <input type="text" [(ngModel)]="tipoDocumento" class="form-control" style="max-width: 200px;" id="tipoDocumento" name="tipoDocumento" required readonly>
-                    </div>
-                    <div class="form-group">
                         <label for="numeroDocumento"><strong>Cédula </strong></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.numeroDocumento" class="form-control" style="max-width: 200px;" id="numeroDocumento" name="numeroDocumento" placeholder="Ej. 123456" required readonly>
                     </div>
@@ -141,21 +135,72 @@
                         <label for="correoElectronico"><strong>Correo Electrónico</strong></label>
                         <input type="email" [(ngModel)]="formDatosBasicos.correoElectronico" name="correoElectronico" class="form-control" style="max-width: 300px;" id="correoElectronico" email required readonly>
                     </div>
-                    <div class="form-group">
-                        <label for="contrasenha"><strong>Contraseña </strong></label>
-                        <input type="password" [(ngModel)]="contrasenha" class="form-control" id="contrasenha" style="max-width: 300px;" name="contrasenha" minlength="8" required>
-                    </div>
-
                     <div class="clearfix"><br/></div>
-
                     <div class="clearfix"><br/></div>
                     <button (click)="validarTelefono(formDatosBasicos.contrasenha)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || contrasenha !== contrasenhaConfirm">
-                            Guardar
-                            <span class="fa fa-check"></span>
+                            Guardar <span class="fa fa-check"></span>
                         </button>
                 </form>-->
 
             <!--</div>-->
+
+            <p-dialog [(visible)]="showReasignar" modal="true" header="Usuarios">
+                <p-table #dtt [columns]="colsUsers" [value]="usersContactCenterList" selectionMode="single" dataKey="id" [paginator]="true"
+                [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true"
+                paginatorPosition="bottom" [resizableColumns]="true" columnResizeMode="expand"><!--(onLazyLoad)="loadF($event)"-->
+                <ng-template pTemplate="caption">
+                    <div style="text-align: right;width:auto;">
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th>Acciones</th>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn [style.width]="col.width">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                    <tr>
+                        <td>
+                            <button type="button" pButton icon="pi pi-check" iconPos="left" (click)="reasignar(rowData.id)" class="ui-button-success mb-1" style="font-size:10px;width:90px" label="Reasignar" title="Reasignar contacto."></button>
+                        </td>
+                        <td>
+                            {{rowData.cedula}}
+                        </td>
+                        <td>
+                           {{rowData.nombre}}
+                        </td>
+                        <td>
+                            {{rowData.apellido}}
+                        </td>
+                        <td>
+                           {{rowData.username}}
+                        </td>
+                    </tr>
+                </ng-template>
+                </p-table>
+                <div>
+                    <button class="btn btn-secondary btn-success-next" (click)="cerrarReasignar()">
+                        Cerrar <span class="fa fa-times"></span>
+                    </button>
+                </div>
+            </p-dialog>
+
+            <p-dialog [(visible)]="showConfirmarLiberar" modal="true" header="Estás seguro?">
+                <div>
+                    <button class="btn btn-success btn-success-next" (click)="liberarLista()">
+                        Aceptar
+                        <span class="fa fa-check"></span>
+                    </button>&nbsp;
+
+                    <button class="btn btn-secondary btn-success-next" (click)="showConfirmarLiberar = false;">
+                        Cancelar
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+            </p-dialog>
 
             <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">

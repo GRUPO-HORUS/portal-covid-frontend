@@ -61,7 +61,6 @@ export class GrillaFormCensoContactoComponent implements OnInit {
   public origen: string;
 
   public idRegistro: number;
-  public codigoVerif: string;
 
   public contrasenha: string;
 
@@ -202,6 +201,12 @@ public distritosUsuario = [];
 showDerivarCoordinador: boolean = false;
 suspensionFormGroup: FormGroup;
 
+public showReasignar: boolean = false;
+public usersContactCenterList: any[];
+public colsUsers;
+
+public showConfirmarLiberar: boolean = false;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -282,11 +287,15 @@ suspensionFormGroup: FormGroup;
         { field: 'sexo', header: 'Sexo', width: '5%' },
         { field: 'fechaExposicion', header: 'Fecha de Exposición', width: '9%' },
         { field: 'categoriacontagio', header: 'Categoría de Contagio', width: '15%' }];
+
+    this.colsUsers = [{ field: 'cedula', header: 'Nro de Documento', width: '10%'},
+        { field: 'nombre', header: 'Nombres', width: '11%' },
+        { field: 'apellido', header: 'Apellidos', width: '11%' },
+        { field: 'username', header: 'Username', width: '11%' }];
   }
 
   realizarLlamada(nroDocumento){
-    //routerLink="/covid19/operador/primer-contacto/rowData.nroDocumento"
-    console.log(nroDocumento);
+    //console.log(nroDocumento);
     this._router.navigate(["covid19/operador/primer-contacto/", nroDocumento]);
   }
 
@@ -329,6 +338,22 @@ buscarContactos(){
     }
     );
 
+  }, error => {
+    console.log(error);
+    this.mensaje = error.error;
+    this.openMessageDialog();
+  }
+  );
+}
+
+confirmarLiberarLista(){
+  this.showConfirmarLiberar = true;
+}
+
+liberarLista(){
+  this.service.liberarRegistros(this.usuarioId).subscribe(registros => {
+    this.formCensoContactoList =[];
+    this.showConfirmarLiberar = false;
   }, error => {
     console.log(error);
     this.mensaje = error.error;
@@ -1004,6 +1029,46 @@ filtrarRegion(event) {
 
   noAtiende(){
     this.showNoAtiende = true;
+  }
+
+  mostrarReasignar(rowData){
+    this.formCensoContacto = rowData;
+    this.showReasignar = true;
+    this.service.getUsuariosContactCenter(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField).subscribe(usuarios => {
+        this.usersContactCenterList = usuarios.lista;
+        this.totalRecords = usuarios.totalRecords;
+        console.log(this.usersContactCenterList);
+      
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    });
+  }
+
+  reasignar(idUsuario){
+    this.formCensoContacto.usuarioActual = idUsuario;
+    this.service.editarFormCensoContacto(this.formCensoContacto).subscribe(response => {
+      this.loading = false;
+      this.mensaje= "Contacto Reasignado.";
+      this.buscarContactos();
+      this.showReasignar = false;
+      this.openMessageDialog();
+    }, error => {
+      if(error.status == 401){
+        this._router.navigate(["/"]);
+      }
+      else{
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
+    }
+    );
+  }
+
+  cerrarReasignar(){
+    this.showReasignar = false;
   }
 
   mostrarSuspenderContacto(rowData){

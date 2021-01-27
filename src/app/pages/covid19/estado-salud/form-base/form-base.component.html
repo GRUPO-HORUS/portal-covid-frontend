@@ -14,10 +14,12 @@
              [id]="field.fieldName">
     </ng-template>
     <ng-template ngSwitchCase="PrettyRadio">
-      <div class="p-grid p-dir-col">
+      <!--<div class="p-grid p-dir-col">
         <div class="p-col"
              *ngFor="let option of field.optionsSource"
-        >
+        >-->
+        <div class="row">
+        <div class="col-sm-2" *ngFor="let option of field.optionsSource">
           <p-radioButton [name]="field.fieldName"
                          [value]="option[field.optionsIdProp]"
                          [label]="option[field.optionsTextProp]"
@@ -44,10 +46,12 @@
              [id]="field.fieldName">
     </ng-template>
     <ng-template ngSwitchCase="Smiley">
-      <div class="p-grid p-dir-col">
+      <!--<div class="p-grid p-dir-col">
         <div class="p-col"
              *ngFor="let option of smileyOptions"
-        >
+        >-->
+        <div class="row">
+          <div class="col-sm-2" *ngFor="let option of smileyOptions">
           <p-radioButton [name]="field.fieldName"
                          [value]="option[field.optionsIdProp]"
                          [label]="option[field.optionsTextProp]"

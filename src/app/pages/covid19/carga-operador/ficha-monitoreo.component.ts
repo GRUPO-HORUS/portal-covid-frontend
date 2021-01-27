@@ -263,7 +263,8 @@ export class FichaMonitoreoComponent implements OnInit {
       obesidad:[null],
       enfermedadHepatica:[null],
       enfermedadOtros:[null],
-      enfermedadOtrosNombre:['']
+      enfermedadOtrosNombre:[''],
+      ningunaEnfBase:[null]
     });
 
     this.casoConfirmadoFg = this._formBuilder.group({
@@ -641,6 +642,23 @@ export class FichaMonitoreoComponent implements OnInit {
     });*/
   }
 
+  calcularSE($event){
+    /*let fecha = $event.getDate();
+    if(fecha >=3 && fecha <=9){
+      this.registroFg.controls.se.setValue(1);
+    }else if(fecha >=10 && fecha<=16){
+      this.registroFg.controls.se.setValue(2);
+    }else if(fecha >=17 && fecha<=23){
+      this.registroFg.controls.se.setValue(3);
+    }else if(fecha >=24 && fecha<=30){
+      this.registroFg.controls.se.setValue(4);
+    }else if(fecha >=31 && fecha<=6){
+      this.registroFg.controls.se.setValue(4);
+    }else if(fecha >=24 && fecha<=30){
+      this.registroFg.controls.se.setValue(4);
+    }*/
+  }
+
   selecAmbiente(band){
     if(band ==='salud'){
       this.catContagioOptions = [{value:'asistencia_paciente',label:'Asistencia a paciente con COVID-19'}, {value:'contacto_personal_salud',label:'Contacto con Personal de Salud con COVID-19'},
@@ -743,7 +761,7 @@ export class FichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseSindromeDown = this.registroFg.controls.sindromeDown.value;
     this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseNeurologica = this.registroFg.controls.enfermedadNeurologica.value;
     this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseHepaticaGrave = this.registroFg.controls.enfermedadHepatica.value;
-    
+    this.fichaPersonalBlanco.formSeccionDatosClinicos.ningunaEnfermedadBase = this.registroFg.controls.ningunaEnfermedadBase.value;
     if(this.registroFg.controls.enfermedadOtros.value){
       this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseOtros = this.registroFg.controls.enfermedadOtros.value;
       this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseOtrosNombre = this.registroFg.controls.enfermedadOtrosNombre.value;

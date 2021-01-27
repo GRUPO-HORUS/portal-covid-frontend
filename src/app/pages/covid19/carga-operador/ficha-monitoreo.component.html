@@ -19,7 +19,7 @@
                 <mat-horizontal-stepper labelPosition="bottom" #stepper><!--linear-->
 
                     <mat-step [stepControl]="registroFg">
-                        <form [formGroup]="registroFg" class="mt-4">
+                        <form [formGroup]="registroFg" class="mt-4" autocomplete="off">
                             <ng-template matStepLabel>Datos del personal sanitario</ng-template>
                             <!--<div class="row">
                                 <div class="col-md">
@@ -45,7 +45,7 @@
                                         <label for="fechaInicioMonitoreo"><strong>Fecha de inicio del monitoreo:</strong></label>
                                         <br>
                                         <!--<input type="date" id="fechaMonitoreo" formControlName="fechaMonitoreo" style="width: 515px;" value="{{fechaHoy}}">-->
-                                        <p-calendar formControlName="fechaInicioMonitoreo" id="fechaInicioMonitoreo" name="fechaInicioMonitoreo" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" appendTo="body"></p-calendar>
+                                        <p-calendar formControlName="fechaInicioMonitoreo" id="fechaInicioMonitoreo" name="fechaInicioMonitoreo" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" appendTo="body" (onSelect)="calcularSE($event)"></p-calendar>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -239,6 +239,13 @@
                                 </div>
                             </div>
                             <div class="row">
+                                <div class="col-md" *ngIf="registroFg.controls.sexo.value==='F'">
+                                    <div class="form-group">
+                                        <b>Embarazada</b>
+                                        <p-radioButton name="embarazada" [value]="true" label="Si" formControlName="embarazada" class="ml-2 mr-3"></p-radioButton>
+                                        <p-radioButton name="embarazada" [value]="false" label="No" formControlName="embarazada"></p-radioButton>
+                                    </div>
+                                </div>
                                 <div class="col-md">
                                     <b>Patologías de Base</b><br>
                                     <div class="form-group">
@@ -278,12 +285,8 @@
                                         <label for="enfermedadOtrosNombre"><strong>Especificar Otra Patología de Base</strong></label>
                                         <input type="text" formControlName="enfermedadOtrosNombre" name="enfermedadOtrosNombre" class="form-control" id="enfermedadOtrosNombre">
                                     </div>
-                                </div>
-                                <div class="col-md" *ngIf="registroFg.controls.sexo.value==='F'">
                                     <div class="form-group">
-                                        <b>Embarazada</b>
-                                        <p-radioButton name="embarazada" [value]="true" label="Si" formControlName="embarazada" class="ml-2 mr-3"></p-radioButton>
-                                        <p-radioButton name="embarazada" [value]="false" label="No" formControlName="embarazada"></p-radioButton>
+                                        <p-checkbox formControlName="ningunaEnfermedadBase" [binary]="true" label="Ninguna" id="ningunaEnfermedadBase"></p-checkbox>
                                     </div>
                                 </div>
                             </div>
@@ -327,7 +330,6 @@
                                     </div>
                                 </div>
                             </div>-->
-        
                             <!--<div class="form-group">
                                 <label for="contrasenha"><strong>Clave de seguridad </strong></label>
                                 <input type="password" [(ngModel)]="formDatosBasicos.contrasenha" class="form-control" id="contrasenha" style="max-width: 300px;" name="contrasenha" minlength="8" required>
@@ -356,7 +358,7 @@
                         </form>
                     </mat-step>
                     <mat-step [stepControl]="casoConfirmadoFg">
-                        <form [formGroup]="casoConfirmadoFg" class="mt-4">
+                        <form [formGroup]="casoConfirmadoFg" class="mt-4" autocomplete="off">
                             <ng-template matStepLabel>Fuente de Contagio</ng-template>
                             <!--<div class="row">
                                 <div class="col-md">
@@ -509,7 +511,7 @@
                                 </div>
                             </div>
                         </form>-->
-                        <form [formGroup]="monitoreoFg" class="mt-4">
+                        <form [formGroup]="monitoreoFg" class="mt-4" autocomplete="off">
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
@@ -936,7 +938,7 @@
                         </div>  
                     </mat-step>
                     <mat-step [stepControl]="clasificacionRiesgoFg">
-                        <form [formGroup]="clasificacionRiesgoFg" class="mt-4">
+                        <form [formGroup]="clasificacionRiesgoFg" class="mt-4" autocomplete="off">
                             <ng-template matStepLabel>Evolución del paciente</ng-template>
                             <!--<div class="row">
                                 <div class="col-md">

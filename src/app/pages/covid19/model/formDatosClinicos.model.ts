@@ -48,6 +48,7 @@ export class FormDatosClinicos {
 
     public enfermedadBaseOtros: string;
     public enfermedadBaseOtrosNombre: string;
+    public ningunaEnfermedadBase: string;
 
     public embarazada: boolean;
 
