@@ -298,6 +298,10 @@ export class Covid19Service {
       return this.httpClient.get<any[]>(this.config.API +"/covid19api/aislamiento/distritosDepto/"+coddpto);
     }
 
+    getBarriosDepto(coddpto): Observable<any[]>{
+      return this.httpClient.get<any[]>(this.config.API +"/covid19api/aislamiento/barriosDepto/"+coddpto);
+    }
+
     getCiudadesPorDepto(idDepto): Observable<any[]>{
       return this.httpClient.get<any[]>(this.config.API +"/covid19/ciudades/"+idDepto);
     }

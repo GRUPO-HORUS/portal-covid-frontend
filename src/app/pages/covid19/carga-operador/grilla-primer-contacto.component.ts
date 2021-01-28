@@ -184,6 +184,8 @@ export class GrillaPrimerContactoComponent implements OnInit {
 
   public distritosOptions: any[];
   public distritosFiltrados: any[];
+  public barriosOptions: any[];
+  public barriosFiltrados: any[];
 
   public distritosUsuario = [];
 
@@ -262,6 +264,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
         { field: 'telefono', header: 'Teléfono'},
         { field: 'departamento', header: 'Región Sanitaria'},
         { field: 'distrito', header: 'Distrito'},
+        { field: 'barrio', header: 'Barrio'},
         { field: 'hospitalizado', header: 'Internado'},
         { field: 'fallecido', header: 'Fallecido'},
         { field: 'tipoExposicion', header: 'Tipo de Exposición'},
@@ -321,7 +324,9 @@ export class GrillaPrimerContactoComponent implements OnInit {
 
   selectDepto(event){
     this.formGroup.controls.distrito.setValue(null);
+    this.formGroup.controls.barrio.setValue(null);
     let coddpto ="";
+    console.log(event.id);
     if(event.id < 10){
       coddpto = '0'+event.id;
     }else{
@@ -334,7 +339,24 @@ export class GrillaPrimerContactoComponent implements OnInit {
         let d = distritos[i];
         this.distritosOptions[i] = { nombre: d.nomdist, valor: d.coddist };
       }
-         
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    }
+    );
+
+    if(event.id ===18){
+      coddpto = '00';
+    }
+
+    this.service.getBarriosDepto(coddpto).subscribe(barrios => {
+      console.log(barrios);
+      this.barriosOptions = barrios;
+      for (let i = 0; i < barrios.length; i++) {
+        let d = barrios[i];
+        this.barriosOptions[i] = { nombre: d.nombarrio, valor: d.concatenado };
+      }
     }, error => {
       console.log(error);
       this.mensaje = error.error;
@@ -355,6 +377,20 @@ export class GrillaPrimerContactoComponent implements OnInit {
     }
     
     this.distritosFiltrados = filtered;
+  }
+
+  filtrarBarrio(event){
+    let filtered : any[] = [];
+    let query = event.query;
+    for(let i = 0; i < this.barriosOptions.length; i++) {
+        let barrio = this.barriosOptions[i];
+
+        if (barrio.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          filtered.push(barrio);
+        }
+    }
+    
+    this.barriosFiltrados = filtered;
   }
 
   getContactosXls(opcionFiltro){
@@ -870,7 +906,10 @@ consultarIdentificaciones(event) {
       ]),
       distrito: new FormControl({nombre:rowData.distrito}, [
         Validators.required
-      ]), //{nombre:rowData.distrito}
+      ]),
+      barrio: new FormControl({nombre:rowData.barrio}, [
+        Validators.required
+      ]), 
       hospitalizado: new FormControl(rowData.hospitalizado, [
         Validators.required
       ]),
@@ -903,14 +942,29 @@ consultarIdentificaciones(event) {
       console.log(error);
       this.mensaje = error.error;
       this.openMessageDialog();
+    });
+
+    if(rowData.departamentoId == 18){
+      coddpto = '00';
     }
-    );
+    this.service.getBarriosDepto(coddpto).subscribe(barrios => {
+      this.barriosOptions = barrios;
+      for (let i = 0; i < barrios.length; i++) {
+        let d = barrios[i];
+        this.barriosOptions[i] = { nombre: d.nombarrio, valor: d.concatenado };
+      }
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    });
   }
 
   onRowEditSave(rowData){
     /*this.primerContacto.nroDocumento = this.formGroup.controls.nroDocumento.value;
     this.primerContacto.nombre = this.formGroup.controls.nombre.value;
     this.primerContacto.apellido = this.formGroup.controls.apellido.value;*/
+    console.log(this.formGroup.controls.departamento.value.id);
     this.primerContacto.codigoPaciente = this.formGroup.controls.codigoPaciente.value;
     this.primerContacto.departamento = this.formGroup.controls.departamento.value.nombre;
     this.primerContacto.departamentoId = this.formGroup.controls.departamento.value.id;
@@ -920,6 +974,8 @@ consultarIdentificaciones(event) {
     this.primerContacto.hospitalizado = this.formGroup.controls.hospitalizado.value;
     this.primerContacto.fallecido = this.formGroup.controls.fallecido.value;
     this.primerContacto.regionSanitaria = this.formGroup.controls.departamento.value.id;
+    this.primerContacto.barrio = this.formGroup.controls.barrio.value.nombre;
+    this.primerContacto.barrioId = this.formGroup.controls.barrio.value.valor;
     if(this.formGroup.controls.tipoExposicion.value){
       this.primerContacto.tipoExposicion = this.formGroup.controls.tipoExposicion.value;
     }else{

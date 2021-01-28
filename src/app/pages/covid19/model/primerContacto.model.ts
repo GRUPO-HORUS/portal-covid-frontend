@@ -14,6 +14,8 @@ export class PrimerContacto {
     departamento: string;
     distritoId: number;
     distrito: string;
+    barrioId: number;
+    barrio: string;
 
     estadoPrimeraLlamada: string;
     comentarios: string;
