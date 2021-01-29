@@ -146,7 +146,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
   public binarioOptions=[{value:'SI',label:'SI'},{value:'NO',label:'NO'}];
 
   public exposicionOptions=[{value:'CONTACTO',label:'CONTACTO'}, {value:'SIN NEXO',label:'SIN NEXO'},
-  {value:'VIAJERO',label:'VIAJERO'},{value:'PRE-QUIRURGICO',label:'PRE-QUIRURGICO'}, {value:'PERSONAL SALUD',label:'PERSONAL SALUD'}];
+  {value:'VIAJERO',label:'VIAJERO'},{value:'PRE-QUIRURGICO',label:'PRE-QUIRURGICO'}];
 
   public albergueOptions=[{value:'COMUNIDAD',label:'COMUNIDAD'},{value:'ALBERGUE',label:'ALBERGUE'}];
   public sintomasOptions=[{value:'SINTOMATICO',label:'SINTOMÁTICO'},{value:'ASINTOMATICO',label:'ASINTOMÁTICO'}];
@@ -325,6 +325,13 @@ export class GrillaPrimerContactoComponent implements OnInit {
       this.totalRecords = pacientes.totalRecords;
       console.log(this.pacientesList);
     });*/
+  }
+
+  anularFechaSintomas(event){
+    console.log(event);
+    if(event.value=='ASINTOMATICO'){
+      this.formGroup.controls.fechaInicioSintomas.setValue(null);
+    }
   }
 
   selectDepto(event){
@@ -924,9 +931,7 @@ consultarIdentificaciones(event) {
       tipoExposicion: new FormControl(rowData.tipoExposicion, [
         Validators.required
       ]),
-      fechaInicioSintomas: new FormControl(rowData.fechaInicioSintomas, [
-        Validators.required
-      ]),
+      fechaInicioSintomas: new FormControl(rowData.fechaInicioSintomas),
       sintomaticoAsintomatico: new FormControl(rowData.sintomaticoAsintomatico, [
         Validators.required
       ]),

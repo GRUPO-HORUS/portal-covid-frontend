@@ -367,8 +367,9 @@
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
                         <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
-                                <div [formGroup]="formGroup">
-                                    <p-dropdown id="sintomaticoAsintomatico" [options]="sintomasOptions" label="label" placeholder="Seleccionar" formControlName="sintomaticoAsintomatico" name="sintomaticoAsintomatico" [style]="{'minWidth':'110px', 'width': '110px'}" required></p-dropdown>
+                                <div [formGroup]="formGroup"><!---->
+                                    <p-dropdown id="sintomaticoAsintomatico" [options]="sintomasOptions" label="label" placeholder="Seleccionar" formControlName="sintomaticoAsintomatico" 
+                                    name="sintomaticoAsintomatico" [style]="{'minWidth':'115px', 'width': '115px'}" (onChange)="anularFechaSintomas($event)" required></p-dropdown>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
@@ -411,7 +412,7 @@
                         <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <p-dropdown id="comunidadAlbergue" [options]="albergueOptions" label="label" placeholder="Seleccionar" formControlName="comunidadAlbergue" name="comunidadAlbergue" [style]="{'minWidth':'110px', 'width': '110px'}" required></p-dropdown>
+                                    <p-dropdown id="comunidadAlbergue" [options]="albergueOptions" label="label" placeholder="Seleccionar" formControlName="comunidadAlbergue" name="comunidadAlbergue" [style]="{'minWidth':'115px', 'width': '115px'}" required></p-dropdown>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
