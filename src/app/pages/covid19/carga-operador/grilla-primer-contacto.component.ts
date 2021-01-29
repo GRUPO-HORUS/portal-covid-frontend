@@ -142,11 +142,14 @@ export class GrillaPrimerContactoComponent implements OnInit {
   tipoExposicion: string;
   fechaInicioSintomas: string;
 
-  public motivos=[{value:'no_atiende',label:'No Atiende'},{value:'apagado',label:'Apagado/Sin Señal'},{value:'equivocado',label:'Número Equivocado'}];
+  public motivos=[{value:'no_atiende',label:'No Atiende'},{value:'apagado',label:'Apagado/Sin Señal'},{value:'equivocado',label:'Número Equivocado'}, {value:'no_informacion',label:'No brinda información'}];
   public binarioOptions=[{value:'SI',label:'SI'},{value:'NO',label:'NO'}];
 
   public exposicionOptions=[{value:'CONTACTO',label:'CONTACTO'}, {value:'SIN NEXO',label:'SIN NEXO'},
-  {value:'VIAJERO',label:'VIAJERO'},{value:'PRE-QUIRURGICO',label:'PRE-QUIRURGICO'}];
+  {value:'VIAJERO',label:'VIAJERO'},{value:'PRE-QUIRURGICO',label:'PRE-QUIRURGICO'}, {value:'PERSONAL SALUD',label:'PERSONAL SALUD'}];
+
+  public albergueOptions=[{value:'COMUNIDAD',label:'COMUNIDAD'},{value:'ALBERGUE',label:'ALBERGUE'}];
+  public sintomasOptions=[{value:'SINTOMATICO',label:'SINTOMÁTICO'},{value:'ASINTOMATICO',label:'ASINTOMÁTICO'}];
 
   pacientesList: any[];
   formGroup: FormGroup;
@@ -268,7 +271,9 @@ export class GrillaPrimerContactoComponent implements OnInit {
         { field: 'hospitalizado', header: 'Internado'},
         { field: 'fallecido', header: 'Fallecido'},
         { field: 'tipoExposicion', header: 'Tipo de Exposición'},
+        { field: 'tieneSintomas', header: 'Sintomático/Asintomático'},
         { field: 'fechaInicioSintomas', header: 'Fecha de Inicio de Síntomas'},
+        { field: 'lugarCuarentena', header: 'Comunidad/Albergue'},
         { field: 'estadoPrimeraLlamada', header: 'Estado de Llamada'}];
 
         this.frozenCols = [
@@ -921,6 +926,12 @@ consultarIdentificaciones(event) {
       ]),
       fechaInicioSintomas: new FormControl(rowData.fechaInicioSintomas, [
         Validators.required
+      ]),
+      sintomaticoAsintomatico: new FormControl(rowData.sintomaticoAsintomatico, [
+        Validators.required
+      ]),
+      comunidadAlbergue: new FormControl(rowData.comunidadAlbergue, [
+        Validators.required
       ])
     });
 
@@ -981,6 +992,9 @@ consultarIdentificaciones(event) {
     }else{
       this.primerContacto.tipoExposicion = 'SD';
     }
+
+    this.primerContacto.sintomaticoAsintomatico = this.formGroup.controls.sintomaticoAsintomatico.value;
+    this.primerContacto.comunidadAlbergue = this.formGroup.controls.comunidadAlbergue.value;
     
     this.primerContacto.fechaInicioSintomas = this.formGroup.controls.fechaInicioSintomas.value;
 

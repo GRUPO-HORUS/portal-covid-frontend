@@ -17,6 +17,9 @@ export class PrimerContacto {
     barrioId: number;
     barrio: string;
 
+    sintomaticoAsintomatico: string;
+    comunidadAlbergue: string;
+
     estadoPrimeraLlamada: string;
     comentarios: string;
     cantidadReintentos: number;
