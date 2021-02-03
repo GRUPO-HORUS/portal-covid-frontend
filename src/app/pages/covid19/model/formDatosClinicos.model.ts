@@ -51,7 +51,7 @@ export class FormDatosClinicos {
     public ningunaEnfermedadBase: string;
 
     public embarazada: boolean;
-
+    public sintomatico: boolean;
     /*public medioTransporte: string;
     public tipoEmpresaTransporte: string;
     public transporteNoAsiento: string;

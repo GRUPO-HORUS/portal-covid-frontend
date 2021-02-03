@@ -419,31 +419,31 @@ export class GrillaPrimerContactoComponent implements OnInit {
     let worksheet = workbook.addWorksheet('Pacientes');
 
     worksheet.addRow(['LISTA DE PRIMERA LLAMADA']);
-    worksheet.addRow(['Fecha de Generación:', new Date().toLocaleString()]);
+    worksheet.addRow(['FECHA DE GENERACIÓN:', new Date().toLocaleString()]);
     worksheet.getRow(1).font = { name: 'Arial Black', family: 4, size: 14, bold: true };
 
-    worksheet.properties.defaultColWidth = 24;
+    worksheet.properties.defaultColWidth = 25;
     //worksheet.getColumn(1).width = 25;
 
-    let header=["Fecha Cierre", "Nro de Documento", "Código de Paciente", "Nombre", "Apellido", "Teléfono", "Departamento", "Distrito",
-    "Internado", "Fallecido", "Tipo de Exposición","Fecha de Inicio de Síntomas", "Estado de Primera Llamada"];
+    let header=["FECHA DE CIERRE", "NRO DE DOCUMENTO", "CÓDIGO DE PACIENTE", "NOMBRE", "APELLIDO", "TELÉFONO", "DEPARTAMENTO", "DISTRITO",
+    "INTERNADO", "FALLECIDO", "TIPO DE EXPOSICIÓN","FECHA DE INICIO DE SÍNTOMAS", "ESTADO DE PRIMERA LLAMADA"];
     worksheet.addRow(header);
     worksheet.getRow(3).fill = {type:'pattern', pattern: 'solid', fgColor: {argb:'00000000'}}
     worksheet.getRow(3).font = { color:{argb:'FFFFFFFF'}, name: 'Arial Black', family: 4, size: 11, bold: true };
 
     let filaNro = 4;
     for(let p of pacientes) {
-        let fallecido = 'No';
+        let fallecido = 'NO';
         if(p.fallecido){
-          fallecido = 'Si';
+          fallecido = 'SI';
         }
-        let internado = 'No';
+        let internado = 'NO';
         if(p.hospitalizado){
-          internado = 'Si';
+          internado = 'SI';
         }
 
-      worksheet.addRow([p.fechaCierreCaso, p.nroDocumento, p.codigoPaciente, p.nombre, p.apellido, p.telefono, p.departamento, 
-      p.distrito, internado, fallecido, p.tipoExposicion, p.fechaInicioSintomas, p.estadoPrimeraLlamada]);
+      worksheet.addRow([p.fechaCierreCaso, p.nroDocumento, p.codigoPaciente, p.nombre != null ? p.nombre.toUpperCase(): p.nombre, p.apellido != null ? p.apellido.toUpperCase(): p.apellido, p.telefono, p.departamento, 
+      p.distrito != null ? p.distrito.toUpperCase(): p.distrito, internado, fallecido, p.tipoExposicion, p.fechaInicioSintomas, p.estadoPrimeraLlamada != null ? p.estadoPrimeraLlamada.toUpperCase(): p.estadoPrimeraLlamada]);
 
       worksheet.getRow(filaNro).border = {
         top: { style:'double', color: {argb:'00000000'}},

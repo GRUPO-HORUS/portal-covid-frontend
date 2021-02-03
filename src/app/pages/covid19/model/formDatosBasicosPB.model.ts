@@ -75,6 +75,7 @@ export class FormDatosBasicosPB {
     constanciaAislamiento: boolean;
     fichaEpidemiologica: boolean;
     fechaInicioMonitoreo: string;
+    se: number;
 
     otroServicioInternadoCheck: boolean;
     otroServicioInternado: string;
@@ -91,5 +92,8 @@ export class FormDatosBasicosPB {
     inmunodeprimido: boolean;
     enfermedadOtros: boolean;
     enfermedadOtrosNombre: string;
-
+    ningunaEnfermedadBase: boolean;
+    vacunaCovid: boolean;
+    sintomatico: boolean;
+    seCierreCaso: number;
 }

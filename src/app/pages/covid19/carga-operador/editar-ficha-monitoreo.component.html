@@ -19,7 +19,7 @@
                 <mat-horizontal-stepper labelPosition="bottom" #stepper><!--linear-->
 
                     <mat-step [stepControl]="registroFg">
-                        <form [formGroup]="registroFg" class="mt-4">
+                        <form [formGroup]="registroFg" class="mt-4" autocomplete="off" (keydown.enter)="$event.preventDefault()">
                             <ng-template matStepLabel>Datos del personal sanitario</ng-template>
                             <!--<div class="row">
                                 <div class="col-md">
@@ -45,7 +45,7 @@
                                         <label for="fechaMonitoreo"><strong>Fecha de inicio del monitoreo:</strong></label>
                                         <br>
                                         <!--<input type="date" id="fechaMonitoreo" formControlName="fechaMonitoreo" style="width: 515px;" value="{{fechaHoy}}">-->
-                                        <p-calendar formControlName="fechaInicioMonitoreo" id="fechaInicioMonitoreo" name="fechaInicioMonitoreo" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                        <p-calendar formControlName="fechaInicioMonitoreo" id="fechaInicioMonitoreo" name="fechaInicioMonitoreo" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" (onSelect)="calcularSE($event)" appendTo="body"></p-calendar>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -102,6 +102,20 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
+                                        <label for="edad"><strong>Edad</strong></label>
+                                        <input type="number" formControlName="edad" class="form-control" id="edad" name="edad" required (change)="elegirRangoEdad($event.target.value)">
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="rangoEdad"><strong>Rango de edad</strong></label>
+                                        <br><p-dropdown id="rangoEdad" [options]="rangoEdadOptions" label="label" placeholder="Seleccionar" formControlName="rangoEdad" name="rangoEdad" [style]="{'width':'515px'}" required [disabled]=true></p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
                                         <label for="numeroCelular"><strong>Número de teléfono</strong></label>
                                         <input type="text" formControlName="telefono" class="form-control" id="telefono" name="telefono" placeholder="Ej. 0961123456" required>
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.numeroCelular" class="form-control" id="numeroCelular" name="numeroCelular" placeholder="Ej. 0961123456" minlength="6" required>-->
@@ -120,7 +134,8 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="ciudadDomicilio"><strong>Ciudad</strong></label>
-                                        <input type="text" formControlName="ciudadDomicilio" class="form-control" id="ciudadDomicilio" name="ciudadDomicilio" required>
+                                        <!--<input type="text" formControlName="ciudadDomicilio" class="form-control" id="ciudadDomicilio" name="ciudadDomicilio" required>-->
+                                        <p-autoComplete id="ciudadDomicilio" formControlName="ciudadDomicilio" [suggestions]="ciudadesFiltradas" field="nombre" (completeMethod)="filtrarCiudad($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -140,20 +155,6 @@
                                 </div>
                                 <div class="col-md">
                                     
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="edad"><strong>Edad</strong></label>
-                                        <input type="number" formControlName="edad" class="form-control" id="edad" name="edad" required (change)="elegirRangoEdad($event.target.value)">
-                                    </div>
-                                </div>
-                                <div class="col-md">
-                                    <div class="form-group">
-                                        <label for="rangoEdad"><strong>Rango de edad</strong></label>
-                                        <br><p-dropdown id="rangoEdad" [options]="rangoEdadOptions" label="label" placeholder="Seleccionar" formControlName="rangoEdad" name="rangoEdad" [style]="{'width':'515px'}" required [disabled]=true></p-dropdown>
-                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -241,6 +242,22 @@
                             </div>
                             <div class="row">
                                 <div class="col-md">
+                                    <div class="form-group">
+                                        <b>Vacuna Covid 19</b>
+                                        <p-radioButton name="vacunaCovid" [value]="true" label="Si" formControlName="vacunaCovid" class="ml-3 mr-3"></p-radioButton>
+                                        <p-radioButton name="vacunaCovid" [value]="false" label="No" formControlName="vacunaCovid"></p-radioButton>
+                                    </div>
+                                </div>
+                                <div class="col-md" *ngIf="registroFg.controls.sexo.value==='F'">
+                                    <div class="form-group">
+                                        <b>Embarazo</b>
+                                        <p-radioButton name="embarazada" [value]="true" label="Si" formControlName="embarazada" class="ml-2 mr-3"></p-radioButton>
+                                        <p-radioButton name="embarazada" [value]="false" label="No" formControlName="embarazada"></p-radioButton>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
                                     <b>Patologías de Base</b><br>
                                     <div class="form-group">
                                         <p-checkbox formControlName="cardiopatia" [binary]="true" label="Cardiopatía crónica" id="cardiopatia" class="mr-3 mb-3"></p-checkbox>
@@ -279,12 +296,8 @@
                                         <label for="enfermedadOtrosNombre"><strong>Especificar Otra Patología de Base</strong></label>
                                         <input type="text" formControlName="enfermedadOtrosNombre" name="enfermedadOtrosNombre" class="form-control" id="enfermedadOtrosNombre">
                                     </div>
-                                </div>
-                                <div class="col-md" *ngIf="registroFg.controls.sexo.value==='F'">
                                     <div class="form-group">
-                                        <b>Embarazada</b>
-                                        <p-radioButton name="embarazada" [value]="true" label="Si" formControlName="embarazada" class="ml-2 mr-3"></p-radioButton>
-                                        <p-radioButton name="embarazada" [value]="false" label="No" formControlName="embarazada"></p-radioButton>
+                                        <p-checkbox formControlName="ningunaEnfBase" [binary]="true" label="Ninguna" id="ningunaEnfermedadBase"></p-checkbox>
                                     </div>
                                 </div>
                             </div>
@@ -341,7 +354,7 @@
                         </form>
                     </mat-step>
                     <mat-step [stepControl]="casoConfirmadoFg">
-                        <form [formGroup]="casoConfirmadoFg" class="mt-4">
+                        <form [formGroup]="casoConfirmadoFg" class="mt-4" autocomplete="off" (keydown.enter)="$event.preventDefault()">
                             <ng-template matStepLabel>Fuente de Contagio</ng-template>
                             <!--<div class="row">
                                 <div class="col-md">
@@ -488,14 +501,24 @@
                                 </div>  
                             </div>
                         </form>-->
-                        <form [formGroup]="monitoreoFg" class="mt-4">
+                        <form [formGroup]="monitoreoFg" class="mt-4" autocomplete="off" (keydown.enter)="$event.preventDefault()">
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <b>Sintomático</b>
+                                        <p-radioButton name="sintomatico" [value]="true" label="SI" formControlName="sintomatico" class="ml-3 mr-4"></p-radioButton>
+                                        <p-radioButton name="sintomatico" [value]="false" label="NO" formControlName="sintomatico"></p-radioButton>
+                                    </div>
+                                </div>
+                                <div class="col-md"></div>
+                            </div>
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="fechaSintomas"><strong>Fecha de Inicio de Síntomas:</strong></label>
                                         <br>
                                         <!--<input type="date" id="fechaSintomas" formControlName="fechaSintomas" style="width: 325px;" (change)="setearFechasTabla($event.target.value)" value="{{fechaHoy}}">-->
-                                        <p-calendar formControlName="fechaSintomas" id="fechaSintomas" name="fechaSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" (onSelect)="setearFechasTabla($event, 'cambio')" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                        <p-calendar formControlName="fechaSintomas" id="fechaSintomas" name="fechaSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" (onSelect)="setearFechasTabla($event, 'cambio');setearSeFis($event)" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -916,7 +939,7 @@
                         </div>  
                     </mat-step>
                     <mat-step [stepControl]="clasificacionRiesgoFg">
-                        <form [formGroup]="clasificacionRiesgoFg" class="mt-4">
+                        <form [formGroup]="clasificacionRiesgoFg" class="mt-4" autocomplete="off" (keydown.enter)="$event.preventDefault()">
                             <ng-template matStepLabel>Evolución del paciente</ng-template>
                             <!--<div class="row">
                                 <div class="col-md">
@@ -958,12 +981,12 @@
                                     <div class="form-group">
                                         <label for="fechaPrimeraMuestra"><strong>Fecha de Toma de Muestra:</strong></label>
                                         <br>
-                                        <p-calendar formControlName="fechaPrimeraMuestra" id="fechaPrimeraMuestra" name="fechaPrimeraMuestra" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                        <p-calendar formControlName="fechaPrimeraMuestra" id="fechaPrimeraMuestra" name="fechaPrimeraMuestra" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" (onSelect)="setearSeMuestra($event)"></p-calendar>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="sePrimeraMuestra"><strong>Semana Epidemiológica de Toma de Muestra</strong></label>
+                                        <label for="sePrimeraMuestra"><strong>SE de Toma de Muestra</strong></label>
                                         <input type="number" formControlName="sePrimeraMuestra" class="form-control" id="sePrimeraMuestra" name="sePrimeraMuestra" min="1" required>
                                     </div>
                                 </div>
@@ -1120,11 +1143,14 @@
                                     <div class="form-group">
                                         <label for="fechaCierreCaso"><strong>Fecha de Cierre de Caso:</strong></label>
                                         <br>
-                                        <p-calendar formControlName="fechaCierreCaso" id="fechaCierreCaso" name="fechaCierreCaso" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                        <p-calendar formControlName="fechaCierreCaso" id="fechaCierreCaso" name="fechaCierreCaso" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" (onSelect)="setearSeCierreCaso($event)"></p-calendar>
                                     </div>
                                 </div>
                                 <div class="col-md">
-
+                                    <div class="form-group">
+                                        <label for="seCierreCaso"><strong>SE de Cierre de Caso</strong></label>
+                                        <input type="number" formControlName="seCierreCaso" class="form-control" id="seCierreCaso" name="seCierreCaso" min="1" required>
+                                    </div>
                                 </div>
                             </div>
                             <div class="clearfix"><br/></div>

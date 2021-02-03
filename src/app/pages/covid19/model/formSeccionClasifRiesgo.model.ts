@@ -18,6 +18,7 @@ export class FormSeccionClasifRiesgo {
     seFis: number;
     fechaInicioMonitoreo: string;
     fechaCierreCaso: string;
+    seCierreCaso: number;
     fechaPrimeraMuestra: string;
     sePrimeraMuestra: number;
     resultadoPrimeraMuestra: string;
@@ -33,4 +34,5 @@ export class FormSeccionClasifRiesgo {
     se: number;
     otroServicioInternadoCheck: boolean;
     otroServicioInternado: string;
+    vacunaCovid: boolean;
 }
