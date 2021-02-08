@@ -16,18 +16,18 @@
                 </h3>
                 <h4>Exposición de personal sanitario al SARS-COV-2</h4>
                 
-                <mat-horizontal-stepper labelPosition="bottom" #stepper><!--linear-->
+                <mat-horizontal-stepper labelPosition="bottom" linear #stepper><!--linear-->
 
                     <mat-step [stepControl]="registroFg">
                         <form [formGroup]="registroFg" class="mt-4" autocomplete="off" (keydown.enter)="$event.preventDefault()">
                             <ng-template matStepLabel>Datos del personal sanitario</ng-template>
-                            <!--<div class="row">
+                            <div class="row">
                                 <div class="col-md">
                                     <div class="alert alert-info">
-                                        <i class="fa fa-info-circle"></i> Debe completar todos los campos requeridos para avanzar al siguiente paso.
+                                        <i class="fa fa-info-circle"></i> Debe completar todos los campos obligatorios para avanzar a la siguiente pantalla.
                                     </div>
                                 </div>
-                            </div>-->
+                            </div>
 
                             <div class="row">
                                 <div class="col-md"></div>
@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="fechaInicioMonitoreo"><strong>Fecha de inicio del monitoreo:</strong></label>
+                                        <label for="fechaInicioMonitoreo"><strong>Fecha de inicio del monitoreo:</strong><span style="color: red;"> * obligatorio</span></label>
                                         <br>
                                         <!--<input type="date" id="fechaMonitoreo" formControlName="fechaMonitoreo" style="width: 515px;" value="{{fechaHoy}}">-->
                                         <p-calendar formControlName="fechaInicioMonitoreo" id="fechaInicioMonitoreo" name="fechaInicioMonitoreo" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" appendTo="body" (onSelect)="calcularSE($event)"></p-calendar>
@@ -51,7 +51,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="seFis"><strong>SE</strong></label>
-                                        <input type="number" formControlName="se" class="form-control" id="se" name="se" min="1" required>
+                                        <input type="number" formControlName="se" class="form-control" id="se" name="se" min="1">
                                     </div>
                                 </div>
                             </div>
@@ -59,8 +59,8 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="cedula"><strong>Número de Cédula</strong></label><!--<span style="color: red;"> *</span>-->
-                                        <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="consultarIdentificaciones($event, 'registro')">
+                                        <label for="cedula"><strong>Número de Cédula</strong><span style="color: red;"> * obligatorio</span></label>
+                                        <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="getUsuarioNotificado($event)">
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.numeroDocumento" class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ej. 123456" required>-->
                                     </div>
                                 </div>
@@ -117,24 +117,24 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="numeroCelular"><strong>Número de teléfono</strong></label>
+                                        <label for="numeroCelular"><strong>Número de teléfono</strong><span style="color: red;"> * obligatorio</span></label>
                                         <input type="text" formControlName="telefono" class="form-control" id="telefono" name="telefono" placeholder="Ej. 0961123456" required>
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.numeroCelular" class="form-control" id="numeroCelular" name="numeroCelular" placeholder="Ej. 0961123456" minlength="6" required>-->
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="regionSanitaria"><strong>Departamento</strong></label>
+                                        <label for="regionSanitaria"><strong>Departamento</strong><span style="color: red;"> * obligatorio</span></label>
                                         <br>
                                         <!--<p-dropdown id="regionSanitaria" [options]="regionSanitariaOptions" label="label" placeholder="Seleccionar" formControlName="regionSanitaria" name="regionSanitaria" [style]="{'width':'515px'}" required></p-dropdown>-->
-                                        <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required (onSelect)="selectDepto($event)"></p-autoComplete>
+                                        <p-autoComplete #autoC id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required (onSelect)="selectDepto($event)"></p-autoComplete>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="ciudadDomicilio"><strong>Ciudad</strong></label>
+                                        <label for="ciudadDomicilio"><strong>Ciudad</strong><span style="color: red;"> * obligatorio</span></label>
                                         <!--<input type="text" formControlName="ciudadDomicilio" class="form-control" id="ciudadDomicilio" name="ciudadDomicilio" required>-->
                                         <p-autoComplete id="ciudadDomicilio" formControlName="ciudadDomicilio" [suggestions]="ciudadesFiltradas" field="nombre" (completeMethod)="filtrarCiudad($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
                                     </div>
@@ -142,7 +142,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="barrio"><strong>Barrio</strong></label>
-                                        <input type="text" formControlName="barrio" class="form-control" id="barrio" name="barrio" required>
+                                        <input type="text" formControlName="barrio" class="form-control" id="barrio" name="barrio">
                                     </div>
                                 </div>
                             </div>
@@ -150,7 +150,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="direccion"><strong>Dirección</strong></label>
-                                        <input type="text" formControlName="direccion" name="direccion" class="form-control" id="direccion" required>
+                                        <input type="text" formControlName="direccion" name="direccion" class="form-control" id="direccion">
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control" id="direccionDomicilio" required>-->
                                     </div>
                                 </div>
@@ -169,7 +169,7 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group" *ngIf="!registroFg.controls.otroServicio.value">
-                                        <label for="servicioSalud"><strong>Servicio de Salud Notificante</strong><span style="color: red;"> * (Campo obligatorio)</span></label><br>
+                                        <label for="servicioSalud"><strong>Servicio de Salud Notificante</strong><span style="color: red;"> * obligatorio</span></label><br>
                                         <!--<input type="text" formControlName="servicioSalud" name="servicioSalud" class="form-control"  id="servicioSalud" required>-->
                                         <p-autoComplete id="servicioSalud" formControlName="servicioSalud" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
                                     </div>
@@ -192,7 +192,7 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="profesion"><strong>Profesión-Especialidad</strong></label>
+                                        <label for="profesion"><strong>Profesión-Especialidad</strong><span style="color: red;"> * obligatorio</span></label>
                                         <br>
                                         <!--<p-dropdown id="profesion" [options]="profesionOptions" label="label" placeholder="Seleccionar" formControlName="profesion" name="profesion" [style]="{'width':'515px'}" required></p-dropdown> [inputStyle]="{'width':'515px'}"-->
                                         <p-autoComplete id="profesion" formControlName="profesion" [suggestions]="profesionesFiltradas" field="nombre" (completeMethod)="filtrarProfesion($event)" [inputStyle]="{'width':'1060px'}" [forceSelection]="true" required></p-autoComplete>
@@ -202,7 +202,7 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="funcion"><strong>Función</strong></label><br>
+                                        <label for="funcion"><strong>Función</strong><span style="color: red;"> * obligatorio</span></label><br>
                                         <!--<input type="text" formControlName="funcion" name="funcion" class="form-control"  id="funcion" required>-->
                                         <p-autoComplete id="funcion" formControlName="funcion" [suggestions]="funcionesFiltradas" field="nombre" (completeMethod)="filtrarFuncion($event)" [inputStyle]="{'width':'515px'}" required></p-autoComplete>
                                     </div>
@@ -242,7 +242,7 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <b>Vacuna Covid 19</b>
+                                        <b>Vacuna Covid 19 <span style="color: red;"> * obligatorio</span></b>
                                         <p-radioButton name="vacunaCovid" [value]="true" label="Si" formControlName="vacunaCovid" class="ml-3 mr-3"></p-radioButton>
                                         <p-radioButton name="vacunaCovid" [value]="false" label="No" formControlName="vacunaCovid"></p-radioButton>
                                     </div>
@@ -257,7 +257,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md">
-                                    <b>Patologías de Base</b><br>
+                                    <b>Patologías de Base <span style="color: red;"> * obligatorio</span></b><br>
                                     <div class="form-group">
                                         <p-checkbox formControlName="cardiopatia" [binary]="true" label="Cardiopatía crónica" id="cardiopatia" class="mr-3 mb-3"></p-checkbox>
                                     </div>
@@ -379,10 +379,10 @@
                             <div class="row mb-3">
                                 <div class="col-md">
                                     <b>Indicar ambiente donde se produjo el contagio</b><br>
-                                        <p-radioButton name="contagioAmbiente" value="familiar_social" label="Familiar/Social" formControlName="contagioAmbiente" class="ml-2 mr-3"></p-radioButton>
-                                        <p-radioButton name="contagioAmbiente" value="sin_nexo" label="Sin nexo" formControlName="contagioAmbiente" class="ml-2 mr-3"></p-radioButton>
-                                        <p-radioButton name="contagioAmbiente" value="viajero" label="Viajero" formControlName="contagioAmbiente" class="ml-2 mr-3"></p-radioButton>
-                                        <p-radioButton name="contagioAmbiente" value="establecimiento_salud" label="Entorno asistencial" formControlName="contagioAmbiente" (onClick)="selecAmbiente('salud')"></p-radioButton>
+                                        <p-radioButton name="contagioAmbiente" value="familiar_social" label="Familiar/Social" formControlName="contagioAmbiente" (onClick)="esObligatorio()" class="ml-2 mr-3"></p-radioButton>
+                                        <p-radioButton name="contagioAmbiente" value="sin_nexo" label="Sin nexo" formControlName="contagioAmbiente" (onClick)="esObligatorio()" class="ml-2 mr-3"></p-radioButton>
+                                        <p-radioButton name="contagioAmbiente" value="viajero" label="Viajero" formControlName="contagioAmbiente" (onClick)="esObligatorio()" class="ml-2 mr-3"></p-radioButton>
+                                        <p-radioButton name="contagioAmbiente" value="establecimiento_salud" label="Entorno asistencial" formControlName="contagioAmbiente" (onClick)="selecAmbiente('salud'); esObligatorio()"></p-radioButton>
                                         <!--<div class="custom-control custom-checkbox">
                                             <input type="checkbox" formControlName = "contagioSalud" class="custom-control-input" id="contagioSalud" (change)="verifContagioEstablecimiento()">
                                             <label class="custom-control-label" for="contagioSalud">Establecimiento de salud</label>
@@ -402,13 +402,13 @@
                             <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud'">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="contagioEstablecimiento"><strong>Indique el entorno asistencial</strong><span style="color: red;"> *</span></label><br>
-                                        <p-autoComplete id="contagioEstablecimiento" formControlName="contagioEstablecimiento" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required apendTo="body"></p-autoComplete>
+                                        <label for="contagioEstablecimiento"><strong>Indique el entorno asistencial</strong><span style="color: red;"> * obligatorio</span></label><br>
+                                        <p-autoComplete id="contagioEstablecimiento" formControlName="contagioEstablecimiento" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true"required apendTo="body"></p-autoComplete>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="catContagio"><strong>Categoría del contagio</strong></label>
+                                        <label for="catContagio"><strong>Categoría del contagio</strong><span style="color: red;"> * obligatorio</span></label>
                                         <br>
                                         <p-dropdown id="catContagio" [options]="catContagioOptions" label="label" placeholder="Seleccionar" formControlName="catContagio" name="catContagio" [style]="{'width':'515px'}" required></p-dropdown>
                                     </div>
@@ -423,17 +423,17 @@
                                 <div class="col-md">
                                     <div class="form-group" *ngIf="casoConfirmadoFg.controls.otroServicioCheck.value">
                                         <label for="otroServicioNombre"><strong>Especificar Otro Servicio de Salud</strong></label>
-                                        <input type="text" formControlName="otroServicioNombre" name="otroServicioNombre" class="form-control" id="otroServicioNombre" required>
+                                        <input type="text" formControlName="otroServicioNombre" name="otroServicioNombre" class="form-control" id="otroServicioNombre">
                                     </div>
                                 </div>
                             </div>
                             <hr>
-                            <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud' || casoConfirmadoFg.controls.contagioAmbiente.value===null">
+                            <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud'"><!--|| casoConfirmadoFg.controls.contagioAmbiente.value===null-->
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="clasRiesgo"><strong>Clasificación de riesgo</strong></label>
                                         <br>
-                                        <p-dropdown id="clasRiesgo" [options]="clasRiesgoOptions" label="label" placeholder="Seleccionar" formControlName="clasRiesgo" name="clasRiesgo" [style]="{'width':'515px'}" required></p-dropdown>
+                                        <p-dropdown id="clasRiesgo" [options]="clasRiesgoOptions" label="label" placeholder="Seleccionar" formControlName="clasRiesgo" name="clasRiesgo" [style]="{'width':'515px'}"></p-dropdown>
                                         <!--<p-dropdown id="clasRiesgo" [options]="clasRiesgoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.departamentoDomicilio" name="clasRiesgo" [style]="{'width':'350px'}" required></p-dropdown>-->
                                     </div>
                                 </div>
@@ -441,24 +441,25 @@
     
                                 </div>
                             </div>
-                            <hr *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud' || casoConfirmadoFg.controls.contagioAmbiente.value===null">
-                            <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value !== 'viajero' && casoConfirmadoFg.controls.contagioAmbiente.value !== 'sin_nexo'">
+                            <hr *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud'"><!--|| casoConfirmadoFg.controls.contagioAmbiente.value===null-->
+                            
+                            <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value === 'familiar_social' || casoConfirmadoFg.controls.contagioAmbiente.value === 'establecimiento_salud'">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="fechaExposicion"><strong>Fecha de exposición:</strong></label>
+                                        <label for="fechaExposicion"><strong>Fecha de exposición:</strong><span style="color: red;"> * obligatorio</span></label>
                                         <!--<input type="date" id="fechaExposicion" formControlName="fechaExposicion" style="width: 325px;" value="{{fechaHoy}}">-->
-                                        <br><p-calendar formControlName="fechaExposicion" id="fechaExposicion" name="fechaExposicion" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                        <br><p-calendar formControlName="fechaExposicion" id="fechaExposicion" name="fechaExposicion" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" appendTo="body"></p-calendar>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     
                                 </div>
                             </div>
-                            <hr *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value !== 'viajero' && casoConfirmadoFg.controls.contagioAmbiente.value !== 'sin_nexo'">
-                            <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value !== 'viajero' && casoConfirmadoFg.controls.contagioAmbiente.value !== 'sin_nexo'">
+                            <hr *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value !== 'viajero' && casoConfirmadoFg.controls.contagioAmbiente.value !== 'sin_nexo' && casoConfirmadoFg.controls.contagioAmbiente.value !== null">
+                            <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value !== 'viajero' && casoConfirmadoFg.controls.contagioAmbiente.value !== 'sin_nexo' && casoConfirmadoFg.controls.contagioAmbiente.value !== null">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="cedula"><strong>Número de Cédula del Caso Confirmado</strong></label>
+                                        <label for="cedula"><strong>Número de Cédula del Caso Confirmado</strong><span style="color: red;"> * obligatorio</span></label>
                                         <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" (change)="consultarIdentificaciones($event,'confirmado')">
                                     </div>
                                 </div>
@@ -470,7 +471,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value!=='viajero' && casoConfirmadoFg.controls.contagioAmbiente.value!=='sin_nexo'">
+                            <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value!=='viajero' && casoConfirmadoFg.controls.contagioAmbiente.value!=='sin_nexo' && casoConfirmadoFg.controls.contagioAmbiente.value !== null">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="nombre"><strong>Apellidos</strong></label>
@@ -524,7 +525,7 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <b>Sintomático</b>
+                                        <b>Sintomático <span style="color: red;"> * obligatorio</span></b>
                                         <p-radioButton name="sintomatico" [value]="true" label="SI" formControlName="sintomatico" class="ml-3 mr-4"></p-radioButton>
                                         <p-radioButton name="sintomatico" [value]="false" label="NO" formControlName="sintomatico"></p-radioButton>
                                     </div>
@@ -968,20 +969,20 @@
                             </div>-->
                             <div class="row">
                                 <div class="col-md">
-                                    <b>Laboratorio (marcar lo que corresponda)</b>
+                                    <b>Laboratorio (marcar lo que corresponda) <span style="color: red;"> * obligatorio</span></b>
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" formControlName = "antigeno" class="custom-control-input" id="antigeno">
+                                        <input type="checkbox" formControlName= "antigeno" class="custom-control-input" id="antigeno">
                                         <label class="custom-control-label" for="antigeno">Antígeno</label>
                                     </div>
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" formControlName = "pcr" class="custom-control-input" id="pcr">
+                                        <input type="checkbox" formControlName= "pcr" class="custom-control-input" id="pcr">
                                         <label class="custom-control-label" for="pcr">PCR</label>
                                     </div>
-                                    <!--<div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="resultado">
-                                        <label class="custom-control-label" for="resultado">Resultado</label>
-                                    </div>
                                     <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" formControlName= "ningunoLab" class="custom-control-input" id="ningunoLab" (change)="elegirNingunoLab()">
+                                        <label class="custom-control-label" for="ningunoLab">Ninguno</label>
+                                    </div>
+                                    <!--<div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="otroLab" (change)="otroLab = !otroLab">
                                         <label class="custom-control-label" for="otroLab">Otro</label>
                                     </div>
@@ -999,13 +1000,13 @@
                                     <div class="form-group">
                                         <label for="fechaPrimeraMuestra"><strong>Fecha de Toma de Muestra:</strong></label>
                                         <br>
-                                        <p-calendar formControlName="fechaPrimeraMuestra" id="fechaPrimeraMuestra" name="fechaPrimeraMuestra" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" (onSelect)="setearSeMuestra($event)"></p-calendar>
+                                        <p-calendar formControlName="fechaPrimeraMuestra" id="fechaPrimeraMuestra" name="fechaPrimeraMuestra" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" (onSelect)="setearSeMuestra($event)" appendTo="body"></p-calendar>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="sePrimeraMuestra"><strong>SE de Toma de Muestra</strong></label>
-                                        <input type="number" formControlName="sePrimeraMuestra" class="form-control" id="sePrimeraMuestra" name="sePrimeraMuestra" min="1" required>
+                                        <input type="number" formControlName="sePrimeraMuestra" class="form-control" id="sePrimeraMuestra" name="sePrimeraMuestra" min="1">
                                     </div>
                                 </div>
                             </div>
@@ -1014,7 +1015,7 @@
                                     <div class="form-group">
                                         <label for="resultadoPrimeraMuestra"><strong>Resultado de Muestra:</strong></label>
                                         <br>
-                                        <p-dropdown id="resultadoPrimeraMuestra" [options]="resulPriMuestraOptions" label="label" placeholder="Seleccionar" formControlName="resultadoPrimeraMuestra" name="resultadoPrimeraMuestra" [style]="{'width':'515px'}" required></p-dropdown>
+                                        <p-dropdown id="resultadoPrimeraMuestra" [options]="resulPriMuestraOptions" label="label" placeholder="Seleccionar" formControlName="resultadoPrimeraMuestra" name="resultadoPrimeraMuestra" [style]="{'width':'515px'}"></p-dropdown>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -1029,7 +1030,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <!--<p-checkbox formControlName="internado" [binary]="true" label="Internado/a?" id="internado" (onChange)="verifEstablecimiento()"></p-checkbox>-->
-                                        <b>Internado</b>
+                                        <b>Internado <span style="color: red;"> * obligatorio</span></b>
                                         <p-radioButton name="internado" [value]="true" label="Si" formControlName="internado" class="ml-2 mr-3"></p-radioButton>
                                         <p-radioButton name="internado" [value]="false" label="No" formControlName="internado" (click)="verifEstablecimiento()"></p-radioButton>
                                     </div>
@@ -1068,7 +1069,7 @@
                             <hr>
                             <div class="row">
                                 <div class="col-md">
-                                    <b>Exclusión laboral</b>
+                                    <b>Exclusión laboral</b><span style="color: red;"> * obligatorio</span>
                                     <p-radioButton name="exclusion" [value]="true" label="Si" formControlName="exclusion" class="ml-6 mr-3"></p-radioButton>
                                     <p-radioButton name="exclusion" [value]="false" label="No" formControlName="exclusion"></p-radioButton>
                                     <!--<b>Indicaciones para el trabajo (marcar lo que corresponda)<span style="color: red;"> *</span></b>
@@ -1099,7 +1100,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md">
-                                    <b>Ficha Epidemiológica</b>&nbsp;&nbsp;&nbsp;
+                                    <b>Ficha Epidemiológica</b><span style="color: red;"> * obligatorio</span>&nbsp;&nbsp;&nbsp;
                                     <p-radioButton name="fichaEpidemiologica" [value]="true" label="Si" formControlName="fichaEpidemiologica" class="ml-4 mr-3"></p-radioButton>
                                     <p-radioButton name="fichaEpidemiologica" [value]="false" label="No" formControlName="fichaEpidemiologica"></p-radioButton>
                                 </div>
@@ -1109,7 +1110,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md">
-                                    <b>Constancia de Aislamiento</b>
+                                    <b>Constancia de Aislamiento</b><span style="color: red;"> * obligatorio</span>
                                     <p-radioButton name="constAislamiento" [value]="true" label="Si" formControlName="constAislamiento" class="ml-2 mr-3"></p-radioButton>
                                     <p-radioButton name="constAislamiento" [value]="false" label="No" formControlName="constAislamiento"></p-radioButton>
                                 </div>
@@ -1146,14 +1147,14 @@
                                         <label class="custom-control-label" for="confirmado">Confirmado</label>
                                     </div>-->
                                     <div class="form-group">
-                                        <p-dropdown id="clasifFinal" [options]="clasifFinalOptions" label="label" placeholder="Seleccionar" formControlName="clasifFinal" name="clasifFinal" [style]="{'width':'515px'}" required></p-dropdown>
+                                        <p-dropdown id="clasifFinal" [options]="clasifFinalOptions" label="label" placeholder="Seleccionar" formControlName="clasifFinal" name="clasifFinal" [style]="{'width':'515px'}"></p-dropdown>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="evolucionFinal"><strong>Evolución Final</strong></label>
                                         <br>
-                                        <p-dropdown id="evolucionFinal" [options]="evoFinalOptions" label="label" placeholder="Seleccionar" formControlName="evolucionFinal" name="evolucionFinal" [style]="{'width':'515px'}" required></p-dropdown>
+                                        <p-dropdown id="evolucionFinal" [options]="evoFinalOptions" label="label" placeholder="Seleccionar" formControlName="evolucionFinal" name="evolucionFinal" [style]="{'width':'515px'}"></p-dropdown>
                                     </div>
                                 </div>
                             </div>
@@ -1163,13 +1164,13 @@
                                     <div class="form-group">
                                         <label for="fechaCierreCaso"><strong>Fecha de Cierre de Caso:</strong></label>
                                         <br>
-                                        <p-calendar formControlName="fechaCierreCaso" id="fechaCierreCaso" name="fechaCierreCaso" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" (onSelect)="setearSeCierreCaso($event)"></p-calendar>
+                                        <p-calendar formControlName="fechaCierreCaso" id="fechaCierreCaso" name="fechaCierreCaso" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" (onSelect)="setearSeCierreCaso($event)" appendTo="body"></p-calendar>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="seCierreCaso"><strong>SE de Cierre de Caso</strong></label>
-                                        <input type="number" formControlName="seCierreCaso" class="form-control" id="seCierreCaso" name="seCierreCaso" min="1" required>
+                                        <input type="number" formControlName="seCierreCaso" class="form-control" id="seCierreCaso" name="seCierreCaso" min="1">
                                     </div>
                                 </div>
                             </div>
@@ -1207,7 +1208,7 @@
                                     <button class="btn btn-success btn-success-next text-white mr-3" mat-button routerLink="/covid19/home-operador">
                                         Menú Principal  <span class="fa fa-arrow-left"></span>            
                                     </button>
-                                    <button (click)="guardarFicha()" type="submit" class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button [disabled]="loading"><!--routerLink="/covid19/home-operador" [disabled]="clasificacionRiesgoFg.invalid || loading"-->  
+                                    <button (click)="guardarFicha()" type="submit" class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button [disabled]="clasificacionRiesgoFg.invalid || loading"><!--routerLink="/covid19/home-operador" [disabled]="clasificacionRiesgoFg.invalid || loading"-->  
                                         Guardar <span class="fa fa-check"></span>            
                                     </button>
     

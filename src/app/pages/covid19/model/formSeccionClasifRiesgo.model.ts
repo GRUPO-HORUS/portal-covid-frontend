@@ -13,6 +13,8 @@ export class FormSeccionClasifRiesgo {
     laboratorioAntigeno: boolean;
     laboratorioPcr: boolean;
 
+    laboratorioNinguno: boolean;
+
     fechaInicioSintomas: string;
 
     seFis: number;

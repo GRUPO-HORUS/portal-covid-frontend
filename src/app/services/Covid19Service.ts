@@ -118,6 +118,18 @@ export class Covid19Service {
       return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/guardarFichaContacto/', fichaPersonalBlanco);
     }
 
+    getUsuarioNotificado(cedula, fechaInicioMonitoreo): Observable<any> {
+      let params = new HttpParams();
+      if(cedula){
+        params = params.set('cedula', cedula);
+      }
+      if(fechaInicioMonitoreo){
+        params = params.set('fechaInicioMonitoreo', fechaInicioMonitoreo);
+      }
+
+      return this.httpClient.get<any>(this.config.API + '/covid19api/aislamiento/getUsuarioNotificado/', {params});
+    }
+
     getUsuariosContactCenter(start: number, pageSize: number, filter: string, sortAsc: boolean,
       sortField: string): Observable<UsuarioTable> {
      this.loading.next(true);

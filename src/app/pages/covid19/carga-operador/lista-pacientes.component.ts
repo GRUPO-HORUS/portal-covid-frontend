@@ -113,83 +113,158 @@ export class ListaPacientesComponent implements OnInit{
     let worksheet = workbook.addWorksheet('Pacientes');
 
     worksheet.addRow(['LISTA DE PERSONAL DE BLANCO']);
-    worksheet.addRow(['Fecha de Generación:', new Date().toLocaleString()]);
+    worksheet.addRow(['FECHA DE GENERACIÓN:', new Date().toLocaleString()]);
     worksheet.getRow(1).font = { name: 'Arial Black', family: 4, size: 14, bold: true };
 
-    worksheet.properties.defaultColWidth = 24;
+    worksheet.properties.defaultColWidth = 26;
     //worksheet.getColumn(1).width = 25;
 
-    let header=["Nro de Documento", "Nombre", "Apellido", "Celular", "Departamento", "Domicilio","Fecha de Nacimiento", "Sexo", "Edad",
-    "Rango de edad", "Ciudad", "Barrio", "Fecha Exposición",
-    "Fecha Inicio de Síntomas", "Nro de Documento Contacto", "Nombre Contacto", "Apellido Contacto", "Sexo Contacto",
-    "Servicio de Salud", "Región Sanitaria", "Profesión", "Función", "Reingreso", "Fallecido", "Internado", "Lugar Internación",
-    "Especialidad Internación", "Clasificación de Riesgo", "Categoría Contagio", "Clasificación Final", "Antígeno", "PCR", "Exclusión Trabajo",
-    "Constancia de Aislamiento", "Ficha Epidemiológica", "SE de Fis", "SE de Primera Muestra","Fecha de Primera Muestra",
-    "Resultado de Primera Muestra", "Evolución Final"];
+    let header=["FECHA INICIO MONITOREO", "SE", "NRO DE DOCUMENTO", "CÓDIGO PACIENTE","NOMBRE", "APELLIDO", "CELULAR", "DEPARTAMENTO", "DOMICILIO","FECHA DE NACIMIENTO",
+    "SEXO", "EDAD","RANGO DE EDAD", "CIUDAD", "BARRIO", "FECHA EXPOSICIÓN",
+    "FECHA INICIO DE SÍNTOMAS", "NRO DE DOCUMENTO CONTACTO", "NOMBRE CONTACTO", "APELLIDO CONTACTO", "SEXO CONTACTO",
+    "SERVICIO DE SALUD", "REGIÓN SANITARIA", "PROFESIÓN", "FUNCIÓN", "REINGRESO", "FALLECIDO", "INTERNADO", "LUGAR INTERNACIÓN",
+    "ESPECIALIDAD INTERNACIÓN", "CLASIFICACIÓN DE RIESGO", "CATEGORÍA CONTAGIO", "CLASIFICACIÓN FINAL", "ANTÍGENO", "PCR", "LABORATORIO NINGUNO", "EXCLUSIÓN TRABAJO",
+    "CONSTANCIA DE AISLAMIENTO", "FICHA EPIDEMIOLÓGICA", "SE DE FIS", "SE DE MUESTRA","FECHA DE MUESTRA",
+    "RESULTADO DE MUESTRA", "EVOLUCIÓN FINAL", "FECHA CIERRE CASO", "SE CIERRE CASO", "SINTOMÁTICO", "EMBARAZADA", "CARDIOPATIA CRÓNICA", 
+    "ENFERMEDAD PULMONAR", "ENFERMEDAD RENAL", "ASMA", "DIABETES", "ENFERMEDAD NEUROLÓGICA", "ENFERMEDAD HEPÁTICA", "OBESIDAD", "INMUNODEPRIMIDO", "OTROS", "OTROS NOMBRE", "NINGUNA"];
     worksheet.addRow(header);
     worksheet.getRow(3).fill = {type:'pattern', pattern: 'solid', fgColor: {argb:'00000000'}}
     worksheet.getRow(3).font = { color:{argb:'FFFFFFFF'}, name: 'Arial Black', family: 4, size: 11, bold: true };
 
     let filaNro = 4;
     for(let p of pacientes) {
-      let reingreso = 'No';
+      let reingreso = 'NO';
         if(p.reingreso){
-          reingreso = 'Si';
+          reingreso = 'SI';
         }
-        let fallecido = 'No';
+        let fallecido = 'NO';
         if(p.fallecido){
-          fallecido = 'Si';
+          fallecido = 'SI';
         }
-        let internado = 'No';
+        let internado = 'NO';
         if(p.internado){
-          internado = 'Si';
+          internado = 'SI';
         }
 
-        let laboratorioAntigeno = 'No';
+        let laboratorioAntigeno = 'NO';
         if(p.laboratorioAntigeno){
-          laboratorioAntigeno = 'Si';
+          laboratorioAntigeno = 'SI';
         }
-        let laboratorioPcr = 'No';
+        let laboratorioPcr = 'NO';
         if(p.laboratorioPcr){
-          laboratorioPcr = 'Si';
+          laboratorioPcr = 'SI';
         }
-        let trabajoExclusion = 'No';
+        let laboratorioNinguno = 'NO';
+        if(p.laboratorioNinguno){
+          laboratorioNinguno = 'SI';
+        }
+        let trabajoExclusion = 'NO';
         if(p.trabajoExclusion){
-          trabajoExclusion = 'Si';
+          trabajoExclusion = 'SI';
         }
 
-        let constanciaAislamiento = 'No';
+        let constanciaAislamiento = 'NO';
         if(p.constanciaAislamiento){
-          constanciaAislamiento = 'Si';
+          constanciaAislamiento = 'SI';
         }
 
-        let fichaEpidemiologica = 'No';
+        let fichaEpidemiologica = 'NO';
         if(p.fichaEpidemiologica){
-          fichaEpidemiologica = 'Si';
+          fichaEpidemiologica = 'SI';
         }
 
-        let trabajoAutocontrol = 'No';
+        let trabajoAutocontrol = 'NO';
         if(p.trabajoAutocontrol){
-          trabajoAutocontrol = 'Si';
+          trabajoAutocontrol = 'SI';
         }
 
-        let trabajoNada = 'No';
+        let trabajoNada = 'NO';
         if(p.trabajoNada){
-          trabajoNada = 'Si';
+          trabajoNada = 'SI';
         }
 
-        let trabajoOtro = 'No';
+        let trabajoOtro = 'NO';
         if(p.trabajoOtro){
-          trabajoOtro = 'Si';
+          trabajoOtro = 'SI';
         }
-      worksheet.addRow([p.numeroDocumento, p.nombre, p.apellido, p.numeroCelular, p.departamentoDomicilio, 
-      p.direccionDomicilio, p.fechaNacimiento, p.sexo, p.edad, p.rangoEdad, p.ciudadDomicilio, p.barrio, p.fechaExposicion, p.fechaInicioSintoma, p.nroDocumentoContacto, 
-      p.nombreContacto, p.apellidoContacto, p.sexoContacto, p.servicioSalud,
-      p.regionSanitaria, p.profesion, p.funcion, reingreso, fallecido,
-      internado, p.establecimientoInternacion, p.especialidadInternacion, p.clasificacionRiesgo, 
-      p.categoriaContagio, p.clasificacionFinal, laboratorioAntigeno, laboratorioPcr,
-      trabajoExclusion, constanciaAislamiento, fichaEpidemiologica, p.seFis, p.sePrimeraMuestra,
-      p.fechaPrimeraMuestra, p.resultadoPrimeraMuestra, p.evolucionFinal]);
+
+        let sintomatico = 'NO';
+        if(p.sintomatico){
+          sintomatico = 'SI';
+        }
+
+        let embarazada = 'NO';
+        if(p.embarazada){
+          embarazada = 'SI';
+        }
+
+        let cardiopatia = 'NO';
+        if(p.enfermedadBaseCardiopatiaCronica){
+          cardiopatia = 'SI';
+        }
+
+        let pulmonar = 'NO';
+        if(p.enfermedadBasePulmonarCronico){
+          pulmonar = 'SI';
+        }
+
+        let renal = 'NO';
+        if(p.enfermedadBaseRenalCronico){
+          renal = 'SI';
+        }
+
+        let asma = 'NO';
+        if(p.enfermedadBaseAsma){
+          asma = 'SI';
+        }
+
+        let diabetes = 'NO';
+        if(p.enfermedadBaseDiabetes){
+          diabetes = 'SI';
+        }
+
+        let neurologica = 'NO';
+        if(p.enfermedadBaseNeurologica){
+          neurologica = 'SI';
+        }
+
+        let obesidad = 'NO';
+        if(p.enfermedadBaseObesidad){
+          obesidad = 'SI';
+        }
+
+        let hepatica = 'NO';
+        if(p.enfermedadBaseHepaticaGrave){
+          hepatica = 'SI';
+        }
+
+        let inmunodeprimido = 'NO';
+        if(p.enfermedadBaseInmunodeprimido){
+          inmunodeprimido = 'SI';
+        }
+
+        let otros = 'NO';
+        if(p.enfermedadBaseOtros){
+          otros = 'SI';
+        }
+
+        let ningunaEnfBase = 'NO';
+        if(p.ningunaEnfermedadBase){
+          ningunaEnfBase = 'SI';
+        }
+      worksheet.addRow([p.fechaInicioMonitoreo, p.se, p.numeroDocumento, p.codigoPaciente != null ? p.codigoPaciente.toUpperCase(): p.codigoPaciente, p.nombre != null ? p.nombre.toUpperCase(): p.nombre, p.apellido != null ? p.apellido.toUpperCase(): p.apellido, p.numeroCelular, 
+      p.departamentoDomicilio != null ? p.departamentoDomicilio.toUpperCase(): p.departamentoDomicilio, p.direccionDomicilio != null ? p.direccionDomicilio.toUpperCase(): p.direccionDomicilio, 
+      p.fechaNacimiento, p.sexo != null ? p.sexo.toUpperCase(): p.sexo, p.edad, p.rangoEdad != null ? p.rangoEdad.toUpperCase(): p.rangoEdad, p.ciudadDomicilio != null ? p.ciudadDomicilio.toUpperCase(): p.ciudadDomicilio, 
+      p.barrio != null ? p.barrio.toUpperCase(): p.barrio, p.fechaExposicion, p.fechaInicioSintoma, p.nroDocumentoContacto, 
+      p.nombreContacto != null ? p.nombreContacto.toUpperCase(): p.nombreContacto, p.apellidoContacto != null ? p.apellidoContacto.toUpperCase(): p.apellidoContacto, p.sexoContacto != null ? p.sexoContacto.toUpperCase(): p.sexoContacto, 
+      p.servicioSalud != null ? p.servicioSalud.toUpperCase(): p.servicioSalud, p.regionSanitaria != null ? p.regionSanitaria.toUpperCase(): p.regionSanitaria,
+      p.profesion != null ? p.profesion.toUpperCase(): p.profesion, p.funcion != null ? p.funcion.toUpperCase(): p.funcion, reingreso, fallecido,
+      internado, p.establecimientoInternacion != null ? p.establecimientoInternacion.toUpperCase(): p.establecimientoInternacion, p.especialidadInternacion != null ? p.especialidadInternacion.toUpperCase(): p.especialidadInternacion, 
+      p.clasificacionRiesgo != null ? p.clasificacionRiesgo.toUpperCase(): p.clasificacionRiesgo, p.categoriaContagio != null ? p.categoriaContagio.toUpperCase(): p.categoriaContagio, 
+      p.clasificacionFinal != null ? p.clasificacionFinal.toUpperCase(): p.clasificacionFinal, laboratorioAntigeno, laboratorioPcr, laboratorioNinguno,
+      trabajoExclusion, constanciaAislamiento, fichaEpidemiologica, p.seFis, p.sePrimeraMuestra, p.fechaPrimeraMuestra,
+      p.resultadoPrimeraMuestra != null ? p.resultadoPrimeraMuestra.toUpperCase(): p.resultadoPrimeraMuestra, p.evolucionFinal != null ? p.evolucionFinal.toUpperCase(): p.evolucionFinal,
+      p.fechaCierreCaso, p.seCierreCaso, sintomatico, embarazada, cardiopatia, pulmonar, renal, asma, diabetes, neurologica, hepatica, obesidad, inmunodeprimido, otros, p.enfermedadBaseOtrosNombre != null ? p.enfermedadBaseOtrosNombre.toUpperCase(): p.enfermedadBaseOtrosNombre, ningunaEnfBase]);
 
       worksheet.getRow(filaNro).border = {
         top: { style:'double', color: {argb:'00000000'}},
