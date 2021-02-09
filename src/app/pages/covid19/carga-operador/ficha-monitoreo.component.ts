@@ -658,10 +658,10 @@ export class FichaMonitoreoComponent implements OnInit {
       this.casoConfirmadoFg.controls.clasRiesgo.setValidators([Validators.required]);
       this.casoConfirmadoFg.controls.fechaExposicion.setValidators([Validators.required]);
     }else{
-      this.casoConfirmadoFg.controls.fechaExposicion.clearValidators();
       this.casoConfirmadoFg.controls.contagioEstablecimiento.clearValidators();
       this.casoConfirmadoFg.controls.catContagio.clearValidators();
       this.casoConfirmadoFg.controls.clasRiesgo.clearValidators();
+      this.casoConfirmadoFg.controls.fechaExposicion.clearValidators();
     }
   }
 
