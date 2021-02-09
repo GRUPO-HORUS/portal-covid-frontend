@@ -1012,8 +1012,21 @@ consultarIdentificaciones(event) {
         this.loading = false;
         this.mensaje= "Registro editado exitosamente.";
         this.openMessageDialog();
-
         this.primerContacto.editado = true;
+
+        this.service.insertFrmFsarscov2(this.primerContacto).subscribe(response => {
+          
+        }, error => {
+          if(error.status == 401){
+            this._router.navigate(["/"]);
+          }
+          else{
+            this.loading = false;
+            this.mensaje = error.error;
+            this.openMessageDialog();
+          }
+        });
+
     }, error => {
         if(error.status == 401)
         {

@@ -459,7 +459,7 @@
                             <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value !== 'viajero' && casoConfirmadoFg.controls.contagioAmbiente.value !== 'sin_nexo' && casoConfirmadoFg.controls.contagioAmbiente.value !== null">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="cedula"><strong>Número de Cédula del Caso Confirmado</strong><span style="color: red;"> * obligatorio</span></label>
+                                        <label for="cedula"><strong>Número de Cédula del Caso Confirmado</strong></label>
                                         <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" (change)="consultarIdentificaciones($event,'confirmado')">
                                     </div>
                                 </div>

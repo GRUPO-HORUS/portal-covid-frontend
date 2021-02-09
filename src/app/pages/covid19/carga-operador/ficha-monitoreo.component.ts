@@ -650,7 +650,7 @@ export class FichaMonitoreoComponent implements OnInit {
   esObligatorio(){
     if(this.casoConfirmadoFg.controls.contagioAmbiente.value === 'familiar_social'){
       this.casoConfirmadoFg.controls.fechaExposicion.setValidators([Validators.required]);
-      this.casoConfirmadoFg.controls.cedula.setValidators([Validators.required]);
+      //this.casoConfirmadoFg.controls.cedula.setValidators([Validators.required]);
 
     }else if(this.casoConfirmadoFg.controls.contagioAmbiente.value === 'establecimiento_salud'){
       this.casoConfirmadoFg.controls.contagioEstablecimiento.setValidators([Validators.required]);
