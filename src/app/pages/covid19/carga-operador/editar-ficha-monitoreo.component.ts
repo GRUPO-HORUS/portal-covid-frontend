@@ -631,6 +631,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       otroIndic: [null],
       antigeno: [null],
       pcr: [null],
+      ningunoLab: [null],
       sePrimeraMuestra: [1],
       fechaPrimeraMuestra: [''],
       resultadoPrimeraMuestra: [''],
