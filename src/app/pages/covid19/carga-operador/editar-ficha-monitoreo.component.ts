@@ -626,21 +626,21 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     this.clasificacionRiesgoFg = this._formBuilder.group({
       clasifFinal:[''],
       otroIndicEspecificar: [''],
-      exclusion: [null],
       autocontrol: [null],
       nada: [null],
       otroIndic: [null],
       antigeno: [null],
       pcr: [null],
-      sePrimeraMuestra: [1, Validators.required],
-      fechaPrimeraMuestra: ['', Validators.required],
-      resultadoPrimeraMuestra: ['', Validators.required],
+      sePrimeraMuestra: [1],
+      fechaPrimeraMuestra: [''],
+      resultadoPrimeraMuestra: [''],
+      exclusion: [null, Validators.required],
       constAislamiento: [null, Validators.required],
       fichaEpidemiologica: [null, Validators.required],
-      evolucionFinal: ['', Validators.required],
-      fechaCierreCaso: ['', Validators.required],
-      seCierreCaso:[1, Validators.required],
-      internado: [null],
+      evolucionFinal: [''],
+      fechaCierreCaso: [''],
+      seCierreCaso:[1],
+      internado: [null, Validators.required],
       establecimiento: [],
       especialidad: [],
       otroServicioInternadoCheck:[null],
@@ -1750,6 +1750,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.clasificacionRiesgoFg.controls.otroIndicEspecificar.setValue(response.trabajoOtroDescripcion);
         this.clasificacionRiesgoFg.controls.antigeno.setValue(response.laboratorioAntigeno);
         this.clasificacionRiesgoFg.controls.pcr.setValue(response.laboratorioPcr);
+        this.clasificacionRiesgoFg.controls.ningunoLab.setValue(response.laboratorioNinguno);
         this.clasificacionRiesgoFg.controls.clasifFinal.setValue(response.clasificacionFinal);
 
         this.clasificacionRiesgoFg.controls.constAislamiento.setValue(response.constanciaAislamiento);

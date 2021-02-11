@@ -531,20 +531,21 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     this.clasificacionRiesgoFg = this._formBuilder.group({
       clasifFinal:[''],
       otroIndicEspecificar: [''],
-      exclusion: [null],
+      exclusion: [null, Validators.required],
       autocontrol: [null],
       nada: [null],
       otroIndic: [null],
       antigeno: [null],
       pcr: [null],
-      fechaCierreCaso: ['', Validators.required],
-      fechaPrimeraMuestra: ['', Validators.required],
-      sePrimeraMuestra:[1, Validators.required],
-      resultadoPrimeraMuestra: ['', Validators.required],
+      ningunoLab: [null],
+      fechaCierreCaso: [''],
+      fechaPrimeraMuestra: [''],
+      sePrimeraMuestra:[1],
+      resultadoPrimeraMuestra: [''],
       constAislamiento: [null, Validators.required],
       fichaEpidemiologica: [null, Validators.required],
-      evolucionFinal: ['', Validators.required],
-      internado: [null],
+      evolucionFinal: [''],
+      internado: [null, Validators.required],
       establecimiento: [],
       especialidad: []
     });
@@ -941,6 +942,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.clasificacionRiesgoFg.controls.otroIndicEspecificar.setValue(response.trabajoOtroDescripcion);
         this.clasificacionRiesgoFg.controls.antigeno.setValue(response.laboratorioAntigeno);
         this.clasificacionRiesgoFg.controls.pcr.setValue(response.laboratorioPcr);
+        this.clasificacionRiesgoFg.controls.pcr.setValue(response.laboratorioNinguno);
         this.clasificacionRiesgoFg.controls.clasifFinal.setValue(response.clasificacionFinal);
 
         this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(response.sePrimeraMuestra);
@@ -1367,6 +1369,8 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.trabajoOtroDescripcion = this.clasificacionRiesgoFg.controls.otroIndicEspecificar.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.laboratorioAntigeno = this.clasificacionRiesgoFg.controls.antigeno.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.laboratorioPcr = this.clasificacionRiesgoFg.controls.pcr.value;
+
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.laboratorioNinguno = this.clasificacionRiesgoFg.controls.ningunoLab.value;
     
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaInicioSintomas = this.monitoreoFg.controls.fechaSintomas.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.seFis = this.monitoreoFg.controls.seFis.value;

@@ -43,6 +43,7 @@ export class FormDatosBasicosPB {
     trabajoOtroDescripcion: string;
     laboratorioAntigeno: boolean;
     laboratorioPcr: boolean;
+    laboratorioNinguno: boolean;
 
     servicioSalud: string;
     regionSanitaria: string;
