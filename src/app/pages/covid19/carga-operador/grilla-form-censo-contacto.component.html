@@ -66,7 +66,7 @@
                 <tr>
                     <td>
                         <button type="button" pButton icon="pi pi-volume-up" iconPos="left" (click)="realizarLlamada(rowData.nroDocumento)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:150px" label="Realizar Llamada"></button><br>
-                        <button type="button" pButton icon="pi pi-arrow-circle-right" iconPos="left" (click)="derivarCoordinador()" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:150px" label="Derivar a Coordinador"></button><br>
+                        <!--<button type="button" pButton icon="pi pi-arrow-circle-right" iconPos="left" (click)="derivarCoordinador()" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:150px" label="Derivar a Coordinador"></button><br>-->
                         <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="noAtiende()" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:150px" label="No Atiende"></button><br>
                         <button type="button" pButton icon="pi pi-spinner" iconPos="left" (click)="mostrarSuspenderContacto(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:150px" label="Suspender Contacto"></button>
                         <button type="button" *ngIf="hasRol('Supervisor Contact Center')" pButton icon="pi pi-arrow-circle-down" iconPos="left" (click)="mostrarReasignar(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:150px" label="Reasignar"></button>

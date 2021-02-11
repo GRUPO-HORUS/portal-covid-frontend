@@ -98,6 +98,7 @@
                     <th>Barrio</th>
                     <th>Hospitalizado</th>
                     <th>Fallecido</th>
+                    <th>Personal de Blanco</th>
                     <th>Tipo de Exposición</th>
                     <th>Sintomático / Asintomático</th>
                     <th>Fecha de Inicio de Síntomas</th>
@@ -131,7 +132,7 @@
                         </p-cellEditor>
                     </td>
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
-                        <p-cellEditor *ngIf="edito && rowId===rowData.id">
+                        <!--<p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <input pInputText style="width:120px; height:35px" type="text" formControlName="codigoPaciente">
@@ -140,9 +141,8 @@
                             <ng-template pTemplate="output">
                                 {{rowData.codigoPaciente}}
                             </ng-template>
-                        </p-cellEditor>
-
-                        <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
+                        </p-cellEditor>-->
+                        <p-cellEditor>
                             <ng-template pTemplate="input">
                                 {{rowData.codigoPaciente}}
                             </ng-template>
@@ -340,9 +340,30 @@
                             <ng-template pTemplate="output">
                                 {{rowData.fallecido}}
                             </ng-template>
-                        </p-cellEditor>
-                        
+                        </p-cellEditor>  
                     </td>
+                    <!--<td pEditableColumn style="vertical-align: top; height: 128px;">
+                        <p-cellEditor *ngIf="edito && rowId===rowData.id">
+                            <ng-template pTemplate="input">
+                                <div [formGroup]="formGroup">
+                                    <p-dropdown id="personalBlanco" [options]="binarioOptions" label="label" placeholder="Seleccionar" formControlName="personalBlanco" name="personalBlanco" [style]="{'minWidth':'70px', 'width': '70px'}" required></p-dropdown>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.personalBlanco}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
+                            <ng-template pTemplate="input">
+                                {{rowData.personalBlanco}}
+                            </ng-template>
+
+                            <ng-template pTemplate="output">
+                                {{rowData.personalBlanco}}
+                            </ng-template>
+                        </p-cellEditor>  
+                    </td>-->
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
                         <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
