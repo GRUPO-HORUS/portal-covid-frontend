@@ -1832,6 +1832,13 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     }
   }
 
+  elegirNingunoLab(){
+    if(this.clasificacionRiesgoFg.controls.ningunoLab.value){
+      this.clasificacionRiesgoFg.controls.antigeno.setValue(null);
+      this.clasificacionRiesgoFg.controls.pcr.setValue(null);
+    }
+  }
+
   editarFicha(): void {
     this.loading = true;
     this.fichaPersonalBlanco = new FichaPersonalBlanco();

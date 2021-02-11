@@ -983,6 +983,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     }
   }
 
+  elegirNingunoLab(){
+    if(this.clasificacionRiesgoFg.controls.ningunoLab.value){
+      this.clasificacionRiesgoFg.controls.antigeno.setValue(null);
+      this.clasificacionRiesgoFg.controls.pcr.setValue(null);
+    }
+  }
+
   actualizarSeguimiento(): void {
     this.loading = true;
     this.fichaPersonalBlanco = new FichaPersonalBlanco();
