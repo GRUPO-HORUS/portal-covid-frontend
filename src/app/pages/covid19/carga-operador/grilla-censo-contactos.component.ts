@@ -528,20 +528,43 @@ onRowEditCancel(){
   this.edito = false;
 }
 
-mostrarNuevoContacto(rowData){
-  console.log(rowData);
-  //this._router.navigate(['covid19/operador/nuevo-contacto',rowData.nroDocumento, rowData.nombre, rowData.apellido]);
+mostrarListFormCensoContacto(rowData){
+  //console.log(rowData.id);
+  this.showListFormCensoContacto = true;
   this.primerContactoId = rowData.id;
+  this.primerContacto = rowData;
+  this.buscarFormCensoContacto(this.primerContactoId);
+}
+
+buscarFormCensoContacto(primerContactoId){
+  this.service.getPacientesFormCensoContacto(this.startF, this.pageSizeF, this.filterF, this.sortAscF, this.sortFieldF, this.region, 
+    this.usuarioId, primerContactoId, []).subscribe(pacientes => {
+    this.formCensoContactoList = pacientes.lista;
+    this.totalRecordsF = pacientes.totalRecords;
+    console.log(this.formCensoContactoList);
+  });
+}
+
+mostrarNuevoContacto(){
+  //console.log(rowData);
+  //this.primerContactoId = rowData.id;
   this.showPopupNuevoContacto = true;
 
-  this.contactoFg.controls.regionSanitaria.setValue({nombre:rowData.departamento});
-  this.contactoFg.controls.distrito.setValue({nombre:rowData.distrito});
+  //this.contactoFg.controls.regionSanitaria.setValue({nombre:rowData.departamento});
+  //this.contactoFg.controls.distrito.setValue({nombre:rowData.distrito});
+  this.contactoFg.controls.regionSanitaria.setValue({nombre:this.primerContacto.departamento});
+  this.contactoFg.controls.distrito.setValue({nombre:this.primerContacto.distrito});
 
   let coddpto ="";
-  if(rowData.departamentoId < 10){
+  /*if(rowData.departamentoId < 10){
     coddpto = '0'+rowData.departamentoId;
   }else{
     coddpto = rowData.departamentoId;
+  }*/
+  if(this.primerContacto.departamentoId < 10){
+    coddpto = '0'+this.primerContacto.departamentoId;
+  }else{
+    coddpto = this.primerContacto.departamentoId+'';
   }
 
   this.service.getDistritosDepto(coddpto).subscribe(distritos => {
@@ -632,27 +655,13 @@ cerrarNuevoContacto(){
   this.contactoFg.controls.nombre.setValue(null);
   this.contactoFg.controls.apellido.setValue(null);
   this.contactoFg.controls.sexo.setValue(null);
+  this.contactoFg.controls.direccion.setValue(null);
+  this.contactoFg.controls.telefono.setValue(null);
   this.showPopupNuevoContacto = false;
 }
 
 openMessageDialogExito() {
   setTimeout(function() { $("#modalExito").modal("toggle"); }, 1000);
-}
-
-mostrarListFormCensoContacto(rowData){
-  //console.log(rowData.id);
-  this.showListFormCensoContacto = true;
-  this.primerContactoId = rowData.id;
-  this.buscarFormCensoContacto(this.primerContactoId);
-}
-
-buscarFormCensoContacto(primerContactoId){
-  this.service.getPacientesFormCensoContacto(this.startF, this.pageSizeF, this.filterF, this.sortAscF, this.sortFieldF, this.region, 
-    this.usuarioId, primerContactoId, []).subscribe(pacientes => {
-    this.formCensoContactoList = pacientes.lista;
-    this.totalRecordsF = pacientes.totalRecords;
-    console.log(this.formCensoContactoList);
-  });
 }
 
 loadF($event: any) {

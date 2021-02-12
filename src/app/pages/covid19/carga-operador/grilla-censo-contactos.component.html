@@ -73,9 +73,9 @@
                 <tr [pEditableRow]="rowData"><!--[ngClass]="{'lowstock': rowData.actualizado==='si'}"-->
                     <td>
                         <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="mostrarNoSeContacto(rowData)" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:146px" label="No se pudo contactar" title="No se Pudo Contactar: en caso de que no atiende, apagado, etc."></button><br>
-                        <button pButton type="button" icon="pi pi-plus" iconPos="left" (click)="mostrarNuevoContacto(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:146px" label="Agregar Contacto" title="Agregar nuevos contactos."></button>
+                        <!--<button pButton type="button" icon="pi pi-plus" iconPos="left" (click)="mostrarNuevoContacto(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:146px" label="Agregar Contacto" title="Agregar nuevos contactos."></button>
                         <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text ui-button-warning- p-mr-2 mr-2 ml-5 mb-2 mt-2" style="background-color: green !important;"></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" class="p-button-rounded p-button-text p-button-danger mb-2 mt-2" style="background-color: red !important;"></button><br>
+                        <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" class="p-button-rounded p-button-text p-button-danger mb-2 mt-2" style="background-color: red !important;"></button><br>-->
                         <button type="button" pButton icon="pi pi-comments" iconPos="left" (click)="mostrarAgregarComentario(rowData)" class="ui-button-info mr-2 mb-1" style="font-size:10px;width:146px" label="Agregar Comentario" title="Agregar Comentario al momento de realizar llamada."></button><br>
                         <button type="button" pButton icon="pi pi-users" iconPos="left" (click)="mostrarListFormCensoContacto(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:146px" label="Ver Contactos" title="Ver lista de contactos."></button><br>
                         <!--<button type="button" pButton icon="pi pi-volume-up" *ngIf="rowData.estadoPrimeraLlamada !=='llamada_realizada'" iconPos="left" (click)="mostrarLlamada(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:146px" label="Llamada Realizada" title="Al Finalizar la llamada, se marca que la llamada fue realizada y el registro sale de la lista."></button><br>--><!--routerLink="/covid19/operador/primer-contacto/1695901"-->
@@ -640,6 +640,8 @@
                 </ng-template>
             </p-table>
                 <div>
+                    <button type="button" class="btn btn-secondary btn-success-next mr-2" icon="pi pi-plus" iconPos="left" (click)="mostrarNuevoContacto(rowData)">
+                    Agregar Contacto <span class="fa fa-plus"></span></button>
                     <button class="btn btn-secondary btn-success-next" (click)="closeListFormCensoContacto()">
                         Cerrar <span class="fa fa-times"></span>
                     </button>
