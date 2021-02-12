@@ -123,10 +123,9 @@ export class ListaPacientesComponent implements OnInit{
     "SEXO", "EDAD","RANGO DE EDAD", "CIUDAD", "BARRIO", "FECHA EXPOSICIÓN",
     "FECHA INICIO DE SÍNTOMAS", "NRO DE DOCUMENTO CONTACTO", "NOMBRE CONTACTO", "APELLIDO CONTACTO",
     "SERVICIO DE SALUD", "REGIÓN SANITARIA", "PROFESIÓN", "FUNCIÓN", "REINGRESO", "FALLECIDO", "INTERNADO", "LUGAR INTERNACIÓN",
-    "ESPECIALIDAD INTERNACIÓN", "CLASIFICACIÓN DE RIESGO", "CATEGORÍA CONTAGIO", "CLASIFICACIÓN FINAL", "ANTÍGENO", "PCR", "LABORATORIO NINGUNO", "EXCLUSIÓN TRABAJO",
+    "ESPECIALIDAD INTERNACIÓN", "CLASIFICACIÓN DE RIESGO", "CATEGORÍA CONTAGIO", "CLASIFICACIÓN FINAL", "LABORATORIO", "EXCLUSIÓN TRABAJO",
     "CONSTANCIA DE AISLAMIENTO", "FICHA EPIDEMIOLÓGICA", "SE DE FIS", "SE DE MUESTRA","FECHA DE MUESTRA",
-    "RESULTADO DE MUESTRA", "EVOLUCIÓN FINAL", "FECHA CIERRE CASO", "SE CIERRE CASO", "SINTOMÁTICO", "EMBARAZADA", "CARDIOPATIA CRÓNICA", 
-    "ENFERMEDAD PULMONAR", "ENFERMEDAD RENAL", "ASMA", "DIABETES", "ENFERMEDAD NEUROLÓGICA", "ENFERMEDAD HEPÁTICA", "OBESIDAD", "INMUNODEPRIMIDO", "OTROS", "OTROS NOMBRE", "NINGUNA"];
+    "RESULTADO DE MUESTRA", "EVOLUCIÓN FINAL", "FECHA CIERRE CASO", "SE CIERRE CASO", "SINTOMÁTICO", "EMBARAZADA", "PATOLOGIAS DE BASE"];
     worksheet.addRow(header);
     worksheet.getRow(3).fill = {type:'pattern', pattern: 'solid', fgColor: {argb:'00000000'}}
     worksheet.getRow(3).font = { color:{argb:'FFFFFFFF'}, name: 'Arial Black', family: 4, size: 11, bold: true };
@@ -146,17 +145,17 @@ export class ListaPacientesComponent implements OnInit{
           internado = 'SI';
         }
 
-        let laboratorioAntigeno = 'NO';
+        let laboratorio = '';
         if(p.laboratorioAntigeno){
-          laboratorioAntigeno = 'SI';
+          laboratorio = 'ANTIGENO';
         }
-        let laboratorioPcr = 'NO';
+        
         if(p.laboratorioPcr){
-          laboratorioPcr = 'SI';
+          laboratorio = 'PCR';
         }
-        let laboratorioNinguno = 'NO';
+        
         if(p.laboratorioNinguno){
-          laboratorioNinguno = 'SI';
+          laboratorio = 'NINGUNO';
         }
         let trabajoExclusion = 'NO';
         if(p.trabajoExclusion){
@@ -198,60 +197,53 @@ export class ListaPacientesComponent implements OnInit{
           embarazada = 'SI';
         }
 
-        let cardiopatia = 'NO';
+        let patologiasBase = '';
         if(p.enfermedadBaseCardiopatiaCronica){
-          cardiopatia = 'SI';
+          patologiasBase += 'CARDIOPATIA CRÓNICA,';
         }
 
-        let pulmonar = 'NO';
         if(p.enfermedadBasePulmonarCronico){
-          pulmonar = 'SI';
+          patologiasBase += 'ENF PULMONAR CRÓNICA,';
         }
 
-        let renal = 'NO';
         if(p.enfermedadBaseRenalCronico){
-          renal = 'SI';
+          patologiasBase += 'ENF RENAL CRÓNICA,';
         }
 
-        let asma = 'NO';
         if(p.enfermedadBaseAsma){
-          asma = 'SI';
+          patologiasBase += 'ASMA,';
         }
 
-        let diabetes = 'NO';
         if(p.enfermedadBaseDiabetes){
-          diabetes = 'SI';
+          patologiasBase += 'DIABETES,';
         }
 
-        let neurologica = 'NO';
         if(p.enfermedadBaseNeurologica){
-          neurologica = 'SI';
+          patologiasBase += 'ENF NEUROLÓGICA,';
         }
 
-        let obesidad = 'NO';
         if(p.enfermedadBaseObesidad){
-          obesidad = 'SI';
+          patologiasBase += 'OBESIDAD,';
         }
 
-        let hepatica = 'NO';
         if(p.enfermedadBaseHepaticaGrave){
-          hepatica = 'SI';
+          patologiasBase += 'ENF HEPÁTICA GRAVE,';
         }
 
-        let inmunodeprimido = 'NO';
         if(p.enfermedadBaseInmunodeprimido){
-          inmunodeprimido = 'SI';
+          patologiasBase += 'INMUNODEPRIMIDO,';
         }
 
-        let otros = 'NO';
         if(p.enfermedadBaseOtros){
-          otros = 'SI';
+          patologiasBase += 'OTRAS: '+p.enfermedadBaseOtrosNombre != null ? p.enfermedadBaseOtrosNombre.toUpperCase()+",": p.enfermedadBaseOtrosNombre+",";
         }
 
-        let ningunaEnfBase = 'NO';
         if(p.ningunaEnfermedadBase){
-          ningunaEnfBase = 'SI';
+          patologiasBase += 'NINGUNA,';
         }
+
+      patologiasBase = patologiasBase.substring(0,patologiasBase.length-1);
+
       worksheet.addRow([p.fechaInicioMonitoreo, p.se, p.numeroDocumento, p.codigoPaciente != null ? p.codigoPaciente.toUpperCase(): p.codigoPaciente, p.nombre != null ? p.nombre.toUpperCase(): p.nombre, p.apellido != null ? p.apellido.toUpperCase(): p.apellido, p.numeroCelular, 
       p.departamentoDomicilio != null ? p.departamentoDomicilio.toUpperCase(): p.departamentoDomicilio, p.direccionDomicilio != null ? p.direccionDomicilio.toUpperCase(): p.direccionDomicilio, 
       p.fechaNacimiento, p.sexo != null ? p.sexo.toUpperCase(): p.sexo, p.edad, p.rangoEdad != null ? p.rangoEdad.toUpperCase(): p.rangoEdad, p.ciudadDomicilio != null ? p.ciudadDomicilio.toUpperCase(): p.ciudadDomicilio, 
@@ -261,10 +253,10 @@ export class ListaPacientesComponent implements OnInit{
       p.profesion != null ? p.profesion.toUpperCase(): p.profesion, p.funcion != null ? p.funcion.toUpperCase(): p.funcion, reingreso, fallecido,
       internado, p.establecimientoInternacion != null ? p.establecimientoInternacion.toUpperCase(): p.establecimientoInternacion, p.especialidadInternacion != null ? p.especialidadInternacion.toUpperCase(): p.especialidadInternacion, 
       p.clasificacionRiesgo != null ? p.clasificacionRiesgo.toUpperCase(): p.clasificacionRiesgo, p.categoriaContagio != null ? p.categoriaContagio.toUpperCase(): p.categoriaContagio, 
-      p.clasificacionFinal != null ? p.clasificacionFinal.toUpperCase(): p.clasificacionFinal, laboratorioAntigeno, laboratorioPcr, laboratorioNinguno,
+      p.clasificacionFinal != null ? p.clasificacionFinal.toUpperCase(): p.clasificacionFinal, laboratorio,
       trabajoExclusion, constanciaAislamiento, fichaEpidemiologica, p.seFis, p.sePrimeraMuestra, p.fechaPrimeraMuestra,
       p.resultadoPrimeraMuestra != null ? p.resultadoPrimeraMuestra.toUpperCase(): p.resultadoPrimeraMuestra, p.evolucionFinal != null ? p.evolucionFinal.toUpperCase(): p.evolucionFinal,
-      p.fechaCierreCaso, p.seCierreCaso, sintomatico, embarazada, cardiopatia, pulmonar, renal, asma, diabetes, neurologica, hepatica, obesidad, inmunodeprimido, otros, p.enfermedadBaseOtrosNombre != null ? p.enfermedadBaseOtrosNombre.toUpperCase(): p.enfermedadBaseOtrosNombre, ningunaEnfBase]);
+      p.fechaCierreCaso, p.seCierreCaso, sintomatico, embarazada, patologiasBase]);
 
       worksheet.getRow(filaNro).border = {
         top: { style:'double', color: {argb:'00000000'}},

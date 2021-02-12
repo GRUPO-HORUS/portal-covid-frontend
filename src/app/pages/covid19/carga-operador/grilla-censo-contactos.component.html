@@ -674,12 +674,12 @@
                 </div>
             </div>
 
-            <p-dialog [(visible)]="showPopupNuevoContacto" [formGroup]="contactoFg" modal="true" header="Agregar Contacto">
+            <p-dialog [(visible)]="showPopupNuevoContacto" [formGroup]="contactoFg" modal="true" [closable]="false" header="Agregar Contacto">
                 <div class="row">
                     <div class="col-md">
                         <div class="form-group">
                             <label for="cedula"><strong>Número de Documento</strong><span class="text-danger">*</span></label>
-                            <input type="text" formControlName="cedula" name="cedula" class="form-control" style="max-width: 350px;" id="cedula">
+                            <input type="text" formControlName="cedula" name="cedula" class="form-control" style="max-width: 350px;" id="cedula" (change)="consultarIdentificaciones($event)">
                         </div>
                     </div>
                     <div class="col-md">
@@ -741,14 +741,14 @@
                             <label for="regionSanitaria"><strong>Región Sanitaria</strong></label>
                             <br>
                             <!--<p-dropdown id="regionSanitaria" [options]="regionSanitariaOptions" label="label" placeholder="Seleccionar" formControlName="regionSanitaria" name="regionSanitaria" [style]="{'width':'515px'}" required></p-dropdown>-->
-                            <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'350px'}" [forceSelection]="true"></p-autoComplete>
+                            <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'350px'}" [forceSelection]="true" (onSelect)="selectDepto($event)" appendTo="body"></p-autoComplete>
                         </div>
                     </div>
                     <div class="col-md">
                         <div class="form-group">
                             <label for="regionSanitaria"><strong>Distrito</strong></label>
                             <br>
-                            <p-autoComplete id="distrito" formControlName="distrito" [suggestions]="distritosFiltrados" field="nombre" (completeMethod)="filtrarDistrito($event)" [inputStyle]="{'width':'350px'}" [forceSelection]="true"></p-autoComplete>
+                            <p-autoComplete id="distrito" formControlName="distrito" [suggestions]="distritosFiltrados" field="nombre" (completeMethod)="filtrarDistrito($event)" [inputStyle]="{'width':'350px'}" [forceSelection]="true" appendTo="body"></p-autoComplete>
                         </div>
                     </div>
                 </div>

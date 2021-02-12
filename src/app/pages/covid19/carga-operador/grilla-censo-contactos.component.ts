@@ -151,9 +151,10 @@ export class GrillaCensoContactosComponent implements OnInit {
   public contactoOptions=[{value:'todos',label:'Todos'},{value:'llamada_realizada',label:'Llamada Realizada'}];
   public contactoOption="llamada_realizada";
 
-  public catContagioOptions=[{value:'asistencia_paciente',label:'Asistencia a paciente con COVID-19'}, {value:'contacto_personal_salud',label:'Contacto con Personal de Salud con COVID-19'},
-  {value:'asistencia_penitenciaria',label:'Asistencia en penitenciaría'},{value:'asistencia_albergue',label:'Asistencia en albergues/hotel salud'},
-  {value:'familiar_social',label:'Familiar Social'}, {value:'viajero',label:'Viajero'}];
+  public catContagioOptions=[{value:'familiar_social',label:'Familiar Social'}, {value:'viaje',label:'Viaje'}, 
+  {value:'asistencia_albergue',label:'Asistencia en albergues/hotel salud'}, {value:'asistencia_paciente',label:'Asistencia a paciente con COVID-19'}, 
+  {value:'contacto_personal_salud',label:'Contacto con Personal de Salud con COVID-19'},
+  {value:'asistencia_penitenciaria',label:'Asistencia en penitenciaría'}];
 
   public historicoComentarios=[];
 
@@ -359,6 +360,8 @@ buscarContactos(opcionFiltro){
 
 consultarIdentificaciones(event) {
   const nroDocumento = event.target.value;
+
+  console.log(nroDocumento);
   //if(formDatosBasicos.tipoDocumento==0 && formDatosBasicos.numeroDocumento){
   if(nroDocumento){
     if(nroDocumento.includes('.'))
@@ -378,8 +381,9 @@ consultarIdentificaciones(event) {
           }
           else
           {
-            this.formGroup.controls.nombre.setValue(response.obtenerPersonaPorNroCedulaResponse.return.nombres);
-            this.formGroup.controls.apellido.setValue(response.obtenerPersonaPorNroCedulaResponse.return.apellido);
+            this.contactoFg.controls.nombre.setValue(response.obtenerPersonaPorNroCedulaResponse.return.nombres);
+            this.contactoFg.controls.apellido.setValue(response.obtenerPersonaPorNroCedulaResponse.return.apellido);
+            this.contactoFg.controls.sexo.setValue(response.obtenerPersonaPorNroCedulaResponse.return.sexo);
           }
       }, error => {
         if(error.status == 401)
@@ -401,7 +405,7 @@ consultarIdentificaciones(event) {
 }
 
 selectDepto(event){
-  this.formGroup.controls.distrito.setValue(null);
+  this.contactoFg.controls.distrito.setValue(null);
   let coddpto ="";
   if(event.id < 10){
     coddpto = '0'+event.id;
@@ -624,6 +628,10 @@ filtrarDistrito(event) {
 }
 
 cerrarNuevoContacto(){
+  this.contactoFg.controls.cedula.setValue(null);
+  this.contactoFg.controls.nombre.setValue(null);
+  this.contactoFg.controls.apellido.setValue(null);
+  this.contactoFg.controls.sexo.setValue(null);
   this.showPopupNuevoContacto = false;
 }
 
