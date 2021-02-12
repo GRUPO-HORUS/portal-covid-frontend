@@ -16,7 +16,7 @@
                 </h3>
                 <h4>Exposición de personal sanitario al SARS-COV-2</h4>
                 
-                <mat-horizontal-stepper labelPosition="bottom" #stepper><!--linear-->
+                <mat-horizontal-stepper labelPosition="bottom" linear #stepper><!--linear-->
 
                     <mat-step [stepControl]="registroFg">
                         <form [formGroup]="registroFg" class="mt-4" autocomplete="off" (keydown.enter)="$event.preventDefault()">
@@ -95,7 +95,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="sexo"><strong>Sexo</strong></label>
-                                        <input type="text" *ngIf="!fallaSII" formControlName="sexo" class="form-control" id="sexo" name="sexo" required maxlength="1" disabled>
+                                        <input type="text" *ngIf="!fallaSII" formControlName="sexo" class="form-control" id="sexo" name="sexo" required maxlength="1" disabled (change)="esObligatorio()">
                                         <br><p-dropdown id="sexo" *ngIf="fallaSII" [options]="sexoOptions" label="label" placeholder="Seleccionar" formControlName="sexo" name="sexo" [style]="{'width':'515px'}" required></p-dropdown>
                                     </div>
                                 </div> 
@@ -249,7 +249,7 @@
                                 </div>
                                 <div class="col-md" *ngIf="registroFg.controls.sexo.value==='F'">
                                     <div class="form-group">
-                                        <b>Embarazo</b>
+                                        <b>Embarazo <span style="color: red;"> * obligatorio</span></b>
                                         <p-radioButton name="embarazada" [value]="true" label="Si" formControlName="embarazada" class="ml-3 mr-3"></p-radioButton>
                                         <p-radioButton name="embarazada" [value]="false" label="No" formControlName="embarazada"></p-radioButton>
                                     </div>
@@ -465,7 +465,7 @@
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="nombre"><strong>Nombres</strong></label> <!--<span style="color: red;"> *</span>-->
+                                        <label for="nombre"><strong>Nombres</strong><span style="color: red;"> * obligatorio</span></label>
                                         <input type="text" *ngIf="!fallaSII" formControlName="nombre" name="nombre" class="form-control" id="nombre">
                                         <input type="text" *ngIf="fallaSII" formControlName="nombre" name="nombre" class="form-control" id="nombre">
                                     </div>
@@ -474,7 +474,7 @@
                             <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value!=='viajero' && casoConfirmadoFg.controls.contagioAmbiente.value!=='sin_nexo' && casoConfirmadoFg.controls.contagioAmbiente.value !== null">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="nombre"><strong>Apellidos</strong></label>
+                                        <label for="nombre"><strong>Apellidos</strong><span style="color: red;"> * obligatorio</span></label>
                                         <input type="text" *ngIf="!fallaSII" formControlName="apellido" name="apellido" class="form-control" id="apellido">
                                         <input type="text" *ngIf="fallaSII" formControlName="apellido" name="apellido" class="form-control" id="apellido">
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.nombre" name="nombre" class="form-control" id="nombre" required>-->
@@ -535,7 +535,7 @@
                             <div class="row" *ngIf="monitoreoFg.controls.sintomatico.value">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="fechaSintomas"><strong>Fecha de Inicio de Síntomas:</strong></label>
+                                        <label for="fechaSintomas"><strong>Fecha de Inicio de Síntomas:</strong><span style="color: red;"> * obligatorio</span></label>
                                         <br>
                                         <!--<input type="date" id="fechaSintomas" formControlName="fechaSintomas" style="width: 325px;" (change)="setearFechasTabla($event.target.value)" value="{{fechaHoy}}">-->
                                         <p-calendar formControlName="fechaSintomas" id="fechaSintomas" name="fechaSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" (onSelect)="setearFechasTabla($event, 'cambio');setearSeFis($event)" [inputStyle]="{'width':'482px'}" appendTo="body"></p-calendar>

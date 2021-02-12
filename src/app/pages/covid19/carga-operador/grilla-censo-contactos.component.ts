@@ -153,7 +153,7 @@ export class GrillaCensoContactosComponent implements OnInit {
 
   public catContagioOptions=[{value:'asistencia_paciente',label:'Asistencia a paciente con COVID-19'}, {value:'contacto_personal_salud',label:'Contacto con Personal de Salud con COVID-19'},
   {value:'asistencia_penitenciaria',label:'Asistencia en penitenciaría'},{value:'asistencia_albergue',label:'Asistencia en albergues/hotel salud'},
-  {value:'familiar_social',label:'Familiar Social'}, {value:'viajero',label:'Viajero'},{value:'sin_nexo',label:'Sin Nexo'}];
+  {value:'familiar_social',label:'Familiar Social'}, {value:'viajero',label:'Viajero'}];
 
   public historicoComentarios=[];
 
@@ -196,7 +196,7 @@ public regionSanitariaOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San P
 
 regionesFiltradas: any[];
 primerContactoId: number;
-public sexoOptions=[{value:'M',label:'Masc'},{value:'F',label:'Fem'}];
+public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
 public formCensoContactoList: any[];
 public colsFormCensoContacto: any[];
 showListFormCensoContacto: boolean = false;

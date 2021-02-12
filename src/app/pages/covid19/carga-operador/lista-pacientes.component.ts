@@ -121,7 +121,7 @@ export class ListaPacientesComponent implements OnInit{
 
     let header=["FECHA INICIO MONITOREO", "SE", "NRO DE DOCUMENTO", "CÓDIGO PACIENTE","NOMBRE", "APELLIDO", "CELULAR", "DEPARTAMENTO", "DOMICILIO","FECHA DE NACIMIENTO",
     "SEXO", "EDAD","RANGO DE EDAD", "CIUDAD", "BARRIO", "FECHA EXPOSICIÓN",
-    "FECHA INICIO DE SÍNTOMAS", "NRO DE DOCUMENTO CONTACTO", "NOMBRE CONTACTO", "APELLIDO CONTACTO", "SEXO CONTACTO",
+    "FECHA INICIO DE SÍNTOMAS", "NRO DE DOCUMENTO CONTACTO", "NOMBRE CONTACTO", "APELLIDO CONTACTO",
     "SERVICIO DE SALUD", "REGIÓN SANITARIA", "PROFESIÓN", "FUNCIÓN", "REINGRESO", "FALLECIDO", "INTERNADO", "LUGAR INTERNACIÓN",
     "ESPECIALIDAD INTERNACIÓN", "CLASIFICACIÓN DE RIESGO", "CATEGORÍA CONTAGIO", "CLASIFICACIÓN FINAL", "ANTÍGENO", "PCR", "LABORATORIO NINGUNO", "EXCLUSIÓN TRABAJO",
     "CONSTANCIA DE AISLAMIENTO", "FICHA EPIDEMIOLÓGICA", "SE DE FIS", "SE DE MUESTRA","FECHA DE MUESTRA",
@@ -256,7 +256,7 @@ export class ListaPacientesComponent implements OnInit{
       p.departamentoDomicilio != null ? p.departamentoDomicilio.toUpperCase(): p.departamentoDomicilio, p.direccionDomicilio != null ? p.direccionDomicilio.toUpperCase(): p.direccionDomicilio, 
       p.fechaNacimiento, p.sexo != null ? p.sexo.toUpperCase(): p.sexo, p.edad, p.rangoEdad != null ? p.rangoEdad.toUpperCase(): p.rangoEdad, p.ciudadDomicilio != null ? p.ciudadDomicilio.toUpperCase(): p.ciudadDomicilio, 
       p.barrio != null ? p.barrio.toUpperCase(): p.barrio, p.fechaExposicion, p.fechaInicioSintoma, p.nroDocumentoContacto, 
-      p.nombreContacto != null ? p.nombreContacto.toUpperCase(): p.nombreContacto, p.apellidoContacto != null ? p.apellidoContacto.toUpperCase(): p.apellidoContacto, p.sexoContacto != null ? p.sexoContacto.toUpperCase(): p.sexoContacto, 
+      p.nombreContacto != null ? p.nombreContacto.toUpperCase(): p.nombreContacto, p.apellidoContacto != null ? p.apellidoContacto.toUpperCase(): p.apellidoContacto, 
       p.servicioSalud != null ? p.servicioSalud.toUpperCase(): p.servicioSalud, p.regionSanitaria != null ? p.regionSanitaria.toUpperCase(): p.regionSanitaria,
       p.profesion != null ? p.profesion.toUpperCase(): p.profesion, p.funcion != null ? p.funcion.toUpperCase(): p.funcion, reingreso, fallecido,
       internado, p.establecimientoInternacion != null ? p.establecimientoInternacion.toUpperCase(): p.establecimientoInternacion, p.especialidadInternacion != null ? p.especialidadInternacion.toUpperCase(): p.especialidadInternacion, 

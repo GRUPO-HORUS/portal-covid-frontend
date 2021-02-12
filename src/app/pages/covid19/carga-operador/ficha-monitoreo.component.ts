@@ -648,9 +648,18 @@ export class FichaMonitoreoComponent implements OnInit {
   }
 
   esObligatorio(){
+    if(this.registroFg.controls.sexo.value =='F'){
+      this.registroFg.controls.embarazada.setValidators([Validators.required]);
+    }
+
+    if(this.monitoreoFg.controls.sintomatico.value){
+      this.monitoreoFg.controls.fechaSintomas.setValidators([Validators.required]);
+    }
+
     if(this.casoConfirmadoFg.controls.contagioAmbiente.value === 'familiar_social'){
       this.casoConfirmadoFg.controls.fechaExposicion.setValidators([Validators.required]);
-      //this.casoConfirmadoFg.controls.cedula.setValidators([Validators.required]);
+      this.casoConfirmadoFg.controls.nombre.setValidators([Validators.required]);
+      this.casoConfirmadoFg.controls.apellido.setValidators([Validators.required]);
 
     }else if(this.casoConfirmadoFg.controls.contagioAmbiente.value === 'establecimiento_salud'){
       this.casoConfirmadoFg.controls.contagioEstablecimiento.setValidators([Validators.required]);
@@ -1650,7 +1659,7 @@ export class FichaMonitoreoComponent implements OnInit {
     {'id':110,'nombre':'MEDICO/A-TRAUMATOLOGIA'}, {'id':111,'nombre':'MEDICO/A-UROLOGIA'}, {'id':112,'nombre':'MEDICO/A-CIRUJANO'},{'id':113,'nombre':'MEDICO/A-GENERAL'},{'id':114,'nombre':'MEDICO/A-RESIDENTE'},
     {'id':115,'nombre':'MEDICO/A-CLINICA MEDICA'}, {'id':116,'nombre':'MEDICO/A-HEPATOLOGO'}, {'id':117,'nombre':'MEDICO/A-MICROBIOLOGO'}, {'id':118,'nombre':'MEDICO/A-PATOLOGO'},
     {'id':119,'nombre':'MEDICO/A-RADIOLOGO'}, {'id':120,'nombre':'MEDICO/A-PALIATIVO'}, {'id':121,'nombre':'AFINES-TECNICO SUPERIOR EN PROMOCION DE SALUD'},
-    {'id':122,'nombre':'AFINES-ADMINISTRATIVOS Y SERVICIOS GENERALES'}];
+    {'id':122,'nombre':'AFINES-ADMINISTRATIVOS'}, {'id':123,'nombre':'AFINES-SERVICIOS GENERALES'}];
     let filtered : any[] = [];
     let query = event.query;
 

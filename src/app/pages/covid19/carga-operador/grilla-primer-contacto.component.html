@@ -76,6 +76,7 @@
                 <col style="width:150px">
                 <col style="width:150px">
                 <col style="width:150px">
+                <col style="width:150px">
                 <col style="width:160px" *ngIf="columns[0].field==='acc'">
             </colgroup>
             </ng-template>
@@ -553,7 +554,7 @@
                     <div class="form-group">
                         <label for="motivo"><strong>Motivo</strong><span style="color: red;"> *</span></label>
                         <br>
-                        <p-dropdown id="motivo" [options]="motivos" label="label" placeholder="Seleccionar" formControlName="motivoNoContacto" name="motivo" [style]="{'width':'515px'}" required></p-dropdown>
+                        <p-dropdown id="motivo" [options]="motivos" label="label" placeholder="Seleccionar" formControlName="motivoNoContacto" name="motivo" [style]="{'width':'515px'}" appendTo="body" required></p-dropdown>
                     </div>
                 </form>
                 <button class="btn btn-success btn-success-next mr-2 mt-6" (click)="guardarNoSeContacto()" [disabled]="!motivosFormGroup.valid">

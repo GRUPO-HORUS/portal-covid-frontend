@@ -142,7 +142,8 @@ export class GrillaPrimerContactoComponent implements OnInit {
   tipoExposicion: string;
   fechaInicioSintomas: string;
 
-  public motivos=[{value:'no_atiende',label:'No Atiende'},{value:'apagado',label:'Apagado/Sin Señal'},{value:'equivocado',label:'Número Equivocado'}, {value:'no_informacion',label:'No brinda información'}];
+  public motivos=[{value:'no_atiende',label:'No Atiende'},{value:'apagado',label:'Apagado/Sin Señal'},{value:'equivocado',label:'Número Equivocado'}, 
+  {value:'no_informacion',label:'No brinda información'}, {value:'sin_numero',label:'Sin número de teléfono'}];
   public binarioOptions=[{value:'SI',label:'SI'},{value:'NO',label:'NO'}];
 
   public exposicionOptions=[{value:'CONTACTO',label:'CONTACTO'}, {value:'SIN NEXO',label:'SIN NEXO'},
