@@ -10,6 +10,7 @@ export class PrimerContacto {
     tipoExposicion: string;
     fallecido: string;
     hospitalizado: string;
+    personalBlanco: string;
     departamentoId: number;
     departamento: string;
     distritoId: number;

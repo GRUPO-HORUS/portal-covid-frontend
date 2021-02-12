@@ -150,6 +150,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
 
   public albergueOptions=[{value:'COMUNIDAD',label:'COMUNIDAD'},{value:'ALBERGUE',label:'ALBERGUE'}];
   public sintomasOptions=[{value:'SINTOMATICO',label:'SINTOMÁTICO'},{value:'ASINTOMATICO',label:'ASINTOMÁTICO'}];
+  public perBlancoOptions=[{value:'SI',label:'SI'},{value:'NO',label:'NO'},{value:'SD',label:'SD'}];
 
   pacientesList: any[];
   formGroup: FormGroup;
@@ -928,6 +929,9 @@ consultarIdentificaciones(event) {
       fallecido: new FormControl(rowData.fallecido, [
         Validators.required
       ]),
+      personalBlanco: new FormControl(rowData.personalBlanco, [
+        Validators.required
+      ]),
       tipoExposicion: new FormControl(rowData.tipoExposicion, [
         Validators.required
       ]),
@@ -989,6 +993,7 @@ consultarIdentificaciones(event) {
     this.primerContacto.telefono = this.formGroup.controls.telefono.value;
     this.primerContacto.hospitalizado = this.formGroup.controls.hospitalizado.value;
     this.primerContacto.fallecido = this.formGroup.controls.fallecido.value;
+    this.primerContacto.personalBlanco = this.formGroup.controls.personalBlanco.value;
     this.primerContacto.regionSanitaria = this.formGroup.controls.departamento.value.id;
     this.primerContacto.barrio = this.formGroup.controls.barrio.value.nombre;
     this.primerContacto.barrioId = this.formGroup.controls.barrio.value.valor;
@@ -1014,7 +1019,7 @@ consultarIdentificaciones(event) {
         this.openMessageDialog();
         this.primerContacto.editado = true;
 
-        this.service.insertFrmFsarscov2(this.primerContacto).subscribe(response => {
+        /*this.service.insertFrmFsarscov2(this.primerContacto).subscribe(response => {
           
         }, error => {
           if(error.status == 401){
@@ -1025,7 +1030,7 @@ consultarIdentificaciones(event) {
             this.mensaje = error.error;
             this.openMessageDialog();
           }
-        });
+        });*/
 
     }, error => {
         if(error.status == 401)

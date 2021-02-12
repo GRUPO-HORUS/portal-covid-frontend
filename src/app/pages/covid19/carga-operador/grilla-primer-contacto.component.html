@@ -98,7 +98,7 @@
                     <th>Barrio</th>
                     <th>Hospitalizado</th>
                     <th>Fallecido</th>
-                    <!--<th>Personal de Blanco</th>-->
+                    <th>Personal de Blanco</th>
                     <th>Tipo de Exposición</th>
                     <th>Sintomático / Asintomático</th>
                     <th>Fecha de Inicio de Síntomas</th>
@@ -342,11 +342,11 @@
                             </ng-template>
                         </p-cellEditor>  
                     </td>
-                    <!--<td pEditableColumn style="vertical-align: top; height: 128px;">
+                    <td pEditableColumn style="vertical-align: top; height: 128px;">
                         <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <p-dropdown id="personalBlanco" [options]="binarioOptions" label="label" placeholder="Seleccionar" formControlName="personalBlanco" name="personalBlanco" [style]="{'minWidth':'70px', 'width': '70px'}" required></p-dropdown>
+                                    <p-dropdown id="personalBlanco" [options]="perBlancoOptions" label="label" placeholder="Seleccionar" formControlName="personalBlanco" name="personalBlanco" [style]="{'minWidth':'70px', 'width': '70px'}" required></p-dropdown>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
@@ -363,7 +363,7 @@
                                 {{rowData.personalBlanco}}
                             </ng-template>
                         </p-cellEditor>  
-                    </td>-->
+                    </td>
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
                         <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
