@@ -369,7 +369,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
       this.barriosOptions = barrios;
       for (let i = 0; i < barrios.length; i++) {
         let d = barrios[i];
-        this.barriosOptions[i] = { nombre: d.nombarrio, valor: d.concatenado };
+        this.barriosOptions[i] = { nombre: d.nombarrio, valor: d.codbarrio };
       }
     }, error => {
       console.log(error);
@@ -403,8 +403,11 @@ export class GrillaPrimerContactoComponent implements OnInit {
           filtered.push(barrio);
         }
     }
-    
     this.barriosFiltrados = filtered;
+  }
+
+  eligeBarrio(event){
+    console.log(event);
   }
 
   getContactosXls(opcionFiltro){
@@ -915,13 +918,13 @@ consultarIdentificaciones(event) {
       telefono: new FormControl(rowData.telefono, [
         Validators.required
       ]),
-      departamento: new FormControl({nombre:rowData.departamento}, [
+      departamento: new FormControl({nombre:rowData.departamento, id: rowData.departamentoId}, [
         Validators.required
       ]),
-      distrito: new FormControl({nombre:rowData.distrito}, [
+      distrito: new FormControl({nombre:rowData.distrito, valor: rowData.distritoId}, [
         Validators.required
       ]),
-      barrio: new FormControl({nombre:rowData.barrio}, [
+      barrio: new FormControl({nombre:rowData.barrio, valor: rowData.barrioId}, [
         Validators.required
       ]), 
       hospitalizado: new FormControl(rowData.hospitalizado, [
@@ -972,8 +975,10 @@ consultarIdentificaciones(event) {
       this.barriosOptions = barrios;
       for (let i = 0; i < barrios.length; i++) {
         let d = barrios[i];
-        this.barriosOptions[i] = { nombre: d.nombarrio, valor: d.concatenado };
+        this.barriosOptions[i] = { nombre: d.nombarrio, valor: d.codbarrio };
       }
+
+      console.log(barrios);
     }, error => {
       console.log(error);
       this.mensaje = error.error;
@@ -985,7 +990,8 @@ consultarIdentificaciones(event) {
     /*this.primerContacto.nroDocumento = this.formGroup.controls.nroDocumento.value;
     this.primerContacto.nombre = this.formGroup.controls.nombre.value;
     this.primerContacto.apellido = this.formGroup.controls.apellido.value;*/
-    console.log(this.formGroup.controls.departamento.value.id);
+    //console.log(this.formGroup.controls.distrito.value.valor);
+    console.log(this.formGroup.controls.barrio.value);
     this.primerContacto.codigoPaciente = this.formGroup.controls.codigoPaciente.value;
     this.primerContacto.departamento = this.formGroup.controls.departamento.value.nombre;
     this.primerContacto.departamentoId = this.formGroup.controls.departamento.value.id;

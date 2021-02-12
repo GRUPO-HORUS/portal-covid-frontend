@@ -15,7 +15,7 @@ export class PrimerContacto {
     departamento: string;
     distritoId: number;
     distrito: string;
-    barrioId: number;
+    barrioId: string;
     barrio: string;
 
     sintomaticoAsintomatico: string;
