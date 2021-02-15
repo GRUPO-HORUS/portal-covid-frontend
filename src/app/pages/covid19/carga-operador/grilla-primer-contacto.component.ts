@@ -991,7 +991,6 @@ consultarIdentificaciones(event) {
     this.primerContacto.nombre = this.formGroup.controls.nombre.value;
     this.primerContacto.apellido = this.formGroup.controls.apellido.value;*/
     //console.log(this.formGroup.controls.distrito.value.valor);
-    console.log(this.formGroup.controls.barrio.value);
     this.primerContacto.codigoPaciente = this.formGroup.controls.codigoPaciente.value;
     this.primerContacto.departamento = this.formGroup.controls.departamento.value.nombre;
     this.primerContacto.departamentoId = this.formGroup.controls.departamento.value.id;
