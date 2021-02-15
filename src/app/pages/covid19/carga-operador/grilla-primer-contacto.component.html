@@ -347,7 +347,7 @@
                         <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <p-dropdown id="personalBlanco" [options]="perBlancoOptions" label="label" placeholder="Seleccionar" formControlName="personalBlanco" name="personalBlanco" [style]="{'minWidth':'70px', 'width': '70px'}" required></p-dropdown>
+                                    <p-dropdown id="personalBlanco" [options]="perBlancoOptions" label="label" placeholder="Seleccionar" formControlName="personalBlanco" name="personalBlanco" [style]="{'minWidth':'110px', 'width': '110px'}" appendTo="body" required></p-dropdown>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
@@ -361,7 +361,13 @@
                             </ng-template>
 
                             <ng-template pTemplate="output">
-                                {{rowData.personalBlanco}}
+                                <!--{{rowData.personalBlanco}}-->
+                                <div *ngIf="rowData.personalBlanco=='SI_SI'">Si.En Servicio</div>
+                                <div *ngIf="rowData.personalBlanco=='NO_NO'">No</div>
+                                <div *ngIf="rowData.personalBlanco=='SI_NO'">Si.No está en Servicio</div>
+                                <div *ngIf="rowData.personalBlanco=='SI_SD'">Si.Sin datos de Servicio</div>
+                                <div *ngIf="rowData.personalBlanco=='NO_SD'">No.Sin datos de Servicio</div>
+                                <div *ngIf="rowData.personalBlanco=='SD_SD'">Se Desconoce</div>
                             </ng-template>
                         </p-cellEditor>  
                     </td>

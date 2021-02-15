@@ -151,8 +151,8 @@ export class GrillaPrimerContactoComponent implements OnInit {
 
   public albergueOptions=[{value:'COMUNIDAD',label:'COMUNIDAD'},{value:'ALBERGUE',label:'ALBERGUE'}];
   public sintomasOptions=[{value:'SINTOMATICO',label:'SINTOMÁTICO'},{value:'ASINTOMATICO',label:'ASINTOMÁTICO'}];
-  public perBlancoOptions=[{value:'SI_SI',label:'Si. En Servicio'},{value:'NO_NO',label:'NO'},{value:'SI_NO',label:'Si. No está en Servicio'},
-  {value:'NO_SI',label:'Si. No está en Servicio'},{value:'SD_SD',label:'Se Desconoce'}];
+  public perBlancoOptions=[{value:'SI_SI',label:'Si.En Servicio'},{value:'NO_NO',label:'No'},{value:'SI_NO',label:'Si.No está en Servicio'},
+  {value:'SI_SD',label:'Si.Sin datos de Servicio'},{value:'NO_SD',label:'No.Sin datos de Servicio'},{value:'SD_SD',label:'Se Desconoce'}];
 
   pacientesList: any[];
   formGroup: FormGroup;
