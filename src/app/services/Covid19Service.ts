@@ -318,6 +318,11 @@ export class Covid19Service {
       return this.httpClient.get<any[]>(this.config.API +"/covid19api/aislamiento/barriosDepto/"+coddpto);
     }
 
+    getBarriosCiudad(coddpto, coddist): Observable<any[]>{
+      console.log(coddpto+" "+coddist);
+      return this.httpClient.get<any[]>(this.config.API +"/covid19api/aislamiento/barriosCiudad/"+coddpto+"/"+coddist);
+    }
+
     getCiudadesPorDepto(idDepto): Observable<any[]>{
       return this.httpClient.get<any[]>(this.config.API +"/covid19/ciudades/"+idDepto);
     }

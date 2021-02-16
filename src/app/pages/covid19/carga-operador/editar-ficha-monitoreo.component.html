@@ -51,7 +51,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="seFis"><strong>SE</strong></label>
-                                        <input type="number" formControlName="se" class="form-control" id="se" name="se" min="1" required>
+                                        <input type="number" formControlName="se" class="form-control" id="se" name="se" min="1" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@
                                         <label for="regionSanitaria"><strong>Departamento</strong></label>
                                         <br>
                                         <!--<p-dropdown id="regionSanitaria" [options]="regionSanitariaOptions" label="label" placeholder="Seleccionar" formControlName="regionSanitaria" name="regionSanitaria" [style]="{'width':'515px'}" required></p-dropdown>-->
-                                        <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'515px'}" required></p-autoComplete>
+                                        <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'515px'}" required (onSelect)="selectDepto($event)"></p-autoComplete>
                                     </div>
                                 </div>
                             </div>
@@ -141,7 +141,8 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="barrio"><strong>Barrio</strong></label>
-                                        <input type="text" formControlName="barrio" class="form-control" id="barrio" name="barrio" required>
+                                        <!--<input type="text" formControlName="barrio" class="form-control" id="barrio" name="barrio" required>-->
+                                        <p-autoComplete id="barrio" formControlName="barrio" [suggestions]="barriosFiltrados" field="nombre" (completeMethod)="filtrarBarrio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
                                     </div>
                                 </div>
                             </div>
@@ -149,7 +150,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="direccion"><strong>Dirección</strong></label>
-                                        <input type="text" formControlName="direccion" name="direccion" class="form-control" id="direccion" required>
+                                        <input type="text" formControlName="direccion" name="direccion" class="form-control" id="direccion" required oninput="this.value = this.value.toUpperCase()">
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control" id="direccionDomicilio" required>-->
                                     </div>
                                 </div>
@@ -185,7 +186,7 @@
                                 <div class="col-md">
                                     <div class="form-group" *ngIf="registroFg.controls.otroServicio.value">
                                         <label for="servicioSalud"><strong>Especificar Otro Servicio de Salud Notificante</strong><span style="color: red;"> * (Al marcar otro servicio, este campo es obligatorio)</span></label>
-                                        <input type="text" formControlName="servicioSalud" name="servicioSalud" class="form-control" id="servicioSalud" required>
+                                        <input type="text" formControlName="servicioSalud" name="servicioSalud" class="form-control" id="servicioSalud" required oninput="this.value = this.value.toUpperCase()">
                                     </div>
                                 </div>
                             </div>
@@ -231,7 +232,7 @@
                                 <div class="col-md">
                                     <div class="form-group" *ngIf="registroFg.controls.otroLugarNoListaCheck.value">
                                         <label for="otroLugarNoLista"><strong>Especificar Otro Servicio de Salud</strong></label>
-                                        <input type="text" formControlName="otroLugarNoLista" name="otroLugarNoLista" class="form-control" id="otroLugarNoLista" required>
+                                        <input type="text" formControlName="otroLugarNoLista" name="otroLugarNoLista" class="form-control" id="otroLugarNoLista" required oninput="this.value = this.value.toUpperCase()">
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -524,7 +525,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="seFis"><strong>SE de Fecha de Inicio de síntomas</strong></label>
-                                        <input type="number" formControlName="seFis" class="form-control" id="seFis" name="seFis" min="1" required>
+                                        <input type="number" formControlName="seFis" class="form-control" id="seFis" name="seFis" min="1" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -991,7 +992,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="sePrimeraMuestra"><strong>SE de Toma de Muestra</strong></label>
-                                        <input type="number" formControlName="sePrimeraMuestra" class="form-control" id="sePrimeraMuestra" name="sePrimeraMuestra" min="1">
+                                        <input type="number" formControlName="sePrimeraMuestra" class="form-control" id="sePrimeraMuestra" name="sePrimeraMuestra" min="1" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -1095,7 +1096,12 @@
                                     <p-radioButton name="constAislamiento" [value]="true" label="Si" formControlName="constAislamiento" class="ml-2 mr-3"></p-radioButton>
                                     <p-radioButton name="constAislamiento" [value]="false" label="No" formControlName="constAislamiento"></p-radioButton>
                                 </div>
-                                <div class="col-md"></div>
+                                <div class="col-md" *ngIf="clasificacionRiesgoFg.controls.constAislamiento.value">
+                                    <div class="form-group">
+                                        <label for="nroConstancia"><strong>Constancia de Aislamiento Nro</strong></label>
+                                        <input type="number" formControlName="nroConstancia" class="form-control" id="nroConstancia" name="nroConstancia">
+                                    </div>
+                                </div>
                             </div>
                             <hr>
                             <div class="row">
@@ -1153,7 +1159,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="seCierreCaso"><strong>SE de Cierre de Caso</strong></label>
-                                        <input type="number" formControlName="seCierreCaso" class="form-control" id="seCierreCaso" name="seCierreCaso" min="1">
+                                        <input type="number" formControlName="seCierreCaso" class="form-control" id="seCierreCaso" name="seCierreCaso" min="1" disabled>
                                     </div>
                                 </div>
                             </div>

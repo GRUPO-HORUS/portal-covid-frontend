@@ -200,6 +200,11 @@ export class EditarFichaMonitoreoComponent implements OnInit {
   public ciudadesOptions: any[];
   public ciudadesFiltradas: any[];
 
+  public barriosOptions: any[];
+  public barriosFiltrados: any[];
+
+  public coddpto;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -2456,6 +2461,34 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     }
   }
 
+  selectDepto(event){
+    this.registroFg.controls.ciudadDomicilio.setValue(null);
+    this.coddpto ="";
+    //console.log(event.id);
+    if(event.id < 10){
+      this.coddpto = '0'+event.id;
+    }else{
+      this.coddpto = event.id;
+    }
+    
+    this.service.getDistritosDepto(this.coddpto).subscribe(distritos => {
+      this.ciudadesOptions = distritos;
+      for (let i = 0; i < distritos.length; i++) {
+        let d = distritos[i];
+        this.ciudadesOptions[i] = { nombre: d.nomdist, valor: d.coddist };
+      }
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    }
+    );
+
+    if(event.id ===18){
+      this.coddpto = '00';
+    }
+  }
+
   filtrarRegion(event) {
     let filtered : any[] = [];
     let query = event.query;
@@ -2481,6 +2514,37 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         }
     }
     this.ciudadesFiltradas = filtered;
+  }
+
+  selectCiudad(event){
+    console.log(event);
+    this.registroFg.controls.barrio.setValue(null);
+    this.service.getBarriosCiudad(this.coddpto, event.valor).subscribe(barrios => {
+      console.log(barrios);
+      this.barriosOptions = barrios;
+      for (let i = 0; i < barrios.length; i++) {
+        let d = barrios[i];
+        this.barriosOptions[i] = { nombre: d.nombarrio, valor: d.codbarrio };
+      }
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    });
+  }
+
+  filtrarBarrio(event) {
+    let filtered : any[] = [];
+    let query = event.query;
+    for(let i = 0; i < this.barriosOptions.length; i++) {
+        let barrio = this.barriosOptions[i];
+
+        if (barrio.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          filtered.push(barrio);
+        }
+    }
+    
+    this.barriosFiltrados = filtered;
   }
 
   filtrarServicio(event) {

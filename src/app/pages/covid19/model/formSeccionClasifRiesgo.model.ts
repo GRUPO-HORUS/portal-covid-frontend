@@ -37,4 +37,5 @@ export class FormSeccionClasifRiesgo {
     otroServicioInternadoCheck: boolean;
     otroServicioInternado: string;
     vacunaCovid: boolean;
+    nroConstancia: number;
 }

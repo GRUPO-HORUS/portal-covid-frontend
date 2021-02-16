@@ -178,6 +178,11 @@ export class FichaMonitoreoComponent implements OnInit {
   public ciudadesOptions: any[];
   public ciudadesFiltradas: any[];
 
+  public barriosOptions: any[];
+  public barriosFiltrados: any[];
+
+  public coddpto;
+
   fechaSelec1;
   fechaSelec2;
   fechaSelec3;
@@ -639,7 +644,8 @@ export class FichaMonitoreoComponent implements OnInit {
       establecimiento: [],
       especialidad: [],
       otroServicioInternadoCheck:[null],
-      otroServicioInternado:[]
+      otroServicioInternado:[],
+      nroConstancia: [null]
     });
 
     this.setearFechasTabla(this.fechaHoy, 'inicio');
@@ -657,15 +663,15 @@ export class FichaMonitoreoComponent implements OnInit {
     }
 
     if(this.casoConfirmadoFg.controls.contagioAmbiente.value === 'familiar_social'){
-      this.casoConfirmadoFg.controls.fechaExposicion.setValidators([Validators.required]);
+      /*this.casoConfirmadoFg.controls.fechaExposicion.setValidators([Validators.required]);
       this.casoConfirmadoFg.controls.nombre.setValidators([Validators.required]);
-      this.casoConfirmadoFg.controls.apellido.setValidators([Validators.required]);
+      this.casoConfirmadoFg.controls.apellido.setValidators([Validators.required]);*/
 
     }else if(this.casoConfirmadoFg.controls.contagioAmbiente.value === 'establecimiento_salud'){
       this.casoConfirmadoFg.controls.contagioEstablecimiento.setValidators([Validators.required]);
       this.casoConfirmadoFg.controls.catContagio.setValidators([Validators.required]);
       this.casoConfirmadoFg.controls.clasRiesgo.setValidators([Validators.required]);
-      this.casoConfirmadoFg.controls.fechaExposicion.setValidators([Validators.required]);
+      //this.casoConfirmadoFg.controls.fechaExposicion.setValidators([Validators.required]);
     }else{
       this.casoConfirmadoFg.controls.contagioEstablecimiento.clearValidators();
       this.casoConfirmadoFg.controls.catContagio.clearValidators();
@@ -837,15 +843,15 @@ export class FichaMonitoreoComponent implements OnInit {
 
   selectDepto(event){
     this.registroFg.controls.ciudadDomicilio.setValue(null);
-    let coddpto ="";
-    console.log(event.id);
+    this.coddpto ="";
+    //console.log(event.id);
     if(event.id < 10){
-      coddpto = '0'+event.id;
+      this.coddpto = '0'+event.id;
     }else{
-      coddpto = event.id;
+      this.coddpto = event.id;
     }
     
-    this.service.getDistritosDepto(coddpto).subscribe(distritos => {
+    this.service.getDistritosDepto(this.coddpto).subscribe(distritos => {
       this.ciudadesOptions = distritos;
       for (let i = 0; i < distritos.length; i++) {
         let d = distritos[i];
@@ -859,8 +865,25 @@ export class FichaMonitoreoComponent implements OnInit {
     );
 
     if(event.id ===18){
-      coddpto = '00';
+      this.coddpto = '00';
     }
+  }
+
+  selectCiudad(event){
+    console.log(event);
+    this.registroFg.controls.barrio.setValue(null);
+    this.service.getBarriosCiudad(this.coddpto, event.valor).subscribe(barrios => {
+      console.log(barrios);
+      this.barriosOptions = barrios;
+      for (let i = 0; i < barrios.length; i++) {
+        let d = barrios[i];
+        this.barriosOptions[i] = { nombre: d.nombarrio, valor: d.codbarrio };
+      }
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    });
   }
 
   filtrarCiudad(event) {
@@ -875,6 +898,20 @@ export class FichaMonitoreoComponent implements OnInit {
     }
     
     this.ciudadesFiltradas = filtered;
+  }
+
+  filtrarBarrio(event) {
+    let filtered : any[] = [];
+    let query = event.query;
+    for(let i = 0; i < this.barriosOptions.length; i++) {
+        let barrio = this.barriosOptions[i];
+
+        if (barrio.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          filtered.push(barrio);
+        }
+    }
+    
+    this.barriosFiltrados = filtered;
   }
 
   setearEdad(fechaNacimiento){
@@ -1499,6 +1536,7 @@ export class FichaMonitoreoComponent implements OnInit {
     }
 
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.vacunaCovid = this.registroFg.controls.vacunaCovid.value;
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.nroConstancia = this.clasificacionRiesgoFg.controls.nroConstancia.value;
 
     this.service.guardarFichaPB(this.fichaPersonalBlanco).subscribe(response => {
           this.idRegistro = +response;
