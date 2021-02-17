@@ -30,13 +30,17 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md"></div>
+                                <!--<div class="col-md"></div>-->
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <p-checkbox formControlName="reingreso" [binary]="true" label="Reingreso?" id="reingreso" class="ml-5"></p-checkbox>
+                                        <p-checkbox formControlName="reingreso" [binary]="true" label="Reingreso?" id="reingreso" class="float-right"></p-checkbox>
                                     </div>
                                 </div>
-                                <div class="col-md"></div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="reinfeccion" [binary]="true" label="Reinfección?" id="reinfeccion"></p-checkbox>
+                                    </div>
+                                </div>
                             </div>
                             
                             <div class="row">
@@ -1131,10 +1135,6 @@
                                         <label class="custom-control-label" for="secundario">Caso secundario</label>
                                     </div>
                                     <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="contacto">
-                                        <label class="custom-control-label" for="contacto">Contacto</label>
-                                    </div>
-                                    <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="otroClasif" (change)="otroClasif = !otroClasif">
                                         <label class="custom-control-label" for="otroClasif">Otro</label>
                                     </div>
@@ -1151,14 +1151,14 @@
                                         <label class="custom-control-label" for="confirmado">Confirmado</label>
                                     </div>-->
                                     <div class="form-group">
-                                        <p-dropdown id="clasifFinal" [options]="clasifFinalOptions" label="label" placeholder="Seleccionar" formControlName="clasifFinal" name="clasifFinal" [style]="{'width':'515px'}"></p-dropdown>
+                                        <p-dropdown id="clasifFinal" [options]="clasifFinalOptions" label="label" placeholder="Seleccionar" formControlName="clasifFinal" name="clasifFinal" [style]="{'width':'515px'}" [disabled]="this.region !== '-1'"></p-dropdown>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="evolucionFinal"><strong>Evolución Final</strong></label>
                                         <br>
-                                        <p-dropdown id="evolucionFinal" [options]="evoFinalOptions" label="label" placeholder="Seleccionar" formControlName="evolucionFinal" name="evolucionFinal" [style]="{'width':'515px'}"></p-dropdown>
+                                        <p-dropdown id="evolucionFinal" [options]="evoFinalOptions" label="label" placeholder="Seleccionar" formControlName="evolucionFinal" name="evolucionFinal" [style]="{'width':'515px'}" [disabled]="this.region !== '-1'"></p-dropdown>
                                     </div>
                                 </div>
                             </div>
@@ -1168,7 +1168,7 @@
                                     <div class="form-group">
                                         <label for="fechaCierreCaso"><strong>Fecha de Cierre de Caso:</strong></label>
                                         <br>
-                                        <p-calendar formControlName="fechaCierreCaso" id="fechaCierreCaso" name="fechaCierreCaso" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" (onSelect)="setearSeCierreCaso($event)" appendTo="body"></p-calendar>
+                                        <p-calendar formControlName="fechaCierreCaso" id="fechaCierreCaso" name="fechaCierreCaso" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" (onSelect)="setearSeCierreCaso($event)" appendTo="body" [disabled]="this.region !== '-1'"></p-calendar>
                                     </div>
                                 </div>
                                 <div class="col-md">

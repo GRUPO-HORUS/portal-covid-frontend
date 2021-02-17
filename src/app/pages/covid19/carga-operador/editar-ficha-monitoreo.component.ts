@@ -256,6 +256,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       funcion: ['', Validators.required],
       otrosLugares: [[], Validators.required],
       reingreso: [null],
+      reinfeccion: [null],
       fallecido: [null],
       edad:[0, Validators.required],
       rangoEdad:['', Validators.required],
@@ -650,7 +651,8 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       establecimiento: [],
       especialidad: [],
       otroServicioInternadoCheck:[null],
-      otroServicioInternado:[]
+      otroServicioInternado:[],
+      nroConstancia: [null]
     });
 
     /*this._route.params.subscribe(params => {
@@ -1339,7 +1341,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.registroFg.controls.edad.setValue(response.edad);
         this.registroFg.controls.rangoEdad.setValue(response.rangoEdad);
         this.registroFg.controls.ciudadDomicilio.setValue({nombre:response.ciudadDomicilio});
-        this.registroFg.controls.barrio.setValue(response.barrio);
+        this.registroFg.controls.barrio.setValue({nombre:response.barrio});
 
         if(response.otroServicio){
           this.registroFg.controls.otroServicio.setValue(true);
@@ -1348,7 +1350,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
           this.registroFg.controls.servicioSalud.setValue({denominacion:response.servicioSalud});
         }
        
-        this.registroFg.controls.regionSanitaria.setValue({nombre:response.regionSanitaria});
+        this.registroFg.controls.regionSanitaria.setValue({id: response.regionSanitaria,nombre:response.departamentoDomicilio});
         this.registroFg.controls.profesion.setValue({nombre:response.profesion+"-"+response.especialidadProfesion});
         this.registroFg.controls.funcion.setValue({nombre:response.funcion});
         this.registroFg.controls.otrosLugares.setValue(response.otrosLugares);
@@ -1371,6 +1373,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
 
         this.registroFg.controls.ningunaEnfBase.setValue(response.ningunaEnfermedadBase);
         this.registroFg.controls.vacunaCovid.setValue(response.vacunaCovid);
+        this.registroFg.controls.reinfeccion.setValue(response.reinfeccion);
 
         this.casoConfirmadoFg.controls.cedula.setValue(response.numeroDocumentoContacto);
         this.casoConfirmadoFg.controls.nombre.setValue(response.nombreContacto);
@@ -1868,7 +1871,9 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionDatosBasicos.edad = this.registroFg.controls.edad.value;
     this.fichaPersonalBlanco.formSeccionDatosBasicos.rangoEdad = this.registroFg.controls.rangoEdad.value;
     this.fichaPersonalBlanco.formSeccionDatosBasicos.ciudadDomicilio = this.registroFg.controls.ciudadDomicilio.value.nombre;
-    this.fichaPersonalBlanco.formSeccionDatosBasicos.barrio = this.registroFg.controls.barrio.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.barrio = this.registroFg.controls.barrio.value.nombre;
+
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.departamentoDomicilio = this.registroFg.controls.regionSanitaria.value.nombre;
 
     this.fichaPersonalBlanco.formSeccionPersonalBlanco = new FormSeccionPersonalBlanco();
     //this.fichaPersonalBlanco.formSeccionPersonalBlanco.profesion = this.registroFg.controls.profesion.value;
@@ -1882,7 +1887,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     
     //let regionSanitaria = new LugarServicio();
     //regionSanitaria = this.registroFg.controls.regionSanitaria.value;
-    this.fichaPersonalBlanco.formSeccionPersonalBlanco.regionSanitaria = this.registroFg.controls.regionSanitaria.value.nombre;
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.regionSanitaria = this.registroFg.controls.regionSanitaria.value.id;
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.funcion = this.registroFg.controls.funcion.value.nombre;
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.otrosLugares = this.registroFg.controls.otrosLugares.value;
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.reingreso = this.registroFg.controls.reingreso.value;
@@ -1893,6 +1898,8 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     if(this.registroFg.controls.otroLugarNoListaCheck.value){
       this.fichaPersonalBlanco.formSeccionPersonalBlanco.otroLugarNoLista = this.registroFg.controls.otroLugarNoLista.value;
     }
+
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.reinfeccion = this.registroFg.controls.reinfeccion.value;
 
     this.fichaPersonalBlanco.formSeccionDatosClinicos = new FormDatosClinicos();
     this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseCardiopatiaCronica = this.registroFg.controls.cardiopatia.value;
@@ -2463,6 +2470,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
 
   selectDepto(event){
     this.registroFg.controls.ciudadDomicilio.setValue(null);
+    this.registroFg.controls.barrio.setValue(null);
     this.coddpto ="";
     //console.log(event.id);
     if(event.id < 10){

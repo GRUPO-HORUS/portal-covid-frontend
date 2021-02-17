@@ -20,6 +20,7 @@ import { FormSeccionReporteSalud } from "../model/formSeccionReporteSalud.model"
 import { FormDatosClinicos } from "../model/formDatosClinicos.model";
 
 import { AutoComplete } from 'primeng/autocomplete';
+import { StorageManagerService } from "../../login/shared/storage-manager.service";
 
 declare var $: any;
 @Component({
@@ -199,12 +200,15 @@ export class FichaMonitoreoComponent implements OnInit {
   fechaSelec14;
   fallaSII: boolean;
 
+  region: string;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
     private _route: ActivatedRoute,
     private recaptchaV3Service: ReCaptchaV3Service,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private storageManager: StorageManagerService
   ) {
     this.loading = false;
     if (typeof localStorage !== "undefined") {
@@ -215,6 +219,10 @@ export class FichaMonitoreoComponent implements OnInit {
   @ViewChild('stepper') stepper: MatHorizontalStepper;
 
   ngOnInit() {
+    const {usuario} = this.storageManager.getLoginData();
+    this.region = usuario.regionSanitaria;
+    console.log("ES "+this.region);
+
     this.fallaSII = false;
     this.fechaHoy = new Date().toLocaleDateString('fr-CA');
 
@@ -252,6 +260,7 @@ export class FichaMonitoreoComponent implements OnInit {
       funcion: ['', Validators.required],
       otrosLugares: [[]],
       reingreso: [null],
+      reinfeccion: [null],
       fallecido: [null],
       ciudadDomicilio:['', Validators.required],
       barrio:[''],
@@ -843,6 +852,7 @@ export class FichaMonitoreoComponent implements OnInit {
 
   selectDepto(event){
     this.registroFg.controls.ciudadDomicilio.setValue(null);
+    this.registroFg.controls.barrio.setValue(null);
     this.coddpto ="";
     //console.log(event.id);
     if(event.id < 10){
@@ -1028,6 +1038,7 @@ export class FichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionDatosBasicos.apellido = this.registroFg.controls.apellido.value;
     this.fichaPersonalBlanco.formSeccionDatosBasicos.sexo = this.registroFg.controls.sexo.value;
     this.fichaPersonalBlanco.formSeccionDatosBasicos.direccionDomicilio = this.registroFg.controls.direccion.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.departamentoDomicilio = this.registroFg.controls.regionSanitaria.value.nombre;
 
     this.fichaPersonalBlanco.formSeccionDatosClinicos = new FormDatosClinicos();
     this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseCardiopatiaCronica = this.registroFg.controls.cardiopatia.value;
@@ -1060,7 +1071,7 @@ export class FichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionDatosBasicos.edad = this.registroFg.controls.edad.value;
     this.fichaPersonalBlanco.formSeccionDatosBasicos.rangoEdad = this.registroFg.controls.rangoEdad.value;
     this.fichaPersonalBlanco.formSeccionDatosBasicos.ciudadDomicilio = this.registroFg.controls.ciudadDomicilio.value.nombre;
-    this.fichaPersonalBlanco.formSeccionDatosBasicos.barrio = this.registroFg.controls.barrio.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.barrio = this.registroFg.controls.barrio.value.nombre;
 
     this.fichaPersonalBlanco.formSeccionPersonalBlanco = new FormSeccionPersonalBlanco();
     let especialidadProfesion = this.registroFg.controls.profesion.value.nombre.split("-");
@@ -1078,7 +1089,7 @@ export class FichaMonitoreoComponent implements OnInit {
 
     //let regionSanitaria = new LugarServicio();
     //regionSanitaria = this.registroFg.controls.regionSanitaria.value;
-    this.fichaPersonalBlanco.formSeccionPersonalBlanco.regionSanitaria = this.registroFg.controls.regionSanitaria.value.nombre;
+    this.fichaPersonalBlanco.formSeccionPersonalBlanco.regionSanitaria = this.registroFg.controls.regionSanitaria.value.id;
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.funcion = this.registroFg.controls.funcion.value.nombre;
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.otrosLugares = this.registroFg.controls.otrosLugares.value;
     this.fichaPersonalBlanco.formSeccionPersonalBlanco.reingreso = this.registroFg.controls.reingreso.value;

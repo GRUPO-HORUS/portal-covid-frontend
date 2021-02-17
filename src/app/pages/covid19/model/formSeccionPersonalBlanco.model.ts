@@ -16,4 +16,5 @@ export class FormSeccionPersonalBlanco {
 
     otroLugarNoListaCheck: boolean;
     otroLugarNoLista: string;
+    reinfeccion: boolean;
 }

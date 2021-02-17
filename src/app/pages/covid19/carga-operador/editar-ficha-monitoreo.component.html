@@ -30,13 +30,17 @@
                             </div>-->
 
                             <div class="row">
-                                <div class="col-md"></div>
+                                <!--<div class="col-md"></div>-->
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <p-checkbox formControlName="reingreso" [binary]="true" label="Reingreso?" id="reingreso" class="ml-5"></p-checkbox>
+                                        <p-checkbox formControlName="reingreso" [binary]="true" label="Reingreso?" id="reingreso" class="float-right"></p-checkbox>
                                     </div>
                                 </div>
-                                <div class="col-md"></div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <p-checkbox formControlName="reinfeccion" [binary]="true" label="Reinfección?" id="reinfeccion"></p-checkbox>
+                                    </div>
+                                </div>
                             </div>
                             
                             <div class="row">
@@ -135,7 +139,7 @@
                                     <div class="form-group">
                                         <label for="ciudadDomicilio"><strong>Ciudad</strong></label>
                                         <!--<input type="text" formControlName="ciudadDomicilio" class="form-control" id="ciudadDomicilio" name="ciudadDomicilio" required>-->
-                                        <p-autoComplete id="ciudadDomicilio" formControlName="ciudadDomicilio" [suggestions]="ciudadesFiltradas" field="nombre" (completeMethod)="filtrarCiudad($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                        <p-autoComplete id="ciudadDomicilio" formControlName="ciudadDomicilio" [suggestions]="ciudadesFiltradas" field="nombre" (completeMethod)="filtrarCiudad($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required (onSelect)="selectCiudad($event)"></p-autoComplete>
                                     </div>
                                 </div>
                                 <div class="col-md">

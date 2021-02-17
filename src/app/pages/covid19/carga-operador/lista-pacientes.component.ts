@@ -52,7 +52,8 @@ export class ListaPacientesComponent implements OnInit{
         { field: 'nombre', header: 'Nombres', width: '20%' },
         { field: 'apellido', header: 'Apellidos', width: '20%' },
         { field: 'numeroCelular', header: 'Teléfono', width: '12%' },
-        { field: 'departamentoDomicilio', header: 'Departamento', width: '14%' }];
+        { field: 'departamentoDomicilio', header: 'Departamento', width: '14%' },
+        { field: 'migrado', header: 'Migrado', width: '8%' }];
         /*{ field: 'direccionDomicilio', header: 'Domicilio', width: '17%' },
         { field: 'sexo', header: 'Tipo de Contacto', width: '9%' },
         { field: 'fechaUltimoContacto', header: 'Último Contacto', width: '15%' },
@@ -125,7 +126,7 @@ export class ListaPacientesComponent implements OnInit{
     "SERVICIO DE SALUD", "REGIÓN SANITARIA", "PROFESIÓN", "FUNCIÓN", "REINGRESO", "FALLECIDO", "INTERNADO", "LUGAR INTERNACIÓN",
     "ESPECIALIDAD INTERNACIÓN", "CLASIFICACIÓN DE RIESGO", "CATEGORÍA CONTAGIO", "CLASIFICACIÓN FINAL", "LABORATORIO", "EXCLUSIÓN TRABAJO",
     "CONSTANCIA DE AISLAMIENTO", "FICHA EPIDEMIOLÓGICA", "SE DE FIS", "SE DE MUESTRA","FECHA DE MUESTRA",
-    "RESULTADO DE MUESTRA", "EVOLUCIÓN FINAL", "FECHA CIERRE CASO", "SE CIERRE CASO", "SINTOMÁTICO", "EMBARAZADA", "PATOLOGIAS DE BASE"];
+    "RESULTADO DE MUESTRA", "EVOLUCIÓN FINAL", "FECHA CIERRE CASO", "SE CIERRE CASO", "SINTOMÁTICO", "EMBARAZADA", "PATOLOGIAS DE BASE", "MIGRADO"];
     worksheet.addRow(header);
     worksheet.getRow(3).fill = {type:'pattern', pattern: 'solid', fgColor: {argb:'00000000'}}
     worksheet.getRow(3).font = { color:{argb:'FFFFFFFF'}, name: 'Arial Black', family: 4, size: 11, bold: true };
@@ -242,6 +243,11 @@ export class ListaPacientesComponent implements OnInit{
           patologiasBase += 'NINGUNA,';
         }
 
+        let migrado = 'NO';
+        if(p.migrado){
+          migrado = 'SI';
+        }
+
       patologiasBase = patologiasBase.substring(0,patologiasBase.length-1);
 
       worksheet.addRow([p.fechaInicioMonitoreo, p.se, p.numeroDocumento, p.codigoPaciente != null ? p.codigoPaciente.toUpperCase(): p.codigoPaciente, p.nombre != null ? p.nombre.toUpperCase(): p.nombre, p.apellido != null ? p.apellido.toUpperCase(): p.apellido, p.numeroCelular, 
@@ -256,7 +262,7 @@ export class ListaPacientesComponent implements OnInit{
       p.clasificacionFinal != null ? p.clasificacionFinal.toUpperCase(): p.clasificacionFinal, laboratorio,
       trabajoExclusion, constanciaAislamiento, fichaEpidemiologica, p.seFis, p.sePrimeraMuestra, p.fechaPrimeraMuestra,
       p.resultadoPrimeraMuestra != null ? p.resultadoPrimeraMuestra.toUpperCase(): p.resultadoPrimeraMuestra, p.evolucionFinal != null ? p.evolucionFinal.toUpperCase(): p.evolucionFinal,
-      p.fechaCierreCaso, p.seCierreCaso, sintomatico, embarazada, patologiasBase]);
+      p.fechaCierreCaso, p.seCierreCaso, sintomatico, embarazada, patologiasBase, migrado]);
 
       worksheet.getRow(filaNro).border = {
         top: { style:'double', color: {argb:'00000000'}},

@@ -52,6 +52,12 @@
               <td>
                 {{rowData.departamentoDomicilio}}
               </td>
+              <td *ngIf="rowData.migrado">
+                SI
+              </td>
+              <td *ngIf="!rowData.migrado">
+                NO
+              </td>
               <!--<td>
                 {{rowData.tipo}}
               </td>

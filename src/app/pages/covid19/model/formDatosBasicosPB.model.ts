@@ -54,6 +54,7 @@ export class FormDatosBasicosPB {
 
     otroServicio: boolean;
     reingreso: boolean;
+    reinfeccion: boolean;
     fallecido: boolean;
     internado: boolean;
     establecimientoInternacion: string;
