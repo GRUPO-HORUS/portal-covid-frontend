@@ -221,7 +221,6 @@ export class FichaMonitoreoComponent implements OnInit {
   ngOnInit() {
     const {usuario} = this.storageManager.getLoginData();
     this.region = usuario.regionSanitaria;
-    console.log("ES "+this.region);
 
     this.fallaSII = false;
     this.fechaHoy = new Date().toLocaleDateString('fr-CA');

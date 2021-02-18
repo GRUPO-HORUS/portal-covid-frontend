@@ -18,6 +18,7 @@ import { LugarServicio } from "../model/lugarServicio.model";
 import { FichaPersonalBlanco } from "../model/fichaPersonalBlanco.model";
 import { FormSeccionReporteSalud } from "../model/formSeccionReporteSalud.model";
 import { FormDatosClinicos } from "../model/formDatosClinicos.model";
+import { StorageManagerService } from "../../login/shared/storage-manager.service";
 
 declare var $: any;
 @Component({
@@ -204,13 +205,15 @@ export class EditarFichaMonitoreoComponent implements OnInit {
   public barriosFiltrados: any[];
 
   public coddpto;
+  region: string;
 
   constructor(
     private _router: Router,
     private service: Covid19Service,
     private _route: ActivatedRoute,
     private recaptchaV3Service: ReCaptchaV3Service,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private storageManager: StorageManagerService
   ) {
     this.loading = false;
     if (typeof localStorage !== "undefined") {
@@ -221,6 +224,9 @@ export class EditarFichaMonitoreoComponent implements OnInit {
   @ViewChild('stepper') stepper: MatHorizontalStepper;
 
   ngOnInit() {
+    const {usuario} = this.storageManager.getLoginData();
+    this.region = usuario.regionSanitaria;
+
     this.fechaHoy = new Date().toLocaleDateString('fr-CA');
     
     this._route.params.subscribe(params => {
