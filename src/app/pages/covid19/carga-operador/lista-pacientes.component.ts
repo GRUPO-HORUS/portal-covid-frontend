@@ -100,7 +100,7 @@ export class ListaPacientesComponent implements OnInit{
     }
 
     getAllPacientes(){
-      this.service.listarPacientes(0, 0, this.filter, this.sortAsc, this.sortField, this.region, this.distritosUsuario).subscribe(pacientes => {
+      this.service.listarReingresos(0, 0, this.filter, this.sortAsc, this.sortField, this.region, this.distritosUsuario).subscribe(pacientes => {
         this.pacientesListCompleta = pacientes.lista;
         //this.exportExcel(this.pacientesListCompleta);
 
@@ -123,7 +123,7 @@ export class ListaPacientesComponent implements OnInit{
     let header=["FECHA INICIO MONITOREO", "SE", "NRO DE DOCUMENTO", "CÓDIGO PACIENTE","NOMBRE", "APELLIDO", "CELULAR", "DEPARTAMENTO", "DOMICILIO","FECHA DE NACIMIENTO",
     "SEXO", "EDAD","RANGO DE EDAD", "CIUDAD", "BARRIO", "FECHA EXPOSICIÓN",
     "FECHA INICIO DE SÍNTOMAS", "NRO DE DOCUMENTO CONTACTO", "NOMBRE CONTACTO", "APELLIDO CONTACTO",
-    "SERVICIO DE SALUD", "REGIÓN SANITARIA", "PROFESIÓN", "FUNCIÓN", "REINGRESO", "FALLECIDO", "INTERNADO", "LUGAR INTERNACIÓN",
+    "SERVICIO DE SALUD", "REGIÓN SANITARIA", "PROFESIÓN", "FUNCIÓN", "REINGRESO", "ULTIMO REINGRESO", "FALLECIDO", "INTERNADO", "LUGAR INTERNACIÓN",
     "ESPECIALIDAD INTERNACIÓN", "CLASIFICACIÓN DE RIESGO", "CATEGORÍA CONTAGIO", "CLASIFICACIÓN FINAL", "LABORATORIO", "EXCLUSIÓN TRABAJO",
     "CONSTANCIA DE AISLAMIENTO", "FICHA EPIDEMIOLÓGICA", "SE DE FIS", "SE DE MUESTRA","FECHA DE MUESTRA",
     "RESULTADO DE MUESTRA", "EVOLUCIÓN FINAL", "FECHA CIERRE CASO", "SE CIERRE CASO", "SINTOMÁTICO", "EMBARAZADA", "PATOLOGIAS DE BASE", "MIGRADO"];
@@ -133,10 +133,16 @@ export class ListaPacientesComponent implements OnInit{
 
     let filaNro = 4;
     for(let p of pacientes) {
-      let reingreso = 'NO';
+        let reingreso = 'NO';
         if(p.reingreso){
           reingreso = 'SI';
         }
+
+        let ultimoReingreso = 'NO';
+        if(p.ultimoReingreso){
+          ultimoReingreso = 'SI';
+        }
+
         let fallecido = 'NO';
         if(p.fallecido){
           fallecido = 'SI';
@@ -256,7 +262,7 @@ export class ListaPacientesComponent implements OnInit{
       p.barrio != null ? p.barrio.toUpperCase(): p.barrio, p.fechaExposicion, p.fechaInicioSintoma, p.nroDocumentoContacto, 
       p.nombreContacto != null ? p.nombreContacto.toUpperCase(): p.nombreContacto, p.apellidoContacto != null ? p.apellidoContacto.toUpperCase(): p.apellidoContacto, 
       p.servicioSalud != null ? p.servicioSalud.toUpperCase(): p.servicioSalud, p.regionSanitaria != null ? p.regionSanitaria.toUpperCase(): p.regionSanitaria,
-      p.profesion != null ? p.profesion.toUpperCase(): p.profesion, p.funcion != null ? p.funcion.toUpperCase(): p.funcion, reingreso, fallecido,
+      p.profesion != null ? p.profesion.toUpperCase(): p.profesion, p.funcion != null ? p.funcion.toUpperCase(): p.funcion, reingreso, ultimoReingreso, fallecido,
       internado, p.establecimientoInternacion != null ? p.establecimientoInternacion.toUpperCase(): p.establecimientoInternacion, p.especialidadInternacion != null ? p.especialidadInternacion.toUpperCase(): p.especialidadInternacion, 
       p.clasificacionRiesgo != null ? p.clasificacionRiesgo.toUpperCase(): p.clasificacionRiesgo, p.categoriaContagio != null ? p.categoriaContagio.toUpperCase(): p.categoriaContagio, 
       p.clasificacionFinal != null ? p.clasificacionFinal.toUpperCase(): p.clasificacionFinal, laboratorio,

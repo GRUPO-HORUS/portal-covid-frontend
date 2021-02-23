@@ -254,21 +254,21 @@ export class EditarFichaMonitoreoComponent implements OnInit {
       apellido: ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
       telefono: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-      direccion: ['', Validators.required],
+      direccion: [''],
       sexo: ['', Validators.required],
       servicioSalud: ['', Validators.required],
       regionSanitaria: ['', Validators.required],
       profesion: ['', Validators.required],
       funcion: ['', Validators.required],
-      otrosLugares: [[], Validators.required],
+      otrosLugares: [[]],
       reingreso: [null],
       reinfeccion: [null],
       fallecido: [null],
       edad:[0, Validators.required],
       rangoEdad:['', Validators.required],
       ciudadDomicilio:['', Validators.required],
-      barrio:['', Validators.required],
-      codPaciente:['', Validators.required],
+      barrio:[''],
+      codPaciente:[''],
       otroServicio:[''],
       otroLugarNoListaCheck:[null],
       otroLugarNoLista:[],
@@ -291,15 +291,15 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     });
 
     this.casoConfirmadoFg = this._formBuilder.group({
-      cedula: ['', Validators.required],
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      sexo: ['', Validators.required],
+      cedula: [''],
+      nombre: [''],
+      apellido: [''],
+      sexo: [''],
       contagioAmbiente: [null, Validators.required],
       contagioEstablecimiento: [],
-      fechaExposicion: ['', Validators.required],
+      fechaExposicion: [''],
       catContagio: [''],
-      clasRiesgo: ['', Validators.required],
+      clasRiesgo: [''],
       otroServicioCheck:[null],
       otroServicioNombre:[]
     });
@@ -307,331 +307,331 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     this.monitoreoFg = this._formBuilder.group({
       /*cedula: ['', Validators.required],
       nombre: ['', Validators.required]*/
-      sintomatico: [null],
-      fechaSintomas: ['', Validators.required],
-      seFis: [1, Validators.required],
-      fecha1: ['', Validators.required],
-      fecha2: ['', Validators.required],
-      fecha3: ['', Validators.required],
-      fecha4: ['', Validators.required],
-      fecha5: ['', Validators.required],
-      fecha6: ['', Validators.required],
-      fecha7: ['', Validators.required],
-      fecha8: ['', Validators.required],
-      fecha9: ['', Validators.required],
-      fecha10: ['', Validators.required],
-      fecha11: ['', Validators.required],
-      fecha12: ['', Validators.required],
-      fecha13: ['', Validators.required],
-      fecha14: ['', Validators.required],
-      tos1: [null, Validators.required],
-      tos2: [null, Validators.required],
-      tos3: [null, Validators.required],
-      tos4: [null, Validators.required],
-      tos5: [null, Validators.required],
-      tos6: [null, Validators.required],
-      tos7: [null, Validators.required],
-      tos8: [null, Validators.required],
-      tos9: [null, Validators.required],
-      tos10: [null, Validators.required],
-      tos11: [null, Validators.required],
-      tos12: [null, Validators.required],
-      tos13: [null, Validators.required],
-      tos14: [null, Validators.required],
-      fiebre1: [null, Validators.required],
-      fiebre2: [null, Validators.required],
-      fiebre3: [null, Validators.required],
-      fiebre4: [null, Validators.required],
-      fiebre5: [null, Validators.required],
-      fiebre6: [null, Validators.required],
-      fiebre7: [null, Validators.required],
-      fiebre8: [null, Validators.required],
-      fiebre9: [null, Validators.required],
-      fiebre10: [null, Validators.required],
-      fiebre11: [null, Validators.required],
-      fiebre12: [null, Validators.required],
-      fiebre13: [null, Validators.required],
-      fiebre14: [null, Validators.required],
-      dolorGarganta1: [null, Validators.required],
-      dolorGarganta2: [null, Validators.required],
-      dolorGarganta3: [null, Validators.required],
-      dolorGarganta4: [null, Validators.required],
-      dolorGarganta5: [null, Validators.required],
-      dolorGarganta6: [null, Validators.required],
-      dolorGarganta7: [null, Validators.required],
-      dolorGarganta8: [null, Validators.required],
-      dolorGarganta9: [null, Validators.required],
-      dolorGarganta10: [null, Validators.required],
-      dolorGarganta11: [null, Validators.required],
-      dolorGarganta12: [null, Validators.required],
-      dolorGarganta13: [null, Validators.required],
-      dolorGarganta14: [null, Validators.required],
-      dolorCabeza1: [null, Validators.required],
-      dolorCabeza2: [null, Validators.required],
-      dolorCabeza3: [null, Validators.required],
-      dolorCabeza4: [null, Validators.required],
-      dolorCabeza5: [null, Validators.required],
-      dolorCabeza6: [null, Validators.required],
-      dolorCabeza7: [null, Validators.required],
-      dolorCabeza8: [null, Validators.required],
-      dolorCabeza9: [null, Validators.required],
-      dolorCabeza10: [null, Validators.required],
-      dolorCabeza11: [null, Validators.required],
-      dolorCabeza12: [null, Validators.required],
-      dolorCabeza13: [null, Validators.required],
-      dolorCabeza14: [null, Validators.required],
-      dificultadRespirar1: [null, Validators.required],
-      dificultadRespirar2: [null, Validators.required],
-      dificultadRespirar3: [null, Validators.required],
-      dificultadRespirar4: [null, Validators.required],
-      dificultadRespirar5: [null, Validators.required],
-      dificultadRespirar6: [null, Validators.required],
-      dificultadRespirar7: [null, Validators.required],
-      dificultadRespirar8: [null, Validators.required],
-      dificultadRespirar9: [null, Validators.required],
-      dificultadRespirar10: [null, Validators.required],
-      dificultadRespirar11: [null, Validators.required],
-      dificultadRespirar12: [null, Validators.required],
-      dificultadRespirar13: [null, Validators.required],
-      dificultadRespirar14: [null, Validators.required],
-      percibeOlores1: [null, Validators.required],
-      percibeOlores2: [null, Validators.required],
-      percibeOlores3: [null, Validators.required],
-      percibeOlores4: [null, Validators.required],
-      percibeOlores5: [null, Validators.required],
-      percibeOlores6: [null, Validators.required],
-      percibeOlores7: [null, Validators.required],
-      percibeOlores8: [null, Validators.required],
-      percibeOlores9: [null, Validators.required],
-      percibeOlores10: [null, Validators.required],
-      percibeOlores11: [null, Validators.required],
-      percibeOlores12: [null, Validators.required],
-      percibeOlores13: [null, Validators.required],
-      percibeOlores14: [null, Validators.required],
-      congestionNasal1: [null, Validators.required],
-      congestionNasal2: [null, Validators.required],
-      congestionNasal3: [null, Validators.required],
-      congestionNasal4: [null, Validators.required],
-      congestionNasal5: [null, Validators.required],
-      congestionNasal6: [null, Validators.required],
-      congestionNasal7: [null, Validators.required],
-      congestionNasal8: [null, Validators.required],
-      congestionNasal9: [null, Validators.required],
-      congestionNasal10: [null, Validators.required],
-      congestionNasal11: [null, Validators.required],
-      congestionNasal12: [null, Validators.required],
-      congestionNasal13: [null, Validators.required],
-      congestionNasal14: [null, Validators.required],
-      diarrea1: [null, Validators.required],
-      diarrea2: [null, Validators.required],
-      diarrea3: [null, Validators.required],
-      diarrea4: [null, Validators.required],
-      diarrea5: [null, Validators.required],
-      diarrea6: [null, Validators.required],
-      diarrea7: [null, Validators.required],
-      diarrea8: [null, Validators.required],
-      diarrea9: [null, Validators.required],
-      diarrea10: [null, Validators.required],
-      diarrea11: [null, Validators.required],
-      diarrea12: [null, Validators.required],
-      diarrea13: [null, Validators.required],
-      diarrea14: [null, Validators.required],
-      dolorOido1: [null, Validators.required],
-      dolorOido2: [null, Validators.required],
-      dolorOido3: [null, Validators.required],
-      dolorOido4: [null, Validators.required],
-      dolorOido5: [null, Validators.required],
-      dolorOido6: [null, Validators.required],
-      dolorOido7: [null, Validators.required],
-      dolorOido8: [null, Validators.required],
-      dolorOido9: [null, Validators.required],
-      dolorOido10: [null, Validators.required],
-      dolorOido11: [null, Validators.required],
-      dolorOido12: [null, Validators.required],
-      dolorOido13: [null, Validators.required],
-      dolorOido14: [null, Validators.required],
-      convulsiones1: [null, Validators.required],
-      convulsiones2: [null, Validators.required],
-      convulsiones3: [null, Validators.required],
-      convulsiones4: [null, Validators.required],
-      convulsiones5: [null, Validators.required],
-      convulsiones6: [null, Validators.required],
-      convulsiones7: [null, Validators.required],
-      convulsiones8: [null, Validators.required],
-      convulsiones9: [null, Validators.required],
-      convulsiones10: [null, Validators.required],
-      convulsiones11: [null, Validators.required],
-      convulsiones12: [null, Validators.required],
-      convulsiones13: [null, Validators.required],
-      convulsiones14: [null, Validators.required],
-      mialgias1: [null, Validators.required],
-      mialgias2: [null, Validators.required],
-      mialgias3: [null, Validators.required],
-      mialgias4: [null, Validators.required],
-      mialgias5: [null, Validators.required],
-      mialgias6: [null, Validators.required],
-      mialgias7: [null, Validators.required],
-      mialgias8: [null, Validators.required],
-      mialgias9: [null, Validators.required],
-      mialgias10: [null, Validators.required],
-      mialgias11: [null, Validators.required],
-      mialgias12: [null, Validators.required],
-      mialgias13: [null, Validators.required],
-      mialgias14: [null, Validators.required],
-      artralgias1: [null, Validators.required],
-      artralgias2: [null, Validators.required],
-      artralgias3: [null, Validators.required],
-      artralgias4: [null, Validators.required],
-      artralgias5: [null, Validators.required],
-      artralgias6: [null, Validators.required],
-      artralgias7: [null, Validators.required],
-      artralgias8: [null, Validators.required],
-      artralgias9: [null, Validators.required],
-      artralgias10: [null, Validators.required],
-      artralgias11: [null, Validators.required],
-      artralgias12: [null, Validators.required],
-      artralgias13: [null, Validators.required],
-      artralgias14: [null, Validators.required],
-      postracion1: [null, Validators.required],
-      postracion2: [null, Validators.required],
-      postracion3: [null, Validators.required],
-      postracion4: [null, Validators.required],
-      postracion5: [null, Validators.required],
-      postracion6: [null, Validators.required],
-      postracion7: [null, Validators.required],
-      postracion8: [null, Validators.required],
-      postracion9: [null, Validators.required],
-      postracion10: [null, Validators.required],
-      postracion11: [null, Validators.required],
-      postracion12: [null, Validators.required],
-      postracion13: [null, Validators.required],
-      postracion14: [null, Validators.required],
-      nauseas1: [null, Validators.required],
-      nauseas2: [null, Validators.required],
-      nauseas3: [null, Validators.required],
-      nauseas4: [null, Validators.required],
-      nauseas5: [null, Validators.required],
-      nauseas6: [null, Validators.required],
-      nauseas7: [null, Validators.required],
-      nauseas8: [null, Validators.required],
-      nauseas9: [null, Validators.required],
-      nauseas10: [null, Validators.required],
-      nauseas11: [null, Validators.required],
-      nauseas12: [null, Validators.required],
-      nauseas13: [null, Validators.required],
-      nauseas14: [null, Validators.required],
-      irritabilidad1: [null, Validators.required],
-      irritabilidad2: [null, Validators.required],
-      irritabilidad3: [null, Validators.required],
-      irritabilidad4: [null, Validators.required],
-      irritabilidad5: [null, Validators.required],
-      irritabilidad6: [null, Validators.required],
-      irritabilidad7: [null, Validators.required],
-      irritabilidad8: [null, Validators.required],
-      irritabilidad9: [null, Validators.required],
-      irritabilidad10: [null, Validators.required],
-      irritabilidad11: [null, Validators.required],
-      irritabilidad12: [null, Validators.required],
-      irritabilidad13: [null, Validators.required],
-      irritabilidad14: [null, Validators.required],
-      dolorAbdominal1: [null, Validators.required],
-      dolorAbdominal2: [null, Validators.required],
-      dolorAbdominal3: [null, Validators.required],
-      dolorAbdominal4: [null, Validators.required],
-      dolorAbdominal5: [null, Validators.required],
-      dolorAbdominal6: [null, Validators.required],
-      dolorAbdominal7: [null, Validators.required],
-      dolorAbdominal8: [null, Validators.required],
-      dolorAbdominal9: [null, Validators.required],
-      dolorAbdominal10: [null, Validators.required],
-      dolorAbdominal11: [null, Validators.required],
-      dolorAbdominal12: [null, Validators.required],
-      dolorAbdominal13: [null, Validators.required],
-      dolorAbdominal14: [null, Validators.required],
-      rinorrea1: [null, Validators.required],
-      rinorrea2: [null, Validators.required],
-      rinorrea3: [null, Validators.required],
-      rinorrea4: [null, Validators.required],
-      rinorrea5: [null, Validators.required],
-      rinorrea6: [null, Validators.required],
-      rinorrea7: [null, Validators.required],
-      rinorrea8: [null, Validators.required],
-      rinorrea9: [null, Validators.required],
-      rinorrea10: [null, Validators.required],
-      rinorrea11: [null, Validators.required],
-      rinorrea12: [null, Validators.required],
-      rinorrea13: [null, Validators.required],
-      rinorrea14: [null, Validators.required],
-      conjuntival1: [null, Validators.required],
-      conjuntival2: [null, Validators.required],
-      conjuntival3: [null, Validators.required],
-      conjuntival4: [null, Validators.required],
-      conjuntival5: [null, Validators.required],
-      conjuntival6: [null, Validators.required],
-      conjuntival7: [null, Validators.required],
-      conjuntival8: [null, Validators.required],
-      conjuntival9: [null, Validators.required],
-      conjuntival10: [null, Validators.required],
-      conjuntival11: [null, Validators.required],
-      conjuntival12: [null, Validators.required],
-      conjuntival13: [null, Validators.required],
-      conjuntival14: [null, Validators.required],
-      auscultacion1: [null, Validators.required],
-      auscultacion2: [null, Validators.required],
-      auscultacion3: [null, Validators.required],
-      auscultacion4: [null, Validators.required],
-      auscultacion5: [null, Validators.required],
-      auscultacion6: [null, Validators.required],
-      auscultacion7: [null, Validators.required],
-      auscultacion8: [null, Validators.required],
-      auscultacion9: [null, Validators.required],
-      auscultacion10: [null, Validators.required],
-      auscultacion11: [null, Validators.required],
-      auscultacion12: [null, Validators.required],
-      auscultacion13: [null, Validators.required],
-      auscultacion14: [null, Validators.required],
-      anosmia1: [null, Validators.required],
-      anosmia2: [null, Validators.required],
-      anosmia3: [null, Validators.required],
-      anosmia4: [null, Validators.required],
-      anosmia5: [null, Validators.required],
-      anosmia6: [null, Validators.required],
-      anosmia7: [null, Validators.required],
-      anosmia8: [null, Validators.required],
-      anosmia9: [null, Validators.required],
-      anosmia10: [null, Validators.required],
-      anosmia11: [null, Validators.required],
-      anosmia12: [null, Validators.required],
-      anosmia13: [null, Validators.required],
-      anosmia14: [null, Validators.required],
-      disgeusia1: [null, Validators.required],
-      disgeusia2: [null, Validators.required],
-      disgeusia3: [null, Validators.required],
-      disgeusia4: [null, Validators.required],
-      disgeusia5: [null, Validators.required],
-      disgeusia6: [null, Validators.required],
-      disgeusia7: [null, Validators.required],
-      disgeusia8: [null, Validators.required],
-      disgeusia9: [null, Validators.required],
-      disgeusia10: [null, Validators.required],
-      disgeusia11: [null, Validators.required],
-      disgeusia12: [null, Validators.required],
-      disgeusia13: [null, Validators.required],
-      disgeusia14: [null, Validators.required],
-      otrosCansancios1: [null, Validators.required],
-      otrosCansancios2: [null, Validators.required],
-      otrosCansancios3: [null, Validators.required],
-      otrosCansancios4: [null, Validators.required],
-      otrosCansancios5: [null, Validators.required],
-      otrosCansancios6: [null, Validators.required],
-      otrosCansancios7: [null, Validators.required],
-      otrosCansancios8: [null, Validators.required],
-      otrosCansancios9: [null, Validators.required],
-      otrosCansancios10: [null, Validators.required],
-      otrosCansancios11: [null, Validators.required],
-      otrosCansancios12: [null, Validators.required],
-      otrosCansancios13: [null, Validators.required],
-      otrosCansancios14: [null, Validators.required]
+      sintomatico: [null, Validators.required],
+      fechaSintomas: [''],
+      seFis: [1],
+      fecha1: [''],
+      fecha2: [''],
+      fecha3: [''],
+      fecha4: [''],
+      fecha5: [''],
+      fecha6: [''],
+      fecha7: [''],
+      fecha8: [''],
+      fecha9: [''],
+      fecha10: [''],
+      fecha11: [''],
+      fecha12: [''],
+      fecha13: [''],
+      fecha14: [''],
+      tos1: [null],
+      tos2: [null],
+      tos3: [null],
+      tos4: [null],
+      tos5: [null],
+      tos6: [null],
+      tos7: [null],
+      tos8: [null],
+      tos9: [null],
+      tos10: [null],
+      tos11: [null],
+      tos12: [null],
+      tos13: [null],
+      tos14: [null],
+      fiebre1: [null],
+      fiebre2: [null],
+      fiebre3: [null],
+      fiebre4: [null],
+      fiebre5: [null],
+      fiebre6: [null],
+      fiebre7: [null],
+      fiebre8: [null],
+      fiebre9: [null],
+      fiebre10: [null],
+      fiebre11: [null],
+      fiebre12: [null],
+      fiebre13: [null],
+      fiebre14: [null],
+      dolorGarganta1: [null],
+      dolorGarganta2: [null],
+      dolorGarganta3: [null],
+      dolorGarganta4: [null],
+      dolorGarganta5: [null],
+      dolorGarganta6: [null],
+      dolorGarganta7: [null],
+      dolorGarganta8: [null],
+      dolorGarganta9: [null],
+      dolorGarganta10: [null],
+      dolorGarganta11: [null],
+      dolorGarganta12: [null],
+      dolorGarganta13: [null],
+      dolorGarganta14: [null],
+      dolorCabeza1: [null],
+      dolorCabeza2: [null],
+      dolorCabeza3: [null],
+      dolorCabeza4: [null],
+      dolorCabeza5: [null],
+      dolorCabeza6: [null],
+      dolorCabeza7: [null],
+      dolorCabeza8: [null],
+      dolorCabeza9: [null],
+      dolorCabeza10: [null],
+      dolorCabeza11: [null],
+      dolorCabeza12: [null],
+      dolorCabeza13: [null],
+      dolorCabeza14: [null],
+      dificultadRespirar1: [null],
+      dificultadRespirar2: [null],
+      dificultadRespirar3: [null],
+      dificultadRespirar4: [null],
+      dificultadRespirar5: [null],
+      dificultadRespirar6: [null],
+      dificultadRespirar7: [null],
+      dificultadRespirar8: [null],
+      dificultadRespirar9: [null],
+      dificultadRespirar10: [null],
+      dificultadRespirar11: [null],
+      dificultadRespirar12: [null],
+      dificultadRespirar13: [null],
+      dificultadRespirar14: [null],
+      percibeOlores1: [null],
+      percibeOlores2: [null],
+      percibeOlores3: [null],
+      percibeOlores4: [null],
+      percibeOlores5: [null],
+      percibeOlores6: [null],
+      percibeOlores7: [null],
+      percibeOlores8: [null],
+      percibeOlores9: [null],
+      percibeOlores10: [null],
+      percibeOlores11: [null],
+      percibeOlores12: [null],
+      percibeOlores13: [null],
+      percibeOlores14: [null],
+      congestionNasal1: [null],
+      congestionNasal2: [null],
+      congestionNasal3: [null],
+      congestionNasal4: [null],
+      congestionNasal5: [null],
+      congestionNasal6: [null],
+      congestionNasal7: [null],
+      congestionNasal8: [null],
+      congestionNasal9: [null],
+      congestionNasal10: [null],
+      congestionNasal11: [null],
+      congestionNasal12: [null],
+      congestionNasal13: [null],
+      congestionNasal14: [null],
+      diarrea1: [null],
+      diarrea2: [null],
+      diarrea3: [null],
+      diarrea4: [null],
+      diarrea5: [null],
+      diarrea6: [null],
+      diarrea7: [null],
+      diarrea8: [null],
+      diarrea9: [null],
+      diarrea10: [null],
+      diarrea11: [null],
+      diarrea12: [null],
+      diarrea13: [null],
+      diarrea14: [null],
+      dolorOido1: [null],
+      dolorOido2: [null],
+      dolorOido3: [null],
+      dolorOido4: [null],
+      dolorOido5: [null],
+      dolorOido6: [null],
+      dolorOido7: [null],
+      dolorOido8: [null],
+      dolorOido9: [null],
+      dolorOido10: [null],
+      dolorOido11: [null],
+      dolorOido12: [null],
+      dolorOido13: [null],
+      dolorOido14: [null],
+      convulsiones1: [null],
+      convulsiones2: [null],
+      convulsiones3: [null],
+      convulsiones4: [null],
+      convulsiones5: [null],
+      convulsiones6: [null],
+      convulsiones7: [null],
+      convulsiones8: [null],
+      convulsiones9: [null],
+      convulsiones10: [null],
+      convulsiones11: [null],
+      convulsiones12: [null],
+      convulsiones13: [null],
+      convulsiones14: [null],
+      mialgias1: [null],
+      mialgias2: [null],
+      mialgias3: [null],
+      mialgias4: [null],
+      mialgias5: [null],
+      mialgias6: [null],
+      mialgias7: [null],
+      mialgias8: [null],
+      mialgias9: [null],
+      mialgias10: [null],
+      mialgias11: [null],
+      mialgias12: [null],
+      mialgias13: [null],
+      mialgias14: [null],
+      artralgias1: [null],
+      artralgias2: [null],
+      artralgias3: [null],
+      artralgias4: [null],
+      artralgias5: [null],
+      artralgias6: [null],
+      artralgias7: [null],
+      artralgias8: [null],
+      artralgias9: [null],
+      artralgias10: [null],
+      artralgias11: [null],
+      artralgias12: [null],
+      artralgias13: [null],
+      artralgias14: [null],
+      postracion1: [null],
+      postracion2: [null],
+      postracion3: [null],
+      postracion4: [null],
+      postracion5: [null],
+      postracion6: [null],
+      postracion7: [null],
+      postracion8: [null],
+      postracion9: [null],
+      postracion10: [null],
+      postracion11: [null],
+      postracion12: [null],
+      postracion13: [null],
+      postracion14: [null],
+      nauseas1: [null],
+      nauseas2: [null],
+      nauseas3: [null],
+      nauseas4: [null],
+      nauseas5: [null],
+      nauseas6: [null],
+      nauseas7: [null],
+      nauseas8: [null],
+      nauseas9: [null],
+      nauseas10: [null],
+      nauseas11: [null],
+      nauseas12: [null],
+      nauseas13: [null],
+      nauseas14: [null],
+      irritabilidad1: [null],
+      irritabilidad2: [null],
+      irritabilidad3: [null],
+      irritabilidad4: [null],
+      irritabilidad5: [null],
+      irritabilidad6: [null],
+      irritabilidad7: [null],
+      irritabilidad8: [null],
+      irritabilidad9: [null],
+      irritabilidad10: [null],
+      irritabilidad11: [null],
+      irritabilidad12: [null],
+      irritabilidad13: [null],
+      irritabilidad14: [null],
+      dolorAbdominal1: [null],
+      dolorAbdominal2: [null],
+      dolorAbdominal3: [null],
+      dolorAbdominal4: [null],
+      dolorAbdominal5: [null],
+      dolorAbdominal6: [null],
+      dolorAbdominal7: [null],
+      dolorAbdominal8: [null],
+      dolorAbdominal9: [null],
+      dolorAbdominal10: [null],
+      dolorAbdominal11: [null],
+      dolorAbdominal12: [null],
+      dolorAbdominal13: [null],
+      dolorAbdominal14: [null],
+      rinorrea1: [null],
+      rinorrea2: [null],
+      rinorrea3: [null],
+      rinorrea4: [null],
+      rinorrea5: [null],
+      rinorrea6: [null],
+      rinorrea7: [null],
+      rinorrea8: [null],
+      rinorrea9: [null],
+      rinorrea10: [null],
+      rinorrea11: [null],
+      rinorrea12: [null],
+      rinorrea13: [null],
+      rinorrea14: [null],
+      conjuntival1: [null],
+      conjuntival2: [null],
+      conjuntival3: [null],
+      conjuntival4: [null],
+      conjuntival5: [null],
+      conjuntival6: [null],
+      conjuntival7: [null],
+      conjuntival8: [null],
+      conjuntival9: [null],
+      conjuntival10: [null],
+      conjuntival11: [null],
+      conjuntival12: [null],
+      conjuntival13: [null],
+      conjuntival14: [null],
+      auscultacion1: [null],
+      auscultacion2: [null],
+      auscultacion3: [null],
+      auscultacion4: [null],
+      auscultacion5: [null],
+      auscultacion6: [null],
+      auscultacion7: [null],
+      auscultacion8: [null],
+      auscultacion9: [null],
+      auscultacion10: [null],
+      auscultacion11: [null],
+      auscultacion12: [null],
+      auscultacion13: [null],
+      auscultacion14: [null],
+      anosmia1: [null],
+      anosmia2: [null],
+      anosmia3: [null],
+      anosmia4: [null],
+      anosmia5: [null],
+      anosmia6: [null],
+      anosmia7: [null],
+      anosmia8: [null],
+      anosmia9: [null],
+      anosmia10: [null],
+      anosmia11: [null],
+      anosmia12: [null],
+      anosmia13: [null],
+      anosmia14: [null],
+      disgeusia1: [null],
+      disgeusia2: [null],
+      disgeusia3: [null],
+      disgeusia4: [null],
+      disgeusia5: [null],
+      disgeusia6: [null],
+      disgeusia7: [null],
+      disgeusia8: [null],
+      disgeusia9: [null],
+      disgeusia10: [null],
+      disgeusia11: [null],
+      disgeusia12: [null],
+      disgeusia13: [null],
+      disgeusia14: [null],
+      otrosCansancios1: [null],
+      otrosCansancios2: [null],
+      otrosCansancios3: [null],
+      otrosCansancios4: [null],
+      otrosCansancios5: [null],
+      otrosCansancios6: [null],
+      otrosCansancios7: [null],
+      otrosCansancios8: [null],
+      otrosCansancios9: [null],
+      otrosCansancios10: [null],
+      otrosCansancios11: [null],
+      otrosCansancios12: [null],
+      otrosCansancios13: [null],
+      otrosCansancios14: [null]
 
     });
 
@@ -666,644 +666,674 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     });*/
   }
 
+  esObligatorio(){
+    if(this.registroFg.controls.sexo.value =='F'){
+      this.registroFg.controls.embarazada.setValidators([Validators.required]);
+    }
+
+    if(this.monitoreoFg.controls.sintomatico.value){
+      this.monitoreoFg.controls.fechaSintomas.setValidators([Validators.required]);
+    }
+
+    if(this.casoConfirmadoFg.controls.contagioAmbiente.value === 'familiar_social'){
+      /*this.casoConfirmadoFg.controls.fechaExposicion.setValidators([Validators.required]);
+      this.casoConfirmadoFg.controls.nombre.setValidators([Validators.required]);
+      this.casoConfirmadoFg.controls.apellido.setValidators([Validators.required]);*/
+
+    }else if(this.casoConfirmadoFg.controls.contagioAmbiente.value === 'establecimiento_salud'){
+      this.casoConfirmadoFg.controls.contagioEstablecimiento.setValidators([Validators.required]);
+      this.casoConfirmadoFg.controls.catContagio.setValidators([Validators.required]);
+      this.casoConfirmadoFg.controls.clasRiesgo.setValidators([Validators.required]);
+      //this.casoConfirmadoFg.controls.fechaExposicion.setValidators([Validators.required]);
+    }else{
+      this.casoConfirmadoFg.controls.contagioEstablecimiento.clearValidators();
+      this.casoConfirmadoFg.controls.catContagio.clearValidators();
+      this.casoConfirmadoFg.controls.clasRiesgo.clearValidators();
+      this.casoConfirmadoFg.controls.fechaExposicion.clearValidators();
+    }
+  }
+
   calcularSE(event){
     let fechaSelec = new Date(event);
 
-    if(fechaSelec >= new Date('2021-01-03') && fechaSelec <= new Date('2021-01-09')){
+    if(fechaSelec >= new Date('2021-01-03') && fechaSelec <= new Date('2021-01-10')){
       this.registroFg.controls.se.setValue(1);
     }
-    if(fechaSelec >= new Date('2021-01-10') && fechaSelec <= new Date('2021-01-16')){
+    if(fechaSelec >= new Date('2021-01-10') && fechaSelec <= new Date('2021-01-17')){
       this.registroFg.controls.se.setValue(2);
     }
-    if(fechaSelec >= new Date('2021-01-17') && fechaSelec <= new Date('2021-01-23')){
+    if(fechaSelec >= new Date('2021-01-17') && fechaSelec <= new Date('2021-01-24')){
       this.registroFg.controls.se.setValue(3);
     }
-    if(fechaSelec >= new Date('2021-01-24') && fechaSelec <= new Date('2021-01-30')){
+    if(fechaSelec >= new Date('2021-01-24') && fechaSelec <= new Date('2021-01-31')){
       this.registroFg.controls.se.setValue(4);
     }
-    if(fechaSelec >= new Date('2021-01-31') && fechaSelec <= new Date('2021-02-06')){
+    if(fechaSelec >= new Date('2021-01-31') && fechaSelec <= new Date('2021-02-07')){
       this.registroFg.controls.se.setValue(5);
     }
-    if(fechaSelec >= new Date('2021-02-07') && fechaSelec <= new Date('2021-02-13')){
+    if(fechaSelec >= new Date('2021-02-07') && fechaSelec <= new Date('2021-02-14')){
       this.registroFg.controls.se.setValue(6);
     }
-    if(fechaSelec >= new Date('2021-02-14') && fechaSelec <= new Date('2021-02-20')){
+    if(fechaSelec >= new Date('2021-02-14') && fechaSelec <= new Date('2021-02-21')){
       this.registroFg.controls.se.setValue(7);
     }
-    if(fechaSelec >= new Date('2021-02-21') && fechaSelec <= new Date('2021-02-27')){
+    if(fechaSelec >= new Date('2021-02-21') && fechaSelec <= new Date('2021-02-28')){
       this.registroFg.controls.se.setValue(8);
     }
-    if(fechaSelec >= new Date('2021-02-28') && fechaSelec <= new Date('2021-03-06')){
+    if(fechaSelec >= new Date('2021-02-28') && fechaSelec <= new Date('2021-03-07')){
       this.registroFg.controls.se.setValue(9);
     }
-    if(fechaSelec >= new Date('2021-03-07') && fechaSelec <= new Date('2021-03-13')){
+    if(fechaSelec >= new Date('2021-03-07') && fechaSelec <= new Date('2021-03-14')){
       this.registroFg.controls.se.setValue(10);
     }
-    if(fechaSelec >= new Date('2021-03-14') && fechaSelec <= new Date('2021-03-20')){
+    if(fechaSelec >= new Date('2021-03-14') && fechaSelec <= new Date('2021-03-21')){
       this.registroFg.controls.se.setValue(11);
     }
-    if(fechaSelec >= new Date('2021-03-21') && fechaSelec <= new Date('2021-03-27')){
+    if(fechaSelec >= new Date('2021-03-21') && fechaSelec <= new Date('2021-03-28')){
       this.registroFg.controls.se.setValue(12);
     }
-    if(fechaSelec >= new Date('2021-03-28') && fechaSelec <= new Date('2021-04-03')){
+    if(fechaSelec >= new Date('2021-03-28') && fechaSelec <= new Date('2021-04-04')){
       this.registroFg.controls.se.setValue(13);
     }
-    if(fechaSelec >= new Date('2021-04-04') && fechaSelec <= new Date('2021-04-10')){
+    if(fechaSelec >= new Date('2021-04-04') && fechaSelec <= new Date('2021-04-11')){
       this.registroFg.controls.se.setValue(14);
     }
-    if(fechaSelec >= new Date('2021-04-11') && fechaSelec <= new Date('2021-04-17')){
+    if(fechaSelec >= new Date('2021-04-11') && fechaSelec <= new Date('2021-04-18')){
       this.registroFg.controls.se.setValue(15);
     }
-    if(fechaSelec >= new Date('2021-04-18') && fechaSelec <= new Date('2021-04-24')){
+    if(fechaSelec >= new Date('2021-04-18') && fechaSelec <= new Date('2021-04-25')){
       this.registroFg.controls.se.setValue(16);
     }
-    if(fechaSelec >= new Date('2021-04-25') && fechaSelec <= new Date('2021-05-01')){
+    if(fechaSelec >= new Date('2021-04-25') && fechaSelec <= new Date('2021-05-02')){
       this.registroFg.controls.se.setValue(17);
     }
-    if(fechaSelec >= new Date('2021-05-02') && fechaSelec <= new Date('2021-05-08')){
+    if(fechaSelec >= new Date('2021-05-02') && fechaSelec <= new Date('2021-05-09')){
       this.registroFg.controls.se.setValue(18);
     }
-    if(fechaSelec >= new Date('2021-05-09') && fechaSelec <= new Date('2021-05-15')){
+    if(fechaSelec >= new Date('2021-05-09') && fechaSelec <= new Date('2021-05-16')){
       this.registroFg.controls.se.setValue(19);
     }
-    if(fechaSelec >= new Date('2021-05-16') && fechaSelec <= new Date('2021-05-22')){
+    if(fechaSelec >= new Date('2021-05-16') && fechaSelec <= new Date('2021-05-23')){
       this.registroFg.controls.se.setValue(20);
     }
-    if(fechaSelec >= new Date('2021-05-23') && fechaSelec <= new Date('2021-05-29')){
+    if(fechaSelec >= new Date('2021-05-23') && fechaSelec <= new Date('2021-05-30')){
       this.registroFg.controls.se.setValue(21);
     }
-    if(fechaSelec >= new Date('2021-05-30') && fechaSelec <= new Date('2021-06-05')){
+    if(fechaSelec >= new Date('2021-05-30') && fechaSelec <= new Date('2021-06-06')){
       this.registroFg.controls.se.setValue(22);
     }
-    if(fechaSelec >= new Date('2021-06-06') && fechaSelec <= new Date('2021-06-12')){
+    if(fechaSelec >= new Date('2021-06-06') && fechaSelec <= new Date('2021-06-13')){
       this.registroFg.controls.se.setValue(23);
     }
-    if(fechaSelec >= new Date('2021-06-13') && fechaSelec <= new Date('2021-06-19')){
+    if(fechaSelec >= new Date('2021-06-13') && fechaSelec <= new Date('2021-06-20')){
       this.registroFg.controls.se.setValue(24);
     }
-    if(fechaSelec >= new Date('2021-06-20') && fechaSelec <= new Date('2021-06-26')){
+    if(fechaSelec >= new Date('2021-06-20') && fechaSelec <= new Date('2021-06-27')){
       this.registroFg.controls.se.setValue(25);
     }
-    if(fechaSelec >= new Date('2021-06-27') && fechaSelec <= new Date('2021-07-03')){
+    if(fechaSelec >= new Date('2021-06-27') && fechaSelec <= new Date('2021-07-04')){
       this.registroFg.controls.se.setValue(26);
     }
-    if(fechaSelec >= new Date('2021-07-04') && fechaSelec <= new Date('2021-07-10')){
+    if(fechaSelec >= new Date('2021-07-04') && fechaSelec <= new Date('2021-07-11')){
       this.registroFg.controls.se.setValue(27);
     }
-    if(fechaSelec >= new Date('2021-07-11') && fechaSelec <= new Date('2021-07-17')){
+    if(fechaSelec >= new Date('2021-07-11') && fechaSelec <= new Date('2021-07-18')){
       this.registroFg.controls.se.setValue(28);
     }
-    if(fechaSelec >= new Date('2021-07-18') && fechaSelec <= new Date('2021-07-24')){
+    if(fechaSelec >= new Date('2021-07-18') && fechaSelec <= new Date('2021-07-25')){
       this.registroFg.controls.se.setValue(29);
     }
-    if(fechaSelec >= new Date('2021-07-25') && fechaSelec <= new Date('2021-07-31')){
+    if(fechaSelec >= new Date('2021-07-25') && fechaSelec <= new Date('2021-08-01')){
       this.registroFg.controls.se.setValue(30);
     }
-    if(fechaSelec >= new Date('2021-08-01') && fechaSelec <= new Date('2021-08-07')){
+    if(fechaSelec >= new Date('2021-08-01') && fechaSelec <= new Date('2021-08-08')){
       this.registroFg.controls.se.setValue(31);
     }
-    if(fechaSelec >= new Date('2021-08-08') && fechaSelec <= new Date('2021-08-14')){
+    if(fechaSelec >= new Date('2021-08-08') && fechaSelec <= new Date('2021-08-15')){
       this.registroFg.controls.se.setValue(32);
     }
-    if(fechaSelec >= new Date('2021-08-15') && fechaSelec <= new Date('2021-08-21')){
+    if(fechaSelec >= new Date('2021-08-15') && fechaSelec <= new Date('2021-08-22')){
       this.registroFg.controls.se.setValue(33);
     }
-    if(fechaSelec >= new Date('2021-08-22') && fechaSelec <= new Date('2021-08-28')){
+    if(fechaSelec >= new Date('2021-08-22') && fechaSelec <= new Date('2021-08-29')){
       this.registroFg.controls.se.setValue(34);
     }
-    if(fechaSelec >= new Date('2021-08-29') && fechaSelec <= new Date('2021-09-04')){
+    if(fechaSelec >= new Date('2021-08-29') && fechaSelec <= new Date('2021-09-05')){
       this.registroFg.controls.se.setValue(35);
     }
-    if(fechaSelec >= new Date('2021-09-05') && fechaSelec <= new Date('2021-09-11')){
+    if(fechaSelec >= new Date('2021-09-05') && fechaSelec <= new Date('2021-09-12')){
       this.registroFg.controls.se.setValue(36);
     }
-    if(fechaSelec >= new Date('2021-09-12') && fechaSelec <= new Date('2021-09-18')){
+    if(fechaSelec >= new Date('2021-09-12') && fechaSelec <= new Date('2021-09-19')){
       this.registroFg.controls.se.setValue(37);
     }
-    if(fechaSelec >= new Date('2021-09-19') && fechaSelec <= new Date('2021-09-25')){
+    if(fechaSelec >= new Date('2021-09-19') && fechaSelec <= new Date('2021-09-26')){
       this.registroFg.controls.se.setValue(38);
     }
-    if(fechaSelec >= new Date('2021-09-26') && fechaSelec <= new Date('2021-10-02')){
+    if(fechaSelec >= new Date('2021-09-26') && fechaSelec <= new Date('2021-10-03')){
       this.registroFg.controls.se.setValue(39);
     }
-    if(fechaSelec >= new Date('2021-10-03') && fechaSelec <= new Date('2021-10-09')){
+    if(fechaSelec >= new Date('2021-10-03') && fechaSelec <= new Date('2021-10-10')){
       this.registroFg.controls.se.setValue(40);
     }
-    if(fechaSelec >= new Date('2021-10-10') && fechaSelec <= new Date('2021-10-16')){
+    if(fechaSelec >= new Date('2021-10-10') && fechaSelec <= new Date('2021-10-17')){
       this.registroFg.controls.se.setValue(41);
     }
-    if(fechaSelec >= new Date('2021-10-17') && fechaSelec <= new Date('2021-10-23')){
+    if(fechaSelec >= new Date('2021-10-17') && fechaSelec <= new Date('2021-10-24')){
       this.registroFg.controls.se.setValue(42);
     }
-    if(fechaSelec >= new Date('2021-10-24') && fechaSelec <= new Date('2021-10-30')){
+    if(fechaSelec >= new Date('2021-10-24') && fechaSelec <= new Date('2021-10-31')){
       this.registroFg.controls.se.setValue(43);
     }
-    if(fechaSelec >= new Date('2021-10-31') && fechaSelec <= new Date('2021-11-06')){
+    if(fechaSelec >= new Date('2021-10-31') && fechaSelec <= new Date('2021-11-07')){
       this.registroFg.controls.se.setValue(44);
     }
-    if(fechaSelec >= new Date('2021-11-07') && fechaSelec <= new Date('2021-11-13')){
+    if(fechaSelec >= new Date('2021-11-07') && fechaSelec <= new Date('2021-11-14')){
       this.registroFg.controls.se.setValue(45);
     }
-    if(fechaSelec >= new Date('2021-11-14') && fechaSelec <= new Date('2021-11-20')){
+    if(fechaSelec >= new Date('2021-11-14') && fechaSelec <= new Date('2021-11-21')){
       this.registroFg.controls.se.setValue(46);
     }
-    if(fechaSelec >= new Date('2021-11-21') && fechaSelec <= new Date('2021-11-27')){
+    if(fechaSelec >= new Date('2021-11-21') && fechaSelec <= new Date('2021-11-28')){
       this.registroFg.controls.se.setValue(47);
     }
-    if(fechaSelec >= new Date('2021-11-28') && fechaSelec <= new Date('2021-12-04')){
+    if(fechaSelec >= new Date('2021-11-28') && fechaSelec <= new Date('2021-12-05')){
       this.registroFg.controls.se.setValue(48);
     }
-    if(fechaSelec >= new Date('2021-12-05') && fechaSelec <= new Date('2021-12-11')){
+    if(fechaSelec >= new Date('2021-12-05') && fechaSelec <= new Date('2021-12-12')){
       this.registroFg.controls.se.setValue(49);
     }
-    if(fechaSelec >= new Date('2021-12-12') && fechaSelec <= new Date('2021-12-18')){
+    if(fechaSelec >= new Date('2021-12-12') && fechaSelec <= new Date('2021-12-19')){
       this.registroFg.controls.se.setValue(50);
     }
-    if(fechaSelec >= new Date('2021-12-19') && fechaSelec <= new Date('2021-12-25')){
+    if(fechaSelec >= new Date('2021-12-19') && fechaSelec <= new Date('2021-12-26')){
       this.registroFg.controls.se.setValue(51);
     }
-    if(fechaSelec >= new Date('2021-12-26') && fechaSelec <= new Date('2022-01-01')){
+    if(fechaSelec >= new Date('2021-12-26') && fechaSelec <= new Date('2022-01-02')){
       this.registroFg.controls.se.setValue(52);
     }
   }
 
   setearSeFis(event){
     let fechaSelec = new Date(event);
-    if(fechaSelec >= new Date('2021-01-03') && fechaSelec <= new Date('2021-01-09')){
-      this.monitoreoFg.controls.seFis.setValue(1);
+
+    if(fechaSelec >= new Date('2021-01-03') && fechaSelec <= new Date('2021-01-10')){
+      this.registroFg.controls.se.setValue(1);
     }
-    if(fechaSelec >= new Date('2021-01-10') && fechaSelec <= new Date('2021-01-16')){
-      this.monitoreoFg.controls.seFis.setValue(2);
+    if(fechaSelec >= new Date('2021-01-10') && fechaSelec <= new Date('2021-01-17')){
+      this.registroFg.controls.se.setValue(2);
     }
-    if(fechaSelec >= new Date('2021-01-17') && fechaSelec <= new Date('2021-01-23')){
-      this.monitoreoFg.controls.seFis.setValue(3);
+    if(fechaSelec >= new Date('2021-01-17') && fechaSelec <= new Date('2021-01-24')){
+      this.registroFg.controls.se.setValue(3);
     }
-    if(fechaSelec >= new Date('2021-01-24') && fechaSelec <= new Date('2021-01-30')){
-      this.monitoreoFg.controls.seFis.setValue(4);
+    if(fechaSelec >= new Date('2021-01-24') && fechaSelec <= new Date('2021-01-31')){
+      this.registroFg.controls.se.setValue(4);
     }
-    if(fechaSelec >= new Date('2021-01-31') && fechaSelec <= new Date('2021-02-06')){
-      this.monitoreoFg.controls.seFis.setValue(5);
+    if(fechaSelec >= new Date('2021-01-31') && fechaSelec <= new Date('2021-02-07')){
+      this.registroFg.controls.se.setValue(5);
     }
-    if(fechaSelec >= new Date('2021-02-07') && fechaSelec <= new Date('2021-02-13')){
-      this.monitoreoFg.controls.seFis.setValue(6);
+    if(fechaSelec >= new Date('2021-02-07') && fechaSelec <= new Date('2021-02-14')){
+      this.registroFg.controls.se.setValue(6);
     }
-    if(fechaSelec >= new Date('2021-02-14') && fechaSelec <= new Date('2021-02-20')){
-      this.monitoreoFg.controls.seFis.setValue(7);
+    if(fechaSelec >= new Date('2021-02-14') && fechaSelec <= new Date('2021-02-21')){
+      this.registroFg.controls.se.setValue(7);
     }
-    if(fechaSelec >= new Date('2021-02-21') && fechaSelec <= new Date('2021-02-27')){
-      this.monitoreoFg.controls.seFis.setValue(8);
+    if(fechaSelec >= new Date('2021-02-21') && fechaSelec <= new Date('2021-02-28')){
+      this.registroFg.controls.se.setValue(8);
     }
-    if(fechaSelec >= new Date('2021-02-28') && fechaSelec <= new Date('2021-03-06')){
-      this.monitoreoFg.controls.seFis.setValue(9);
+    if(fechaSelec >= new Date('2021-02-28') && fechaSelec <= new Date('2021-03-07')){
+      this.registroFg.controls.se.setValue(9);
     }
-    if(fechaSelec >= new Date('2021-03-07') && fechaSelec <= new Date('2021-03-13')){
-      this.monitoreoFg.controls.seFis.setValue(10);
+    if(fechaSelec >= new Date('2021-03-07') && fechaSelec <= new Date('2021-03-14')){
+      this.registroFg.controls.se.setValue(10);
     }
-    if(fechaSelec >= new Date('2021-03-14') && fechaSelec <= new Date('2021-03-20')){
-      this.monitoreoFg.controls.seFis.setValue(11);
+    if(fechaSelec >= new Date('2021-03-14') && fechaSelec <= new Date('2021-03-21')){
+      this.registroFg.controls.se.setValue(11);
     }
-    if(fechaSelec >= new Date('2021-03-21') && fechaSelec <= new Date('2021-03-27')){
-      this.monitoreoFg.controls.seFis.setValue(12);
+    if(fechaSelec >= new Date('2021-03-21') && fechaSelec <= new Date('2021-03-28')){
+      this.registroFg.controls.se.setValue(12);
     }
-    if(fechaSelec >= new Date('2021-03-28') && fechaSelec <= new Date('2021-04-03')){
-      this.monitoreoFg.controls.seFis.setValue(13);
+    if(fechaSelec >= new Date('2021-03-28') && fechaSelec <= new Date('2021-04-04')){
+      this.registroFg.controls.se.setValue(13);
     }
-    if(fechaSelec >= new Date('2021-04-04') && fechaSelec <= new Date('2021-04-10')){
-      this.monitoreoFg.controls.seFis.setValue(14);
+    if(fechaSelec >= new Date('2021-04-04') && fechaSelec <= new Date('2021-04-11')){
+      this.registroFg.controls.se.setValue(14);
     }
-    if(fechaSelec >= new Date('2021-04-11') && fechaSelec <= new Date('2021-04-17')){
-      this.monitoreoFg.controls.seFis.setValue(15);
+    if(fechaSelec >= new Date('2021-04-11') && fechaSelec <= new Date('2021-04-18')){
+      this.registroFg.controls.se.setValue(15);
     }
-    if(fechaSelec >= new Date('2021-04-18') && fechaSelec <= new Date('2021-04-24')){
-      this.monitoreoFg.controls.seFis.setValue(16);
+    if(fechaSelec >= new Date('2021-04-18') && fechaSelec <= new Date('2021-04-25')){
+      this.registroFg.controls.se.setValue(16);
     }
-    if(fechaSelec >= new Date('2021-04-25') && fechaSelec <= new Date('2021-05-01')){
-      this.monitoreoFg.controls.seFis.setValue(17);
+    if(fechaSelec >= new Date('2021-04-25') && fechaSelec <= new Date('2021-05-02')){
+      this.registroFg.controls.se.setValue(17);
     }
-    if(fechaSelec >= new Date('2021-05-02') && fechaSelec <= new Date('2021-05-08')){
-      this.monitoreoFg.controls.seFis.setValue(18);
+    if(fechaSelec >= new Date('2021-05-02') && fechaSelec <= new Date('2021-05-09')){
+      this.registroFg.controls.se.setValue(18);
     }
-    if(fechaSelec >= new Date('2021-05-09') && fechaSelec <= new Date('2021-05-15')){
-      this.monitoreoFg.controls.seFis.setValue(19);
+    if(fechaSelec >= new Date('2021-05-09') && fechaSelec <= new Date('2021-05-16')){
+      this.registroFg.controls.se.setValue(19);
     }
-    if(fechaSelec >= new Date('2021-05-16') && fechaSelec <= new Date('2021-05-22')){
-      this.monitoreoFg.controls.seFis.setValue(20);
+    if(fechaSelec >= new Date('2021-05-16') && fechaSelec <= new Date('2021-05-23')){
+      this.registroFg.controls.se.setValue(20);
     }
-    if(fechaSelec >= new Date('2021-05-23') && fechaSelec <= new Date('2021-05-29')){
-      this.monitoreoFg.controls.seFis.setValue(21);
+    if(fechaSelec >= new Date('2021-05-23') && fechaSelec <= new Date('2021-05-30')){
+      this.registroFg.controls.se.setValue(21);
     }
-    if(fechaSelec >= new Date('2021-05-30') && fechaSelec <= new Date('2021-06-05')){
-      this.monitoreoFg.controls.seFis.setValue(22);
+    if(fechaSelec >= new Date('2021-05-30') && fechaSelec <= new Date('2021-06-06')){
+      this.registroFg.controls.se.setValue(22);
     }
-    if(fechaSelec >= new Date('2021-06-06') && fechaSelec <= new Date('2021-06-12')){
-      this.monitoreoFg.controls.seFis.setValue(23);
+    if(fechaSelec >= new Date('2021-06-06') && fechaSelec <= new Date('2021-06-13')){
+      this.registroFg.controls.se.setValue(23);
     }
-    if(fechaSelec >= new Date('2021-06-13') && fechaSelec <= new Date('2021-06-19')){
-      this.monitoreoFg.controls.seFis.setValue(24);
+    if(fechaSelec >= new Date('2021-06-13') && fechaSelec <= new Date('2021-06-20')){
+      this.registroFg.controls.se.setValue(24);
     }
-    if(fechaSelec >= new Date('2021-06-20') && fechaSelec <= new Date('2021-06-26')){
-      this.monitoreoFg.controls.seFis.setValue(25);
+    if(fechaSelec >= new Date('2021-06-20') && fechaSelec <= new Date('2021-06-27')){
+      this.registroFg.controls.se.setValue(25);
     }
-    if(fechaSelec >= new Date('2021-06-27') && fechaSelec <= new Date('2021-07-03')){
-      this.monitoreoFg.controls.seFis.setValue(26);
+    if(fechaSelec >= new Date('2021-06-27') && fechaSelec <= new Date('2021-07-04')){
+      this.registroFg.controls.se.setValue(26);
     }
-    if(fechaSelec >= new Date('2021-07-04') && fechaSelec <= new Date('2021-07-10')){
-      this.monitoreoFg.controls.seFis.setValue(27);
+    if(fechaSelec >= new Date('2021-07-04') && fechaSelec <= new Date('2021-07-11')){
+      this.registroFg.controls.se.setValue(27);
     }
-    if(fechaSelec >= new Date('2021-07-11') && fechaSelec <= new Date('2021-07-17')){
-      this.monitoreoFg.controls.seFis.setValue(28);
+    if(fechaSelec >= new Date('2021-07-11') && fechaSelec <= new Date('2021-07-18')){
+      this.registroFg.controls.se.setValue(28);
     }
-    if(fechaSelec >= new Date('2021-07-18') && fechaSelec <= new Date('2021-07-24')){
-      this.monitoreoFg.controls.seFis.setValue(29);
+    if(fechaSelec >= new Date('2021-07-18') && fechaSelec <= new Date('2021-07-25')){
+      this.registroFg.controls.se.setValue(29);
     }
-    if(fechaSelec >= new Date('2021-07-25') && fechaSelec <= new Date('2021-07-31')){
-      this.monitoreoFg.controls.seFis.setValue(30);
+    if(fechaSelec >= new Date('2021-07-25') && fechaSelec <= new Date('2021-08-01')){
+      this.registroFg.controls.se.setValue(30);
     }
-    if(fechaSelec >= new Date('2021-08-01') && fechaSelec <= new Date('2021-08-07')){
-      this.monitoreoFg.controls.seFis.setValue(31);
+    if(fechaSelec >= new Date('2021-08-01') && fechaSelec <= new Date('2021-08-08')){
+      this.registroFg.controls.se.setValue(31);
     }
-    if(fechaSelec >= new Date('2021-08-08') && fechaSelec <= new Date('2021-08-14')){
-      this.monitoreoFg.controls.seFis.setValue(32);
+    if(fechaSelec >= new Date('2021-08-08') && fechaSelec <= new Date('2021-08-15')){
+      this.registroFg.controls.se.setValue(32);
     }
-    if(fechaSelec >= new Date('2021-08-15') && fechaSelec <= new Date('2021-08-21')){
-      this.monitoreoFg.controls.seFis.setValue(33);
+    if(fechaSelec >= new Date('2021-08-15') && fechaSelec <= new Date('2021-08-22')){
+      this.registroFg.controls.se.setValue(33);
     }
-    if(fechaSelec >= new Date('2021-08-22') && fechaSelec <= new Date('2021-08-28')){
-      this.monitoreoFg.controls.seFis.setValue(34);
+    if(fechaSelec >= new Date('2021-08-22') && fechaSelec <= new Date('2021-08-29')){
+      this.registroFg.controls.se.setValue(34);
     }
-    if(fechaSelec >= new Date('2021-08-29') && fechaSelec <= new Date('2021-09-04')){
-      this.monitoreoFg.controls.seFis.setValue(35);
+    if(fechaSelec >= new Date('2021-08-29') && fechaSelec <= new Date('2021-09-05')){
+      this.registroFg.controls.se.setValue(35);
     }
-    if(fechaSelec >= new Date('2021-09-05') && fechaSelec <= new Date('2021-09-11')){
-      this.monitoreoFg.controls.seFis.setValue(36);
+    if(fechaSelec >= new Date('2021-09-05') && fechaSelec <= new Date('2021-09-12')){
+      this.registroFg.controls.se.setValue(36);
     }
-    if(fechaSelec >= new Date('2021-09-12') && fechaSelec <= new Date('2021-09-18')){
-      this.monitoreoFg.controls.seFis.setValue(37);
+    if(fechaSelec >= new Date('2021-09-12') && fechaSelec <= new Date('2021-09-19')){
+      this.registroFg.controls.se.setValue(37);
     }
-    if(fechaSelec >= new Date('2021-09-19') && fechaSelec <= new Date('2021-09-25')){
-      this.monitoreoFg.controls.seFis.setValue(38);
+    if(fechaSelec >= new Date('2021-09-19') && fechaSelec <= new Date('2021-09-26')){
+      this.registroFg.controls.se.setValue(38);
     }
-    if(fechaSelec >= new Date('2021-09-26') && fechaSelec <= new Date('2021-10-02')){
-      this.monitoreoFg.controls.seFis.setValue(39);
+    if(fechaSelec >= new Date('2021-09-26') && fechaSelec <= new Date('2021-10-03')){
+      this.registroFg.controls.se.setValue(39);
     }
-    if(fechaSelec >= new Date('2021-10-03') && fechaSelec <= new Date('2021-10-09')){
-      this.monitoreoFg.controls.seFis.setValue(40);
+    if(fechaSelec >= new Date('2021-10-03') && fechaSelec <= new Date('2021-10-10')){
+      this.registroFg.controls.se.setValue(40);
     }
-    if(fechaSelec >= new Date('2021-10-10') && fechaSelec <= new Date('2021-10-16')){
-      this.monitoreoFg.controls.seFis.setValue(41);
+    if(fechaSelec >= new Date('2021-10-10') && fechaSelec <= new Date('2021-10-17')){
+      this.registroFg.controls.se.setValue(41);
     }
-    if(fechaSelec >= new Date('2021-10-17') && fechaSelec <= new Date('2021-10-23')){
-      this.monitoreoFg.controls.seFis.setValue(42);
+    if(fechaSelec >= new Date('2021-10-17') && fechaSelec <= new Date('2021-10-24')){
+      this.registroFg.controls.se.setValue(42);
     }
-    if(fechaSelec >= new Date('2021-10-24') && fechaSelec <= new Date('2021-10-30')){
-      this.monitoreoFg.controls.seFis.setValue(43);
+    if(fechaSelec >= new Date('2021-10-24') && fechaSelec <= new Date('2021-10-31')){
+      this.registroFg.controls.se.setValue(43);
     }
-    if(fechaSelec >= new Date('2021-10-31') && fechaSelec <= new Date('2021-11-06')){
-      this.monitoreoFg.controls.seFis.setValue(44);
+    if(fechaSelec >= new Date('2021-10-31') && fechaSelec <= new Date('2021-11-07')){
+      this.registroFg.controls.se.setValue(44);
     }
-    if(fechaSelec >= new Date('2021-11-07') && fechaSelec <= new Date('2021-11-13')){
-      this.monitoreoFg.controls.seFis.setValue(45);
+    if(fechaSelec >= new Date('2021-11-07') && fechaSelec <= new Date('2021-11-14')){
+      this.registroFg.controls.se.setValue(45);
     }
-    if(fechaSelec >= new Date('2021-11-14') && fechaSelec <= new Date('2021-11-20')){
-      this.monitoreoFg.controls.seFis.setValue(46);
+    if(fechaSelec >= new Date('2021-11-14') && fechaSelec <= new Date('2021-11-21')){
+      this.registroFg.controls.se.setValue(46);
     }
-    if(fechaSelec >= new Date('2021-11-21') && fechaSelec <= new Date('2021-11-27')){
-      this.monitoreoFg.controls.seFis.setValue(47);
+    if(fechaSelec >= new Date('2021-11-21') && fechaSelec <= new Date('2021-11-28')){
+      this.registroFg.controls.se.setValue(47);
     }
-    if(fechaSelec >= new Date('2021-11-28') && fechaSelec <= new Date('2021-12-04')){
-      this.monitoreoFg.controls.seFis.setValue(48);
+    if(fechaSelec >= new Date('2021-11-28') && fechaSelec <= new Date('2021-12-05')){
+      this.registroFg.controls.se.setValue(48);
     }
-    if(fechaSelec >= new Date('2021-12-05') && fechaSelec <= new Date('2021-12-11')){
-      this.monitoreoFg.controls.seFis.setValue(49);
+    if(fechaSelec >= new Date('2021-12-05') && fechaSelec <= new Date('2021-12-12')){
+      this.registroFg.controls.se.setValue(49);
     }
-    if(fechaSelec >= new Date('2021-12-12') && fechaSelec <= new Date('2021-12-18')){
-      this.monitoreoFg.controls.seFis.setValue(50);
+    if(fechaSelec >= new Date('2021-12-12') && fechaSelec <= new Date('2021-12-19')){
+      this.registroFg.controls.se.setValue(50);
     }
-    if(fechaSelec >= new Date('2021-12-19') && fechaSelec <= new Date('2021-12-25')){
-      this.monitoreoFg.controls.seFis.setValue(51);
+    if(fechaSelec >= new Date('2021-12-19') && fechaSelec <= new Date('2021-12-26')){
+      this.registroFg.controls.se.setValue(51);
     }
-    if(fechaSelec >= new Date('2021-12-26') && fechaSelec <= new Date('2022-01-01')){
-      this.monitoreoFg.controls.seFis.setValue(52);
+    if(fechaSelec >= new Date('2021-12-26') && fechaSelec <= new Date('2022-01-02')){
+      this.registroFg.controls.se.setValue(52);
     }
   }
 
   setearSeMuestra(event){
     let fechaSelec = new Date(event);
-    if(fechaSelec >= new Date('2021-01-03') && fechaSelec <= new Date('2021-01-09')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(1);
+
+    if(fechaSelec >= new Date('2021-01-03') && fechaSelec <= new Date('2021-01-10')){
+      this.registroFg.controls.se.setValue(1);
     }
-    if(fechaSelec >= new Date('2021-01-10') && fechaSelec <= new Date('2021-01-16')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(2);
+    if(fechaSelec >= new Date('2021-01-10') && fechaSelec <= new Date('2021-01-17')){
+      this.registroFg.controls.se.setValue(2);
     }
-    if(fechaSelec >= new Date('2021-01-17') && fechaSelec <= new Date('2021-01-23')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(3);
+    if(fechaSelec >= new Date('2021-01-17') && fechaSelec <= new Date('2021-01-24')){
+      this.registroFg.controls.se.setValue(3);
     }
-    if(fechaSelec >= new Date('2021-01-24') && fechaSelec <= new Date('2021-01-30')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(4);
+    if(fechaSelec >= new Date('2021-01-24') && fechaSelec <= new Date('2021-01-31')){
+      this.registroFg.controls.se.setValue(4);
     }
-    if(fechaSelec >= new Date('2021-01-31') && fechaSelec <= new Date('2021-02-06')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(5);
+    if(fechaSelec >= new Date('2021-01-31') && fechaSelec <= new Date('2021-02-07')){
+      this.registroFg.controls.se.setValue(5);
     }
-    if(fechaSelec >= new Date('2021-02-07') && fechaSelec <= new Date('2021-02-13')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(6);
+    if(fechaSelec >= new Date('2021-02-07') && fechaSelec <= new Date('2021-02-14')){
+      this.registroFg.controls.se.setValue(6);
     }
-    if(fechaSelec >= new Date('2021-02-14') && fechaSelec <= new Date('2021-02-20')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(7);
+    if(fechaSelec >= new Date('2021-02-14') && fechaSelec <= new Date('2021-02-21')){
+      this.registroFg.controls.se.setValue(7);
     }
-    if(fechaSelec >= new Date('2021-02-21') && fechaSelec <= new Date('2021-02-27')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(8);
+    if(fechaSelec >= new Date('2021-02-21') && fechaSelec <= new Date('2021-02-28')){
+      this.registroFg.controls.se.setValue(8);
     }
-    if(fechaSelec >= new Date('2021-02-28') && fechaSelec <= new Date('2021-03-06')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(9);
+    if(fechaSelec >= new Date('2021-02-28') && fechaSelec <= new Date('2021-03-07')){
+      this.registroFg.controls.se.setValue(9);
     }
-    if(fechaSelec >= new Date('2021-03-07') && fechaSelec <= new Date('2021-03-13')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(10);
+    if(fechaSelec >= new Date('2021-03-07') && fechaSelec <= new Date('2021-03-14')){
+      this.registroFg.controls.se.setValue(10);
     }
-    if(fechaSelec >= new Date('2021-03-14') && fechaSelec <= new Date('2021-03-20')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(11);
+    if(fechaSelec >= new Date('2021-03-14') && fechaSelec <= new Date('2021-03-21')){
+      this.registroFg.controls.se.setValue(11);
     }
-    if(fechaSelec >= new Date('2021-03-21') && fechaSelec <= new Date('2021-03-27')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(12);
+    if(fechaSelec >= new Date('2021-03-21') && fechaSelec <= new Date('2021-03-28')){
+      this.registroFg.controls.se.setValue(12);
     }
-    if(fechaSelec >= new Date('2021-03-28') && fechaSelec <= new Date('2021-04-03')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(13);
+    if(fechaSelec >= new Date('2021-03-28') && fechaSelec <= new Date('2021-04-04')){
+      this.registroFg.controls.se.setValue(13);
     }
-    if(fechaSelec >= new Date('2021-04-04') && fechaSelec <= new Date('2021-04-10')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(14);
+    if(fechaSelec >= new Date('2021-04-04') && fechaSelec <= new Date('2021-04-11')){
+      this.registroFg.controls.se.setValue(14);
     }
-    if(fechaSelec >= new Date('2021-04-11') && fechaSelec <= new Date('2021-04-17')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(15);
+    if(fechaSelec >= new Date('2021-04-11') && fechaSelec <= new Date('2021-04-18')){
+      this.registroFg.controls.se.setValue(15);
     }
-    if(fechaSelec >= new Date('2021-04-18') && fechaSelec <= new Date('2021-04-24')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(16);
+    if(fechaSelec >= new Date('2021-04-18') && fechaSelec <= new Date('2021-04-25')){
+      this.registroFg.controls.se.setValue(16);
     }
-    if(fechaSelec >= new Date('2021-04-25') && fechaSelec <= new Date('2021-05-01')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(17);
+    if(fechaSelec >= new Date('2021-04-25') && fechaSelec <= new Date('2021-05-02')){
+      this.registroFg.controls.se.setValue(17);
     }
-    if(fechaSelec >= new Date('2021-05-02') && fechaSelec <= new Date('2021-05-08')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(18);
+    if(fechaSelec >= new Date('2021-05-02') && fechaSelec <= new Date('2021-05-09')){
+      this.registroFg.controls.se.setValue(18);
     }
-    if(fechaSelec >= new Date('2021-05-09') && fechaSelec <= new Date('2021-05-15')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(19);
+    if(fechaSelec >= new Date('2021-05-09') && fechaSelec <= new Date('2021-05-16')){
+      this.registroFg.controls.se.setValue(19);
     }
-    if(fechaSelec >= new Date('2021-05-16') && fechaSelec <= new Date('2021-05-22')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(20);
+    if(fechaSelec >= new Date('2021-05-16') && fechaSelec <= new Date('2021-05-23')){
+      this.registroFg.controls.se.setValue(20);
     }
-    if(fechaSelec >= new Date('2021-05-23') && fechaSelec <= new Date('2021-05-29')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(21);
+    if(fechaSelec >= new Date('2021-05-23') && fechaSelec <= new Date('2021-05-30')){
+      this.registroFg.controls.se.setValue(21);
     }
-    if(fechaSelec >= new Date('2021-05-30') && fechaSelec <= new Date('2021-06-05')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(22);
+    if(fechaSelec >= new Date('2021-05-30') && fechaSelec <= new Date('2021-06-06')){
+      this.registroFg.controls.se.setValue(22);
     }
-    if(fechaSelec >= new Date('2021-06-06') && fechaSelec <= new Date('2021-06-12')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(23);
+    if(fechaSelec >= new Date('2021-06-06') && fechaSelec <= new Date('2021-06-13')){
+      this.registroFg.controls.se.setValue(23);
     }
-    if(fechaSelec >= new Date('2021-06-13') && fechaSelec <= new Date('2021-06-19')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(24);
+    if(fechaSelec >= new Date('2021-06-13') && fechaSelec <= new Date('2021-06-20')){
+      this.registroFg.controls.se.setValue(24);
     }
-    if(fechaSelec >= new Date('2021-06-20') && fechaSelec <= new Date('2021-06-26')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(25);
+    if(fechaSelec >= new Date('2021-06-20') && fechaSelec <= new Date('2021-06-27')){
+      this.registroFg.controls.se.setValue(25);
     }
-    if(fechaSelec >= new Date('2021-06-27') && fechaSelec <= new Date('2021-07-03')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(26);
+    if(fechaSelec >= new Date('2021-06-27') && fechaSelec <= new Date('2021-07-04')){
+      this.registroFg.controls.se.setValue(26);
     }
-    if(fechaSelec >= new Date('2021-07-04') && fechaSelec <= new Date('2021-07-10')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(27);
+    if(fechaSelec >= new Date('2021-07-04') && fechaSelec <= new Date('2021-07-11')){
+      this.registroFg.controls.se.setValue(27);
     }
-    if(fechaSelec >= new Date('2021-07-11') && fechaSelec <= new Date('2021-07-17')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(28);
+    if(fechaSelec >= new Date('2021-07-11') && fechaSelec <= new Date('2021-07-18')){
+      this.registroFg.controls.se.setValue(28);
     }
-    if(fechaSelec >= new Date('2021-07-18') && fechaSelec <= new Date('2021-07-24')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(29);
+    if(fechaSelec >= new Date('2021-07-18') && fechaSelec <= new Date('2021-07-25')){
+      this.registroFg.controls.se.setValue(29);
     }
-    if(fechaSelec >= new Date('2021-07-25') && fechaSelec <= new Date('2021-07-31')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(30);
+    if(fechaSelec >= new Date('2021-07-25') && fechaSelec <= new Date('2021-08-01')){
+      this.registroFg.controls.se.setValue(30);
     }
-    if(fechaSelec >= new Date('2021-08-01') && fechaSelec <= new Date('2021-08-07')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(31);
+    if(fechaSelec >= new Date('2021-08-01') && fechaSelec <= new Date('2021-08-08')){
+      this.registroFg.controls.se.setValue(31);
     }
-    if(fechaSelec >= new Date('2021-08-08') && fechaSelec <= new Date('2021-08-14')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(32);
+    if(fechaSelec >= new Date('2021-08-08') && fechaSelec <= new Date('2021-08-15')){
+      this.registroFg.controls.se.setValue(32);
     }
-    if(fechaSelec >= new Date('2021-08-15') && fechaSelec <= new Date('2021-08-21')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(33);
+    if(fechaSelec >= new Date('2021-08-15') && fechaSelec <= new Date('2021-08-22')){
+      this.registroFg.controls.se.setValue(33);
     }
-    if(fechaSelec >= new Date('2021-08-22') && fechaSelec <= new Date('2021-08-28')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(34);
+    if(fechaSelec >= new Date('2021-08-22') && fechaSelec <= new Date('2021-08-29')){
+      this.registroFg.controls.se.setValue(34);
     }
-    if(fechaSelec >= new Date('2021-08-29') && fechaSelec <= new Date('2021-09-04')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(35);
+    if(fechaSelec >= new Date('2021-08-29') && fechaSelec <= new Date('2021-09-05')){
+      this.registroFg.controls.se.setValue(35);
     }
-    if(fechaSelec >= new Date('2021-09-05') && fechaSelec <= new Date('2021-09-11')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(36);
+    if(fechaSelec >= new Date('2021-09-05') && fechaSelec <= new Date('2021-09-12')){
+      this.registroFg.controls.se.setValue(36);
     }
-    if(fechaSelec >= new Date('2021-09-12') && fechaSelec <= new Date('2021-09-18')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(37);
+    if(fechaSelec >= new Date('2021-09-12') && fechaSelec <= new Date('2021-09-19')){
+      this.registroFg.controls.se.setValue(37);
     }
-    if(fechaSelec >= new Date('2021-09-19') && fechaSelec <= new Date('2021-09-25')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(38);
+    if(fechaSelec >= new Date('2021-09-19') && fechaSelec <= new Date('2021-09-26')){
+      this.registroFg.controls.se.setValue(38);
     }
-    if(fechaSelec >= new Date('2021-09-26') && fechaSelec <= new Date('2021-10-02')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(39);
+    if(fechaSelec >= new Date('2021-09-26') && fechaSelec <= new Date('2021-10-03')){
+      this.registroFg.controls.se.setValue(39);
     }
-    if(fechaSelec >= new Date('2021-10-03') && fechaSelec <= new Date('2021-10-09')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(40);
+    if(fechaSelec >= new Date('2021-10-03') && fechaSelec <= new Date('2021-10-10')){
+      this.registroFg.controls.se.setValue(40);
     }
-    if(fechaSelec >= new Date('2021-10-10') && fechaSelec <= new Date('2021-10-16')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(41);
+    if(fechaSelec >= new Date('2021-10-10') && fechaSelec <= new Date('2021-10-17')){
+      this.registroFg.controls.se.setValue(41);
     }
-    if(fechaSelec >= new Date('2021-10-17') && fechaSelec <= new Date('2021-10-23')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(42);
+    if(fechaSelec >= new Date('2021-10-17') && fechaSelec <= new Date('2021-10-24')){
+      this.registroFg.controls.se.setValue(42);
     }
-    if(fechaSelec >= new Date('2021-10-24') && fechaSelec <= new Date('2021-10-30')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(43);
+    if(fechaSelec >= new Date('2021-10-24') && fechaSelec <= new Date('2021-10-31')){
+      this.registroFg.controls.se.setValue(43);
     }
-    if(fechaSelec >= new Date('2021-10-31') && fechaSelec <= new Date('2021-11-06')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(44);
+    if(fechaSelec >= new Date('2021-10-31') && fechaSelec <= new Date('2021-11-07')){
+      this.registroFg.controls.se.setValue(44);
     }
-    if(fechaSelec >= new Date('2021-11-07') && fechaSelec <= new Date('2021-11-13')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(45);
+    if(fechaSelec >= new Date('2021-11-07') && fechaSelec <= new Date('2021-11-14')){
+      this.registroFg.controls.se.setValue(45);
     }
-    if(fechaSelec >= new Date('2021-11-14') && fechaSelec <= new Date('2021-11-20')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(46);
+    if(fechaSelec >= new Date('2021-11-14') && fechaSelec <= new Date('2021-11-21')){
+      this.registroFg.controls.se.setValue(46);
     }
-    if(fechaSelec >= new Date('2021-11-21') && fechaSelec <= new Date('2021-11-27')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(47);
+    if(fechaSelec >= new Date('2021-11-21') && fechaSelec <= new Date('2021-11-28')){
+      this.registroFg.controls.se.setValue(47);
     }
-    if(fechaSelec >= new Date('2021-11-28') && fechaSelec <= new Date('2021-12-04')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(48);
+    if(fechaSelec >= new Date('2021-11-28') && fechaSelec <= new Date('2021-12-05')){
+      this.registroFg.controls.se.setValue(48);
     }
-    if(fechaSelec >= new Date('2021-12-05') && fechaSelec <= new Date('2021-12-11')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(49);
+    if(fechaSelec >= new Date('2021-12-05') && fechaSelec <= new Date('2021-12-12')){
+      this.registroFg.controls.se.setValue(49);
     }
-    if(fechaSelec >= new Date('2021-12-12') && fechaSelec <= new Date('2021-12-18')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(50);
+    if(fechaSelec >= new Date('2021-12-12') && fechaSelec <= new Date('2021-12-19')){
+      this.registroFg.controls.se.setValue(50);
     }
-    if(fechaSelec >= new Date('2021-12-19') && fechaSelec <= new Date('2021-12-25')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(51);
+    if(fechaSelec >= new Date('2021-12-19') && fechaSelec <= new Date('2021-12-26')){
+      this.registroFg.controls.se.setValue(51);
     }
-    if(fechaSelec >= new Date('2021-12-26') && fechaSelec <= new Date('2022-01-01')){
-      this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(52);
+    if(fechaSelec >= new Date('2021-12-26') && fechaSelec <= new Date('2022-01-02')){
+      this.registroFg.controls.se.setValue(52);
     }
   }
 
   setearSeCierreCaso(event){
     let fechaSelec = new Date(event);
-    if(fechaSelec >= new Date('2021-01-03') && fechaSelec <= new Date('2021-01-09')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(1);
+
+    if(fechaSelec >= new Date('2021-01-03') && fechaSelec <= new Date('2021-01-10')){
+      this.registroFg.controls.se.setValue(1);
     }
-    if(fechaSelec >= new Date('2021-01-10') && fechaSelec <= new Date('2021-01-16')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(2);
+    if(fechaSelec >= new Date('2021-01-10') && fechaSelec <= new Date('2021-01-17')){
+      this.registroFg.controls.se.setValue(2);
     }
-    if(fechaSelec >= new Date('2021-01-17') && fechaSelec <= new Date('2021-01-23')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(3);
+    if(fechaSelec >= new Date('2021-01-17') && fechaSelec <= new Date('2021-01-24')){
+      this.registroFg.controls.se.setValue(3);
     }
-    if(fechaSelec >= new Date('2021-01-24') && fechaSelec <= new Date('2021-01-30')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(4);
+    if(fechaSelec >= new Date('2021-01-24') && fechaSelec <= new Date('2021-01-31')){
+      this.registroFg.controls.se.setValue(4);
     }
-    if(fechaSelec >= new Date('2021-01-31') && fechaSelec <= new Date('2021-02-06')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(5);
+    if(fechaSelec >= new Date('2021-01-31') && fechaSelec <= new Date('2021-02-07')){
+      this.registroFg.controls.se.setValue(5);
     }
-    if(fechaSelec >= new Date('2021-02-07') && fechaSelec <= new Date('2021-02-13')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(6);
+    if(fechaSelec >= new Date('2021-02-07') && fechaSelec <= new Date('2021-02-14')){
+      this.registroFg.controls.se.setValue(6);
     }
-    if(fechaSelec >= new Date('2021-02-14') && fechaSelec <= new Date('2021-02-20')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(7);
+    if(fechaSelec >= new Date('2021-02-14') && fechaSelec <= new Date('2021-02-21')){
+      this.registroFg.controls.se.setValue(7);
     }
-    if(fechaSelec >= new Date('2021-02-21') && fechaSelec <= new Date('2021-02-27')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(8);
+    if(fechaSelec >= new Date('2021-02-21') && fechaSelec <= new Date('2021-02-28')){
+      this.registroFg.controls.se.setValue(8);
     }
-    if(fechaSelec >= new Date('2021-02-28') && fechaSelec <= new Date('2021-03-06')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(9);
+    if(fechaSelec >= new Date('2021-02-28') && fechaSelec <= new Date('2021-03-07')){
+      this.registroFg.controls.se.setValue(9);
     }
-    if(fechaSelec >= new Date('2021-03-07') && fechaSelec <= new Date('2021-03-13')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(10);
+    if(fechaSelec >= new Date('2021-03-07') && fechaSelec <= new Date('2021-03-14')){
+      this.registroFg.controls.se.setValue(10);
     }
-    if(fechaSelec >= new Date('2021-03-14') && fechaSelec <= new Date('2021-03-20')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(11);
+    if(fechaSelec >= new Date('2021-03-14') && fechaSelec <= new Date('2021-03-21')){
+      this.registroFg.controls.se.setValue(11);
     }
-    if(fechaSelec >= new Date('2021-03-21') && fechaSelec <= new Date('2021-03-27')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(12);
+    if(fechaSelec >= new Date('2021-03-21') && fechaSelec <= new Date('2021-03-28')){
+      this.registroFg.controls.se.setValue(12);
     }
-    if(fechaSelec >= new Date('2021-03-28') && fechaSelec <= new Date('2021-04-03')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(13);
+    if(fechaSelec >= new Date('2021-03-28') && fechaSelec <= new Date('2021-04-04')){
+      this.registroFg.controls.se.setValue(13);
     }
-    if(fechaSelec >= new Date('2021-04-04') && fechaSelec <= new Date('2021-04-10')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(14);
+    if(fechaSelec >= new Date('2021-04-04') && fechaSelec <= new Date('2021-04-11')){
+      this.registroFg.controls.se.setValue(14);
     }
-    if(fechaSelec >= new Date('2021-04-11') && fechaSelec <= new Date('2021-04-17')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(15);
+    if(fechaSelec >= new Date('2021-04-11') && fechaSelec <= new Date('2021-04-18')){
+      this.registroFg.controls.se.setValue(15);
     }
-    if(fechaSelec >= new Date('2021-04-18') && fechaSelec <= new Date('2021-04-24')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(16);
+    if(fechaSelec >= new Date('2021-04-18') && fechaSelec <= new Date('2021-04-25')){
+      this.registroFg.controls.se.setValue(16);
     }
-    if(fechaSelec >= new Date('2021-04-25') && fechaSelec <= new Date('2021-05-01')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(17);
+    if(fechaSelec >= new Date('2021-04-25') && fechaSelec <= new Date('2021-05-02')){
+      this.registroFg.controls.se.setValue(17);
     }
-    if(fechaSelec >= new Date('2021-05-02') && fechaSelec <= new Date('2021-05-08')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(18);
+    if(fechaSelec >= new Date('2021-05-02') && fechaSelec <= new Date('2021-05-09')){
+      this.registroFg.controls.se.setValue(18);
     }
-    if(fechaSelec >= new Date('2021-05-09') && fechaSelec <= new Date('2021-05-15')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(19);
+    if(fechaSelec >= new Date('2021-05-09') && fechaSelec <= new Date('2021-05-16')){
+      this.registroFg.controls.se.setValue(19);
     }
-    if(fechaSelec >= new Date('2021-05-16') && fechaSelec <= new Date('2021-05-22')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(20);
+    if(fechaSelec >= new Date('2021-05-16') && fechaSelec <= new Date('2021-05-23')){
+      this.registroFg.controls.se.setValue(20);
     }
-    if(fechaSelec >= new Date('2021-05-23') && fechaSelec <= new Date('2021-05-29')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(21);
+    if(fechaSelec >= new Date('2021-05-23') && fechaSelec <= new Date('2021-05-30')){
+      this.registroFg.controls.se.setValue(21);
     }
-    if(fechaSelec >= new Date('2021-05-30') && fechaSelec <= new Date('2021-06-05')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(22);
+    if(fechaSelec >= new Date('2021-05-30') && fechaSelec <= new Date('2021-06-06')){
+      this.registroFg.controls.se.setValue(22);
     }
-    if(fechaSelec >= new Date('2021-06-06') && fechaSelec <= new Date('2021-06-12')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(23);
+    if(fechaSelec >= new Date('2021-06-06') && fechaSelec <= new Date('2021-06-13')){
+      this.registroFg.controls.se.setValue(23);
     }
-    if(fechaSelec >= new Date('2021-06-13') && fechaSelec <= new Date('2021-06-19')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(24);
+    if(fechaSelec >= new Date('2021-06-13') && fechaSelec <= new Date('2021-06-20')){
+      this.registroFg.controls.se.setValue(24);
     }
-    if(fechaSelec >= new Date('2021-06-20') && fechaSelec <= new Date('2021-06-26')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(25);
+    if(fechaSelec >= new Date('2021-06-20') && fechaSelec <= new Date('2021-06-27')){
+      this.registroFg.controls.se.setValue(25);
     }
-    if(fechaSelec >= new Date('2021-06-27') && fechaSelec <= new Date('2021-07-03')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(26);
+    if(fechaSelec >= new Date('2021-06-27') && fechaSelec <= new Date('2021-07-04')){
+      this.registroFg.controls.se.setValue(26);
     }
-    if(fechaSelec >= new Date('2021-07-04') && fechaSelec <= new Date('2021-07-10')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(27);
+    if(fechaSelec >= new Date('2021-07-04') && fechaSelec <= new Date('2021-07-11')){
+      this.registroFg.controls.se.setValue(27);
     }
-    if(fechaSelec >= new Date('2021-07-11') && fechaSelec <= new Date('2021-07-17')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(28);
+    if(fechaSelec >= new Date('2021-07-11') && fechaSelec <= new Date('2021-07-18')){
+      this.registroFg.controls.se.setValue(28);
     }
-    if(fechaSelec >= new Date('2021-07-18') && fechaSelec <= new Date('2021-07-24')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(29);
+    if(fechaSelec >= new Date('2021-07-18') && fechaSelec <= new Date('2021-07-25')){
+      this.registroFg.controls.se.setValue(29);
     }
-    if(fechaSelec >= new Date('2021-07-25') && fechaSelec <= new Date('2021-07-31')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(30);
+    if(fechaSelec >= new Date('2021-07-25') && fechaSelec <= new Date('2021-08-01')){
+      this.registroFg.controls.se.setValue(30);
     }
-    if(fechaSelec >= new Date('2021-08-01') && fechaSelec <= new Date('2021-08-07')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(31);
+    if(fechaSelec >= new Date('2021-08-01') && fechaSelec <= new Date('2021-08-08')){
+      this.registroFg.controls.se.setValue(31);
     }
-    if(fechaSelec >= new Date('2021-08-08') && fechaSelec <= new Date('2021-08-14')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(32);
+    if(fechaSelec >= new Date('2021-08-08') && fechaSelec <= new Date('2021-08-15')){
+      this.registroFg.controls.se.setValue(32);
     }
-    if(fechaSelec >= new Date('2021-08-15') && fechaSelec <= new Date('2021-08-21')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(33);
+    if(fechaSelec >= new Date('2021-08-15') && fechaSelec <= new Date('2021-08-22')){
+      this.registroFg.controls.se.setValue(33);
     }
-    if(fechaSelec >= new Date('2021-08-22') && fechaSelec <= new Date('2021-08-28')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(34);
+    if(fechaSelec >= new Date('2021-08-22') && fechaSelec <= new Date('2021-08-29')){
+      this.registroFg.controls.se.setValue(34);
     }
-    if(fechaSelec >= new Date('2021-08-29') && fechaSelec <= new Date('2021-09-04')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(35);
+    if(fechaSelec >= new Date('2021-08-29') && fechaSelec <= new Date('2021-09-05')){
+      this.registroFg.controls.se.setValue(35);
     }
-    if(fechaSelec >= new Date('2021-09-05') && fechaSelec <= new Date('2021-09-11')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(36);
+    if(fechaSelec >= new Date('2021-09-05') && fechaSelec <= new Date('2021-09-12')){
+      this.registroFg.controls.se.setValue(36);
     }
-    if(fechaSelec >= new Date('2021-09-12') && fechaSelec <= new Date('2021-09-18')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(37);
+    if(fechaSelec >= new Date('2021-09-12') && fechaSelec <= new Date('2021-09-19')){
+      this.registroFg.controls.se.setValue(37);
     }
-    if(fechaSelec >= new Date('2021-09-19') && fechaSelec <= new Date('2021-09-25')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(38);
+    if(fechaSelec >= new Date('2021-09-19') && fechaSelec <= new Date('2021-09-26')){
+      this.registroFg.controls.se.setValue(38);
     }
-    if(fechaSelec >= new Date('2021-09-26') && fechaSelec <= new Date('2021-10-02')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(39);
+    if(fechaSelec >= new Date('2021-09-26') && fechaSelec <= new Date('2021-10-03')){
+      this.registroFg.controls.se.setValue(39);
     }
-    if(fechaSelec >= new Date('2021-10-03') && fechaSelec <= new Date('2021-10-09')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(40);
+    if(fechaSelec >= new Date('2021-10-03') && fechaSelec <= new Date('2021-10-10')){
+      this.registroFg.controls.se.setValue(40);
     }
-    if(fechaSelec >= new Date('2021-10-10') && fechaSelec <= new Date('2021-10-16')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(41);
+    if(fechaSelec >= new Date('2021-10-10') && fechaSelec <= new Date('2021-10-17')){
+      this.registroFg.controls.se.setValue(41);
     }
-    if(fechaSelec >= new Date('2021-10-17') && fechaSelec <= new Date('2021-10-23')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(42);
+    if(fechaSelec >= new Date('2021-10-17') && fechaSelec <= new Date('2021-10-24')){
+      this.registroFg.controls.se.setValue(42);
     }
-    if(fechaSelec >= new Date('2021-10-24') && fechaSelec <= new Date('2021-10-30')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(43);
+    if(fechaSelec >= new Date('2021-10-24') && fechaSelec <= new Date('2021-10-31')){
+      this.registroFg.controls.se.setValue(43);
     }
-    if(fechaSelec >= new Date('2021-10-31') && fechaSelec <= new Date('2021-11-06')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(44);
+    if(fechaSelec >= new Date('2021-10-31') && fechaSelec <= new Date('2021-11-07')){
+      this.registroFg.controls.se.setValue(44);
     }
-    if(fechaSelec >= new Date('2021-11-07') && fechaSelec <= new Date('2021-11-13')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(45);
+    if(fechaSelec >= new Date('2021-11-07') && fechaSelec <= new Date('2021-11-14')){
+      this.registroFg.controls.se.setValue(45);
     }
-    if(fechaSelec >= new Date('2021-11-14') && fechaSelec <= new Date('2021-11-20')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(46);
+    if(fechaSelec >= new Date('2021-11-14') && fechaSelec <= new Date('2021-11-21')){
+      this.registroFg.controls.se.setValue(46);
     }
-    if(fechaSelec >= new Date('2021-11-21') && fechaSelec <= new Date('2021-11-27')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(47);
+    if(fechaSelec >= new Date('2021-11-21') && fechaSelec <= new Date('2021-11-28')){
+      this.registroFg.controls.se.setValue(47);
     }
-    if(fechaSelec >= new Date('2021-11-28') && fechaSelec <= new Date('2021-12-04')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(48);
+    if(fechaSelec >= new Date('2021-11-28') && fechaSelec <= new Date('2021-12-05')){
+      this.registroFg.controls.se.setValue(48);
     }
-    if(fechaSelec >= new Date('2021-12-05') && fechaSelec <= new Date('2021-12-11')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(49);
+    if(fechaSelec >= new Date('2021-12-05') && fechaSelec <= new Date('2021-12-12')){
+      this.registroFg.controls.se.setValue(49);
     }
-    if(fechaSelec >= new Date('2021-12-12') && fechaSelec <= new Date('2021-12-18')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(50);
+    if(fechaSelec >= new Date('2021-12-12') && fechaSelec <= new Date('2021-12-19')){
+      this.registroFg.controls.se.setValue(50);
     }
-    if(fechaSelec >= new Date('2021-12-19') && fechaSelec <= new Date('2021-12-25')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(51);
+    if(fechaSelec >= new Date('2021-12-19') && fechaSelec <= new Date('2021-12-26')){
+      this.registroFg.controls.se.setValue(51);
     }
-    if(fechaSelec >= new Date('2021-12-26') && fechaSelec <= new Date('2022-01-01')){
-      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(52);
+    if(fechaSelec >= new Date('2021-12-26') && fechaSelec <= new Date('2022-01-02')){
+      this.registroFg.controls.se.setValue(52);
     }
   }
 
@@ -2669,6 +2699,45 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         }
     }
     this.funcionesFiltradas = filtered;
+  }
+
+  getUsuarioNotificado(event){
+    console.log(typeof this.registroFg.controls.fechaInicioMonitoreo.value);
+    let cedula = event.target.value;
+    if(typeof this.registroFg.controls.fechaInicioMonitoreo.value ==='object'){
+      let day = this.registroFg.controls.fechaInicioMonitoreo.value.getDate();
+      let month = this.registroFg.controls.fechaInicioMonitoreo.value.getMonth() + 1;
+      let year = this.registroFg.controls.fechaInicioMonitoreo.value.getFullYear();
+
+      if(month < 10){
+        console.log(`${day}/0${month}/${year}`);
+        this.registroFg.controls.fechaInicioMonitoreo.setValue(`${day}/0${month}/${year}`);
+      }else{
+        this.registroFg.controls.fechaInicioMonitoreo.setValue(`${day}/${month}/${year}`);
+      } 
+    }
+    
+    if(this.registroFg.controls.reingreso.value===true){
+      this.consultarIdentificaciones(cedula, 'registro');
+    }else{
+      console.log(this.registroFg.controls.reingreso.value);
+      this.service.getUsuarioNotificado(cedula, this.registroFg.controls.fechaInicioMonitoreo.value).subscribe(resultado => {
+        if(resultado > 0){
+          this.mensaje = "Disculpe, no podrá guardar este registro. Ya existe un registro para la persona con CI: "+cedula;
+          this.registroFg.controls.cedula.setValue('');
+          //this.registroFg.controls.fechaInicioMonitoreo.setValue('');
+          //this.registroFg.controls.se.setValue(null);
+          this.openMessageDialog();
+        }else{
+          //console.log("NO EXISTE "+resultado);
+          this.consultarIdentificaciones(cedula, 'registro');
+        }
+      }, error => {
+        console.log(error);
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      });
+    }
   }
 
   consultarIdentificaciones(value, band) {

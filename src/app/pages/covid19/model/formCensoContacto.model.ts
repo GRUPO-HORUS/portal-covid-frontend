@@ -15,4 +15,11 @@ export class FormCensoContacto {
     regionSanitaria: string;
     distritoId: number;
     distrito: string;
+
+    estadoPrimeraLlamada: string;
+    fechaHoraActualizacion: string;
+    usuarioActual: number;
+    usuarioActualNombre: string;
+
+    cantidadReintentos: number;
 }

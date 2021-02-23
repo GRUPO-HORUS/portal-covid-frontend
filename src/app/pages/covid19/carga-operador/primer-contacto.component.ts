@@ -20,6 +20,7 @@ import { FormSeccionClasifRiesgo } from "../model/formSeccionClasifRiesgo.model"
 
 import {HttpErrorResponse, HttpResponseBase} from '@angular/common/http';
 import {Location} from '@angular/common';
+import { FormCensoContacto } from "../model/formCensoContacto.model";
 
 declare var $: any;
 @Component({
@@ -154,6 +155,12 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
 
   private updateClick$ = new Subject<void>();
 
+  idFormCenso;
+  primeraLlamada;
+  fechaLlamada;
+
+  formCensoContacto: FormCensoContacto;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -161,8 +168,8 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     private _route: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private reporteSaludPacienteService: ReporteSaludPacienteService,
-    private router: Router,
     private location: Location,
+    private router: Router
   ) {
     this.loading = false;
     if (typeof localStorage !== "undefined") {
@@ -173,6 +180,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
   //@ViewChild('stepper') stepper: MatHorizontalStepper;
 
   ngOnInit() {
+    console.log(new Date().toLocaleString());
     this.cedula$ = this._route.paramMap.pipe(
       map((paramMap: ParamMap) => paramMap.get('cedula')),
       distinctUntilChanged(),
@@ -180,6 +188,8 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     );
     this._route.params.subscribe(params => {
       this.cedulaPaciente = params["cedula"];
+      this.idFormCenso = params["id"];
+      this.obtenerDatosLlamada(this.idFormCenso);
       this.obtenerPaciente( this.cedulaPaciente);
     });
     this.fields$ = this.getForm();
@@ -213,7 +223,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
           form.addControl('esPrimeraVez', this._formBuilder.control(firstTime.esPrimeraVez));
           form.addControl('debeReportarFiebreAyer', this._formBuilder.control(firstTime.debeReportarFiebreAyer));
 
-          //console.log(this.ultimoReporteSalud);
+          console.log(this.ultimoReporteSalud);
           if(this.ultimoReporteSalud){
             form.controls.comoTeSentis.setValue(this.ultimoReporteSalud.comoTeSentis);
             form.controls.signosSintomasDescritos.setValue(this.ultimoReporteSalud.signosSintomasDescritos);
@@ -227,6 +237,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
             form.controls.percibeSabores.setValue(this.ultimoReporteSalud.percibeSabores);
             form.controls.dificultadRespirar.setValue(this.ultimoReporteSalud.dificultadRespirar);
             form.controls.sentisFiebre.setValue(this.ultimoReporteSalud.sentisFiebre);
+            
             form.controls.temperatura.setValue(this.ultimoReporteSalud.temperatura);
             form.controls.sentisAngustia.setValue(this.ultimoReporteSalud.sentisAngustia);
             form.controls.sentisTristeDesanimado.setValue(this.ultimoReporteSalud.sentisTristeDesanimado);
@@ -398,11 +409,26 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     this.regionesFiltradas = filtered;
   }
 
+  obtenerDatosLlamada(id): void {
+    this.service.getDatosLlamada(id).subscribe(response => {
+      console.log(response);
+      this.loading = false;
+      this.formCensoContacto = response;
+      //this.buscarFormCensoContacto(this.formCensoContacto.primerContactoId)
+        
+    }, error => {
+      console.log(error);
+      this.loading = false;
+      this.mensaje = error.error;
+      this.openMessageDialog(); 
+    });
+  }
+
   obtenerPaciente(cedula): void {
     this.loading = true;
     this.formDatosBasicos = null;
     this.service.getPacienteEditar(cedula).subscribe(response => {
-        console.log(response);
+        //console.log(response);
         this.loading = false;
         this.registroFg.controls.cedula.setValue(response.numeroDocumento);
         this.registroFg.controls.nombre.setValue(response.nombre);
@@ -450,7 +476,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     );
   }
 
-  actualizarDatosRealizarLlamada(){
+  actualizarDatosRealizarLlamada(band){
     this.loading = true;
     this.fichaPersonalBlanco = new FichaPersonalBlanco();
     this.fichaPersonalBlanco.formSeccionDatosBasicos = new FormDatosBasicos();
@@ -479,12 +505,23 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
       }else{
         this.saveClick$.next();
       }
-      }, error => {
+      if(band=='si'){
+        this.formCensoContacto.estadoPrimeraLlamada = "llamada_realizada";
+        this.formCensoContacto.fechaHoraActualizacion = new Date().toLocaleString();
+        this.service.editarFormCensoContacto(this.formCensoContacto).subscribe(response => {
+        
+        }, error => {
+          this.loading = false;
+          this.mensaje = error.error;
+          this.openMessageDialog();
+        });
+      }
+    }, error => {
         console.log(error);
         this.loading = false;
         this.mensaje = error.error;
         this.openMessageDialog(); 
-      }
+    }
     );
   }
 
@@ -577,6 +614,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
 
   save(cedula, model): Observable<HttpResponseBase> {
     this.loading = true;
+
     return this.reporteSaludPacienteService.enviarReporteSalud(cedula, model)
       .pipe(
         catchError<HttpResponseBase, HttpResponseBase>((err) => {
@@ -591,6 +629,17 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
   }
 
   update(cedula, model): Observable<HttpResponseBase> {
+    /*this.formCensoContacto.estadoPrimeraLlamada = "llamada_realizada";
+    this.formCensoContacto.fechaHoraActualizacion = new Date().toLocaleString();
+
+    this.service.editarFormCensoContacto(this.formCensoContacto).subscribe(response => {
+      
+    }, error => {
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+    });*/
+
     this.loading = true;
     model.id = this.ultimoReporteSalud.id;
     model.timestampCreacion = this.ultimoReporteSalud.timestampCreacion;

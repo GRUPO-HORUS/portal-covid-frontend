@@ -13,8 +13,9 @@ export class FormSeccionPersonalBlanco {
 
     codigoPaciente: string;
     otroServicio: boolean;
-
     otroLugarNoListaCheck: boolean;
     otroLugarNoLista: string;
     reinfeccion: boolean;
+
+    ultimoReingreso: boolean;
 }

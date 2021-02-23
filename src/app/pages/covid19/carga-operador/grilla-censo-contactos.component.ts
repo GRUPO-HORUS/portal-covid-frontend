@@ -208,6 +208,7 @@ formCensoContacto: FormCensoContacto;
 
 public username;
 public usuarioId;
+public nombreU;
 public distritosUsuario = [];
 public distritosFiltrados: any[];
 public distritosOptions: any[];
@@ -239,6 +240,7 @@ sortFieldF: string;
     this.region = usuario.regionSanitaria;
     this.username = usuario.username;
     this.usuarioId = usuario.id;
+    this.nombreU = usuario.nombre+" "+usuario.apellido;
 
     this.actualizarDiagnosticoFormGroup = this.formBuilder.group({
       resultadoUltimoDiagnostico: [null,Validators.required],
@@ -290,19 +292,20 @@ sortFieldF: string;
       this.cedulaPaciente = params["cedula"];
     });*/
 
-    this.cols = [{ field: 'fechaCierreCaso', header: 'Fecha de Cierre', width: '9%' },
+    this.cols = [{ field: 'fechaCierreCaso', header: 'Fecha de Cierre', width: '7%' },
         { field: 'nroDocumento', header: 'Nro de Documento', width: '8%'},
         { field: 'nombres', header: 'Nombres', width: '11%' },
         { field: 'apellidos', header: 'Apellidos', width: '11%' },
         { field: 'telefono', header: 'Teléfono', width: '8%' },
-        { field: 'departamento', header: 'Departamento', width: '10%' },
+        { field: 'departamento', header: 'Departamento', width: '9%' },
         //{ field: 'distrito', header: 'Distrito', width: '8%' },
         //{ field: 'hospitalizado', header: 'Internado', width: '8%' },
         //{ field: 'fallecido', header: 'Fallecido', width: '6%' },
         //{ field: 'tipoExposicion', header: 'Tipo de Exposición', width: '9%' },
-        { field: 'fechaInicioSintomas', header: 'Fecha de Inicio de Síntomas', width: '9%' },
+        { field: 'fechaInicioSintomas', header: 'Fecha Inicio de Síntomas', width: '8%' },
         { field: 'estadoLlamadaCensoContacto', header: 'Estado de Llamada', width: '11%' },
-        { field: 'cantidadContactos', header: 'Cantidad de Contactos', width: '9%' }];
+        { field: 'cantidadContactos', header: 'Cantidad de Contactos', width: '8%' },
+        { field: 'loginOperador', header: 'Operador Asignado', width: '8%' }];
         //{ field: '', header: 'Acciones', width: '15%' }];
 
     
@@ -355,7 +358,54 @@ buscarContactos(opcionFiltro){
     this.openMessageDialog();
   }
   );
-  
+}
+
+asignarmeContacto(rowData){
+  this.primerContacto = rowData;
+  this.primerContacto.operadorAsignado =this.usuarioId;
+  this.primerContacto.loginOperador =this.nombreU;
+    this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
+      this.loading = false;
+      this.mensaje= "Contacto asignado exitosamente.";
+      this.buscarContactos(this.contactoOption);
+      this.showRegistroFinalizado = false;
+      this.openMessageDialog();
+    }, error => {
+      if(error.status == 401)
+      {
+        this._router.navigate(["/"]);
+      }
+      else
+      {
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
+    });
+}
+
+desasignarmeContacto(rowData){
+  this.primerContacto = rowData;
+  this.primerContacto.operadorAsignado = null;
+  this.primerContacto.loginOperador = null;
+    this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
+      this.loading = false;
+      this.mensaje= "Contacto liberado exitosamente.";
+      this.buscarContactos(this.contactoOption);
+      this.showRegistroFinalizado = false;
+      this.openMessageDialog();
+    }, error => {
+      if(error.status == 401)
+      {
+        this._router.navigate(["/"]);
+      }
+      else
+      {
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
+    });
 }
 
 consultarIdentificaciones(event) {
@@ -537,8 +587,8 @@ mostrarListFormCensoContacto(rowData){
 }
 
 buscarFormCensoContacto(primerContactoId){
-  this.service.getPacientesFormCensoContacto(this.startF, this.pageSizeF, this.filterF, this.sortAscF, this.sortFieldF, this.region, 
-    this.usuarioId, primerContactoId, []).subscribe(pacientes => {
+  this.service.getContactosFormCensoContacto(this.startF, this.pageSizeF, this.filterF, this.sortAscF, this.sortFieldF, 
+    this.usuarioId, primerContactoId).subscribe(pacientes => {
     this.formCensoContactoList = pacientes.lista;
     this.totalRecordsF = pacientes.totalRecords;
     console.log(this.formCensoContactoList);

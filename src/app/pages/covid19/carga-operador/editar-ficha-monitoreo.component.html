@@ -16,7 +16,7 @@
                 </h3>
                 <h4>Exposición de personal sanitario al SARS-COV-2</h4>
                 
-                <mat-horizontal-stepper labelPosition="bottom" #stepper><!--linear-->
+                <mat-horizontal-stepper labelPosition="bottom" linear #stepper><!--linear-->
 
                     <mat-step [stepControl]="registroFg">
                         <form [formGroup]="registroFg" class="mt-4" autocomplete="off" (keydown.enter)="$event.preventDefault()">
@@ -62,8 +62,8 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="cedula"><strong>Número de Cédula</strong></label><!--<span style="color: red;"> *</span>-->
-                                        <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="consultarIdentificaciones($event.target.value, 'registro')">
+                                        <label for="cedula"><strong>Número de Cédula</strong><span style="color: red;"> * obligatorio</span></label>
+                                        <input type="text" formControlName="cedula" class="form-control" id="cedula" name="cedula" placeholder="Ej. 123456" required (change)="getUsuarioNotificado($event)">
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.numeroDocumento" class="form-control" id="numeroDocumento" name="numeroDocumento" placeholder="Ej. 123456" required>-->
                                     </div>
                                 </div>
@@ -120,14 +120,14 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="numeroCelular"><strong>Número de teléfono</strong></label>
+                                        <label for="numeroCelular"><strong>Número de teléfono</strong><span style="color: red;"> * obligatorio</span></label>
                                         <input type="text" formControlName="telefono" class="form-control" id="telefono" name="telefono" placeholder="Ej. 0961123456" required>
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.numeroCelular" class="form-control" id="numeroCelular" name="numeroCelular" placeholder="Ej. 0961123456" minlength="6" required>-->
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="regionSanitaria"><strong>Departamento</strong></label>
+                                        <label for="regionSanitaria"><strong>Departamento</strong><span style="color: red;"> * obligatorio</span></label>
                                         <br>
                                         <!--<p-dropdown id="regionSanitaria" [options]="regionSanitariaOptions" label="label" placeholder="Seleccionar" formControlName="regionSanitaria" name="regionSanitaria" [style]="{'width':'515px'}" required></p-dropdown>-->
                                         <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'515px'}" required (onSelect)="selectDepto($event)"></p-autoComplete>
@@ -137,7 +137,7 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="ciudadDomicilio"><strong>Ciudad</strong></label>
+                                        <label for="ciudadDomicilio"><strong>Ciudad</strong><span style="color: red;"> * obligatorio</span></label>
                                         <!--<input type="text" formControlName="ciudadDomicilio" class="form-control" id="ciudadDomicilio" name="ciudadDomicilio" required>-->
                                         <p-autoComplete id="ciudadDomicilio" formControlName="ciudadDomicilio" [suggestions]="ciudadesFiltradas" field="nombre" (completeMethod)="filtrarCiudad($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required (onSelect)="selectCiudad($event)"></p-autoComplete>
                                     </div>
@@ -146,7 +146,7 @@
                                     <div class="form-group">
                                         <label for="barrio"><strong>Barrio</strong></label>
                                         <!--<input type="text" formControlName="barrio" class="form-control" id="barrio" name="barrio" required>-->
-                                        <p-autoComplete id="barrio" formControlName="barrio" [suggestions]="barriosFiltrados" field="nombre" (completeMethod)="filtrarBarrio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                        <p-autoComplete id="barrio" formControlName="barrio" [suggestions]="barriosFiltrados" field="nombre" (completeMethod)="filtrarBarrio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true"></p-autoComplete>
                                     </div>
                                 </div>
                             </div>
@@ -154,7 +154,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="direccion"><strong>Dirección</strong></label>
-                                        <input type="text" formControlName="direccion" name="direccion" class="form-control" id="direccion" required oninput="this.value = this.value.toUpperCase()">
+                                        <input type="text" formControlName="direccion" name="direccion" class="form-control" id="direccion" oninput="this.value = this.value.toUpperCase()">
                                         <!--<input type="text" [(ngModel)]="formDatosBasicos.direccionDomicilio" name="direccionDomicilio" class="form-control" id="direccionDomicilio" required>-->
                                     </div>
                                 </div>
@@ -199,7 +199,7 @@
                                     <div class="form-group">
                                         <label for="profesion"><strong>Profesión-Especialidad</strong></label>
                                         <br>
-                                        <p-autoComplete id="profesion" formControlName="profesion" [suggestions]="profesionesFiltradas" field="nombre" (completeMethod)="filtrarProfesion($event)" [inputStyle]="{'width':'1060px'}" [forceSelection]="true" required></p-autoComplete>
+                                        <p-autoComplete id="profesion" formControlName="profesion" [suggestions]="profesionesFiltradas" field="nombre" (completeMethod)="filtrarProfesion($event)" [inputStyle]="{'width':'1060px'}" [forceSelection]="true"></p-autoComplete>
                                         <!--<p-dropdown id="profesion" [options]="profesionOptions" label="label" placeholder="Seleccionar" formControlName="profesion" name="profesion" [style]="{'width':'515px'}" required></p-dropdown>-->
                                     </div>
                                 </div>
@@ -210,7 +210,7 @@
                                     <div class="form-group">
                                         <label for="funcion"><strong>Función</strong></label>
                                         <!--<input type="text" formControlName="funcion" name="funcion" class="form-control"  id="funcion" required>-->
-                                        <p-autoComplete id="funcion" formControlName="funcion" [suggestions]="funcionesFiltradas" field="nombre" (completeMethod)="filtrarFuncion($event)" [inputStyle]="{'width':'515px'}" required></p-autoComplete>
+                                        <p-autoComplete id="funcion" formControlName="funcion" [suggestions]="funcionesFiltradas" field="nombre" (completeMethod)="filtrarFuncion($event)" [inputStyle]="{'width':'515px'}"></p-autoComplete>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -248,14 +248,14 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <b>Vacuna Covid 19</b>
+                                        <b>Vacuna Covid 19<span style="color: red;"> * obligatorio</span></b>
                                         <p-radioButton name="vacunaCovid" [value]="true" label="Si" formControlName="vacunaCovid" class="ml-3 mr-3"></p-radioButton>
                                         <p-radioButton name="vacunaCovid" [value]="false" label="No" formControlName="vacunaCovid"></p-radioButton>
                                     </div>
                                 </div>
                                 <div class="col-md" *ngIf="registroFg.controls.sexo.value==='F'">
                                     <div class="form-group">
-                                        <b>Embarazo</b>
+                                        <b>Embarazo<span style="color: red;"> * obligatorio</span></b>
                                         <p-radioButton name="embarazada" [value]="true" label="Si" formControlName="embarazada" class="ml-2 mr-3"></p-radioButton>
                                         <p-radioButton name="embarazada" [value]="false" label="No" formControlName="embarazada"></p-radioButton>
                                     </div>
@@ -263,7 +263,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md">
-                                    <b>Patologías de Base</b><br>
+                                    <b>Patologías de Base<span style="color: red;"> * obligatorio</span></b><br>
                                     <div class="form-group">
                                         <p-checkbox formControlName="cardiopatia" [binary]="true" label="Cardiopatía crónica" id="cardiopatia" class="mr-3 mb-3"></p-checkbox>
                                     </div>
@@ -380,13 +380,13 @@
                             <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud'">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="contagioEstablecimiento"><strong>Indique el entorno asistencial</strong></label><br>
+                                        <label for="contagioEstablecimiento"><strong>Indique el entorno asistencial</strong><span style="color: red;"> * obligatorio</span></label><br>
                                         <p-autoComplete id="contagioEstablecimiento" formControlName="contagioEstablecimiento" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="catContagio"><strong>Categoría del contagio</strong></label>
+                                        <label for="catContagio"><strong>Categoría del contagio</strong><span style="color: red;"> * obligatorio</span></label>
                                         <br>
                                         <p-dropdown id="catContagio" [options]="catContagioOptions" label="label" placeholder="Seleccionar" formControlName="catContagio" name="catContagio" [style]="{'width':'515px'}" required></p-dropdown>
                                     </div>
@@ -406,10 +406,10 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud' || casoConfirmadoFg.controls.contagioAmbiente.value===null">
+                            <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='familiar_social' || casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud'">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <label for="clasRiesgo"><strong>Clasificación de riesgo</strong></label>
+                                        <label for="clasRiesgo"><strong>Clasificación de riesgo</strong><span style="color: red;"> * obligatorio</span></label>
                                         <br>
                                         <p-dropdown id="clasRiesgo" [options]="clasRiesgoOptions" label="label" placeholder="Seleccionar" formControlName="clasRiesgo" name="clasRiesgo" [style]="{'width':'515px'}" required></p-dropdown>
                                         <!--<p-dropdown id="clasRiesgo" [options]="clasRiesgoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="formDatosBasicos.departamentoDomicilio" name="clasRiesgo" [style]="{'width':'350px'}" required></p-dropdown>-->
@@ -419,8 +419,8 @@
     
                                 </div>
                             </div>
-                            <hr *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud' || casoConfirmadoFg.controls.contagioAmbiente.value===null">
-                            <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value !== 'viajero' && casoConfirmadoFg.controls.contagioAmbiente.value !== 'sin_nexo'">
+                            <hr *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud'">
+                            <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value === 'familiar_social' || casoConfirmadoFg.controls.contagioAmbiente.value === 'establecimiento_salud'">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="fechaExposicion"><strong>Fecha de exposición:</strong></label>
@@ -510,7 +510,7 @@
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <b>Sintomático</b>
+                                        <b>Sintomático<span style="color: red;"> * obligatorio</span></b>
                                         <p-radioButton name="sintomatico" [value]="true" label="SI" formControlName="sintomatico" class="ml-3 mr-4"></p-radioButton>
                                         <p-radioButton name="sintomatico" [value]="false" label="NO" formControlName="sintomatico"></p-radioButton>
                                     </div>
@@ -955,7 +955,7 @@
                             </div>-->
                             <div class="row">
                                 <div class="col-md">
-                                    <b>Laboratorio (marcar lo que corresponda)</b>
+                                    <b>Laboratorio (marcar lo que corresponda)<span style="color: red;"> * obligatorio</span></b>
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" formControlName = "antigeno" class="custom-control-input" id="antigeno">
                                         <label class="custom-control-label" for="antigeno">Antígeno</label>

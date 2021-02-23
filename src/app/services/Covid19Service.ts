@@ -8,6 +8,7 @@ import { FormDatosBasicosPB } from "../pages/covid19/model/formDatosBasicosPB.mo
 import { PrimerContactoTable } from "../pages/covid19/model/primer-contacto-table.model";
 import { FormCensoContactoTable } from "../pages/covid19/model/form-censo-contacto-table.model";
 import { UsuarioTable } from "../pages/usuario/shared/usuario-table.model";
+import { FormCensoContacto } from "../pages/covid19/model/formCensoContacto.model";
 
 @Injectable()
 export class Covid19Service {
@@ -158,13 +159,35 @@ export class Covid19Service {
      return this.httpClient.get<UsuarioTable>(this.config.API + '/covid19api/aislamiento/listarUsuariosContactCenter/', {params});
    }
 
-    reservarRegistros(idUsuario): Observable<string> {
-      return this.httpClient.get<string>(this.config.API + '/covid19api/aislamiento/reservarRegistros/'+idUsuario);
+    reservarRegistros(idUsuario, nombreUsuario): Observable<string> {
+      return this.httpClient.get<string>(this.config.API + '/covid19api/aislamiento/reservarRegistros/'+idUsuario+'/'+nombreUsuario);
     }
 
     liberarRegistros(idUsuario): Observable<string> {
       return this.httpClient.get<string>(this.config.API + '/covid19api/aislamiento/liberarRegistros/'+idUsuario);
     }
+
+    getContactosFormCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
+      sortField: string, idUsuario, primerContactoId): Observable<FormCensoContactoTable> {
+     this.loading.next(true);
+
+     let params = new HttpParams();
+
+      if (filter)
+        params = params.set('filter', filter);
+
+      if (sortField)
+        params = params.set('sortField', sortField);
+
+      if (idUsuario)
+        params = params.set('idUsuario', idUsuario);
+
+      if (primerContactoId)
+        params = params.set('primerContactoId', primerContactoId);
+
+     params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
+     return this.httpClient.get<FormCensoContactoTable>(this.config.API + '/covid19api/aislamiento/listarFormCensoContacto/', {params});
+   }
 
     getPacientesFormCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
       sortField: string, region, idUsuario, primerContactoId, distritosUsuario): Observable<FormCensoContactoTable> {
@@ -197,7 +220,7 @@ export class Covid19Service {
       }
 
      params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
-     return this.httpClient.get<FormCensoContactoTable>(this.config.API + '/covid19api/aislamiento/listarFormCensoContacto/'+region, {params});
+     return this.httpClient.get<FormCensoContactoTable>(this.config.API + '/covid19api/aislamiento/listarFormCensoContactoReservados/'+region, {params});
    }
 
     getPacientesCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
@@ -302,6 +325,34 @@ export class Covid19Service {
      return this.httpClient.get<ContactoTable>(this.config.API + '/covid19api/aislamiento/listarPacientes/'+region, {params});
   }
 
+  listarReingresos(start: number, pageSize: number, filter: string, sortAsc: boolean,
+    sortField: string, region, distritosUsuario): Observable<ContactoTable> {
+   this.loading.next(true);
+
+   let params = new HttpParams();
+
+   if (filter)
+     params = params.set('filter', filter);
+
+   if (sortField)
+     params = params.set('sortField', sortField);
+
+     if(distritosUsuario.length > 0){
+      let distritosParam="";
+      for(let i=0; i<distritosUsuario.length; i++){
+        if(i+1==distritosUsuario.length){
+          distritosParam+= distritosUsuario[i];
+        }else{
+          distritosParam+= distritosUsuario[i]+",";
+        }
+      }
+      params = params.set('distritosUsuario', distritosParam);
+    }
+
+   params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
+   return this.httpClient.get<ContactoTable>(this.config.API + '/covid19api/aislamiento/listarReingresos/'+region, {params});
+}
+
     setearClave(idRegistro, clave): Observable<string> {
       return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/claveSeguridad/'+idRegistro, clave);
     }
@@ -325,6 +376,10 @@ export class Covid19Service {
 
     getCiudadesPorDepto(idDepto): Observable<any[]>{
       return this.httpClient.get<any[]>(this.config.API +"/covid19/ciudades/"+idDepto);
+    }
+
+    getDatosLlamada(id): Observable<FormCensoContacto> {
+      return this.httpClient.get<FormCensoContacto>(this.config.API + '/covid19api/aislamiento/getDatosLlamada/'+id);
     }
 
     getPacienteEditar(cedula): Observable<FormDatosBasicosPB> {

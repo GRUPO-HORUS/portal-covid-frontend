@@ -76,7 +76,7 @@ export const appRoutes: Routes = [
 
   { path: "covid19/operador/actualizar-seguimiento", component: ActualizarSeguimientoComponent},
 
-  { path: "covid19/operador/primer-contacto/:cedula", component: PrimerContactoComponent},
+  { path: "covid19/operador/primer-contacto/:cedula/:id", component: PrimerContactoComponent},
 
   { path: "covid19/operador/lista-pacientes", component: ListaPacientesComponent},
 

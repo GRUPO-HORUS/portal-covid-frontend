@@ -36,14 +36,21 @@
                                 </div>
                                 <div class="col-md"></div>
                             </div>-->
-                            
+                            <div class="row mb-4">
+                                <div class="col-md" style="background-color: #e9ecef;">
+                                    Primera Llamada: <label *ngIf="formCensoContacto?.estadoPrimeraLlamada=='llamada_realizada'">SI</label>&nbsp;<label *ngIf="formCensoContacto?.estadoPrimeraLlamada!='llamada_realizada'">NO</label><br>
+                                    Fecha última llamada: {{formCensoContacto?.fechaHoraActualizacion}}<br>
+                                    Operador que hizo la llamada: {{formCensoContacto?.usuarioActualNombre}}<br>
+                                    <!--Cantidad de llamadas realizadas:-->
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="fechaMonitoreo"><strong>Fecha de inicio del monitoreo:</strong></label>
                                         <br>
                                         <!--<input type="date" id="fechaMonitoreo" formControlName="fechaMonitoreo" style="width: 515px;" value="{{fechaHoy}}">-->
-                                        <p-calendar formControlName="fechaInicioMonitoreo" id="fechaInicioMonitoreo" name="fechaInicioMonitoreo" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                        <p-calendar formControlName="fechaInicioMonitoreo" id="fechaInicioMonitoreo" name="fechaInicioMonitoreo" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" appendTo="body"></p-calendar>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -54,7 +61,6 @@
                                     </div>
                                 </div>
                             </div>
-        
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
@@ -307,7 +313,7 @@
                                 <button type="submit"
                                         class="btn btn-success btn-success-next mr-2"
                                         [disabled]="loading"
-                                        (click)="actualizarDatosRealizarLlamada()">
+                                        (click)="showConfirmarLlamada = true">
                                   Guardar <span class="fa fa-check"></span>
                                 </button>
                                 <!--<button class="btn btn-success btn-success-next" (click)="goBack()"
@@ -1139,6 +1145,23 @@
                     </mat-step>-->
                 </mat-horizontal-stepper>
             </div>
+
+            <p-dialog [(visible)]="showConfirmarLlamada" modal="true" header="Llamada Realizada?">
+                <form [formGroup]="motivosFormGroup" class="mt-4">
+                    <div class="form-group">
+                        <label for="motivo"><strong>Desea pasar el estado a llamada realizada?</strong></label>
+                    </div>
+                </form>
+                <button class="btn btn-success btn-success-next" (click)="actualizarDatosRealizarLlamada('si')">
+                        Si <span class="fa fa-check"></span>
+                </button>&nbsp;
+                <button class="btn btn-success btn-success-next" (click)="actualizarDatosRealizarLlamada('no')">
+                    No <span class="fa fa-times"></span>
+                </button>&nbsp;
+                <button class="btn btn-secondary btn-success-next" (click)="showConfirmarLlamada = false">
+                        Cancelar <span class="fa fa-times"></span>
+                </button>
+            </p-dialog>
 
             <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">

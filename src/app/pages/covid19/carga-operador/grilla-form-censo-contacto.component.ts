@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute, NavigationExtras } from "@angular/router";
 import {Location} from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Covid19Service } from '../../../services/Covid19Service';
@@ -129,7 +129,7 @@ export class GrillaFormCensoContactoComponent implements OnInit {
   tipoExposicion: string;
   fechaInicioSintomas: string;
 
-  public motivos=[{value:'no_atiende',label:'No Atiende'},{value:'apagado',label:'Apagado/Sin Señal'},{value:'equivocado',label:'Número Equivocado'}];
+  public motivosNoAtiende=[{value:'no_atiende',label:'No Atiende'},{value:'apagado',label:'Apagado/Sin Señal'},{value:'equivocado',label:'Número Equivocado'}];
   public binarioOptions=[{value:'SI',label:'SI'},{value:'NO',label:'NO'}];
 
   public exposicionOptions=[{value:'CONTACTO',label:'CONTACTO'},{value:'SD',label:'SD'}, {value:'SIN NEXO',label:'SIN NEXO'}];
@@ -197,6 +197,7 @@ formCensoContacto;
 
 public username;
 public usuarioId;
+public usuarioDescr;
 public distritosUsuario = [];
 showDerivarCoordinador: boolean = false;
 suspensionFormGroup: FormGroup;
@@ -223,6 +224,8 @@ public showConfirmarLiberar: boolean = false;
     this.region = usuario.regionSanitaria;
     this.username = usuario.username;
     this.usuarioId = usuario.id;
+
+    this.usuarioDescr = usuario.nombre+" "+usuario.apellido
 
     this.actualizarDiagnosticoFormGroup = this.formBuilder.group({
       resultadoUltimoDiagnostico: [null,Validators.required],
@@ -294,9 +297,9 @@ public showConfirmarLiberar: boolean = false;
         { field: 'username', header: 'Username', width: '11%' }];
   }
 
-  realizarLlamada(nroDocumento){
-    //console.log(nroDocumento);
-    this._router.navigate(["covid19/operador/primer-contacto/", nroDocumento]);
+  realizarLlamada(nroDocumento, id){
+    this._router.navigate(["covid19/operador/primer-contacto/", nroDocumento, id]);
+    //this._router.navigate(["covid19/operador/primer-contacto/", {state:{formCensoContacto: this.formCensoContacto}}]);
   }
 
   load($event: any) {
@@ -311,12 +314,35 @@ public showConfirmarLiberar: boolean = false;
       else
         this.sortAsc = false;
     }
-    if($event.globalFilter){
-      this.buscarContactos();
-    }
+    //if($event.globalFilter){
+    //this.buscarContactos();}
+    this.buscarContactos();
   }
 
 buscarContactos(){
+  this.service.getDistritosUsuario(this.usuarioId).subscribe(distritos => {
+    for (let i = 0; i < distritos.length; i++) {
+      this.distritosUsuario.push(distritos[i].distritoId);
+    }
+
+    this.service.getPacientesFormCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
+      this.usuarioId, null, this.distritosUsuario).subscribe(pacientes => {
+        this.formCensoContactoList = pacientes.lista;
+        this.totalRecords = pacientes.totalRecords;
+        console.log(this.formCensoContactoList);
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    });
+  }, error => {
+    console.log(error);
+    this.mensaje = error.error;
+    this.openMessageDialog();
+  });
+}
+
+reservarRegistros(){
   this.service.getDistritosUsuario(this.usuarioId).subscribe(distritos => {
     for (let i = 0; i < distritos.length; i++) {
       this.distritosUsuario.push(distritos[i].distritoId);
@@ -324,7 +350,7 @@ buscarContactos(){
       //this.distritosOptions[i] = {nombre: d.nomdist, value: d.coddist};
     }
 
-    this.service.reservarRegistros(this.usuarioId).subscribe(distritos => {
+    this.service.reservarRegistros(this.usuarioId, this.usuarioDescr).subscribe(distritos => {
       this.service.getPacientesFormCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
       this.usuarioId, null, this.distritosUsuario).subscribe(pacientes => {
         this.formCensoContactoList = pacientes.lista;
@@ -1027,8 +1053,33 @@ filtrarRegion(event) {
     this.showLlamadaRealizada = false;
   }
 
-  noAtiende(){
+  noAtiende(rowData){
     this.showNoAtiende = true;
+    this.formCensoContacto = rowData;
+  }
+
+  guardarNoAtiende(){
+    this.formCensoContacto.estadoPrimeraLlamada = this.motivosFormGroup.controls.motivoNoContacto.value;
+    this.formCensoContacto.cantidadReintentos = this.formCensoContacto.cantidadReintentos + 1;
+    this.formCensoContacto.fechaHoraActualizacion = new Date().toLocaleDateString();
+    this.service.editarFormCensoContacto(this.formCensoContacto).subscribe(response => {
+      this.loading = false;
+      this.mensaje= "Motivo guardado exitosamente.";
+      this.showNoAtiende = false;
+      this.openMessageDialog();
+    }, error => {
+      if(error.status == 401)
+      {
+        this._router.navigate(["/"]);
+      }
+      else
+      {
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
+    }
+    );
   }
 
   mostrarReasignar(rowData){
@@ -1096,8 +1147,7 @@ filtrarRegion(event) {
         this.mensaje = error.error;
         this.openMessageDialog();
       }
-    }
-    );
+    });
   }
 
   closePopupNoAtiende(){

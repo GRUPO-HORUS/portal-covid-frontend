@@ -30,5 +30,8 @@ export class PrimerContacto {
     fechaUltimaLlamada: string;
     estadoLlamadaCensoContacto: string;
 
+    loginOperador: string;
+    operadorAsignado: number;
+
     editado: boolean;
 }

@@ -16,7 +16,7 @@
                 </h3>
                 <h4>Exposición de personal sanitario al SARS-COV-2</h4>
                 
-                <mat-horizontal-stepper labelPosition="bottom" #stepper><!--linear-->
+                <mat-horizontal-stepper labelPosition="bottom" linear #stepper><!--linear-->
 
                     <mat-step [stepControl]="registroFg">
                         <form [formGroup]="registroFg" class="mt-4" autocomplete="off" (keydown.enter)="$event.preventDefault()">
@@ -433,7 +433,7 @@
                                 </div>
                             </div>
                             <hr>
-                            <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud'"><!--|| casoConfirmadoFg.controls.contagioAmbiente.value===null-->
+                            <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='familiar_social' || casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud'"><!--|| casoConfirmadoFg.controls.contagioAmbiente.value===null-->
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="clasRiesgo"><strong>Clasificación de riesgo</strong><span style="color: red;"> * obligatorio</span></label>

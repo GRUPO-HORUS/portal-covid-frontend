@@ -30,7 +30,7 @@
                 </form>-->
                 <div class="col-md-8 mb-4">
                     <!--(click)="mostrarAgregarContacto()"-->
-                    <button class="btn btn-secondary btn-success-next mr-3" (click)="buscarContactos()"> 
+                    <button class="btn btn-secondary btn-success-next mr-3" (click)="reservarRegistros()" [disabled]="formCensoContactoList?.length > 0"> 
                         Generar Lista <span class="fa fa-plus"></span>
                     </button>
                     <button class="btn btn-secondary btn-success-next" (click)="confirmarLiberarLista()">
@@ -65,9 +65,9 @@
             <ng-template pTemplate="body" let-rowData>
                 <tr>
                     <td>
-                        <button type="button" pButton icon="pi pi-volume-up" iconPos="left" (click)="realizarLlamada(rowData.nroDocumento)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:150px" label="Realizar Llamada"></button><br>
+                        <button type="button" pButton icon="pi pi-volume-up" iconPos="left" (click)="realizarLlamada(rowData.nroDocumento, rowData.id)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:150px" label="Realizar Llamada"></button><br>
                         <!--<button type="button" pButton icon="pi pi-arrow-circle-right" iconPos="left" (click)="derivarCoordinador()" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:150px" label="Derivar a Coordinador"></button><br>-->
-                        <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="noAtiende()" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:150px" label="No Atiende"></button><br>
+                        <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="noAtiende(rowData)" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:150px" label="No Atiende"></button><br>
                         <button type="button" pButton icon="pi pi-spinner" iconPos="left" (click)="mostrarSuspenderContacto(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:150px" label="Suspender Contacto"></button>
                         <button type="button" *ngIf="hasRol('Supervisor Contact Center')" pButton icon="pi pi-arrow-circle-down" iconPos="left" (click)="mostrarReasignar(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:150px" label="Reasignar"></button>
                     </td>
@@ -304,18 +304,20 @@
                 </div>
             </p-dialog>
 
-            <p-dialog [(visible)]="showNoAtiende" modal="true" header="Estás seguro?">
-                <div>
-                    <button class="btn btn-success btn-success-next" (click)="closePopupNoAtiende()">
-                        Aceptar
-                        <span class="fa fa-check"></span>
-                    </button>&nbsp;
-
-                    <button class="btn btn-secondary btn-success-next" (click)="closePopupNoAtiende()">
-                        Cancelar
-                        <span class="fa fa-times"></span>
-                    </button>
-                </div>
+            <p-dialog [(visible)]="showNoAtiende" modal="true" header="No Atiende">
+                <form [formGroup]="motivosFormGroup" class="mt-4">
+                    <div class="form-group">
+                        <label for="motivo"><strong>Motivo</strong><span style="color: red;"> *</span></label>
+                        <br>
+                        <p-dropdown id="motivo" [options]="motivosNoAtiende" label="label" placeholder="Seleccionar" formControlName="motivoNoContacto" name="motivo" [style]="{'width':'515px'}" required appendTo="body"></p-dropdown>
+                    </div>
+                </form>
+                <button class="btn btn-success btn-success-next" (click)="guardarNoAtiende()">
+                        Aceptar <span class="fa fa-check"></span>
+                </button>&nbsp;
+                <button class="btn btn-secondary btn-success-next" (click)="closePopupNoAtiende()">
+                        Cancelar <span class="fa fa-times"></span>
+                </button>
             </p-dialog>
 
             <p-dialog [(visible)]="showDerivarCoordinador" modal="true" header="Derivar a Coordinador"><!--[formGroup]="agregarContactoFormGroup"-->
