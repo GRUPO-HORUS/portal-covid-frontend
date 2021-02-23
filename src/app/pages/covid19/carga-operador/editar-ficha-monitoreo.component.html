@@ -371,10 +371,10 @@
                             <div class="row mb-3">
                                 <div class="col-md">
                                     <b>Indicar ambiente donde se produjo el contagio</b><br>
-                                    <p-radioButton name="contagioAmbiente" value="familiar_social" label="Familiar/Social" formControlName="contagioAmbiente" class="ml-2 mr-3"></p-radioButton>
-                                    <p-radioButton name="contagioAmbiente" value="sin_nexo" label="Sin nexo" formControlName="contagioAmbiente" class="ml-2 mr-3"></p-radioButton>
-                                    <p-radioButton name="contagioAmbiente" value="viajero" label="Viajero" formControlName="contagioAmbiente" class="ml-2 mr-3"></p-radioButton>
-                                    <p-radioButton name="contagioAmbiente" value="establecimiento_salud" label="Entorno asistencial" formControlName="contagioAmbiente" (onClick)="selecAmbiente('salud')"></p-radioButton>
+                                    <p-radioButton name="contagioAmbiente" value="familiar_social" label="Familiar/Social" formControlName="contagioAmbiente" class="ml-2 mr-3" (onClick)="esObligatorio()"></p-radioButton>
+                                    <p-radioButton name="contagioAmbiente" value="sin_nexo" label="Sin nexo" formControlName="contagioAmbiente" class="ml-2 mr-3" (onClick)="esObligatorio()"></p-radioButton>
+                                    <p-radioButton name="contagioAmbiente" value="viajero" label="Viajero" formControlName="contagioAmbiente" class="ml-2 mr-3" (onClick)="esObligatorio()"></p-radioButton>
+                                    <p-radioButton name="contagioAmbiente" value="establecimiento_salud" label="Entorno asistencial" formControlName="contagioAmbiente" (onClick)="selecAmbiente('salud');esObligatorio()"></p-radioButton>
                                 </div>
                             </div>
                             <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud'">
