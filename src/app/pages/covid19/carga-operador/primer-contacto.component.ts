@@ -161,6 +161,8 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
 
   formCensoContacto: FormCensoContacto;
 
+  showConfirmarLlamada = false;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
