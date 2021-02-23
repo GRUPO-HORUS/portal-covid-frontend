@@ -1965,7 +1965,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionContactoContagio.clasificacionRiesgo = this.casoConfirmadoFg.controls.clasRiesgo.value;
     this.fichaPersonalBlanco.formSeccionContactoContagio.contagioAmbiente = this.casoConfirmadoFg.controls.contagioAmbiente.value;
     if(this.casoConfirmadoFg.controls.contagioEstablecimiento.value !== null){
-      this.fichaPersonalBlanco.formSeccionContactoContagio.contagioEstablecimiento = this.casoConfirmadoFg.controls.contagioEstablecimiento.value.nombre;
+      this.fichaPersonalBlanco.formSeccionContactoContagio.contagioEstablecimiento = this.casoConfirmadoFg.controls.contagioEstablecimiento.value.denominacion;
     }
     
     this.fichaPersonalBlanco.formSeccionContactoContagio.otroServicioCheck = this.casoConfirmadoFg.controls.otroServicioCheck.value;
