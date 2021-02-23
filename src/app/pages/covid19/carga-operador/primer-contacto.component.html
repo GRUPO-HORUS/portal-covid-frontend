@@ -1147,11 +1147,9 @@
             </div>
 
             <p-dialog [(visible)]="showConfirmarLlamada" modal="true" header="Llamada Realizada?">
-                <form [formGroup]="motivosFormGroup" class="mt-4">
-                    <div class="form-group">
-                        <label for="motivo"><strong>Desea pasar el estado a llamada realizada?</strong></label>
-                    </div>
-                </form>
+                <div>
+                    <label for="motivo"><strong>Desea pasar el estado a llamada realizada?</strong></label>
+                </div>
                 <button class="btn btn-success btn-success-next" (click)="actualizarDatosRealizarLlamada('si')">
                         Si <span class="fa fa-check"></span>
                 </button>&nbsp;
