@@ -1951,6 +1951,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseSindromeDown = this.registroFg.controls.sindromeDown.value;
     this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseNeurologica = this.registroFg.controls.enfermedadNeurologica.value;
     this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseHepaticaGrave = this.registroFg.controls.enfermedadHepatica.value;
+    this.fichaPersonalBlanco.formSeccionDatosClinicos.ningunaEnfermedadBase = this.registroFg.controls.ningunaEnfBase.value;
     if(this.registroFg.controls.enfermedadOtros.value){
       this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseOtros = this.registroFg.controls.enfermedadOtros.value;
       this.fichaPersonalBlanco.formSeccionDatosClinicos.enfermedadBaseOtrosNombre = this.registroFg.controls.enfermedadOtrosNombre.value;
