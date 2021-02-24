@@ -14,6 +14,7 @@ import {calendarEsLocale} from '../../../util/calendar-es-locale';
 import { FichaPersonalBlanco } from "../model/fichaPersonalBlanco.model";
 import { FormSeccionClasifRiesgo } from "../model/formSeccionClasifRiesgo.model";
 import { FormSeccionReporteSalud } from "../model/formSeccionReporteSalud.model";
+import { StorageManagerService } from "../../login/shared/storage-manager.service";
 
 declare var $: any;
 @Component({
@@ -147,12 +148,15 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
 
   fichaPersonalBlanco: FichaPersonalBlanco;
 
+  region: string;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
     private _route: ActivatedRoute,
     private recaptchaV3Service: ReCaptchaV3Service,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private storageManager: StorageManagerService
   ) {
     this.loading = false;
     if (typeof localStorage !== "undefined") {
@@ -163,6 +167,9 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
   //@ViewChild('stepper') stepper: MatHorizontalStepper;
 
   ngOnInit() {
+    const {usuario} = this.storageManager.getLoginData();
+    this.region = usuario.regionSanitaria;
+
     this.fechaHoy = new Date().toLocaleDateString('fr-CA');
     this.formDatosBasicos = new FormDatosBasicos();
 
@@ -531,7 +538,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     this.clasificacionRiesgoFg = this._formBuilder.group({
       clasifFinal:[''],
       otroIndicEspecificar: [''],
-      exclusion: [null, Validators.required],
       autocontrol: [null],
       nada: [null],
       otroIndic: [null],
@@ -539,9 +545,11 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
       pcr: [null],
       ningunoLab: [null],
       fechaCierreCaso: [''],
+      seCierreCaso: [1],
       fechaPrimeraMuestra: [''],
       sePrimeraMuestra:[1],
       resultadoPrimeraMuestra: [''],
+      exclusion: [null, Validators.required],
       constAislamiento: [null, Validators.required],
       fichaEpidemiologica: [null, Validators.required],
       evolucionFinal: [''],

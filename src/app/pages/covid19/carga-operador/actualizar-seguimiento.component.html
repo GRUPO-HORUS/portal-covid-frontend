@@ -709,7 +709,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="sePrimeraMuestra"><strong>SE de Toma de Muestra</strong></label>
-                                        <input type="number" formControlName="sePrimeraMuestra" class="form-control" id="sePrimeraMuestra" name="sePrimeraMuestra" min="1" required>
+                                        <input type="number" formControlName="sePrimeraMuestra" class="form-control" id="sePrimeraMuestra" name="sePrimeraMuestra" min="1">
                                     </div>
                                 </div>
                             </div>
@@ -718,7 +718,7 @@
                                     <div class="form-group">
                                         <label for="resultadoPrimeraMuestra"><strong>Resultado de Muestra:</strong></label>
                                         <br>
-                                        <p-dropdown id="resultadoPrimeraMuestra" [options]="resulPriMuestraOptions" label="label" placeholder="Seleccionar" formControlName="resultadoPrimeraMuestra" name="resultadoPrimeraMuestra" [style]="{'width':'515px'}" required></p-dropdown>
+                                        <p-dropdown id="resultadoPrimeraMuestra" [options]="resulPriMuestraOptions" label="label" placeholder="Seleccionar" formControlName="resultadoPrimeraMuestra" name="resultadoPrimeraMuestra" [style]="{'width':'515px'}"></p-dropdown>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -751,9 +751,9 @@
                                 </div>
                                 <div class="col-md" *ngIf="clasificacionRiesgoFg.controls.internado.value">
                                     <div class="form-group">
-                                        <label for="especialidad"><strong>Especialidad</strong><span style="color: red;"> *</span></label>
+                                        <label for="especialidad"><strong>Especialidad</strong></label>
                                         <!--<input type="text" formControlName="especialidad" name="especialidad" class="form-control"  id="especialidad" required>-->
-                                        <p-dropdown id="especialidad" [options]="especialidadOptions" label="label" placeholder="Seleccionar" formControlName="especialidad" name="especialidad" [style]="{'width':'515px'}" required></p-dropdown>
+                                        <p-dropdown id="especialidad" [options]="especialidadOptions" label="label" placeholder="Seleccionar" formControlName="especialidad" name="especialidad" [style]="{'width':'515px'}"></p-dropdown>
                                     </div>
                                 </div>
                             </div>
@@ -822,14 +822,14 @@
                                         <label class="custom-control-label" for="contacto">Descartado</label>
                                     </div>-->
                                     <div class="form-group">
-                                        <p-dropdown id="clasifFinal" [options]="clasifFinalOptions" label="label" placeholder="Seleccionar" formControlName="clasifFinal" name="clasifFinal" [style]="{'width':'515px'}" required></p-dropdown>
+                                        <p-dropdown id="clasifFinal" [options]="clasifFinalOptions" label="label" placeholder="Seleccionar" formControlName="clasifFinal" name="clasifFinal" [style]="{'width':'515px'}" [disabled]="this.region !== '-1'"></p-dropdown>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="evolucionFinal"><strong>Evolución Final</strong></label>
                                         <br>
-                                        <p-dropdown id="evolucionFinal" [options]="evoFinalOptions" label="label" placeholder="Seleccionar" formControlName="evolucionFinal" name="evolucionFinal" [style]="{'width':'515px'}" required></p-dropdown>
+                                        <p-dropdown id="evolucionFinal" [options]="evoFinalOptions" label="label" placeholder="Seleccionar" formControlName="evolucionFinal" name="evolucionFinal" [style]="{'width':'515px'}" [disabled]="this.region !== '-1'"></p-dropdown>
                                     </div>
                                 </div>
                             </div>
@@ -839,7 +839,13 @@
                                     <div class="form-group">
                                         <label for="fechaCierreCaso"><strong>Fecha de Cierre de Caso:</strong></label>
                                         <br>
-                                        <p-calendar formControlName="fechaCierreCaso" id="fechaCierreCaso" name="fechaCierreCaso" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                        <p-calendar formControlName="fechaCierreCaso" id="fechaCierreCaso" name="fechaCierreCaso" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" [disabled]="this.region !== '-1'"></p-calendar>
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="form-group">
+                                        <label for="seCierreCaso"><strong>SE de Cierre de Caso</strong></label>
+                                        <input type="number" formControlName="seCierreCaso" class="form-control" id="seCierreCaso" name="seCierreCaso" min="1" disabled>
                                     </div>
                                 </div>
                             </div>
