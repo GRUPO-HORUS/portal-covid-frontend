@@ -672,8 +672,8 @@ export class FichaMonitoreoComponent implements OnInit {
 
     if(this.casoConfirmadoFg.controls.contagioAmbiente.value === 'familiar_social'){
       /*this.casoConfirmadoFg.controls.fechaExposicion.setValidators([Validators.required]);
-      this.casoConfirmadoFg.controls.nombre.setValidators([Validators.required]);
-      this.casoConfirmadoFg.controls.apellido.setValidators([Validators.required]);*/
+      this.casoConfirmadoFg.controls.nombre.setValidators([Validators.required]);*/
+      this.casoConfirmadoFg.controls.clasRiesgo.setValidators([Validators.required]);
 
     }else if(this.casoConfirmadoFg.controls.contagioAmbiente.value === 'establecimiento_salud'){
       this.casoConfirmadoFg.controls.contagioEstablecimiento.setValidators([Validators.required]);
