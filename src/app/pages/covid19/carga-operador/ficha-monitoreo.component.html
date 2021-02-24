@@ -543,7 +543,7 @@
                                         <label for="fechaSintomas"><strong>Fecha de Inicio de Síntomas:</strong><span style="color: red;"> * obligatorio</span></label>
                                         <br>
                                         <!--<input type="date" id="fechaSintomas" formControlName="fechaSintomas" style="width: 325px;" (change)="setearFechasTabla($event.target.value)" value="{{fechaHoy}}">-->
-                                        <p-calendar formControlName="fechaSintomas" id="fechaSintomas" name="fechaSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" (onSelect)="setearFechasTabla($event, 'cambio');setearSeFis($event)" [inputStyle]="{'width':'482px'}" appendTo="body"></p-calendar>
+                                        <p-calendar formControlName="fechaSintomas" id="fechaSintomas" name="fechaSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" (onSelect)="setearFechasTabla($event, 'cambio'); setearSeFis($event)" [inputStyle]="{'width':'482px'}" appendTo="body"></p-calendar>
                                     </div>
                                 </div>
                                 <div class="col-md">
