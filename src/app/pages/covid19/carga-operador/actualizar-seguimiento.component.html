@@ -241,13 +241,13 @@
                                         <label for="fechaSintomas"><strong>Fecha de Inicio de Síntomas:</strong></label>
                                         <br>
                                         <!--<input type="date" id="fechaSintomas" formControlName="fechaSintomas" style="width: 325px;" (change)="setearFechasTabla($event.target.value)" value="{{fechaHoy}}">-->
-                                        <p-calendar formControlName="fechaSintomas" id="fechaSintomas" name="fechaSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" (onSelect)="setearFechasTabla($event, 'cambio')" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
+                                        <p-calendar formControlName="fechaSintomas" id="fechaSintomas" name="fechaSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" (onSelect)="setearFechasTabla($event, 'cambio'); setearSeFis($event)" [showIcon]="true" [inputStyle]="{'width':'482px'}"></p-calendar>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="seFis"><strong>SE de Fecha de Inicio de síntomas</strong></label>
-                                        <input type="number" formControlName="seFis" class="form-control" id="seFis" name="seFis" min="1" required>
+                                        <input type="number" formControlName="seFis" class="form-control" id="seFis" name="seFis" min="1" disabled>
                                     </div>
                                     
                                     <!--<div class="form-group">
@@ -839,7 +839,7 @@
                                     <div class="form-group">
                                         <label for="fechaCierreCaso"><strong>Fecha de Cierre de Caso:</strong></label>
                                         <br>
-                                        <p-calendar formControlName="fechaCierreCaso" id="fechaCierreCaso" name="fechaCierreCaso" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" [disabled]="this.region !== '-1'"></p-calendar>
+                                        <p-calendar formControlName="fechaCierreCaso" id="fechaCierreCaso" name="fechaCierreCaso" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'482px'}" [disabled]="this.region !== '-1'" (onSelect)="setearSeCierreCaso($event)"></p-calendar>
                                     </div>
                                 </div>
                                 <div class="col-md">

@@ -1475,6 +1475,328 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     this.establecimientosFiltrados = filtered;
   }
 
+  setearSeFis(event){
+    let fechaSelec = new Date(event);
+
+    if(fechaSelec >= new Date('2021-01-03') && fechaSelec <= new Date('2021-01-10')){
+      this.monitoreoFg.controls.seFis.setValue(1);
+    }
+    if(fechaSelec >= new Date('2021-01-10') && fechaSelec <= new Date('2021-01-17')){
+      this.monitoreoFg.controls.seFis.setValue(2);
+    }
+    if(fechaSelec >= new Date('2021-01-17') && fechaSelec <= new Date('2021-01-24')){
+      this.monitoreoFg.controls.seFis.setValue(3);
+    }
+    if(fechaSelec >= new Date('2021-01-24') && fechaSelec <= new Date('2021-01-31')){
+      this.monitoreoFg.controls.seFis.setValue(4);
+    }
+    if(fechaSelec >= new Date('2021-01-31') && fechaSelec <= new Date('2021-02-07')){
+      this.monitoreoFg.controls.seFis.setValue(5);
+    }
+    if(fechaSelec >= new Date('2021-02-07') && fechaSelec <= new Date('2021-02-14')){
+      this.monitoreoFg.controls.seFis.setValue(6);
+    }
+    if(fechaSelec >= new Date('2021-02-14') && fechaSelec <= new Date('2021-02-21')){
+      this.monitoreoFg.controls.seFis.setValue(7);
+    }
+    if(fechaSelec >= new Date('2021-02-21') && fechaSelec <= new Date('2021-02-28')){
+      this.monitoreoFg.controls.seFis.setValue(8);
+    }
+    if(fechaSelec >= new Date('2021-02-28') && fechaSelec <= new Date('2021-03-07')){
+      this.monitoreoFg.controls.seFis.setValue(9);
+    }
+    if(fechaSelec >= new Date('2021-03-07') && fechaSelec <= new Date('2021-03-14')){
+      this.monitoreoFg.controls.seFis.setValue(10);
+    }
+    if(fechaSelec >= new Date('2021-03-14') && fechaSelec <= new Date('2021-03-21')){
+      this.monitoreoFg.controls.seFis.setValue(11);
+    }
+    if(fechaSelec >= new Date('2021-03-21') && fechaSelec <= new Date('2021-03-28')){
+      this.monitoreoFg.controls.seFis.setValue(12);
+    }
+    if(fechaSelec >= new Date('2021-03-28') && fechaSelec <= new Date('2021-04-04')){
+      this.monitoreoFg.controls.seFis.setValue(13);
+    }
+    if(fechaSelec >= new Date('2021-04-04') && fechaSelec <= new Date('2021-04-11')){
+      this.monitoreoFg.controls.seFis.setValue(14);
+    }
+    if(fechaSelec >= new Date('2021-04-11') && fechaSelec <= new Date('2021-04-18')){
+      this.monitoreoFg.controls.seFis.setValue(15);
+    }
+    if(fechaSelec >= new Date('2021-04-18') && fechaSelec <= new Date('2021-04-25')){
+      this.monitoreoFg.controls.seFis.setValue(16);
+    }
+    if(fechaSelec >= new Date('2021-04-25') && fechaSelec <= new Date('2021-05-02')){
+      this.monitoreoFg.controls.seFis.setValue(17);
+    }
+    if(fechaSelec >= new Date('2021-05-02') && fechaSelec <= new Date('2021-05-09')){
+      this.monitoreoFg.controls.seFis.setValue(18);
+    }
+    if(fechaSelec >= new Date('2021-05-09') && fechaSelec <= new Date('2021-05-16')){
+      this.monitoreoFg.controls.seFis.setValue(19);
+    }
+    if(fechaSelec >= new Date('2021-05-16') && fechaSelec <= new Date('2021-05-23')){
+      this.monitoreoFg.controls.seFis.setValue(20);
+    }
+    if(fechaSelec >= new Date('2021-05-23') && fechaSelec <= new Date('2021-05-30')){
+      this.monitoreoFg.controls.seFis.setValue(21);
+    }
+    if(fechaSelec >= new Date('2021-05-30') && fechaSelec <= new Date('2021-06-06')){
+      this.monitoreoFg.controls.seFis.setValue(22);
+    }
+    if(fechaSelec >= new Date('2021-06-06') && fechaSelec <= new Date('2021-06-13')){
+      this.monitoreoFg.controls.seFis.setValue(23);
+    }
+    if(fechaSelec >= new Date('2021-06-13') && fechaSelec <= new Date('2021-06-20')){
+      this.monitoreoFg.controls.seFis.setValue(24);
+    }
+    if(fechaSelec >= new Date('2021-06-20') && fechaSelec <= new Date('2021-06-27')){
+      this.monitoreoFg.controls.seFis.setValue(25);
+    }
+    if(fechaSelec >= new Date('2021-06-27') && fechaSelec <= new Date('2021-07-04')){
+      this.monitoreoFg.controls.seFis.setValue(26);
+    }
+    if(fechaSelec >= new Date('2021-07-04') && fechaSelec <= new Date('2021-07-11')){
+      this.monitoreoFg.controls.seFis.setValue(27);
+    }
+    if(fechaSelec >= new Date('2021-07-11') && fechaSelec <= new Date('2021-07-18')){
+      this.monitoreoFg.controls.seFis.setValue(28);
+    }
+    if(fechaSelec >= new Date('2021-07-18') && fechaSelec <= new Date('2021-07-25')){
+      this.monitoreoFg.controls.seFis.setValue(29);
+    }
+    if(fechaSelec >= new Date('2021-07-25') && fechaSelec <= new Date('2021-08-01')){
+      this.monitoreoFg.controls.seFis.setValue(30);
+    }
+    if(fechaSelec >= new Date('2021-08-01') && fechaSelec <= new Date('2021-08-08')){
+      this.monitoreoFg.controls.seFis.setValue(31);
+    }
+    if(fechaSelec >= new Date('2021-08-08') && fechaSelec <= new Date('2021-08-15')){
+      this.monitoreoFg.controls.seFis.setValue(32);
+    }
+    if(fechaSelec >= new Date('2021-08-15') && fechaSelec <= new Date('2021-08-22')){
+      this.monitoreoFg.controls.seFis.setValue(33);
+    }
+    if(fechaSelec >= new Date('2021-08-22') && fechaSelec <= new Date('2021-08-29')){
+      this.monitoreoFg.controls.seFis.setValue(34);
+    }
+    if(fechaSelec >= new Date('2021-08-29') && fechaSelec <= new Date('2021-09-05')){
+      this.monitoreoFg.controls.seFis.setValue(35);
+    }
+    if(fechaSelec >= new Date('2021-09-05') && fechaSelec <= new Date('2021-09-12')){
+      this.monitoreoFg.controls.seFis.setValue(36);
+    }
+    if(fechaSelec >= new Date('2021-09-12') && fechaSelec <= new Date('2021-09-19')){
+      this.monitoreoFg.controls.seFis.setValue(37);
+    }
+    if(fechaSelec >= new Date('2021-09-19') && fechaSelec <= new Date('2021-09-26')){
+      this.monitoreoFg.controls.seFis.setValue(38);
+    }
+    if(fechaSelec >= new Date('2021-09-26') && fechaSelec <= new Date('2021-10-03')){
+      this.monitoreoFg.controls.seFis.setValue(39);
+    }
+    if(fechaSelec >= new Date('2021-10-03') && fechaSelec <= new Date('2021-10-10')){
+      this.monitoreoFg.controls.seFis.setValue(40);
+    }
+    if(fechaSelec >= new Date('2021-10-10') && fechaSelec <= new Date('2021-10-17')){
+      this.monitoreoFg.controls.seFis.setValue(41);
+    }
+    if(fechaSelec >= new Date('2021-10-17') && fechaSelec <= new Date('2021-10-24')){
+      this.monitoreoFg.controls.seFis.setValue(42);
+    }
+    if(fechaSelec >= new Date('2021-10-24') && fechaSelec <= new Date('2021-10-31')){
+      this.monitoreoFg.controls.seFis.setValue(43);
+    }
+    if(fechaSelec >= new Date('2021-10-31') && fechaSelec <= new Date('2021-11-07')){
+      this.monitoreoFg.controls.seFis.setValue(44);
+    }
+    if(fechaSelec >= new Date('2021-11-07') && fechaSelec <= new Date('2021-11-14')){
+      this.monitoreoFg.controls.seFis.setValue(45);
+    }
+    if(fechaSelec >= new Date('2021-11-14') && fechaSelec <= new Date('2021-11-21')){
+      this.monitoreoFg.controls.seFis.setValue(46);
+    }
+    if(fechaSelec >= new Date('2021-11-21') && fechaSelec <= new Date('2021-11-28')){
+      this.monitoreoFg.controls.seFis.setValue(47);
+    }
+    if(fechaSelec >= new Date('2021-11-28') && fechaSelec <= new Date('2021-12-05')){
+      this.monitoreoFg.controls.seFis.setValue(48);
+    }
+    if(fechaSelec >= new Date('2021-12-05') && fechaSelec <= new Date('2021-12-12')){
+      this.monitoreoFg.controls.seFis.setValue(49);
+    }
+    if(fechaSelec >= new Date('2021-12-12') && fechaSelec <= new Date('2021-12-19')){
+      this.monitoreoFg.controls.seFis.setValue(50);
+    }
+    if(fechaSelec >= new Date('2021-12-19') && fechaSelec <= new Date('2021-12-26')){
+      this.monitoreoFg.controls.seFis.setValue(51);
+    }
+    if(fechaSelec >= new Date('2021-12-26') && fechaSelec <= new Date('2022-01-02')){
+      this.monitoreoFg.controls.seFis.setValue(52);
+    }
+  }
+
+  setearSeCierreCaso(event){
+    let fechaSelec = new Date(event);
+
+    if(fechaSelec >= new Date('2021-01-03') && fechaSelec <= new Date('2021-01-10')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(1);
+    }
+    if(fechaSelec >= new Date('2021-01-10') && fechaSelec <= new Date('2021-01-17')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(2);
+    }
+    if(fechaSelec >= new Date('2021-01-17') && fechaSelec <= new Date('2021-01-24')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(3);
+    }
+    if(fechaSelec >= new Date('2021-01-24') && fechaSelec <= new Date('2021-01-31')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(4);
+    }
+    if(fechaSelec >= new Date('2021-01-31') && fechaSelec <= new Date('2021-02-07')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(5);
+    }
+    if(fechaSelec >= new Date('2021-02-07') && fechaSelec <= new Date('2021-02-14')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(6);
+    }
+    if(fechaSelec >= new Date('2021-02-14') && fechaSelec <= new Date('2021-02-21')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(7);
+    }
+    if(fechaSelec >= new Date('2021-02-21') && fechaSelec <= new Date('2021-02-28')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(8);
+    }
+    if(fechaSelec >= new Date('2021-02-28') && fechaSelec <= new Date('2021-03-07')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(9);
+    }
+    if(fechaSelec >= new Date('2021-03-07') && fechaSelec <= new Date('2021-03-14')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(10);
+    }
+    if(fechaSelec >= new Date('2021-03-14') && fechaSelec <= new Date('2021-03-21')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(11);
+    }
+    if(fechaSelec >= new Date('2021-03-21') && fechaSelec <= new Date('2021-03-28')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(12);
+    }
+    if(fechaSelec >= new Date('2021-03-28') && fechaSelec <= new Date('2021-04-04')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(13);
+    }
+    if(fechaSelec >= new Date('2021-04-04') && fechaSelec <= new Date('2021-04-11')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(14);
+    }
+    if(fechaSelec >= new Date('2021-04-11') && fechaSelec <= new Date('2021-04-18')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(15);
+    }
+    if(fechaSelec >= new Date('2021-04-18') && fechaSelec <= new Date('2021-04-25')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(16);
+    }
+    if(fechaSelec >= new Date('2021-04-25') && fechaSelec <= new Date('2021-05-02')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(17);
+    }
+    if(fechaSelec >= new Date('2021-05-02') && fechaSelec <= new Date('2021-05-09')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(18);
+    }
+    if(fechaSelec >= new Date('2021-05-09') && fechaSelec <= new Date('2021-05-16')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(19);
+    }
+    if(fechaSelec >= new Date('2021-05-16') && fechaSelec <= new Date('2021-05-23')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(20);
+    }
+    if(fechaSelec >= new Date('2021-05-23') && fechaSelec <= new Date('2021-05-30')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(21);
+    }
+    if(fechaSelec >= new Date('2021-05-30') && fechaSelec <= new Date('2021-06-06')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(22);
+    }
+    if(fechaSelec >= new Date('2021-06-06') && fechaSelec <= new Date('2021-06-13')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(23);
+    }
+    if(fechaSelec >= new Date('2021-06-13') && fechaSelec <= new Date('2021-06-20')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(24);
+    }
+    if(fechaSelec >= new Date('2021-06-20') && fechaSelec <= new Date('2021-06-27')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(25);
+    }
+    if(fechaSelec >= new Date('2021-06-27') && fechaSelec <= new Date('2021-07-04')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(26);
+    }
+    if(fechaSelec >= new Date('2021-07-04') && fechaSelec <= new Date('2021-07-11')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(27);
+    }
+    if(fechaSelec >= new Date('2021-07-11') && fechaSelec <= new Date('2021-07-18')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(28);
+    }
+    if(fechaSelec >= new Date('2021-07-18') && fechaSelec <= new Date('2021-07-25')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(29);
+    }
+    if(fechaSelec >= new Date('2021-07-25') && fechaSelec <= new Date('2021-08-01')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(30);
+    }
+    if(fechaSelec >= new Date('2021-08-01') && fechaSelec <= new Date('2021-08-08')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(31);
+    }
+    if(fechaSelec >= new Date('2021-08-08') && fechaSelec <= new Date('2021-08-15')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(32);
+    }
+    if(fechaSelec >= new Date('2021-08-15') && fechaSelec <= new Date('2021-08-22')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(33);
+    }
+    if(fechaSelec >= new Date('2021-08-22') && fechaSelec <= new Date('2021-08-29')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(34);
+    }
+    if(fechaSelec >= new Date('2021-08-29') && fechaSelec <= new Date('2021-09-05')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(35);
+    }
+    if(fechaSelec >= new Date('2021-09-05') && fechaSelec <= new Date('2021-09-12')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(36);
+    }
+    if(fechaSelec >= new Date('2021-09-12') && fechaSelec <= new Date('2021-09-19')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(37);
+    }
+    if(fechaSelec >= new Date('2021-09-19') && fechaSelec <= new Date('2021-09-26')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(38);
+    }
+    if(fechaSelec >= new Date('2021-09-26') && fechaSelec <= new Date('2021-10-03')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(39);
+    }
+    if(fechaSelec >= new Date('2021-10-03') && fechaSelec <= new Date('2021-10-10')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(40);
+    }
+    if(fechaSelec >= new Date('2021-10-10') && fechaSelec <= new Date('2021-10-17')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(41);
+    }
+    if(fechaSelec >= new Date('2021-10-17') && fechaSelec <= new Date('2021-10-24')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(42);
+    }
+    if(fechaSelec >= new Date('2021-10-24') && fechaSelec <= new Date('2021-10-31')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(43);
+    }
+    if(fechaSelec >= new Date('2021-10-31') && fechaSelec <= new Date('2021-11-07')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(44);
+    }
+    if(fechaSelec >= new Date('2021-11-07') && fechaSelec <= new Date('2021-11-14')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(45);
+    }
+    if(fechaSelec >= new Date('2021-11-14') && fechaSelec <= new Date('2021-11-21')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(46);
+    }
+    if(fechaSelec >= new Date('2021-11-21') && fechaSelec <= new Date('2021-11-28')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(47);
+    }
+    if(fechaSelec >= new Date('2021-11-28') && fechaSelec <= new Date('2021-12-05')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(48);
+    }
+    if(fechaSelec >= new Date('2021-12-05') && fechaSelec <= new Date('2021-12-12')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(49);
+    }
+    if(fechaSelec >= new Date('2021-12-12') && fechaSelec <= new Date('2021-12-19')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(50);
+    }
+    if(fechaSelec >= new Date('2021-12-19') && fechaSelec <= new Date('2021-12-26')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(51);
+    }
+    if(fechaSelec >= new Date('2021-12-26') && fechaSelec <= new Date('2022-01-02')){
+      this.clasificacionRiesgoFg.controls.seCierreCaso.setValue(52);
+    }
+  }
+
   setearFechasTabla(event, band){
     //console.log(band);
     var fechaSelec = new Date(event);
