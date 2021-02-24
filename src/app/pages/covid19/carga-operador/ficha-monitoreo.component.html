@@ -147,7 +147,7 @@
                                     <div class="form-group">
                                         <label for="barrio"><strong>Barrio</strong></label>
                                         <!--<input type="text" formControlName="barrio" class="form-control" id="barrio" name="barrio">-->
-                                        <p-autoComplete id="barrio" formControlName="barrio" [suggestions]="barriosFiltrados" field="nombre" (completeMethod)="filtrarBarrio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                        <p-autoComplete id="barrio" formControlName="barrio" [suggestions]="barriosFiltrados" field="nombre" (completeMethod)="filtrarBarrio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true"></p-autoComplete>
                                     </div>
                                 </div>
                             </div>
@@ -531,8 +531,8 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <b>Sintomático <span style="color: red;"> * obligatorio</span></b>
-                                        <p-radioButton name="sintomatico" [value]="true" label="SI" formControlName="sintomatico" class="ml-3 mr-4"></p-radioButton>
-                                        <p-radioButton name="sintomatico" [value]="false" label="NO" formControlName="sintomatico"></p-radioButton>
+                                        <p-radioButton name="sintomatico" [value]="true" label="SI" formControlName="sintomatico" class="ml-3 mr-4" (onClick)="esObligatorio()"></p-radioButton>
+                                        <p-radioButton name="sintomatico" [value]="false" label="NO" formControlName="sintomatico" (onClick)="esObligatorio()"></p-radioButton>
                                     </div>
                                 </div>
                                 <div class="col-md"></div>
