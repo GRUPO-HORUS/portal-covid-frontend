@@ -950,7 +950,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.clasificacionRiesgoFg.controls.otroIndicEspecificar.setValue(response.trabajoOtroDescripcion);
         this.clasificacionRiesgoFg.controls.antigeno.setValue(response.laboratorioAntigeno);
         this.clasificacionRiesgoFg.controls.pcr.setValue(response.laboratorioPcr);
-        this.clasificacionRiesgoFg.controls.pcr.setValue(response.laboratorioNinguno);
+        this.clasificacionRiesgoFg.controls.ningunoLab.setValue(response.laboratorioNinguno);
         this.clasificacionRiesgoFg.controls.clasifFinal.setValue(response.clasificacionFinal);
 
         this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(response.sePrimeraMuestra);

@@ -208,7 +208,7 @@
                     </mat-step>-->
                     <mat-step [stepControl]="monitoreoFg">
                         <ng-template matStepLabel>Monitoreo de Signos y Síntomas</ng-template>
-                        <form [formGroup]="monitoreoFg" class="mt-4">
+                        <form [formGroup]="monitoreoFg" class="mt-4" autocomplete="off" (keydown.enter)="$event.preventDefault()">
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
