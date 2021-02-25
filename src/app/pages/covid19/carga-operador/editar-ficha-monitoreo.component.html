@@ -217,12 +217,12 @@
                                     <div class="form-group">
                                         <label for="otrosLugares"><strong>Otros lugares donde presta servicio</strong></label><br>
                                         <!--<input type="text" formControlName="otrosLugares" name="otrosLugares" class="form-control"  id="otrosLugares" required>-->
-                                        <p-multiSelect [options]="lugares" formControlName="otrosLugares" defaultLabel="Seleccione" optionLabel="nombre" class="multiselect-custom" [style]="{'width':'515px'}">
+                                        <p-multiSelect [options]="lugares" formControlName="otrosLugares" defaultLabel="Seleccione" optionLabel="denominacion" class="multiselect-custom" [style]="{'width':'515px'}">
                                             
                                             <ng-template let-value pTemplate="selectedItems">
                                                 <div class="country-item country-item-value mb-2" *ngFor="let option of registroFg.controls.otrosLugares.value">
                                                     <!--<img src="assets/showcase/images/demo/flag/flag_placeholder.png" [class]="'flag flag-' + option.code.toLowerCase()" />-->
-                                                    <div>{{option.nombre}}</div><span><i class="fa fa-hospital ml-2"></i></span>
+                                                    <div>{{option.denominacion}}</div><span><i class="fa fa-hospital ml-2"></i></span>
                                                 </div>
                                                 <div *ngIf="!registroFg.controls.otrosLugares.value || registroFg.controls.otrosLugares.value.length === 0" class="country-placeholder">
                                                     Seleccione los lugares
