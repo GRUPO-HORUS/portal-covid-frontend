@@ -1022,6 +1022,9 @@ consultarIdentificaciones(event) {
     if(this.formGroup.controls.barrio.value){
       this.primerContacto.barrio = this.formGroup.controls.barrio.value.nombre;
       this.primerContacto.barrioId = this.formGroup.controls.barrio.value.valor;
+    }else{
+      this.primerContacto.barrio = null;
+      this.primerContacto.barrioId = null;
     }
     
     if(this.formGroup.controls.tipoExposicion.value){
