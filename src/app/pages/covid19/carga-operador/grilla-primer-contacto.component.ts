@@ -271,6 +271,9 @@ export class GrillaPrimerContactoComponent implements OnInit {
         { field: 'departamento', header: 'Región Sanitaria'},
         { field: 'distrito', header: 'Distrito'},
         { field: 'barrio', header: 'Barrio'},
+        { field: 'direccion', header: 'Dirección'},
+        { field: 'referencia', header: 'Referencia'},
+        { field: 'casaNumero', header: 'Nro de Casa'},
         { field: 'hospitalizado', header: 'Internado'},
         { field: 'fallecido', header: 'Fallecido'},
         { field: 'tipoExposicion', header: 'Tipo de Exposición'},
@@ -317,8 +320,12 @@ export class GrillaPrimerContactoComponent implements OnInit {
 
     }, error => {
       console.log(error);
-      this.mensaje = error.error;
-      this.openMessageDialog();
+      if(error.status == 401){
+          this._router.navigate(["/"]);
+      }else{
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
     }
     );
 
@@ -927,7 +934,16 @@ consultarIdentificaciones(event) {
       ]),
       barrio: new FormControl({nombre:rowData.barrio, valor: rowData.barrioId}, [
         Validators.required
-      ]), 
+      ]),
+      direccion: new FormControl(rowData.direccion, [
+        Validators.required
+      ]),
+      referencia: new FormControl(rowData.referencia, [
+        Validators.required
+      ]),
+      casaNumero: new FormControl(rowData.casaNumero, [
+        Validators.required
+      ]),
       hospitalizado: new FormControl(rowData.hospitalizado, [
         Validators.required
       ]),
@@ -1002,8 +1018,12 @@ consultarIdentificaciones(event) {
     this.primerContacto.fallecido = this.formGroup.controls.fallecido.value;
     this.primerContacto.personalBlanco = this.formGroup.controls.personalBlanco.value;
     this.primerContacto.regionSanitaria = this.formGroup.controls.departamento.value.id;
-    this.primerContacto.barrio = this.formGroup.controls.barrio.value.nombre;
-    this.primerContacto.barrioId = this.formGroup.controls.barrio.value.valor;
+
+    if(this.formGroup.controls.barrio.value){
+      this.primerContacto.barrio = this.formGroup.controls.barrio.value.nombre;
+      this.primerContacto.barrioId = this.formGroup.controls.barrio.value.valor;
+    }
+    
     if(this.formGroup.controls.tipoExposicion.value){
       this.primerContacto.tipoExposicion = this.formGroup.controls.tipoExposicion.value;
     }else{
@@ -1012,8 +1032,11 @@ consultarIdentificaciones(event) {
 
     this.primerContacto.sintomaticoAsintomatico = this.formGroup.controls.sintomaticoAsintomatico.value;
     this.primerContacto.comunidadAlbergue = this.formGroup.controls.comunidadAlbergue.value;
-    
     this.primerContacto.fechaInicioSintomas = this.formGroup.controls.fechaInicioSintomas.value;
+
+    this.primerContacto.direccion = this.formGroup.controls.direccion.value;
+    this.primerContacto.referencia = this.formGroup.controls.referencia.value;
+    this.primerContacto.casaNumero = this.formGroup.controls.casaNumero.value;
 
     /*this.primerContacto.fechaCierreCaso = this.formGroup.controls.fechaCierreCaso.value;
     this.primerContacto.fechaUltimaLlamada = this.formGroup.controls.fechaUltimaLlamada.value;*/
@@ -1026,7 +1049,7 @@ consultarIdentificaciones(event) {
         this.openMessageDialog();
         this.primerContacto.editado = true;
 
-        this.service.insertFrmFsarscov2(this.primerContacto).subscribe(response => {
+        /*this.service.insertFrmFsarscov2(this.primerContacto).subscribe(response => {
           
         }, error => {
           if(error.status == 401){
@@ -1037,7 +1060,7 @@ consultarIdentificaciones(event) {
             this.mensaje = error.error;
             this.openMessageDialog();
           }
-        });
+        });*/
 
     }, error => {
         if(error.status == 401)

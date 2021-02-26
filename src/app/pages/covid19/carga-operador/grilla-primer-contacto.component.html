@@ -66,6 +66,9 @@
                 <col style="width:160px">
                 <col style="width:160px">
                 <col style="width:160px">
+                <col style="width:160px">
+                <col style="width:160px">
+                <col style="width:160px">
 
                 <col style="width:160px">
 
@@ -97,6 +100,9 @@
                     <th>Región Sanitaria</th>
                     <th>Distrito</th>
                     <th>Barrio</th>
+                    <th>Dirección</th>
+                    <th>Referencia</th>
+                    <th>Nro Casa</th>
                     <th>Hospitalizado</th>
                     <th>Fallecido</th>
                     <th>Personal de Blanco</th>
@@ -233,7 +239,6 @@
                                 {{rowData.telefono}}
                             </ng-template>
                         </p-cellEditor>
-                        
                     </td>
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
                         <p-cellEditor *ngIf="edito && rowId===rowData.id">
@@ -299,6 +304,72 @@
                                 {{rowData.barrio}}
                             </ng-template>
                         </p-cellEditor>
+                    </td>
+                    <td pEditableColumn style="vertical-align: top; height: 128px;">
+                        <p-cellEditor *ngIf="edito && rowId===rowData.id">
+                            <ng-template pTemplate="input">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:140px; height:35px" type="text" formControlName="direccion">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.direccion}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
+                            <ng-template pTemplate="input">
+                                {{rowData.direccion}}
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.direccion}}
+                            </ng-template>
+                        </p-cellEditor>
+                        
+                    </td>
+                    <td pEditableColumn style="vertical-align: top; height: 128px;">
+                        <p-cellEditor *ngIf="edito && rowId===rowData.id">
+                            <ng-template pTemplate="input">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:140px; height:35px" type="text" formControlName="referencia">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.referencia}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
+                            <ng-template pTemplate="input">
+                                {{rowData.referencia}}
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.referencia}}
+                            </ng-template>
+                        </p-cellEditor>
+                        
+                    </td>
+                    <td pEditableColumn style="vertical-align: top; height: 128px;">
+                        <p-cellEditor *ngIf="edito && rowId===rowData.id">
+                            <ng-template pTemplate="input">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:140px; height:35px" type="text" formControlName="casaNumero">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.casaNumero}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
+                            <ng-template pTemplate="input">
+                                {{rowData.casaNumero}}
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.casaNumero}}
+                            </ng-template>
+                        </p-cellEditor>
+                        
                     </td>
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
                         <p-cellEditor *ngIf="edito && rowId===rowData.id">

@@ -33,5 +33,8 @@ export class PrimerContacto {
     loginOperador: string;
     operadorAsignado: number;
 
+    referencia: string;
+    casaNumero: string;
+
     editado: boolean;
 }
