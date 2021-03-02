@@ -151,10 +151,9 @@ export class GrillaCensoContactosComponent implements OnInit {
   public contactoOptions=[{value:'todos',label:'Todos'},{value:'llamada_realizada',label:'Llamada Realizada'}];
   public contactoOption="llamada_realizada";
 
-  public catContagioOptions=[{value:'familiar_social',label:'Familiar Social'}, {value:'viaje',label:'Viaje'}, 
-  {value:'asistencia_albergue',label:'Asistencia en albergues/hotel salud'}, {value:'asistencia_paciente',label:'Asistencia a paciente con COVID-19'}, 
-  {value:'contacto_personal_salud',label:'Contacto con Personal de Salud con COVID-19'},
-  {value:'asistencia_penitenciaria',label:'Asistencia en penitenciaría'}];
+  public catContagioOptions=[{value:'familiar_social',label:'Familiar'}, {value:'vecino',label:'Vecino'}, 
+  {value:'companhero_trabajo',label:'Compañero de trabajo'}, {value:'companhero_estudio',label:'Compañero de estudio'}, 
+  {value:'amigo',label:'Amigo'}];
 
   public historicoComentarios=[];
 
@@ -283,6 +282,7 @@ sortFieldF: string;
       regionSanitaria: [''],
       fechaExposicion: [''],
       catContagio:[''],
+      institucion:[''],
       distrito:[]
       /*fechaInicioSintomas: ['', Validators.required],
       fechaCierreCaso: ['', Validators.required],*/
@@ -651,6 +651,8 @@ guardarNuevoContacto(){
   formCensoContacto.distritoId = this.contactoFg.controls.distrito.value.valor;
   formCensoContacto.distrito = this.contactoFg.controls.distrito.value.nombre;
 
+  formCensoContacto.institucion = this.contactoFg.controls.institucion.value;
+
   //Crear paciente
   /*this.fichaPersonalBlanco = new FichaPersonalBlanco();
   this.fichaPersonalBlanco.formSeccionDatosBasicos = new FormDatosBasicos();
@@ -673,15 +675,19 @@ guardarNuevoContacto(){
     //this._router.navigate(["covid19/carga-operador/datos-clinicos/",this.idRegistro]);
     this.loading = false;
     this.showPopupNuevoContacto = false;
-
     this.mensaje = "Contacto registrado exitosamente!";
     this.openMessageDialogExito();
+    this.buscarFormCensoContacto(formCensoContacto.primerContactoId);
       
   }, error => {
-    console.log(error);
+    //console.log(error);
     this.loading = false;
-    this.mensaje = error.error;
-    this.openMessageDialog(); 
+    if(error.status == 401){
+        this._router.navigate(["/"]);
+    }else{
+      this.mensaje = error.error;
+      this.openMessageDialog(); 
+    }
   }
   );
 }

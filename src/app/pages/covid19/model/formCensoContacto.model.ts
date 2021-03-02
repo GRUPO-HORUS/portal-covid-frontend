@@ -22,4 +22,6 @@ export class FormCensoContacto {
     usuarioActualNombre: string;
 
     cantidadReintentos: number;
+
+    institucion: string;
 }

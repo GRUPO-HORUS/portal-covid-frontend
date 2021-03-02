@@ -24,4 +24,13 @@ export class ReporteSaludPaciente {
   sentisAngustia: string;
   timestampCreacion: string;
   esPrimeraVez: string;
+
+  diarrea: string;
+  dolorAbdominal: string;
+  testCovid: string;
+  embarazada: string;
+  acudirServicio: string;
+  viveConFlia: string;
+  cuidaEnfermos: string;
+  enfermedadCondicion: string;
 }

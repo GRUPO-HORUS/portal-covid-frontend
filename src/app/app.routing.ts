@@ -46,6 +46,7 @@ import { EditarFichaMonitoreoComponent } from "./pages/covid19/carga-operador/ed
 
 import { GrillaCensoContactosComponent } from "./pages/covid19/carga-operador/grilla-censo-contactos.component";
 import { GrillaFormCensoContactoComponent } from "./pages/covid19/carga-operador/grilla-form-censo-contacto.component";
+import { DistribuirLlamadasComponent } from "./pages/covid19/carga-operador/distribuir-llamadas.component";
 
 //Listado de rutas para la aplicación
 export const appRoutes: Routes = [
@@ -87,6 +88,8 @@ export const appRoutes: Routes = [
   { path: "covid19/operador/grilla-censo-contactos", component: GrillaCensoContactosComponent},
 
   { path: "covid19/operador/grilla-form-censo-contacto", component: GrillaFormCensoContactoComponent},
+
+  { path: "covid19/operador/distribuir-llamadas", component: DistribuirLlamadasComponent},
 
   { path: "covid19",
     component: HeaderBaseComponent,

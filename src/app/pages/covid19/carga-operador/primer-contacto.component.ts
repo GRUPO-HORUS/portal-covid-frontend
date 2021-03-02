@@ -89,18 +89,17 @@ export class PrimerContactoComponent implements OnInit {
                               {value:'Central',label:'Central'},{value:'Ñeembucú',label:'Ñeembucú'},
                               {value:'Amambay',label:'Amambay'},{value:'Canindeyú',label:'Canindeyú'},
                               {value:'Presidente Hayes',label:'Presidente Hayes'},{value:'Alto Paraguay',label:'Alto Paraguay'},
-                              {value:'Boquerón',label:'Boquerón'}];
-  
-  public departamentoOptions=[{value:0,label:'ASUNCIÓN'}, {value:1,label:'CONCEPCIÓN'},
-                              {value:2,label:'SAN PEDRO'},
-                              {value:3,label:'CORDILLERA'},{value:4,label:'GUAIRÁ'},
-                              {value:5,label:'CAAGUAZÚ'},{value:6,label:'CAAZAPÁ'},
-                              {value:7,label:'ITAPÚA'},{value:8,label:'MISIONES'},
-                              {value:9,label:'PARAGUARÍ'},{value:10,label:'ALTO PARANÁ'},
-                              {value:11,label:'CENTRAL'},{value:12,label:'ÑEEMBUCÚ'},
-                              {value:13,label:'AMAMBAY'},{value:14,label:'CANINDEYÚ'},
-                              {value:15,label:'PRESIDENTE HAYES'},{value:16,label:'ALTO PARAGUAY'},
-                              {value:17,label:'BOQUERÓN'}];*/
+                              {value:'Boquerón',label:'Boquerón'}];*/
+
+public departamentoOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro'},
+                              {id:3, nombre:'Cordillera'}, {id:4, nombre:'Guairá'},
+                              {id:5, nombre:'Caaguazú'}, {id:6,nombre:'Caazapá'},
+                              {id:7, nombre:'Itapúa'}, {id:8,nombre:'Misiones'},
+                              {id:9, nombre:'Paraguarí'},{id:10, nombre:'Alto Paraná'},
+                              {id:11, nombre:'Central'},{id:12, nombre:'Ñeembucú'},
+                              {id:13, nombre:'Amambay'},{id:14, nombre:'Canindeyú'},
+                              {id:15, nombre:'Presidente Hayes'}, {id:16, nombre:'Boquerón'},
+                              {id:17, nombre:'Alto Paraguay'}, {id:18, nombre:'Capital'}];
   
 public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
                               {value:'Concepción',label:'Concepción'},{value:'San Pedro',label:'San Pedro'},
@@ -129,7 +128,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
   monitoreoFg: FormGroup;
 
   nroDocumento;
-
   cargando;
 
   es = calendarEsLocale;
@@ -142,8 +140,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
   fallaSII: boolean = false;
 
   public regionesFiltradas: any[];
-
-  public departamentoOptions: any[];
 
   public fichaPersonalBlanco;
 
@@ -162,6 +158,10 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
   formCensoContacto: FormCensoContacto;
 
   showConfirmarLlamada = false;
+
+  public ciudadesOptions: any[];
+  public ciudadesFiltradas: any[];
+  public coddpto;
 
   constructor(
     private _router: Router,
@@ -182,26 +182,24 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
   //@ViewChild('stepper') stepper: MatHorizontalStepper;
 
   ngOnInit() {
-    console.log(new Date().toLocaleString());
+    //console.log(new Date().toLocaleString());
     this.cedula$ = this._route.paramMap.pipe(
       map((paramMap: ParamMap) => paramMap.get('cedula')),
       distinctUntilChanged(),
-
     );
+
+    this.fields$ = this.getForm();
+    const firstTime$ = this.cedula$.pipe(
+      switchMap(cedula => this.getPrimeraVez(cedula)),
+    );
+
     this._route.params.subscribe(params => {
       this.cedulaPaciente = params["cedula"];
       this.idFormCenso = params["id"];
       this.obtenerDatosLlamada(this.idFormCenso);
-      this.obtenerPaciente( this.cedulaPaciente);
+      this.obtenerPaciente(this.cedulaPaciente);
     });
-    this.fields$ = this.getForm();
     
-    const firstTime$ = this.cedula$.pipe(
-      //switchMap(cedula => this.getPrimeraVez(cedula)),
-      switchMap(cedula => this.getPrimeraVez(cedula)),
-    );
-    //this.getPrimeraVez('2344555');
-
     /*this.form$ = combineLatest(this.fields$, firstTime$).pipe(
       map(([fields, firstTime]) => {
           const form = this._formBuilder.group(fields.reduce((obj, f) => {
@@ -210,13 +208,12 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
           }, {}));
           form.addControl('esPrimeraVez', this._formBuilder.control(firstTime.esPrimeraVez));
           form.addControl('debeReportarFiebreAyer', this._formBuilder.control(firstTime.debeReportarFiebreAyer));
-
           return form;
       }),
       share(),
     );*/
 
-    this.form$ = combineLatest(this.fields$, firstTime$).pipe(
+    /*this.form$ = combineLatest(this.fields$, firstTime$).pipe(
       map(([fields, firstTime]) => {
           let form = this._formBuilder.group(fields.reduce((obj, f) => {
             obj[f.fieldName] = [null];
@@ -225,15 +222,13 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
           form.addControl('esPrimeraVez', this._formBuilder.control(firstTime.esPrimeraVez));
           form.addControl('debeReportarFiebreAyer', this._formBuilder.control(firstTime.debeReportarFiebreAyer));
 
-          console.log(this.ultimoReporteSalud);
           if(this.ultimoReporteSalud){
-            form.controls.comoTeSentis.setValue(this.ultimoReporteSalud.comoTeSentis);
+            //form.controls.comoTeSentis.setValue(this.ultimoReporteSalud.comoTeSentis);
             form.controls.signosSintomasDescritos.setValue(this.ultimoReporteSalud.signosSintomasDescritos);
             form.controls.signosSintomasDescritosB.setValue(this.ultimoReporteSalud.signosSintomasDescritosB);
             form.controls.congestionNasal.setValue(this.ultimoReporteSalud.congestionNasal);
             form.controls.secrecionNasal.setValue(this.ultimoReporteSalud.secrecionNasal);
             form.controls.dolorGarganta.setValue(this.ultimoReporteSalud.dolorGarganta);
-            form.controls.dolorCabeza.setValue(this.ultimoReporteSalud.dolorCabeza);
             form.controls.tos.setValue(this.ultimoReporteSalud.tos);
             form.controls.percibeOlores.setValue(this.ultimoReporteSalud.percibeOlores);
             form.controls.percibeSabores.setValue(this.ultimoReporteSalud.percibeSabores);
@@ -241,20 +236,29 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
             form.controls.sentisFiebre.setValue(this.ultimoReporteSalud.sentisFiebre);
             
             form.controls.temperatura.setValue(this.ultimoReporteSalud.temperatura);
-            form.controls.sentisAngustia.setValue(this.ultimoReporteSalud.sentisAngustia);
-            form.controls.sentisTristeDesanimado.setValue(this.ultimoReporteSalud.sentisTristeDesanimado);
-            form.controls.otrosCansancios.setValue(this.ultimoReporteSalud.otrosCansancios);
+            //form.controls.dolorCabeza.setValue(this.ultimoReporteSalud.dolorCabeza);
+            //form.controls.sentisAngustia.setValue(this.ultimoReporteSalud.sentisAngustia);
+            //form.controls.sentisTristeDesanimado.setValue(this.ultimoReporteSalud.sentisTristeDesanimado);
+            //form.controls.otrosCansancios.setValue(this.ultimoReporteSalud.otrosCansancios);
+            form.controls.diarrea.setValue(this.ultimoReporteSalud.diarrea);
+            form.controls.mialgias.setValue(this.ultimoReporteSalud.mialgias);
+            form.controls.dolorAbdominal.setValue(this.ultimoReporteSalud.dolorAbdominal);
+            form.controls.testCovid.setValue(this.ultimoReporteSalud.testCovid);
+            form.controls.embarazada.setValue(this.ultimoReporteSalud.embarazada);
+            form.controls.enfermedadCondicion.setValue(this.ultimoReporteSalud.enfermedadCondicion);
+            form.controls.cuidaEnfermos.setValue(this.ultimoReporteSalud.cuidaEnfermos);
+            form.controls.viveConFlia.setValue(this.ultimoReporteSalud.viveConFlia);
+            form.controls.acudirServicio.setValue(this.ultimoReporteSalud.acudirServicio);
+            form.controls.ubicacionActual.setValue(this.ultimoReporteSalud.ubicacionActual);
           }
           return form;
       }),
       share(),
-    );
+    );*/
 
     this.fechaHoy = new Date().toLocaleDateString('fr-CA');
     this.formDatosBasicos = new FormDatosBasicos();
-
     this.formDatosBasicos.tipoDocumento = 0;
-
     this.options="{types: ['(cities)'], componentRestrictions: { country: 'PY' }}"
 
     window.scrollTo(0, 0);
@@ -307,8 +311,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     });
 
     //this._route.params.subscribe(params => {this.formDatosBasicos.tipoInicio = params["tipoInicio"];});
-
-     this.updateClick$
+     /*this.updateClick$
       .pipe(
         withLatestFrom(
           this.cedula$,
@@ -378,9 +381,136 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
           }
         }
       }
+    );*/
+  }
+
+  completarEstadoSalud(event){
+    console.log(event);
+      this.cedula$ = this._route.paramMap.pipe(
+        map((paramMap: ParamMap) => paramMap.get('cedula')),
+        distinctUntilChanged(),
+      );
+
+      this.fields$ = this.getForm();
+      const firstTime$ = this.cedula$.pipe(
+        switchMap(cedula => this.getPrimeraVez(cedula)),
+      );
+
+      this.form$ = combineLatest(this.fields$, firstTime$).pipe(
+        map(([fields, firstTime]) => {
+            let form = this._formBuilder.group(fields.reduce((obj, f) => {
+              obj[f.fieldName] = [null];
+              return obj;
+            }, {}));
+            form.addControl('esPrimeraVez', this._formBuilder.control(firstTime.esPrimeraVez));
+            form.addControl('debeReportarFiebreAyer', this._formBuilder.control(firstTime.debeReportarFiebreAyer));
+
+            if(this.ultimoReporteSalud){
+              //form.controls.comoTeSentis.setValue(this.ultimoReporteSalud.comoTeSentis);
+              form.controls.signosSintomasDescritos.setValue(this.ultimoReporteSalud.signosSintomasDescritos);
+              form.controls.signosSintomasDescritosB.setValue(this.ultimoReporteSalud.signosSintomasDescritosB);
+              form.controls.congestionNasal.setValue(this.ultimoReporteSalud.congestionNasal);
+              form.controls.secrecionNasal.setValue(this.ultimoReporteSalud.secrecionNasal);
+              form.controls.dolorGarganta.setValue(this.ultimoReporteSalud.dolorGarganta);
+              form.controls.tos.setValue(this.ultimoReporteSalud.tos);
+              form.controls.percibeOlores.setValue(this.ultimoReporteSalud.percibeOlores);
+              form.controls.percibeSabores.setValue(this.ultimoReporteSalud.percibeSabores);
+              form.controls.dificultadRespirar.setValue(this.ultimoReporteSalud.dificultadRespirar);
+              form.controls.sentisFiebre.setValue(this.ultimoReporteSalud.sentisFiebre);
+              
+              form.controls.temperatura.setValue(this.ultimoReporteSalud.temperatura);
+              /*form.controls.dolorCabeza.setValue(this.ultimoReporteSalud.dolorCabeza);
+              form.controls.sentisAngustia.setValue(this.ultimoReporteSalud.sentisAngustia);
+              form.controls.sentisTristeDesanimado.setValue(this.ultimoReporteSalud.sentisTristeDesanimado);
+              form.controls.otrosCansancios.setValue(this.ultimoReporteSalud.otrosCansancios);*/
+
+              form.controls.diarrea.setValue(this.ultimoReporteSalud.diarrea);
+              form.controls.mialgias.setValue(this.ultimoReporteSalud.mialgias);
+              form.controls.dolorAbdominal.setValue(this.ultimoReporteSalud.dolorAbdominal);
+              form.controls.testCovid.setValue(this.ultimoReporteSalud.testCovid);
+              form.controls.embarazada.setValue(this.ultimoReporteSalud.embarazada);
+              form.controls.enfermedadCondicion.setValue(this.ultimoReporteSalud.enfermedadCondicion);
+              form.controls.cuidaEnfermos.setValue(this.ultimoReporteSalud.cuidaEnfermos);
+              form.controls.viveConFlia.setValue(this.ultimoReporteSalud.viveConFlia);
+              form.controls.acudirServicio.setValue(this.ultimoReporteSalud.acudirServicio);
+              form.controls.ubicacionActual.setValue(this.ultimoReporteSalud.ubicacionActual);
+            }
+            return form;
+        }),
+        share(),
+      );
+
+      this.updateClick$
+      .pipe(
+        withLatestFrom(
+          this.cedula$,
+          this.form$,
+        ),
+        tap(([_, __, form]) => {
+          form.markAsDirty();
+          this.errores = null;
+        }),
+        switchMap(([_, cedula, form]) => this.update(cedula, form.value)),
+        takeUntil(this.onDestroy$),
+      ).subscribe(
+      (r) => {
+        if (r.ok) {
+          this.mensaje = "Datos actualizados exitosamente!";
+          this.openMessageDialogExito();
+          //this.location.back();
+        } else if (r.status === 400) {
+          const response = <HttpErrorResponse>r;
+          if (response.error.parameterViolations) {
+            this.errores = response.error.parameterViolations.reduce((validation, currentValidation) =>  {
+              const split = currentValidation.path.split(".");
+              if (!validation[split[split.length - 1]]) {
+                validation[split[split.length - 1]] = [];
+              }
+              validation[split[split.length - 1]].push(
+                currentValidation.message
+              );
+              return validation;
+            }, {});
+          }
+        }
+      }
     );
-    
- 
+
+    this.saveClick$
+      .pipe(
+        withLatestFrom(
+          this.cedula$,
+          this.form$,
+        ),
+        tap(([_, __, form]) => {
+          form.markAsDirty();
+          this.errores = null;
+        }),
+        switchMap(([_, cedula, form]) => this.save(cedula, form.value)),
+        takeUntil(this.onDestroy$),
+      ).subscribe(
+      (r) => {
+        if (r.ok) {
+          this.mensaje = "Datos guardados exitosamente!";
+          this.openMessageDialogExito();
+          //this.location.back();
+        } else if (r.status === 400) {
+          const response = <HttpErrorResponse>r;
+          if (response.error.parameterViolations) {
+            this.errores = response.error.parameterViolations.reduce((validation, currentValidation) =>  {
+              const split = currentValidation.path.split(".");
+              if (!validation[split[split.length - 1]]) {
+                validation[split[split.length - 1]] = [];
+              }
+              validation[split[split.length - 1]].push(
+                currentValidation.message
+              );
+              return validation;
+            }, {});
+          }
+        }
+      }
+    );
   }
 
   elegirRangoEdad(edad){
@@ -407,8 +537,50 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
           filtered.push(departamento);
         }
     }
-    
     this.regionesFiltradas = filtered;
+  }
+
+  selectDepto(event){
+    this.registroFg.controls.ciudadDomicilio.setValue(null);
+    this.registroFg.controls.barrio.setValue(null);
+    this.coddpto ="";
+    //console.log(event.id);
+    if(event.id < 10){
+      this.coddpto = '0'+event.id;
+    }else{
+      this.coddpto = event.id;
+    }
+    
+    this.service.getDistritosDepto(this.coddpto).subscribe(distritos => {
+      this.ciudadesOptions = distritos;
+      for (let i = 0; i < distritos.length; i++) {
+        let d = distritos[i];
+        this.ciudadesOptions[i] = { nombre: d.nomdist, valor: d.coddist };
+      }
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    }
+    );
+
+    if(event.id ===18){
+      this.coddpto = '00';
+    }
+  }
+
+  filtrarCiudad(event) {
+    let filtered : any[] = [];
+    let query = event.query;
+    for(let i = 0; i < this.ciudadesOptions.length; i++) {
+        let distrito = this.ciudadesOptions[i];
+
+        if (distrito.nombre.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
+          filtered.push(distrito);
+        }
+    }
+    
+    this.ciudadesFiltradas = filtered;
   }
 
   obtenerDatosLlamada(id): void {
@@ -429,7 +601,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
   obtenerPaciente(cedula): void {
     this.loading = true;
     this.formDatosBasicos = null;
-    this.service.getPacienteEditar(cedula).subscribe(response => {
+    this.service.getPacienteEditarRealizarLlamada(cedula).subscribe(response => {
         //console.log(response);
         this.loading = false;
         this.registroFg.controls.cedula.setValue(response.numeroDocumento);
@@ -454,14 +626,15 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
         this.registroFg.controls.telefono.setValue(response.numeroCelular);
         this.registroFg.controls.edad.setValue(response.edad);
         this.registroFg.controls.rangoEdad.setValue(response.rangoEdad);
-        this.registroFg.controls.ciudadDomicilio.setValue(response.ciudadDomicilio);
+        this.registroFg.controls.ciudadDomicilio.setValue({nombre:response.ciudadDomicilio});
         this.registroFg.controls.barrio.setValue(response.barrio);
         this.registroFg.controls.regionSanitaria.setValue({nombre:response.regionSanitaria});
 
+        console.log(response.reportes);
         if(response.reportes){
-          this.ultimoReporteSalud = response.reportes[response.reportes.length-1];
+          //this.ultimoReporteSalud = response.reportes[response.reportes.length-1];
+          this.ultimoReporteSalud = response.reportes;
         }
-        
 
       }, error => {
         if(error.status == 401)
@@ -490,7 +663,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     this.fichaPersonalBlanco.formSeccionDatosBasicos.direccionDomicilio = this.registroFg.controls.direccion.value;
     this.fichaPersonalBlanco.formSeccionDatosBasicos.numeroCelular = this.registroFg.controls.telefono.value;
     this.fichaPersonalBlanco.formSeccionDatosBasicos.departamentoDomicilio = this.registroFg.controls.regionSanitaria.value.nombre;
-    this.fichaPersonalBlanco.formSeccionDatosBasicos.ciudadDomicilio = this.registroFg.controls.ciudadDomicilio.value;
+    this.fichaPersonalBlanco.formSeccionDatosBasicos.ciudadDomicilio = this.registroFg.controls.ciudadDomicilio.value.nombre;
     this.fichaPersonalBlanco.formSeccionDatosBasicos.barrio = this.registroFg.controls.barrio.value;
     this.fichaPersonalBlanco.formSeccionDatosBasicos.edad = this.registroFg.controls.edad.value;
     this.fichaPersonalBlanco.formSeccionDatosBasicos.rangoEdad = this.registroFg.controls.rangoEdad.value;
@@ -503,8 +676,10 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
       this.mensaje = "Datos actualizados exitosamente!";
       this.openMessageDialogExito();*/
       if(this.ultimoReporteSalud){
+        console.log("actualiza");
         this.updateClick$.next();
       }else{
+        console.log("crea");
         this.saveClick$.next();
       }
       if(band=='si'){
@@ -533,8 +708,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
 
   onChange(event){
     this.service.getCiudadesPorDepto(event.value).subscribe(ciudades => {
-      this.ciudadOptions = ciudades;
-      
+      this.ciudadOptions = ciudades;    
         for (let i = 0; i < ciudades.length; i++) {
           let c = ciudades[i];
           this.ciudadOptions[i] = { label: c.descripcion, value: c.idCiudad };
@@ -569,7 +743,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
           console.log(response);
           this.loading = false;
           this.mensaje = "Mensaje Enviado con Éxito";
-
           //localStorage.setItem('idRegistro', response);
           this.idRegistro = +response;
 
@@ -631,11 +804,10 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
   }
 
   update(cedula, model): Observable<HttpResponseBase> {
+    console.log("actualiza2");
     /*this.formCensoContacto.estadoPrimeraLlamada = "llamada_realizada";
     this.formCensoContacto.fechaHoraActualizacion = new Date().toLocaleString();
-
-    this.service.editarFormCensoContacto(this.formCensoContacto).subscribe(response => {
-      
+    this.service.editarFormCensoContacto(this.formCensoContacto).subscribe(response => {      
     }, error => {
         this.loading = false;
         this.mensaje = error.error;

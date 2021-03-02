@@ -749,14 +749,25 @@
                         <div class="form-group">
                             <label for="fechaExposicion"><strong>Fecha de Contacto:</strong></label>
                             <!--<input type="date" id="fechaExposicion" formControlName="fechaExposicion" style="width: 325px;" value="{{fechaHoy}}">-->
-                            <br><p-calendar formControlName="fechaExposicion" id="fechaExposicion" name="fechaExposicion" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'320px'}" appendTo="body"></p-calendar>
+                            <br><p-calendar formControlName="fechaExposicion" id="fechaExposicion" name="fechaExposicion" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'316px'}" appendTo="body"></p-calendar>
                         </div>
                     </div>
+                    <div class="col-md">
+
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md">
                         <div class="form-group">
                             <label for="catContagio"><strong>Tipo de Contacto Mantenido</strong></label>
                             <br>
                             <p-dropdown id="catContagio" [options]="catContagioOptions" label="label" placeholder="Seleccionar" formControlName="catContagio" name="catContagio" [style]="{'width':'355px'}" appendTo="body"></p-dropdown>
+                        </div>
+                    </div>
+                    <div class="col-md">
+                        <div class="form-group" *ngIf="contactoFg.controls.catContagio.value=='companhero_trabajo' || contactoFg.controls.catContagio.value=='companhero_estudio'">
+                            <label for="institucion"><strong>Institución/Empresa</strong></label>
+                            <input type="text" formControlName="institucion" name="institucion" class="form-control" style="max-width: 350px;" id="institucion">
                         </div>
                     </div>
                 </div>

@@ -16,7 +16,7 @@
                 </h3>
                 <!--<h4>Formulario para Registro y Actualización del Seguimiento de los Contactos de Casos Confirmados</h4>-->
                 
-                <mat-horizontal-stepper labelPosition="bottom" #stepper><!--linear-->
+                <mat-horizontal-stepper labelPosition="bottom" #stepper (selectionChange)="completarEstadoSalud($event)"><!--linear-->
                     <mat-step [stepControl]="registroFg">
                         <form [formGroup]="registroFg" class="mt-4">
                             <ng-template matStepLabel>Datos Personales del Contacto</ng-template>
@@ -107,7 +107,7 @@
                                         <label for="regionSanitaria"><strong>Departamento</strong></label>
                                         <br>
                                         <!--<p-dropdown id="regionSanitaria" [options]="regionSanitariaOptions" label="label" placeholder="Seleccionar" formControlName="regionSanitaria" name="regionSanitaria" [style]="{'width':'515px'}" required></p-dropdown>-->
-                                        <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'515px'}" required></p-autoComplete>
+                                        <p-autoComplete id="regionSanitaria" formControlName="regionSanitaria" [suggestions]="regionesFiltradas" field="nombre" (completeMethod)="filtrarRegion($event)" [inputStyle]="{'width':'515px'}" required (onSelect)="selectDepto($event)"></p-autoComplete>
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +115,8 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="ciudadDomicilio"><strong>Ciudad</strong></label>
-                                        <input type="text" formControlName="ciudadDomicilio" class="form-control" id="ciudadDomicilio" name="ciudadDomicilio" required>
+                                        <!--<input type="text" formControlName="ciudadDomicilio" class="form-control" id="ciudadDomicilio" name="ciudadDomicilio" required>-->
+                                        <p-autoComplete id="ciudadDomicilio" formControlName="ciudadDomicilio" [suggestions]="ciudadesFiltradas" field="nombre" (completeMethod)="filtrarCiudad($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -265,7 +266,7 @@
                                     <button class="btn btn-success btn-success-next text-white mr-3" mat-button routerLink="/covid19/operador/grilla-form-censo-contacto">
                                         Volver  <span class="fa fa-arrow-left"></span>            
                                     </button>
-                                    <button class="btn btn-success btn-success-next text-white mr-3" mat-button matStepperNext [disabled]="registroFg.controls.servicioSalud.value == null">Siguiente</button>
+                                    <button class="btn btn-success btn-success-next text-white mr-3" mat-button matStepperNext (click)="completarEstadoSalud()">Siguiente</button>
                                 </div>
                             </div>     
                         </form>

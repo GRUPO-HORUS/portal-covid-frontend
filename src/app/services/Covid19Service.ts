@@ -386,6 +386,10 @@ export class Covid19Service {
       return this.httpClient.get<FormDatosBasicosPB>(this.config.API + '/covid19api/aislamiento/getPacienteEditar/'+cedula);
     }
 
+    getPacienteEditarRealizarLlamada(cedula): Observable<FormDatosBasicosPB> {
+      return this.httpClient.get<FormDatosBasicosPB>(this.config.API + '/covid19api/aislamiento/getPacienteEditarRealizarLlamada/'+cedula);
+    }
+
     getPacienteActualizarSeguimiento(cedula): Observable<FormDatosBasicosPB> {
       return this.httpClient.get<FormDatosBasicosPB>(this.config.API + '/covid19api/aislamiento/getPacienteActualizarSeguimiento/'+cedula);
     }
