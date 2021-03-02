@@ -16,7 +16,7 @@
                 </h3>
                 <!--<h4>Formulario para Registro y Actualización del Seguimiento de los Contactos de Casos Confirmados</h4>-->
                 
-                <mat-horizontal-stepper labelPosition="bottom" #stepper (selectionChange)="completarEstadoSalud($event)"><!--linear-->
+                <mat-horizontal-stepper labelPosition="bottom" #stepper (selectionChange)="completarEstadoSalud()"><!--linear-->
                     <mat-step [stepControl]="registroFg">
                         <form [formGroup]="registroFg" class="mt-4">
                             <ng-template matStepLabel>Datos Personales del Contacto</ng-template>

@@ -384,8 +384,8 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     );*/
   }
 
-  completarEstadoSalud(event){
-    console.log(event);
+  completarEstadoSalud(){
+    //console.log(event);
       this.cedula$ = this._route.paramMap.pipe(
         map((paramMap: ParamMap) => paramMap.get('cedula')),
         distinctUntilChanged(),
