@@ -1019,7 +1019,7 @@ consultarIdentificaciones(event) {
     this.primerContacto.personalBlanco = this.formGroup.controls.personalBlanco.value;
     this.primerContacto.regionSanitaria = this.formGroup.controls.departamento.value.id;
 
-    if(this.formGroup.controls.barrio.value){
+    if(this.formGroup.controls.barrio.value.nombre){
       this.primerContacto.barrio = this.formGroup.controls.barrio.value.nombre;
       this.primerContacto.barrioId = this.formGroup.controls.barrio.value.valor;
     }else{
