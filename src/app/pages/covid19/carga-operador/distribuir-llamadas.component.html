@@ -13,12 +13,12 @@
       <i class="fa fa-edit mr-2" style="margin-top: -4px;"></i>
       <span>Distribución de llamadas</span>
     </h3>
-    <label for="fechaCierre"><strong>Fecha de Cierre: </strong></label>
-    <p-calendar id="fechaCierre" name="fechaCierre" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'400px'}" appendTo="body"></p-calendar><br>
-    <label for="fechaCierre"><strong>225 registros sin asignar </strong></label>
-        <p-table #table [columns]="cols" [value]="pacientesList" selectionMode="single" dataKey="id" [paginator]="true"
+    <label for="fechaCierre"><strong>Fecha de Cierre:&nbsp;</strong></label>
+    <p-calendar id="fechaCierre" name="fechaCierre" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'400px'}" appendTo="body" (onSelect)="getCantidadPendientes($event); listarDistribucion($event);"></p-calendar><br>
+    <label for="fechaCierre" class="mt-2"><strong>{{cantidadPendientes}} registros sin asignar </strong></label>
+        <p-table #table [columns]="cols" [value]="operadoresList" selectionMode="single" dataKey="id" [paginator]="true"
           [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="load($event)"
-          paginatorPosition="bottom" [resizableColumns]="true" columnResizeMode="expand">
+          paginatorPosition="bottom" [resizableColumns]="true" columnResizeMode="expand" editMode="row">
           <ng-template pTemplate="caption">           
             <div style="text-align: left;width:auto;">
                 <input type="text" pInputText style="width:555px;" placeholder="Filtrar Usuarios por nombre, apellido" (input)="table.filterGlobal($event.target.value, 'contains')">
@@ -31,18 +31,21 @@
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
               </th>
-              <!--<th>
-                Acciones
-              </th>-->
+              <th>
+                Cantidad a asignar
+              </th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex" let-columns="columns">
-            <tr>
+          <tr [pEditableRow]="rowData">
               <td>
-                {{rowData.nombre}}&nbsp;{{rowData.apellido}}
+                {{rowData.nombre}}
               </td>
               <td>
-                25
+                {{rowData.apellido}}
+              </td>
+              <td>
+                {{rowData.asignadosActual}}
               </td>
               <td pEditableColumn>
                 <p-cellEditor>
@@ -53,6 +56,11 @@
                     0
                   </ng-template>
                 </p-cellEditor>
+              </td>
+              <td>
+                <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" iconPos="left" (click)="onRowEditInit(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:133px" label="Editar"></button>
+                <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text ui-button-warning p-mr-2 mr-2 ml-3 mb-1 mt-1" style="background-color: green !important;"></button>
+                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel()" class="p-button-rounded p-button-text p-button-danger mb-1 mt-1" style="background-color: red !important;"></button><br>
               </td>
               <!--<td>
                 {{rowData.tipo}}

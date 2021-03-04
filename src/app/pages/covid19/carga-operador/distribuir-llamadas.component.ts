@@ -38,6 +38,11 @@ export class DistribuirLlamadasComponent implements OnInit{
 
     es = calendarEsLocale;
 
+    operadoresList: any[];
+
+    cantidadPendientes: number;
+    fechaSelec;
+
     constructor(
         private service: Covid19Service,
         private _router: Router,
@@ -52,13 +57,28 @@ export class DistribuirLlamadasComponent implements OnInit{
       this.region = usuario.regionSanitaria;
       this.usuarioId = usuario.id;
 
-        this.cols = [{ field: 'numeroDocumento', header: 'Usuarios', width: '20%' },
-        { field: 'departamentoDomicilio', header: 'Asignados Actual', width: '15%' },
-        { field: 'migrado', header: 'Cantidad a Asignar', width: '15%' }];
+        this.cols = [{ field: 'nombre', header: 'Nombre', width: '25%' },
+        { field: 'apellido', header: 'Apellido', width: '25%' },
+        { field: 'asignadosActual', header: 'Asignados Actual', width: '20%' }];
         /*{ field: 'direccionDomicilio', header: 'Domicilio', width: '17%' },
         { field: 'sexo', header: 'Tipo de Contacto', width: '9%' },
         { field: 'fechaUltimoContacto', header: 'Último Contacto', width: '15%' },
         { field: '', header: 'Acciones', width: '15%' }];*/
+    }
+
+    getCantidadPendientes(event){
+      this.fechaSelec = new Date(event);
+
+      this.service.getCantidadPendientes(this.fechaSelec, this.region).subscribe(pendientes => {
+          console.log(pendientes);
+          this.cantidadPendientes = pendientes;
+        
+      }, error => {
+        console.log(error);
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }  
+      );
     }
 
     load($event: any) {
@@ -73,21 +93,19 @@ export class DistribuirLlamadasComponent implements OnInit{
           else
             this.sortAsc = false;
         }
-        this.listarPacientes();
-        
+        if($event.globalFilter){
+          this.listarDistribucion();
+        }
     }
     
-    listarPacientes(){
-      this.service.getDistritosUsuario(this.usuarioId).subscribe(distritos => {
-        for (let i = 0; i < distritos.length; i++) {
-          this.distritosUsuario.push(distritos[i].distritoId);
-        }
-        this.service.listarPacientes(this.start, this.pageSize, this.filter, this.sortAsc, 
-          this.sortField, this.region, this.distritosUsuario).subscribe(pacientes => {
-          this.pacientesList = pacientes.lista;
-          this.totalRecords = pacientes.totalRecords;
-          console.log(this.pacientesList);
-        });
+    listarDistribucion(){
+
+      this.service.getOperadoresRegionales(this.start, this.pageSize, this.filter, this.sortAsc, 
+        this.sortField, this.region, this.fechaSelec).subscribe(operadores => {
+          this.operadoresList = operadores.lista;
+          this.totalRecords = operadores.totalRecords;
+          console.log(this.operadoresList);
+        
       }, error => {
         console.log(error);
         this.mensaje = error.error;

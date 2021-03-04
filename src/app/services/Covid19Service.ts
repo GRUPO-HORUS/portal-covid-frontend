@@ -297,6 +297,38 @@ export class Covid19Service {
     return this.httpClient.post<string>(this.config.API + '/covid19/fsarscov2DgticCon/insertFrmFsarscov2', primerContacto);
   }
 
+  getOperadoresRegionales(start: number, pageSize: number, filter: string, sortAsc: boolean,
+    sortField: string, region, fechaCierre): Observable<ContactoTable> {
+   this.loading.next(true);
+
+   let params = new HttpParams();
+
+    if (filter)
+     params = params.set('filter', filter);
+
+    if (sortField)
+     params = params.set('sortField', sortField);
+
+    if (fechaCierre)
+     params = params.set('fechaCierre', fechaCierre);
+
+   params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
+   return this.httpClient.get<ContactoTable>(this.config.API + '/covid19api/aislamiento/listarOperadoresRegionales/'+region, {params});
+  }
+
+  getCantidadPendientes(fechaCierre, region): Observable<number>{
+    let params = new HttpParams();
+    if (fechaCierre){
+      params = params.set('fechaCierre', fechaCierre);
+    }
+
+    if (region){
+      params = params.set('regionUsuario', region);
+    }
+
+    return this.httpClient.get<number>(this.config.API +"/covid19api/aislamiento/getCantidadPendientes/",{params});
+  }
+
   listarPacientes(start: number, pageSize: number, filter: string, sortAsc: boolean,
       sortField: string, region, distritosUsuario): Observable<ContactoTable> {
      this.loading.next(true);
