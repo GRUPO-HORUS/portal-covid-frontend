@@ -419,6 +419,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
   }
 
   getContactosXls(opcionFiltro){
+    this.loading = true;
     this.service.getPacientesPrimerContacto(0, 0, this.filter, this.sortAsc, this.sortField, this.region, 
       this.distritosUsuario, opcionFiltro, this.username).subscribe(pacientes => {
       this.pacientesList = pacientes.lista;
@@ -472,6 +473,8 @@ export class GrillaPrimerContactoComponent implements OnInit {
     let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     FileSaver.saveAs(blob, "lista_primera_llamada"+'-'+new Date().valueOf()+'.xlsx');
   });
+
+  this.loading = false;
 }
 
 consultarIdentificaciones(event) {

@@ -37,7 +37,8 @@
                     </button>
                 </div>-->
                 <div>
-
+        
+        <label *ngIf="loading">Generando archivo..favor espere..</label><p-progressSpinner *ngIf="loading" [style]="{width: '50px', height: '50px'}" animationDuration=".5s"></p-progressSpinner>
         <p-table #dt [columns]="scrollableCols" [value]="pacientesList" selectionMode="single" dataKey="id" [paginator]="true"
         [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="load($event)"
         paginatorPosition="bottom" editMode="row"
@@ -48,7 +49,7 @@
                     <tr>
                         <td align="left"><p-dropdown id="contactoOption" style="text-align: left;width:auto;" [options]="contactoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="contactoOption" name="contactoOption" [style]="{'minWidth':'150px', 'width': '150px'}" required (onChange)="buscarContactos($event.value)"></p-dropdown> </td>
                         <td align="right"><button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="XLS" (click)="getContactosXls(contactoOption)" 
-                            style="width: 60px;" class="ui-button-success mr-2"></button><input type="text" pInputText style="width:500px;margin-right: 5px;height: 35px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')"></td>
+                            style="width: 60px;" class="ui-button-success mr-2" [disabled]="loading"></button><input type="text" pInputText style="width:500px;margin-right: 5px;height: 35px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')"></td>
                     </tr>
                 </table>
                 <div style="text-align: right;width:auto;">
