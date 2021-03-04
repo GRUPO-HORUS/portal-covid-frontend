@@ -14,7 +14,7 @@
       <span>Distribución de llamadas</span>
     </h3>
     <label for="fechaCierre"><strong>Fecha de Cierre:&nbsp;</strong></label>
-    <p-calendar id="fechaCierre" name="fechaCierre" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'400px'}" appendTo="body" (onSelect)="getCantidadPendientes($event); listarDistribucion($event);"></p-calendar><br>
+    <p-calendar id="fechaCierre" name="fechaCierre" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'400px'}" appendTo="body" (onSelect)="getCantidadPendientes($event); listarDistribucion();"></p-calendar><br>
     <label for="fechaCierre" class="mt-2"><strong>{{cantidadPendientes}} registros sin asignar </strong></label>
         <p-table #table [columns]="cols" [value]="operadoresList" selectionMode="single" dataKey="id" [paginator]="true"
           [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="load($event)"
