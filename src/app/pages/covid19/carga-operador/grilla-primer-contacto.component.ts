@@ -312,7 +312,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
         //this.distritosOptions[i] = {nombre: d.nomdist, value: d.coddist};
       }
       this.service.getPacientesPrimerContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
-        this.distritosUsuario, opcionFiltro, this.username).subscribe(pacientes => {
+        this.distritosUsuario, opcionFiltro, this.usuarioId).subscribe(pacientes => {
         this.pacientesList = pacientes.lista;
         this.totalRecords = pacientes.totalRecords;
         console.log(this.pacientesList);
@@ -905,6 +905,7 @@ consultarIdentificaciones(event) {
   onRowEditInit(rowData) {
     this.rowId = rowData.id;
     this.edito = true;
+    this.primerContacto = null;
     this.primerContacto = rowData;
 
     this.formGroup = new FormGroup({
@@ -1022,7 +1023,7 @@ consultarIdentificaciones(event) {
     this.primerContacto.personalBlanco = this.formGroup.controls.personalBlanco.value;
     this.primerContacto.regionSanitaria = this.formGroup.controls.departamento.value.id;
 
-    if(this.formGroup.controls.barrio.value.nombre){
+    if(this.formGroup.controls.barrio.value){
       this.primerContacto.barrio = this.formGroup.controls.barrio.value.nombre;
       this.primerContacto.barrioId = this.formGroup.controls.barrio.value.valor;
     }else{
