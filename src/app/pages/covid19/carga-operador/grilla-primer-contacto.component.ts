@@ -192,10 +192,10 @@ export class GrillaPrimerContactoComponent implements OnInit {
   public distritosFiltrados: any[];
   public barriosOptions: any[];
   public barriosFiltrados: any[];
-
   public distritosUsuario = [];
-
   public rowId;
+
+  esLiderReg: boolean = false;
 
   constructor(
     private _router: Router,
@@ -211,6 +211,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
   ngOnInit() {
 
     const {usuario} = this.storageManager.getLoginData();
+    this.esLiderReg = this.hasRol("Lider Regional");
     this.region = usuario.regionSanitaria;
     this.username = usuario.username;
     this.usuarioId = usuario.id;
@@ -312,7 +313,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
         //this.distritosOptions[i] = {nombre: d.nomdist, value: d.coddist};
       }
       this.service.getPacientesPrimerContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
-        this.distritosUsuario, opcionFiltro, this.usuarioId).subscribe(pacientes => {
+        this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
         this.pacientesList = pacientes.lista;
         this.totalRecords = pacientes.totalRecords;
         console.log(this.pacientesList);
@@ -627,8 +628,7 @@ consultarIdentificaciones(event) {
       }
       return false;
     }
-    else
-    {
+    else{
       this._router.navigate(["/"]);
       return false;
     }
