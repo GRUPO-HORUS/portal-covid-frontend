@@ -40,8 +40,14 @@ export class DistribuirLlamadasComponent implements OnInit{
 
     operadoresList: any[];
 
-    cantidadPendientes: number;
+    cantidadPendientes: number = null;
     fechaSelec;
+    edito: boolean = false;
+    distribucionList: any[]=[];
+    rowId: number;
+
+    totalAsignados: number=0;
+    habilitarAsignar = false;
 
     constructor(
         private service: Covid19Service,
@@ -59,7 +65,8 @@ export class DistribuirLlamadasComponent implements OnInit{
 
         this.cols = [{ field: 'nombre', header: 'Nombre', width: '25%' },
         { field: 'apellido', header: 'Apellido', width: '25%' },
-        { field: 'asignadosActual', header: 'Asignados Actual', width: '20%' }];
+        { field: 'asignadosActual', header: 'Asignados Actual', width: '15%' },
+        { field: 'cant', header: 'Cantidad a asignar', width: '15%' }];
         /*{ field: 'direccionDomicilio', header: 'Domicilio', width: '17%' },
         { field: 'sexo', header: 'Tipo de Contacto', width: '9%' },
         { field: 'fechaUltimoContacto', header: 'Último Contacto', width: '15%' },
@@ -93,13 +100,12 @@ export class DistribuirLlamadasComponent implements OnInit{
           else
             this.sortAsc = false;
         }
-        if($event.globalFilter){
+        if($event && this.fechaSelec){
           this.listarDistribucion();
         }
     }
     
     listarDistribucion(){
-
       this.service.getOperadoresRegionales(this.start, this.pageSize, this.filter, this.sortAsc, 
         this.sortField, this.region, this.fechaSelec).subscribe(operadores => {
           this.operadoresList = operadores.lista;
@@ -118,6 +124,10 @@ export class DistribuirLlamadasComponent implements OnInit{
       setTimeout(function() { $("#miModal").modal("toggle"); }, 1000);
     }
 
+    openConfirmDialog() {
+      setTimeout(function() { $("#confirmModal").modal("toggle"); }, 1000);
+    }
+
     getAllPacientes(){
       this.service.listarReingresos(0, 0, this.filter, this.sortAsc, this.sortField, this.region, this.distritosUsuario).subscribe(pacientes => {
         this.pacientesListCompleta = pacientes.lista;
@@ -125,6 +135,96 @@ export class DistribuirLlamadasComponent implements OnInit{
 
         this.exportXlsFormateado(this.pacientesListCompleta);
       });
+    }
+
+    onRowEditInit(rowData) {
+      this.edito = true;
+      this.rowId = rowData.id;
+
+      /*this.primerContacto = rowData;
+  
+      this.formGroup = new FormGroup({
+        codigoPaciente: new FormControl(rowData.codigoPaciente, [
+          Validators.required
+        ]),
+        departamento: new FormControl({nombre:rowData.departamento, id: rowData.departamentoId}, [
+          Validators.required
+        ]),
+        direccion: new FormControl(rowData.direccion, [
+          Validators.required
+        ]),
+        fechaInicioSintomas: new FormControl(rowData.fechaInicioSintomas),
+        comunidadAlbergue: new FormControl(rowData.comunidadAlbergue, [
+          Validators.required
+        ])
+      });*/
+    }
+
+    onRowEditSave(rowData){
+      if(rowData.cantAsignar > rowData.asignadosActual ){
+        //rowData.asignadosActual = rowData.cantAsignar - rowData.asignadosActual;
+        rowData.bandera = 'aumentar';
+        this.totalAsignados += rowData.cantAsignar - rowData.asignadosActual;
+        this.distribucionList.push(rowData);
+      }else if(rowData.cantAsignar < rowData.asignadosActual){
+        //rowData.asignadosActual =  rowData.asignadosActual - rowData.cantAsignar;
+        rowData.bandera = 'disminuir';
+        this.distribucionList.push(rowData);
+      }
+    }
+
+    onRowEditCancel(){
+    }
+
+    habilitaAsignar(){
+      this.service.distribuirLlamadas(this.distribucionList).subscribe(response => {
+        this.distribucionList= [];
+        this.mensaje= "Registros asignados exitosamente.";
+        this.openMessageDialog();
+      }, error => {
+        if(error.status == 401){
+          this._router.navigate(["/"]);
+        }
+        else{
+          this.loading = false;
+          this.mensaje = error.error;
+          this.openMessageDialog();
+        }
+      });
+    }
+
+    asignarDistribucion(){
+      /*for(let j=0; j<this.distribucionList.length; j++){
+        this.totalAsignados += this.distribucionList[j].cantAsignar - this.distribucionList[j].asignadosActual;
+      }*/
+      if(this.cantidadPendientes < this.totalAsignados){
+        this.totalAsignados = 0;
+        this.mensaje= "No se puede asignar una cantidad mayor de registros que los que se encuentran pendientes.";
+        this.openMessageDialog();
+      }else if(this.cantidadPendientes > this.totalAsignados){
+        let sobrantes = this.cantidadPendientes - this.totalAsignados;
+        this.mensaje= "Atención. Quedarán "+sobrantes+" registros sin asignar.";
+        this.openConfirmDialog();
+      }else{
+        this.habilitarAsignar = true;
+      }
+
+      if(this.habilitarAsignar){
+        this.service.distribuirLlamadas(this.distribucionList).subscribe(response => {
+          this.distribucionList= [];
+          this.mensaje= "Registros asignados exitosamente.";
+          this.openMessageDialog();
+        }, error => {
+          if(error.status == 401){
+            this._router.navigate(["/"]);
+          }
+          else{
+            this.loading = false;
+            this.mensaje = error.error;
+            this.openMessageDialog();
+          }
+        });
+      }
     }
 
     /*******/
