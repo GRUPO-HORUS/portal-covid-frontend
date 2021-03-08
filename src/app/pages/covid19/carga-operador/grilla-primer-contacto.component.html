@@ -290,7 +290,7 @@
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <!--<input pInputText style="width:120px; height:35px" type="text" formControlName="distrito">-->
-                                    <p-autoComplete id="barrio" formControlName="barrio" [suggestions]="barriosFiltrados" field="nombre" (completeMethod)="filtrarBarrio($event)" [inputStyle]="{'width':'135px'}" [forceSelection]="true" (onSelect)="eligeBarrio($event)" required></p-autoComplete>
+                                    <p-autoComplete id="barrio" formControlName="barrio" [suggestions]="barriosFiltrados" field="nombre" (completeMethod)="filtrarBarrio($event)" [inputStyle]="{'width':'135px'}" [forceSelection]="true" (onSelect)="eligeBarrio($event)"></p-autoComplete>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
@@ -467,7 +467,7 @@
                     <td pEditableColumn style="vertical-align: top; height: 128px;">
                         <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
-                                <div [formGroup]="formGroup"><!---->
+                                <div [formGroup]="formGroup">
                                     <p-dropdown id="sintomaticoAsintomatico" [options]="sintomasOptions" label="label" placeholder="Seleccionar" formControlName="sintomaticoAsintomatico" 
                                     name="sintomaticoAsintomatico" [style]="{'minWidth':'115px', 'width': '115px'}" (onChange)="anularFechaSintomas($event)" required></p-dropdown>
                                 </div>

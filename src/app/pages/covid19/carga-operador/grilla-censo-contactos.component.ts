@@ -223,6 +223,11 @@ totalRecordsF: number = 0;
 sortAscF: boolean = true;
 sortFieldF: string;
 
+scrollableCols: any[];
+frozenCols: any[];
+
+esLiderReg: boolean = false;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -236,6 +241,7 @@ sortFieldF: string;
 
   ngOnInit() {
     const {usuario} = this.storageManager.getLoginData();
+    this.esLiderReg = this.hasRol("Lider Regional");
     this.region = usuario.regionSanitaria;
     this.username = usuario.username;
     this.usuarioId = usuario.id;
@@ -292,21 +298,23 @@ sortFieldF: string;
       this.cedulaPaciente = params["cedula"];
     });*/
 
-    this.cols = [{ field: 'fechaCierreCaso', header: 'Fecha de Cierre', width: '7%' },
+    this.scrollableCols = [{ field: 'fechaCierreCaso', header: 'Fecha de Cierre', width: '6%' },
         { field: 'nroDocumento', header: 'Nro de Documento', width: '8%'},
         { field: 'nombres', header: 'Nombres', width: '11%' },
         { field: 'apellidos', header: 'Apellidos', width: '11%' },
         { field: 'telefono', header: 'Teléfono', width: '8%' },
-        { field: 'departamento', header: 'Departamento', width: '9%' },
+        { field: 'departamento', header: 'Departamento', width: '8%' },
         //{ field: 'distrito', header: 'Distrito', width: '8%' },
-        //{ field: 'hospitalizado', header: 'Internado', width: '8%' },
-        //{ field: 'fallecido', header: 'Fallecido', width: '6%' },
+        { field: 'hospitalizado', header: 'Internado', width: '8%' },
+        { field: 'fallecido', header: 'Fallecido', width: '6%' },
         //{ field: 'tipoExposicion', header: 'Tipo de Exposición', width: '9%' },
         { field: 'fechaInicioSintomas', header: 'Fecha Inicio de Síntomas', width: '8%' },
         { field: 'estadoLlamadaCensoContacto', header: 'Estado de Llamada', width: '11%' },
-        { field: 'cantidadContactos', header: 'Cantidad de Contactos', width: '8%' },
+        { field: 'cantidadContactos', header: 'Cantidad Contactos', width: '6%' },
         { field: 'loginOperador', header: 'Operador Asignado', width: '8%' }];
         //{ field: '', header: 'Acciones', width: '15%' }];
+
+    this.frozenCols = [{ field: 'acc', header: 'Acciones'}];
 
     
     this.colsFormCensoContacto = [{ field: 'nroDocumento', header: 'Nro de Documento', width: '7%'},
@@ -345,7 +353,7 @@ buscarContactos(opcionFiltro){
     }
 
     this.service.getPacientesCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
-      this.distritosUsuario, opcionFiltro, this.username).subscribe(pacientes => {
+      this.distritosUsuario, opcionFiltro, this.username, this.esLiderReg).subscribe(pacientes => {
       this.pacientesList = pacientes.lista;
       this.totalRecords = pacientes.totalRecords;
       console.log(this.pacientesList);
@@ -411,7 +419,6 @@ desasignarmeContacto(rowData){
 consultarIdentificaciones(event) {
   const nroDocumento = event.target.value;
 
-  console.log(nroDocumento);
   //if(formDatosBasicos.tipoDocumento==0 && formDatosBasicos.numeroDocumento){
   if(nroDocumento){
     if(nroDocumento.includes('.'))
@@ -892,22 +899,17 @@ filtrarRegion(event) {
   }
   }
 
-  hasRol(rolName: string)
-  {
+  hasRol(rolName: string){
     let credentials=this.storageManager.getLoginData();
-    if(credentials)
-    {
-      for(let rol of credentials.usuario.rols)
-      {
-        if(rol.nombre==rolName)
-        {
+    if(credentials){
+      for(let rol of credentials.usuario.rols){
+        if(rol.nombre==rolName){
           return true;
         }
       }
       return false;
     }
-    else
-    {
+    else{
       this._router.navigate(["/"]);
       return false;
     }

@@ -224,7 +224,7 @@ export class Covid19Service {
    }
 
     getPacientesCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string, region, distritosUsuario, opcionFiltro, username): Observable<PrimerContactoTable> {
+      sortField: string, region, distritosUsuario, opcionFiltro, username, esLiderReg): Observable<PrimerContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -237,6 +237,14 @@ export class Covid19Service {
 
       if (username)
         params = params.set('username', username);
+
+      if (esLiderReg){
+        params = params.set('esLiderReg', esLiderReg);
+      }else{
+        esLiderReg = false;
+        params = params.set('esLiderReg', esLiderReg);
+      }
+       
 
       if(distritosUsuario.length > 0){
           let distritosParam="";
@@ -255,7 +263,7 @@ export class Covid19Service {
    }
 
     getPacientesPrimerContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string, region, distritosUsuario, opcionFiltro, username): Observable<PrimerContactoTable> {
+      sortField: string, region, distritosUsuario, opcionFiltro, usuarioId): Observable<PrimerContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -266,8 +274,8 @@ export class Covid19Service {
       if (sortField)
         params = params.set('sortField', sortField);
 
-      if (username)
-        params = params.set('username', username);
+      if (usuarioId)
+        params = params.set('usuarioId', usuarioId);
 
       if(distritosUsuario.length > 0){
         let distritosParam="";
@@ -295,6 +303,10 @@ export class Covid19Service {
 
   insertFrmFsarscov2(primerContacto): Observable<string> {
     return this.httpClient.post<string>(this.config.API + '/covid19/fsarscov2DgticCon/insertFrmFsarscov2', primerContacto);
+  }
+
+  distribuirLlamadas(distribucionList): Observable<string> {
+    return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/distribuirLlamadas', distribucionList);
   }
 
   getOperadoresRegionales(start: number, pageSize: number, filter: string, sortAsc: boolean,

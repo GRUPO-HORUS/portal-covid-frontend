@@ -31,6 +31,10 @@
                     <button class="btn btn-success btn-success-next mb-4 mr-3" routerLink="/covid19/operador/distribuir-llamadas" *ngIf="hasRol('Lider Regional')">
                         Distribuir Llamadas <span class="fa fa-list"></span>
                     </button>
+
+                    <button class="btn btn-success btn-success-next mb-4 mr-3" routerLink="/covid19/operador/grilla-censo-contactos" *ngIf="hasRol('Lider Regional')">
+                        Censo Contactos <span class="fa fa-list"></span>
+                    </button>
                 </div>
                 <div *ngIf="hasRol('Operador') || hasRol('Operador Contact Center') || hasRol('Operador DGVS') || hasRol('Supervisor Contact Center')"><!--|| hasRol('Operador DGVS')-->
                     <h4>Seguimiento de Contactos</h4>

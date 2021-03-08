@@ -923,10 +923,10 @@ consultarIdentificaciones(event) {
       ]),
       apellido: new FormControl(rowData.apellido, [
         Validators.required
-      ]),*/
+      ]),
       codigoPaciente: new FormControl(rowData.codigoPaciente, [
         Validators.required
-      ]),
+      ]),*/
       telefono: new FormControl(rowData.telefono, [
         Validators.required
       ]),
@@ -936,18 +936,12 @@ consultarIdentificaciones(event) {
       distrito: new FormControl({nombre:rowData.distrito, valor: rowData.distritoId}, [
         Validators.required
       ]),
-      barrio: new FormControl({nombre:rowData.barrio, valor: rowData.barrioId}, [
-        Validators.required
-      ]),
+      barrio: new FormControl({nombre:rowData.barrio, valor: rowData.barrioId}),
       direccion: new FormControl(rowData.direccion, [
         Validators.required
       ]),
-      referencia: new FormControl(rowData.referencia, [
-        Validators.required
-      ]),
-      casaNumero: new FormControl(rowData.casaNumero, [
-        Validators.required
-      ]),
+      referencia: new FormControl(rowData.referencia),
+      casaNumero: new FormControl(rowData.casaNumero),
       hospitalizado: new FormControl(rowData.hospitalizado, [
         Validators.required
       ]),
@@ -961,12 +955,8 @@ consultarIdentificaciones(event) {
         Validators.required
       ]),
       fechaInicioSintomas: new FormControl(rowData.fechaInicioSintomas),
-      sintomaticoAsintomatico: new FormControl(rowData.sintomaticoAsintomatico, [
-        Validators.required
-      ]),
-      comunidadAlbergue: new FormControl(rowData.comunidadAlbergue, [
-        Validators.required
-      ])
+      sintomaticoAsintomatico: new FormControl(rowData.sintomaticoAsintomatico),
+      comunidadAlbergue: new FormControl(rowData.comunidadAlbergue)
     });
 
     let coddpto ="";
@@ -1010,9 +1000,8 @@ consultarIdentificaciones(event) {
   onRowEditSave(rowData){
     /*this.primerContacto.nroDocumento = this.formGroup.controls.nroDocumento.value;
     this.primerContacto.nombre = this.formGroup.controls.nombre.value;
-    this.primerContacto.apellido = this.formGroup.controls.apellido.value;*/
-    //console.log(this.formGroup.controls.distrito.value.valor);
-    this.primerContacto.codigoPaciente = this.formGroup.controls.codigoPaciente.value;
+    this.primerContacto.apellido = this.formGroup.controls.apellido.value;
+    this.primerContacto.codigoPaciente = this.formGroup.controls.codigoPaciente.value;*/
     this.primerContacto.departamento = this.formGroup.controls.departamento.value.nombre;
     this.primerContacto.departamentoId = this.formGroup.controls.departamento.value.id;
     this.primerContacto.distrito = this.formGroup.controls.distrito.value.nombre;
@@ -1056,7 +1045,7 @@ consultarIdentificaciones(event) {
         this.openMessageDialog();
         this.primerContacto.editado = true;
 
-        this.service.insertFrmFsarscov2(this.primerContacto).subscribe(response => {
+        /*this.service.insertFrmFsarscov2(this.primerContacto).subscribe(response => {
           
         }, error => {
           if(error.status == 401){
@@ -1067,7 +1056,7 @@ consultarIdentificaciones(event) {
             this.mensaje = error.error;
             this.openMessageDialog();
           }
-        });
+        });*/
 
     }, error => {
         if(error.status == 401)
