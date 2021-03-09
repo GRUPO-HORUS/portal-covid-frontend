@@ -215,7 +215,7 @@ export class DistribuirLlamadasComponent implements OnInit{
         this.habilitarAsignar = true;
       }
 
-      /*if(this.habilitarAsignar){
+      if(this.habilitarAsignar){
         this.service.distribuirLlamadas(this.distribucionList).subscribe(response => {
           this.distribucionList= [];
           this.mensaje= "Registros asignados exitosamente.";
@@ -230,7 +230,7 @@ export class DistribuirLlamadasComponent implements OnInit{
             this.openMessageDialog();
           }
         });
-      }*/
+      }
     }
 
     /*******/
