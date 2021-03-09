@@ -170,6 +170,7 @@ export class DistribuirLlamadasComponent implements OnInit{
         rowData.bandera = 'disminuir';
         this.distribucionList.push(rowData);
       }*/
+      console.log(rowData);
       this.distribucionList.push(rowData);
     }
 
@@ -177,6 +178,7 @@ export class DistribuirLlamadasComponent implements OnInit{
     }
 
     habilitaAsignar(){
+      console.log(this.distribucionList);
       this.service.distribuirLlamadas(this.distribucionList).subscribe(response => {
         this.distribucionList= [];
         this.mensaje= "Registros asignados exitosamente.";
@@ -198,8 +200,10 @@ export class DistribuirLlamadasComponent implements OnInit{
         if(this.distribucionList[j].cantAsignar > this.distribucionList[j].asignadosActual ){
           this.totalAsignados += this.distribucionList[j].cantAsignar - this.distribucionList[j].asignadosActual;
           this.distribucionList[j].bandera = 'aumentar';
+          this.distribucionList[j].fechaCierre = this.fechaSelec;
         }else if(this.distribucionList[j].cantAsignar < this.distribucionList[j].asignadosActual){
           this.distribucionList[j].bandera = 'disminuir';
+          this.distribucionList[j].fechaCierre = this.fechaSelec;
         }
       }
 
