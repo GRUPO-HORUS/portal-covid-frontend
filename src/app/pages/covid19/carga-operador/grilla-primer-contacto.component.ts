@@ -982,6 +982,9 @@ consultarIdentificaciones(event) {
     if(rowData.departamentoId == 18){
       coddpto = '00';
     }
+
+    console.log(rowData.departamentoId);
+
     this.service.getBarriosDepto(coddpto).subscribe(barrios => {
       this.barriosOptions = barrios;
       for (let i = 0; i < barrios.length; i++) {

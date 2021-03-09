@@ -246,7 +246,7 @@
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <p-autoComplete id="departamento" formControlName="departamento" [suggestions]="departamentosFiltrados" field="nombre" 
-                                    (completeMethod)="filtrarDepto($event)" [inputStyle]="{'width':'120px'}" [forceSelection]="true" required (onSelect)="selectDepto($event)"></p-autoComplete>
+                                    (completeMethod)="filtrarDepto($event)" [inputStyle]="{'width':'120px'}" [forceSelection]="true" required (onSelect)="selectDepto($event)" apendTo="body"></p-autoComplete>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
@@ -268,7 +268,7 @@
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <!--<input pInputText style="width:120px; height:35px" type="text" formControlName="distrito">-->
-                                    <p-autoComplete id="distrito" formControlName="distrito" [suggestions]="distritosFiltrados" field="nombre" (completeMethod)="filtrarDistrito($event)" [inputStyle]="{'width':'135px'}" [forceSelection]="true" required></p-autoComplete>
+                                    <p-autoComplete id="distrito" formControlName="distrito" [suggestions]="distritosFiltrados" field="nombre" (completeMethod)="filtrarDistrito($event)" [inputStyle]="{'width':'135px'}" [forceSelection]="true" required apendTo="body"></p-autoComplete>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
@@ -290,7 +290,7 @@
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <!--<input pInputText style="width:120px; height:35px" type="text" formControlName="distrito">-->
-                                    <p-autoComplete id="barrio" formControlName="barrio" [suggestions]="barriosFiltrados" field="nombre" (completeMethod)="filtrarBarrio($event)" [inputStyle]="{'width':'135px'}" [forceSelection]="true" (onSelect)="eligeBarrio($event)"></p-autoComplete>
+                                    <p-autoComplete id="barrio" formControlName="barrio" [suggestions]="barriosFiltrados" field="nombre" (completeMethod)="filtrarBarrio($event)" [inputStyle]="{'width':'135px'}" [forceSelection]="true" (onSelect)="eligeBarrio($event)" apendTo="body"></p-autoComplete>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">

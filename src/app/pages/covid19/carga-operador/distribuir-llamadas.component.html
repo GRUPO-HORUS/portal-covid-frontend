@@ -23,7 +23,7 @@
           paginatorPosition="bottom" [resizableColumns]="true" columnResizeMode="expand" editMode="row">
           <ng-template pTemplate="caption">           
             <div style="text-align: left;width:auto;">
-                <input type="text" pInputText style="width:555px;" placeholder="Filtrar Usuarios por nombre, apellido" (input)="table.filterGlobal($event.target.value, 'contains')">
+                <input type="text" pInputText style="width:555px;" placeholder="Buscar Usuarios por nombre" (input)="table.filterGlobal($event.target.value, 'contains')">
             </div>
           </ng-template>
 
