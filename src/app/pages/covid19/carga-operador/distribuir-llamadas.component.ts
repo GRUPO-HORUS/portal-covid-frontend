@@ -161,16 +161,16 @@ export class DistribuirLlamadasComponent implements OnInit{
     }
 
     onRowEditSave(rowData){
-      if(rowData.cantAsignar > rowData.asignadosActual ){
-        //rowData.asignadosActual = rowData.cantAsignar - rowData.asignadosActual;
+      /*if(rowData.cantAsignar > rowData.asignadosActual ){
         rowData.bandera = 'aumentar';
-        this.totalAsignados += rowData.cantAsignar - rowData.asignadosActual;
+        //this.totalAsignados += rowData.cantAsignar - rowData.asignadosActual;
         this.distribucionList.push(rowData);
       }else if(rowData.cantAsignar < rowData.asignadosActual){
         //rowData.asignadosActual =  rowData.asignadosActual - rowData.cantAsignar;
         rowData.bandera = 'disminuir';
         this.distribucionList.push(rowData);
-      }
+      }*/
+      this.distribucionList.push(rowData);
     }
 
     onRowEditCancel(){
@@ -188,19 +188,25 @@ export class DistribuirLlamadasComponent implements OnInit{
         else{
           this.loading = false;
           this.mensaje = error.error;
-          this.openMessageDialog();
-        }
+          this.openMessageDialog();}
       });
     }
 
     asignarDistribucion(){
-      /*for(let j=0; j<this.distribucionList.length; j++){
-        this.totalAsignados += this.distribucionList[j].cantAsignar - this.distribucionList[j].asignadosActual;
-      }*/
+      this.totalAsignados = 0;
+      for(let j=0; j<this.distribucionList.length; j++){
+        if(this.distribucionList[j].cantAsignar > this.distribucionList[j].asignadosActual ){
+          this.totalAsignados += this.distribucionList[j].cantAsignar - this.distribucionList[j].asignadosActual;
+          this.distribucionList[j].bandera = 'aumentar';
+        }else if(this.distribucionList[j].cantAsignar < this.distribucionList[j].asignadosActual){
+          this.distribucionList[j].bandera = 'disminuir';
+        }
+      }
+
       if(this.cantidadPendientes < this.totalAsignados){
-        this.totalAsignados = 0;
         this.mensaje= "No se puede asignar una cantidad mayor de registros que los que se encuentran pendientes.";
         this.openMessageDialog();
+        this.totalAsignados = 0;
       }else if(this.cantidadPendientes > this.totalAsignados){
         let sobrantes = this.cantidadPendientes - this.totalAsignados;
         this.mensaje= "Atención. Quedarán "+sobrantes+" registros sin asignar.";
@@ -209,7 +215,7 @@ export class DistribuirLlamadasComponent implements OnInit{
         this.habilitarAsignar = true;
       }
 
-      if(this.habilitarAsignar){
+      /*if(this.habilitarAsignar){
         this.service.distribuirLlamadas(this.distribucionList).subscribe(response => {
           this.distribucionList= [];
           this.mensaje= "Registros asignados exitosamente.";
@@ -224,7 +230,7 @@ export class DistribuirLlamadasComponent implements OnInit{
             this.openMessageDialog();
           }
         });
-      }
+      }*/
     }
 
     /*******/

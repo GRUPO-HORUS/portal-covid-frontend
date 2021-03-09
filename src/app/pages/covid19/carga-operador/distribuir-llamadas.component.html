@@ -16,7 +16,8 @@
     <label for="fechaCierre"><strong>Fecha de Cierre:&nbsp;</strong></label>
     <p-calendar id="fechaCierre" name="fechaCierre" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'400px'}" appendTo="body" (onSelect)="getCantidadPendientes($event); listarDistribucion();"></p-calendar>
     <br><br>
-    <label for="fechaCierre" style="color:red" *ngIf="cantidadPendientes !=null"><strong>{{cantidadPendientes}} registro/s sin asignar </strong></label>
+    <label for="fechaCierre" style="color:red" *ngIf="cantidadPendientes !=null"><strong>{{cantidadPendientes}} registro/s sin asignar </strong></label><br>
+    <label for="fechaCierre" style="color: green" *ngIf="cantidadPendientes !=null"><strong>Total registros asignados: {{totalAsignados}} </strong></label>
         <p-table #table [columns]="cols" [value]="operadoresList" selectionMode="single" dataKey="id" [paginator]="true"
           [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="load($event)"
           paginatorPosition="bottom" [resizableColumns]="true" columnResizeMode="expand" editMode="row">
