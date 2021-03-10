@@ -441,7 +441,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
     //worksheet.getColumn(1).width = 25;
 
     let header=["FECHA DE CIERRE", "NRO DE DOCUMENTO", "CÓDIGO DE PACIENTE", "NOMBRE", "APELLIDO", "TELÉFONO", "DEPARTAMENTO", "DISTRITO",
-    "INTERNADO", "FALLECIDO", "TIPO DE EXPOSICIÓN","FECHA DE INICIO DE SÍNTOMAS", "ESTADO DE PRIMERA LLAMADA"];
+    "INTERNADO", "FALLECIDO", "TIPO DE EXPOSICIÓN","FECHA DE INICIO DE SÍNTOMAS", "ESTADO DE PRIMERA LLAMADA", "LLAMADOR ASIGNADO"];
     worksheet.addRow(header);
     worksheet.getRow(3).fill = {type:'pattern', pattern: 'solid', fgColor: {argb:'00000000'}}
     worksheet.getRow(3).font = { color:{argb:'FFFFFFFF'}, name: 'Arial Black', family: 4, size: 11, bold: true };
@@ -458,7 +458,8 @@ export class GrillaPrimerContactoComponent implements OnInit {
         }
 
       worksheet.addRow([p.fechaCierreCaso, p.nroDocumento, p.codigoPaciente, p.nombre != null ? p.nombre.toUpperCase(): p.nombre, p.apellido != null ? p.apellido.toUpperCase(): p.apellido, p.telefono, p.departamento, 
-      p.distrito != null ? p.distrito.toUpperCase(): p.distrito, internado, fallecido, p.tipoExposicion, p.fechaInicioSintomas, p.estadoPrimeraLlamada != null ? p.estadoPrimeraLlamada.toUpperCase(): p.estadoPrimeraLlamada]);
+      p.distrito != null ? p.distrito.toUpperCase(): p.distrito, internado, fallecido, p.tipoExposicion, p.fechaInicioSintomas, p.estadoPrimeraLlamada != null ? p.estadoPrimeraLlamada.toUpperCase(): p.estadoPrimeraLlamada,
+      p.loginOperador]);
 
       worksheet.getRow(filaNro).border = {
         top: { style:'double', color: {argb:'00000000'}},
