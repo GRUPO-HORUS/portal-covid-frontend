@@ -116,7 +116,7 @@
                         <!--<button type="button" pButton icon="pi pi-volume-up" *ngIf="rowData.estadoPrimeraLlamada !=='llamada_realizada'" iconPos="left" (click)="mostrarLlamada(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:146px" label="Llamada Realizada" title="Al Finalizar la llamada, se marca que la llamada fue realizada y el registro sale de la lista."></button><br>--><!--routerLink="/covid19/operador/primer-contacto/1695901"-->
                         <button type="button" pButton icon="pi pi-check" iconPos="left" (click)="mostrarRegistroFinalizado(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:134px" label="Registro finalizado" title="Al Finalizar el registro sale de la lista."></button><br>
                     </td>
-                    <td pEditableColumn style="vertical-align: top; height: 134px;" *ngIf="columns[0].field==='fechaCierreCaso'">
+                    <td pEditableColumn style="vertical-align: top; height: 160px;" *ngIf="columns[0].field==='fechaCierreCaso'">
                         <!--<p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
@@ -137,7 +137,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn style="vertical-align: top; height: 134px;">
+                    <td pEditableColumn style="vertical-align: top; height: 160px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
@@ -158,7 +158,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn style="vertical-align: top; height: 134px;">
+                    <td pEditableColumn style="vertical-align: top; height: 160px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
@@ -180,7 +180,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn style="vertical-align: top; height: 134px;">
+                    <td pEditableColumn style="vertical-align: top; height: 160px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
@@ -201,7 +201,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn style="vertical-align: top; height: 134px;">
+                    <td pEditableColumn style="vertical-align: top; height: 160px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
@@ -223,7 +223,7 @@
                         </p-cellEditor>
                         
                     </td>
-                    <td pEditableColumn style="vertical-align: top; height: 134px;">
+                    <td pEditableColumn style="vertical-align: top; height: 160px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
@@ -244,7 +244,7 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>
-                    <td pEditableColumn style="vertical-align: top; height: 134px;">
+                    <td pEditableColumn style="vertical-align: top; height: 160px;">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 {{rowData.hospitalizado}}
@@ -254,7 +254,7 @@
                             </ng-template>
                         </p-cellEditor> 
                     </td>
-                    <td pEditableColumn style="vertical-align: top; height: 134px;">
+                    <td pEditableColumn style="vertical-align: top; height: 160px;">
                         <p-cellEditor>
                             <ng-template pTemplate="input">
                                 {{rowData.fallecido}}
@@ -264,7 +264,7 @@
                             </ng-template>
                         </p-cellEditor> 
                     </td>
-                    <td pEditableColumn style="vertical-align: top; height: 134px;">
+                    <td pEditableColumn style="vertical-align: top; height: 160px;">
                         <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
                             <ng-template pTemplate="input">
                                 {{rowData.personalBlanco}}
@@ -342,7 +342,7 @@
                         </p-cellEditor>
                     </td>-->
                     
-                    <td pEditableColumn style="vertical-align: top; height: 134px;">
+                    <td pEditableColumn style="vertical-align: top; height: 160px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
@@ -364,7 +364,7 @@
                             </ng-template>
                         </p-cellEditor>  
                     </td>
-                    <td pEditableColumn style="vertical-align: top; height: 134px;">
+                    <td pEditableColumn style="vertical-align: top; height: 160px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
@@ -385,7 +385,7 @@
                             </ng-template>
                         </p-cellEditor> 
                     </td>
-                    <td pEditableColumn style="vertical-align: top; height: 134px;">
+                    <td pEditableColumn style="vertical-align: top; height: 160px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
@@ -406,7 +406,7 @@
                             </ng-template>
                         </p-cellEditor> 
                     </td>
-                    <td pEditableColumn style="vertical-align: top; height: 134px;">
+                    <td pEditableColumn style="vertical-align: top; height: 160px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">

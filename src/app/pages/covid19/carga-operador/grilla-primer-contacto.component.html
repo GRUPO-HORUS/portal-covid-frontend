@@ -81,6 +81,7 @@
                 <col style="width:150px">
                 <col style="width:150px">
                 <col style="width:150px">
+                <col style="width:150px">
                 <col style="width:160px" *ngIf="columns[0].field==='acc'">
             </colgroup>
             </ng-template>
@@ -112,6 +113,7 @@
                     <th>Fecha de Inicio de Síntomas</th>
                     <th>Comunidad / Albergue</th>
                     <th>Estado de Llamada</th>
+                    <th>Llamador Asignado</th>
                 </tr>
             </ng-template>
 
@@ -490,7 +492,7 @@
                         <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <p-calendar formControlName="fechaInicioSintomas" id="fechaInicioSintomas" name="fechaInicioSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" [inputStyle]="{'width':'90px'}"></p-calendar>
+                                    <p-calendar formControlName="fechaInicioSintomas" id="fechaInicioSintomas" name="fechaInicioSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" [inputStyle]="{'width':'95px'}"></p-calendar>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
@@ -538,6 +540,16 @@
                                 {{rowData.estadoPrimeraLlamada}}
                             </ng-template>
                         </p-cellEditor>
+                    </td>
+                    <td pEditableColumn style="vertical-align: top; height: 128px;">
+                        <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                {{rowData.loginOperador}}
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.loginOperador}}
+                            </ng-template>
+                        </p-cellEditor> 
                     </td>
                     <!--<td>
                         <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="mostrarNoSeContacto(rowData)" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:133px" label="No se pudo contactar" title="No se Pudo Contactar: en caso de que no atiende, apagado, etc."></button><br>

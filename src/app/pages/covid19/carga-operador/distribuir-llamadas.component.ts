@@ -197,13 +197,15 @@ export class DistribuirLlamadasComponent implements OnInit{
     asignarDistribucion(){
       this.totalAsignados = 0;
       for(let j=0; j<this.distribucionList.length; j++){
-        if(this.distribucionList[j].cantAsignar > this.distribucionList[j].asignadosActual ){
-          this.totalAsignados += this.distribucionList[j].cantAsignar - this.distribucionList[j].asignadosActual;
+        if(this.distribucionList[j].cantAsignar > this.distribucionList[j].asignadosactual ){
+          this.totalAsignados += this.distribucionList[j].cantAsignar - this.distribucionList[j].asignadosactual;
           this.distribucionList[j].bandera = 'aumentar';
           this.distribucionList[j].fechaCierre = this.fechaSelec;
-        }else if(this.distribucionList[j].cantAsignar < this.distribucionList[j].asignadosActual){
+        }else if(this.distribucionList[j].cantAsignar < this.distribucionList[j].asignadosactual){
           this.distribucionList[j].bandera = 'disminuir';
           this.distribucionList[j].fechaCierre = this.fechaSelec;
+
+          console.log(this.distribucionList[j]);
         }
       }
 
