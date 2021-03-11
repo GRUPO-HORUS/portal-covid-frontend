@@ -87,7 +87,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
                               {id:17, nombre:'Alto Paraguay'}, {id:18, nombre:'Capital'}];
 
   public regionSanitariaOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro Norte'},
-                              {id:3, nombre:'San Pedro Norte'}, {id:4, nombre:'Cordillera'},
+                              {id:3, nombre:'San Pedro Sur'}, {id:4, nombre:'Cordillera'},
                               {id:5, nombre:'Guairá'}, {id:6, nombre:'Caaguazú'},
                               {id:7,nombre:'Caazapá'}, {id:8, nombre:'Itapúa'},
                               {id:9,nombre:'Misiones'},
@@ -1360,11 +1360,14 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.registroFg.controls.apellido.setValue(response.apellido);
         this.registroFg.controls.sexo.setValue(response.sexo);
         //this.registroFg.controls.fechaNacimiento.setValue(response.fechaNacimiento);
-        this.registroFg.controls.fechaNacimiento.setValue(response.fechaNacimiento.substring(8, 10)+'/'+
-        response.fechaNacimiento.substring(5, 7)+'/'+response.fechaNacimiento.substring(0, 4));
-
-        this.registroFg.controls.fechaInicioMonitoreo.setValue(response.fechaInicioMonitoreo.substring(8, 10)+'/'+
-        response.fechaInicioMonitoreo.substring(5, 7)+'/'+response.fechaInicioMonitoreo.substring(0, 4));
+        if(response.fechaNacimiento){
+          this.registroFg.controls.fechaNacimiento.setValue(response.fechaNacimiento.substring(8, 10)+'/'+
+          response.fechaNacimiento.substring(5, 7)+'/'+response.fechaNacimiento.substring(0, 4));
+        }
+        if(response.fechaInicioMonitoreo){
+          this.registroFg.controls.fechaInicioMonitoreo.setValue(response.fechaInicioMonitoreo.substring(8, 10)+'/'+
+          response.fechaInicioMonitoreo.substring(5, 7)+'/'+response.fechaInicioMonitoreo.substring(0, 4));
+        }
 
         this.registroFg.controls.se.setValue(response.se);
 
@@ -1429,7 +1432,6 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         }
         
         //this.consultarIdentificaciones(response.numeroDocumentoContacto,'contacto');
-
         this.monitoreoFg.controls.fechaSintomas.setValue(response.fechaInicioSintoma);
         this.monitoreoFg.controls.seFis.setValue(response.seFis);
 
@@ -1797,8 +1799,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.clasificacionRiesgoFg.controls.pcr.setValue(response.laboratorioPcr);
         this.clasificacionRiesgoFg.controls.ningunoLab.setValue(response.laboratorioNinguno);
         this.clasificacionRiesgoFg.controls.clasifFinal.setValue(response.clasificacionFinal);
-
         this.clasificacionRiesgoFg.controls.constAislamiento.setValue(response.constanciaAislamiento);
+
+        this.clasificacionRiesgoFg.controls.nroConstancia.setValue(response.nroConstancia);
+
         this.clasificacionRiesgoFg.controls.fichaEpidemiologica.setValue(response.fichaEpidemiologica);
         this.clasificacionRiesgoFg.controls.evolucionFinal.setValue(response.evolucionFinal);
         this.clasificacionRiesgoFg.controls.sePrimeraMuestra.setValue(response.sePrimeraMuestra);
@@ -2416,6 +2420,8 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.fichaEpidemiologica = this.clasificacionRiesgoFg.controls.fichaEpidemiologica.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.evolucionFinal = this.clasificacionRiesgoFg.controls.evolucionFinal.value;
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.fechaCierreCaso = this.clasificacionRiesgoFg.controls.fechaCierreCaso.value;
+
+    this.fichaPersonalBlanco.formSeccionClasifRiesgo.nroConstancia = this.clasificacionRiesgoFg.controls.nroConstancia.value;
 
     this.fichaPersonalBlanco.formSeccionClasifRiesgo.internado = this.clasificacionRiesgoFg.controls.internado.value;
     if(this.clasificacionRiesgoFg.controls.establecimiento.value){

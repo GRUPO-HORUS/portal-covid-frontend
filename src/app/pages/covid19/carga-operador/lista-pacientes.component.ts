@@ -100,6 +100,7 @@ export class ListaPacientesComponent implements OnInit{
     }
 
     getAllPacientes(){
+      this.loading = true;
       this.service.listarReingresos(0, 0, this.filter, this.sortAsc, this.sortField, this.region, this.distritosUsuario).subscribe(pacientes => {
         this.pacientesListCompleta = pacientes.lista;
         //this.exportExcel(this.pacientesListCompleta);
@@ -125,7 +126,7 @@ export class ListaPacientesComponent implements OnInit{
     "FECHA INICIO DE SÍNTOMAS", "NRO DE DOCUMENTO CONTACTO", "NOMBRE CONTACTO", "APELLIDO CONTACTO",
     "SERVICIO DE SALUD", "REGIÓN SANITARIA", "PROFESIÓN", "FUNCIÓN", "REINGRESO", "ULTIMO REINGRESO", "FALLECIDO", "INTERNADO", "LUGAR INTERNACIÓN",
     "ESPECIALIDAD INTERNACIÓN", "CLASIFICACIÓN DE RIESGO", "CATEGORÍA CONTAGIO", "CLASIFICACIÓN FINAL", "LABORATORIO", "EXCLUSIÓN TRABAJO",
-    "CONSTANCIA DE AISLAMIENTO", "FICHA EPIDEMIOLÓGICA", "SE DE FIS", "SE DE MUESTRA","FECHA DE MUESTRA",
+    "CONSTANCIA DE AISLAMIENTO", "NRO DE CONSTANCIA", "FICHA EPIDEMIOLÓGICA", "SE DE FIS", "SE DE MUESTRA","FECHA DE MUESTRA",
     "RESULTADO DE MUESTRA", "EVOLUCIÓN FINAL", "FECHA CIERRE CASO", "SE CIERRE CASO", "SINTOMÁTICO", "EMBARAZADA", "PATOLOGIAS DE BASE", "MIGRADO"];
     worksheet.addRow(header);
     worksheet.getRow(3).fill = {type:'pattern', pattern: 'solid', fgColor: {argb:'00000000'}}
@@ -266,7 +267,7 @@ export class ListaPacientesComponent implements OnInit{
       internado, p.establecimientoInternacion != null ? p.establecimientoInternacion.toUpperCase(): p.establecimientoInternacion, p.especialidadInternacion != null ? p.especialidadInternacion.toUpperCase(): p.especialidadInternacion, 
       p.clasificacionRiesgo != null ? p.clasificacionRiesgo.toUpperCase(): p.clasificacionRiesgo, p.categoriaContagio != null ? p.categoriaContagio.toUpperCase(): p.categoriaContagio, 
       p.clasificacionFinal != null ? p.clasificacionFinal.toUpperCase(): p.clasificacionFinal, laboratorio,
-      trabajoExclusion, constanciaAislamiento, fichaEpidemiologica, p.seFis, p.sePrimeraMuestra, p.fechaPrimeraMuestra,
+      trabajoExclusion, constanciaAislamiento, p.nroConstancia, fichaEpidemiologica, p.seFis, p.sePrimeraMuestra, p.fechaPrimeraMuestra,
       p.resultadoPrimeraMuestra != null ? p.resultadoPrimeraMuestra.toUpperCase(): p.resultadoPrimeraMuestra, p.evolucionFinal != null ? p.evolucionFinal.toUpperCase(): p.evolucionFinal,
       p.fechaCierreCaso, p.seCierreCaso, sintomatico, embarazada, patologiasBase, migrado]);
 
@@ -284,11 +285,11 @@ export class ListaPacientesComponent implements OnInit{
     let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     FileSaver.saveAs(blob, "lista_pacientes"+'-'+new Date().valueOf()+'.xlsx');
   });
+  this.loading = false;
 }
 /*******/
 
     exportExcel(listaUsuarios) {
-
         //import("xlsx").then(xlsx => {
         //const worksheet = XLSX.utils.json_to_sheet(this.getColumnsExportExcel(listaUsuarios));
         let worksheet;

@@ -75,6 +75,7 @@ export class FormDatosBasicosPB {
     evolucionFinal: string;
     fechaCierreCaso: string;
     constanciaAislamiento: boolean;
+    nroConstancia: number;
     fichaEpidemiologica: boolean;
     fechaInicioMonitoreo: string;
     se: number;

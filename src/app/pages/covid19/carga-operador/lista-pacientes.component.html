@@ -15,7 +15,9 @@
       <span>Lista de pacientes</span>
     </h3>
         
-        <p-table #table [columns]="cols" [value]="pacientesList" selectionMode="single" dataKey="id" [paginator]="true"
+      <!--<label *ngIf="loading" style="float:'right'">Generando archivo..favor espere</label>--><p-progressSpinner *ngIf="loading" [style]="{width: '50px', height: '50px', float:'right'}" animationDuration=".5s"></p-progressSpinner><span style="float:right" *ngIf="loading">Generando archivo..favor espere..</span>
+      <br *ngIf="loading"><br *ngIf="loading">  
+      <p-table #table [columns]="cols" [value]="pacientesList" selectionMode="single" dataKey="id" [paginator]="true"
           [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="load($event)"
           paginatorPosition="bottom" editMode="row" [resizableColumns]="true" columnResizeMode="expand">
           <ng-template pTemplate="caption">           
