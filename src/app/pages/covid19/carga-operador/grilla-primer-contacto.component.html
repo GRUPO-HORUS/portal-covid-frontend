@@ -51,6 +51,7 @@
                         <td align="right"><button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="XLS" (click)="getContactosXls(contactoOption)" 
                             style="width: 60px;" class="ui-button-success mr-2" [disabled]="loading"></button><input type="text" pInputText style="width:500px;margin-right: 5px;height: 35px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')"></td>
                     </tr>
+                    <tr><td align="left"><span style="color: red;">Campos obligatorios al editar(*)</span></td></tr>
                 </table>
                 <div style="text-align: right;width:auto;">
                 </div>
@@ -98,17 +99,17 @@
                     <th>Nro de Documento</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
-                    <th>Teléfono</th>
-                    <th>Región Sanitaria</th>
-                    <th>Distrito</th>
+                    <th>Teléfono <span style="color: red;">(*)</span></th>
+                    <th>Región Sanitaria <span style="color: red;">(*)</span></th>
+                    <th>Distrito <span style="color: red;">(*)</span></th>
                     <th>Barrio</th>
-                    <th>Dirección</th>
+                    <th>Dirección <span style="color: red;">(*)</span></th>
                     <th>Referencia</th>
                     <th>Nro Casa</th>
-                    <th>Hospitalizado</th>
-                    <th>Fallecido</th>
-                    <th>Personal de Blanco</th>
-                    <th>Tipo de Exposición</th>
+                    <th>Hospitalizado <span style="color: red;">(*)</span></th>
+                    <th>Fallecido <span style="color: red;">(*)</span></th>
+                    <th>Personal de Blanco <span style="color: red;">(*)</span></th>
+                    <th>Tipo de Exposición <span style="color: red;">(*)</span></th>
                     <th>Sintomático / Asintomático</th>
                     <th>Fecha de Inicio de Síntomas</th>
                     <th>Comunidad / Albergue</th>
@@ -122,7 +123,7 @@
                     <td *ngIf="columns[0].field==='acc'">
                         <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="mostrarNoSeContacto(columns,rowData)" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:133px" label="No se pudo contactar" title="No se Pudo Contactar: en caso de que no atiende, apagado, etc."></button>
                         <button *ngIf="!editing" pButton type="button" pInitEditableRow icon="pi pi-pencil" iconPos="left" (click)="onRowEditInit(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:133px" label="Editar" title="Editar algunas de las informaciones de las columnas exhibidas."></button>
-                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text ui-button-warning p-mr-2 mr-2 ml-3 mb-1 mt-1" style="background-color: green !important;"></button>
+                        <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text ui-button-warning p-mr-2 mr-2 ml-3 mb-1 mt-1" style="background-color: green !important;" [disabled]="formGroup.invalid"></button>
                         <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="onRowEditCancel()" class="p-button-rounded p-button-text p-button-danger mb-1 mt-1" style="background-color: red !important;"></button><br>
                         <button type="button" pButton icon="pi pi-comments" iconPos="left" (click)="mostrarAgregarComentario(rowData)" class="ui-button-info mr-2 mb-1" style="font-size:10px;width:133px" label="Agregar Comentario" title="Agregar Comentario al momento de realizar llamada."></button>
                         <button type="button" pButton icon="pi pi-volume-up" *ngIf="rowData.estadoPrimeraLlamada !=='llamada_realizada'" iconPos="left" (click)="mostrarLlamada(rowData)" class="ui-button-success mr-2" style="font-size:10px;width:133px" label="Llamada Realizada" title="Al Finalizar la llamada, se marca que la llamada fue realizada y el registro sale de la lista."></button><br>
@@ -471,7 +472,7 @@
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <p-dropdown id="sintomaticoAsintomatico" [options]="sintomasOptions" label="label" placeholder="Seleccionar" formControlName="sintomaticoAsintomatico" 
-                                    name="sintomaticoAsintomatico" [style]="{'minWidth':'115px', 'width': '115px'}" (onChange)="anularFechaSintomas($event)" required></p-dropdown>
+                                    name="sintomaticoAsintomatico" [style]="{'minWidth':'115px', 'width': '115px'}" (onChange)="anularFechaSintomas($event)"></p-dropdown>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
@@ -514,7 +515,7 @@
                         <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <p-dropdown id="comunidadAlbergue" [options]="albergueOptions" label="label" placeholder="Seleccionar" formControlName="comunidadAlbergue" name="comunidadAlbergue" [style]="{'minWidth':'115px', 'width': '115px'}" required></p-dropdown>
+                                    <p-dropdown id="comunidadAlbergue" [options]="albergueOptions" label="label" placeholder="Seleccionar" formControlName="comunidadAlbergue" name="comunidadAlbergue" [style]="{'minWidth':'115px', 'width': '115px'}"></p-dropdown>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
