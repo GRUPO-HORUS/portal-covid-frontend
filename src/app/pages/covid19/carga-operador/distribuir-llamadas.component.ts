@@ -23,7 +23,7 @@ export class DistribuirLlamadasComponent implements OnInit{
     cols: any[];
     pacientesList: any[];
     pacientesListCompleta: any[];
-    pageSize: number = 10;
+    pageSize: number = 25;
     start: number = 0;
     filter: string;
     totalRecords: number = 0;

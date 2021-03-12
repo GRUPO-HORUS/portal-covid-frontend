@@ -938,23 +938,13 @@ consultarIdentificaciones(event) {
         Validators.required
       ]),
       barrio: new FormControl({nombre:rowData.barrio, valor: rowData.barrioId}),
-      direccion: new FormControl(rowData.direccion, [
-        Validators.required
-      ]),
+      direccion: new FormControl(rowData.direccion),
       referencia: new FormControl(rowData.referencia),
       casaNumero: new FormControl(rowData.casaNumero),
-      hospitalizado: new FormControl(rowData.hospitalizado, [
-        Validators.required
-      ]),
-      fallecido: new FormControl(rowData.fallecido, [
-        Validators.required
-      ]),
-      personalBlanco: new FormControl(rowData.personalBlanco, [
-        Validators.required
-      ]),
-      tipoExposicion: new FormControl(rowData.tipoExposicion, [
-        Validators.required
-      ]),
+      hospitalizado: new FormControl(rowData.hospitalizado),
+      fallecido: new FormControl(rowData.fallecido),
+      personalBlanco: new FormControl(rowData.personalBlanco),
+      tipoExposicion: new FormControl(rowData.tipoExposicion),
       fechaInicioSintomas: new FormControl(rowData.fechaInicioSintomas),
       sintomaticoAsintomatico: new FormControl(rowData.sintomaticoAsintomatico),
       comunidadAlbergue: new FormControl(rowData.comunidadAlbergue)
