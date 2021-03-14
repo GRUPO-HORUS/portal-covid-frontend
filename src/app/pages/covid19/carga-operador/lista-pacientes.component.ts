@@ -101,12 +101,12 @@ export class ListaPacientesComponent implements OnInit{
 
     getAllPacientes(){
       this.loading = true;
-      this.service.listarReingresos(0, 0, this.filter, this.sortAsc, this.sortField, this.region, this.distritosUsuario).subscribe(pacientes => {
+      this.service.listarReingresosExcel(0, 0, this.filter, this.sortAsc, this.sortField, this.region, this.distritosUsuario);/*.subscribe(pacientes => {
         this.pacientesListCompleta = pacientes.lista;
         //this.exportExcel(this.pacientesListCompleta);
 
         this.exportXlsFormateado(this.pacientesListCompleta);
-      });
+      });*/
     }
 
     /*******/
