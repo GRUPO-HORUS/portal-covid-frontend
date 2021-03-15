@@ -336,9 +336,10 @@ export class Covid19Service {
   }
 
   sincronizarConSalud(): Observable<any>{
-    //let params = new HttpParams();
-    
-    return this.httpClient.get<any>(this.config.API +"/covid19/fsarscov2DgticCon/proceso/");
+    let params = new HttpParams();
+    params = params.set('token', 'miticAgendadosProd');
+      
+    return this.httpClient.get<any>(this.config.API +"/covid19/fsarscov2DgticCon/proceso/",{params});
   }
 
   getCantidadPendientes(fechaCierre, region): Observable<number>{
