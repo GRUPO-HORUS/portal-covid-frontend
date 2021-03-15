@@ -335,6 +335,12 @@ export class Covid19Service {
    return this.httpClient.get<ContactoTable>(this.config.API + '/covid19api/aislamiento/listarOperadoresRegionales/'+region, {params});
   }
 
+  sincronizarConSalud(): Observable<any>{
+    //let params = new HttpParams();
+    
+    return this.httpClient.get<any>(this.config.API +"/covid19/fsarscov2DgticCon/proceso/");
+  }
+
   getCantidadPendientes(fechaCierre, region): Observable<number>{
     let params = new HttpParams();
     if (fechaCierre){

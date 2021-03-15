@@ -111,6 +111,11 @@ export class DistribuirLlamadasComponent implements OnInit{
           this.operadoresList = operadores.lista;
           this.totalRecords = operadores.totalRecords;
           console.log(this.operadoresList);
+
+          this.totalAsignados = 0;
+          for(let operador of this.operadoresList){
+            this.totalAsignados+= operador.asignadosactual;
+          }
         
       }, error => {
         console.log(error);
@@ -118,6 +123,22 @@ export class DistribuirLlamadasComponent implements OnInit{
         this.openMessageDialog();
       }  
       );
+    }
+
+    sincronizarConSalud(){
+      this.loading = true;
+      this.service.sincronizarConSalud().subscribe(respuesta => {
+        if(respuesta){
+          this.mensaje = "Sincronización correcta";
+          this.openMessageDialog();
+          this.loading = false;
+        }
+      }, error => {
+        console.log(error);
+        this.mensaje = error.error;
+        this.openMessageDialog();
+        this.loading = false;
+      });
     }
 
     openMessageDialog() {
