@@ -128,11 +128,11 @@ export class DistribuirLlamadasComponent implements OnInit{
     sincronizarConSalud(){
       this.loading = true;
       this.service.sincronizarConSalud().subscribe(respuesta => {
-        if(respuesta){
+        //if(respuesta){
           this.mensaje = "Sincronización correcta";
           this.openMessageDialog();
           this.loading = false;
-        }
+        //}
       }, error => {
         console.log(error);
         this.mensaje = error.error;
