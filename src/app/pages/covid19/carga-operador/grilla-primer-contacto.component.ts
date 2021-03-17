@@ -424,7 +424,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
       this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
       this.pacientesList = pacientes.lista;
 
-      if(this.pacientesList.length < 2000){
+      if(pacientes.lista.length < 2000){
         this.exportXlsFormateado(this.pacientesList);
       }else{
         if(this.filter== null){
