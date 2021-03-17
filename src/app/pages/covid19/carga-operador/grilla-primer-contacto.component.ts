@@ -424,14 +424,16 @@ export class GrillaPrimerContactoComponent implements OnInit {
       this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
       this.pacientesList = pacientes.lista;
 
-      this.exportXlsFormateado(this.pacientesList);
-      /*if(this.pacientesList.length < 2000){
-        console.log(this.filter);
+      if(this.pacientesList.length < 2000){
         this.exportXlsFormateado(this.pacientesList);
-      }else if(this.filter== null){
-        this.mensaje = 'Debe filtrar por algún campo como por ej Fecha de Cierre.';
-        this.openMessageDialog();
-      }*/
+      }else{
+        if(this.filter== null){
+          this.mensaje = 'Debe filtrar por algún campo como por ej Fecha de Cierre.';
+          this.openMessageDialog();
+        }else{
+          this.exportXlsFormateado(this.pacientesList);
+        }
+      }
     });
   }
 
