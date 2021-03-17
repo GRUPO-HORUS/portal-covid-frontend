@@ -619,7 +619,7 @@
                 </div>
             </div>
 
-            <p-dialog [(visible)]="showAgregarComentario" modal="true" header="Agregar Comentario">
+            <p-dialog [(visible)]="showAgregarComentario" modal="true" header="Agregar Comentario" (onHide)="closePopupAgregarComentario()">
                 <form [formGroup]="comentariosFormGroup" class="mt-4">
                     <!--<div class="form-group">
                         <label for="nexo"><strong>Nexo</strong><span class="text-danger">*</span></label>
@@ -627,7 +627,7 @@
                     </div>-->
                     <div class="form-group">
                         <label for="comentarios"><strong>Comentario</strong><span class="text-danger">*</span></label><br>
-                        <textarea id="comentarios"  formControlName="comentarios" cols="50" rows="5"></textarea>
+                        <textarea id="comentarios"  formControlName="comentarios" cols="50" rows="5" maxlength="899"></textarea>
                     </div>
                 </form>
                 <button class="btn btn-success btn-success-next mr-2 mb-2" (click)="agregarComentario()" [disabled]="!comentariosFormGroup.valid">
