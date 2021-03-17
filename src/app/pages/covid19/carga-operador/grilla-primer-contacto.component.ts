@@ -419,23 +419,21 @@ export class GrillaPrimerContactoComponent implements OnInit {
   }
 
   getContactosXls(opcionFiltro){
-    this.loading = true;
-    this.service.getPacientesPrimerContacto(0, 0, this.filter, this.sortAsc, this.sortField, this.region, 
-      this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
-        //let total = pacientes.totalRecords;
-        this.pacientesList = pacientes.lista;
-
-      if(this.filter == null){
-        this.mensaje = 'Debe filtrar por algún campo como por ej Fecha de Cierre.';
-        this.openMessageDialog();
-      }else{
-        this.exportXlsFormateado(this.pacientesList);
-      }
-      
-    });
+    if(this.filter == null){
+      this.mensaje = 'Debe filtrar por algún campo como por ejemplo por Fecha de Cierre.';
+      this.openMessageDialog();
+    }else{
+      this.service.getPacientesPrimerContacto(0, 0, this.filter, this.sortAsc, this.sortField, this.region, 
+        this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
+          //let total = pacientes.totalRecords;
+          this.pacientesList = pacientes.lista;
+          this.exportXlsFormateado(this.pacientesList);
+      });
+    }
   }
 
   exportXlsFormateado(pacientes){
+    this.loading = true;
     let workbook = new Excel.Workbook();
     let worksheet = workbook.addWorksheet('Pacientes');
 
