@@ -425,6 +425,13 @@ export class GrillaPrimerContactoComponent implements OnInit {
       this.pacientesList = pacientes.lista;
 
       this.exportXlsFormateado(this.pacientesList);
+      /*if(this.pacientesList.length < 2000){
+        console.log(this.filter);
+        this.exportXlsFormateado(this.pacientesList);
+      }else if(this.filter== null){
+        this.mensaje = 'Debe filtrar por algún campo como por ej Fecha de Cierre.';
+        this.openMessageDialog();
+      }*/
     });
   }
 

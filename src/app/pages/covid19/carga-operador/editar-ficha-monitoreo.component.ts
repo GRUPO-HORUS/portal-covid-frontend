@@ -2739,6 +2739,17 @@ export class EditarFichaMonitoreoComponent implements OnInit {
           //this.registroFg.controls.se.setValue(null);
           this.openMessageDialog();
         }else{
+          this.service.esReingreso(cedula).subscribe(resultado => {
+            if(resultado > 0){
+              this.registroFg.controls.reingreso.setValue(true);
+              this.mensaje = "Ya existe un registro para esta persona. Se marcará como reingreso.";
+              this.openMessageDialog();
+            }
+          }, error => {
+            console.log(error);
+            this.mensaje = error.error;
+            this.openMessageDialog();
+          });
           //console.log("NO EXISTE "+resultado);
           this.consultarIdentificaciones(cedula, 'registro');
         }
