@@ -422,9 +422,10 @@ export class GrillaPrimerContactoComponent implements OnInit {
     this.loading = true;
     this.service.getPacientesPrimerContacto(0, 0, this.filter, this.sortAsc, this.sortField, this.region, 
       this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
-      this.pacientesList = pacientes.lista;
+        let total = pacientes.totalRecords;
+        this.pacientesList = pacientes.lista;
 
-      if(pacientes.lista.length < 2000){
+      if(total <= 2000){
         this.exportXlsFormateado(this.pacientesList);
       }else{
         if(this.filter== null){
