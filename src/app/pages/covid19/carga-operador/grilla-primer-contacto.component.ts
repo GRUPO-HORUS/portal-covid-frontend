@@ -428,8 +428,8 @@ export class GrillaPrimerContactoComponent implements OnInit {
         this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
           //let total = pacientes.totalRecords;
           this.pacientesList = pacientes.lista;
-          //this.exportXlsFormateado(this.pacientesList);
-          this.exportarStream(this.pacientesList);
+          this.exportXlsFormateado(this.pacientesList);
+          //this.exportarStream(this.pacientesList);
       });
     }
   }
