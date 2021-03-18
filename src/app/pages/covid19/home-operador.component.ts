@@ -34,6 +34,8 @@ export class HomeOperadorComponent implements OnInit {
 
   public qrCode: string;
 
+  public region;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -46,7 +48,8 @@ export class HomeOperadorComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    const {usuario} = this.storageManager.getLoginData();
+    this.region = usuario.regionSanitaria;
   }
 
   ngOnDestroy() {
@@ -88,6 +91,22 @@ export class HomeOperadorComponent implements OnInit {
       this._router.navigate(["/"]);
       return false;
     }
+  }
+
+  sincronizarConSalud(){
+    this.loading = true;
+    this.service.sincronizarConSalud().subscribe(respuesta => {
+      //if(respuesta){
+        this.mensaje = "Sincronización correcta";
+        this.openMessageDialog();
+        this.loading = false;
+      //}
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+      this.loading = false;
+    });
   }
 
 }

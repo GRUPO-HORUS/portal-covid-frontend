@@ -317,6 +317,10 @@ export class Covid19Service {
     return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/editarPrimerContacto', primerContacto);
   }
 
+  realizarLlamadaPrimerContacto(primerContacto): Observable<string> {
+    return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/realizarLlamadaPrimerContacto', primerContacto);
+  }
+
   insertFrmFsarscov2(primerContacto): Observable<string> {
     return this.httpClient.post<string>(this.config.API + '/covid19/fsarscov2DgticCon/insertFrmFsarscov2', primerContacto);
   }

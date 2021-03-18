@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
-import {Location} from '@angular/common';
+import {getLocaleDateTimeFormat, Location} from '@angular/common';
 import { Subscription } from 'rxjs';
 import { Covid19Service } from '../../../services/Covid19Service';
 
@@ -423,17 +423,61 @@ export class GrillaPrimerContactoComponent implements OnInit {
       this.mensaje = 'Debe filtrar por algún campo como por ejemplo por Fecha de Cierre.';
       this.openMessageDialog();
     }else{
+      this.loading = true;
       this.service.getPacientesPrimerContacto(0, 0, this.filter, this.sortAsc, this.sortField, this.region, 
         this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
           //let total = pacientes.totalRecords;
           this.pacientesList = pacientes.lista;
-          this.exportXlsFormateado(this.pacientesList);
+          //this.exportXlsFormateado(this.pacientesList);
+          this.exportarStream(this.pacientesList);
       });
     }
   }
 
+  /*****/
+  async exportarStream(pacientes){
+    const options = {
+      filename: './streamed-workbook.xlsx',
+      useStyles: true,
+      useSharedStrings: true
+    };
+    const workbook = new Excel.stream.xlsx.WorkbookWriter(options);
+    let worksheet = workbook.addWorksheet('Pacientes');
+
+    worksheet.addRow(['LISTA DE PRIMERA LLAMADA']);
+    worksheet.addRow(['FECHA DE GENERACIÓN:', new Date().toLocaleString()]);
+    worksheet.getRow(1).font = { name: 'Arial Black', family: 4, size: 14, bold: true };
+
+    worksheet.properties.defaultColWidth = 25;
+    //worksheet.getColumn(1).width = 25;
+
+    let header=["FECHA DE CIERRE", "NRO DE DOCUMENTO", "CÓDIGO DE PACIENTE", "NOMBRE", "APELLIDO", "TELÉFONO", "DEPARTAMENTO", "DISTRITO", "BARRIO", "DIRECCION",
+    "REFERENCIA","NRO DE CASA", "INTERNADO", "FALLECIDO", "TIPO DE EXPOSICIÓN","SINTOMATICO/ASINTOMATICO", "FECHA DE INICIO DE SÍNTOMAS", "COMUNIDAD/ALBERGUE", "ESTADO DE PRIMERA LLAMADA", "LLAMADOR ASIGNADO", "COMENTARIOS"];
+    worksheet.addRow(header);
+    worksheet.getRow(3).fill = {type:'pattern', pattern: 'solid', fgColor: {argb:'00000000'}}
+    worksheet.getRow(3).font = { color:{argb:'FFFFFFFF'}, name: 'Arial Black', family: 4, size: 11, bold: true };
+
+    let filaNro = 4;
+    for(let p of pacientes) {
+      worksheet.addRow([p.fechaCierreCaso, p.nroDocumento, p.codigoPaciente, p.nombre != null ? p.nombre.toUpperCase(): p.nombre, p.apellido != null ? p.apellido.toUpperCase(): p.apellido, p.telefono, p.departamento, 
+        p.distrito != null ? p.distrito.toUpperCase(): p.distrito, p.barrio, p.direccion, p.referencia, p.casaNumero, p.hospitalizado, p.fallecido, p.tipoExposicion, p.sintomaticoAsintomatico, p.fechaInicioSintomas, p.comunidadAlbergue, p.estadoPrimeraLlamada != null ? p.estadoPrimeraLlamada.toUpperCase(): p.estadoPrimeraLlamada,
+        p.loginOperador, p.comentarios]);
+  
+        worksheet.getRow(filaNro).border = {
+          top: { style:'double', color: {argb:'00000000'}},
+          left: { style:'double', color: {argb:'00000000'}},
+          bottom: { style:'double', color: {argb:'00000000'}},
+          right: { style:'double', color: {argb:'00000000'}}
+        }
+        filaNro++;
+    }
+    worksheet.commit();
+
+    await workbook.commit();
+  }
+  /*****/
+
   exportXlsFormateado(pacientes){
-    this.loading = true;
     let workbook = new Excel.Workbook();
     let worksheet = workbook.addWorksheet('Pacientes');
 
@@ -805,12 +849,14 @@ consultarIdentificaciones(event) {
   }
 
   agregarComentario(){
-    let fecha = new Date();
-    let mes = fecha.getMonth()+1;
+    let fecha = new Date().toLocaleString();
+    //let mes = fecha.getMonth()+1;
     if(this.primerContacto.comentarios !== null){
-      this.primerContacto.comentarios = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+this.comentariosFormGroup.controls.comentarios.value+' | '+this.primerContacto.comentarios;
+      //this.primerContacto.comentarios = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+this.comentariosFormGroup.controls.comentarios.value+' | '+this.primerContacto.comentarios;
+      this.primerContacto.comentarios = fecha+' - '+this.username+' - '+this.comentariosFormGroup.controls.comentarios.value+' | '+this.primerContacto.comentarios;
     }else{
-      this.primerContacto.comentarios = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+this.comentariosFormGroup.controls.comentarios.value;
+      //this.primerContacto.comentarios = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+this.comentariosFormGroup.controls.comentarios.value;
+      this.primerContacto.comentarios = fecha+' - '+this.username+' - '+this.comentariosFormGroup.controls.comentarios.value;
     }
     
     this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
@@ -848,7 +894,7 @@ consultarIdentificaciones(event) {
   guardarNoSeContacto(){
     this.primerContacto.estadoPrimeraLlamada = this.motivosFormGroup.controls.motivoNoContacto.value;
     this.primerContacto.cantidadReintentos++;
-    this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
+    this.service.realizarLlamadaPrimerContacto(this.primerContacto).subscribe(response => {
       this.loading = false;
       this.mensaje= "Motivo guardado exitosamente.";
       this.buscarContactos(this.contactoOption);
@@ -880,7 +926,8 @@ consultarIdentificaciones(event) {
 
   guardarLlamada(){
     this.primerContacto.estadoPrimeraLlamada ="llamada_realizada";
-    this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
+    //this.primerContacto.fechaUltimaLlamada = new Date().toLocaleString();
+    this.service.realizarLlamadaPrimerContacto(this.primerContacto).subscribe(response => {
       this.loading = false;
       this.mensaje= "Estado de la llamada guardado exitosamente.";
       this.buscarContactos(this.contactoOption);
@@ -1007,6 +1054,8 @@ consultarIdentificaciones(event) {
     this.primerContacto.fallecido = this.formGroup.controls.fallecido.value;
     this.primerContacto.personalBlanco = this.formGroup.controls.personalBlanco.value;
     this.primerContacto.regionSanitaria = this.formGroup.controls.departamento.value.id;
+
+    this.primerContacto.regionSanitariaId = this.formGroup.controls.departamento.value.id;
 
     if(this.formGroup.controls.barrio.value){
       this.primerContacto.barrio = this.formGroup.controls.barrio.value.nombre;
