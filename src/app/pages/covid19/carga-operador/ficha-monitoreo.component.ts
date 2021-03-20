@@ -69,18 +69,18 @@ export class FichaMonitoreoComponent implements OnInit {
 
   public sexoOptions=[{value:'M',label:'Masculino'},{value:'F',label:'Femenino'}];
 
-  public clasRiesgoOptions=[{value:'alto',label:'Alto'},{value:'moderado',label:'Moderado'},{value:'bajo',label:'Bajo'}];
+  public clasRiesgoOptions=[{value:'ALTO',label:'Alto'},{value:'MODERADO',label:'Moderado'},{value:'BAJO',label:'Bajo'}];
 
-  public evoFinalOptions=[{value:'alta',label:'Alta'},{value:'obito',label:'Obito'}];
+  public evoFinalOptions=[{value:'ALTA',label:'Alta'},{value:'OBITO',label:'Obito'}];
 
   public rangoEdadOptions=[{value:'18-28',label:'18 a 28 años'}, {value:'29-39',label:'29 a 39 años'},{value:'40-50',label:'40 a 50 años'},{value:'51-61',label:'51 a 61 años'},
   {value:'>=62',label:'62 años y más'}];
 
   public profesionOptions =[{value:'medico',label:'Médico/a'}, {value:'enfermero',label:'Enfermero/a'}];
 
-  public catContagioOptions=[{value:'asistencia_paciente',label:'Asistencia a paciente con COVID-19'}, {value:'contacto_personal_salud',label:'Contacto con Personal de Salud con COVID-19'},
-  {value:'asistencia_penitenciaria',label:'Asistencia en penitenciaría'},{value:'asistencia_albergue',label:'Asistencia en albergues/hotel salud'},
-  {value:'familiar_social',label:'Familiar Social'}, {value:'viajero',label:'Viajero'},{value:'sin_nexo',label:'Sin Nexo'}];
+  public catContagioOptions=[{value:'ASISTENCIA_PACIENTE',label:'Asistencia a paciente con COVID-19'}, {value:'CONTACTO_PERSONAL_SALUD',label:'Contacto con Personal de Salud con COVID-19'},
+  {value:'ASISTENCIA_PENITENCIARIA',label:'Asistencia en penitenciaría'},{value:'ASISTENCIA_ALBERGUE',label:'Asistencia en albergues/hotel salud'},
+  {value:'FAMILIAR_SOCIAL',label:'Familiar Social'}, {value:'VIAJERO',label:'Viajero'},{value:'SIN_NEXO',label:'Sin Nexo'}];
 
   public tipoRegistroOptions=[{value:'ingreso_pais',label:'Ingreso al país'},{value:'aislamiento',label:'Caso sospechoso Covid-19'}];
   
@@ -115,12 +115,12 @@ export class FichaMonitoreoComponent implements OnInit {
                               {id:16, nombre:'Presidente Hayes'}, {id:17, nombre:'Boquerón'},
                               {id:18, nombre:'Alto Paraguay'}, {id:19, nombre:'Capital'}];
 
-  public clasifFinalOptions=[{value:'descartado',label:'Descartado'},{value:'confirmado',label:'Confirmado'}];
+  public clasifFinalOptions=[{value:'DESCARTADO',label:'Descartado'},{value:'CONFIRMADO',label:'Confirmado'}];
   public ciudadOptions: any[];
 
-  public resulPriMuestraOptions=[{value:'negativo',label:'Negativo'},{value:'positivo',label:'Positivo'}];
+  public resulPriMuestraOptions=[{value:'NEGATIVO',label:'Negativo'},{value:'POSITIVO',label:'Positivo'}];
 
-  public especialidadOptions=[{value:'sala',label:'Sala'},{value:'uti',label:'UTI'}];
+  public especialidadOptions=[{value:'SALA',label:'Sala'},{value:'UTI',label:'UTI'}];
 
   public serviciosSalud = [{'id':4,'nombre':'HG. BARRIO OBRERO'},{'id':5,'nombre':'CS. NRO. 8'},{'id':6,'nombre':'CD. N 11'},
   {'id':7,'nombre':'CS. DOMINGO SAVIO'}, {'id':8,'nombre':'USF. 3 DE FEBRERO I'}, {'id':9,'nombre':'USF. 3 DE FEBRERO II'},

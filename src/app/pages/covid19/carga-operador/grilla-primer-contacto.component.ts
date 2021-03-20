@@ -430,6 +430,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
           this.pacientesList = pacientes.lista;
           //this.exportXlsFormateado(this.pacientesList);
       });*/
+      this.loading = false;
     //}
   }
 

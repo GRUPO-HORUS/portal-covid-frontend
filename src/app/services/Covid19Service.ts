@@ -307,7 +307,7 @@ export class Covid19Service {
 
    params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
    //return this.httpClient.get<PrimerContactoTable>(this.config.API + '/covid19api/aislamiento/getPrimerContactoXls/'+region+'/'+opcionFiltro, {params});
-   window.open(this.config.API + '/covid19api/aislamiento/getPrimerContactoXls/'+region+'/'+opcionFiltro+'?'+ params.toString());
+   window.open(this.config.API + '/covid19api/aislamiento/getPrimerContactoXls/'+region+'/'+opcionFiltro+'/primera_llamada'+'?'+ params.toString());
   }
 
     getPacientesPrimerContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
