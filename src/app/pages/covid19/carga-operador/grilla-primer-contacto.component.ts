@@ -419,63 +419,19 @@ export class GrillaPrimerContactoComponent implements OnInit {
   }
 
   getContactosXls(opcionFiltro){
-    if(this.filter == null){
+    /*if(this.filter == null){
       this.mensaje = 'Debe filtrar por algún campo como por ejemplo por Fecha de Cierre.';
       this.openMessageDialog();
-    }else{
+    }else{*/
       this.loading = true;
-      this.service.getPacientesPrimerContacto(0, 0, this.filter, this.sortAsc, this.sortField, this.region, 
+      this.service.getPrimerContactoXls(0, 0, this.filter, this.sortAsc, this.sortField, this.region, this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg);
+      /*this.service.getPacientesPrimerContacto(0, 0, this.filter, this.sortAsc, this.sortField, this.region, 
         this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
-          //let total = pacientes.totalRecords;
           this.pacientesList = pacientes.lista;
-          this.exportXlsFormateado(this.pacientesList);
-          //this.exportarStream(this.pacientesList);
-      });
-    }
+          //this.exportXlsFormateado(this.pacientesList);
+      });*/
+    //}
   }
-
-  /*****/
-  async exportarStream(pacientes){
-    const options = {
-      filename: './streamed-workbook.xlsx',
-      useStyles: true,
-      useSharedStrings: true
-    };
-    const workbook = new Excel.stream.xlsx.WorkbookWriter(options);
-    let worksheet = workbook.addWorksheet('Pacientes');
-
-    worksheet.addRow(['LISTA DE PRIMERA LLAMADA']);
-    worksheet.addRow(['FECHA DE GENERACIÓN:', new Date().toLocaleString()]);
-    worksheet.getRow(1).font = { name: 'Arial Black', family: 4, size: 14, bold: true };
-
-    worksheet.properties.defaultColWidth = 25;
-    //worksheet.getColumn(1).width = 25;
-
-    let header=["FECHA DE CIERRE", "NRO DE DOCUMENTO", "CÓDIGO DE PACIENTE", "NOMBRE", "APELLIDO", "TELÉFONO", "DEPARTAMENTO", "DISTRITO", "BARRIO", "DIRECCION",
-    "REFERENCIA","NRO DE CASA", "INTERNADO", "FALLECIDO", "TIPO DE EXPOSICIÓN","SINTOMATICO/ASINTOMATICO", "FECHA DE INICIO DE SÍNTOMAS", "COMUNIDAD/ALBERGUE", "ESTADO DE PRIMERA LLAMADA", "LLAMADOR ASIGNADO", "COMENTARIOS"];
-    worksheet.addRow(header);
-    worksheet.getRow(3).fill = {type:'pattern', pattern: 'solid', fgColor: {argb:'00000000'}}
-    worksheet.getRow(3).font = { color:{argb:'FFFFFFFF'}, name: 'Arial Black', family: 4, size: 11, bold: true };
-
-    let filaNro = 4;
-    for(let p of pacientes) {
-      worksheet.addRow([p.fechaCierreCaso, p.nroDocumento, p.codigoPaciente, p.nombre != null ? p.nombre.toUpperCase(): p.nombre, p.apellido != null ? p.apellido.toUpperCase(): p.apellido, p.telefono, p.departamento, 
-        p.distrito != null ? p.distrito.toUpperCase(): p.distrito, p.barrio, p.direccion, p.referencia, p.casaNumero, p.hospitalizado, p.fallecido, p.tipoExposicion, p.sintomaticoAsintomatico, p.fechaInicioSintomas, p.comunidadAlbergue, p.estadoPrimeraLlamada != null ? p.estadoPrimeraLlamada.toUpperCase(): p.estadoPrimeraLlamada,
-        p.loginOperador, p.comentarios]);
-  
-        worksheet.getRow(filaNro).border = {
-          top: { style:'double', color: {argb:'00000000'}},
-          left: { style:'double', color: {argb:'00000000'}},
-          bottom: { style:'double', color: {argb:'00000000'}},
-          right: { style:'double', color: {argb:'00000000'}}
-        }
-        filaNro++;
-    }
-    worksheet.commit();
-
-    await workbook.commit();
-  }
-  /*****/
 
   exportXlsFormateado(pacientes){
     let workbook = new Excel.Workbook();
@@ -520,6 +476,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
   workbook.xlsx.writeBuffer().then((data) => {
     let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     FileSaver.saveAs(blob, "lista_primera_llamada"+'-'+new Date().valueOf()+'.xlsx');
+
   });
 
   this.loading = false;

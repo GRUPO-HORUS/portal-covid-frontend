@@ -38,7 +38,7 @@
                 </div>-->
                 <div>
         
-        <label *ngIf="loading">Generando archivo..favor espere..</label><p-progressSpinner *ngIf="loading" [style]="{width: '50px', height: '50px'}" animationDuration=".5s"></p-progressSpinner>
+        <!--<label *ngIf="loading">Generando archivo..favor espere..</label><p-progressSpinner *ngIf="loading" [style]="{width: '50px', height: '50px'}" animationDuration=".5s"></p-progressSpinner>-->
         <p-table #dt [columns]="scrollableCols" [value]="pacientesList" selectionMode="single" dataKey="id" [paginator]="true"
         [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="load($event)"
         paginatorPosition="bottom" editMode="row"

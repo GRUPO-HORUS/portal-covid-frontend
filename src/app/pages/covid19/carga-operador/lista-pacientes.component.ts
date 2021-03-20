@@ -48,11 +48,13 @@ export class ListaPacientesComponent implements OnInit{
       this.region = usuario.regionSanitaria;
       this.usuarioId = usuario.id;
 
-        this.cols = [{ field: 'numeroDocumento', header: 'Nro de Documento', width: '11%' },
-        { field: 'nombre', header: 'Nombres', width: '20%' },
-        { field: 'apellido', header: 'Apellidos', width: '20%' },
+        this.cols = [{ field: 'numeroDocumento', header: 'Nro de Documento', width: '10%' },
+        { field: 'nombre', header: 'Nombres', width: '18%' },
+        { field: 'apellido', header: 'Apellidos', width: '18%' },
         { field: 'numeroCelular', header: 'Teléfono', width: '12%' },
-        { field: 'departamentoDomicilio', header: 'Departamento', width: '14%' },
+        { field: 'nroConstancia', header: 'ID Llamada', width: '10%' },
+        { field: 'clasificacionFinal', header: 'Clasificación Final', width: '11%' },
+        //{ field: 'departamentoDomicilio', header: 'Departamento', width: '14%' },
         { field: 'migrado', header: 'Migrado', width: '8%' }];
         /*{ field: 'direccionDomicilio', header: 'Domicilio', width: '17%' },
         { field: 'sexo', header: 'Tipo de Contacto', width: '9%' },

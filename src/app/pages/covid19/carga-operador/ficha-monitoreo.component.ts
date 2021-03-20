@@ -94,15 +94,15 @@ export class FichaMonitoreoComponent implements OnInit {
                               {value:'Presidente Hayes',label:'Presidente Hayes'},{value:'Alto Paraguay',label:'Alto Paraguay'},
                               {value:'Boquerón',label:'Boquerón'}];*/
 
-                              public departamentoOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro'},
-                              {id:3, nombre:'Cordillera'}, {id:4, nombre:'Guairá'},
-                              {id:5, nombre:'Caaguazú'}, {id:6,nombre:'Caazapá'},
-                              {id:7, nombre:'Itapúa'}, {id:8,nombre:'Misiones'},
-                              {id:9, nombre:'Paraguarí'},{id:10, nombre:'Alto Paraná'},
-                              {id:11, nombre:'Central'},{id:12, nombre:'Ñeembucú'},
-                              {id:13, nombre:'Amambay'},{id:14, nombre:'Canindeyú'},
-                              {id:15, nombre:'Presidente Hayes'}, {id:16, nombre:'Boquerón'},
-                              {id:17, nombre:'Alto Paraguay'}, {id:18, nombre:'Capital'}];
+                              public departamentoOptions=[{id:1, nombre:'CONCEPCION'},{id:2, nombre:'SAN PEDRO'},
+                              {id:3, nombre:'CORDILLERA'}, {id:4, nombre:'GUAIRA'},
+                              {id:5, nombre:'CAAGUAZU'}, {id:6,nombre:'CAAZAPA'},
+                              {id:7, nombre:'ITAPUA'}, {id:8,nombre:'MISIONES'},
+                              {id:9, nombre:'PARAGUARI'},{id:10, nombre:'ALTO PARANA'},
+                              {id:11, nombre:'CENTRAL'},{id:12, nombre:'ÑEEMBUCU'},
+                              {id:13, nombre:'AMAMBAY'},{id:14, nombre:'CANINDEYU'},
+                              {id:15, nombre:'PRESIDENTE HAYES'}, {id:16, nombre:'BOQUERON'},
+                              {id:17, nombre:'ALTO PARAGUAY'}, {id:18, nombre:'CAPITAL'}];
 
                               public regionSanitariaOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro Norte'},
                               {id:3, nombre:'San Pedro Sur'}, {id:4, nombre:'Cordillera'},

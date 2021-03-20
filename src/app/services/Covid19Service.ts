@@ -271,6 +271,45 @@ export class Covid19Service {
      return this.httpClient.get<PrimerContactoTable>(this.config.API + '/covid19api/aislamiento/listarCensoContacto/'+region+'/'+opcionFiltro, {params});
    }
 
+   getPrimerContactoXls(start: number, pageSize: number, filter: string, sortAsc: boolean,
+    sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg): void {
+   this.loading.next(true);
+
+   let params = new HttpParams();
+
+    if (filter)
+      params = params.set('filter', filter);
+
+    if (sortField)
+      params = params.set('sortField', sortField);
+
+    if (usuarioId)
+      params = params.set('usuarioId', usuarioId);
+
+    if (esLiderReg){
+      params = params.set('esLiderReg', esLiderReg);
+    }else{
+      esLiderReg = false;
+      params = params.set('esLiderReg', esLiderReg);
+    }
+
+    if(distritosUsuario.length > 0){
+      let distritosParam="";
+      for(let i=0; i<distritosUsuario.length; i++){
+        if(i+1==distritosUsuario.length){
+          distritosParam+= distritosUsuario[i];
+        }else{
+          distritosParam+= distritosUsuario[i]+",";
+        }
+      }
+      params = params.set('distritosUsuario', distritosParam);
+    }
+
+   params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
+   //return this.httpClient.get<PrimerContactoTable>(this.config.API + '/covid19api/aislamiento/getPrimerContactoXls/'+region+'/'+opcionFiltro, {params});
+   window.open(this.config.API + '/covid19api/aislamiento/getPrimerContactoXls/'+region+'/'+opcionFiltro+'?'+ params.toString());
+  }
+
     getPacientesPrimerContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
       sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg): Observable<PrimerContactoTable> {
      this.loading.next(true);
