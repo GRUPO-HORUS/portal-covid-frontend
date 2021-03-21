@@ -1350,6 +1350,11 @@ export class EditarFichaMonitoreoComponent implements OnInit {
     this.registroFg.controls.otroLugarNoLista.setValue(null);
   }
 
+  setContagioEstablecimiento(){
+    this.casoConfirmadoFg.controls.contagioEstablecimiento.clearValidators();
+    this.casoConfirmadoFg.controls.contagioEstablecimiento.setValue(null);
+  }
+
   obtenerPaciente(cedula): void {
     this.loading = true;
     this.formDatosBasicos = null;

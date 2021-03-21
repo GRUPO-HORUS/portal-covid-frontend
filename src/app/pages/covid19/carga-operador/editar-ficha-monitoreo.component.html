@@ -395,12 +395,12 @@
                             <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud'">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <p-checkbox formControlName="otroServicioCheck" [binary]="true" label="Otro Servicio de Salud que no esté en la lista" id="otroServicioCheck" (click)="setearServicioSalud()"></p-checkbox>
+                                        <p-checkbox formControlName="otroServicioCheck" [binary]="true" label="Otro Servicio de Salud que no esté en la lista" id="otroServicioCheck" (click)="setContagioEstablecimiento()"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="col-md">
                                     <div class="form-group" *ngIf="casoConfirmadoFg.controls.otroServicioCheck.value">
-                                        <label for="otroServicioNombre"><strong>Especificar Otro Servicio de Salud</strong></label>
+                                        <label for="otroServicioNombre"><strong>Especificar Otro Servicio de Salud</strong><span style="color: red;"> * obligatorio</span></label>
                                         <input type="text" formControlName="otroServicioNombre" name="otroServicioNombre" class="form-control" id="otroServicioNombre" required>
                                     </div>
                                 </div>
