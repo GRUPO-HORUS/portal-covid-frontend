@@ -408,7 +408,7 @@
                                 <div class="col-md">
                                     <div class="form-group">
                                         <label for="contagioEstablecimiento"><strong>Indique el entorno asistencial</strong><span style="color: red;"> * obligatorio</span></label><br>
-                                        <p-autoComplete id="contagioEstablecimiento" formControlName="contagioEstablecimiento" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true"required apendTo="body"></p-autoComplete>
+                                        <p-autoComplete id="contagioEstablecimiento" formControlName="contagioEstablecimiento" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" apendTo="body"></p-autoComplete>
                                     </div>
                                 </div>
                                 <div class="col-md">
@@ -422,7 +422,7 @@
                             <div class="row" *ngIf="casoConfirmadoFg.controls.contagioAmbiente.value==='establecimiento_salud'">
                                 <div class="col-md">
                                     <div class="form-group">
-                                        <p-checkbox formControlName="otroServicioCheck" [binary]="true" label="Otro Servicio de Salud que no esté en la lista" id="otroServicioCheck" (click)="setearServicioSalud()"></p-checkbox>
+                                        <p-checkbox formControlName="otroServicioCheck" [binary]="true" label="Otro Servicio de Salud que no esté en la lista" id="otroServicioCheck" (click)="setContagioEstablecimiento()"></p-checkbox>
                                     </div>
                                 </div>
                                 <div class="col-md">

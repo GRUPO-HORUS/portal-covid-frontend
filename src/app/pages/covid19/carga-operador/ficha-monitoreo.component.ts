@@ -999,6 +999,11 @@ export class FichaMonitoreoComponent implements OnInit {
     this.registroFg.controls.servicioSalud.setValue(null);
   }
 
+  setContagioEstablecimiento(){
+    this.casoConfirmadoFg.controls.contagioEstablecimiento.setValue(null);
+    this.casoConfirmadoFg.controls.contagioEstablecimiento.clearValidators();
+  }
+
   setearOtroLugarNoLista(){
     this.registroFg.controls.otroLugarNoLista.setValue(null);
   }
