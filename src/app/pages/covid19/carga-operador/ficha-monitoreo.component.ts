@@ -1000,8 +1000,8 @@ export class FichaMonitoreoComponent implements OnInit {
   }
 
   setContagioEstablecimiento(){
-    this.casoConfirmadoFg.controls.contagioEstablecimiento.setValue(null);
     this.casoConfirmadoFg.controls.contagioEstablecimiento.clearValidators();
+    this.casoConfirmadoFg.controls.contagioEstablecimiento.setValue(null);
   }
 
   setearOtroLugarNoLista(){
