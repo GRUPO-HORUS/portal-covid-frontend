@@ -673,12 +673,16 @@ export class EditarFichaMonitoreoComponent implements OnInit {
 
     if(this.monitoreoFg.controls.sintomatico.value){
       this.monitoreoFg.controls.fechaSintomas.setValidators([Validators.required]);
+    }else{
+      this.monitoreoFg.controls.fechaSintomas.clearValidators();
+      this.monitoreoFg.controls.fechaSintomas.setValue(null);
     }
 
     if(this.casoConfirmadoFg.controls.contagioAmbiente.value === 'familiar_social'){
       /*this.casoConfirmadoFg.controls.fechaExposicion.setValidators([Validators.required]);
       this.casoConfirmadoFg.controls.nombre.setValidators([Validators.required]);
       this.casoConfirmadoFg.controls.apellido.setValidators([Validators.required]);*/
+      this.casoConfirmadoFg.controls.clasRiesgo.setValidators([Validators.required]);
 
     }else if(this.casoConfirmadoFg.controls.contagioAmbiente.value === 'establecimiento_salud'){
       this.casoConfirmadoFg.controls.contagioEstablecimiento.setValidators([Validators.required]);

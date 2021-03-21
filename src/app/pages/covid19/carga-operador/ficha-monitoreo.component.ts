@@ -668,6 +668,9 @@ export class FichaMonitoreoComponent implements OnInit {
 
     if(this.monitoreoFg.controls.sintomatico.value){
       this.monitoreoFg.controls.fechaSintomas.setValidators([Validators.required]);
+    }else{
+      this.monitoreoFg.controls.fechaSintomas.clearValidators();
+      this.monitoreoFg.controls.fechaSintomas.setValue(null);
     }
 
     if(this.casoConfirmadoFg.controls.contagioAmbiente.value === 'familiar_social'){
