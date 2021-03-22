@@ -25,7 +25,9 @@
           <ng-template pTemplate="caption">           
             <div style="text-align: left;width:auto;">
                 <input type="text" pInputText style="width:555px;" placeholder="Buscar Usuarios por nombre" (input)="table.filterGlobal($event.target.value, 'contains')">
-            </div>
+		<button type="button" pButton label="Importar" (click)="showPopupImportExcelAsignacionPrimerContacto=true;"
+    class="ui-button-success"></button>
+	    </div>
           </ng-template>
 
           <ng-template pTemplate="header" let-columns>

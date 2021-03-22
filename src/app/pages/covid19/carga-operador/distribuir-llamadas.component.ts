@@ -563,8 +563,10 @@ export class DistribuirLlamadasComponent implements OnInit{
       uploadExcelAsignacionPrimerContacto() {
     this.loading=true;
       this.service.uploadExcelAsignacionPrimerContacto(this.file).subscribe(response => {
+	this.listarDistribucion();
         this.loading=false;
-	  this.mensajeExcel = response.body;
+	  this.mensajeExcel = response;
+	  this.mensajeExcel=(<any>this.mensajeExcel).replaceAll('\n','<br>');
 	  this.mensaje = 'Archivo importado exitosamente. Revise el log.';
           this.openMessageDialog();
       });
