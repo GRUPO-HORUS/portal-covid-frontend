@@ -105,6 +105,7 @@ import { GrillaCensoContactosComponent } from "./pages/covid19/carga-operador/gr
 import { EditarFichaMonitoreoComponent } from "./pages/covid19/carga-operador/editar-ficha-monitoreo.component";
 import { GrillaFormCensoContactoComponent } from "./pages/covid19/carga-operador/grilla-form-censo-contacto.component";
 import { DistribuirLlamadasComponent } from "./pages/covid19/carga-operador/distribuir-llamadas.component";
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   // Declaración de componentes
@@ -216,7 +217,8 @@ import { DistribuirLlamadasComponent } from "./pages/covid19/carga-operador/dist
     MatIconModule,
     StepsModule,
     TriStateCheckboxModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    FileUploadModule
   ],
   providers: [
     appRoutingProviders,

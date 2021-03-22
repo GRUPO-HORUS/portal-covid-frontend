@@ -48,6 +48,9 @@ export class DistribuirLlamadasComponent implements OnInit{
 
     totalAsignados: number=0;
     habilitarAsignar = false;
+    file: File;
+    showPopupImportExcelAsignacionPrimerContacto=false;
+    public mensajeExcel: string;
 
     constructor(
         private service: Covid19Service,
@@ -551,5 +554,20 @@ export class DistribuirLlamadasComponent implements OnInit{
         console.log(nroDocumento);
         this._router.navigate(["covid19/operador/editar-ficha-monitoreo/", nroDocumento]);
       }
+
+      setFile(event: any)
+      {
+        this.file=event.files[0];
+      }
+
+      uploadExcelAsignacionPrimerContacto() {
+    this.loading=true;
+      this.service.uploadExcelAsignacionPrimerContacto(this.file).subscribe(response => {
+        this.loading=false;
+	  this.mensajeExcel = response.body;
+	  this.mensaje = 'Archivo importado exitosamente. Revise el log.';
+          this.openMessageDialog();
+      });
+  }
 
 }
