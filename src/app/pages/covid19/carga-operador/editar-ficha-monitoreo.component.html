@@ -177,7 +177,7 @@
                                         <label for="servicioSalud"><strong>Servicio de salud Notificante</strong><span style="color: red;"> * (Campo obligatorio)</span></label>
                                         <br>
                                         <!--<input type="text" formControlName="servicioSalud" name="servicioSalud" class="form-control"  id="servicioSalud" required>-->
-                                        <p-autoComplete id="servicioSalud" formControlName="servicioSalud" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                        <p-autoComplete id="servicioSalud" formControlName="servicioSalud" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true"></p-autoComplete>
                                     </div>
                                 </div>
                             </div>
