@@ -587,6 +587,13 @@ listarReingresosExcel(start: number, pageSize: number, filter: string, sortAsc: 
     return this.httpClient.post<string>(this.config.API + '/covid19api/cargaOperador/paciente/crearExamenLaboratorial', examen);
   }
 
+  uploadExcelAsignacionPrimerContacto(xlsxFile:any): Observable<any> {
+    this.loading.next(true);
+    let formData=new FormData();
+    formData.append('xlsxFile',xlsxFile);
+    return this.httpClient.post<any>(this.config.API + '/covid19api/aislamiento/uploadAsignacionPrimerContacto', formData);
+  }
+
  }
 
 
