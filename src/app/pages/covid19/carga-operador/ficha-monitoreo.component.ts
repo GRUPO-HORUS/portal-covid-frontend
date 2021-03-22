@@ -999,6 +999,7 @@ export class FichaMonitoreoComponent implements OnInit {
   }
 
   setearServicioSalud(){
+    //this.registroFg.controls.servicioSalud.clearValidators();
     this.registroFg.controls.servicioSalud.setValue(null);
   }
 
@@ -1775,7 +1776,6 @@ export class FichaMonitoreoComponent implements OnInit {
     }
     
     if(this.registroFg.controls.reingreso.value===true){
-      console.log("hola");
       this.consultarIdentificaciones(cedula, 'registro');
     }else{
       console.log(this.registroFg.controls.reingreso.value);

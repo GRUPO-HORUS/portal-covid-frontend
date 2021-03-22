@@ -176,7 +176,7 @@
                                     <div class="form-group" *ngIf="!registroFg.controls.otroServicio.value">
                                         <label for="servicioSalud"><strong>Servicio de Salud Notificante</strong><span style="color: red;"> * obligatorio</span></label><br>
                                         <!--<input type="text" formControlName="servicioSalud" name="servicioSalud" class="form-control"  id="servicioSalud" required>-->
-                                        <p-autoComplete id="servicioSalud" formControlName="servicioSalud" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true" required></p-autoComplete>
+                                        <p-autoComplete id="servicioSalud" formControlName="servicioSalud" [suggestions]="serviSaludFiltrados" field="denominacion" (completeMethod)="filtrarServicio($event)" [inputStyle]="{'width':'515px'}" [forceSelection]="true"></p-autoComplete>
                                     </div>
                                 </div>
                                 
@@ -190,7 +190,7 @@
                                 <div class="col-md">
                                     <div class="form-group" *ngIf="registroFg.controls.otroServicio.value">
                                         <label for="servicioSalud"><strong>Especificar Otro Servicio de Salud Notificante</strong><span style="color: red;"> * (Al marcar otro servicio, este campo es obligatorio)</span></label>
-                                        <input type="text" formControlName="servicioSalud" name="servicioSalud" class="form-control" id="servicioSalud" oninput= "this.value = this.value.toUpperCase()" required>
+                                        <input type="text" formControlName="servicioSalud" name="servicioSalud" class="form-control" id="servicioSalud" oninput= "this.value = this.value.toUpperCase()">
                                     </div>
                                 </div>
                             </div>
