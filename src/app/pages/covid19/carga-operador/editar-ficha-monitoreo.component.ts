@@ -1382,7 +1382,10 @@ export class EditarFichaMonitoreoComponent implements OnInit {
 
         console.log(response);
         //21/10/2018
-        this.setearFechasTabla(response.fechaInicioSintoma.substring(3, 5)+'/'+response.fechaInicioSintoma.substring(0, 2)+'/'+response.fechaInicioSintoma.substring(6, 10), 'inicio');
+
+        if(response.fechaInicioSintoma){
+          this.setearFechasTabla(response.fechaInicioSintoma.substring(3, 5)+'/'+response.fechaInicioSintoma.substring(0, 2)+'/'+response.fechaInicioSintoma.substring(6, 10), 'inicio');
+        }
        
         this.registroFg.controls.direccion.setValue(response.direccionDomicilio);
         this.registroFg.controls.telefono.setValue(response.numeroCelular);
