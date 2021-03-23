@@ -1450,6 +1450,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.sintomatico.setValue(response.sintomatico);
 
         //response.reportes.sort((a,b)=>(a.fecha < b.fecha ? -1:1));
+      if(response.reportes){
         this.idRegistroForm = response.reportes[0].registroFormulario;
 
         this.idReporteSalud1 = response.reportes[0].id;
@@ -1799,7 +1800,7 @@ export class EditarFichaMonitoreoComponent implements OnInit {
         this.monitoreoFg.controls.disgeusia14.setValue(response.reportes[13].percibeSabores ==null ? null : response.reportes[13].percibeSabores == 'true');
         this.monitoreoFg.controls.anosmia14.setValue(response.reportes[13].percibeOlores ==null ? null : response.reportes[13].percibeOlores == 'true');
         this.monitoreoFg.controls.rinorrea14.setValue(response.reportes[13].secrecionNasal ==null ? null : response.reportes[13].secrecionNasal == 'true');
-
+      }
         this.registroFg.controls.fechaInicioMonitoreo.setValue(response.fechaInicioMonitoreo.substring(8, 10)+'/'+
         response.fechaInicioMonitoreo.substring(5, 7)+'/'+response.fechaInicioMonitoreo.substring(0, 4));
         this.clasificacionRiesgoFg.controls.exclusion.setValue(response.trabajoExclusion);
