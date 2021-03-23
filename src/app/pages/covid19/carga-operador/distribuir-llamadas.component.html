@@ -30,7 +30,7 @@
 			</td>
 			<td align="right">
 				<button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="XLS" (click)="openConfirmExcelExport()"
-                            style="width: 60px;" class="ui-button-success mr-2" [disabled]="loading"></button>
+                            style="width: 60px;" class="ui-button-success mr-2" [disabled]="loading||!fechaSelec"></button>
                 <button type="button" pButton label="Importar" (click)="showPopupImportExcelAsignacionPrimerContacto=true;"
     class="ui-button-success"></button>
 			</td>
