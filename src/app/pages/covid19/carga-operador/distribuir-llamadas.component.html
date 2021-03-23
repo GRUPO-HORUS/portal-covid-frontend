@@ -23,15 +23,19 @@
           [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="load($event)"
           paginatorPosition="bottom" [resizableColumns]="true" columnResizeMode="expand" editMode="row">
           <ng-template pTemplate="caption">           
-            <div style="text-align: left;width:auto;">
+	  <table>
+                    <tr>
+                        <td align="left">
                 <input type="text" pInputText style="width:555px;" placeholder="Buscar Usuarios por nombre" (input)="table.filterGlobal($event.target.value, 'contains')">
-	    </div>
-	    <div style="text-align: right;width:auto;">
-		<button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="XLS" (click)="openConfirmExcelExport()"
+			</td>
+			<td align="right">
+				<button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="XLS" (click)="openConfirmExcelExport()"
                             style="width: 60px;" class="ui-button-success mr-2" [disabled]="loading"></button>
-		<button type="button" pButton label="Importar" (click)="showPopupImportExcelAsignacionPrimerContacto=true;"
+                <button type="button" pButton label="Importar" (click)="showPopupImportExcelAsignacionPrimerContacto=true;"
     class="ui-button-success"></button>
-	    </div>
+			</td>
+		</tr>
+	</table>
           </ng-template>
 
           <ng-template pTemplate="header" let-columns>
