@@ -850,7 +850,7 @@ consultarIdentificaciones(event) {
   }
 
   guardarNoSeContacto(){
-     //this.primerContacto.estadoPrimeraLlamada = this.motivosFormGroup.controls.motivoNoContacto.value;
+    this.primerContacto.estadoPrimeraLlamada = this.motivosFormGroup.controls.motivoNoContacto.value;
     let fecha = new Date().toLocaleString();
     if(this.primerContacto.comentarios !== null){
       this.primerContacto.comentarios = fecha+' - '+this.username+' - '+this.motivosFormGroup.controls.motivoNoContacto.value+' | '+this.primerContacto.comentarios;
