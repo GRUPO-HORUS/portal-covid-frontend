@@ -23,11 +23,19 @@
           [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="load($event)"
           paginatorPosition="bottom" [resizableColumns]="true" columnResizeMode="expand" editMode="row">
           <ng-template pTemplate="caption">           
-            <div style="text-align: left;width:auto;">
+	  <table>
+                    <tr>
+                        <td align="left">
                 <input type="text" pInputText style="width:555px;" placeholder="Buscar Usuarios por nombre" (input)="table.filterGlobal($event.target.value, 'contains')">
-		<button type="button" pButton label="Importar" (click)="showPopupImportExcelAsignacionPrimerContacto=true;"
+			</td>
+			<td align="right">
+				<button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="XLS" (click)="openConfirmExcelExport()"
+                            style="width: 60px;" class="ui-button-success mr-2" [disabled]="loading||!fechaSelec"></button>
+                <button type="button" pButton label="Importar" (click)="showPopupImportExcelAsignacionPrimerContacto=true;"
     class="ui-button-success"></button>
-	    </div>
+			</td>
+		</tr>
+	</table>
           </ng-template>
 
           <ng-template pTemplate="header" let-columns>
@@ -142,6 +150,21 @@
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="habilitaAsignar()"><i class="fa fa-remove"></i>  Continuar</button>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="modal fade" id="confirmModalExportExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Aviso</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body">{{mensaje}}
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="getContactosXls()"><i class="fa fa-remove"></i>  Continuar</button>
               </div>
           </div>
       </div>

@@ -572,4 +572,34 @@ export class DistribuirLlamadasComponent implements OnInit{
       });
   }
 
+  openConfirmExcelExport()
+  {
+    this.mensaje= "Atención.Debe presionar Asignar para que se guarden los cambios. Se generará el excel con los cambios guardados.";
+    setTimeout(function() { $("#confirmModalExportExcel").modal("toggle"); }, 1000);
+  }
+  
+  getContactosXls(){
+      this.loading = true;
+      this.service.getPrimerContactoXls(0, 0, this.fechaSelec, this.sortAsc, this.sortField, this.region, this.distritosUsuario, 'todos', this.usuarioId, this.hasRol("Lider Regional"));
+      this.loading = false;
+  }
+
+  hasRol(rolName: string){
+    let credentials=this.storageManager.getLoginData();
+    if(credentials){
+      for(let rol of credentials.usuario.rols)
+      {
+        if(rol.nombre==rolName)
+        {
+          return true;
+        }
+      }
+      return false;
+    }
+    else{
+      this._router.navigate(["/"]);
+      return false;
+    }
+  }
+
 }
