@@ -208,6 +208,8 @@ public colsUsers;
 
 public showConfirmarLiberar: boolean = false;
 
+public showDerivarSupervisor: boolean = false;
+public supervisoresContactCenterList: any[];
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -291,10 +293,10 @@ public showConfirmarLiberar: boolean = false;
         { field: 'fechaExposicion', header: 'Fecha de Exposición', width: '9%' },
         { field: 'categoriacontagio', header: 'Categoría de Contagio', width: '15%' }];
 
-    this.colsUsers = [{ field: 'cedula', header: 'Nro de Documento', width: '10%'},
-        { field: 'nombre', header: 'Nombres', width: '11%' },
-        { field: 'apellido', header: 'Apellidos', width: '11%' },
-        { field: 'username', header: 'Username', width: '11%' }];
+    this.colsUsers = [{ field: 'cedula', header: 'Nro de Documento', width: '11%'},
+        { field: 'nombre', header: 'Nombres', width: '15%' },
+        { field: 'apellido', header: 'Apellidos', width: '15%' },
+        { field: 'username', header: 'Username', width: '12%' }];
   }
 
   realizarLlamada(nroDocumento, id){
@@ -1080,6 +1082,25 @@ filtrarRegion(event) {
       }
     }
     );
+  }
+
+  mostrarDerivarSupervisor(rowData){
+    this.formCensoContacto = rowData;
+    this.showDerivarSupervisor = true;
+    this.service.getSupervisoresContactCenter(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField).subscribe(supervisores => {
+        this.supervisoresContactCenterList = supervisores.lista;
+        this.totalRecords = supervisores.totalRecords;
+        console.log(this.supervisoresContactCenterList);
+      
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    });
+  }
+
+  cerrarDerivarSupervisor(){
+    this.showDerivarSupervisor = false;
   }
 
   mostrarReasignar(rowData){

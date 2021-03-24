@@ -1745,7 +1745,7 @@ export class FichaMonitoreoComponent implements OnInit {
     {'id':9,'nombre':'LIMPIEZA'}, {'id':10,'nombre':'COCINA'},
     {'id':11,'nombre':'LAVANDERIA'}, {'id':11,'nombre':'PROFESIONAL ADMINISTRATIVO'},
     {'id':12,'nombre':'AUXILIAR ADMINISTRATIVO'}, {'id':13,'nombre':'CHOFER/CHOFER DE AMBULANCIA'},
-    {'id':14,'nombre':'MANTENIMIENTO'}, {'id':15,'nombre':'SERENO'}];
+    {'id':14,'nombre':'MANTENIMIENTO'}, {'id':15,'nombre':'SERENO'}, {'id':16,'nombre':'CAMILLERO'}];
     let filtered : any[] = [];
     let query = event.query;
 
