@@ -14,8 +14,9 @@
       <span>Distribución de llamadas</span>
     </h3>
     <label for="fechaCierre"><strong>Fecha de Cierre:&nbsp;</strong></label>
-    <p-calendar id="fechaCierre" name="fechaCierre" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'400px'}" appendTo="body" (onSelect)="getCantidadPendientes($event); listarDistribucion();"></p-calendar>
-    
+    <span [formGroup]="calendarFormGroup">
+    <p-calendar id="fechaCierre" name="fechaCierre" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [showIcon]="true" [inputStyle]="{'width':'400px'}" appendTo="body" (onSelect)="getCantidadPendientes($event); listarDistribucion();" formControlName="fechaCierre"></p-calendar>
+    </span>
     <br><br>
     <label for="fechaCierre" style="color:red" *ngIf="cantidadPendientes !=null"><strong>{{cantidadPendientes}} registro/s sin asignar </strong></label><br>
     <label for="fechaCierre" style="color: green" *ngIf="cantidadPendientes !=null"><strong>Total registros asignados: {{totalAsignados}} </strong></label>

@@ -10,6 +10,7 @@ import * as Excel from "exceljs";
 import { StorageManagerService } from "../../login/shared/storage-manager.service";
 
 import {calendarEsLocale} from '../../../util/calendar-es-locale';
+import {FormGroup, FormControl } from '@angular/forms';
 
 declare var $: any;
 
@@ -51,6 +52,7 @@ export class DistribuirLlamadasComponent implements OnInit{
     file: File;
     showPopupImportExcelAsignacionPrimerContacto=false;
     public mensajeExcel: string;
+    calendarFormGroup: FormGroup;
 
     constructor(
         private service: Covid19Service,
@@ -59,6 +61,9 @@ export class DistribuirLlamadasComponent implements OnInit{
         //private _location: Location
       ) {
         this.loading = false;
+	this.calendarFormGroup = new FormGroup({
+        	fechaCierre: new FormControl(null),
+      	});
       }
 
     ngOnInit() {
@@ -78,7 +83,6 @@ export class DistribuirLlamadasComponent implements OnInit{
 
     getCantidadPendientes(event){
       this.fechaSelec = new Date(event);
-
       this.service.getCantidadPendientes(this.fechaSelec, this.region).subscribe(pendientes => {
           console.log(pendientes);
           this.cantidadPendientes = pendientes;
@@ -580,7 +584,7 @@ export class DistribuirLlamadasComponent implements OnInit{
   
   getContactosXls(){
       this.loading = true;
-      this.service.getPrimerContactoXls(0, 0, this.fechaSelec, this.sortAsc, this.sortField, this.region, this.distritosUsuario, 'todos', this.usuarioId, this.hasRol("Lider Regional"));
+      this.service.getPrimerContactoXls(0, 0, this.calendarFormGroup.controls.fechaCierre.value, this.sortAsc, this.sortField, this.region, this.distritosUsuario, 'todos', this.usuarioId, this.hasRol("Lider Regional"));
       this.loading = false;
   }
 
