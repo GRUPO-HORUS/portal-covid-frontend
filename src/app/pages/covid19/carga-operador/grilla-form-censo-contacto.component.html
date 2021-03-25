@@ -66,7 +66,7 @@
                 <tr>
                     <td>
                         <button type="button" pButton icon="pi pi-volume-up" iconPos="left" (click)="realizarLlamada(rowData.nroDocumento, rowData.id)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:150px" label="Realizar Llamada"></button><br>
-                        <!--<button type="button" pButton icon="pi pi-arrow-circle-right" iconPos="left" (click)="derivarCoordinador()" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:150px" label="Derivar a Coordinador"></button><br>-->
+                        <button type="button" pButton icon="pi pi-arrow-circle-right" iconPos="left" (click)="mostrarDerivarSupervisor(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:150px" label="Derivar a Coordinador"></button><br>
                         <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="noAtiende(rowData)" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:150px" label="No Atiende"></button><br>
                         <button type="button" pButton icon="pi pi-spinner" iconPos="left" (click)="mostrarSuspenderContacto(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:150px" label="Suspender Contacto"></button>
                         <button type="button" *ngIf="hasRol('Supervisor Contact Center')" pButton icon="pi pi-arrow-circle-down" iconPos="left" (click)="mostrarReasignar(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:150px" label="Reasignar"></button>
@@ -143,6 +143,50 @@
                 </form>-->
 
             <!--</div>-->
+
+            <p-dialog [(visible)]="showDerivarSupervisor" modal="true" header="Supervisores">
+                <p-table #dtt [columns]="colsUsers" [value]="supervisoresContactCenterList" selectionMode="single" dataKey="id" [paginator]="true"
+                [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true"
+                paginatorPosition="bottom" [resizableColumns]="true" columnResizeMode="expand"><!--(onLazyLoad)="loadF($event)"-->
+                <ng-template pTemplate="caption">
+                    <div style="text-align: right;width:auto;">
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th>Acciones</th>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn [style.width]="col.width">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData>
+                    <tr>
+                        <td>
+                            <button type="button" pButton icon="pi pi-check" iconPos="left" (click)="reasignar(rowData.id)" class="ui-button-success mb-1" style="font-size:10px;width:90px" label="Derivar" title="Derivar contacto."></button>
+                        </td>
+                        <td>
+                            {{rowData.cedula}}
+                        </td>
+                        <td>
+                           {{rowData.nombre}}
+                        </td>
+                        <td>
+                            {{rowData.apellido}}
+                        </td>
+                        <td>
+                           {{rowData.username}}
+                        </td>
+                    </tr>
+                </ng-template>
+                </p-table>
+                <div>
+                    <button class="btn btn-secondary btn-success-next" (click)="cerrarDerivarSupervisor()">
+                        Cerrar <span class="fa fa-times"></span>
+                    </button>
+                </div>
+            </p-dialog>
 
             <p-dialog [(visible)]="showReasignar" modal="true" header="Usuarios">
                 <p-table #dtt [columns]="colsUsers" [value]="usersContactCenterList" selectionMode="single" dataKey="id" [paginator]="true"

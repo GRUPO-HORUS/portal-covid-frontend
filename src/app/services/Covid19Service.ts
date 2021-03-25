@@ -140,6 +140,33 @@ export class Covid19Service {
       return this.httpClient.get<any>(this.config.API + '/covid19api/aislamiento/esReingreso/', {params});
     }
 
+    getSupervisoresContactCenter(start: number, pageSize: number, filter: string, sortAsc: boolean,
+      sortField: string): Observable<UsuarioTable> {
+     this.loading.next(true);
+
+     let params = new HttpParams();
+
+      if (filter)
+        params = params.set('filter', filter);
+
+      if (sortField)
+        params = params.set('sortField', sortField);
+
+      /*if(distritosUsuario.length > 0){
+          let distritosParam="";
+          for(let i=0; i<distritosUsuario.length; i++){
+            if(i+1==distritosUsuario.length){
+              distritosParam+= distritosUsuario[i];
+            }else{
+              distritosParam+= distritosUsuario[i]+",";
+            }
+          }
+          params = params.set('distritosUsuario', distritosParam);
+      }*/
+     params = params.set('start', start.toString()).set('pageSize', pageSize.toString()).set('sortAsc', sortAsc.toString());
+     return this.httpClient.get<UsuarioTable>(this.config.API + '/covid19api/aislamiento/listarSupervisoresContactCenter/', {params});
+   }
+
     getUsuariosContactCenter(start: number, pageSize: number, filter: string, sortAsc: boolean,
       sortField: string): Observable<UsuarioTable> {
      this.loading.next(true);
