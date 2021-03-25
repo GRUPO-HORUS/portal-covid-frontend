@@ -299,7 +299,7 @@ export class Covid19Service {
    }
 
    getPrimerContactoXls(start: number, pageSize: number, filter: string, sortAsc: boolean,
-    sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg): void {
+    sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg, esOpAvanzado): void {
    this.loading.next(true);
 
    let params = new HttpParams();
@@ -320,6 +320,13 @@ export class Covid19Service {
       params = params.set('esLiderReg', esLiderReg);
     }
 
+    if (esOpAvanzado){
+      params = params.set('esOpAvanzado', esOpAvanzado);
+    }else{
+      esOpAvanzado = false;
+      params = params.set('esOpAvanzado', esOpAvanzado);
+    }
+
     if(distritosUsuario.length > 0){
       let distritosParam="";
       for(let i=0; i<distritosUsuario.length; i++){
@@ -338,7 +345,7 @@ export class Covid19Service {
   }
 
     getPacientesPrimerContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg): Observable<PrimerContactoTable> {
+      sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg, esOpAvanzado): Observable<PrimerContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -357,6 +364,13 @@ export class Covid19Service {
       }else{
         esLiderReg = false;
         params = params.set('esLiderReg', esLiderReg);
+      }
+
+      if (esOpAvanzado){
+        params = params.set('esOpAvanzado', esOpAvanzado);
+      }else{
+        esOpAvanzado = false;
+        params = params.set('esOpAvanzado', esOpAvanzado);
       }
 
       if(distritosUsuario.length > 0){

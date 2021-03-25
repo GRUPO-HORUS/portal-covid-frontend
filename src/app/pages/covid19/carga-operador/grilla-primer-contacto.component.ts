@@ -197,6 +197,8 @@ export class GrillaPrimerContactoComponent implements OnInit {
 
   esLiderReg: boolean = false;
 
+  esOpAvanzado: boolean = false;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -212,6 +214,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
 
     const {usuario} = this.storageManager.getLoginData();
     this.esLiderReg = this.hasRol("Lider Regional");
+    this.esOpAvanzado = this.hasRol("Operador UER Avanzado");
     this.region = usuario.regionSanitaria;
     this.username = usuario.username;
     this.usuarioId = usuario.id;
@@ -313,7 +316,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
         //this.distritosOptions[i] = {nombre: d.nomdist, value: d.coddist};
       }
       this.service.getPacientesPrimerContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
-        this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
+        this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg, this.esOpAvanzado).subscribe(pacientes => {
         this.pacientesList = pacientes.lista;
         this.totalRecords = pacientes.totalRecords;
         console.log(this.pacientesList);
@@ -424,7 +427,8 @@ export class GrillaPrimerContactoComponent implements OnInit {
       this.openMessageDialog();
     }else{*/
       this.loading = true;
-      this.service.getPrimerContactoXls(0, 0, this.filter, this.sortAsc, this.sortField, this.region, this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg);
+      this.service.getPrimerContactoXls(0, 0, this.filter, this.sortAsc, this.sortField, this.region, this.distritosUsuario, opcionFiltro, 
+        this.usuarioId, this.esLiderReg, this.esOpAvanzado);
       /*this.service.getPacientesPrimerContacto(0, 0, this.filter, this.sortAsc, this.sortField, this.region, 
         this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
           this.pacientesList = pacientes.lista;
