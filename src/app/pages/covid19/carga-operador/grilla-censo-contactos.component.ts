@@ -682,6 +682,17 @@ guardarNuevoContacto(){
     //this._router.navigate(["covid19/carga-operador/datos-clinicos/",this.idRegistro]);
     this.loading = false;
     this.showPopupNuevoContacto = false;
+
+    this.contactoFg.controls.cedula.setValue("");
+    this.contactoFg.controls.nombre.setValue("");
+    this.contactoFg.controls.apellido.setValue("");
+    this.contactoFg.controls.direccion.setValue("");
+    this.contactoFg.controls.telefono.setValue("");
+    this.contactoFg.controls.institucion.setValue("");
+    this.contactoFg.controls.sexo.setValue(null);
+    this.contactoFg.controls.fechaExposicion.setValue(null);
+    this.contactoFg.controls.catContagio.setValue(null);
+
     this.mensaje = "Contacto registrado exitosamente!";
     this.openMessageDialogExito();
     this.buscarFormCensoContacto(formCensoContacto.primerContactoId);
