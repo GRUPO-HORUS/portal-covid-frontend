@@ -307,7 +307,7 @@ esLiderReg: boolean = false;
         //{ field: 'distrito', header: 'Distrito', width: '8%' },
         { field: 'hospitalizado', header: 'Internado', width: '8%' },
         { field: 'fallecido', header: 'Fallecido', width: '6%' },
-        //{ field: 'tipoExposicion', header: 'Tipo de Exposición', width: '9%' },
+        { field: 'personalBlanco', header: 'Personal de Blanco', width: '9%' },
         { field: 'fechaInicioSintomas', header: 'Fecha Inicio de Síntomas', width: '8%' },
         { field: 'estadoLlamadaCensoContacto', header: 'Estado de Llamada', width: '11%' },
         { field: 'cantidadContactos', header: 'Cantidad Contactos', width: '6%' },
@@ -657,8 +657,10 @@ guardarNuevoContacto(){
   formCensoContacto.regionSanitaria = this.contactoFg.controls.regionSanitaria.value.nombre;
   formCensoContacto.distritoId = this.contactoFg.controls.distrito.value.valor;
   formCensoContacto.distrito = this.contactoFg.controls.distrito.value.nombre;
-
   formCensoContacto.institucion = this.contactoFg.controls.institucion.value;
+
+  formCensoContacto.usuarioActual = this.usuarioId;
+  formCensoContacto.usuarioActualNombre = this.nombreU;
 
   //Crear paciente
   /*this.fichaPersonalBlanco = new FichaPersonalBlanco();
@@ -670,7 +672,6 @@ guardarNuevoContacto(){
   this.fichaPersonalBlanco.formSeccionDatosBasicos.direccionDomicilio = this.contactoFg.controls.direccion.value;
   this.fichaPersonalBlanco.formSeccionDatosBasicos.numeroCelular = this.contactoFg.controls.telefono.value;
   this.fichaPersonalBlanco.formSeccionDatosBasicos.sexo = this.contactoFg.controls.sexo.value;
-  this.fichaPersonalBlanco.formSeccionDatosBasicos.barrio = this.contactoFg.controls.distrito.value.nombre;
   this.fichaPersonalBlanco.formSeccionContactoContagio = new FormSeccionContactoContagio();
   this.fichaPersonalBlanco.formSeccionContactoContagio.fechaExposicion = this.contactoFg.controls.fechaExposicion.value;
   this.fichaPersonalBlanco.formSeccionContactoContagio.categoriaContagio = this.contactoFg.controls.catContagio.value;
