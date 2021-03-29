@@ -434,7 +434,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
     }else{*/
       this.loading = true;
       this.service.getPrimerContactoXls(0, 0, this.filter, this.sortAsc, this.sortField, this.region, this.distritosUsuario, opcionFiltro, 
-        this.usuarioId, this.esLiderReg, this.esOpAvanzado);
+        this.usuarioId, this.esLiderReg, this.esOpAvanzado, this.filterFormGroup.controls.region.value, this.filterFormGroup.controls.distrito.value, this.filterFormGroup.controls.barrio.value, this.filterFormGroup.controls.fechaCierre.value);
       /*this.service.getPacientesPrimerContacto(0, 0, this.filter, this.sortAsc, this.sortField, this.region, 
         this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
           this.pacientesList = pacientes.lista;

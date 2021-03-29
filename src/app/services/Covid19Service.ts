@@ -299,7 +299,7 @@ export class Covid19Service {
    }
 
    getPrimerContactoXls(start: number, pageSize: number, filter: string, sortAsc: boolean,
-    sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg, esOpAvanzado): void {
+    sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg, esOpAvanzado, regionFilter: string, distritoFilter: string, barrioFilter: string, fechaCierreFilter: string): void {
    this.loading.next(true);
 
    let params = new HttpParams();
@@ -312,6 +312,18 @@ export class Covid19Service {
 
     if (usuarioId)
       params = params.set('usuarioId', usuarioId);
+
+    if (regionFilter)
+        params = params.set('regionFilter', regionFilter);
+
+    if (distritoFilter)
+        params = params.set('distritoFilter', distritoFilter);
+
+    if (barrioFilter)
+        params = params.set('barrioFilter', barrioFilter);
+
+    if (fechaCierreFilter)
+        params = params.set('fechaCierreFilter', fechaCierreFilter);
 
     if (esLiderReg){
       params = params.set('esLiderReg', esLiderReg);
