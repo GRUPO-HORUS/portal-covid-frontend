@@ -198,6 +198,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
   esLiderReg: boolean = false;
 
   esOpAvanzado: boolean = false;
+  filterFormGroup: FormGroup;
 
   constructor(
     private _router: Router,
@@ -289,7 +290,12 @@ export class GrillaPrimerContactoComponent implements OnInit {
         this.frozenCols = [
           { field: 'acc', header: 'Acciones'}
         ];
-   
+  	this.filterFormGroup= this.formBuilder.group({
+		region: [null],
+      		distrito: [null],
+		barrio: [null],
+		fechaCierre: [null],
+    	}); 
   }
 
   load($event: any) {
@@ -316,7 +322,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
         //this.distritosOptions[i] = {nombre: d.nomdist, value: d.coddist};
       }
       this.service.getPacientesPrimerContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
-        this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg, this.esOpAvanzado).subscribe(pacientes => {
+        this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg, this.esOpAvanzado, this.filterFormGroup.controls.region.value, this.filterFormGroup.controls.distrito.value, this.filterFormGroup.controls.barrio.value, this.filterFormGroup.controls.fechaCierre.value).subscribe(pacientes => {
         this.pacientesList = pacientes.lista;
         this.totalRecords = pacientes.totalRecords;
         console.log(this.pacientesList);

@@ -47,7 +47,15 @@
           <ng-template pTemplate="caption">
                 <table>
                     <tr>
-                        <td align="left"><p-dropdown id="contactoOption" style="text-align: left;width:auto;" [options]="contactoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="contactoOption" name="contactoOption" [style]="{'minWidth':'150px', 'width': '150px'}" required (onChange)="buscarContactos($event.value)"></p-dropdown> </td>
+                        <td align="left">
+				<p-dropdown id="contactoOption" style="text-align: left;width:auto;" [options]="contactoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="contactoOption" name="contactoOption" [style]="{'minWidth':'150px', 'width': '150px'}" required (onChange)="buscarContactos($event.value)"></p-dropdown> 
+				<span [formGroup]="filterFormGroup">&nbsp;
+					<input formControlName="region" placeholder="Region" style="width: 80px;">&nbsp;
+					<input formControlName="distrito" placeholder="Distrito" style="width: 80px;">&nbsp;
+					<input formControlName="barrio" placeholder="Barrio" style="width: 80px;">&nbsp;
+					<input formControlName="fechaCierre" placeholder="Fecha Cierre" style="width: 80px;">
+				</span>
+			</td>
                         <td align="right"><button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="XLS" (click)="getContactosXls(contactoOption)" 
                             style="width: 60px;" class="ui-button-success mr-2" [disabled]="loading"></button><input type="text" pInputText style="width:500px;margin-right: 5px;height: 35px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')"></td>
                     </tr>
