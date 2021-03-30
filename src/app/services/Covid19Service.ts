@@ -260,7 +260,7 @@ export class Covid19Service {
    }
 
     getPacientesCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string, region, distritosUsuario, opcionFiltro, username, esLiderReg): Observable<PrimerContactoTable> {
+      sortField: string, region, distritosUsuario, opcionFiltro, idUsuario, esLiderReg): Observable<PrimerContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -271,8 +271,8 @@ export class Covid19Service {
       if (sortField)
         params = params.set('sortField', sortField);
 
-      if (username)
-        params = params.set('username', username);
+      if (idUsuario)
+        params = params.set('idUsuario', idUsuario);
 
       if (esLiderReg){
         params = params.set('esLiderReg', esLiderReg);

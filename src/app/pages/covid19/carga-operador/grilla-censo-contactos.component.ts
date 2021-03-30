@@ -353,7 +353,7 @@ buscarContactos(opcionFiltro){
     }
 
     this.service.getPacientesCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
-      this.distritosUsuario, opcionFiltro, this.username, this.esLiderReg).subscribe(pacientes => {
+      this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
       this.pacientesList = pacientes.lista;
       this.totalRecords = pacientes.totalRecords;
       console.log(this.pacientesList);
@@ -436,8 +436,7 @@ consultarIdentificaciones(event) {
             this.mensaje = response.obtenerPersonaPorNroCedulaResponse.return.error;
             this.openMessageDialog();
           }
-          else
-          {
+          else{
             this.contactoFg.controls.nombre.setValue(response.obtenerPersonaPorNroCedulaResponse.return.nombres);
             this.contactoFg.controls.apellido.setValue(response.obtenerPersonaPorNroCedulaResponse.return.apellido);
             this.contactoFg.controls.sexo.setValue(response.obtenerPersonaPorNroCedulaResponse.return.sexo);
