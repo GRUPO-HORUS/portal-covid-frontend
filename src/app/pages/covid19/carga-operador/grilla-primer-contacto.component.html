@@ -43,26 +43,26 @@
         [rows]="pageSize" [totalRecords]="totalRecords" [responsive]="true" [lazy]="true" (onLazyLoad)="load($event)"
         paginatorPosition="bottom" editMode="row"
         [frozenColumns]="frozenCols" [scrollable]="true" frozenWidth="150px" scrollHeight="500px" scrollWidth="90%"><!-- [resizableColumns]="true" columnResizeMode="expand"-->
-
+        
           <ng-template pTemplate="caption">
                 <table>
                     <tr>
                         <td align="left" style="width: max-content;">
-				<p-dropdown id="contactoOption" style="text-align: left;width:auto;" [options]="contactoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="contactoOption" name="contactoOption" [style]="{'minWidth':'150px', 'width': '150px'}" required (onChange)="buscarContactos($event.value)"></p-dropdown> 
+				<p-dropdown id="contactoOption" style="text-align: left;width:auto;margin-right: 5px;" [options]="contactoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="contactoOption" name="contactoOption" [style]="{'minWidth':'140px', 'width': '140px'}" required (onChange)="buscarContactos($event.value)"></p-dropdown> 
 			</td>
-			<td style="width: max-content;">
+			<td>
 				<form [formGroup]="filterFormGroup" (ngSubmit)="buscarContactos(contactoOption)">&nbsp;
-					<input formControlName="region" placeholder="Region" style="width: 80px;">&nbsp;
-					<input formControlName="distrito" placeholder="Distrito" style="width: 80px;">&nbsp;
-					<input formControlName="barrio" placeholder="Barrio" style="width: 80px;">&nbsp;
-					<input formControlName="fechaCierre" placeholder="Fecha Cierre" style="width: 100px;">
+					<input formControlName="region" placeholder="Region" style="width: 90px;">&nbsp;
+					<input formControlName="distrito" placeholder="Distrito" style="width: 100px;">&nbsp;
+					<input formControlName="barrio" placeholder="Barrio" style="width: 100px;">&nbsp;
+					<input formControlName="fechaCierre" placeholder="Fecha Cierre" style="width: 120px;">
 					<input type="submit" hidden>
 				</form>
 			</td>
                         <td align="right"><button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="XLS" (click)="getContactosXls(contactoOption)" 
                             style="width: 60px;" class="ui-button-success mr-2" [disabled]="loading"></button><input type="text" pInputText style="width:500px;margin-right: 5px;height: 35px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')"></td>
                     </tr>
-                    <tr><td align="left"><span style="color: red;">Campos obligatorios al editar(*)</span></td></tr>
+                    <tr><td></td><td align="left"><span style="color: red;">Campos obligatorios al editar(*)</span></td></tr>
                 </table>
                 <div style="text-align: right;width:auto;">
                 </div>
@@ -70,7 +70,7 @@
 
            <ng-template pTemplate="colgroup" let-columns>
             <colgroup>
-                <!--<col *ngFor="let col of columns" style="width:200px">-->
+                <!--<col *ngFor="let col of columns" style="width:200px"> style="width: max-content;"-->
                 <col style="width:150px">
                 <col style="width:145px">
                 <col style="width:135px">
