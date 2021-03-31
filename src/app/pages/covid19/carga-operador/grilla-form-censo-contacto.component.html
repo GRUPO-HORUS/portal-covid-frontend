@@ -7,7 +7,8 @@
 </div>
 <div id="content" class="pb-0">
     <div id="content" class="pb-0 pt-2">
-        <div class="container pb-6">
+        <div class="p-5" style="padding-top: 0px !important;">
+        <!--<div class="container pb-6">-->
             <div class="row">
             <!--<div class="col-md-8 mb-4">-->
                 <h3 class="title-divider text-primary">
@@ -22,7 +23,7 @@
                     <div>
                         <button (click)="obtenerPersona(cedula)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
                             Verificar <span class="fa fa-check"></span>
-                        </button>&nbsp;
+                        </button>
                         <button class="btn btn-secondary btn-success-next" (click)="goBack()">
                             Volver al Menú <span class="fa fa-times"></span>
                         </button>
@@ -65,39 +66,22 @@
             <ng-template pTemplate="body" let-rowData>
                 <tr>
                     <td>
-                        <button type="button" pButton icon="pi pi-volume-up" iconPos="left" (click)="realizarLlamada(rowData.nroDocumento, rowData.id)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:150px" label="Realizar Llamada"></button><br>
-                        <button type="button" pButton icon="pi pi-arrow-circle-right" iconPos="left" *ngIf="!hasRol('Supervisor Contact Center')" (click)="mostrarDerivarSupervisor(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:150px" label="Derivar a Supervisor"></button><br>
-                        <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="noAtiende(rowData)" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:150px" label="No Atiende"></button><br>
-                        <button type="button" pButton icon="pi pi-spinner" iconPos="left" (click)="mostrarSuspenderContacto(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:150px" label="Suspender Contacto"></button>
-                        <button type="button" *ngIf="hasRol('Supervisor Contact Center')" pButton icon="pi pi-arrow-circle-down" iconPos="left" (click)="mostrarReasignar(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:150px" label="Reasignar"></button>
+                        <button type="button" pButton icon="pi pi-volume-up" iconPos="left" (click)="realizarLlamada(rowData.nroDocumento, rowData.id)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:143px" label="Realizar Llamada"></button><br>
+                        <button type="button" pButton icon="pi pi-arrow-circle-right" iconPos="left" *ngIf="!hasRol('Supervisor Contact Center')" (click)="mostrarDerivarSupervisor(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:143px" label="Derivar a Supervisor"></button><br>
+                        <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="noAtiende(rowData)" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:143px" label="No Atiende"></button><br>
+                        <button type="button" pButton icon="pi pi-spinner" iconPos="left" (click)="mostrarSuspenderContacto(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:143px" label="Suspender Contacto"></button>
+                        <button type="button" *ngIf="hasRol('Supervisor Contact Center')" pButton icon="pi pi-arrow-circle-down" iconPos="left" (click)="mostrarReasignar(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:143px" label="Reasignar"></button>
                     </td>
-                    <td>
-                        {{rowData.nroDocumento}}
-                    </td>
-                    <td>
-                    {{rowData.nombre}}
-                    </td>
-                    <td>
-                        {{rowData.apellido}}
-                    </td>
-                    <td>
-                        {{rowData.telefono}}
-                    </td>
-                    <td>
-                        {{rowData.direccion}}
-                    </td>
-                    <td>
-                        {{rowData.regionSanitaria}}
-                    </td>
-                    <td>
-                        {{rowData.sexo}}
-                    </td>
-                    <td>
-                        {{rowData.fechaExposicion}}
-                    </td>
-                    <td>
-                        {{rowData.categoriaContagio}}
-                    </td>
+                    <td>{{rowData.nroDocumento}}</td>
+                    <td>{{rowData.nombre}}</td>
+                    <td>{{rowData.apellido}}</td>
+                    <td>{{rowData.telefono}}</td>
+                    <td>{{rowData.direccion}}</td>
+                    <td>{{rowData.regionSanitaria}}</td>
+                    <td>{{rowData.sexo}}</td>
+                    <td>{{rowData.fechaExposicion}}</td>
+                    <td>{{rowData.categoriaContagio}}</td>
+                    <td>{{rowData.motivoDerivacion}}</td>
                     <!--<td>
                         {{rowData.fechaUltimoContacto | date:'dd-MM-yyyy'}}
                     </td>-->

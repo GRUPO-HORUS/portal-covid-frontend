@@ -33,7 +33,6 @@ declare var $: any;
     ]
 })
 export class GrillaFormCensoContactoComponent implements OnInit {
-
   public loading: boolean;
   public mensaje: string;
 
@@ -285,15 +284,16 @@ public motivoDerivacion:string ="";
       this.cedulaPaciente = params["cedula"];
     });*/
 
-    this.cols = [{ field: 'nroDocumento', header: 'Nro de Documento', width: '9%'},
+    this.cols = [{ field: 'nroDocumento', header: 'Nro de Documento', width: '7%'},
         { field: 'nombre', header: 'Nombres', width: '9%' },
         { field: 'apellido', header: 'Apellidos', width: '10%' },
-        { field: 'telefono', header: 'Teléfono', width: '9%' },
+        { field: 'telefono', header: 'Teléfono', width: '8%' },
         { field: 'direccion', header: 'Dirección', width: '10%' },
         { field: 'regionSanitaria', header: 'Región Sanitaria', width: '9%' },
         { field: 'sexo', header: 'Sexo', width: '5%' },
-        { field: 'fechaExposicion', header: 'Fecha de Exposición', width: '9%' },
-        { field: 'categoriacontagio', header: 'Categoría de Contagio', width: '15%' }];
+        { field: 'fechaExposicion', header: 'Fecha de Exposición', width: '7%' },
+        { field: 'categoriacontagio', header: 'Categoría de Contagio', width: '13%' },
+        { field: 'motivoDerivacion', header: 'Motivo de Derivación', width: '11%' }];
 
     this.colsUsers = [{ field: 'cedula', header: 'Nro de Documento', width: '11%'},
         { field: 'nombre', header: 'Nombres', width: '15%' },
