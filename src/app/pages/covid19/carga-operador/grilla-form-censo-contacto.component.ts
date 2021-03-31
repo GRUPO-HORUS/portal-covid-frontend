@@ -1096,6 +1096,13 @@ filtrarRegion(event) {
     });
   }
 
+  derivarSupervisor(idSupevisor, nombreSupervisor, apellidoSupervisor){
+    this.idSupervisor = idSupevisor;
+    this.nombreSupervisor = nombreSupervisor +' '+apellidoSupervisor;
+    this.showDerivarCoordinador = true;
+    this.motivoDerivacion="";
+  }
+
   cerrarDerivarSupervisor(){
     this.showDerivarSupervisor = false;
   }
@@ -1113,13 +1120,6 @@ filtrarRegion(event) {
       this.mensaje = error.error;
       this.openMessageDialog();
     });
-  }
-
-  derivarSupervisor(idSupevisor, nombreSupervisor){
-    this.idSupervisor = idSupevisor;
-    this.nombreSupervisor = nombreSupervisor;
-    this.showDerivarCoordinador = true;
-    this.motivoDerivacion="";
   }
 
   reasignar(idUsuario){

@@ -87,7 +87,7 @@
                     </td>-->
                 </tr>
             </ng-template>
-    </p-table>
+        </p-table>
 
                 </div>
                 <div class="row">
@@ -115,15 +115,11 @@
                         <label for="numeroCelular"><strong>Nro teléfono</strong></label>
                         <input type="text" [(ngModel)]="formDatosBasicos.numeroCelular" class="form-control" id="numeroCelular" style="max-width: 300px;" name="numeroCelular" placeholder="Ej. +595961123456" minlength="6" required readonly>
                     </div>
-                    <div class="form-group">
-                        <label for="correoElectronico"><strong>Correo Electrónico</strong></label>
-                        <input type="email" [(ngModel)]="formDatosBasicos.correoElectronico" name="correoElectronico" class="form-control" style="max-width: 300px;" id="correoElectronico" email required readonly>
-                    </div>
                     <div class="clearfix"><br/></div>
                     <div class="clearfix"><br/></div>
                     <button (click)="validarTelefono(formDatosBasicos.contrasenha)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading || contrasenha !== contrasenhaConfirm">
                             Guardar <span class="fa fa-check"></span>
-                        </button>
+                    </button>
                 </form>-->
 
             <!--</div>-->
@@ -148,7 +144,7 @@
                 <ng-template pTemplate="body" let-rowData>
                     <tr>
                         <td>
-                            <button type="button" pButton icon="pi pi-check" iconPos="left" (click)="derivarSupervisor(rowData.id);" class="ui-button-success mb-1" style="font-size:10px;width:90px" label="Derivar" title="Derivar contacto."></button>
+                            <button type="button" pButton icon="pi pi-check" iconPos="left" (click)="derivarSupervisor(rowData.id, rowData.nombre, rowData.apellido);" class="ui-button-success mb-1" style="font-size:10px;width:90px" label="Derivar" title="Derivar contacto."></button>
                         </td>
                         <td>{{rowData.cedula}}</td>
                         <td>{{rowData.nombre}}</td>
@@ -162,6 +158,19 @@
                         Cerrar <span class="fa fa-times"></span>
                     </button>
                 </div>
+            </p-dialog>
+
+            <p-dialog [(visible)]="showDerivarCoordinador" modal="true" header="Derivar a Coordinador"><!--[formGroup]="agregarContactoFormGroup"-->
+                <div class="form-group">
+                    <label for="motivo"><strong>Informe el motivo de la derivación</strong><span class="text-danger">*</span></label><br>
+                    <textarea id="motivo" cols="50" rows="5" [(ngModel)]="motivoDerivacion"></textarea>
+                </div>
+                <button class="btn btn-success btn-success-next mr-2" (click)="reasignar(idSupervisor);closePopupDerivar()">
+                    Aceptar <span class="fa fa-check"></span>
+                </button>
+                <button class="btn btn-secondary btn-success-next" (click)="closePopupDerivar()">
+                    Cancelar <span class="fa fa-times"></span>
+                </button>
             </p-dialog>
 
             <p-dialog [(visible)]="showReasignar" modal="true" header="Usuarios">
@@ -186,9 +195,7 @@
                         <td>
                             <button type="button" pButton icon="pi pi-check" iconPos="left" (click)="reasignar(rowData.id)" class="ui-button-success mb-1" style="font-size:10px;width:90px" label="Reasignar" title="Reasignar contacto."></button>
                         </td>
-                        <td>
-                            {{rowData.cedula}}
-                        </td>
+                        <td>{{rowData.cedula}}</td>
                         <td>
                            {{rowData.nombre}}
                         </td>
@@ -336,19 +343,6 @@
                 </button>&nbsp;
                 <button class="btn btn-secondary btn-success-next" (click)="closePopupNoAtiende()">
                         Cancelar <span class="fa fa-times"></span>
-                </button>
-            </p-dialog>
-
-            <p-dialog [(visible)]="showDerivarCoordinador" modal="true" header="Derivar a Coordinador"><!--[formGroup]="agregarContactoFormGroup"-->
-                <div class="form-group">
-                    <label for="motivo"><strong>Informe el motivo de la derivación</strong><span class="text-danger">*</span></label><br>
-                    <textarea id="motivo" cols="50" rows="5" [(ngModel)]="motivoDerivacion"></textarea>
-                </div>
-                <button class="btn btn-success btn-success-next mr-2" (click)="reasignar(idSupervisor);closePopupDerivar()">
-                    Aceptar <span class="fa fa-check"></span>
-                </button>
-                <button class="btn btn-secondary btn-success-next" (click)="closePopupDerivar()">
-                    Cancelar <span class="fa fa-times"></span>
                 </button>
             </p-dialog>
 
