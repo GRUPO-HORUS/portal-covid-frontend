@@ -164,20 +164,12 @@
                 <ng-template pTemplate="body" let-rowData>
                     <tr>
                         <td>
-                            <button type="button" pButton icon="pi pi-check" iconPos="left" (click)="reasignar(rowData.id)" class="ui-button-success mb-1" style="font-size:10px;width:90px" label="Derivar" title="Derivar contacto."></button>
+                            <button type="button" pButton icon="pi pi-check" iconPos="left" (click)="derivarSupervisor(rowData.id);" class="ui-button-success mb-1" style="font-size:10px;width:90px" label="Derivar" title="Derivar contacto."></button>
                         </td>
-                        <td>
-                            {{rowData.cedula}}
-                        </td>
-                        <td>
-                           {{rowData.nombre}}
-                        </td>
-                        <td>
-                            {{rowData.apellido}}
-                        </td>
-                        <td>
-                           {{rowData.username}}
-                        </td>
+                        <td>{{rowData.cedula}}</td>
+                        <td>{{rowData.nombre}}</td>
+                        <td>{{rowData.apellido}}</td>
+                        <td>{{rowData.username}}</td>
                     </tr>
                 </ng-template>
                 </p-table>
@@ -238,7 +230,6 @@
                         Aceptar
                         <span class="fa fa-check"></span>
                     </button>&nbsp;
-
                     <button class="btn btn-secondary btn-success-next" (click)="showConfirmarLiberar = false;">
                         Cancelar
                         <span class="fa fa-times"></span>
@@ -369,7 +360,7 @@
                     <label for="motivo"><strong>Informe el motivo de la derivación</strong><span class="text-danger">*</span></label><br>
                     <textarea id="motivo" cols="50" rows="5"></textarea>
                 </div>
-                <button class="btn btn-success btn-success-next mr-2" (click)="closePopupDerivar()">
+                <button class="btn btn-success btn-success-next mr-2" (click)="reasignar(idSupervisor);closePopupDerivar()">
                     Aceptar <span class="fa fa-check"></span>
                 </button>
                 <button class="btn btn-secondary btn-success-next" (click)="closePopupDerivar()">

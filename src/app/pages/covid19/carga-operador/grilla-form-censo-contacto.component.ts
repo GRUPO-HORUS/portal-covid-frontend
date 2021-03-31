@@ -77,8 +77,7 @@ export class GrillaFormCensoContactoComponent implements OnInit {
                               {value:"sospechoso", label: "Caso Sospechoso"},
                               {value:"alta_confirmado", label: "Alta de Caso Confirmado"},
                               {value:"alta_aislamiento", label: "Alta de Aislamiento"},
-                              {value:"fallecido", label: "Fallecido"}
-                             ];
+                              {value:"fallecido", label: "Fallecido"}];
   actualizarDiagnosticoFormGroup: FormGroup;
 
   es = {
@@ -205,11 +204,12 @@ suspensionFormGroup: FormGroup;
 public showReasignar: boolean = false;
 public usersContactCenterList: any[];
 public colsUsers;
-
 public showConfirmarLiberar: boolean = false;
 
 public showDerivarSupervisor: boolean = false;
 public supervisoresContactCenterList: any[];
+
+public idSupevisor;
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -390,7 +390,8 @@ liberarLista(){
   );
 }
 
-derivarCoordinador(){
+derivarSupervisor(idSupevisor){
+  this.idSupevisor = idSupevisor;
   this.showDerivarCoordinador = true;
 }
 
