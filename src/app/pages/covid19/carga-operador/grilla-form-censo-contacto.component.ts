@@ -210,6 +210,7 @@ public showDerivarSupervisor: boolean = false;
 public supervisoresContactCenterList: any[];
 
 public idSupervisor;
+public motivoDerivacion:string ="";
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -393,6 +394,7 @@ liberarLista(){
 derivarSupervisor(idSupevisor){
   this.idSupervisor = idSupevisor;
   this.showDerivarCoordinador = true;
+  this.motivoDerivacion="";
 }
 
 closePopupDerivar(){
@@ -1121,6 +1123,8 @@ filtrarRegion(event) {
 
   reasignar(idUsuario){
     this.formCensoContacto.usuarioActual = idUsuario;
+
+    this.formCensoContacto.motivoDerivacion = this.motivoDerivacion;
     this.service.editarFormCensoContacto(this.formCensoContacto).subscribe(response => {
       this.loading = false;
       this.mensaje= "Contacto Reasignado.";

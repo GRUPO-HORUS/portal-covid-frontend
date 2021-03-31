@@ -358,7 +358,7 @@
             <p-dialog [(visible)]="showDerivarCoordinador" modal="true" header="Derivar a Coordinador"><!--[formGroup]="agregarContactoFormGroup"-->
                 <div class="form-group">
                     <label for="motivo"><strong>Informe el motivo de la derivación</strong><span class="text-danger">*</span></label><br>
-                    <textarea id="motivo" cols="50" rows="5"></textarea>
+                    <textarea id="motivo" cols="50" rows="5" [(ngModel)]="motivoDerivacion"></textarea>
                 </div>
                 <button class="btn btn-success btn-success-next mr-2" (click)="reasignar(idSupervisor);closePopupDerivar()">
                     Aceptar <span class="fa fa-check"></span>
