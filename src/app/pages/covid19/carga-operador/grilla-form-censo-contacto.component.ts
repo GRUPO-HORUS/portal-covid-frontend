@@ -209,7 +209,7 @@ public showConfirmarLiberar: boolean = false;
 public showDerivarSupervisor: boolean = false;
 public supervisoresContactCenterList: any[];
 
-public idSupevisor;
+public idSupervisor;
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -391,7 +391,7 @@ liberarLista(){
 }
 
 derivarSupervisor(idSupevisor){
-  this.idSupevisor = idSupevisor;
+  this.idSupervisor = idSupevisor;
   this.showDerivarCoordinador = true;
 }
 
