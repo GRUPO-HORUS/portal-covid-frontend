@@ -359,13 +359,24 @@ buscarContactos(opcionFiltro){
       console.log(this.pacientesList);
       
     });
-
   }, error => {
     console.log(error);
     this.mensaje = error.error;
     this.openMessageDialog();
   }
   );
+}
+
+getCensoContactosXls(opcionFiltro){
+    this.loading = true;
+    this.service.getCensoContactosXls(0, 0, this.filter, this.sortAsc, this.sortField, this.region, this.distritosUsuario, 
+      opcionFiltro,this.usuarioId, this.esLiderReg);
+    /*this.service.getPacientesPrimerContacto(0, 0, this.filter, this.sortAsc, this.sortField, this.region, 
+      this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
+        this.pacientesList = pacientes.lista;
+        //this.exportXlsFormateado(this.pacientesList);
+    });*/
+    this.loading = false;
 }
 
 asignarmeContacto(rowData){

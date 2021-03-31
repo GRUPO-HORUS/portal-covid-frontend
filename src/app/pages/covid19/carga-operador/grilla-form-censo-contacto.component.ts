@@ -210,6 +210,7 @@ public showDerivarSupervisor: boolean = false;
 public supervisoresContactCenterList: any[];
 
 public idSupervisor;
+public nombreSupervisor:string="";
 public motivoDerivacion:string ="";
   constructor(
     private _router: Router,
@@ -389,12 +390,6 @@ liberarLista(){
     this.openMessageDialog();
   }
   );
-}
-
-derivarSupervisor(idSupevisor){
-  this.idSupervisor = idSupevisor;
-  this.showDerivarCoordinador = true;
-  this.motivoDerivacion="";
 }
 
 closePopupDerivar(){
@@ -588,8 +583,7 @@ filtrarRegion(event) {
         this.response = response;
         this.mensaje= null;
     }, error => {
-      if(error.status == 401)
-      {
+      if(error.status == 401){
         this._router.navigate(["/"]);
       }
       else{
@@ -1121,9 +1115,16 @@ filtrarRegion(event) {
     });
   }
 
+  derivarSupervisor(idSupevisor, nombreSupervisor){
+    this.idSupervisor = idSupevisor;
+    this.nombreSupervisor = nombreSupervisor;
+    this.showDerivarCoordinador = true;
+    this.motivoDerivacion="";
+  }
+
   reasignar(idUsuario){
     this.formCensoContacto.usuarioActual = idUsuario;
-
+    this.formCensoContacto.usuarioActualNombre = this.nombreSupervisor;
     this.formCensoContacto.motivoDerivacion = this.motivoDerivacion;
     this.service.editarFormCensoContacto(this.formCensoContacto).subscribe(response => {
       this.loading = false;
