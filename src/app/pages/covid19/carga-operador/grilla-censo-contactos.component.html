@@ -111,8 +111,8 @@
             <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex" let-columns="columns">
                 <tr [pEditableRow]="rowData"><!--[ngClass]="{'lowstock': rowData.actualizado==='si'}"-->
                     <td *ngIf="columns[0].field==='acc'">
-                        <button type="button" pButton icon="pi pi-check" iconPos="left" (click)="asignarmeContacto(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:134px" label="Asignarme" title="Asignarme un contacto." *ngIf="rowData.operadorAsignado!==usuarioId"></button><br *ngIf="rowData.operadorAsignado!==usuarioId">
-                        <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="desasignarmeContacto(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:134px" label="Liberar Asignación" title="Retirar la asignación de un contacto." *ngIf="rowData.operadorAsignado==usuarioId"></button><br *ngIf="rowData.operadorAsignado==usuarioId">
+                        <button type="button" pButton icon="pi pi-check" iconPos="left" (click)="asignarmeContacto(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:134px" label="Asignarme" title="Asignarme un contacto." *ngIf="rowData.operadorContactCenter!==usuarioId"></button><br *ngIf="rowData.operadorContactCenter!==usuarioId">
+                        <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="desasignarmeContacto(rowData)" class="ui-button-success mr-2 mb-1" style="font-size:10px;width:134px" label="Liberar Asignación" title="Retirar la asignación de un contacto." *ngIf="rowData.operadorContactCenter==usuarioId"></button><br *ngIf="rowData.operadorContactCenter==usuarioId">
                         <button type="button" pButton icon="pi pi-times" iconPos="left" (click)="mostrarNoSeContacto(rowData)" class="ui-button-danger mr-2 mb-1" style="font-size:10px;width:134px" label="No se pudo contactar" title="No se Pudo Contactar: en caso de que no atiende, apagado, etc."></button><br>
                         <!--<button pButton type="button" icon="pi pi-plus" iconPos="left" (click)="mostrarNuevoContacto(rowData)" class="ui-button-warning mr-2 mb-1" style="font-size:10px;width:146px" label="Agregar Contacto" title="Agregar nuevos contactos."></button>
                         <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="onRowEditSave(rowData)" class="p-button-rounded p-button-text ui-button-warning- p-mr-2 mr-2 ml-5 mb-2 mt-2" style="background-color: green !important;"></button>
@@ -420,16 +420,16 @@
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{rowData.loginOperador}}
+                                {{rowData.operadorContactCenterNombre}}
                             </ng-template>
                         </p-cellEditor>
 
                         <p-cellEditor *ngIf="!edito">
                             <ng-template pTemplate="input">
-                                {{rowData.loginOperador}}
+                                {{rowData.operadorContactCenterNombre}}
                             </ng-template>
                             <ng-template pTemplate="output">
-                                {{rowData.loginOperador}}
+                                {{rowData.operadorContactCenterNombre}}
                             </ng-template>
                         </p-cellEditor> 
                     </td>

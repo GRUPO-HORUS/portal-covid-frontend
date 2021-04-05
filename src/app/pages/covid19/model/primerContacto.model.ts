@@ -1,3 +1,4 @@
+
 export class PrimerContacto {
     id: number;
     nroDocumento: string;
@@ -32,9 +33,11 @@ export class PrimerContacto {
 
     loginOperador: string;
     operadorAsignado: number;
-
     referencia: string;
     casaNumero: string;
+
+    operadorContactCenter: number;
+    operadorContactCenterNombre: string;
 
     editado: boolean;
 }

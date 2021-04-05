@@ -381,8 +381,9 @@ getCensoContactosXls(opcionFiltro){
 
 asignarmeContacto(rowData){
   this.primerContacto = rowData;
-  this.primerContacto.operadorAsignado =this.usuarioId;
-  this.primerContacto.loginOperador =this.nombreU;
+  //this.primerContacto.operadorAsignado =this.usuarioId;
+  this.primerContacto.operadorContactCenter =this.usuarioId;
+  this.primerContacto.operadorContactCenterNombre =this.nombreU;
     this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
       this.loading = false;
       this.mensaje= "Contacto asignado exitosamente.";
@@ -405,8 +406,9 @@ asignarmeContacto(rowData){
 
 desasignarmeContacto(rowData){
   this.primerContacto = rowData;
-  this.primerContacto.operadorAsignado = null;
-  this.primerContacto.loginOperador = null;
+  //this.primerContacto.operadorAsignado = null;
+  this.primerContacto.operadorContactCenter = null;
+  this.primerContacto.operadorContactCenterNombre = null;
     this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
       this.loading = false;
       this.mensaje= "Contacto liberado exitosamente.";
