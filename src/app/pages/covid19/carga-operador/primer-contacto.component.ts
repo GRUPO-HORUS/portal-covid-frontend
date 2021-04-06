@@ -585,7 +585,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
 
   obtenerDatosLlamada(id): void {
     this.service.getDatosLlamada(id).subscribe(response => {
-      console.log(response);
+      //console.log(response);
       this.loading = false;
       this.formCensoContacto = response;
       //this.buscarFormCensoContacto(this.formCensoContacto.primerContactoId)
@@ -602,7 +602,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
     this.loading = true;
     this.formDatosBasicos = null;
     this.service.getPacienteEditarRealizarLlamada(cedula).subscribe(response => {
-        //console.log(response);
+        console.log(response);
         this.loading = false;
         this.registroFg.controls.cedula.setValue(response.numeroDocumento);
         this.registroFg.controls.nombre.setValue(response.nombre);
