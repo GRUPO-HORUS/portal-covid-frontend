@@ -310,15 +310,14 @@
                             <div class="p-grid">
                               <div class="p-col">
                                 
-                                 <!--(click)="onSaveClick()">-->
-                                <button type="submit"
+                                 <!-- type="submit" (click)="onSaveClick()">-->
+                                <button
                                         class="btn btn-success btn-success-next mr-2"
                                         [disabled]="loading"
                                         (click)="showConfirmarLlamada = true">
                                   Guardar <span class="fa fa-check"></span>
                                 </button>
-                                <!--<button class="btn btn-success btn-success-next" (click)="goBack()"
-                                        [disabled]="loading">
+                                <!--<button class="btn btn-success btn-success-next" (click)="goBack()" [disabled]="loading">
                                   Cancelar<span class="fa fa-times"></span>
                                 </button>-->
                               </div>
@@ -380,9 +379,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <hr>
                             <div class="row">
-                                
                                 <table border="1">
                                     <caption style="caption-side:top;">Completar con S: sí, N: no, D: desconoce</caption>
                                     <tr>
@@ -1094,7 +1091,6 @@
         
                                     <div class="form-group" *ngIf="otroLab">
                                         <label for="otroLabEspecificar"><strong>Otro</strong></label>
-                                        
                                         <input type="text" formControlName="otroLabEspecificar" name="otroLabEspecificar" class="form-control"  id="otroLabEspecificar" required>
                                     </div>
                                 </div>
@@ -1125,9 +1121,7 @@
                                         <input type="text" formControlName="otroClasifEspecificar" name="otroClasifEspecificar" class="form-control"  id="otroClasifEspecificar" required>
                                     </div>
                                 </div>
-                                <div class="col-md">
-
-                                </div>
+                                <div class="col-md"></div>
                             </div>
                             <div class="clearfix"><br/></div>
                             <div class="row">

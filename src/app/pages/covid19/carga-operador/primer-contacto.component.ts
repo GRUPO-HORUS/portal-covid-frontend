@@ -178,11 +178,9 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
       localStorage.clear();
     }
   }
-
   //@ViewChild('stepper') stepper: MatHorizontalStepper;
 
   ngOnInit() {
-    //console.log(new Date().toLocaleString());
     this.cedula$ = this._route.paramMap.pipe(
       map((paramMap: ParamMap) => paramMap.get('cedula')),
       distinctUntilChanged(),
@@ -385,7 +383,6 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
   }
 
   completarEstadoSalud(){
-    //console.log(event);
       this.cedula$ = this._route.paramMap.pipe(
         map((paramMap: ParamMap) => paramMap.get('cedula')),
         distinctUntilChanged(),
@@ -876,12 +873,10 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
                                                 response.obtenerPersonaPorNroCedulaResponse.return.fechNacim.substring(0, 4);*/
             }
         }, error => {
-          if(error.status == 401)
-          {
+          if(error.status == 401){
             this._router.navigate(["/"]);
           }
-          else
-          {
+          else{
             this.loading = false;
             //this.mensaje = error.error;
             this.mensaje = "No se pudieron obtener los datos del paciente.";
