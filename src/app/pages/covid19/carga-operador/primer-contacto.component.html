@@ -266,14 +266,14 @@
                                     <button class="btn btn-success btn-success-next text-white mr-3" mat-button routerLink="/covid19/operador/grilla-form-censo-contacto">
                                         Volver  <span class="fa fa-arrow-left"></span>            
                                     </button>
-                                    <button class="btn btn-success btn-success-next text-white mr-3" mat-button matStepperNext (click)="completarEstadoSalud()">Siguiente</button>
+                                    <button class="btn btn-success btn-success-next text-white mr-3" mat-button matStepperNext>Siguiente</button>
                                 </div>
                             </div>     
                         </form>
                     </mat-step>
                     <mat-step [stepControl]="monitoreoFg">
                         <ng-template matStepLabel>Monitoreo de Signos y Síntomas</ng-template>
-                        <!--<form [formGroup]="monitoreoFg" class="mt-4">
+                        <!--<form [formGroup]="monitoreoFg" class="mt-4">(click)="completarEstadoSalud()"
                             <div class="row">
                                 <div class="col-md">
                                     <div class="form-group">
@@ -310,7 +310,7 @@
                             <div class="p-grid">
                               <div class="p-col">
                                 
-                                 <!-- type="submit" (click)="onSaveClick()">-->
+                                 <!-- type="submit" (click)="onSaveClick()"> -->
                                 <button
                                         class="btn btn-success btn-success-next mr-2"
                                         [disabled]="loading"
@@ -1088,7 +1088,6 @@
                                         <input type="checkbox" class="custom-control-input" id="otroLab" (change)="otroLab = !otroLab">
                                         <label class="custom-control-label" for="otroLab">Otro</label>
                                     </div>
-        
                                     <div class="form-group" *ngIf="otroLab">
                                         <label for="otroLabEspecificar"><strong>Otro</strong></label>
                                         <input type="text" formControlName="otroLabEspecificar" name="otroLabEspecificar" class="form-control"  id="otroLabEspecificar" required>
@@ -1132,7 +1131,6 @@
                                     <button (click)="registrar()" type="submit" class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button routerLink="/covid19/home-operador">
                                         Guardar <span class="fa fa-check"></span>            
                                     </button>
-    
                                     <button class="btn btn-success btn-success-next mb-4 mr-3 text-white" mat-button matStepperPrevious>Anterior</button>
                                 </div>
                             </div>

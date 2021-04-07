@@ -80,17 +80,6 @@ export class PrimerContactoComponent implements OnInit {
 
   public tipoRegistroOptions=[{value:'ingreso_pais',label:'Ingreso al país'},{value:'aislamiento',label:'Caso sospechoso Covid-19'}];
 
-  /*public departamentoOptions=[{value:'Capital',label:'Capital'},
-                              {value:'Concepción',label:'Concepción'},{value:'San Pedro',label:'San Pedro'},
-                              {value:'Cordillera',label:'Cordillera'},{value:'Guairá',label:'Guairá'},
-                              {value:'Caaguazú',label:'Caaguazú'},{value:'Caazapá',label:'Caazapá'},
-                              {value:'Itapúa',label:'Itapúa'},{value:'Misiones',label:'Misiones'},
-                              {value:'Paraguarí',label:'Paraguarí'},{value:'Alto Paraná',label:'Alto Paraná'},
-                              {value:'Central',label:'Central'},{value:'Ñeembucú',label:'Ñeembucú'},
-                              {value:'Amambay',label:'Amambay'},{value:'Canindeyú',label:'Canindeyú'},
-                              {value:'Presidente Hayes',label:'Presidente Hayes'},{value:'Alto Paraguay',label:'Alto Paraguay'},
-                              {value:'Boquerón',label:'Boquerón'}];*/
-
 public departamentoOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro'},
                               {id:3, nombre:'Cordillera'}, {id:4, nombre:'Guairá'},
                               {id:5, nombre:'Caaguazú'}, {id:6,nombre:'Caazapá'},
@@ -473,6 +462,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
       }
     );
 
+    console.log(this.form$);
     this.saveClick$
       .pipe(
         withLatestFrom(
@@ -743,8 +733,7 @@ public regionSanitariaOptions=[{value:'Capital',label:'Capital'},
           //localStorage.setItem('idRegistro', response);
           this.idRegistro = +response;
 
-          this._router.navigate(["covid19/carga-operador/datos-clinicos/",this.idRegistro]);
-          //this._router.navigate(["covid19/aislamiento/datos-paciente/"]);           
+          this._router.navigate(["covid19/carga-operador/datos-clinicos/",this.idRegistro]);           
             
         }, error => {
           console.log(error);
