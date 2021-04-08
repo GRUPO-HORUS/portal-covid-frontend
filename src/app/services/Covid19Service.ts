@@ -260,7 +260,7 @@ export class Covid19Service {
    }
 
     getPacientesCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string, region, distritosUsuario, opcionFiltro, idUsuario, esLiderReg): Observable<PrimerContactoTable> {
+      sortField: string, region, distritosUsuario, opcionFiltro, idUsuario, esLiderReg, telefono, fechaInicioSintom, fechaCierre): Observable<PrimerContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -280,6 +280,15 @@ export class Covid19Service {
         esLiderReg = false;
         params = params.set('esLiderReg', esLiderReg);
       }
+
+      if (telefono)
+        params = params.set('telefonoFilter', telefono);
+
+      if (fechaInicioSintom)
+        params = params.set('fechaInicioSintomFilter', fechaInicioSintom);
+
+      if (fechaCierre)
+        params = params.set('fechaCierreFilter', fechaCierre);
        
 
       if(distritosUsuario.length > 0){

@@ -43,9 +43,17 @@
           <ng-template pTemplate="caption">
                 <table>
                     <tr>
-                        <td align="left"><p-dropdown id="contactoOption" style="text-align: left;width:auto;" [options]="contactoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="contactoOption" name="contactoOption" [style]="{'minWidth':'160px', 'width': '160px'}" required (onChange)="buscarContactos($event.value)"></p-dropdown> </td>
+                        <td align="left" style="width: max-content;">
+                            <p-dropdown id="contactoOption" style="text-align: left;width:auto;" [options]="contactoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="contactoOption" name="contactoOption" [style]="{'minWidth':'160px', 'width': '160px'}" required (onChange)="buscarContactos($event.value)"></p-dropdown> </td>
                         <!--<td align="right"><input type="text" pInputText style="width:500px;margin-right: 5px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')"></td>-->
-                    
+                        <td>
+                            <form [formGroup]="filterFormGroup" (ngSubmit)="buscarContactos(contactoOption)">&nbsp;
+                                <input formControlName="telefono" placeholder="Teléfono" style="width: 90px;">&nbsp;
+                                <input formControlName="fechaInicioSintom" placeholder="Fecha de Inicio Síntomas" style="width: 102px;">&nbsp;
+                                <input formControlName="fechaCierre" placeholder="Fecha de Cierre" style="width: 120px;">
+                                <input type="submit" hidden>
+                            </form>
+                        </td>
                         <td align="right">
                             <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="XLS" (click)="getCensoContactosXls(contactoOption)" 
                             style="width: 60px;" class="ui-button-success mr-2" [disabled]="loading || !hasRol('Supervisor Contact Center')"></button>
@@ -90,6 +98,7 @@
                 <tr>
                     <th *ngIf="columns[0].field==='acc'">Acciones</th>
                     <th>Fecha de Cierre</th>
+                    <th>Fecha de Inicio de Síntomas</th>
                     <th>Nro de Documento</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
@@ -98,7 +107,6 @@
                     <th>Internado</th>
                     <th>Fallecido</th>
                     <th>Personal de Blanco</th>
-                    <th>Fecha de Inicio de Síntomas</th>
                     <th>Estado de Llamada</th>
                     <th>Cantidad de Contactos</th>
                     <th>Operador Asignado</th>
@@ -142,6 +150,28 @@
                                 {{rowData.fechaCierreCaso}}
                             </ng-template>
                         </p-cellEditor>
+                    </td>
+                    <td pEditableColumn style="vertical-align: top; height: 160px;">
+                        <p-cellEditor *ngIf="edito">
+                            <ng-template pTemplate="input">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:90px" type="text" formControlName="fechaInicioSintomas">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="output"><!--| date:'dd-MM-yyyy'-->
+                                {{rowData.fechaInicioSintomas}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito">
+                            <ng-template pTemplate="input">
+                                {{rowData.fechaInicioSintomas}}
+                            </ng-template>
+
+                            <ng-template pTemplate="output">
+                                {{rowData.fechaInicioSintomas}}
+                            </ng-template>
+                        </p-cellEditor>  
                     </td>
                     <td pEditableColumn style="vertical-align: top; height: 160px;">
                         <p-cellEditor *ngIf="edito">
@@ -347,29 +377,6 @@
                             </ng-template>
                         </p-cellEditor>
                     </td>-->
-                    
-                    <td pEditableColumn style="vertical-align: top; height: 160px;">
-                        <p-cellEditor *ngIf="edito">
-                            <ng-template pTemplate="input">
-                                <div [formGroup]="formGroup">
-                                    <input pInputText style="width:90px" type="text" formControlName="fechaInicioSintomas">
-                                </div>
-                            </ng-template>
-                            <ng-template pTemplate="output"><!--| date:'dd-MM-yyyy'-->
-                                {{rowData.fechaInicioSintomas}}
-                            </ng-template>
-                        </p-cellEditor>
-
-                        <p-cellEditor *ngIf="!edito">
-                            <ng-template pTemplate="input">
-                                {{rowData.fechaInicioSintomas}}
-                            </ng-template>
-
-                            <ng-template pTemplate="output">
-                                {{rowData.fechaInicioSintomas}}
-                            </ng-template>
-                        </p-cellEditor>  
-                    </td>
                     <td pEditableColumn style="vertical-align: top; height: 160px;">
                         <p-cellEditor *ngIf="edito">
                             <ng-template pTemplate="input">

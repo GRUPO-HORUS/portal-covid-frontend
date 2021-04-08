@@ -291,11 +291,11 @@ export class GrillaPrimerContactoComponent implements OnInit {
           { field: 'acc', header: 'Acciones'}
         ];
   	this.filterFormGroup= this.formBuilder.group({
-		region: [null],
-      		distrito: [null],
-		barrio: [null],
-		fechaCierre: [null],
-    	}); 
+      region: [null],
+      distrito: [null],
+      barrio: [null],
+      fechaCierre: [null],
+    }); 
   }
 
   load($event: any) {

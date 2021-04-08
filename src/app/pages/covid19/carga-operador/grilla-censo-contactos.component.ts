@@ -227,6 +227,7 @@ scrollableCols: any[];
 frozenCols: any[];
 
 esLiderReg: boolean = false;
+filterFormGroup: FormGroup;
 
   constructor(
     private _router: Router,
@@ -327,6 +328,12 @@ esLiderReg: boolean = false;
         { field: 'sexo', header: 'Sexo', width: '6%' },
         { field: 'fechaExposicion', header: 'Fecha de Exposición', width: '8%' },
         { field: 'categoriacontagio', header: 'Categoría de Contagio', width: '12%' }];
+
+    this.filterFormGroup= this.formBuilder.group({
+        telefono: [null],
+        fechaInicioSintom: [null],
+        fechaCierre: [null],
+    }); 
   }
 
   load($event: any) {
@@ -353,7 +360,7 @@ buscarContactos(opcionFiltro){
     }
 
     this.service.getPacientesCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
-      this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
+      this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg, this.filterFormGroup.controls.telefono.value, this.filterFormGroup.controls.fechaInicioSintom.value, this.filterFormGroup.controls.fechaCierre.value).subscribe(pacientes => {
       this.pacientesList = pacientes.lista;
       this.totalRecords = pacientes.totalRecords;
       console.log(this.pacientesList);
