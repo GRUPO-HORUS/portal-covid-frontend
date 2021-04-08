@@ -49,8 +49,8 @@
                         <td>
                             <form [formGroup]="filterFormGroup" (ngSubmit)="buscarContactos(contactoOption)">&nbsp;
                                 <input formControlName="telefono" placeholder="Teléfono" style="width: 90px;">&nbsp;
-                                <input formControlName="fechaInicioSintom" placeholder="Fecha de Inicio Síntomas" style="width: 102px;">&nbsp;
-                                <input formControlName="fechaCierre" placeholder="Fecha de Cierre" style="width: 120px;">
+                                <input formControlName="fechaInicioSintom" placeholder="Fecha de Inicio Síntomas" style="width: 128px;">&nbsp;
+                                <input formControlName="fechaCierre" placeholder="Fecha de Cierre" style="width: 128px;">
                                 <input type="submit" hidden>
                             </form>
                         </td>
@@ -703,7 +703,7 @@
                             <p-cellEditor *ngIf="edito && rowId===rowData.id">
                                 <ng-template pTemplate="input">
                                     <div [formGroup]="formGroup">
-                                        <p-calendar formControlName="fechaExposicion" id="fechaExposicion" name="fechaExposicion" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [inputStyle]="{'width':'88px'}" appendTo="body"></p-calendar>
+                                        <p-calendar formControlName="fechaExposicion" id="fechaExposicion" name="fechaExposicion" dateFormat="dd/mm/yy" [locale]="es" dataType="string" [inputStyle]="{'width':'88px'}" appendTo="body" [maxDate]="hoy"></p-calendar>
                                     </div>
                                 </ng-template>
                                 <ng-template pTemplate="output">

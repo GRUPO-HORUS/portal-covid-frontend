@@ -504,7 +504,7 @@
                         <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <p-calendar formControlName="fechaInicioSintomas" id="fechaInicioSintomas" name="fechaInicioSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" [inputStyle]="{'width':'95px'}"></p-calendar>
+                                    <p-calendar formControlName="fechaInicioSintomas" id="fechaInicioSintomas" name="fechaInicioSintomas" dateFormat="dd/mm/yy" [locale]="es" dataType="string" appendTo="body" [inputStyle]="{'width':'95px'}" [maxDate]="hoy"></p-calendar>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">

@@ -241,6 +241,8 @@ filterFormGroup: FormGroup;
   }
 
   ngOnInit() {
+    this.hoy = new Date();
+
     const {usuario} = this.storageManager.getLoginData();
     this.esLiderReg = this.hasRol("Lider Regional");
     this.region = usuario.regionSanitaria;
@@ -1160,6 +1162,7 @@ filtrarRegion(event) {
       this.mensaje= "Motivo guardado exitosamente.";
       this.showNoSeContacto = false;
       this.openMessageDialog();
+      this.buscarContactos('llamada_realizada');
     }, error => {
       if(error.status == 401)
       {

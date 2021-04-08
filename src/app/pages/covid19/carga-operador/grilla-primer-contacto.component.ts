@@ -212,6 +212,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.hoy = new Date();
 
     const {usuario} = this.storageManager.getLoginData();
     this.esLiderReg = this.hasRol("Lider Regional");
@@ -661,7 +662,7 @@ consultarIdentificaciones(event) {
     this.agregarContactoFormGroup.controls.domicilio.setValue(contacto.domicilio);
     let dateParts = contacto.fechaUltimoContacto.split("-");
     let fechaContactoString = dateParts[2]+"/"+dateParts[1]+"/"+dateParts[0]
-    console.log(fechaContactoString);
+    //console.log(fechaContactoString);
     this.agregarContactoFormGroup.controls.fechaUltimoContacto.setValue(fechaContactoString);
     this.agregarContactoFormGroup.controls.tipo.setValue(contacto.tipo);
   }
