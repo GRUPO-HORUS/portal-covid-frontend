@@ -473,6 +473,10 @@ export class Covid19Service {
     return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/guardarPrimerContacto/', primerContacto);
   }
 
+  asignarmeContacto(primerContacto): Observable<string> {
+    return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/asignarmeContacto', primerContacto);
+  }
+
   editarPrimerContacto(primerContacto): Observable<string> {
     return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/editarPrimerContacto', primerContacto);
   }

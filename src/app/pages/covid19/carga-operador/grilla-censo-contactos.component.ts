@@ -393,7 +393,7 @@ asignarmeContacto(rowData){
   //this.primerContacto.operadorAsignado =this.usuarioId;
   this.primerContacto.operadorContactCenter =this.usuarioId;
   this.primerContacto.operadorContactCenterNombre =this.nombreU;
-    this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
+    this.service.asignarmeContacto(this.primerContacto).subscribe(response => {
       this.loading = false;
       this.mensaje= "Contacto asignado exitosamente.";
       this.buscarContactos(this.contactoOption);
@@ -404,8 +404,13 @@ asignarmeContacto(rowData){
       {
         this._router.navigate(["/"]);
       }
-      else
-      {
+      else if(error.status == 400){
+        console.log(error);
+        this.loading = false;
+        this.mensaje = "Disculpe, no puede asignarse este contacto porque ya fue asignado a otro usuario!";
+        this.buscarContactos(this.contactoOption);
+        this.openMessageDialog();
+      }else{
         this.loading = false;
         this.mensaje = error.error;
         this.openMessageDialog();
