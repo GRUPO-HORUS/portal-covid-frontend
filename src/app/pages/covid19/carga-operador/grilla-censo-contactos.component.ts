@@ -1226,6 +1226,8 @@ filtrarRegion(event) {
 
   guardarRegistroFinalizado(){
     this.primerContacto.estadoPrimeraLlamada ="registro_finalizado";
+    this.primerContacto.operadorContactCenter = null;
+    this.primerContacto.operadorContactCenterNombre = null;
     this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
       this.loading = false;
       this.mensaje= "Registro finalizado exitosamente.";
