@@ -1225,7 +1225,9 @@ filtrarRegion(event) {
   }
 
   guardarRegistroFinalizado(){
-    this.primerContacto.estadoPrimeraLlamada ="registro_finalizado";
+    //this.primerContacto.estadoPrimeraLlamada ="registro_finalizado";
+    this.primerContacto.estadoLlamadaCensoContacto = "registro_finalizado";
+
     this.primerContacto.operadorContactCenter = null;
     this.primerContacto.operadorContactCenterNombre = null;
     this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
