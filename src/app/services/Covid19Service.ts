@@ -413,7 +413,7 @@ export class Covid19Service {
   }
 
     getPacientesPrimerContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg, esOpAvanzado, regionFilter: string, distritoFilter: string, barrioFilter: string, fechaCierreFilter: string): Observable<PrimerContactoTable> {
+      sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg, esOpAvanzado, regionFilter: string, distritoFilter: string, barrioFilter: string, fechaCierreFilter: string, codigoPacienteFilter: string): Observable<PrimerContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -438,6 +438,9 @@ export class Covid19Service {
 
       if (fechaCierreFilter)
         params = params.set('fechaCierreFilter', fechaCierreFilter);
+
+      if (codigoPacienteFilter)
+        params = params.set('codigoPacienteFilter', codigoPacienteFilter);
 
       if (esLiderReg){
         params = params.set('esLiderReg', esLiderReg);
