@@ -47,23 +47,23 @@
           <ng-template pTemplate="caption">
                 <table>
                     <tr>
-                        <td align="left" style="width: max-content;">
-				            <p-dropdown id="contactoOption" style="text-align: left;width:auto;margin-right: 5px;" [options]="contactoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="contactoOption" name="contactoOption" [style]="{'minWidth':'140px', 'width': '140px'}" required (onChange)="buscarContactos($event.value)"></p-dropdown> 
+                        <td align="left" style="width: 140px;">
+				            <p-dropdown id="contactoOption" style="text-align: left;width:auto;margin-right: 5px;" [options]="contactoOptions" label="label" placeholder="Seleccionar" [(ngModel)]="contactoOption" name="contactoOption" [style]="{'minWidth':'110px', 'width': '110px'}" required (onChange)="buscarContactos($event.value)"></p-dropdown>
 			            </td>
                         <td>
                             <form [formGroup]="filterFormGroup" (ngSubmit)="buscarContactos(contactoOption)">&nbsp;
                                 <input formControlName="region" placeholder="Region" style="width: 90px;">&nbsp;
-                                <input formControlName="distrito" placeholder="Distrito" style="width: 100px;">&nbsp;
+                                <input formControlName="distrito" placeholder="Distrito" style="width:100px;">&nbsp;
                                 <input formControlName="barrio" placeholder="Barrio" style="width: 100px;">&nbsp;
-                                <input formControlName="fechaCierre" placeholder="Fecha Cierre" style="width: 120px;">
-                                <input formControlName="codigoPaciente" placeholder="Código Paciente" style="width: 120px;">
+                                <input formControlName="fechaCierre" placeholder="Fecha Cierre" style="width: 110px;">&nbsp;
+                                <input formControlName="codigoPaciente" placeholder="Código Paciente" style="width: 112px;">
                                 <input type="submit" hidden>
                             </form>
                         </td>
                         <td align="right"><button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="XLS" (click)="getContactosXls(contactoOption)" 
                             style="width: 60px;" class="ui-button-success mr-2" [disabled]="loading"></button><input type="text" pInputText style="width:500px;margin-right: 5px;height: 35px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')"></td>
                     </tr>
-                    <tr><td></td><td align="left"><span style="color: red;">Campos obligatorios al editar(*)</span></td></tr>
+                    <tr><td></td><td align="left"><span style="color: red;">Campos obligatorios al editar(*)</span></td><td></td></tr>
                 </table>
                 <div style="text-align: right;width:auto;">
                 </div>
