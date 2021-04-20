@@ -177,7 +177,7 @@ public departamentoOptions=[{id:1, nombre:'CONCEPCIÓN'},{id:2, nombre:'SAN PEDR
                               {id:3, nombre:'CORDILLERA'}, {id:4, nombre:'GUAIRÁ'},
                               {id:5, nombre:'CAAGUAZÚ'}, {id:6,nombre:'CAAZAPÁ'},
                               {id:7, nombre:'ITAPÚA'}, {id:8,nombre:'MISIONES'},
-                              {id:9, nombre:'PARAGUARÍ'},{id:10, nombre:'ALTO PARANÁ'},
+                              {id:9, nombre:'PARAGUARI'},{id:10, nombre:'ALTO PARANÁ'},
                               {id:11, nombre:'CENTRAL'},{id:12, nombre:'ÑEEMBUCÚ'},
                               {id:13, nombre:'AMAMBAY'},{id:14, nombre:'CANINDEYÚ'},
                               {id:15, nombre:'PRESIDENTE HAYES'}, {id:16, nombre:'BOQUERÓN'},
@@ -188,7 +188,7 @@ public regionSanitariaOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San P
                               {id:4, nombre:'Guairá'}, {id:5, nombre:'Caaguazú'},
                               {id:6,nombre:'Caazapá'}, {id:7, nombre:'Itapúa'},
                               {id:8,nombre:'Misiones'},
-                              {id:9, nombre:'Paraguarí'},{id:10, nombre:'Alto Paraná'},
+                              {id:9, nombre:'Paraguari'},{id:10, nombre:'Alto Paraná'},
                               {id:11, nombre:'Central'},{id:12, nombre:'Ñeembucú'},
                               {id:13, nombre:'Amambay'},{id:14, nombre:'Canindeyú'},
                               {id:15, nombre:'Presidente Hayes'}, {id:16, nombre:'Boquerón'},
@@ -1162,6 +1162,13 @@ filtrarRegion(event) {
 
   guardarNoSeContacto(){
     this.primerContacto.estadoLlamadaCensoContacto = this.motivosFormGroup.controls.motivoNoContacto.value;
+    let fecha = new Date().toLocaleString();
+    if(this.primerContacto.comentarios !== null){
+      this.primerContacto.comentarios = fecha+' - '+this.username+' - '+this.motivosFormGroup.controls.motivoNoContacto.value+' | '+this.primerContacto.comentarios;
+    }else{
+      this.primerContacto.comentarios = fecha+' - '+this.username+' - '+this.motivosFormGroup.controls.motivoNoContacto.value;
+    }
+    this.primerContacto.cantidadReintentos++;
     this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
       this.loading = false;
       this.mensaje= "Motivo guardado exitosamente.";
@@ -1225,8 +1232,16 @@ filtrarRegion(event) {
   }
 
   guardarRegistroFinalizado(){
+    let fecha = new Date();
+    let mes = fecha.getMonth()+1;
     //this.primerContacto.estadoPrimeraLlamada ="registro_finalizado";
     this.primerContacto.estadoLlamadaCensoContacto = "registro_finalizado";
+    if(this.primerContacto.comentarios !== null){
+      this.primerContacto.comentarios += fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+'Se marca como registro finalizado';
+    }else{
+      this.primerContacto.comentarios = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+'Se marca como registro finalizado';
+    }
+    this.primerContacto.cantidadReintentos +=1;
 
     this.primerContacto.operadorContactCenter = null;
     this.primerContacto.operadorContactCenterNombre = null;

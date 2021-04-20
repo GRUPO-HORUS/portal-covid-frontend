@@ -173,7 +173,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
                               {id:3, nombre:'CORDILLERA'}, {id:4, nombre:'GUAIRÁ'},
                               {id:5, nombre:'CAAGUAZÚ'}, {id:6,nombre:'CAAZAPÁ'},
                               {id:7, nombre:'ITAPÚA'}, {id:8,nombre:'MISIONES'},
-                              {id:9, nombre:'PARAGUARÍ'},{id:10, nombre:'ALTO PARANÁ'},
+                              {id:9, nombre:'PARAGUARI'},{id:10, nombre:'ALTO PARANÁ'},
                               {id:11, nombre:'CENTRAL'},{id:12, nombre:'ÑEEMBUCÚ'},
                               {id:13, nombre:'AMAMBAY'},{id:14, nombre:'CANINDEYÚ'},
                               {id:15, nombre:'PRESIDENTE HAYES'}, {id:16, nombre:'BOQUERÓN'},
@@ -903,7 +903,17 @@ consultarIdentificaciones(event) {
   }
 
   guardarLlamada(){
+    let fecha = new Date();
+    let mes = fecha.getMonth()+1;
     this.primerContacto.estadoPrimeraLlamada ="llamada_realizada";
+
+    this.primerContacto.cantidadReintentos +=1;
+
+    if(this.primerContacto.comentarios !== null){
+      this.primerContacto.comentarios += fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+'Llamada realizada';
+    }else{
+      this.primerContacto.comentarios = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+'Llamada realizada';
+    }
     //this.primerContacto.fechaUltimaLlamada = new Date().toLocaleString();
     this.service.realizarLlamadaPrimerContacto(this.primerContacto).subscribe(response => {
       this.loading = false;
@@ -1060,6 +1070,14 @@ consultarIdentificaciones(event) {
     /*this.primerContacto.fechaCierreCaso = this.formGroup.controls.fechaCierreCaso.value;
     this.primerContacto.fechaUltimaLlamada = this.formGroup.controls.fechaUltimaLlamada.value;*/
     //this.contactosList[row.id].actualizado = 'si';
+
+    let fecha = new Date();
+    let mes = fecha.getMonth()+1;
+    if(this.primerContacto.comentarios !== null){
+      this.primerContacto.comentarios += fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+'Modificación realizada';
+    }else{
+      this.primerContacto.comentarios = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+'Modificación realizada';
+    }
 
     this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
         this.edito = false;
