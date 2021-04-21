@@ -1004,6 +1004,11 @@ export class FichaMonitoreoComponent implements OnInit {
     this.registroFg.controls.servicioSalud.setValue(null);
   }
 
+  setearEstablecimientoSalud(){
+    this.clasificacionRiesgoFg.controls.establecimiento.clearValidators();
+    this.clasificacionRiesgoFg.controls.establecimiento.setValue(null);
+  }
+
   setContagioEstablecimiento(){
     this.casoConfirmadoFg.controls.contagioEstablecimiento.clearValidators();
     this.casoConfirmadoFg.controls.contagioEstablecimiento.setValue(null);
