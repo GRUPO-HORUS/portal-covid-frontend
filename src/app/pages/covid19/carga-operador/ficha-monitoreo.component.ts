@@ -115,7 +115,8 @@ export class FichaMonitoreoComponent implements OnInit {
                               {id:16, nombre:'Presidente Hayes'}, {id:17, nombre:'Boquerón'},
                               {id:18, nombre:'Alto Paraguay'}, {id:19, nombre:'Capital'}];
 
-  public clasifFinalOptions=[{value:'DESCARTADO',label:'Descartado'},{value:'CONFIRMADO',label:'Confirmado'}];
+  public clasifFinalOptions=[{value:'DESCARTADO',label:'Descartado'},{value:'CONFIRMADO',label:'Confirmado'},
+  {value:'PENDIENTE',label:'Pendiente'}, {value:'PENDIENTE/SM',label:'Pendiente/Sm'}];
   public ciudadOptions: any[];
 
   public resulPriMuestraOptions=[{value:'NEGATIVO',label:'Negativo'},{value:'POSITIVO',label:'Positivo'}];
