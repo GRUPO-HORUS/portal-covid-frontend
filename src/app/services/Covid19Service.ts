@@ -260,7 +260,7 @@ export class Covid19Service {
    }
 
     getPacientesCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string, region, distritosUsuario, opcionFiltro, idUsuario, esLiderReg, telefono, fechaInicioSintom, fechaCierre): Observable<PrimerContactoTable> {
+      sortField: string, region, distritosUsuario, opcionFiltro, idUsuario, esLiderReg, esSupervisorContact, telefono, fechaInicioSintom, fechaCierre): Observable<PrimerContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -279,6 +279,13 @@ export class Covid19Service {
       }else{
         esLiderReg = false;
         params = params.set('esLiderReg', esLiderReg);
+      }
+
+      if (esSupervisorContact){
+        params = params.set('esSupervisorContact', esSupervisorContact);
+      }else{
+        esSupervisorContact = false;
+        params = params.set('esSupervisorContact', esSupervisorContact);
       }
 
       if (telefono)
@@ -308,7 +315,7 @@ export class Covid19Service {
    }
 
    getCensoContactosXls(start: number, pageSize: number, filter: string, sortAsc: boolean,
-    sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg): void {
+    sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg, esSupervisorContact): void {
     this.loading.next(true);
     let params = new HttpParams();
 
@@ -335,6 +342,13 @@ export class Covid19Service {
     }else{
       esLiderReg = false;
       params = params.set('esLiderReg', esLiderReg);
+    }
+
+    if (esSupervisorContact){
+      params = params.set('esSupervisorContact', esSupervisorContact);
+    }else{
+      esSupervisorContact = false;
+      params = params.set('esSupervisorContact', esSupervisorContact);
     }
 
     if(distritosUsuario.length > 0){

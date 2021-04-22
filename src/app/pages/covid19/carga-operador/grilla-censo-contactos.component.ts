@@ -65,7 +65,6 @@ export class GrillaCensoContactosComponent implements OnInit {
 
   public idRegistro: number;
   public codigoVerif: string;
-
   public codigoVerificacion: string;
 
   public response: any;
@@ -162,17 +161,6 @@ export class GrillaCensoContactosComponent implements OnInit {
   showPopupNuevoContacto: boolean = false;
   contactoFg: FormGroup;
 
-  /*public regionSanitariaOptions=[{id:1, nombre:'Concepción'},{id:2, nombre:'San Pedro Norte'},
-                              {id:3, nombre:'San Pedro Sur'}, {id:4, nombre:'Cordillera'},
-                              {id:5, nombre:'Guairá'}, {id:6, nombre:'Caaguazú'},
-                              {id:7,nombre:'Caazapá'}, {id:8, nombre:'Itapúa'},
-                              {id:9,nombre:'Misiones'},
-                              {id:10, nombre:'Paraguarí'},{id:11, nombre:'Alto Paraná'},
-                              {id:12, nombre:'Central'},{id:13, nombre:'Ñeembucú'},
-                              {id:14, nombre:'Amambay'},{id:15, nombre:'Canindeyú'},
-                              {id:16, nombre:'Presidente Hayes'}, {id:17, nombre:'Boquerón'},
-                              {id:18, nombre:'Alto Paraguay'}, {id:19, nombre:'Capital'}];*/
-
 public departamentoOptions=[{id:1, nombre:'CONCEPCIÓN'},{id:2, nombre:'SAN PEDRO'},
                               {id:3, nombre:'CORDILLERA'}, {id:4, nombre:'GUAIRÁ'},
                               {id:5, nombre:'CAAGUAZÚ'}, {id:6,nombre:'CAAZAPÁ'},
@@ -229,6 +217,8 @@ frozenCols: any[];
 esLiderReg: boolean = false;
 filterFormGroup: FormGroup;
 
+esSupervisorContact: boolean =false;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -249,6 +239,8 @@ filterFormGroup: FormGroup;
     this.username = usuario.username;
     this.usuarioId = usuario.id;
     this.nombreU = usuario.nombre+" "+usuario.apellido;
+
+    this.esSupervisorContact = this.hasRol("Supervisor Contact Center");
 
     this.actualizarDiagnosticoFormGroup = this.formBuilder.group({
       resultadoUltimoDiagnostico: [null,Validators.required],
@@ -362,7 +354,7 @@ buscarContactos(opcionFiltro){
     }
 
     this.service.getPacientesCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
-      this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg, this.filterFormGroup.controls.telefono.value, this.filterFormGroup.controls.fechaInicioSintom.value, this.filterFormGroup.controls.fechaCierre.value).subscribe(pacientes => {
+      this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg, this.esSupervisorContact, this.filterFormGroup.controls.telefono.value, this.filterFormGroup.controls.fechaInicioSintom.value, this.filterFormGroup.controls.fechaCierre.value).subscribe(pacientes => {
       this.pacientesList = pacientes.lista;
       this.totalRecords = pacientes.totalRecords;
       console.log(this.pacientesList);
@@ -379,7 +371,7 @@ buscarContactos(opcionFiltro){
 getCensoContactosXls(opcionFiltro){
     this.loading = true;
     this.service.getCensoContactosXls(0, 0, this.filter, this.sortAsc, this.sortField, this.region, this.distritosUsuario, 
-      opcionFiltro,this.usuarioId, this.esLiderReg);
+      opcionFiltro, this.usuarioId, this.esLiderReg, this.esSupervisorContact);
     /*this.service.getPacientesPrimerContacto(0, 0, this.filter, this.sortAsc, this.sortField, this.region, 
       this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
         this.pacientesList = pacientes.lista;
