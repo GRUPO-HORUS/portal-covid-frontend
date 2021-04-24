@@ -195,6 +195,10 @@ export class Covid19Service {
      return this.httpClient.get<UsuarioTable>(this.config.API + '/covid19api/aislamiento/listarUsuariosContactCenter/', {params});
    }
 
+   reservarRegCensoContacto(idUsuario, nombreUsuario): Observable<string> {
+    return this.httpClient.get<string>(this.config.API + '/covid19api/aislamiento/reservarRegCensoContacto/'+idUsuario+'/'+nombreUsuario);
+  }
+
     reservarRegistros(idUsuario, nombreUsuario): Observable<string> {
       return this.httpClient.get<string>(this.config.API + '/covid19api/aislamiento/reservarRegistros/'+idUsuario+'/'+nombreUsuario);
     }

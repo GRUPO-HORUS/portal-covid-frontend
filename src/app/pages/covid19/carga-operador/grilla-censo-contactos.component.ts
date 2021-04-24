@@ -216,8 +216,9 @@ frozenCols: any[];
 
 esLiderReg: boolean = false;
 filterFormGroup: FormGroup;
+esSupervisorContact: boolean = false;
 
-esSupervisorContact: boolean =false;
+showConfirmarLiberar: boolean = false;
 
   constructor(
     private _router: Router,
@@ -378,6 +379,52 @@ getCensoContactosXls(opcionFiltro){
         //this.exportXlsFormateado(this.pacientesList);
     });*/
     this.loading = false;
+}
+
+reservarRegistros(){
+  this.service.getDistritosUsuario(this.usuarioId).subscribe(distritos => {
+    for (let i = 0; i < distritos.length; i++) {
+      this.distritosUsuario.push(distritos[i].distritoId);
+      //let d = distritos[i];
+      //this.distritosOptions[i] = {nombre: d.nomdist, value: d.coddist};
+    }
+
+    this.service.reservarRegCensoContacto(this.usuarioId, this.nombreU).subscribe(distritos => {
+      this.service.getPacientesCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
+        this.distritosUsuario, null, this.usuarioId, null, null, null, null, null).subscribe(pacientes => {
+        this.formCensoContactoList = pacientes.lista;
+        this.totalRecords = pacientes.totalRecords;
+        console.log(this.formCensoContactoList);
+      });
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    }
+    );
+
+  }, error => {
+    console.log(error);
+    this.mensaje = error.error;
+    this.openMessageDialog();
+  }
+  );
+}
+
+confirmarLiberarLista(){
+  this.showConfirmarLiberar = true;
+}
+
+liberarLista(){
+  this.service.liberarRegistros(this.usuarioId).subscribe(registros => {
+    this.formCensoContactoList =[];
+    this.showConfirmarLiberar = false;
+  }, error => {
+    console.log(error);
+    this.mensaje = error.error;
+    this.openMessageDialog();
+  }
+  );
 }
 
 asignarmeContacto(rowData){

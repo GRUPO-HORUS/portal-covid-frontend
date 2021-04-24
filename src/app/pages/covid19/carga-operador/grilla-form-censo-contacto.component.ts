@@ -228,7 +228,7 @@ public motivoDerivacion:string ="";
     this.username = usuario.username;
     this.usuarioId = usuario.id;
 
-    this.usuarioDescr = usuario.nombre+" "+usuario.apellido
+    this.usuarioDescr = usuario.nombre+" "+usuario.apellido;
 
     this.actualizarDiagnosticoFormGroup = this.formBuilder.group({
       resultadoUltimoDiagnostico: [null,Validators.required],
