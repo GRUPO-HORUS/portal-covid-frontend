@@ -227,6 +227,7 @@ import { FileUploadModule } from 'primeng/fileupload';
     HttpErrorHandler,
     TipoPacienteService,
     DatePipe,
+    ConfirmationService,
     { provide: RECAPTCHA_LANGUAGE, useValue: "es" },
     { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LfJyuMUAAAAAIV7rrC6RWZdrotQYQfHCbrLIgAY' },
   ],
