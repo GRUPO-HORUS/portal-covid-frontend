@@ -502,6 +502,10 @@ export class Covid19Service {
     return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/editarPrimerContacto', primerContacto);
   }
 
+  editarPrimerContactoDgvsSincronizacion(primerContacto): Observable<string> {
+    return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/editarPrimerContactoDgvsSincronizacion', primerContacto);
+  }
+
   realizarLlamadaPrimerContacto(primerContacto): Observable<string> {
     return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/realizarLlamadaPrimerContacto', primerContacto);
   }

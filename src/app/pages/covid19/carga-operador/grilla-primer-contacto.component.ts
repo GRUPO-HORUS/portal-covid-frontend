@@ -1079,14 +1079,14 @@ consultarIdentificaciones(event) {
       this.primerContacto.comentarios = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+'Modificación realizada';
     }
 
-    this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
+    this.service.editarPrimerContactoDgvsSincronizacion(this.primerContacto).subscribe(response => {
         this.edito = false;
         this.loading = false;
         this.mensaje= "Registro editado exitosamente.";
         this.openMessageDialog();
         this.primerContacto.editado = true;
 
-        this.service.insertFrmFsarscov2(this.primerContacto).subscribe(response => {
+        /*this.service.insertFrmFsarscov2(this.primerContacto).subscribe(response => {
           
         }, error => {
           if(error.status == 401){
@@ -1097,7 +1097,7 @@ consultarIdentificaciones(event) {
             this.mensaje = error.error;
             this.openMessageDialog();
           }
-        });
+        });*/
 
     }, error => {
         if(error.status == 401)
