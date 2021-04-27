@@ -744,6 +744,11 @@ listarReingresosExcel(start: number, pageSize: number, filter: string, sortAsc: 
     return this.httpClient.post<any>(this.config.API + '/covid19api/aislamiento/uploadAsignacionPrimerContacto', formData);
   }
 
+  getCountByEstadoSincronizacionHaciaDGVS(estadoSincronizacionHaciaDGVS:Number): Observable<Number> {
+      return this.httpClient.get<Number>(this.config.API + '/covid19/fsarscov2DgticCon/getCountByEstadoSincronizacionHaciaDGVS/'+estadoSincronizacionHaciaDGVS);
+    }
+
+
  }
 
 
