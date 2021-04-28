@@ -47,8 +47,8 @@
           <ng-template pTemplate="caption">
                 <table>
                     <tr>
-                        <td align="left" style="width: 300px;" [formGroup]="filterFormGroup">
-				            <p-dropdown id="contactoOption" style="text-align: left;width:auto;margin-right: 5px;" [options]="estadoSincronizacionOptions" label="label" placeholder="Seleccionar" formControlName="estadoSincronizacion" [style]="{'minWidth':'110px', 'width': '110px'}" required (onChange)="buscarContactos($event.value)"></p-dropdown>
+                        <td align="left" style="width: 150px;" [formGroup]="filterFormGroup">
+				            <p-dropdown id="contactoOption" style="text-align: left;width:auto;margin-right: 5px;" [options]="estadoSincronizacionOptions" label="label" placeholder="Seleccionar" formControlName="estadoSincronizacion" [style]="{'minWidth':'150px', 'width': '150px'}" required (onChange)="buscarContactos($event.value)"></p-dropdown>
 			            </td>
                         <td>
                             <form [formGroup]="filterFormGroup" (ngSubmit)="buscarContactos(contactoOption)">&nbsp;
