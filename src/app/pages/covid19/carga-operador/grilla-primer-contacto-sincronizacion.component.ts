@@ -22,8 +22,8 @@ import * as Excel from "exceljs";
 //background-color: #800606 !important;
 
 @Component({
-  selector: "grilla-primer-contacto",
-  templateUrl: "./grilla-primer-contacto.component.html",
+  selector: "grilla-primer-contacto-sincronizacion",
+  templateUrl: "./grilla-primer-contacto-sincronizacion.component.html",
   providers: [Covid19Service],
   styles: [`
         .outofstock {
@@ -44,7 +44,7 @@ import * as Excel from "exceljs";
         }`
     ]
 })
-export class GrillaPrimerContactoComponent implements OnInit {
+export class GrillaPrimerContactoSincronizacionComponent implements OnInit {
 
   public loading: boolean;
   public mensaje: string;
@@ -199,6 +199,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
 
   esOpAvanzado: boolean = false;
   filterFormGroup: FormGroup;
+  public estadoSincronizacionOptions=[{value:1,label:'A sincronizar'},{value:4,label:'Descartados de la sincronización'}];
 
   constructor(
     private _router: Router,
@@ -297,6 +298,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
       barrio: [null],
       fechaCierre: [null],
       codigoPaciente: [null],
+      estadoSincronizacion: [1],
     }); 
   }
 
@@ -324,8 +326,8 @@ export class GrillaPrimerContactoComponent implements OnInit {
         //this.distritosOptions[i] = {nombre: d.nomdist, value: d.coddist};
       }
       this.service.getPacientesPrimerContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
-        this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg, this.esOpAvanzado, this.filterFormGroup.controls.region.value, 
-        this.filterFormGroup.controls.distrito.value, this.filterFormGroup.controls.barrio.value, this.filterFormGroup.controls.fechaCierre.value, this.filterFormGroup.controls.codigoPaciente.value,null).subscribe(pacientes => {
+        this.distritosUsuario, 'todos', this.usuarioId, this.esLiderReg, this.esOpAvanzado, this.filterFormGroup.controls.region.value, 
+        this.filterFormGroup.controls.distrito.value, this.filterFormGroup.controls.barrio.value, this.filterFormGroup.controls.fechaCierre.value, this.filterFormGroup.controls.codigoPaciente.value,this.filterFormGroup.controls.estadoSincronizacion.value).subscribe(pacientes => {
         this.pacientesList = pacientes.lista;
         this.totalRecords = pacientes.totalRecords;
         console.log(this.pacientesList);

@@ -431,7 +431,7 @@ export class Covid19Service {
   }
 
     getPacientesPrimerContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg, esOpAvanzado, regionFilter: string, distritoFilter: string, barrioFilter: string, fechaCierreFilter: string, codigoPacienteFilter: string): Observable<PrimerContactoTable> {
+      sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg, esOpAvanzado, regionFilter: string, distritoFilter: string, barrioFilter: string, fechaCierreFilter: string, codigoPacienteFilter: string, estadoSincronizacionHaciaDGVS: number): Observable<PrimerContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -459,6 +459,9 @@ export class Covid19Service {
 
       if (codigoPacienteFilter)
         params = params.set('codigoPacienteFilter', codigoPacienteFilter);
+
+      if (estadoSincronizacionHaciaDGVS)
+        params = params.set('estadoSincronizacionHaciaDGVS', estadoSincronizacionHaciaDGVS.toString());
 
       if (esLiderReg){
         params = params.set('esLiderReg', esLiderReg);
