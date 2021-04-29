@@ -20,13 +20,13 @@
                         <input [(ngModel)]="cedula" class="form-control" id="cedula" style="max-width: 300px;" name="cedula" required>
                     </div>
                     <div>
-                        <button (click)="obtenerPersona(cedula)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading">
+                        <button (click)="obtenerPersona(cedula)" type="submit" class="btn btn-success btn-success-next" [disabled]="!miForm.form.valid || loading"> [disabled]="pacientesList?.length > 0"
                             Verificar<span class="fa fa-check"></span>
                         </button>
                     </div>
                     </form>-->
                     <div class="col-md-8 mb-4">
-                        <button class="btn btn-secondary btn-success-next mr-3" (click)="reservarRegistros()" *ngIf="hasRol('Operador Contact Center')" [disabled]="pacientesList?.length > 0"> 
+                        <button class="btn btn-secondary btn-success-next mr-3" (click)="reservarRegistros()" *ngIf="hasRol('Operador Contact Center')"> 
                             Generar Lista <span class="fa fa-plus"></span>
                         </button>
                         <button class="btn btn-secondary btn-success-next" (click)="confirmarLiberarLista()" *ngIf="hasRol('Operador Contact Center')">
