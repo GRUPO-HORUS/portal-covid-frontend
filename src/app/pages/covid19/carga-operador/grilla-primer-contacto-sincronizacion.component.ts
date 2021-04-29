@@ -905,21 +905,9 @@ consultarIdentificaciones(event) {
   }
 
   guardarLlamada(){
-    let fecha = new Date();
-    let mes = fecha.getMonth()+1;
-    this.primerContacto.estadoPrimeraLlamada ="llamada_realizada";
-
-    this.primerContacto.cantidadReintentos +=1;
-
-    if(this.primerContacto.comentarios !== null){
-      this.primerContacto.comentarios += fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+'Llamada realizada';
-    }else{
-      this.primerContacto.comentarios = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+'Llamada realizada';
-    }
-    //this.primerContacto.fechaUltimaLlamada = new Date().toLocaleString();
-    this.service.realizarLlamadaPrimerContacto(this.primerContacto).subscribe(response => {
+    this.service.desincronizarPrimerContactoDgvsSincronizacion(this.primerContacto).subscribe(response => {
       this.loading = false;
-      this.mensaje= "Estado de la llamada guardado exitosamente.";
+      this.mensaje= "Primera Llamada eliminado de la sincronización exitosamente.";
       this.buscarContactos(this.contactoOption);
       this.showLlamadaRealizada = false;
       this.openMessageDialog();
