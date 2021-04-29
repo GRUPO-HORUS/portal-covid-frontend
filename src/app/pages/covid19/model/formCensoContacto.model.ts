@@ -9,7 +9,7 @@ export class FormCensoContacto {
     
     categoriaContagio: string;
     fechaExposicion: Date;
-    primerContactoId: number;
+    censoContactoDistId: number;
 
     regionSanitariaId: string;
     regionSanitaria: string;

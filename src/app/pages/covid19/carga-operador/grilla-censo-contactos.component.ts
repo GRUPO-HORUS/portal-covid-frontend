@@ -15,6 +15,7 @@ import { PrimerContacto } from "../model/primerContacto.model";
 import { FormCensoContacto } from "../model/formCensoContacto.model";
 import { FichaPersonalBlanco } from "../model/fichaPersonalBlanco.model";
 import { FormSeccionContactoContagio } from "../model/formSeccionContactoContagio.model";
+import { CensoContactoDist } from "../model/censoContactoDist.model";
 
 declare var $: any;
 
@@ -45,7 +46,7 @@ export class GrillaCensoContactosComponent implements OnInit {
   //Formulario
   public formDatosBasicos: FormDatosBasicos;
 
-  // datos del formulario
+  //Datos del formulario
   public cedula: string;
   public email: string;
   public domicilio: string;
@@ -160,6 +161,8 @@ export class GrillaCensoContactosComponent implements OnInit {
 
   showPopupNuevoContacto: boolean = false;
   contactoFg: FormGroup;
+
+  censoContactoDist: CensoContactoDist;
 
 public departamentoOptions=[{id:1, nombre:'CONCEPCIÓN'},{id:2, nombre:'SAN PEDRO'},
                               {id:3, nombre:'CORDILLERA'}, {id:4, nombre:'GUAIRÁ'},
@@ -358,7 +361,7 @@ buscarContactos(opcionFiltro){
       this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg, this.esSupervisorContact, this.filterFormGroup.controls.telefono.value, this.filterFormGroup.controls.fechaInicioSintom.value, this.filterFormGroup.controls.fechaCierre.value).subscribe(pacientes => {
       this.pacientesList = pacientes.lista;
       this.totalRecords = pacientes.totalRecords;
-      console.log(this.pacientesList);
+      console.log(this.totalRecords);
       
     });
   }, error => {
@@ -382,6 +385,8 @@ getCensoContactosXls(opcionFiltro){
 }
 
 reservarRegistros(){
+  let cantReserva = 15 - this.totalRecords;
+
   this.service.getDistritosUsuario(this.usuarioId).subscribe(distritos => {
     for (let i = 0; i < distritos.length; i++) {
       this.distritosUsuario.push(distritos[i].distritoId);
@@ -389,13 +394,13 @@ reservarRegistros(){
       //this.distritosOptions[i] = {nombre: d.nomdist, value: d.coddist};
     }
 
-    this.service.reservarRegCensoContacto(this.usuarioId, this.nombreU).subscribe(distritos => {
-      this.service.getPacientesCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
+    this.service.reservarRegCensoContacto(this.usuarioId, this.nombreU, cantReserva).subscribe(distritos => {
+      this.buscarContactos(this.contactoOption);
+      /*this.service.getPacientesCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
         this.distritosUsuario, null, this.usuarioId, null, null, null, null, null).subscribe(pacientes => {
-        this.formCensoContactoList = pacientes.lista;
+        this.pacientesList = pacientes.lista;
         this.totalRecords = pacientes.totalRecords;
-        console.log(this.formCensoContactoList);
-      });
+      });*/
     }, error => {
       console.log(error);
       this.mensaje = error.error;
@@ -416,8 +421,8 @@ confirmarLiberarLista(){
 }
 
 liberarLista(){
-  this.service.liberarRegistros(this.usuarioId).subscribe(registros => {
-    this.formCensoContactoList =[];
+  this.service.liberarRegCensoContacto(this.usuarioId).subscribe(registros => {
+    this.pacientesList =[];
     this.showConfirmarLiberar = false;
   }, error => {
     console.log(error);
@@ -428,11 +433,11 @@ liberarLista(){
 }
 
 asignarmeContacto(rowData){
-  this.primerContacto = rowData;
+  this.censoContactoDist = rowData;
   //this.primerContacto.operadorAsignado =this.usuarioId;
-  this.primerContacto.operadorContactCenter =this.usuarioId;
-  this.primerContacto.operadorContactCenterNombre =this.nombreU;
-    this.service.asignarmeContacto(this.primerContacto).subscribe(response => {
+  this.censoContactoDist.idOperador =this.usuarioId;
+  this.censoContactoDist.loginOperador =this.nombreU;
+    this.service.asignarmeContacto(this.censoContactoDist).subscribe(response => {
       this.loading = false;
       this.mensaje= "Contacto asignado exitosamente.";
       this.buscarContactos(this.contactoOption);
@@ -458,23 +463,21 @@ asignarmeContacto(rowData){
 }
 
 desasignarmeContacto(rowData){
-  this.primerContacto = rowData;
+  this.censoContactoDist = rowData;
   //this.primerContacto.operadorAsignado = null;
-  this.primerContacto.operadorContactCenter = null;
-  this.primerContacto.operadorContactCenterNombre = null;
-    this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
+  this.censoContactoDist.idOperador = null;
+  this.censoContactoDist.loginOperador = null;
+    this.service.editarCensoContactoDistribucion(this.censoContactoDist).subscribe(response => {
       this.loading = false;
       this.mensaje= "Contacto liberado exitosamente.";
       this.buscarContactos(this.contactoOption);
       this.showRegistroFinalizado = false;
       this.openMessageDialog();
     }, error => {
-      if(error.status == 401)
-      {
+      if(error.status == 401){
         this._router.navigate(["/"]);
       }
-      else
-      {
+      else{
         this.loading = false;
         this.mensaje = error.error;
         this.openMessageDialog();
@@ -716,7 +719,7 @@ guardarNuevoContacto(){
   
   formCensoContacto.fechaExposicion = this.contactoFg.controls.fechaExposicion.value;
   formCensoContacto.categoriaContagio = this.contactoFg.controls.catContagio.value;
-  formCensoContacto.primerContactoId = this.primerContactoId;
+  formCensoContacto.censoContactoDistId = this.primerContactoId;
 
   formCensoContacto.regionSanitariaId = this.contactoFg.controls.regionSanitaria.value.valor;
   formCensoContacto.regionSanitaria = this.contactoFg.controls.regionSanitaria.value.nombre;
@@ -761,7 +764,7 @@ guardarNuevoContacto(){
 
     this.mensaje = "Contacto registrado exitosamente!";
     this.openMessageDialogExito();
-    this.buscarFormCensoContacto(formCensoContacto.primerContactoId);
+    this.buscarFormCensoContacto(formCensoContacto.censoContactoDistId);
       
   }, error => {
     //console.log(error);
@@ -833,7 +836,7 @@ borrarFormCensoContacto(){
     this.idRegistro = +response;
     this.loading = false;
     this.showPopupBorrarFormCensoContacto = false;
-    this.buscarFormCensoContacto(this.formCensoContacto.primerContactoId)
+    this.buscarFormCensoContacto(this.formCensoContacto.censoContactoDistId)
     this.mensaje = "Contacto borrado exitosamente!";
     this.openMessageDialogExitoBorrado();
       
@@ -1151,24 +1154,26 @@ filtrarRegion(event) {
   }
 
   mostrarAgregarComentario(rowData){
-    this.primerContacto = rowData;
+    this.censoContactoDist = rowData;
     this.showAgregarComentario = true;
 
-    if(rowData.comentarios !== null){
-      this.historicoComentarios = rowData.comentarios.split('|');
+    if(rowData.comentariosCenso !== null){
+      this.historicoComentarios = rowData.comentariosCenso.split('|');
+    }else{
+      this.historicoComentarios =[];
     }
   }
 
   agregarComentario(){
     let fecha = new Date();
     let mes = fecha.getMonth()+1;
-    if(this.primerContacto.comentarios !== null){
-      this.primerContacto.comentarios = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+this.comentariosFormGroup.controls.comentarios.value+' | '+this.primerContacto.comentarios;
+    if(this.censoContactoDist.comentariosCenso !== null){
+      this.censoContactoDist.comentariosCenso = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+this.comentariosFormGroup.controls.comentarios.value+' | '+this.censoContactoDist.comentariosCenso;
     }else{
-      this.primerContacto.comentarios = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+this.comentariosFormGroup.controls.comentarios.value;
+      this.censoContactoDist.comentariosCenso = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+this.comentariosFormGroup.controls.comentarios.value;
     }
 
-    this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
+    this.service.agregarComentariosCensoContactoDist(this.censoContactoDist).subscribe(response => {
       this.loading = false;
       this.mensaje= "Comentarios agregados exitosamente.";
       this.showAgregarComentario = false;
@@ -1195,20 +1200,20 @@ filtrarRegion(event) {
   }
 
   mostrarNoSeContacto(rowData){
-    this.primerContacto = rowData;
+    this.censoContactoDist = rowData;
     this.showNoSeContacto = true;
   }
 
   guardarNoSeContacto(){
-    this.primerContacto.estadoLlamadaCensoContacto = this.motivosFormGroup.controls.motivoNoContacto.value;
+    this.censoContactoDist.estadoLlamadaCensoContacto = this.motivosFormGroup.controls.motivoNoContacto.value;
     let fecha = new Date().toLocaleString();
-    if(this.primerContacto.comentarios !== null){
-      this.primerContacto.comentarios = fecha+' - '+this.username+' - '+this.motivosFormGroup.controls.motivoNoContacto.value+' | '+this.primerContacto.comentarios;
+    if(this.censoContactoDist.comentariosCenso !== null){
+      this.censoContactoDist.comentariosCenso = ' '+fecha+' - '+this.username+' - '+this.motivosFormGroup.controls.motivoNoContacto.value+' | '+this.censoContactoDist.comentariosCenso;
     }else{
-      this.primerContacto.comentarios = fecha+' - '+this.username+' - '+this.motivosFormGroup.controls.motivoNoContacto.value;
+      this.censoContactoDist.comentariosCenso = fecha+' - '+this.username+' - '+this.motivosFormGroup.controls.motivoNoContacto.value;
     }
-    this.primerContacto.cantidadReintentos++;
-    this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
+    this.censoContactoDist.cantidadLlamadas++;
+    this.service.agregarComentariosCensoContactoDist(this.censoContactoDist).subscribe(response => {
       this.loading = false;
       this.mensaje= "Motivo guardado exitosamente.";
       this.showNoSeContacto = false;
@@ -1266,7 +1271,7 @@ filtrarRegion(event) {
   }
 
   mostrarRegistroFinalizado(rowData){
-    this.primerContacto = rowData;
+    this.censoContactoDist = rowData;
     this.showRegistroFinalizado = true;
   }
 
@@ -1274,17 +1279,17 @@ filtrarRegion(event) {
     let fecha = new Date();
     let mes = fecha.getMonth()+1;
     //this.primerContacto.estadoPrimeraLlamada ="registro_finalizado";
-    this.primerContacto.estadoLlamadaCensoContacto = "registro_finalizado";
-    if(this.primerContacto.comentarios !== null){
-      this.primerContacto.comentarios += fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+'Se marca como registro finalizado';
+    this.censoContactoDist.estadoLlamadaCensoContacto = "registro_finalizado";
+    if(this.censoContactoDist.comentariosCenso !== null){
+      this.censoContactoDist.comentariosCenso += fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+'Se marca como registro finalizado';
     }else{
-      this.primerContacto.comentarios = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+'Se marca como registro finalizado';
+      this.censoContactoDist.comentariosCenso = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+'Se marca como registro finalizado';
     }
-    this.primerContacto.cantidadReintentos +=1;
+    this.censoContactoDist.cantidadLlamadas +=1;
 
-    this.primerContacto.operadorContactCenter = null;
-    this.primerContacto.operadorContactCenterNombre = null;
-    this.service.editarPrimerContacto(this.primerContacto).subscribe(response => {
+    this.censoContactoDist.idOperador = null;
+    this.censoContactoDist.loginOperador = null;
+    this.service.agregarComentariosCensoContactoDist(this.censoContactoDist).subscribe(response => {
       this.loading = false;
       this.mensaje= "Registro finalizado exitosamente.";
       this.buscarContactos(this.contactoOption);
