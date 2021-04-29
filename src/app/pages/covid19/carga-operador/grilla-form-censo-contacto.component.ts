@@ -461,7 +461,7 @@ guardarNuevoContacto(){
   formCensoContacto.regionSanitaria = this.contactoFg.controls.regionSanitaria.value.nombre;
   formCensoContacto.fechaExposicion = this.contactoFg.controls.fechaExposicion.value;
   formCensoContacto.categoriaContagio = this.contactoFg.controls.catContagio.value;
-  formCensoContacto.primerContactoId = this.primerContactoId;
+  formCensoContacto.censoContactoDistId = this.primerContactoId;
 
   this.service.guardarNuevoContacto(formCensoContacto).subscribe(response => {
     this.idRegistro = +response;
