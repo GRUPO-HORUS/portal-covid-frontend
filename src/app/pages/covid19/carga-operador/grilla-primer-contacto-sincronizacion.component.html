@@ -133,7 +133,7 @@
             <ng-template pTemplate="body" let-rowData let-editing="editing" let-ri="rowIndex" let-columns="columns">
                 <tr [pEditableRow]="rowData" [ngClass]="{'rojoOscuro': rowData.editado}">
                     <td *ngIf="columns[0].field==='acc'">
-                        <button type="button" pButton icon="pi pi-volume-up" *ngIf="rowData.estadoSincronizacionHaciaDGVS!==4" iconPos="left" (click)="mostrarLlamada(rowData)" class="ui-button-success mr-2" style="font-size:10px;width:133px" label="Descartar de la sincronización" title="Al descartar de la sincronizaciónlos cambios en el registro no serán enviadas al sistema DGVS"></button><br>
+                        <button type="button" pButton *ngIf="rowData.estadoSincronizacionHaciaDGVS!==4" (click)="mostrarLlamada(rowData)" class="ui-button-danger mr-2" style="font-size:10px;width:75px" label="Descartar" title="Al descartar de la sincronizaciónlos cambios en el registro no serán enviadas al sistema DGVS"></button>
 		    <p-checkbox [(ngModel)]="listCodigoPaciente" [value]="rowData.codigoPaciente" value="codigoPaciente" name="listCodigoPaciente" *ngIf="rowData.estadoSincronizacionHaciaDGVS!==4"></p-checkbox>
                     </td>
                     <!--<td *ngFor="let col of columns" style="height: 180px;">
