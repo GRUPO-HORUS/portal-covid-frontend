@@ -38,6 +38,10 @@
                         Sincronizar <span class="fa fa-clock"></span>
                     </button>
 
+		    <button class="btn btn-success btn-success-next mb-4 mr-3" *ngIf="region=='-1'" routerLink="/covid19/operador/grilla-primer-contacto-sincronizacion">
+                        Sincronizacion Primera Llamada<span class="fa fa-clock"></span>
+                    </button>
+
                     <button class="btn btn-success btn-success-next mb-4 mr-3" routerLink="/covid19/operador/grilla-censo-contactos" *ngIf="hasRol('Lider Regional')">
                         Censo Contactos <span class="fa fa-list"></span>
                     </button>
