@@ -90,6 +90,7 @@
                 <col style="width:160px">
                 <col style="width:160px">
                 <col style="width:160px">
+                <col style="width:160px">
                 <col style="width:160px" *ngIf="columns[0].field==='acc'">
             </colgroup>
             </ng-template>
@@ -110,6 +111,7 @@
                     <th>Estado de Llamada</th>
                     <th>Cantidad de Contactos</th>
                     <th>Operador Asignado</th>
+                    <th>Cantidad de Llamadas</th>
                     <!--<th *ngFor="let col of columns" [pSortableColumn]="col.field" pResizableColumn [style.width]="col.width">
                         {{col.header}}
                         <p-sortIcon [field]="col.field"></p-sortIcon>
@@ -437,6 +439,27 @@
                             </ng-template>
                             <ng-template pTemplate="output">
                                 {{rowData.loginOperador}}
+                            </ng-template>
+                        </p-cellEditor> 
+                    </td>
+                    <td pEditableColumn style="vertical-align: top; height: 160px;">
+                        <p-cellEditor *ngIf="edito">
+                            <ng-template pTemplate="input">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:95px" type="text" formControlName="fechaUltimaLlamada">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.cantidadLlamadas}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito">
+                            <ng-template pTemplate="input">
+                                {{rowData.cantidadLlamadas}}
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.cantidadLlamadas}}
                             </ng-template>
                         </p-cellEditor> 
                     </td>

@@ -310,7 +310,8 @@ showConfirmarLiberar: boolean = false;
         { field: 'fechaInicioSintomas', header: 'Fecha Inicio de Síntomas', width: '8%' },
         { field: 'estadoLlamadaCensoContacto', header: 'Estado de Llamada', width: '11%' },
         { field: 'cantidadContactos', header: 'Cantidad Contactos', width: '6%' },
-        { field: 'loginOperador', header: 'Operador Asignado', width: '8%' }];
+        { field: 'loginOperador', header: 'Operador Asignado', width: '8%' },
+        { field: 'cantidadLlamadas', header: 'Cantidad Llamadas', width: '6%' }];
         //{ field: '', header: 'Acciones', width: '15%' }];
 
     this.frozenCols = [{ field: 'acc', header: 'Acciones'}];
