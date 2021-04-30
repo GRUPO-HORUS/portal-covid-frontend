@@ -61,7 +61,6 @@
                             </form>
                         </td>
 			<td align="right">
-			    <button type="button" pButton icon="pi pi-file" iconPos="left" label="Sincronizar" (click)="sincronizar()" style="width: 105px;" class="ui-button-success mr-2" [disabled]="listCodigoPaciente.length==0"></button>
                             <input type="text" pInputText style="width:500px;margin-right: 5px;height: 35px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')"></td>
                     </tr>
                 </table>
@@ -623,12 +622,17 @@
                 </form>-->
             <!--</div>-->
 
-            <div class="row">
+            <div class="row" style="width: 100%;">
                 <div class="col-md">
                     <button class="btn btn-success btn-success-next text-white mr-3 mt-3" mat-button routerLink="/covid19/home-operador">
                         Menú Principal  <span class="fa fa-arrow-left"></span>            
                     </button>
                 </div>
+		<div class="col-md-9" style="text-align: center;">
+			<button type="button" pButton icon="pi pi-file" iconPos="left" label="Sincronizar" (click)="sincronizar()" style="font-size: larger;" class="btn btn-success btn-success-next text-white mr-3 mt-3 p-button-lg" [disabled]="listCodigoPaciente.length==0"></button>
+                </div>
+		<div class="col-md">
+		</div>
             </div>
 
             <div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
