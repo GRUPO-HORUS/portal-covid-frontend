@@ -61,6 +61,7 @@
                             </form>
                         </td>
 			<td align="right">
+			    <button type="button" pButton icon="pi pi-file" iconPos="left" label="Sincronizar" (click)="sincronizar()" style="width: 105px;" class="ui-button-success mr-2" [disabled]="listCodigoPaciente.length==0"></button>
                             <input type="text" pInputText style="width:500px;margin-right: 5px;height: 35px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')"></td>
                     </tr>
                 </table>
@@ -133,6 +134,7 @@
                 <tr [pEditableRow]="rowData" [ngClass]="{'rojoOscuro': rowData.editado}">
                     <td *ngIf="columns[0].field==='acc'">
                         <button type="button" pButton icon="pi pi-volume-up" *ngIf="rowData.estadoSincronizacionHaciaDGVS!==4" iconPos="left" (click)="mostrarLlamada(rowData)" class="ui-button-success mr-2" style="font-size:10px;width:133px" label="Descartar de la sincronización" title="Al descartar de la sincronizaciónlos cambios en el registro no serán enviadas al sistema DGVS"></button><br>
+		    <p-checkbox [(ngModel)]="listCodigoPaciente" [value]="rowData.codigoPaciente" value="codigoPaciente" name="listCodigoPaciente" *ngIf="rowData.estadoSincronizacionHaciaDGVS!==4"></p-checkbox>
                     </td>
                     <!--<td *ngFor="let col of columns" style="height: 180px;">
                         {{rowData[col.field]}}

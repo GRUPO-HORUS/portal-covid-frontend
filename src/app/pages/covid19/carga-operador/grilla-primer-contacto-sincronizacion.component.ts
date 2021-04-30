@@ -113,7 +113,7 @@ export class GrillaPrimerContactoSincronizacionComponent implements OnInit {
 
   scrollableCols: any[];
   contactosList: any[];
-  pageSize: number = 10;
+  pageSize: number = 1000;//2147483647;
   start: number = 0;
   filter: string;
   totalRecords: number = 0;
@@ -200,6 +200,7 @@ export class GrillaPrimerContactoSincronizacionComponent implements OnInit {
   esOpAvanzado: boolean = false;
   filterFormGroup: FormGroup;
   public estadoSincronizacionOptions=[{value:1,label:'A sincronizar'},{value:4,label:'Descartados de la sincronización'}];
+  public listCodigoPaciente: string[]=[];
 
   constructor(
     private _router: Router,
@@ -328,9 +329,13 @@ export class GrillaPrimerContactoSincronizacionComponent implements OnInit {
       this.service.getPacientesPrimerContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
         this.distritosUsuario, 'todos', this.usuarioId, this.esLiderReg, this.esOpAvanzado, this.filterFormGroup.controls.region.value, 
         this.filterFormGroup.controls.distrito.value, this.filterFormGroup.controls.barrio.value, this.filterFormGroup.controls.fechaCierre.value, this.filterFormGroup.controls.codigoPaciente.value,this.filterFormGroup.controls.estadoSincronizacion.value).subscribe(pacientes => {
+	for(let primerContacto of pacientes.lista){
+		primerContacto.aSincronizar=false;
+	}
         this.pacientesList = pacientes.lista;
         this.totalRecords = pacientes.totalRecords;
         console.log(this.pacientesList);
+	this.listCodigoPaciente=[];
       });
 
     }, error => {
@@ -908,6 +913,28 @@ consultarIdentificaciones(event) {
     this.service.desincronizarPrimerContactoDgvsSincronizacion(this.primerContacto).subscribe(response => {
       this.loading = false;
       this.mensaje= "Primera Llamada eliminado de la sincronización exitosamente.";
+      this.buscarContactos(this.contactoOption);
+      this.showLlamadaRealizada = false;
+      this.openMessageDialog();
+    }, error => {
+      if(error.status == 401)
+      {
+        this._router.navigate(["/"]);
+      }
+      else
+      {
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
+    }
+    );
+  }
+
+  sincronizar(){
+    this.service.sincronizarPrimerContactoDgvsSincronizacion(this.listCodigoPaciente).subscribe(response => {
+      this.loading = false;
+      this.mensaje= "Registros Sincronizados Exitosamente";
       this.buscarContactos(this.contactoOption);
       this.showLlamadaRealizada = false;
       this.openMessageDialog();

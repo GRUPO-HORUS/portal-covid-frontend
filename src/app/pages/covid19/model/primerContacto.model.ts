@@ -40,4 +40,5 @@ export class PrimerContacto {
     operadorContactCenterNombre: string;
 
     editado: boolean;
+    aSincronizar:boolean;
 }
