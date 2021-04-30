@@ -35,7 +35,7 @@
                     <h4 *ngIf="region=='-1'">Sincronización con Vigilancia Salud</h4>
                     <label *ngIf="loading">Sincronizando..favor espere..</label><p-progressSpinner *ngIf="loading" [style]="{width: '50px', height: '50px'}" animationDuration=".5s"></p-progressSpinner>
                     <button class="btn btn-success btn-success-next mb-4 mr-3" *ngIf="region=='-1'" (click)="getCountByEstadoSincronizacionHaciaDGVS()">
-                        Sincronizar <span class="fa fa-clock"></span>
+                        Obtener datos de DGVS<span class="fa fa-clock"></span>
                     </button>
 
 		    <button class="btn btn-success btn-success-next mb-4 mr-3" *ngIf="region=='-1'" routerLink="/covid19/operador/grilla-primer-contacto-sincronizacion">
