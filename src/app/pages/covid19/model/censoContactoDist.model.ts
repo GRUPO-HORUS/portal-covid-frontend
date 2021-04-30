@@ -24,4 +24,6 @@ export class CensoContactoDist {
     estadoLlamadaCensoContacto: string;
     idOperador: number;
     loginOperador: string;
+
+    comentarios: string;
 }

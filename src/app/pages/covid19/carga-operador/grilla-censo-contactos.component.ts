@@ -157,6 +157,8 @@ export class GrillaCensoContactosComponent implements OnInit {
 
   public historicoComentarios=[];
 
+  public historicoComentariosCenso=[];
+
   showRegistroFinalizado: boolean = false;
 
   showPopupNuevoContacto: boolean = false;
@@ -1159,7 +1161,13 @@ filtrarRegion(event) {
     this.showAgregarComentario = true;
 
     if(rowData.comentariosCenso !== null){
-      this.historicoComentarios = rowData.comentariosCenso.split('|');
+      this.historicoComentariosCenso = rowData.comentariosCenso.split('|');
+    }else{
+      this.historicoComentariosCenso =[];
+    }
+
+    if(rowData.comentarios !== null){
+      this.historicoComentarios = rowData.comentarios.split('|');
     }else{
       this.historicoComentarios =[];
     }
