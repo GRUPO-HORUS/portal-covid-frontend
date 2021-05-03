@@ -50,18 +50,18 @@
                         <td align="left" style="width: 150px;" [formGroup]="filterFormGroup">
 				            <p-dropdown id="contactoOption" style="text-align: left;width:auto;margin-right: 5px;" [options]="estadoSincronizacionOptions" label="label" placeholder="Seleccionar" formControlName="estadoSincronizacion" [style]="{'minWidth':'150px', 'width': '150px'}" required (onChange)="buscarContactos($event.value)"></p-dropdown>
 			            </td>
-                        <td>
+                        <td style="width: 600px;">
                             <form [formGroup]="filterFormGroup" (ngSubmit)="buscarContactos(contactoOption)">&nbsp;
-                                <input formControlName="region" placeholder="Region" style="width: 90px;">&nbsp;
-                                <input formControlName="distrito" placeholder="Distrito" style="width:100px;">&nbsp;
-                                <input formControlName="barrio" placeholder="Barrio" style="width: 100px;">&nbsp;
-                                <input formControlName="fechaCierre" placeholder="Fecha Cierre" style="width: 110px;">&nbsp;
-                                <input formControlName="codigoPaciente" placeholder="Código Paciente" style="width: 112px;">
+                                <input formControlName="region" placeholder="Region" style="width: 90px;height: 35px;" pInputText>&nbsp;
+                                <input formControlName="distrito" placeholder="Distrito" style="width:100px;height: 35px;" pInputText>&nbsp;
+                                <input formControlName="barrio" placeholder="Barrio" style="width: 100px;height: 35px;" pInputText>&nbsp;
+                                <input formControlName="fechaCierre" placeholder="Fecha Cierre" style="width: 110px;height: 35px;" pInputText>&nbsp;
+                                <input formControlName="codigoPaciente" placeholder="Código Paciente" style="width: 112px;height: 35px;" pInputText>
                                 <input type="submit" hidden>
                             </form>
                         </td>
 			<td align="right">
-                            <input type="text" pInputText style="width:500px;margin-right: 5px;height: 35px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')"></td>
+                            <input type="text" pInputText style="width:300px;margin-right: 5px;height: 35px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')"></td>
                     </tr>
                 </table>
                 <div style="text-align: right;width:auto;">
