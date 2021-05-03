@@ -12,6 +12,7 @@ import { StorageManagerService } from '../../login/shared/storage-manager.servic
 import { CensoContacto } from "../model/censoContacto.model";
 import { Paciente } from "../model/paciente.model";
 import { PrimerContacto } from "../model/primerContacto.model";
+import {ConfirmationService} from 'primeng/api';
 
 declare var $: any;
 
@@ -209,7 +210,8 @@ export class GrillaPrimerContactoSincronizacionComponent implements OnInit {
     private _route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private storageManager: StorageManagerService,
-    private _location: Location
+    private _location: Location,
+    private confirmationService: ConfirmationService
   ) {
     this.loading = false;
   }
@@ -937,6 +939,9 @@ consultarIdentificaciones(event) {
   }
 
   sincronizar(){
+   this.confirmationService.confirm({
+            message: 'Desea sincronizar con el sistema DGVS?',
+            accept: () => { 
     this.service.sincronizarPrimerContactoDgvsSincronizacion(this.listCodigoPaciente).subscribe(response => {
       this.loading = false;
       this.mensaje= "Registros Sincronizados Exitosamente";
@@ -956,6 +961,8 @@ consultarIdentificaciones(event) {
       }
     }
     );
+    }
+          });
   }
 
   closePopupLlamadaRealizada(){
