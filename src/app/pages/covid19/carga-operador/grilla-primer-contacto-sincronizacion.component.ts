@@ -201,6 +201,7 @@ export class GrillaPrimerContactoSincronizacionComponent implements OnInit {
   filterFormGroup: FormGroup;
   public estadoSincronizacionOptions=[{value:1,label:'A sincronizar'},{value:4,label:'Descartados de la sincronización'}];
   public listCodigoPaciente: string[]=[];
+  private listCodigoPacienteAll: string[]=[];
 
   constructor(
     private _router: Router,
@@ -329,8 +330,12 @@ export class GrillaPrimerContactoSincronizacionComponent implements OnInit {
       this.service.getPacientesPrimerContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
         this.distritosUsuario, 'todos', this.usuarioId, this.esLiderReg, this.esOpAvanzado, this.filterFormGroup.controls.region.value, 
         this.filterFormGroup.controls.distrito.value, this.filterFormGroup.controls.barrio.value, this.filterFormGroup.controls.fechaCierre.value, this.filterFormGroup.controls.codigoPaciente.value,this.filterFormGroup.controls.estadoSincronizacion.value).subscribe(pacientes => {
+	this.listCodigoPacienteAll=[];
+	if(this.filterFormGroup.controls.estadoSincronizacion.value==1){
 	for(let primerContacto of pacientes.lista){
 		primerContacto.aSincronizar=false;
+		this.listCodigoPacienteAll.push(primerContacto.codigoPaciente);
+	}
 	}
         this.pacientesList = pacientes.lista;
         this.totalRecords = pacientes.totalRecords;
@@ -1167,6 +1172,22 @@ consultarIdentificaciones(event) {
 
   closePopupNoSePudoContactar(){
     
+  }
+
+  onChangeSelectAll(event){
+    if(event==true){
+	this.selectAll();	
+    } else {
+	this.selectNone();
+    }
+  }
+
+  selectAll(){
+    this.listCodigoPaciente=this.listCodigoPacienteAll;
+  }
+
+  selectNone(){
+    this.listCodigoPaciente=[];
   }
 
 }
