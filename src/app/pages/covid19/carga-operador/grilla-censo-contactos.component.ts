@@ -334,6 +334,7 @@ showConfirmarLiberar: boolean = false;
         telefono: [null],
         fechaInicioSintom: [null],
         fechaCierre: [null],
+        fechaGeneracion: [null]
     }); 
   }
 
@@ -361,7 +362,8 @@ buscarContactos(opcionFiltro){
     }
 
     this.service.getPacientesCensoContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
-      this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg, this.esSupervisorContact, this.filterFormGroup.controls.telefono.value, this.filterFormGroup.controls.fechaInicioSintom.value, this.filterFormGroup.controls.fechaCierre.value).subscribe(pacientes => {
+      this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg, this.esSupervisorContact, this.filterFormGroup.controls.telefono.value, 
+      this.filterFormGroup.controls.fechaInicioSintom.value, this.filterFormGroup.controls.fechaCierre.value, this.filterFormGroup.controls.fechaGeneracion.value).subscribe(pacientes => {
       this.pacientesList = pacientes.lista;
       this.totalRecords = pacientes.totalRecords;
       console.log(this.totalRecords);
@@ -378,7 +380,8 @@ buscarContactos(opcionFiltro){
 getCensoContactosXls(opcionFiltro){
     this.loading = true;
     this.service.getCensoContactosXls(0, 0, this.filter, this.sortAsc, this.sortField, this.region, this.distritosUsuario, 
-      opcionFiltro, this.usuarioId, this.esLiderReg, this.esSupervisorContact);
+      opcionFiltro, this.usuarioId, this.esLiderReg, this.esSupervisorContact, this.filterFormGroup.controls.telefono.value, 
+      this.filterFormGroup.controls.fechaInicioSintom.value, this.filterFormGroup.controls.fechaCierre.value, this.filterFormGroup.controls.fechaGeneracion.value);
     /*this.service.getPacientesPrimerContacto(0, 0, this.filter, this.sortAsc, this.sortField, this.region, 
       this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg).subscribe(pacientes => {
         this.pacientesList = pacientes.lista;

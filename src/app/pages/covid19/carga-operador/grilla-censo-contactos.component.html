@@ -50,14 +50,15 @@
                             <form [formGroup]="filterFormGroup" (ngSubmit)="buscarContactos(contactoOption)">&nbsp;
                                 <input formControlName="telefono" placeholder="Teléfono" style="width: 90px;">&nbsp;
                                 <input formControlName="fechaInicioSintom" placeholder="Fecha de Inicio Síntomas" style="width: 128px;">&nbsp;
-                                <input formControlName="fechaCierre" placeholder="Fecha de Cierre" style="width: 128px;">
+                                <input formControlName="fechaCierre" placeholder="Fecha de Cierre" style="width: 128px;">&nbsp;
+                                <input formControlName="fechaGeneracion" placeholder="Fecha de Llamada" style="width: 128px;">
                                 <input type="submit" hidden>
                             </form>
                         </td>
                         <td align="right">
                             <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="XLS" (click)="getCensoContactosXls(contactoOption)" 
                             style="width: 60px;" class="ui-button-success mr-2" [disabled]="loading || !hasRol('Supervisor Contact Center')"></button>
-                            <input type="text" pInputText style="width:500px;margin-right: 5px;height: 35px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')">
+                            <input type="text" pInputText style="width:485px;margin-right: 5px;height: 35px;" placeholder="Filtrar Contactos por los campos de la tabla" (input)="dt.filterGlobal($event.target.value, 'contains')">
                         </td>
                     </tr>
                 </table>

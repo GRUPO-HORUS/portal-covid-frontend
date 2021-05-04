@@ -281,7 +281,7 @@ export class Covid19Service {
    }
 
     getPacientesCensoContacto(start: number, pageSize: number, filter: string, sortAsc: boolean, sortField: string, region,
-       distritosUsuario, opcionFiltro, idUsuario, esLiderReg, esSupervisorContact, telefono, fechaInicioSintom, fechaCierre): Observable<CensoContactoDistTable> {
+       distritosUsuario, opcionFiltro, idUsuario, esLiderReg, esSupervisorContact, telefono, fechaInicioSintom, fechaCierre, fechaGeneracion): Observable<CensoContactoDistTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -317,6 +317,9 @@ export class Covid19Service {
 
       if (fechaCierre)
         params = params.set('fechaCierreFilter', fechaCierre);
+
+      if (fechaGeneracion)
+        params = params.set('fechaGeneracionFilter', fechaGeneracion);
        
 
       if(distritosUsuario.length > 0){
@@ -335,8 +338,8 @@ export class Covid19Service {
      return this.httpClient.get<CensoContactoDistTable>(this.config.API + '/covid19api/aislamiento/listarCensoContacto/'+region+'/'+opcionFiltro, {params});
    }
 
-   getCensoContactosXls(start: number, pageSize: number, filter: string, sortAsc: boolean,
-    sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg, esSupervisorContact): void {
+   getCensoContactosXls(start: number, pageSize: number, filter: string, sortAsc: boolean, sortField: string, region,
+    distritosUsuario, opcionFiltro, usuarioId, esLiderReg, esSupervisorContact, telefono, fechaInicioSintom, fechaCierre, fechaGeneracion): void {
     this.loading.next(true);
     let params = new HttpParams();
 
@@ -371,6 +374,18 @@ export class Covid19Service {
       esSupervisorContact = false;
       params = params.set('esSupervisorContact', esSupervisorContact);
     }
+
+    if (telefono)
+      params = params.set('telefonoFilter', telefono);
+
+    if (fechaInicioSintom)
+      params = params.set('fechaInicioSintomFilter', fechaInicioSintom);
+
+    if (fechaCierre)
+      params = params.set('fechaCierreFilter', fechaCierre);
+
+    if (fechaGeneracion)
+      params = params.set('fechaGeneracionFilter', fechaGeneracion);
 
     if(distritosUsuario.length > 0){
       let distritosParam="";
