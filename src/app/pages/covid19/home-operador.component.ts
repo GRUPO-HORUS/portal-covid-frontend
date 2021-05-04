@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { Subscription } from 'rxjs';
 import { Covid19Service } from '../../services/Covid19Service';
 import { StorageManagerService } from '../login/shared/storage-manager.service';
+import {ConfirmationService} from 'primeng/api';
 declare var $: any;
 
 @Component({
@@ -39,7 +40,8 @@ export class HomeOperadorComponent implements OnInit {
   constructor(
     private _router: Router,
     private service: Covid19Service,
-    private storageManager: StorageManagerService
+    private storageManager: StorageManagerService,
+    private confirmationService: ConfirmationService
   ) {
     this.loading = false;
     if (typeof localStorage !== "undefined") {
@@ -106,6 +108,21 @@ export class HomeOperadorComponent implements OnInit {
       this.mensaje = error.error;
       this.openMessageDialog();
       this.loading = false;
+    });
+  }
+
+  getCountByEstadoSincronizacionHaciaDGVS(){
+    this.service.getCountByEstadoSincronizacionHaciaDGVS(1).subscribe(respuesta => {
+       if(respuesta>0){
+	  this.confirmationService.confirm({
+            message: 'Existen '+respuesta+' registros modificados en el sistema cuyos cambios no fueron sincronizados con el sistema DGVS, si continua perderá dichas modificaciones. Desea continuar?',
+            accept: () => {
+                this.sincronizarConSalud();
+            }
+          });
+	} else {
+	  this.sincronizarConSalud();
+	}
     });
   }
 

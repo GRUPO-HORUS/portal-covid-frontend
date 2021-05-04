@@ -12,6 +12,7 @@ import { StorageManagerService } from '../../login/shared/storage-manager.servic
 import { CensoContacto } from "../model/censoContacto.model";
 import { Paciente } from "../model/paciente.model";
 import { PrimerContacto } from "../model/primerContacto.model";
+import {ConfirmationService} from 'primeng/api';
 
 declare var $: any;
 
@@ -22,8 +23,8 @@ import * as Excel from "exceljs";
 //background-color: #800606 !important;
 
 @Component({
-  selector: "grilla-primer-contacto",
-  templateUrl: "./grilla-primer-contacto.component.html",
+  selector: "grilla-primer-contacto-sincronizacion",
+  templateUrl: "./grilla-primer-contacto-sincronizacion.component.html",
   providers: [Covid19Service],
   styles: [`
         .outofstock {
@@ -44,7 +45,7 @@ import * as Excel from "exceljs";
         }`
     ]
 })
-export class GrillaPrimerContactoComponent implements OnInit {
+export class GrillaPrimerContactoSincronizacionComponent implements OnInit {
 
   public loading: boolean;
   public mensaje: string;
@@ -113,7 +114,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
 
   scrollableCols: any[];
   contactosList: any[];
-  pageSize: number = 10;
+  pageSize: number = 1000;//2147483647;
   start: number = 0;
   filter: string;
   totalRecords: number = 0;
@@ -199,6 +200,9 @@ export class GrillaPrimerContactoComponent implements OnInit {
 
   esOpAvanzado: boolean = false;
   filterFormGroup: FormGroup;
+  public estadoSincronizacionOptions=[{value:1,label:'A sincronizar'},{value:4,label:'Descartados de la sincronización'}];
+  public listCodigoPaciente: string[]=[];
+  private listCodigoPacienteAll: string[]=[];
 
   constructor(
     private _router: Router,
@@ -206,7 +210,8 @@ export class GrillaPrimerContactoComponent implements OnInit {
     private _route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private storageManager: StorageManagerService,
-    private _location: Location
+    private _location: Location,
+    private confirmationService: ConfirmationService
   ) {
     this.loading = false;
   }
@@ -297,6 +302,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
       barrio: [null],
       fechaCierre: [null],
       codigoPaciente: [null],
+      estadoSincronizacion: [1],
     }); 
   }
 
@@ -324,11 +330,19 @@ export class GrillaPrimerContactoComponent implements OnInit {
         //this.distritosOptions[i] = {nombre: d.nomdist, value: d.coddist};
       }
       this.service.getPacientesPrimerContacto(this.start, this.pageSize, this.filter, this.sortAsc, this.sortField, this.region, 
-        this.distritosUsuario, opcionFiltro, this.usuarioId, this.esLiderReg, this.esOpAvanzado, this.filterFormGroup.controls.region.value, 
-        this.filterFormGroup.controls.distrito.value, this.filterFormGroup.controls.barrio.value, this.filterFormGroup.controls.fechaCierre.value, this.filterFormGroup.controls.codigoPaciente.value,null).subscribe(pacientes => {
+        this.distritosUsuario, 'todos', this.usuarioId, this.esLiderReg, this.esOpAvanzado, this.filterFormGroup.controls.region.value, 
+        this.filterFormGroup.controls.distrito.value, this.filterFormGroup.controls.barrio.value, this.filterFormGroup.controls.fechaCierre.value, this.filterFormGroup.controls.codigoPaciente.value,this.filterFormGroup.controls.estadoSincronizacion.value).subscribe(pacientes => {
+	this.listCodigoPacienteAll=[];
+	if(this.filterFormGroup.controls.estadoSincronizacion.value==1){
+	for(let primerContacto of pacientes.lista){
+		primerContacto.aSincronizar=false;
+		this.listCodigoPacienteAll.push(primerContacto.codigoPaciente);
+	}
+	}
         this.pacientesList = pacientes.lista;
         this.totalRecords = pacientes.totalRecords;
         console.log(this.pacientesList);
+	this.listCodigoPaciente=[];
       });
 
     }, error => {
@@ -903,21 +917,9 @@ consultarIdentificaciones(event) {
   }
 
   guardarLlamada(){
-    let fecha = new Date();
-    let mes = fecha.getMonth()+1;
-    this.primerContacto.estadoPrimeraLlamada ="llamada_realizada";
-
-    this.primerContacto.cantidadReintentos +=1;
-
-    if(this.primerContacto.comentarios !== null){
-      this.primerContacto.comentarios += fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+'Llamada realizada';
-    }else{
-      this.primerContacto.comentarios = fecha.getDate()+'/'+mes+'/'+fecha.getFullYear()+' - '+this.username+' - '+'Llamada realizada';
-    }
-    //this.primerContacto.fechaUltimaLlamada = new Date().toLocaleString();
-    this.service.realizarLlamadaPrimerContacto(this.primerContacto).subscribe(response => {
+    this.service.desincronizarPrimerContactoDgvsSincronizacion(this.primerContacto).subscribe(response => {
       this.loading = false;
-      this.mensaje= "Estado de la llamada guardado exitosamente.";
+      this.mensaje= "Primera Llamada eliminado de la sincronización exitosamente.";
       this.buscarContactos(this.contactoOption);
       this.showLlamadaRealizada = false;
       this.openMessageDialog();
@@ -934,6 +936,33 @@ consultarIdentificaciones(event) {
       }
     }
     );
+  }
+
+  sincronizar(){
+   this.confirmationService.confirm({
+            message: 'Desea sincronizar con el sistema DGVS?',
+            accept: () => { 
+    this.service.sincronizarPrimerContactoDgvsSincronizacion(this.listCodigoPaciente).subscribe(response => {
+      this.loading = false;
+      this.mensaje= "Registros Sincronizados Exitosamente";
+      this.buscarContactos(this.contactoOption);
+      this.showLlamadaRealizada = false;
+      this.openMessageDialog();
+    }, error => {
+      if(error.status == 401)
+      {
+        this._router.navigate(["/"]);
+      }
+      else
+      {
+        this.loading = false;
+        this.mensaje = error.error;
+        this.openMessageDialog();
+      }
+    }
+    );
+    }
+          });
   }
 
   closePopupLlamadaRealizada(){
@@ -1150,6 +1179,22 @@ consultarIdentificaciones(event) {
 
   closePopupNoSePudoContactar(){
     
+  }
+
+  onChangeSelectAll(event){
+    if(event==true){
+	this.selectAll();	
+    } else {
+	this.selectNone();
+    }
+  }
+
+  selectAll(){
+    this.listCodigoPaciente=this.listCodigoPacienteAll;
+  }
+
+  selectNone(){
+    this.listCodigoPaciente=[];
   }
 
 }

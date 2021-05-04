@@ -101,6 +101,7 @@ import { PrimerContactoComponent } from "./pages/covid19/carga-operador/primer-c
 
 import {ListaPacientesComponent} from "./pages/covid19/carga-operador/lista-pacientes.component";
 import { GrillaPrimerContactoComponent } from "./pages/covid19/carga-operador/grilla-primer-contacto.component";
+import { GrillaPrimerContactoSincronizacionComponent } from "./pages/covid19/carga-operador/grilla-primer-contacto-sincronizacion.component";
 import { GrillaCensoContactosComponent } from "./pages/covid19/carga-operador/grilla-censo-contactos.component";
 import { EditarFichaMonitoreoComponent } from "./pages/covid19/carga-operador/editar-ficha-monitoreo.component";
 import { GrillaFormCensoContactoComponent } from "./pages/covid19/carga-operador/grilla-form-censo-contacto.component";
@@ -162,7 +163,7 @@ import { FileUploadModule } from 'primeng/fileupload';
     GrillaPrimerContactoComponent,
     GrillaCensoContactosComponent,
     GrillaFormCensoContactoComponent,
-    
+    GrillaPrimerContactoSincronizacionComponent,
     DistribuirLlamadasComponent
   ],
   // dependencias de módulos
@@ -227,6 +228,7 @@ import { FileUploadModule } from 'primeng/fileupload';
     HttpErrorHandler,
     TipoPacienteService,
     DatePipe,
+    ConfirmationService,
     { provide: RECAPTCHA_LANGUAGE, useValue: "es" },
     { provide: RECAPTCHA_V3_SITE_KEY, useValue: '6LfJyuMUAAAAAIV7rrC6RWZdrotQYQfHCbrLIgAY' },
   ],

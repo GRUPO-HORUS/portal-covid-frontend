@@ -463,7 +463,7 @@ export class Covid19Service {
   }
 
     getPacientesPrimerContacto(start: number, pageSize: number, filter: string, sortAsc: boolean,
-      sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg, esOpAvanzado, regionFilter: string, distritoFilter: string, barrioFilter: string, fechaCierreFilter: string, codigoPacienteFilter: string): Observable<PrimerContactoTable> {
+      sortField: string, region, distritosUsuario, opcionFiltro, usuarioId, esLiderReg, esOpAvanzado, regionFilter: string, distritoFilter: string, barrioFilter: string, fechaCierreFilter: string, codigoPacienteFilter: string, estadoSincronizacionHaciaDGVS: number): Observable<PrimerContactoTable> {
      this.loading.next(true);
 
      let params = new HttpParams();
@@ -491,6 +491,9 @@ export class Covid19Service {
 
       if (codigoPacienteFilter)
         params = params.set('codigoPacienteFilter', codigoPacienteFilter);
+
+      if (estadoSincronizacionHaciaDGVS)
+        params = params.set('estadoSincronizacionHaciaDGVS', estadoSincronizacionHaciaDGVS.toString());
 
       if (esLiderReg){
         params = params.set('esLiderReg', esLiderReg);
@@ -528,6 +531,18 @@ export class Covid19Service {
 
   editarPrimerContacto(primerContacto): Observable<string> {
     return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/editarPrimerContacto', primerContacto);
+  }
+
+  editarPrimerContactoDgvsSincronizacion(primerContacto): Observable<string> {
+    return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/editarPrimerContactoDgvsSincronizacion', primerContacto);
+  }
+
+  desincronizarPrimerContactoDgvsSincronizacion(primerContacto): Observable<string> {
+    return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/desincronizarPrimerContactoDgvsSincronizacion', primerContacto);
+  }
+
+  sincronizarPrimerContactoDgvsSincronizacion(listCodigoPaciente): Observable<string> {
+    return this.httpClient.post<string>(this.config.API + '/covid19api/aislamiento/sincronizarPrimerContactoDgvsSincronizacion', listCodigoPaciente);
   }
 
   realizarLlamadaPrimerContacto(primerContacto): Observable<string> {
@@ -767,6 +782,11 @@ listarReingresosExcel(start: number, pageSize: number, filter: string, sortAsc: 
     formData.append('xlsxFile',xlsxFile);
     return this.httpClient.post<any>(this.config.API + '/covid19api/aislamiento/uploadAsignacionPrimerContacto', formData);
   }
+
+  getCountByEstadoSincronizacionHaciaDGVS(estadoSincronizacionHaciaDGVS:Number): Observable<Number> {
+      return this.httpClient.get<Number>(this.config.API + '/covid19/fsarscov2DgticCon/getCountByEstadoSincronizacionHaciaDGVS/'+estadoSincronizacionHaciaDGVS);
+    }
+
 
  }
 

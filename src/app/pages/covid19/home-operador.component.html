@@ -34,8 +34,12 @@
 
                     <h4 *ngIf="region=='-1'">Sincronización con Vigilancia Salud</h4>
                     <label *ngIf="loading">Sincronizando..favor espere..</label><p-progressSpinner *ngIf="loading" [style]="{width: '50px', height: '50px'}" animationDuration=".5s"></p-progressSpinner>
-                    <button class="btn btn-success btn-success-next mb-4 mr-3" *ngIf="region=='-1'" (click)="sincronizarConSalud()">
-                        Sincronizar <span class="fa fa-clock"></span>
+                    <button class="btn btn-success btn-success-next mb-4 mr-3" *ngIf="region=='-1'" (click)="getCountByEstadoSincronizacionHaciaDGVS()">
+                        Obtener datos de DGVS<span class="fa fa-clock"></span>
+                    </button>
+
+		    <button class="btn btn-success btn-success-next mb-4 mr-3" *ngIf="region=='-1'" routerLink="/covid19/operador/grilla-primer-contacto-sincronizacion">
+                        Sincronizacion Primera Llamada<span class="fa fa-clock"></span>
                     </button>
 
                     <button class="btn btn-success btn-success-next mb-4 mr-3" routerLink="/covid19/operador/grilla-censo-contactos" *ngIf="hasRol('Lider Regional')">
@@ -129,3 +133,19 @@
     </div>
 </div>
 </div>
+<p-confirmDialog header="Confirmacion" icon="pi pi-exclamation-triangle" acceptLabel="Si" rejectLabel="No"></p-confirmDialog>
+<div class="modal fade" id="miModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Aviso</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">{{mensaje}}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-remove"></i>  Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
