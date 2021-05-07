@@ -222,7 +222,6 @@ frozenCols: any[];
 esLiderReg: boolean = false;
 filterFormGroup: FormGroup;
 esSupervisorContact: boolean = false;
-
 showConfirmarLiberar: boolean = false;
 
   constructor(
@@ -391,7 +390,8 @@ getCensoContactosXls(opcionFiltro){
 }
 
 reservarRegistros(){
-  let cantReserva = 15 - this.totalRecords;
+  console.log(this.totalRecords);
+  let cantReserva = 25 - this.totalRecords;
 
   this.service.getDistritosUsuario(this.usuarioId).subscribe(distritos => {
     for (let i = 0; i < distritos.length; i++) {
@@ -430,6 +430,8 @@ liberarLista(){
   this.service.liberarRegCensoContacto(this.usuarioId).subscribe(registros => {
     this.pacientesList =[];
     this.showConfirmarLiberar = false;
+
+    this.totalRecords = 0;
   }, error => {
     console.log(error);
     this.mensaje = error.error;
@@ -1299,8 +1301,8 @@ filtrarRegion(event) {
     }
     this.censoContactoDist.cantidadLlamadas +=1;
 
-    this.censoContactoDist.idOperador = null;
-    this.censoContactoDist.loginOperador = null;
+    //this.censoContactoDist.idOperador = null;
+    //this.censoContactoDist.loginOperador = null;
     this.service.agregarComentariosCensoContactoDist(this.censoContactoDist).subscribe(response => {
       this.loading = false;
       this.mensaje= "Registro finalizado exitosamente.";
