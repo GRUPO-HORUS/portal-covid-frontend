@@ -169,7 +169,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
   public contactoOptions=[{value:'todos',label:'Todos'},{value:'pendientes',label:'Pendientes'}];
   public contactoOption="pendientes";
 
-  public departamentoOptions=[{id:1, nombre:'CONCEPCIÓN'},{id:2, nombre:'SAN PEDRO'},
+  public departamentoOptions=[{id:1, nombre:'CONCEPCION'},{id:2, nombre:'SAN PEDRO'},
                               {id:3, nombre:'CORDILLERA'}, {id:4, nombre:'GUAIRÁ'},
                               {id:5, nombre:'CAAGUAZÚ'}, {id:6,nombre:'CAAZAPÁ'},
                               {id:7, nombre:'ITAPÚA'}, {id:8,nombre:'MISIONES'},
@@ -177,7 +177,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
                               {id:11, nombre:'CENTRAL'},{id:12, nombre:'ÑEEMBUCÚ'},
                               {id:13, nombre:'AMAMBAY'},{id:14, nombre:'CANINDEYÚ'},
                               {id:15, nombre:'PRESIDENTE HAYES'}, {id:16, nombre:'BOQUERÓN'},
-                              {id:17, nombre:'ALTO PARAGUAY'}, {id:18, nombre:'CAPITAL'}];
+                              {id:17, nombre:'ALTO PARAGUAY'}, {id:18, nombre:'ASUNCION'}];
   public departamentosFiltrados: any[];
 
   public historicoComentarios=[];
@@ -274,7 +274,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
         { field: 'nombre', header: 'Nombres'},
         { field: 'apellido', header: 'Apellidos'},
         { field: 'telefono', header: 'Teléfono'},
-        { field: 'departamento', header: 'Región Sanitaria'},
+        { field: 'departamento', header: 'Departamento'},
         { field: 'distrito', header: 'Distrito'},
         { field: 'barrio', header: 'Barrio'},
         { field: 'direccion', header: 'Dirección'},
