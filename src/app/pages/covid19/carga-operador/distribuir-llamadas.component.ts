@@ -584,7 +584,7 @@ export class DistribuirLlamadasComponent implements OnInit{
   
   getContactosXls(){
       this.loading = true;
-      this.service.getPrimerContactoXls(0, 0, null, this.sortAsc, this.sortField, this.region, this.distritosUsuario, 'todos', this.usuarioId, this.hasRol("Lider Regional"), false, null, null, null, this.calendarFormGroup.controls.fechaCierre.value);
+      this.service.getPrimerContactoXls(0, 0, null, this.sortAsc, this.sortField, this.region, this.distritosUsuario, 'pendientes', this.usuarioId, this.hasRol("Lider Regional"), false, null, null, null, this.calendarFormGroup.controls.fechaCierre.value);
       this.loading = false;
   }
 

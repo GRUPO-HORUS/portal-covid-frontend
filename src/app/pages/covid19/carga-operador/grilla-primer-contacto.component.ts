@@ -1046,11 +1046,16 @@ consultarIdentificaciones(event) {
     this.primerContacto.regionSanitariaId = this.formGroup.controls.departamento.value.id;
 
     if(this.formGroup.controls.barrio.value){
-      this.primerContacto.barrio = this.formGroup.controls.barrio.value.nombre;
-      this.primerContacto.barrioId = this.formGroup.controls.barrio.value.valor;
+      if(this.formGroup.controls.barrio.value.nombre){
+        this.primerContacto.barrio = this.formGroup.controls.barrio.value.nombre;
+        this.primerContacto.barrioId = this.formGroup.controls.barrio.value.valor;
+      }else{
+        this.primerContacto.barrio = this.formGroup.controls.barrio.value;
+        this.primerContacto.barrioId = null;
+      }
     }else{
       this.primerContacto.barrio = null;
-      this.primerContacto.barrioId = null;
+      this.primerContacto.barrioId = '-1';
     }
     
     if(this.formGroup.controls.tipoExposicion.value){

@@ -324,8 +324,8 @@
                         <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <!--<input pInputText style="width:120px; height:35px" type="text" formControlName="distrito">-->
-                                    <p-autoComplete id="barrio" formControlName="barrio" [suggestions]="barriosFiltrados" field="nombre" (completeMethod)="filtrarBarrio($event)" [inputStyle]="{'width':'135px'}" [forceSelection]="true" (onSelect)="eligeBarrio($event)" apendTo="body"></p-autoComplete>
+                                    <!--<input pInputText style="width:120px; height:35px" type="text" formControlName="distrito"> [forceSelection]="true"-->
+                                    <p-autoComplete id="barrio" formControlName="barrio" [suggestions]="barriosFiltrados" field="nombre" (completeMethod)="filtrarBarrio($event)" [inputStyle]="{'width':'135px'}" (onSelect)="eligeBarrio($event)" apendTo="body"></p-autoComplete>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
