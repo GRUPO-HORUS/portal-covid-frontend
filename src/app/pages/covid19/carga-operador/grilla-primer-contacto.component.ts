@@ -1045,6 +1045,7 @@ consultarIdentificaciones(event) {
 
     this.primerContacto.regionSanitariaId = this.formGroup.controls.departamento.value.id;
 
+    console.log(this.formGroup.controls.barrio.value);
     if(this.formGroup.controls.barrio.value){
       if(this.formGroup.controls.barrio.value.nombre){
         this.primerContacto.barrio = this.formGroup.controls.barrio.value.nombre;
@@ -1053,7 +1054,11 @@ consultarIdentificaciones(event) {
         this.primerContacto.barrio = this.formGroup.controls.barrio.value;
         this.primerContacto.barrioId = null;
       }
-    }else{
+    }/*else{
+      
+    }*/
+
+    if(!this.formGroup.controls.barrio.value || this.formGroup.controls.barrio.value.nombre==null){
       console.log('aqui');
       this.primerContacto.barrio = null;
       this.primerContacto.barrioId = '-1';
