@@ -117,7 +117,7 @@
             </tr>
         </ng-template>
         </p-table>
-        <label *ngIf="loading">Sincronizando..favor espere..</label><p-progressSpinner *ngIf="loading" [style]="{width: '50px', height: '50px'}" animationDuration=".5s"></p-progressSpinner><br>
+        <!--<label *ngIf="loading">Realizando distribución..favor espere..</label><p-progressSpinner *ngIf="loading" [style]="{width: '50px', height: '50px'}" animationDuration=".5s"></p-progressSpinner><br>-->
         <button class="btn btn-success btn-success-next text-white mt-5 mr-3" mat-button routerLink="/covid19/home-operador">
           Menú Principal  <span class="fa fa-arrow-left"></span>            
       </button>
@@ -179,10 +179,11 @@
           {{file.name}}-{{file.size}} bytes
         </div>
         <div style="width:400px">
-          <p-fileUpload accept=".xls" customUpload="true" (uploadHandler)="setFile($event)" [auto]="true" chooseLabel="Seleccionar" invalidFileTypeMessageSummary="'{0}: tipo de archivo inválido, '" invalidFileTypeMessageDetail="'tipo permitido: {0}.'" *ngIf="!file"></p-fileUpload>
+          <p-fileUpload accept=".xls,.xlsx" customUpload="true" (uploadHandler)="setFile($event)" [auto]="true" chooseLabel="Seleccionar" invalidFileTypeMessageSummary="'{0}: tipo de archivo inválido, '" invalidFileTypeMessageDetail="'tipo permitido: {0}.'" *ngIf="!file"></p-fileUpload>
         </div>
         <div style="width:200px">
           <button type="button" pButton (click)="uploadExcelAsignacionPrimerContacto()" label="Subir Excel" [disabled]="file==null"></button>
         </div>
+        <label *ngIf="loading">Realizando distribución..favor espere..</label><p-progressSpinner *ngIf="loading" [style]="{width: '50px', height: '50px'}" animationDuration=".5s"></p-progressSpinner><br>
 	{{mensajeExcel}}
 </p-dialog>
