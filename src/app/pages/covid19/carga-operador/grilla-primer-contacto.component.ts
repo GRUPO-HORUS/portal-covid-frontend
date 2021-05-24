@@ -1046,23 +1046,39 @@ consultarIdentificaciones(event) {
     this.primerContacto.regionSanitariaId = this.formGroup.controls.departamento.value.id;
 
     console.log(this.formGroup.controls.barrio.value);
-    if(this.formGroup.controls.barrio.value){
-      if(this.formGroup.controls.barrio.value.nombre){
+    
+    if(typeof this.formGroup.controls.barrio.value ==='object'){
+      if(this.formGroup.controls.barrio.value.valor == null && this.formGroup.controls.barrio.value.nombre == null){
+        console.log('barrio nulo');
+        this.primerContacto.barrio = null;
+        this.primerContacto.barrioId = '-1';
+      }else if(this.formGroup.controls.barrio.value.valor =="-1"){
+        console.log('barrio nulo');
+        this.primerContacto.barrio = null;
+        this.primerContacto.barrioId = '-1';
+
+        
+      }else if(this.formGroup.controls.barrio.value.valor && this.formGroup.controls.barrio.value.nombre){
+        console.log('barrio encontrado');
         this.primerContacto.barrio = this.formGroup.controls.barrio.value.nombre;
         this.primerContacto.barrioId = this.formGroup.controls.barrio.value.valor;
-      }else{
-        this.primerContacto.barrio = this.formGroup.controls.barrio.value;
-        this.primerContacto.barrioId = null;
+        
       }
-    }/*else{
-      
-    }*/
-
-    if(!this.formGroup.controls.barrio.value || this.formGroup.controls.barrio.value.nombre==null){
-      console.log('aqui');
+    }else if(this.formGroup.controls.barrio.value){
+      console.log('barrio manual');
+      this.primerContacto.barrio = this.formGroup.controls.barrio.value;
+      this.primerContacto.barrioId = null;
+    }else{
+      console.log('barrio nulo2');
       this.primerContacto.barrio = null;
       this.primerContacto.barrioId = '-1';
     }
+
+    /*if(!this.formGroup.controls.barrio.value || this.formGroup.controls.barrio.value.nombre==null){
+      console.log('barrio nulo');
+      this.primerContacto.barrio = null;
+      this.primerContacto.barrioId = '-1';
+    }*/
     
     if(this.formGroup.controls.tipoExposicion.value){
       this.primerContacto.tipoExposicion = this.formGroup.controls.tipoExposicion.value;
