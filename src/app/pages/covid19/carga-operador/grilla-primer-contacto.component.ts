@@ -1053,23 +1053,19 @@ consultarIdentificaciones(event) {
         this.primerContacto.barrio = null;
         this.primerContacto.barrioId = '-1';
       }else if(this.formGroup.controls.barrio.value.valor =="-1"){
-        console.log('barrio nulo');
         this.primerContacto.barrio = null;
         this.primerContacto.barrioId = '-1';
 
         
       }else if(this.formGroup.controls.barrio.value.valor && this.formGroup.controls.barrio.value.nombre){
-        console.log('barrio encontrado');
         this.primerContacto.barrio = this.formGroup.controls.barrio.value.nombre;
         this.primerContacto.barrioId = this.formGroup.controls.barrio.value.valor;
-        
       }
     }else if(this.formGroup.controls.barrio.value){
       console.log('barrio manual');
       this.primerContacto.barrio = this.formGroup.controls.barrio.value;
       this.primerContacto.barrioId = null;
     }else{
-      console.log('barrio nulo2');
       this.primerContacto.barrio = null;
       this.primerContacto.barrioId = '-1';
     }
