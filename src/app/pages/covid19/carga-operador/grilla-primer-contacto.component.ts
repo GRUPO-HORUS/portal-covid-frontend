@@ -982,7 +982,7 @@ consultarIdentificaciones(event) {
       fallecido: new FormControl(rowData.fallecido),
       personalBlanco: new FormControl(rowData.personalBlanco),
       tipoExposicion: new FormControl(rowData.tipoExposicion),
-      fechaInicioSintomas: new FormControl(rowData.fechaInicioSintomas),
+      fechaInicioSintomas: new FormControl(rowData.fechaInicioSintomas,[Validators.required]),
       sintomaticoAsintomatico: new FormControl(rowData.sintomaticoAsintomatico),
       comunidadAlbergue: new FormControl(rowData.comunidadAlbergue)
     });
