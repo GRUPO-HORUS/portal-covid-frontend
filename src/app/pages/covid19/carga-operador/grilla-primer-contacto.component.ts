@@ -200,6 +200,8 @@ export class GrillaPrimerContactoComponent implements OnInit {
   esOpAvanzado: boolean = false;
   filterFormGroup: FormGroup;
 
+  codDepto;
+
   constructor(
     private _router: Router,
     private service: Covid19Service,
@@ -361,6 +363,8 @@ export class GrillaPrimerContactoComponent implements OnInit {
     this.formGroup.controls.distrito.setValue(null);
     this.formGroup.controls.barrio.setValue(null);
     let coddpto ="";
+    this.codDepto="";
+
     console.log(event.id);
     if(event.id < 10){
       coddpto = '0'+event.id;
@@ -385,7 +389,9 @@ export class GrillaPrimerContactoComponent implements OnInit {
       coddpto = '00';
     }
 
-    this.service.getBarriosDepto(coddpto).subscribe(barrios => {
+    this.codDepto = coddpto;
+
+    /*this.service.getBarriosDepto(coddpto).subscribe(barrios => {
       this.barriosOptions = barrios;
       for (let i = 0; i < barrios.length; i++) {
         let d = barrios[i];
@@ -395,8 +401,7 @@ export class GrillaPrimerContactoComponent implements OnInit {
       console.log(error);
       this.mensaje = error.error;
       this.openMessageDialog();
-    }
-    );
+    });*/
   }
 
   filtrarDistrito(event) {
@@ -411,6 +416,23 @@ export class GrillaPrimerContactoComponent implements OnInit {
     }
     
     this.distritosFiltrados = filtered;
+  }
+
+  eligeDistrito(event){
+    console.log(event);
+
+    this.service.getBarriosCiudad(this.codDepto, event.valor).subscribe(barrios => {
+      this.barriosOptions = barrios;
+      for (let i = 0; i < barrios.length; i++) {
+        let d = barrios[i];
+        this.barriosOptions[i] = { nombre: d.nombarrio, valor: d.codbarrio };
+      }
+    }, error => {
+      console.log(error);
+      this.mensaje = error.error;
+      this.openMessageDialog();
+    }
+    );
   }
 
   filtrarBarrio(event){

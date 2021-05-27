@@ -303,7 +303,7 @@
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
                                     <!--<input pInputText style="width:120px; height:35px" type="text" formControlName="distrito">-->
-                                    <p-autoComplete id="distrito" formControlName="distrito" [suggestions]="distritosFiltrados" field="nombre" (completeMethod)="filtrarDistrito($event)" [inputStyle]="{'width':'135px'}" [forceSelection]="true" required apendTo="body"></p-autoComplete>
+                                    <p-autoComplete id="distrito" formControlName="distrito" [suggestions]="distritosFiltrados" field="nombre" (completeMethod)="filtrarDistrito($event)" [inputStyle]="{'width':'135px'}" [forceSelection]="true" required apendTo="body" (onSelect)="eligeDistrito($event)"></p-autoComplete>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
