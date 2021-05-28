@@ -1033,7 +1033,14 @@ consultarIdentificaciones(event) {
 
     console.log(rowData.distritoId);
 
-    this.service.getBarriosCiudad(coddpto, rowData.distritoId).subscribe(barrios => {
+    let coddist ="";
+    if(rowData.distritoId < 10){
+      coddpto = '00'+rowData.distritoId;
+    }else{
+      coddpto = '0'+rowData.distritoId;
+    }
+
+    this.service.getBarriosCiudad(coddpto, coddist).subscribe(barrios => {
       this.barriosOptions = barrios;
       for (let i = 0; i < barrios.length; i++) {
         let d = barrios[i];
