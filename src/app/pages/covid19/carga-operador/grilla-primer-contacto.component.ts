@@ -1031,7 +1031,7 @@ consultarIdentificaciones(event) {
       coddpto = '00';
     }
 
-    //console.log(rowData.departamentoId);
+    console.log(rowData.distritoId);
 
     this.service.getBarriosCiudad(coddpto, rowData.distritoId).subscribe(barrios => {
       this.barriosOptions = barrios;
