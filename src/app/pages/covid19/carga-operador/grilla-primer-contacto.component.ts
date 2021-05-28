@@ -944,12 +944,10 @@ consultarIdentificaciones(event) {
       this.showLlamadaRealizada = false;
       this.openMessageDialog();
     }, error => {
-      if(error.status == 401)
-      {
+      if(error.status == 401){
         this._router.navigate(["/"]);
       }
-      else
-      {
+      else{
         this.loading = false;
         this.mensaje = error.error;
         this.openMessageDialog();
@@ -1033,9 +1031,9 @@ consultarIdentificaciones(event) {
       coddpto = '00';
     }
 
-    console.log(rowData.departamentoId);
+    //console.log(rowData.departamentoId);
 
-    this.service.getBarriosDepto(coddpto).subscribe(barrios => {
+    this.service.getBarriosCiudad(coddpto, rowData.distritoId).subscribe(barrios => {
       this.barriosOptions = barrios;
       for (let i = 0; i < barrios.length; i++) {
         let d = barrios[i];
@@ -1075,7 +1073,6 @@ consultarIdentificaciones(event) {
         this.primerContacto.barrio = null;
         this.primerContacto.barrioId = '-1';
       }else if(this.formGroup.controls.barrio.value.valor =="-1"){
-        console.log('barrio nulo2');
         this.primerContacto.barrio = null;
         this.primerContacto.barrioId = '-1';
 
