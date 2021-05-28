@@ -1031,13 +1031,12 @@ consultarIdentificaciones(event) {
       coddpto = '00';
     }
 
-    console.log(rowData.distritoId);
-
+    //console.log(rowData.distritoId);
     let coddist ="";
     if(rowData.distritoId < 10){
-      coddpto = '00'+rowData.distritoId;
+      coddist = '00'+rowData.distritoId;
     }else{
-      coddpto = '0'+rowData.distritoId;
+      coddist = '0'+rowData.distritoId;
     }
 
     this.service.getBarriosCiudad(coddpto, coddist).subscribe(barrios => {
