@@ -5,6 +5,7 @@ export class PrimerContacto {
     nombre: string;
     apellido: string;
     telefono: string;
+    telefonoContacto: string;
     direccion: string;
     fechaCierreCaso: string;
     fechaInicioSintomas: string;    //Date

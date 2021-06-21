@@ -1063,6 +1063,7 @@ consultarIdentificaciones(event) {
     this.primerContacto.distrito = this.formGroup.controls.distrito.value.nombre;
     this.primerContacto.distritoId = this.formGroup.controls.distrito.value.valor;
     this.primerContacto.telefono = this.formGroup.controls.telefono.value;
+    this.primerContacto.telefonoContacto = this.formGroup.controls.telefonoContacto.value;
     this.primerContacto.hospitalizado = this.formGroup.controls.hospitalizado.value;
     this.primerContacto.fallecido = this.formGroup.controls.fallecido.value;
     this.primerContacto.personalBlanco = this.formGroup.controls.personalBlanco.value;
