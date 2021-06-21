@@ -1054,6 +1054,11 @@ consultarIdentificaciones(event) {
   }
 
   onRowEditSave(rowData){
+    if(this.formGroup.controls.telefono.value=='' && this.formGroup.controls.telefonoContacto.value==''){
+	this.mensaje = 'Uno de los teléfonos debe de ser diferente de vacio';
+        this.openMessageDialog();
+	return;
+    }
     /*this.primerContacto.nroDocumento = this.formGroup.controls.nroDocumento.value;
     this.primerContacto.nombre = this.formGroup.controls.nombre.value;
     this.primerContacto.apellido = this.formGroup.controls.apellido.value;

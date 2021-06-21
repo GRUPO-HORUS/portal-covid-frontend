@@ -261,7 +261,7 @@
                         <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <input pInputText style="width:140px; height:35px" type="text" formControlName="telefono">
+                                   <input pInputText style="width:140px; height:35px" type="tel" formControlName="telefono" pattern="^0[1-8]\d{7,9}$|^09\d{8,8}$" [ngStyle]="{'border': formGroup.controls.telefono.invalid?'1px solid #a80000':''}" title="Se debe introducir un celular o una linea baja con código de area. Ej: 021123456">
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
@@ -282,7 +282,7 @@
                         <p-cellEditor *ngIf="edito && rowId===rowData.id">
                             <ng-template pTemplate="input">
                                 <div [formGroup]="formGroup">
-                                    <input pInputText style="width:140px; height:35px" type="text" formControlName="telefonoContacto">
+                                    <input pInputText style="width:140px; height:35px" type="tel" formControlName="telefonoContacto" pattern="^0[1-8]\d{7,9}$|^09\d{8,8}$" [ngStyle]="{'border': formGroup.controls.telefonoContacto.invalid?'1px solid #a80000':''}" title="Se debe introducir un celular o una linea baja con código de area. Ej: 021123456">
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="output">
