@@ -1131,7 +1131,7 @@ consultarIdentificaciones(event) {
         this.openMessageDialog();
         this.primerContacto.editado = true;
 
-        this.service.insertFrmFsarscov2(this.primerContacto).subscribe(response => {
+        /*this.service.insertFrmFsarscov2(this.primerContacto).subscribe(response => {
           
         }, error => {
           if(error.status == 401){
@@ -1142,7 +1142,7 @@ consultarIdentificaciones(event) {
             this.mensaje = error.error;
             this.openMessageDialog();
           }
-        });
+        });*/
 
     }, error => {
         if(error.status == 401)
