@@ -985,9 +985,8 @@ consultarIdentificaciones(event) {
       codigoPaciente: new FormControl(rowData.codigoPaciente, [
         Validators.required
       ]),*/
-      telefono: new FormControl(rowData.telefono, [
-        Validators.required
-      ]),
+      telefono: new FormControl(rowData.telefono),
+      telefonoContacto: new FormControl(rowData.telefonoContacto),
       departamento: new FormControl({nombre:rowData.departamento, id: rowData.departamentoId}, [
         Validators.required
       ]),

@@ -80,6 +80,7 @@
                 <col style="width:160px">
                 <col style="width:160px">
                 <col style="width:160px">
+		<col style="width:160px">
                 <col style="width:160px">
                 <col style="width:160px">
                 <col style="width:160px">
@@ -112,6 +113,7 @@
                     <th>Apellido</th>
                     <th>Edad</th>
                     <th>Teléfono <span style="color: red;">(*)</span></th>
+		    <th>Teléfono Contacto<span style="color: red;">(*)</span></th>
                     <th>Departamento <span style="color: red;">(*)</span></th>
                     <th>Distrito <span style="color: red;">(*)</span></th>
                     <th>Barrio</th>
@@ -273,6 +275,27 @@
                             </ng-template>
                             <ng-template pTemplate="output">
                                 {{rowData.telefono}}
+                            </ng-template>
+                        </p-cellEditor>
+                    </td>
+		    <td pEditableColumn style="vertical-align: top; height: 128px;">
+                        <p-cellEditor *ngIf="edito && rowId===rowData.id">
+                            <ng-template pTemplate="input">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:140px; height:35px" type="text" formControlName="telefonoContacto">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.telefonoContacto}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito || (edito && rowId!==rowData.id)">
+                            <ng-template pTemplate="input">
+                                {{rowData.telefonoContacto}}
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.telefonoContacto}}
                             </ng-template>
                         </p-cellEditor>
                     </td>
