@@ -86,6 +86,7 @@
                 <col style="width:160px">
                 <col style="width:160px">
                 <col style="width:160px">
+		<col style="width:160px">
                 <col style="width:160px">
                 <col style="width:160px">
                 <col style="width:160px">
@@ -105,6 +106,7 @@
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Teléfono</th>
+		    <th>Teléfono Contacto</th>
                     <th>Departamento</th>
                     <th>Internado</th>
                     <th>Fallecido</th>
@@ -261,6 +263,28 @@
                             </ng-template>
                         </p-cellEditor>
                         
+                    </td>
+		    <td pEditableColumn style="vertical-align: top; height: 160px;">
+                        <p-cellEditor *ngIf="edito">
+                            <ng-template pTemplate="input">
+                                <div [formGroup]="formGroup">
+                                    <input pInputText style="width:88px" type="text" formControlName="telefonoContacto">
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.telefonoContacto}}
+                            </ng-template>
+                        </p-cellEditor>
+
+                        <p-cellEditor *ngIf="!edito">
+                            <ng-template pTemplate="input">
+                                {{rowData.telefonoContacto}}
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                                {{rowData.telefonoContacto}}
+                            </ng-template>
+                        </p-cellEditor>
+
                     </td>
                     <td pEditableColumn style="vertical-align: top; height: 160px;">
                         <p-cellEditor *ngIf="edito">
